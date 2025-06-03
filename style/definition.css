@@ -1,0 +1,259 @@
+@font-face {
+    font-family: Archivo;
+    src: url(font/Archivo-VariableFont.ttf);
+  }
+  
+  body{
+      margin: 0px;
+      background: var(--bg-color-100);  }
+  html, body {
+      max-width: 100%;
+      overflow-x: hidden;
+  }
+  
+  html{
+    scroll-behavior: smooth;
+  }
+
+  hr{
+    border: 0.1px solid var(--main-color-10) !important;
+  }
+  
+  /* Text Style ====================================== */
+  
+  .all-cap-title-10{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 350;
+      font-size: 10px;
+      line-height: 20px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-stretch: 125%;
+  }
+  
+  .all-cap-title-12{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 350;
+      font-size: 12px;
+      line-height: 20px;
+      letter-spacing: 0.18em;
+      font-stretch: 125%;
+  }
+  
+  .wide-10-regular{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 300;
+      font-size: 10px;
+      line-height: 16px;
+      font-stretch: 125%;
+  }
+  
+  .wide-12-regular{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 300;
+      font-size: 12px;
+      line-height: 18px;
+      font-stretch: 125%;
+  }
+  
+  .wide-12-bold{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 18px;
+      font-stretch: 125%;
+  }
+  
+  .wide-12-xbold{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 900;
+      font-size: 12px;
+      line-height: 18px;
+      font-stretch: 125%;
+  }
+  
+  .wide-14-regular{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 20px;
+      letter-spacing: 0.02em;
+      font-stretch: 125%;
+  }
+  
+  .wide-14-bold{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 20px;
+      font-stretch: 125%;
+  }
+  
+  .wide-14-xbold{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 900;
+      font-size: 14px;
+      line-height: 20px;
+      font-stretch: 125%;
+  }
+  
+  .wide-16-regular{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 24px;
+      letter-spacing: 0.02em;
+      font-stretch: 125%;
+  }
+  
+  .wide-16-bold{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 24px;
+      font-stretch: 125%;
+  }
+  
+  .wide-16-xbold{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 900;
+      font-size: 16px;
+      line-height: 24px;
+      font-stretch: 125%;
+  }
+  
+  .wide-24-regular{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 300;
+      font-size: 24px;
+      line-height: 32px;
+      letter-spacing: 0.02em;
+      font-stretch: 125%;
+  }
+  
+  .wide-24-bold{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 32px;
+      letter-spacing: 0.02em;
+      font-stretch: 125%;
+  }
+  
+  .wide-24-xbold{
+      font-family: 'Archivo';
+      font-style: normal;
+      font-weight: 900;
+      font-size: 24px;
+      line-height: 32px;
+      letter-spacing: 0.2em;
+      font-stretch: 125%;
+  }
+  
+  .blur-background{
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+  }
+
+/* Color variables for darkmode and lightmode ============================*/
+@media (prefers-color-scheme: dark) {
+    :root{
+        --main-color-100 : #ffffff;
+        --main-color-90 : rgba(255, 255, 255, 0.9);
+        --main-color-80 : rgba(255, 255, 255, 0.8);
+        --main-color-70 : rgba(255, 255, 255, 0.7);
+        --main-color-60 : rgba(255, 255, 255, 0.6);
+        --main-color-50 : rgba(255, 255, 255, 0.5);
+        --main-color-40 : rgba(255, 255, 255, 0.4);
+        --main-color-30 : rgba(255, 255, 255, 0.3);
+        --main-color-20 : rgba(255, 255, 255, 0.2);
+        --main-color-10 : rgba(255, 255, 255, 0.1);
+        --main-color-05 : rgba(255, 255, 255, 0.05);
+
+        --bg-color-100: #000000;
+        --bg-color-90 : rgba(0, 0, 0, 0.9);
+        --bg-color-80 : rgba(0, 0, 0, 0.8);
+        --bg-color-70 : rgba(0, 0, 0, 0.7);
+        --bg-color-60 : rgba(0, 0, 0, 0.6);
+        --bg-color-50 : rgba(0, 0, 0, 0.5);
+        --bg-color-40 : rgba(0, 0, 0, 0.4);
+        --bg-color-30 : rgba(0, 0, 0, 0.3);
+        --bg-color-20 : rgba(0, 0, 0, 0.2);
+        --bg-color-10 : rgba(0, 0, 0, 0.1);
+        --bg-color-05 : rgba(0, 0, 0, 0.05);
+
+        --photo-frame: url('../asset/image/frame-dark.png');
+        --preview-img-bg: url('../asset/image/bg-dark.jpg');
+        --preview-overlay: url('../asset/image/overlay-dark.png');
+
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root{
+    --bg-color-100 : #ffffff;
+    --bg-color-90 : rgba(255, 255, 255, 0.9);
+    --bg-color-80 : rgba(255, 255, 255, 0.8);
+    --bg-color-70 : rgba(255, 255, 255, 0.7);
+    --bg-color-60 : rgba(255, 255, 255, 0.6);
+    --bg-color-50 : rgba(255, 255, 255, 0.5);
+    --bg-color-40 : rgba(255, 255, 255, 0.4);
+    --bg-color-30 : rgba(255, 255, 255, 0.3);
+    --bg-color-20 : rgba(255, 255, 255, 0.2);
+    --bg-color-10 : rgba(255, 255, 255, 0.1);
+    --bg-color-05 : rgba(255, 255, 255, 0.05);
+
+    --main-color-100: #000000;
+    --main-color-90 : rgba(0, 0, 0, 0.9);
+    --main-color-80 : rgba(0, 0, 0, 0.8);
+    --main-color-70 : rgba(0, 0, 0, 0.7);
+    --main-color-60 : rgba(0, 0, 0, 0.6);
+    --main-color-50 : rgba(0, 0, 0, 0.5);
+    --main-color-40 : rgba(0, 0, 0, 0.4);
+    --main-color-30 : rgba(0, 0, 0, 0.3);
+    --main-color-20 : rgba(0, 0, 0, 0.2);
+    --main-color-10 : rgba(0, 0, 0, 0.1);
+    --main-color-05 : rgba(0, 0, 0, 0.05);
+
+    --photo-frame: url('../asset/image/frame-white.png');
+    --preview-img-bg: url('../asset/image/bg-light.jpg');
+    --preview-overlay: url('../asset/image/overlay-light.png');
+
+    }
+}
+
+/* Custom scroll bar ============================*/
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: var(--bg-color-10);
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: var(--main-color-40);
+    border-radius: 20px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background:var(--main-color-80);
+  }

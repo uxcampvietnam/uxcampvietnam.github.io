@@ -282,3 +282,21 @@ tbody>tr:last-child {
 .result-error .decoration {
 	background-color: var(--highlight-yellow);
 }
+
+
+
+/* ========================================== */
+
+
+.uxcamplogotext path{
+	fill: var(--main-colors-foreground-f-500-main);
+}
+
+
+.logo-container{
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}

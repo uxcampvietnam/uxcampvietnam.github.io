@@ -18,6 +18,10 @@
 	<meta property="og:description" content='UXCamp Vietnam' />
 	<meta property="og:url" content='http://uxcamp.vn/' />
 
+
+
+	<script src="script/libs/svg-inject.min.js"></script>
+
 	<!-- custom css -->
 
 	<link rel="stylesheet" type="text/css" href="style/definition.css">
@@ -25,7 +29,10 @@
 
 </head>
 
-<body style="overflow: hidden;">
+<body>
+	<div class="logo-container">
+		<img class="uxcamplogotext" src="asset/text.svg" onload="SVGInject(this)">
+	</div>
 </body>
 
 </html>

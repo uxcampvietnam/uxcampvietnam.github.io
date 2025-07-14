@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Test</title>
+  <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.4/dist/jstat.min.js"></script>
+  <script src="script.js"></script>
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" type="text/css" href="../style/definition.css">
+  <link rel="stylesheet" type="text/css" href="../style/style.css">
+
+</head>
+
+<body>
+  <div class="statistic-calculator-container container">
+    <div class="row">
+      <div class="d-none d-md-block col-md-3 col-xl-2">
+        <div class="statistical-test-menu">
+          <span class="crimsonpro14medium">Statistics Test</span>
+
+        </div>
+      </div>
+      <!-- ---------------------- -->
+
+      <div class="col-12 col-md-9 container">
+        <div class="row">
+          <div class="col-12 col-lg-8">
+            <div class="two-sample-t-test-container statistical-test-container-body">
+              <h2>Paired Sample t-Test</h2>
+
+              <button class="cta-large crimsonpro14medium" onclick="objectToTableHTML()">Perform Paired Sample
+                t-Test</button>
+            </div>
+          </div>
+          <div class="col-12 col-lg-4">
+            <div id="result" class="result crimsonpro14regular"></div>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- ---------------------- -->
+
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.5/jstat.min.js"></script>
+</body>
+
+</html>

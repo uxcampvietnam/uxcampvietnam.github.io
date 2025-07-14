@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Paste Google Sheets trực tiếp vào bảng HTML</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    td,
+    th {
+      border: 1px solid #999;
+      padding: 8px 12px;
+      min-width: 80px;
+    }
+
+    td:focus {
+      outline: 2px solid blue;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h2>Bảng dữ liệu</h2>
+  <p>Dán (Ctrl/⌘ + V) dữ liệu Google Sheets vào một ô bất kỳ trong bảng dưới đây.</p>
+
+  <table id="myTable">
+    <tbody>
+      <tr>
+        <td contenteditable="true"></td>
+        <td contenteditable="true"></td>
+      </tr>
+      <tr>
+        <td contenteditable="true"></td>
+        <td contenteditable="true"></td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+  <button onclick="pivotTable()">Pivot</button>
+  <div id="pivotResult" style="margin-top: 20px;"></div>
+
+  <script>
+    function pivotTable() {
+      const table = document.getElementById("myTable");
+      const rows = table.querySelectorAll("tr");
+      const data = [];
+
+      // Lấy dữ liệu từ bảng
+      for (let i = 1; i < rows.length; i++) {
+        const cols = rows[i].querySelectorAll("td");
+        if (cols.length >= 2) {
+          const val1 = cols[0].innerText.trim();
+          const val2 = cols[1].innerText.trim();
+          if (val1 !== "" || val2 !== "") {
+            data.push([val1, val2]);
+          }
+        }
+      }
+
+      // Lấy danh sách unique
+      const rowLabels = [...new Set(data.map(d => d[0]))];
+      const colLabels = [...new Set(data.map(d => d[1]))];
+
+      // Khởi tạo ma trận đếm
+      const matrix = {};
+      rowLabels.forEach(row => {
+        matrix[row] = {};
+        colLabels.forEach(col => {
+          matrix[row][col] = 0;
+        });
+      });
+
+      // Đếm số lượng
+      data.forEach(([r, c]) => {
+        if (!matrix[r]) matrix[r] = {};
+        if (!matrix[r][c]) matrix[r][c] = 0;
+        matrix[r][c]++;
+      });
+
+      // Tạo bảng HTML kết quả
+      let html = "<table border='1' cellpadding='5'><thead><tr><th>Câu 1 \\ Câu 2</th>";
+      colLabels.forEach(col => html += `<th>${col || '[Trống]'}</th>`);
+      html += "</tr></thead><tbody>";
+
+      rowLabels.forEach(row => {
+        html += `<tr><td>${row || '[Trống]'}</td>`;
+        colLabels.forEach(col => {
+          html += `<td>${matrix[row][col] || 0}</td>`;
+        });
+        html += "</tr>";
+      });
+
+      html += "</tbody></table>";
+
+      document.getElementById("pivotResult").innerHTML = html;
+    }
+  </script>
+
+
+  <script>
+    const table = document.getElementById('myTable');
+
+    table.addEventListener('paste', function (event) {
+      const clipboardData = event.clipboardData || window.clipboardData;
+      const pastedData = clipboardData.getData('Text');
+
+      // Chia nhỏ thành hàng và cột từ TSV (Tab Separated Values)
+      const rows = pastedData.trim().split(/\r?\n/).map(row => row.split('\t'));
+      const numRows = rows.length;
+      const numCols = Math.max(...rows.map(r => r.length));
+
+      // Xóa toàn bộ bảng cũ
+      table.innerHTML = '';
+
+      // Tạo lại bảng theo dữ liệu mới
+      for (let i = 0; i < numRows; i++) {
+        const tr = document.createElement('tr');
+        for (let j = 0; j < numCols; j++) {
+          const td = document.createElement('td');
+          td.contentEditable = "true";
+          td.textContent = rows[i][j] || '';
+          tr.appendChild(td);
+        }
+        table.appendChild(tr);
+      }
+
+      // Ngăn paste diễn ra mặc định (tránh chèn thẳng vào 1 ô duy nhất)
+      event.preventDefault();
+      pivotTable();
+    });
+  </script>
+
+</body>
+
+</html>

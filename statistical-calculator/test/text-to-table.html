@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>Google Sheets → HTML Table generator</title>
+
+  <style>
+    body{font-family:Arial, sans-serif;margin:24px;line-height:1.5}
+    textarea{width:100%;height:160px;padding:8px;border:1px solid #ccc;border-radius:4px}
+    table{border-collapse:collapse;margin-top:20px;min-width:60%}
+    th,td{border:1px solid #999;padding:6px 10px;text-align:left;vertical-align:top}
+    thead th{background:#f2f6ff;font-weight:600}
+    tr:nth-child(even) td{background:#fafafa}
+  </style>
+</head>
+<body>
+  <h2>Dán dữ liệu Google Sheets để tạo bảng HTML</h2>
+  <p><em>Chỉ cần dán (Ctrl/⌘ + V) vào ô bên dưới – bảng sẽ hiện ra tức thì.</em></p>
+
+  <textarea id="raw" placeholder="Paste dữ liệu TSV ở đây…"></textarea>
+  <div id="table-container"></div>
+
+  <script>
+    const rawInput   = document.getElementById('raw');
+    const container  = document.getElementById('table-container');
+
+    rawInput.addEventListener('input', () => {
+      const text = rawInput.value.trim();
+      if (!text) { container.innerHTML = ''; return; }
+
+      // Chuyển các dòng thành mảng và tách cột theo tab (hoặc ≥2 khoảng trắng)
+      const rows = text.split(/\r?\n/).map(line => line.split(/\t| {2,}/));
+
+      // Xác định số cột nhiều nhất để lấp ô trống nếu cần
+      const maxCols = Math.max(...rows.map(r => r.length));
+
+      // Tạo bảng
+      const table = document.createElement('table');
+
+      rows.forEach((cells, rowIdx) => {
+        const tr = document.createElement('tr');
+
+        cells.forEach(cell => {
+          const cellEl = document.createElement(rowIdx === 0 ? 'th' : 'td');
+          cellEl.textContent = cell ?? '';
+          tr.appendChild(cellEl);
+        });
+
+        // Bổ sung ô trống còn thiếu (giữ bảng thẳng cột)
+        for (let i = cells.length; i < maxCols; i++) {
+          const cellEl = document.createElement(rowIdx === 0 ? 'th' : 'td');
+          cellEl.textContent = '';
+          tr.appendChild(cellEl);
+        }
+
+        table.appendChild(tr);
+      });
+
+      // Hiển thị
+      container.innerHTML = '';
+      container.appendChild(table);
+    });
+  </script>
+</body>
+</html>

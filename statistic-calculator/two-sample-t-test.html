@@ -3,12 +3,15 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Z-Test for Two Proportions</title>
+  <title>Two Sample t-Test (Independent Samples)</title>
+  <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.4/dist/jstat.min.js"></script>
   <script src="script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
   <link rel="stylesheet" type="text/css" href="../style/definition.css">
   <link rel="stylesheet" type="text/css" href="../style/style.css">
+
 </head>
 
 <body>
@@ -16,16 +19,16 @@
     <div class="row">
       <div class="d-none d-md-block col-md-3 col-xl-2">
         <div class="statistical-test-menu">
-          <span class="crimsonpro14medium">Statistics Calculators</span>
+          <span class="crimsonpro14medium">Statistic Calculator</span>
           <div class="links crimsonpro14regular">
             <a href="index.html">Introduction</a>
             <a href="sample-size-calculator.html">Sample Size Calculator</a>
             <a href="one-sample-t-test.html">One Sample t-Test</a>
-            <a href="two-sample-t-test.html">Two Sample t-Test</a>
+            <a class="highlighted" href="two-sample-t-test.html">Two Sample t-Test</a>
             <a href="paired-sample-t-test.html">Paired Sample t-Test</a>
             <a href="chi-squared-test.html">Chi-squared Test</a>
             <a href="kruskal-wallis-test.html">Kruskal-Wallis Test</a>
-            <a class="highlighted" href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
+            <a href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
           </div>
         </div>
       </div>
@@ -33,36 +36,25 @@
       <div class="introduction-statistic-test-container col-12 col-xs-12 col-md-9 col-xl-10">
         <div class="row">
           <div class="col-12 col-lg-8">
-            <div class="statistical-test-container-body z-test-two-proportions">
-              <h2>Z-Test for Two Proportions</h2>
-              <div class="crimsonpro14regular dataset">
-                <div id="tableContainer" class="crimsonpro14regular">
-                  <table cellspacing="0" cellpadding="0">
-                    <thead>
-                      <tr>
-                        <th></th>
-                        <th><input type="text" id="colTitle-0" placeholder="Số lượng thành công"></th>
-                        <th><input type="text" id="colTitle-1" placeholder="Tổng số quan sát"></th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th><input type="text" id="rowTitle-0" placeholder="Group 1"></th>
-                        <td><input type="number" id="x1" value="45"></td>
-                        <td><input type="number" id="n1" value="100"></td>
-                      </tr>
-                      <tr>
-                        <th><input type="text" id="rowTitle-1" placeholder="Group 2"></th>
-                        <td><input type="number" id="x2" value="30"></td>
-                        <td><input type="number" id="n2" value="80"></td>
-                      </tr>
-                    </tbody>
-                  </table>
+            <div class="two-sample-t-test-container statistical-test-container-body">
+              <h2>Two Sample t-Test</h2>
+
+              <div class="dataset crimsonpro14regular">
+                <div class="section">
+                  <input class="single-input" type="text" id="group1Name" placeholder="Group A" value="Group A">
+                  <textarea class="crimsonpro14regular" id="group1Data"
+                    placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
                 </div>
+
+                <div class="section">
+                  <input class="single-input" type="text" id="group2Name" placeholder="Group B"  value="Group B">
+                  <textarea id="group2Data" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+                </div>
+
               </div>
 
               <div class="crimsonpro14regular" id="alpha">
-                <label class="crimsonpro14regular">Significance levels (alpha):</label>
+                <label>Significance levels (alpha):</label>
                 <span>
                   <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
                   <label for="alpha010">0.10</label>
@@ -77,8 +69,9 @@
                 </span>
               </div>
 
+
               <div class="crimsonpro14regular" id="testType">
-                <label class="crimsonpro14regular">Loại kiểm định:</label>
+                <label>Loại kiểm định:</label>
                 <span>
                   <input type="radio" id="two-tailed" name="testType-selection" value="two-tailed" checked>
                   <label for="two-tailed">Hai phía (≠)</label>
@@ -92,20 +85,16 @@
                   <label for="less">Một phía: Nhỏ hơn </label>
                 </span>
               </div>
-
-              <button class="cta-large crimsonpro14medium" onclick="performZTest()">Performce Z-Test for Two
-                Proportions</button>
+              <button class="cta-large crimsonpro14medium" onclick="calculateTwoSampleTTest()">Perform Two Sample
+                t-Test</button>
             </div>
           </div>
           <div class="col-12 col-lg-4">
-            <div id="result" class="result crimsonpro14regular">
-            </div>
-            <div id="chart-container">
-              <canvas id="barChart"></canvas>
-            </div>
+            <div id="result" class="result crimsonpro14regular"></div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 

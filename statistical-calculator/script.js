@@ -25,13 +25,13 @@ function createTable() {
 
     let html = "<table border='0' cellspacing='0' cellpadding='0'><thead><tr><th></th>";
     for (let j = 0; j < cols; j++) {
-        html += `<th><input type='text' id='colTitle-${j}' placeholder='Cột ${j + 1}'></th>`;
+        html += `<th><input type='text' id='colTitle-${j}' placeholder='Column ${j + 1}'></th>`;
     }
     html += "</tr></thead><tbody>";
 
     for (let i = 0; i < rows; i++) {
         html += "<tr>";
-        html += `<th><input type='text' id='rowTitle-${i}' placeholder='Hàng ${i + 1}'></th>`;
+        html += `<th><input type='text' id='rowTitle-${i}' placeholder='Group ${i + 1}'></th>`;
         for (let j = 0; j < cols; j++) {
             html += `<td><input type='number' id='cell-${i}-${j}' min='0' value='0'></td>`;
         }

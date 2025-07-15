@@ -76,6 +76,10 @@ div[class^="col"] {
 	top: 90px;
 }
 
+.statistical-test-menu .highlighted {
+	background: var(--main-colors-background-b-300-main, #FBEAD5);
+}
+
 .statistical-test-menu>.links {
 	display: flex;
 	flex-direction: column;
@@ -288,12 +292,12 @@ tbody>tr:last-child {
 /* ========================================== */
 
 
-.uxcamplogotext path{
+.uxcamplogotext path {
 	fill: var(--main-colors-foreground-f-500-main);
 }
 
 
-.logo-container{
+.logo-container {
 	width: 100vw;
 	height: 100vh;
 	display: flex;

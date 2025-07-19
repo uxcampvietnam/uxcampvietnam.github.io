@@ -166,7 +166,7 @@ window.onload = function () {
 
     function createImageBody(x, y, textureUrl) {
         return Bodies.rectangle(x, y, imageWidth, imageHeight, {
-            inertia: 1000000000,
+            inertia: 1000000,
             restitution: 0.1,
             friction: 0.01,
             frictionAir: 0.01,

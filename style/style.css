@@ -292,11 +292,6 @@ tbody>tr:last-child {
 /* ========================================== */
 
 
-.uxcamplogotext path {
-	fill: var(--main-colors-foreground-f-500-main);
-}
-
-
 .logo-container {
 	width: 100vw;
 	height: 100vh;
@@ -324,7 +319,8 @@ tbody>tr:last-child {
 #interactiveImage {
 	border: none;
 	outline: none;
-  background: var(--main-colors-background-b-200-slide-bg) !important;
+	background: var(--main-colors-background-b-200-slide-bg) !important;
+	z-index: 1;
 }
 
 #uxcamplogo {
@@ -334,8 +330,13 @@ tbody>tr:last-child {
 	transform: translate(-50%, -50%);
 	pointer-events: none;
 	mix-blend-mode: difference;
+	z-index: 10000;
 }
 
-.full{
+#uxcamplogo path {
+	fill: white;
+}
+
+.full {
 	height: 100vh;
 }

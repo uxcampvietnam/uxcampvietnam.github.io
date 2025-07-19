@@ -19,7 +19,7 @@ window.onload = function () {
     const height = canvas.height;
 
     const engine = Engine.create();
-    engine.world.gravity.y = 0.4;
+    engine.world.gravity.y = 0.5;
     engine.world.gravity.x = 0;
 
     const world = engine.world;
@@ -152,8 +152,8 @@ window.onload = function () {
 
     var smallestWindowLength = window.innerWidth > window.innerHeight ? window.innerHeight : window.innerWidth;
 
-    const imageWidth = smallestWindowLength / 12; // pixels
-    const imageHeight = smallestWindowLength / 12;
+    const imageWidth = smallestWindowLength / 11.5; // pixels
+    const imageHeight = smallestWindowLength / 11.5;
     const bodies = [];
 
     function isAreaFree(x, y, w, h) {
@@ -168,8 +168,8 @@ window.onload = function () {
         return Bodies.rectangle(x, y, imageWidth, imageHeight, {
             inertia: 1000000000,
             restitution: 0.1,
-            friction: 0,
-            frictionAir: 0,
+            friction: 0.01,
+            frictionAir: 0.01,
             angle: 0.15 - Math.random() * 0.3, // slight tilt
             render: {
                 sprite: {
@@ -184,7 +184,7 @@ window.onload = function () {
     let tries = 0;
     while (bodies.length < imageUrls.length && tries < 1000) {
         const x = width / 2;
-        const y = height / 2.5;
+        const y = height / 4;
         if (isAreaFree(x, y, imageWidth, imageHeight)) {
             const body = createImageBody(x, y, imageUrls[bodies.length]);
             bodies.push(body);
@@ -252,7 +252,6 @@ window.onload = function () {
 
     window.addEventListener('resize', () => location.reload());
 };
-
 
 
 document.getElementById("interactiveImage").onwheel = function (event) {

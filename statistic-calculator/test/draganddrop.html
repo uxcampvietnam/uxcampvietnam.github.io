@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Drag and Drop Table Columns</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid #aaa;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th.draggable {
+            cursor: move;
+            background-color: #f4f4f4;
+        }
+
+        th.drag-over {
+            outline: 2px dashed #00f;
+        }
+    </style>
+</head>
+
+<body>
+
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th class="draggable">A</th>
+                <th class="draggable">B</th>
+                <th class="draggable">C</th>
+                <th class="draggable">D</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>A1</td>
+                <td>B1</td>
+                <td>C1</td>
+                <td>D1</td>
+            </tr>
+            <tr>
+                <td>A2</td>
+                <td>B2</td>
+                <td>C2</td>
+                <td>D2</td>
+            </tr>
+            <tr>
+                <td>A3</td>
+                <td>B3</td>
+                <td>C3</td>
+                <td>D3</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <script>
+        const table = document.getElementById("myTable");
+        let dragSrcIndex;
+
+        function swapColumns(table, srcIndex, targetIndex) {
+            for (let row of table.rows) {
+                let cells = row.cells;
+                if (srcIndex < targetIndex) {
+                    row.insertBefore(cells[srcIndex], cells[targetIndex].nextSibling);
+                } else {
+                    row.insertBefore(cells[srcIndex], cells[targetIndex]);
+                }
+            }
+        }
+
+        table.querySelectorAll("th").forEach((th, index) => {
+            th.setAttribute("draggable", true);
+
+            th.addEventListener("dragstart", (e) => {
+                console.log(index);
+                dragSrcIndex = index;
+                e.dataTransfer.effectAllowed = "move";
+            });
+
+            th.addEventListener("dragover", (e) => {
+                e.preventDefault();
+                th.classList.add("drag-over");
+            });
+
+            th.addEventListener("dragleave", () => {
+                th.classList.remove("drag-over");
+            });
+
+            th.addEventListener("drop", (e) => {
+                e.preventDefault();
+                th.classList.remove("drag-over");
+                let targetIndex = [...th.parentNode.children].indexOf(th);
+                if (dragSrcIndex !== targetIndex) {
+                    swapColumns(table, dragSrcIndex, targetIndex);
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

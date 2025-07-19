@@ -19,7 +19,7 @@ window.onload = function () {
     const height = canvas.height;
 
     const engine = Engine.create();
-    engine.world.gravity.y = 0.01;
+    engine.world.gravity.y = 0.4;
     engine.world.gravity.x = 0;
 
     const world = engine.world;
@@ -184,7 +184,7 @@ window.onload = function () {
     let tries = 0;
     while (bodies.length < imageUrls.length && tries < 1000) {
         const x = width / 2;
-        const y = height / 2;
+        const y = height / 2.5;
         if (isAreaFree(x, y, imageWidth, imageHeight)) {
             const body = createImageBody(x, y, imageUrls[bodies.length]);
             bodies.push(body);
@@ -241,8 +241,6 @@ window.onload = function () {
     render.mouse = mouse;
 
     window.addEventListener('mousedown', () => {
-        // engine.world.gravity.y = engine.world.gravity.y * (-1);
-        ;
 
         const { x, y } = mouse.position;
         if (isAreaFree(x, y, imageWidth, imageHeight)) {

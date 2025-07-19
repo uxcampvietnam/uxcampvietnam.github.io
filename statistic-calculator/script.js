@@ -5,6 +5,12 @@ function parseInput(text) {
         .split(/[\s,;]+/)
         .map(Number)
         .filter(n => !isNaN(n));
+
+    // return text.trim()
+    //     .replace(/[\n\s;,]+/g, ',')
+    //     .split(',')
+    //     .map(Number)
+    //     .filter(n => !isNaN(n));
 }
 
 function parseNumbers(textareaId) {
@@ -16,6 +22,51 @@ function parseNumbers(textareaId) {
         .filter(Number.isFinite);
 }
 
+// paste data to table
+
+function pasteDataToTable() {
+    const dataTable = document.getElementById('dataTable');
+    const clipboardData = event.clipboardData || window.clipboardData;
+    const pastedData = clipboardData.getData('Text');
+
+    // Chia nhỏ thành hàng và cột từ TSV (Tab Separated Values)
+    const rows = pastedData.trim().split(/\r?\n/).map(row => row.split('\t'));
+    const numRows = rows.length;
+    const numCols = Math.max(...rows.map(r => r.length));
+    document.getElementById("rows").value = numRows - 1;
+    document.getElementById("cols").value = numCols - 1;
+
+
+    // Xóa toàn bộ bảng cũ
+    dataTable.innerHTML = '';
+
+    // new format
+    const container = document.getElementById("tableContainer");
+
+    // create table head
+    let html = "<table id='dataTable' onpaste='pasteDataToTable()'  border='0' cellspacing='0' cellpadding='0'><thead><tr>";
+    for (let j = 0; j < numCols; j++) {
+        html += `<th><input type='text' id='colTitle-${j}' value='${rows[0][j]}'></th>`;
+    }
+    html += "</tr></thead><tbody>";
+
+    // create table body
+    for (let i = 1; i < numRows; i++) {
+        html += "<tr>";
+        html += `<th><input type='text' id='rowTitle-${i - 1}' placeholder='Group ${i + 1}' value='${rows[i][0]}'></th>`;
+        for (let j = 1; j < numCols; j++) {
+            html += `<td><input type='text' id='cell-${i - 1}-${j - 1}' value='${rows[i][j]}'></td>`;
+        }
+        html += "</tr>";
+    }
+    html += "</tbody></table>";
+    container.innerHTML = html;
+
+
+    // Ngăn paste diễn ra mặc định (tránh chèn thẳng vào 1 ô duy nhất)
+    event.preventDefault();
+};
+
 // Chi Squared Test -----------------------------------------
 
 function createTable() {
@@ -23,12 +74,14 @@ function createTable() {
     const cols = parseInt(document.getElementById("cols").value);
     const container = document.getElementById("tableContainer");
 
-    let html = "<table border='0' cellspacing='0' cellpadding='0'><thead><tr><th></th>";
+    // create table head
+    let html = "<table id='dataTable' onpaste='pasteDataToTable()'  border='0' cellspacing='0' cellpadding='0'><thead><tr><th><input type='text' id='colTitle-0' placeholder=''></th>";
     for (let j = 0; j < cols; j++) {
-        html += `<th><input type='text' id='colTitle-${j}' placeholder='Column ${j + 1}'></th>`;
+        html += `<th><input type='text' id='colTitle-${j + 1}' placeholder='Column ${j + 1}'></th>`;
     }
     html += "</tr></thead><tbody>";
 
+    // create table body
     for (let i = 0; i < rows; i++) {
         html += "<tr>";
         html += `<th><input type='text' id='rowTitle-${i}' placeholder='Group ${i + 1}'></th>`;
@@ -119,7 +172,7 @@ function calculateKruskalWallis() {
 
     if (groupData.length < 2) {
         var result = {
-            row1: { col1: "Cần ít nhất 2 nhóm để thực hiện kiểm định Kruskal-Wallis." },
+            row1: { col1: "Cần ít nhất 2 nhóm để thực hiện Kruskal-Wallis test." },
         };
         objectToTableHTML("Lỗi", result, "result", "error");
         return;
@@ -184,7 +237,6 @@ function calculateKruskalWallis() {
     resultKruskalWallis.rowD = { col1: "Kết luận:", col2: decision };
 
 
-    console.log(resultKruskalWallis);
 
     objectToTableHTML("Kết quả Kruskal-Wallis Test", resultKruskalWallis, "result", (pValue < alpha));
 
@@ -197,7 +249,7 @@ function addKruskalWallisGroup() {
     block.className = 'kruskal-wallis-group-block';
     block.innerHTML = `
         <input type="text" placeholder="Tên nhóm" value="Nhóm ${num}" class="group-label single-input" />
-        <textarea placeholder="Dữ liệu (cách nhau bằng dấu phẩ, chấm phảy, cách, xuống dòng)"></textarea>`;
+        <textarea placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>`;
     groupsDiv.appendChild(block);
 }
 
@@ -441,9 +493,7 @@ function calculateTwoSampleTTest() {
         row10: { col1: "Kết luận:", col2: decision, },
     };
 
-    console.log(result);
-
-    objectToTableHTML("Kết quả Two-Sample t-Test", result, "result", (pValue <= alpha) );
+    objectToTableHTML("Kết quả Two-Sample t-Test", result, "result", (pValue <= alpha));
 
 
 };
@@ -610,3 +660,109 @@ function objectToTableHTML(tableName, dataObj, resultId, rejectH0) {
         }
     }
 }
+
+
+
+
+// Bootstrap Hypothesis Testing ======================================
+
+function getQuantile(data, q) {
+    const sorted = [...data].sort((a, b) => a - b);
+    const pos = (sorted.length - 1) * q;
+    const base = Math.floor(pos);
+    const rest = pos - base;
+    if (sorted[base + 1] !== undefined) {
+        return sorted[base] + rest * (sorted[base + 1] - sorted[base]);
+    }
+    return sorted[base];
+}
+
+function bootstrapQuantileDiff(data1, data2, q, testType, nBootstrap = 1000) {
+    const diff = [];
+    const n1 = data1.length;
+    const n2 = data2.length;
+    const observedDiff = getQuantile(data1, q) - getQuantile(data2, q);
+
+    for (let i = 0; i < nBootstrap; i++) {
+        const sample1 = Array(n1).fill().map(() => data1[Math.floor(Math.random() * n1)]);
+        const sample2 = Array(n2).fill().map(() => data2[Math.floor(Math.random() * n2)]);
+        const q1 = getQuantile(sample1, q);
+        const q2 = getQuantile(sample2, q);
+        diff.push(q1 - q2);
+    }
+
+    const meanDiff = diff.reduce((sum, val) => sum + val, 0) / nBootstrap;
+    const stdDiff = Math.sqrt(
+        diff.reduce((sum, val) => sum + (val - meanDiff) ** 2, 0) / (nBootstrap - 1)
+    );
+    const z = observedDiff / stdDiff;
+
+    let pValue;
+    if (testType === 'two-tailed') {
+        pValue = 2 * (1 - normalCDFBootstrap(Math.abs(z)));
+    } else if (testType === 'greater') {
+        pValue = 1 - normalCDFBootstrap(z);
+    } else { // left-tailed
+        pValue = normalCDFBootstrap(z);
+    }
+
+    return { observedDiff, pValue };
+}
+
+function normalCDFBootstrap(z) {
+    const t = 1 / (1 + 0.2316419 * Math.abs(z));
+    const d = 0.3989423 * Math.exp(-z * z / 2);
+    const p = d * t * (0.31938153 + t * (-0.356563782 + t * (1.781477937 + t * (-1.821255978 + t * 1.330274429))));
+    return z > 0 ? 1 - p : p;
+}
+
+function calculateBootstrap() {
+
+    const alpha = parseFloat(document.querySelector('input[name="alpha-selection"]:checked').value);
+    const testType = document.querySelector('input[name="testType-selection"]:checked').value;
+
+    const quantile = parseFloat(document.getElementById('quantile').value) / 100;
+    const data1 = parseInput(document.getElementById('group1').value);
+    const data2 = parseInput(document.getElementById('group2').value);
+
+    if (quantile <= 0 || quantile >= 1) {
+        var result = {
+            row1: { col1: "Error: Percentile must be between 0 and 100." },
+        };
+        objectToTableHTML("Lỗi", result, "result", "error");
+
+        return;
+    }
+    if (alpha <= 0 || alpha >= 1) {
+        var result = {
+            row1: { col1: "Error: Alpha must be between 0 and 1." },
+        };
+        objectToTableHTML("Lỗi", result, "result", "error");
+
+        return;
+    }
+
+    if (data1.length < 20 || data2.length < 20) {
+        var result = {
+            row1: { col1: "Mỗi nhóm cần ít nhất 20 giá trị hợp lệ." },
+        };
+        objectToTableHTML("Lỗi", result, "result", "error");
+        return;
+    }
+
+    const { observedDiff, pValue } = bootstrapQuantileDiff(data1, data2, quantile, testType);
+    const decision = pValue < alpha ? 'Reject H0' : 'Fail to reject H0';
+
+
+    var result = {
+        row1: { col1: "Percentile:", col2: "p" + quantile * 100 },
+        row2: { col1: "Loại kiểm định:", col2: testType },
+        row5: { col1: "α:", col2: alpha },
+        row3: { col1: "Observed Quantile Difference", col2: observedDiff.toFixed(8) },
+        row4: { col1: "p-value:", col2: pValue.toFixed(8) },
+        row6: { col1: "Kết luận:", col2: decision, },
+    };
+
+    objectToTableHTML("Bootstrap for Quantiles", result, "result", (pValue <= alpha));
+}
+

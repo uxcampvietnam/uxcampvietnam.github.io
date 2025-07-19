@@ -18,7 +18,8 @@
 	<meta property="og:description" content='UXCamp Vietnam' />
 	<meta property="og:url" content='http://uxcamp.vn/' />
 
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+	<script src="../../script/matter-js-interaction.js" defer></script>
 
 	<script src="script/libs/svg-inject.min.js"></script>
 
@@ -31,8 +32,15 @@
 
 <body>
 	<div class="logo-container">
-		<img class="uxcamplogotext" src="asset/text.svg" onload="SVGInject(this)">
+		<img id="uxcamplogo" class="uxcamplogotext" src="asset/text.svg" onload="SVGInject(this)">
+		<canvas id="interactiveImage" style="border: none; outline: none;"></canvas>
 	</div>
+
+
+	<div class="full">
+	</div>
+
+
 </body>
 
 </html>

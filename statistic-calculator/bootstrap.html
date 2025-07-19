@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bootstrap Hypothesis Testing for Quantiles</title>
+  <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.4/dist/jstat.min.js"></script>
+  <script src="script.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="../style/definition.css">
+  <link rel="stylesheet" type="text/css" href="../style/style.css">
+
+</head>
+
+<body>
+  <div class="statistic-calculator-container container">
+    <div class="row">
+      <div class="d-none d-md-block col-md-3 col-xl-2">
+        <div class="statistical-test-menu">
+          <span class="crimsonpro14medium">Statistic Calculator</span>
+          <div class="links crimsonpro14regular">
+            <a href="index.html">Introduction</a>
+            <a href="sample-size-calculator.html">Sample Size Calculator</a>
+            <a href="one-sample-t-test.html">One Sample t-Test</a>
+            <a href="two-sample-t-test.html">Two Sample t-Test</a>
+            <a href="paired-sample-t-test.html">Paired Sample t-Test</a>
+            <a href="chi-squared-test.html">Chi-squared Test</a>
+            <a href="kruskal-wallis-test.html">Kruskal-Wallis Test</a>
+            <a href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
+            <a class="highlighted" href="bootstrap.html">Bootstrap for Quantiles</a>
+          </div>
+        </div>
+      </div>
+      <div class="introduction-statistic-test-container col-12 col-xs-12 col-md-9 col-xl-10">
+        <div class="row">
+          <div class="col-12 col-lg-8">
+            <div class="two-sample-t-test-container statistical-test-container-body">
+              <h2>Bootstrap for Quantiles</h2>
+
+              <div class="dataset crimsonpro14regular">
+                <div class="section">
+                  <p>Nhập tối thiểu 20 giá trị hợp lệ cho từng nhóm:</p>
+
+                  <input class="single-input" id="group1Name" type="text" value="Group A">
+                  <textarea id="group1" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+                </div>
+
+                <div class="section">
+                  <input class="single-input" id="group2Name" type="text" value="Group B">
+                  <textarea id="group2" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+                </div>
+                <div class="crimsonpro14regular input-row-container">
+                  <label for="quantile" class="input-row-title">Phân vị thứ:</label>
+                  <input type="number" class="single-input crimsonpro14regular" id="quantile" step="0.01" min="0"
+                    max="100" value="90">
+                </div>
+
+                <div class="crimsonpro14regular input-row-container" id="alpha">
+                  <label class="crimsonpro14regular input-row-title">Mức ý nghĩa - α</label>
+                  <span>
+                    <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
+                    <label for="alpha010">0.10</label>
+                  </span>
+                  <span>
+                    <input type="radio" id="alpha005" name="alpha-selection" value="0.05" checked>
+                    <label for="alpha005">0.05</label>
+                  </span>
+                  <span>
+                    <input type="radio" id="alpha001" name="alpha-selection" value="0.01">
+                    <label for="alpha001">0.01</label>
+                  </span>
+                </div>
+
+                <div class="crimsonpro14regular input-row-container" id="testType">
+                  <label class="crimsonpro14regular input-row-title">Loại kiểm định:</label>
+                  <span>
+                    <input type="radio" id="two-tailed" name="testType-selection" value="two-tailed" checked>
+                    <label for="two-tailed">Hai phía (≠)</label>
+                  </span>
+                  <span>
+                    <input type="radio" id="greater" name="testType-selection" value="greater">
+                    <label for="greater">Một phía: Lớn hơn</label>
+                  </span>
+                  <span>
+                    <input type="radio" id="less" name="testType-selection" value="less">
+                    <label for="less">Một phía: Nhỏ hơn </label>
+                  </span>
+                </div>
+              </div>
+              <button class="cta-large crimsonpro14medium" onclick="calculateBootstrap()">Perform Bootstrap Testing for
+                Quantiles</button>
+            </div>
+          </div>
+          <div class="col-12 col-lg-4">
+            <div id="result" class="result crimsonpro14regular"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

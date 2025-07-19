@@ -26,6 +26,7 @@
             <a href="chi-squared-test.html">Chi-squared Test</a>
             <a href="kruskal-wallis-test.html">Kruskal-Wallis Test</a>
             <a class="highlighted" href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
+            <a href="bootstrap.html">Bootstrap for Quantiles</a>
           </div>
         </div>
       </div>
@@ -59,39 +60,40 @@
                     </tbody>
                   </table>
                 </div>
+                <div class="crimsonpro14regular input-row-container" id="alpha">
+                  <label class="crimsonpro14regular input-row-title">Mức ý nghĩa - α</label>
+                  <span>
+                    <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
+                    <label for="alpha010">0.10</label>
+                  </span>
+                  <span>
+                    <input type="radio" id="alpha005" name="alpha-selection" value="0.05" checked>
+                    <label for="alpha005">0.05</label>
+                  </span>
+                  <span>
+                    <input type="radio" id="alpha001" name="alpha-selection" value="0.01">
+                    <label for="alpha001">0.01</label>
+                  </span>
+                </div>
+
+                <div class="crimsonpro14regular input-row-container" id="testType">
+                  <label class="crimsonpro14regular input-row-title">Loại kiểm định:</label>
+                  <span>
+                    <input type="radio" id="two-tailed" name="testType-selection" value="two-tailed" checked>
+                    <label for="two-tailed">Hai phía (≠)</label>
+                  </span>
+                  <span>
+                    <input type="radio" id="greater" name="testType-selection" value="greater">
+                    <label for="greater">Một phía: Lớn hơn</label>
+                  </span>
+                  <span>
+                    <input type="radio" id="less" name="testType-selection" value="less">
+                    <label for="less">Một phía: Nhỏ hơn </label>
+                  </span>
+                </div>
               </div>
 
-              <div class="crimsonpro14regular" id="alpha">
-                <label class="crimsonpro14regular">Significance levels (alpha):</label>
-                <span>
-                  <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
-                  <label for="alpha010">0.10</label>
-                </span>
-                <span>
-                  <input type="radio" id="alpha005" name="alpha-selection" value="0.05" checked>
-                  <label for="alpha005">0.05</label>
-                </span>
-                <span>
-                  <input type="radio" id="alpha001" name="alpha-selection" value="0.01">
-                  <label for="alpha001">0.01</label>
-                </span>
-              </div>
 
-              <div class="crimsonpro14regular" id="testType">
-                <label class="crimsonpro14regular">Loại kiểm định:</label>
-                <span>
-                  <input type="radio" id="two-tailed" name="testType-selection" value="two-tailed" checked>
-                  <label for="two-tailed">Hai phía (≠)</label>
-                </span>
-                <span>
-                  <input type="radio" id="greater" name="testType-selection" value="greater">
-                  <label for="greater">Một phía: Lớn hơn</label>
-                </span>
-                <span>
-                  <input type="radio" id="less" name="testType-selection" value="less">
-                  <label for="less">Một phía: Nhỏ hơn </label>
-                </span>
-              </div>
 
               <button class="cta-large crimsonpro14medium" onclick="performZTest()">Performce Z-Test for Two
                 Proportions</button>

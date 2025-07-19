@@ -31,6 +31,8 @@
             <a class="highlighted" href="chi-squared-test.html">Chi-squared Test</a>
             <a href="kruskal-wallis-test.html">Kruskal-Wallis Test</a>
             <a href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
+            <a href="bootstrap.html">Bootstrap for Quantiles</a>
+
           </div>
         </div>
       </div>
@@ -40,35 +42,39 @@
           <div class="col-12 col-lg-8">
             <div class="chi-squared-test-container statistical-test-container-body">
               <h2 class="crimsonpro38regular">Chi-squared Test</h2>
-              <div class="crimsonpro14regular table-size-input-container">
-                <span>
-                  <label>Số hàng:</label>
-                  <input style="width: 60px;" type="number" id="rows" value="2" min="2" class="single-input">
-                </span>
-                <span>
-                  <label>Số cột:</label>
-                  <input style="width: 60px;" type="number" id="cols" value="2" min="2" class="single-input">
-                  <button onclick="createTable()" class="cta-small ">Tạo bảng</button>
-                </span>
-              </div>
-              <div id="tableContainer" class="crimsonpro14regular"></div>
+              <div class="dataset crimsonpro14regular">
+                <div class="crimsonpro14regular table-size-input-container">
+                  <span>
+                    <label>Số hàng:</label>
+                    <input style="width: 60px;" type="number" id="rows" value="2" min="2" class="single-input">
+                  </span>
+                  <span>
+                    <label>Số cột:</label>
+                    <input style="width: 60px;" type="number" id="cols" value="2" min="2" class="single-input">
+                    <button onclick="createTable()" class="cta-small ">Tạo bảng</button>
+                  </span>
+                </div>
+                <div id="tableContainer" class="crimsonpro14regular">
+                  <table id="dataTable" onpaste="pasteDataToTable()" cellspacing="0" cellpadding="0">
+                  </table>
+                </div>
 
-              <div class="crimsonpro14regular" id="alpha">
-                <label class="crimsonpro14regular">Significance levels (alpha):</label>
-                <span>
-                  <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
-                  <label for="alpha010">0.10</label>
-                </span>
-                <span>
-                  <input type="radio" id="alpha005" name="alpha-selection" value="0.05" checked>
-                  <label for="alpha005">0.05</label>
-                </span>
-                <span>
-                  <input type="radio" id="alpha001" name="alpha-selection" value="0.01">
-                  <label for="alpha001">0.01</label>
-                </span>
+                <div class="crimsonpro14regular" id="alpha">
+                  <label class="crimsonpro14regular">Mức ý nghĩa - α</label>
+                  <span>
+                    <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
+                    <label for="alpha010">0.10</label>
+                  </span>
+                  <span>
+                    <input type="radio" id="alpha005" name="alpha-selection" value="0.05" checked>
+                    <label for="alpha005">0.05</label>
+                  </span>
+                  <span>
+                    <input type="radio" id="alpha001" name="alpha-selection" value="0.01">
+                    <label for="alpha001">0.01</label>
+                  </span>
+                </div>
               </div>
-
               <button class="perform-statistic-test cta-large crimsonpro14medium"
                 onclick="calculateChiSquared()">Perform Chi-squared Test</button>
             </div>

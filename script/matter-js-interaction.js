@@ -240,15 +240,14 @@ window.onload = function () {
     World.add(world, mouseConstraint);
     render.mouse = mouse;
 
-    window.addEventListener('mousedown', () => {
-
-        const { x, y } = mouse.position;
-        if (isAreaFree(x, y, imageWidth, imageHeight)) {
-            const img = imageUrls[Math.floor(Math.random() * imageUrls.length)];
-            const body = createImageBody(x, y, img);
-            World.add(world, body);
-        }
-    });
+    // window.addEventListener('mousedown', () => {
+    //     const { x, y } = mouse.position;
+    //     if (isAreaFree(x, y, imageWidth, imageHeight)) {
+    //         const img = imageUrls[Math.floor(Math.random() * imageUrls.length)];
+    //         const body = createImageBody(x, y, img);
+    //         World.add(world, body);
+    //     }
+    // });
 
     window.addEventListener('resize', () => location.reload());
 };

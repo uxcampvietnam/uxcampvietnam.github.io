@@ -293,8 +293,8 @@ tbody>tr:last-child {
 
 
 .logo-container {
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 100%;
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -321,6 +321,7 @@ tbody>tr:last-child {
 	outline: none;
 	background: var(--main-colors-background-b-200-slide-bg) !important;
 	z-index: 1;
+	/* opacity: 0; */
 }
 
 #uxcamplogo {
@@ -332,7 +333,7 @@ tbody>tr:last-child {
 	mix-blend-mode: difference;
 	z-index: 10000;
 	width: 15vw;
-	min-width: 100px ;
+	min-width: 200px;
 }
 
 #uxcamplogo path {

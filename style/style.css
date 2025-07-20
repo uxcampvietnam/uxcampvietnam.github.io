@@ -331,6 +331,8 @@ tbody>tr:last-child {
 	pointer-events: none;
 	mix-blend-mode: difference;
 	z-index: 10000;
+	width: 15vw;
+	min-width: 100px ;
 }
 
 #uxcamplogo path {

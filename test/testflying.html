@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Images Flying in Oval Path</title>
+    <style>
+        body {
+            margin: 0;
+            background: #f0f0f0;
+            overflow: hidden;
+        }
+
+        #flyingContainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        .flyer {
+            position: absolute;
+            width: auto;
+            height: 50px;
+            will-change: transform;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="flyingContainer"></div>
+
+    <script>
+        const container = document.getElementById('flyingContainer');
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+
+        // Settings
+        const a = 600; // horizontal radius (x-axis)
+        const b = 250; // vertical radius (y-axis)
+        const smallestSize = 1.5;
+        const largestSize = 0;
+        const images = [];
+        const imageUrls = [
+            'asset/image/interactive-img/1.png',
+            'asset/image/interactive-img/2.png',
+            'asset/image/interactive-img/3.png',
+            'asset/image/interactive-img/4.png',
+            'asset/image/interactive-img/5.png',
+            'asset/image/interactive-img/6.png',
+            'asset/image/interactive-img/7.png',
+            'asset/image/interactive-img/8.png',
+            'asset/image/interactive-img/9.png',
+            'asset/image/interactive-img/10.png',
+            'asset/image/interactive-img/11.png',
+            'asset/image/interactive-img/12.png',
+            'asset/image/interactive-img/13.png',
+            'asset/image/interactive-img/14.png',
+            'asset/image/interactive-img/15.png',
+            'asset/image/interactive-img/16.png',
+            'asset/image/interactive-img/17.png',
+            'asset/image/interactive-img/18.png',
+            'asset/image/interactive-img/19.png',
+            'asset/image/interactive-img/20.png',
+            'asset/image/interactive-img/21.png',
+            'asset/image/interactive-img/22.png',
+            'asset/image/interactive-img/23.png',
+            'asset/image/interactive-img/24.png',
+            'asset/image/interactive-img/25.png',
+            'asset/image/interactive-img/26.png',
+            'asset/image/interactive-img/27.png',
+            'asset/image/interactive-img/28.png',
+            'asset/image/interactive-img/29.png',
+            'asset/image/interactive-img/30.png',
+            'asset/image/interactive-img/31.png',
+            'asset/image/interactive-img/32.png',
+            'asset/image/interactive-img/33.png',
+            'asset/image/interactive-img/34.png',
+            'asset/image/interactive-img/35.png',
+            'asset/image/interactive-img/36.png',
+            'asset/image/interactive-img/37.png',
+            'asset/image/interactive-img/38.png',
+            'asset/image/interactive-img/39.png',
+            'asset/image/interactive-img/40.png',
+            'asset/image/interactive-img/41.png',
+            'asset/image/interactive-img/42.png',
+            'asset/image/interactive-img/43.png',
+            'asset/image/interactive-img/44.png',
+            'asset/image/interactive-img/45.png',
+            'asset/image/interactive-img/46.png',
+            'asset/image/interactive-img/47.png',
+            'asset/image/interactive-img/48.png',
+            'asset/image/interactive-img/49.png',
+            'asset/image/interactive-img/50.png',
+            'asset/image/interactive-img/51.png',
+            'asset/image/interactive-img/52.png',
+            'asset/image/interactive-img/53.png',
+            'asset/image/interactive-img/54.png',
+            'asset/image/interactive-img/55.png',
+            'asset/image/interactive-img/56.png',
+            'asset/image/interactive-img/57.png',
+            'asset/image/interactive-img/58.png',
+            'asset/image/interactive-img/59.png',
+            'asset/image/interactive-img/60.png',
+            'asset/image/interactive-img/61.png',
+            'asset/image/interactive-img/62.png',
+            'asset/image/interactive-img/63.png',
+            'asset/image/interactive-img/64.png',
+            'asset/image/interactive-img/65.png',
+            'asset/image/interactive-img/66.png',
+            'asset/image/interactive-img/67.png',
+            'asset/image/interactive-img/68.png',
+            'asset/image/interactive-img/69.png',
+            'asset/image/interactive-img/70.png',
+            'asset/image/interactive-img/71.png',
+            'asset/image/interactive-img/72.png',
+            'asset/image/interactive-img/73.png',
+            'asset/image/interactive-img/74.png',
+            'asset/image/interactive-img/75.png',
+            'asset/image/interactive-img/76.png',
+            'asset/image/interactive-img/77.png',
+            'asset/image/interactive-img/78.png',
+            'asset/image/interactive-img/79.png',
+            'asset/image/interactive-img/80.png',
+            'asset/image/interactive-img/81.png',
+            'asset/image/interactive-img/82.png',
+            'asset/image/interactive-img/83.png',
+            'asset/image/interactive-img/84.png',
+            'asset/image/interactive-img/85.png',
+            'asset/image/interactive-img/86.png',
+            'asset/image/interactive-img/87.png',
+            'asset/image/interactive-img/88.png',
+            'asset/image/interactive-img/89.png',
+            'asset/image/interactive-img/90.png',
+            'asset/image/interactive-img/91.png',
+            'asset/image/interactive-img/92.png',
+            'asset/image/interactive-img/93.png'
+        ];
+        const imageCount = 50;
+
+        const speed = 0.0004; // radians per ms
+
+        // Create image elements
+        for (let i = 0; i < imageCount; i++) {
+            const img = document.createElement('img');
+            img.src = `../` + imageUrls[i];
+            img.className = 'flyer';
+            container.appendChild(img);
+
+            images.push({
+                el: img,
+                angle: (i / imageCount) * 2 * Math.PI // spread evenly
+            });
+        }
+
+        // Animate
+        function animate(time) {
+            images.forEach(img => {
+                img.angle += speed * 16;
+
+                // Position on oval
+                const x = centerX + a * Math.cos(img.angle);
+                const y = centerY + b * Math.sin(img.angle);
+
+                // Depth scale (1 = center front, 0.5 = sides)
+                const relativeX = Math.cos(img.angle); // -1 (left) to 1 (right)
+                const scale = smallestSize + largestSize * (1 - Math.abs(relativeX));
+
+                img.el.style.transform = `translate(${x - 50}px, ${y - 50}px) scale(${scale})`;
+            });
+
+
+            requestAnimationFrame(animate);
+        }
+        requestAnimationFrame(animate);
+    </script>
+</body>
+
+</html>

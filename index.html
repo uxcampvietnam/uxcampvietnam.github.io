@@ -6,21 +6,23 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>UXCAMP VIETNAM</title>
-	<link rel="icon" href="/asset/Eye.ico">
-
+	<link rel="icon" href="/asset/icon/eye.ico">
 	<meta name="title" content="UXCamp Vietnam">
 	<meta property="og:type" content="website">
 	<meta property="description" content='UXCamp Vietnam' />
+
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-
-	<!-- <meta property="og:image" content="https://i.ibb.co/vjDZt2r/tamdovisual-website-thumbnail.jpg" /> -->
+	<meta property="og:image" content="https://i.ibb.co/M5ZR6WQs/uxcampvietnam.jpg" />
 	<meta property="og:description" content='UXCamp Vietnam' />
 	<meta property="og:url" content='http://uxcamp.vn/' />
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-	<script src="../../script/matter-js-interaction.js" defer></script>
+	<!-- external script -->
 
+	<script src="script/script.js" defer></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="../../script/matter-js-interaction.js" defer></script>
 	<script src="script/libs/svg-inject.min.js"></script>
 
 	<!-- custom css -->
@@ -30,17 +32,1137 @@
 
 </head>
 
-<body>
-	<div class="logo-container">
-		<img id="uxcamplogo" src="asset/text.svg" onload="SVGInject(this)">
+<body onmousemove="getMousePositionOnScreen(event)">
+	<div class="interactive-image-container">
 		<canvas id="interactiveImage" style="border: none; outline: none;"></canvas>
 	</div>
+	<div class="designing-digital-product-per-stage-and-metric container">
+		<div class="row bootcamp-title-full">
+			<div class="row1">
+				<div class="crimsonpro20regular text-logo">UXCAMP VIETNAM</div>
+				<img class="col-2 eye-logo" src="asset/image/Eye.svg" onload="SVGInject(this)">
+			</div>
+			<div class="bootcamp-title">
+				<div class="bootcamp-name">Bootcamp Designing Digital Product <br>per Stage and Metric</div>
+				<div class="crimsonpro30extralight"><i>Fact based, move fast, measure what matters</i>
+				</div>
+			</div>
+		</div>
 
 
-	<!-- <div class="full"> -->
-	<!-- </div> -->
+		<div class="table-of-content bootcamp-section">
+			<h2 class="col-12">Mục lục</h2>
+			<div class="row crimsonpro16regular bootcamp-section-content">
+				<a href="#bootcamp-introduction" class="table-of-content-item col-6 col-md-4">
+					<span>I. </span>
+					<span>Giới thiệu</span>
+				</a>
+				<a href="#bootcamp-goal" class="table-of-content-item col-6 col-md-4">
+					<span>II. </span>
+					<span>Mục tiêu bootcamp</span>
+				</a>
+				<a href="#general-information" class="table-of-content-item col-6 col-md-4">
+					<span>III. </span>
+					<span>Thông tin chung</span>
+				</a>
+				<a href="#syllabus" class="table-of-content-item col-6 col-md-4">
+					<span>IV. </span>
+					<span>Giáo trình</span>
+				</a>
+				<a href="#trade-offs" class="table-of-content-item col-6 col-md-4">
+					<span>V. </span>
+					<span>Trade-offs</span>
+				</a>
+				<a href="#organizer" class="table-of-content-item col-6 col-md-4">
+					<span>VI. </span>
+					<span>Ban tổ chức</span>
+				</a>
+				<a href="#what-learners-say" class="table-of-content-item col-6 col-md-4">
+					<span>VII. </span>
+					<span>Người tham dự nói gì?</span>
+				</a>
+				<a href="#case-study" class="table-of-content-item col-6 col-md-4">
+					<span>VIII. </span>
+					<span>Case Study</span>
+				</a>
+				<a href="#faq" class="table-of-content-item col-6 col-md-4">
+					<span>IX. </span>
+					<span>FAQ</span>
+				</a>
+			</div>
+		</div>
 
+		<div class="col-12 bootcamp-section" id="bootcamp-introduction">
+			<h2 class="col-12">I. Giới thiệu</h2>
+			<div class="col-12 bootcamp-section-content">
+				<p>Bootcamp "Designing Digital Product per Stage and Metric" là một chương trình đào tạo chuyên sâu,
+					liên ngành, dành cho những người xây dựng sản phẩm số - bao gồm Product Managers, Product Designers,
+					UX
+					Researchers, Business Analysts và Data Analysts. Chương trình này là sự hợp nhất giữa 3 modules kiến
+					thức: Product Discovery, Product Delivery và Data-driven decision making, từ đó mang đến một hệ
+					thống kiến thức thực tiễn và toàn diện.</p>
+				<br>
+				<p>Bootcamp được xây dựng, cải tiến liên tục dựa trên kết quả nghiên cứu từ hơn 50 lần
+					in-depth interview, focus group với các thành viên có từ 1-10 năm kinh nghiệm tại các môi trường
+					làm việc khác nhau, cùng với kết quả đánh giá năng lực đầu / giữa / cuối khóa cũng như đánh giá đồ
+					án bảo vệ từ hội đồng chuyên môn. Dưới đây là 6 thách thức phổ biến mà chúng tôi muốn giải quyết:
+				</p>
+
+				<div id="introductionMouse" class="crimsonpro20regular hide-content toggleMouse d-none d-md-flex">
+					<span> Xem nào! </span>
+					<span> Ok biết ời </span>
+				</div>
+				<div onmousemove="toggleMouseOver(event, 'introductionMouse')"
+					onmouseout="toggleMouseOut('introductionMouse')" onclick="toggleContent(this, 'introductionMouse')"
+					class="toggle-container hide-content row crimsonpro16regular">
+					<div class="accordion-el col-12 col-md-6">
+						<p class="accordion-title crimsonpro24regular">Thiếu tư duy sản phẩm</p>
+						<div class="panel">
+							<ul>
+								<li>Cảm thấy mình chỉ như “feature factory” thay vì thực sự sở hữu sản phẩm
+								</li>
+								<li> Không biết bắt đầu từ đâu khi giải quyết một vấn đề sản phẩm
+								</li>
+								<li> Thụ động làm theo yêu cầu từ BOD hoặc các stakeholder
+								</li>
+								<li> Chỉ tập trung vào việc “deliver features”
+								</li>
+								<li> Không biết đánh giá tính hiệu quả của tính năng đã phát triển
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="accordion-el col-12 col-md-6">
+						<p class="accordion-title crimsonpro24regular">Thiếu kỹ năng đo lường</p>
+						<div class="panel">
+							<ul>
+								<li>Không đo lường tác động sau mỗi lần phát hành
+								</li>
+								<li> Thiếu tính khách quan khi nhận định / đưa ra quyết định.
+								</li>
+								<li> Không biết cách xác định hoặc theo dõi các chỉ số thành công
+								</li>
+								<li> Không hiểu các khái niệm thống kê cơ bản
+								</li>
+								<li> Có dữ liệu nhưng không biết cách khai thác insight hoặc đưa ra đề xuất
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="accordion-el col-12 col-md-6">
+						<p class="accordion-title crimsonpro24regular">Kỹ năng nghiên cứu hạn chế</p>
+						<div class="panel">
+							<ul>
+								<li>Không biết bắt đầu từ đâu khi thực hiện nghiên cứu
+								</li>
+								<li> Thiếu cấu trúc cho phỏng vấn và tổng hợp dữ liệu
+								</li>
+								<li> Hiếm khi được tiếp cận trực tiếp với người dùng thực tế
+								</li>
+								<li> Nhầm lẫn giữa nghiên cứu thứ cấp và khảo sát thực địa
+								</li>
+								<li> Gặp khó khăn khi kết nối giữa dữ liệu định tính và định lượng
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="accordion-el col-12 col-md-6">
+						<p class="accordion-title crimsonpro24regular">Khó khăn khi viết tài liệu sản phẩm</p>
+						<div class="panel">
+							<ul>
+								<li>Không biết cách viết PRD, BRD hay kế hoạch theo dõi sự kiện
+								</li>
+								<li> Giao tiếp nội bộ giữa các vai trò bị phân mảnh
+								</li>
+								<li> Khó khăn trong việc giải thích logic phía sau các quyết định sản phẩm
+								</li>
+								<li> Thiếu cấu trúc khi truyền đạt tư duy sản phẩm
+								</li>
+								<li> Tài liệu không chính xác dẫn đến phải làm lại khi phát hiện vấn đề
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="accordion-el col-12 col-md-6">
+						<p class="accordion-title crimsonpro24regular">Mất định hướng trong sự nghiệp</p>
+						<div class="panel">
+							<ul>
+								<li>Không biết cần có kỹ năng gì để trở thành PO/PM/PD
+								</li>
+								<li> Biết một số khái niệm nhưng không biết cách chứng minh hoặc truyền đạt
+								</li>
+								<li> Thiếu tự tin và định hướng phát triển bản thân
+								</li>
+								<li> Đã đảm nhận vai trò PO/PM nhưng cảm thấy không thực sự kiểm soát được sản phẩm
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="accordion-el col-12 col-md-6">
+						<p class="accordion-title crimsonpro24regular">Môi trường làm việc không hỗ trợ</p>
+						<div class="panel">
+							<ul>
+								<li>Không có PO, UXR hoặc Data Analyst trong đội ngũ
+								</li>
+								<li> Người lãnh đạo thiếu nền tảng về sản phẩm
+								</li>
+								<li> Không có thời gian hoặc không gian để kiểm chứng giải pháp
+								</li>
+								<li> Thiếu quy trình và văn hóa chia sẻ kiến thức
+								</li>
+								<li> Nhiều người làm việc độc lập, thiếu sự phối hợp nhóm
+								</li>
+							</ul>
+
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+
+		<div class="row opening-bootcamp bootcamp-section ">
+			<h4 class="crimsonpro24regular"> Danh sách Bootcamp</h4>
+			<div class="bootcamp-list container-fluid"></div>
+		</div>
+
+		<div class="row bootcamp-section" id="bootcamp-goal">
+			<h2 class="col-12">II. Mục tiêu bootcamp</h2>
+			<div class=" col-12 crimsonpro16regular bootcamp-section-content">
+				<div id="bootcampGoalMouse" class="crimsonpro20regular hide-content toggleMouse d-none d-md-flex">
+					<span> Xem nào! </span>
+					<span> Ok biết ời </span>
+				</div>
+
+				<h5>Chương trình được thiết kế nhằm trang bị cho người tham dự tư duy sản phẩm, kỹ năng ra quyết định
+					dựa trên dữ liệu và khả năng phối hợp hiệu quả trong đội ngũ đa chức năng - từ đó nâng cao năng lực
+					phát triển sản phẩm số một cách bài bản, linh hoạt và có thể mở rộng.</h5>
+				<div onmousemove="toggleMouseOver(event, 'bootcampGoalMouse')"
+					onmouseout="toggleMouseOut('bootcampGoalMouse')" onclick="toggleContent(this, 'bootcampGoalMouse')"
+					class="toggle-container hide-content row crimsonpro16regular">
+					<div class="accordion-el col-12">
+						<p class="accordion-title crimsonpro24regular">Product Discovery: Ra quyết định dựa trên insight
+						</p>
+						<div class="panel">
+							<ul>
+								<li> Nâng cao khả năng phản biện và xây dựng thói quen ra quyết định dựa trên bằng chứng
+								</li>
+								<li> Thực hiện nghiên cứu người dùng và phân tích thị trường một cách bài bản
+								</li>
+								<li> Xác định vấn đề cốt lõi và nhu cầu chưa được đáp ứng trong hành trình người dùng
+								</li>
+								<li> Nghiên cứu có chủ đích và tạo ra các actionable insight cho sản phẩm.
+								</li>
+
+							</ul>
+						</div>
+					</div>
+
+					<div class="accordion-el col-12">
+						<p class="accordion-title crimsonpro24regular">Product Delivery: Tư duy theo vòng đời sản phẩm
+						</p>
+						<div class="panel">
+							<ul>
+								<li>Đưa ra quyết định phù hợp trong từng vòng đời sản phẩm
+								</li>
+								<li> Xác định được mục tiêu, rủi ro tại từng giai đoạn.
+								</li>
+								<li> Ứng dụng quy trình tiền kiểm, hậu kiểm để đưa ra các quyết định khách quan
+								</li>
+								<li> Biết khi nào sản phẩm “đủ tốt” để ra mắt
+								</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="accordion-el col-12">
+						<p class="accordion-title crimsonpro24regular">Product Metrics: Làm việc bằng số liệu</p>
+						<div class="panel">
+							<ul>
+								<li> Thống nhất mục tiêu công việc thông qua chỉ số sản phẩm.
+								</li>
+								<li> Học cách tập trung vào các chỉ số sản phẩm quan trọng
+								</li>
+								<li> Hiểu được mối quan hệ giữa 3 nhóm chỉ số chính: Product Metrics, User Experiences
+									Metrics, Business Metrics.
+								</li>
+								<li> Thực hành viết BRD, PRD, event tracking plan
+								</li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+
+				<br>
+
+			</div>
+		</div>
+
+		<div class="row bootcamp-section" id="general-information">
+			<h2 class="col-12">III. Thông tin chung</h2>
+			<div class=" col-12 crimsonpro16regular bootcamp-section-content">
+				<ul>
+					<li>Project-based learning
+					</li>
+					<li> 14 tuần học bao gồm: 18 buổi học x 3 giờ / buổi, 14+ buổi chữa bài, review công việc.
+					</li>
+					<li> Bảo vệ cuối khóa tại một nơi xa
+					</li>
+					<li> Phí tham dự: 12,345,678 VND / người tham dự (Chưa bao gồm chi phí đi lại, ăn ở cho buổi bảo
+						vệ
+						cuối khóa)
+					</li>
+				</ul>
+
+			</div>
+		</div>
+
+		<div class="row bootcamp-section" id="syllabus">
+			<h2 class="col-12">IV. Giáo trình</h2>
+
+			<div class="container bootcamp-section-content">
+				<div id="syllabusMouse" class="crimsonpro20regular hide-content toggleMouse d-none d-md-flex">
+					<span> Expand </span>
+					<span> Collapse </span>
+				</div>
+				<div onmousemove="toggleMouseOver(event, 'syllabusMouse')" onmouseout="toggleMouseOut('syllabusMouse')"
+					onclick="toggleContent(this, 'syllabusMouse' )"
+					class="row syllabus-container hide-content crimsonpro16regular">
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>α. </h5>
+							<h5>Introduction & Fundamental</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Bootcamp entrance assessment test</li>
+								<li>Bootcamp Introduction</li>
+								<li>Product Life Cycle</li>
+								<li>Introduction to Product Development</li>
+								<li>Understand the goal of a PM, PD, UXR, BA</li>
+								<li>Lean Startup, Design Thinking & Agile combination</li>
+								<li>Product Metrics</li>
+								<li>Scrum introduction</li>
+								<li>Project ideation
+									<ul>
+										<li>Start with the problem</li>
+										<li>Generating ideas</li>
+										<li>Criteria for a good idea</li>
+										<li>Divergent and convergent mindset</li>
+										<li>How to find an underserved need.</li>
+									</ul>
+								</li>
+								<li>Case study</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>β. </h5>
+							<h5>Introduction to Market Research</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Introduction to Market & User Research</li>
+								<li>Research Classification
+									<ul>
+										<li>Qualitative research & quantitative research</li>
+										<li>Primary research, Secondary research</li>
+										<li>Exploratory Research</li>
+										<li>Descriptive Research</li>
+										<li>Explanatory Research</li>
+									</ul>
+								</li>
+								<li>Conducting Market Research
+									<ul>
+										<li>Research Objective</li>
+										<li>Research design</li>
+										<li>Collect data</li>
+										<li>Select sample</li>
+										<li>Sample size calculation</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>γ. </h5>
+							<h5>Interview & Survey</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Questionnaire Design</li>
+								<li>Participant screening</li>
+								<li>Question Content
+									<ul>
+										<li>How to create unbiased questions</li>
+										<li>Language and terminology</li>
+										<li>What is doublespeak & how to avoid.</li>
+										<li>Question arrangement and structure</li>
+									</ul>
+								</li>
+								<li>Question format
+									<ul>
+										<li>Closed-ended questions
+											<ul>
+												<li>Multiple choice</li>
+												<li>Single choice</li>
+												<li>Likert scale</li>
+												<li>Frequency scale...</li>
+											</ul>
+										</li>
+										<li>Open-ended questions</li>
+										<li>When & How to choose among questions type</li>
+										<li>Pre-test and Revise</li>
+									</ul>
+								</li>
+								<li>Interview Method</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>δ. </h5>
+							<h5>Statistic & Hypothesis Testing</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Data Cleaning
+									<ul>
+										<li>Remove duplicates</li>
+										<li>Handle missing values</li>
+										<li>Check and correct data</li>
+										<li>Standardize data</li>
+										<li>Handling outliers</li>
+									</ul>
+								</li>
+								<li>Data Interpretation
+									<ul>
+										<li>Inferential Statistics</li>
+										<li>Correlation & Regression analysis</li>
+										<li>Segmentation analysis</li>
+										<li>Coding and categorization</li>
+										<li>Thematic analysis</li>
+										<li>Cross-referencing</li>
+									</ul>
+								</li>
+								<li>Working with Google Sheet
+									<ul>
+										<li>Filtering</li>
+										<li>Encode & Decode</li>
+										<li>Working with pivot table</li>
+										<li>Working with formula</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>ε. </h5>
+							<h5>Research conclusion</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Working with data visualization
+									<ul>
+										<li>Comparison</li>
+										<li>Distribution</li>
+										<li>Composition</li>
+										<li>Relationship</li>
+									</ul>
+								</li>
+								<li>Data Synthesis
+									<ul>
+										<li>Identify key findings</li>
+										<li>Draw conclusions</li>
+										<li>Provide product & business recommendations</li>
+									</ul>
+								</li>
+								<li>Framework
+									<ul>
+										<li>Working with personas</li>
+										<li>Working with customer journey</li>
+										<li>2 variable comparison</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>ζ. </h5>
+							<h5>Business model canvas</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Business model canvas
+									<ul>
+										<li>The key activities of the product / business</li>
+										<li>Distribution channels</li>
+										<li>Customer relationships activities</li>
+										<li>Which activities help generating revenue?</li>
+									</ul>
+								</li>
+								<li>Product monetization strategies</li>
+								<li>Go-to-market strategies</li>
+								<li>Customer Adoption
+									<ul>
+										<li>Innovator</li>
+										<li>Early Adopter</li>
+										<li>Early Majority</li>
+										<li>Late Majority</li>
+										<li>Laggards</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>η. </h5>
+							<h5>Product Discovery</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Google Heart Framework</li>
+								<li>Product retention
+									<ul>
+										<li>Definition & Type of product retention</li>
+										<li>Return User Return Rate</li>
+										<li>New User Return Rate</li>
+										<li>Current User Return Rate</li>
+									</ul>
+								</li>
+								<li>Mapping retention with customer journey</li>
+								<li>Definition of conversion rate
+									<ul>
+										<li>How to measure conversion rate</li>
+										<li>Categorize users to cohorts</li>
+										<li>Analyzing CR with different cohorts</li>
+									</ul>
+								</li>
+								<li>Prioritizing feature using:
+									<ul>
+										<li>The RICE method</li>
+										<li>S.M.A.R.T method</li>
+										<li>Red route</li>
+									</ul>
+								</li>
+								<li>Customer Journey
+									<ul>
+										<li>Onboarding & Value Discovery</li>
+										<li>Daily Usage</li>
+										<li>Deep Usage</li>
+									</ul>
+								</li>
+								<li>How can we deliver value to user?</li>
+							</ul>
+						</div>
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>θ. </h5>
+							<h5>Proof of concepts</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Start working with a 1-pager</li>
+								<li>Proof of Concept
+									<ul>
+										<li>Value proposition</li>
+										<li>Hypothesis</li>
+										<li>How Might We</li>
+										<li>Technical feasibility
+											<ul>
+												<li>API, technical documentation</li>
+												<li>Low code, no code</li>
+											</ul>
+										</li>
+									</ul>
+								</li>
+								<li>Validating your ideas
+									<ul>
+										<li>Identifying & categorizing user</li>
+										<li>Choice architecture</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>ι. </h5>
+							<h5>Feature Design</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Wire-framing & design pattern</li>
+								<li>User flow & prioritization</li>
+								<li>Relationship between front-app and back-office app</li>
+								<li>Working with your entity relationship diagram</li>
+								<li>Working with notification & email-marketing strategy</li>
+								<li>Design thinking on a daily basis</li>
+								<li>Approaches of a features</li>
+								<li>Data driven decision making</li>
+								<li>Design for retention</li>
+								<li>Divergence - convergence</li>
+								<li>Converting solution to functions</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>κ. </h5>
+							<h5>Logical & theoretical reasoning</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Logical reasoning</li>
+								<li>Validating via external data</li>
+								<li>Validating via system configuration</li>
+								<li>Validating via transactional record</li>
+								<li>When should specific evaluation methods be employed?</li>
+								<li>Design validation
+									<ul>
+										<li>Color & contrast testing testing</li>
+										<li>Typography checklist</li>
+										<li>Success scenarios</li>
+										<li>Failure, error handling & fallback</li>
+										<li>Input Validation & Cursor behavior</li>
+										<li>Layout & Responsiveness</li>
+										<li>Back behavior & Session history</li>
+									</ul>
+								</li>
+								<li>Heuristic evaluation</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>λ. </h5>
+							<h5>Usability Testing</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>What is usability?</li>
+								<li>Why usability testing matters</li>
+								<li>Principles of good usability</li>
+								<li>Differences between usability testing and other testing types (A/B, QA, etc.)
+								</li>
+								<li>Types and Methods of Usability Testing</li>
+								<li>Planning a Usability Test</li>
+								<li>Conducting the Test</li>
+								<li>Analyzing and Reporting Results
+									<ul>
+										<li>Measuring Satisfaction</li>
+										<li>Measuring Efficiency</li>
+										<li>Measuring Effectiveness</li>
+										<li>System Usability Scale</li>
+									</ul>
+								</li>
+								<li>Screen-based eye tracking, attentional heat map
+									<ul>
+										<li>Gaze Points</li>
+										<li>Fixations</li>
+										<li>Areas of interest (AOI)</li>
+										<li>Heat-maps</li>
+										<li>Time To First Fixation</li>
+										<li>Visual weight & visual tractions</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>μ. </h5>
+							<h5>Digital Behavior Tracking</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Data model</li>
+								<li>Infrastructure of an event tracking tool</li>
+								<li>Tools & limitation</li>
+								<li>Structure of an event tracking requirement</li>
+								<li>Prioritizing event request for tracking plan</li>
+								<li>Distinct ID
+									<ul>
+										<li>User properties</li>
+										<li>Group properties</li>
+									</ul>
+								</li>
+								<li>Trigger, condition & action
+									<ul>
+										<li>Rules for defining trigger</li>
+									</ul>
+								</li>
+								<li>Event
+									<ul>
+										<li>Event properties</li>
+										<li>Device properties</li>
+										<li>Page properties</li>
+									</ul>
+								</li>
+								<li>Data type</li>
+								<li>Naming convention</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>ν. </h5>
+							<h5>Feature Hand-off</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Writing a Product Requirement Document
+									<ul>
+										<li>What is PRD</li>
+										<li>Structure of a PRD</li>
+										<li>Define a goal of a product release</li>
+										<li>Using logical operator to breakdown Success Metrics</li>
+										<li>Writing an Acceptance Criteria</li>
+										<li>Given - When - Then format</li>
+									</ul>
+								</li>
+								<li>Design hand-off
+									<ul>
+										<li>Structure of a design hand-off</li>
+										<li>Defining design specification</li>
+										<li>Success case, edge cases & corner cases</li>
+										<li>layout & responsiveness</li>
+										<li>Handling:
+											<ul>
+												<li>Text scale</li>
+												<li>Cursor & keyboard behavior</li>
+												<li>Navigation & session history</li>
+											</ul>
+										</li>
+										<li>Fallback</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>ξ. </h5>
+							<h5>Fundamental of Growth</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Metrics for Growth
+									<ul>
+										<li>AARRR Funnel</li>
+										<li>Break down metrics</li>
+									</ul>
+								</li>
+								<li>Acquisition Channels
+									<ul>
+										<li>Paid Acquisition vs Organic Acquisition</li>
+										<li>Viral Marketing & Referral Programs</li>
+									</ul>
+								</li>
+								<li>Channel Optimization</li>
+								<li>Marketing Automation</li>
+								<li>Pricing & Monetization Strategies</li>
+								<li>Marketing-led growth</li>
+								<li>Partnership-led growth</li>
+								<li>Sale-led growth</li>
+								<li>Community-led growth</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>ο. </h5>
+							<h5>Product Led Growth</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Growth hack - increase user base with limited resources</li>
+								<li>What is K-factor</li>
+								<li>Referral using hook
+									<ul>
+										<li>From goal to feature & channels</li>
+										<li>Referral programs</li>
+									</ul>
+								</li>
+								<li>SEO, ASO & Landing page design
+									<ul>
+										<li>Content & Marketing campaign for landing page & fanpage</li>
+									</ul>
+								</li>
+								<li>Mechanic for user referral</li>
+								<li>How to track sharing / referral</li>
+								<li>Iterating feature to separating acquisition sources</li>
+								<li>Easing accessibility by funnel optimization.</li>
+								<li>Increase product branding through branding & UI Design</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>π. </h5>
+							<h5>Product Analytic & Dashboard</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Analytical tools
+									<ul>
+										<li>Introduction to Mixpanel</li>
+										<li>Business as usual task</li>
+										<li>Logical operations</li>
+										<li>Defining analytical objective</li>
+									</ul>
+								</li>
+								<li>Analytic method
+									<ul>
+										<li>Funnel analysis</li>
+										<li>Trend analysis</li>
+										<li>Retention analysis</li>
+									</ul>
+								</li>
+								<li>Analytic attribution
+									<ul>
+										<li>Breakdown</li>
+										<li>Timeframe</li>
+										<li>Filter</li>
+									</ul>
+								</li>
+								<li>Statistical fallacy & examples</li>
+								<li>Product Dashboard
+									<ul>
+										<li>Defining dashboard goal</li>
+										<li>Type of dashboard</li>
+										<li>Data visualization & naming</li>
+									</ul>
+								</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>ρ. </h5>
+							<h5>Explanatory research</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Experimental design
+									<ul>
+										<li>Definition</li>
+										<li>Forming a hypothesis</li>
+										<li>Independent & Dependent Variable</li>
+										<li>Control group & Experimental group</li>
+										<li>Randomization</li>
+										<li>Replication</li>
+										<li>How to</li>
+									</ul>
+								</li>
+								<li>Explanatory research using deep interview</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12 col-md-6 col-lg-4">
+						<div class="syllabus-module-header">
+							<h5>ς. </h5>
+							<h5>Case study & public speaking</h5>
+						</div>
+						<div class="syllabus-module-content">
+							<ul>
+								<li>Course wrap-up & Further learning</li>
+								<li>Presentation structure</li>
+								<li>Critical thinking & Bias</li>
+								<li>Public Speaking & Double speaking</li>
+								<li>End of Bootcamp Assessment Test</li>
+							</ul>
+						</div>
+
+					</div>
+
+					<div class="syllabus-section col-12">
+						<div class="syllabus-module-header flyingContainer">
+							<div id="flyingContainer">
+								<div class="graduation-center-text crimsonpro48regular">
+									Σ. Graduation retreat
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row bootcamp-section" id="trade-offs">
+			<h2 class="col-12">V. Trade-offs</h2>
+			<div class=" col-12 crimsonpro16regular bootcamp-section-content">
+				<span>Designing Digital Product per Stage and Metric là một chương trình đào tạo chuyên sâu dành cho
+					những người sẵn sàng đầu tư thời gian và nỗ lực để làm chủ tư duy thiết kế sản phẩm. Trước khi
+					đăng
+					ký, vui lòng cân nhắc những điều sau:</span>
+				<br>
+				<ol>
+					<li>Cường độ cao - thách thức cả với senior level. Bạn cần dành 10-15 giờ mỗi tuần để theo kịp
+						chương trình và đạt được kết quả tốt.
+					</li>
+					<li> Nội dung dày đặc với nhiều khái niệm phức tạp. Chúng tôi khuyến nghị bạn đã có nền tảng
+						liên
+						quan đến UX/UI hoặc công việc phát triển sản phẩm.
+					</li>
+					<li> Học qua thực hành đi kèm với thử thách thực tế. Đây không phải là một bootcamp "cầm tay chỉ
+						việc", mà là một trải nghiệm học tập sát với thực tiễn ngành.
+					</li>
+					<li> Cơ sở vật chất có thể chưa hoàn hảo. Dù điều kiện học tập còn hạn chế, chương trình được
+						thiết
+						kế để tối ưu hóa chất lượng nội dung và khả năng tương tác.
+					</li>
+				</ol>
+			</div>
+		</div>
+
+		<div class="row bootcamp-section" id="organizer">
+			<h2 class="col-12">VI. Ban tổ chức</h2>
+			<div class=" col-12  bootcamp-section-content">
+				<div class="row justify-content-md-start justify-content-center">
+					<div class="col-6 col-md-2 organizer-member">
+						<img src="asset/image/organizer-01.png">
+						<p class="name crimsonpro16regular">Đỗ Minh Tâm</p>
+						<p class="title crimsonpro14regular"><i>Trainer</i></p>
+					</div>
+
+					<div class="col-6 col-md-2 organizer-member">
+						<img src="asset/image/organizer-02.png">
+						<p class="name crimsonpro16regular">Nguyễn Minh Trang</p>
+						<p class="title crimsonpro14regular"><i>Trainer</i></p>
+					</div>
+
+					<div class="col-6 col-md-2 organizer-member">
+						<img src="asset/image/organizer-03.png">
+						<p class="name crimsonpro16regular">Trương Thu Hương</p>
+						<p class="title crimsonpro14regular"><i>Trainer</i></p>
+					</div>
+
+					<div class="col-6 col-md-2 organizer-member">
+						<img src="asset/image/organizer-04.png">
+						<p class="name crimsonpro16regular">Hoàng Nhung</p>
+						<p class="title crimsonpro14regular"><i>Trainer</i></p>
+					</div>
+
+					<div class="col-6 col-md-2 organizer-member">
+						<img src="asset/image/organizer-05.png">
+						<p class="name crimsonpro16regular">Trần Thùy Dương</p>
+						<p class="title crimsonpro14regular"><i>Trainer</i></p>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row what-learners-say bootcamp-section" id="what-learners-say">
+			<h2 class="col-12">VII. Người tham dự nói gì?</h2>
+			<div id="feedbackDetailContainer" class="container align-item-center">
+				<div class="row col-12 justify-content-center align-item-center">
+					<div id="feedback-content" class="col-12 col-md-10 col-lg-8"></div>
+				</div>
+			</div>
+			<div class="col-12 crimsonpro16regular bootcamp-section-content">
+				<div class="feedback-list">
+				</div>
+			</div>
+		</div>
+
+		<div class="row bootcamp-section" id="case-study">
+			<h2 class="col-12">VIII. Case Study</h2>
+			<div class=" col-12 crimsonpro16regular bootcamp-section-content">
+
+			</div>
+		</div>
+
+		<div class="row opening-bootcamp bootcamp-section ">
+			<h4 class="crimsonpro24regular"> Danh sách Bootcamp</h4>
+			<div class="bootcamp-list container-fluid"></div>
+		</div>
+
+		<div class="row bootcamp-section" id="faq">
+			<h2 class="col-12">IX. FAQ</h2>
+			<div class=" col-12 crimsonpro16regular bootcamp-section-content">
+				<div class="accordion-container">
+
+					<div class="accordion col-12">
+						<button class="accordion-title crimsonpro30regular">Quy trình đặt chỗ học như thế nào? <img
+								class="small-arrow" src="asset/icon/expand-collapse-icon.svg"
+								onload="SVGInject(this)"></button>
+						<div class="answer">
+							<p>Trả lời ngắn gọn: Có chứ <br>
+								Dài dòng hơn: data driven decision making được hệ thống hóa và ứng dụng từ nghiên
+								cứu,
+								triển khai đến đo lường hiệu quả. Tại bootcamp, bạn được tiếp cận với nền tảng thống
+								kê
+								bao gồm thống kê mô tả và thống kê suy luận.
+								<br>Ứng dụng của
+							</p>
+
+						</div>
+					</div>
+
+					<div class="accordion col-12">
+						<button class="accordion-title crimsonpro30regular">Bootcamp có dạy về data driven không?
+							<img class="small-arrow" src="asset/icon/expand-collapse-icon.svg"
+								onload="SVGInject(this)"></button>
+						<div class="answer">
+							<p>Tất nhiên rồi. Tại UXCamp Vietnam, việc tạo ra giải pháp mà không có căn cứ biện
+								chứng,
+								biện luận nào là điều cấm kỵ.<br>
+								Khi bắt đầu một sản phẩm mới: Chúng ta sẽ tìm dữ liệu mô tả thị trường, người dùng
+								sẵn
+								có bằng deck research. Nếu chưa đủ, chúng ta sẽ tiếp tục làm primary research để thu
+								thập các dữ kiện cho quá trình phát triển sản phẩm. Từ đó xác định được mục tiêu sản
+								phẩm và diễn giải ra thành các chỉ số quan trọng cần tập trung và đo lường. <br>
+								Khi đã có sản phẩm trong tay, chúng ta đưa ra quyết định dựa trên các số liệu hệ
+								thống:
+								từ transactional records, system performance, user feedback cho đến các dữ liệu từ
+								hành
+								vi người dùng thao tác trên sản phẩm thông qua behavioral event tracking. <br>
+								Để làm được tất cả những điều đó, bạn cần phải trải qua những nội dung học sau: <br>
+							<ul>
+								<li>Nghiên cứu & các phương pháp nghiên cứu</li>
+								<li>Thống kê mô tả & Thống kê suy luận</li>
+								<li>Product Metrics</li>
+								<li>Digital Behavioral Event Tracking</li>
+							</ul>
+							</p>
+						</div>
+					</div>
+
+					<div class="accordion col-12">
+						<button class="accordion-title crimsonpro30regular">UXCamp Vietnam có uy tín không? <img
+								class="small-arrow" src="asset/icon/expand-collapse-icon.svg"
+								onload="SVGInject(this)"></button>
+						<div class="answer">
+							<p>Ôi bạn ơi, câu hỏi này chúng tôi không tự trả lời được. <br>
+								2 đối tượng có thể trả lời câu hỏi này: <a style="text-decoration: underline;"
+									href="#what-learners-say"> <i>Người đã từng tham gia bootcamp</i></a> và những
+								người
+								được
+								hưởng lợi từ sản phẩm họ tạo ra.</p>
+						</div>
+					</div>
+
+					<div class="accordion col-12">
+						<button class="accordion-title crimsonpro30regular">Level Freserer và Junior có thể tham gia
+							không? <img class="small-arrow" src="asset/icon/expand-collapse-icon.svg"
+								onload="SVGInject(this)"></button>
+						<div class="answer">
+							<p>Không, tham gia vào thời điểm này sẽ không hiệu quả với bạn.<br>
+								Trong tương lai, UXCamp
+								Vietnam sẽ có các hoạt động dành riêng cho những người có dưới 3 năm kinh nghiệm.
+								Hãy
+								chờ chúng tôi nhé.</p>
+						</div>
+					</div>
+
+					<div class="accordion col-12">
+						<button class="accordion-title crimsonpro30regular">Chương trình có thể xuất hóa đơn đỏ
+							không?
+							<img class="small-arrow" src="asset/icon/expand-collapse-icon.svg"
+								onload="SVGInject(this)"></button>
+						<div class="answer">
+							<p>Có nha.</p>
+
+						</div>
+					</div>
+
+					<div class="accordion col-12">
+						<button class="accordion-title crimsonpro30regular">Chương trình có giảm giá không? <img
+								class="small-arrow" src="asset/icon/expand-collapse-icon.svg"
+								onload="SVGInject(this)"></button>
+						<div class="answer">
+							<p>Hiện giờ thì không.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row bootcamp-section" id="footer">
+			<div class="col-12 bootcamp-section-content">
+
+				<div class="row footer-img">
+					<img class="eye-logo col-12" src="asset/image/Eye.svg" onload="SVGInject(this)">
+				</div>
+
+				<div class="row">
+					<div class="col crimsonpro30regular">
+						<span>Bootcamp</span>
+						<br><a href="index.html">Designing Digital Product per Stage and Metric</a>
+						<br><a href="corporate-training.html">Corporation Training</a>
+					</div>
+
+					<div class="col-12 col-md-auto crimsonpro14regular">
+						<span>Links</span>
+						<br><a href="statistic-calculator/index.html">Inferential Statistics Calculator</a>
+						<br><a>Competency Assessment</a>
+						<br><a>About UXCamp Vietnam</a>
+						<br><a>Blogs</a>
+					</div>
+
+					<div class="col-12 col-md-auto crimsonpro14regular">
+						<span>Contact</span>
+						<br><a>30 Nguyên Hồng, Đống Đa, Hà Nội</a>
+						<br><a>Email: hello@uxcamp.vn</a>
+						<br><a>Linkedin, Facebook, Youtube</a>
+						<br><a>Term & Condition</a>
+					</div>
+
+
+				</div>
+
+			</div>
+		</div>
+	</div>
 
 </body>
 
-</html>
+</html>˚

@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>Flowers Swaying in the Wind (Matter.js + Mouse Wind)</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background: linear-gradient(#b3e5fc 0%, #e0f7fa 60%, #c8e6c9 100%);
+            height: 100%;
+            font-family: sans-serif;
+        }
+
+        #world {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        /* optional small instruction overlay */
+        #hud {
+            position: fixed;
+            top: 0.5rem;
+            left: 0.5rem;
+            padding: 0.25rem 0.5rem;
+            font-size: 12px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 4px;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="world"></canvas>
+    <div id="hud">Move your mouse to make the wind blow.</div>
+
+    <!-- Matter.js CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script>
+        (function () {
+            const {
+                Engine, Render, Runner,
+                World, Bodies, Body, Composite, Constraint,
+                Composites, Common, Vector, Events
+            } = Matter;
+
+            // ---------- CONFIG ----------
+            const CONFIG = {
+                flowerCount: 25,
+                stemSegments: 10,       // number of rectangles per stem
+                stemSegmentLength: 10, // px
+                stemSegmentWidth: 1,   // px
+                stemStiffness: 1.0,    // constraint stiffness between segments
+                rootStiffness: 1.0,    // constraint stiffness to the ground
+                bloomRadius: 14,
+                windScale: 0.000005,    // base scaling from mouse velocity to force
+                windDecay: 0.95,       // per tick
+                windMax: 10,           // clamp mouse velocity magnitude
+                topWindMultiplier: 1.5,// more force at top segments
+                noiseBreeze: 0.002,    // small random jitter baseline
+                gravity: -0.4,            // world gravity (y)
+                groundThickness: 80,
+            };
+
+            // ---------- ENGINE / RENDERER ----------
+            const canvas = document.getElementById('world');
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+
+            const engine = Engine.create();
+            engine.gravity.y = CONFIG.gravity;
+
+            const render = Render.create({
+                canvas,
+                engine,
+                options: {
+                    width,
+                    height,
+                    wireframes: false,
+                    background: 'transparent',
+                    pixelRatio: window.devicePixelRatio
+                }
+            });
+            Render.run(render);
+
+            const runner = Runner.create();
+            Runner.run(runner, engine);
+
+            // ---------- WORLD BOUNDS ----------
+            const groundY = height - CONFIG.groundThickness / 2;
+            const ground = Bodies.rectangle(
+                width / 2,
+                groundY,
+                width,
+                CONFIG.groundThickness,
+                {
+                    isStatic: true,
+                    render: { fillStyle: '#4caf50' }
+                }
+            );
+            World.add(engine.world, ground);
+
+            // ---------- FLOWER FACTORY ----------
+            function randomBloomColor() {
+                const palette = ['#ff8a80', '#ff80ab', '#ea80fc', '#b388ff', '#8c9eff', '#82b1ff', '#80d8ff', '#84ffff', '#a7ffeb', '#b9f6ca', '#f4ff81', '#ffe57f', '#ffd180', '#ff9e80'];
+                return palette[Math.floor(Math.random() * palette.length)];
+            }
+
+            function createFlower(x) {
+                const segments = [];
+                const constraints = [];
+                const segmentLen = CONFIG.stemSegmentLength;
+                const segmentWidth = CONFIG.stemSegmentWidth;
+                const bloomRadius = CONFIG.bloomRadius;
+
+                // root anchor (small invisible static body just above ground)
+                const root = Bodies.circle(x, groundY - CONFIG.groundThickness / 2, segmentWidth, {
+                    isStatic: true,
+                    render: { visible: false }
+                });
+
+                // create stem segments upward
+                let prev = root;
+                let currentY = root.position.y - segmentLen / 2;
+
+                for (let i = 0; i < CONFIG.stemSegments; i++) {
+                    const seg = Bodies.rectangle(x, currentY, segmentWidth, segmentLen, {
+                        frictionAir: 0.5,
+                        inertia: 1000,
+                        render: {
+                            fillStyle: '#388e3c',
+                            strokeStyle: '#2e7d32',
+                            lineWidth: 1
+                        }
+                    });
+                    segments.push(seg);
+
+                    // connect to previous
+                    constraints.push(Constraint.create({
+                        bodyA: prev,
+                        pointA: { x: 0, y: -segmentLen / 2 }, // approximate attach point (for prev seg)
+                        bodyB: seg,
+                        pointB: { x: 0, y: segmentLen / 2 },
+                        length: 0,
+                        stiffness: (prev === root ? CONFIG.rootStiffness : CONFIG.stemStiffness),
+                        render: { strokeStyle: 'transparent' }
+                    }));
+
+                    prev = seg;
+                    currentY -= segmentLen;
+                }
+
+                // bloom at top
+                const topSeg = segments[segments.length - 1];
+                const bloom = Bodies.circle(topSeg.position.x, topSeg.position.y - segmentLen / 2 - bloomRadius, bloomRadius, {
+                    density: 0.0005, // a bit heavier than stem
+                    frictionAir: 0.02,
+                    render: {
+                        fillStyle: randomBloomColor(),
+                        strokeStyle: '#ffffff',
+                        lineWidth: 1
+                    }
+                });
+                // connect bloom to top segment end
+                constraints.push(Constraint.create({
+                    bodyA: topSeg,
+                    pointA: { x: 0, y: -segmentLen / 2 },
+                    bodyB: bloom,
+                    pointB: { x: 0, y: bloomRadius / 2 },
+                    length: 0,
+                    stiffness: CONFIG.stemStiffness,
+                    render: { strokeStyle: 'transparent' }
+                }));
+
+                const flowerComposite = Composite.create({ label: 'flower' });
+                Composite.add(flowerComposite, [root, bloom, ...segments, ...constraints]);
+                flowerComposite.plugin = { segments, bloom, root };
+                return flowerComposite;
+            }
+
+            // ---------- CREATE FLOWER FIELD ----------
+            const flowers = [];
+            for (let i = 0; i < CONFIG.flowerCount; i++) {
+                const x = ((i + 0.5) / CONFIG.flowerCount) * width + (Common.random(-10, 10));
+                const f = createFlower(x);
+                flowers.push(f);
+                World.add(engine.world, f);
+            }
+
+            // ---------- WIND FROM MOUSE ----------
+            let lastMouse = null;
+            let wind = Vector.create(0, 0);       // current wind force basis
+            let windTarget = Vector.create(0, 0); // new target based on last mouse move
+
+            function onMouseMove(ev) {
+                const now = performance.now();
+                if (lastMouse) {
+                    const dt = (now - lastMouse.t) || 16;
+                    const dx = ev.clientX - lastMouse.x;
+                    const dy = ev.clientY - lastMouse.y;
+                    const vx = dx / dt * 16; // normalize to ~60Hz step
+                    const vy = dy / dt * 16;
+
+                    // clamp
+                    const mag = Math.min(Math.sqrt(vx * vx + vy * vy), CONFIG.windMax);
+                    let dir = { x: vx, y: vy };
+                    if (mag > 0) {
+                        dir.x /= (Math.sqrt(vx * vx + vy * vy));
+                        dir.y /= (Math.sqrt(vx * vx + vy * vy));
+                    }
+
+                    // we treat wind mostly horizontal; mix in vertical a little
+                    windTarget = Vector.create(dir.x * mag, dir.y * mag * 0.3);
+                }
+                lastMouse = { x: ev.clientX, y: ev.clientY, t: performance.now() };
+            }
+            window.addEventListener('mousemove', onMouseMove);
+
+            // ---------- APPLY WIND EACH TICK ----------
+            Events.on(engine, 'beforeUpdate', function () {
+                // ease current wind toward target
+                wind.x = wind.x * CONFIG.windDecay + windTarget.x * (1 - CONFIG.windDecay);
+                wind.y = wind.y * CONFIG.windDecay + windTarget.y * (1 - CONFIG.windDecay);
+
+                // small ambient noise breeze (per tick)
+                const noise = {
+                    x: (Math.random() - 0.5) * CONFIG.noiseBreeze,
+                    y: (Math.random() - 0.5) * CONFIG.noiseBreeze
+                };
+
+                // scaled force vector (Matter.js forces are small)
+                const baseForce = {
+                    x: (wind.x * CONFIG.windScale) + noise.x * CONFIG.windScale * 1000,
+                    y: (wind.y * CONFIG.windScale) + noise.y * CONFIG.windScale * 1000
+                };
+
+                // apply to each flower's segments (stronger higher up)
+                flowers.forEach(f => {
+                    const segs = f.plugin.segments;
+                    const bloom = f.plugin.bloom;
+                    const n = segs.length;
+                    for (let i = 0; i < n; i++) {
+                        const seg = segs[i];
+                        const heightFactor = (i + 1) / n; // 0..1 bottom->top
+                        Body.applyForce(seg, seg.position, {
+                            x: baseForce.x * (1 + CONFIG.topWindMultiplier * heightFactor),
+                            y: baseForce.y * (1 + CONFIG.topWindMultiplier * heightFactor)
+                        });
+                    }
+                    // extra push on bloom (catch the wind)
+                    Body.applyForce(bloom, bloom.position, {
+                        x: baseForce.x * (1 + CONFIG.topWindMultiplier),
+                        y: baseForce.y * (1 + CONFIG.topWindMultiplier)
+                    });
+                });
+            });
+
+            // ---------- RESIZE ----------
+            window.addEventListener('resize', () => {
+                const w = window.innerWidth;
+                const h = window.innerHeight;
+                render.canvas.width = w;
+                render.canvas.height = h;
+                render.options.width = w;
+                render.options.height = h;
+                // NOTE: world bodies won't automatically reposition; refresh page if needed
+            });
+
+        })();
+    </script>
+</body>
+
+</html>

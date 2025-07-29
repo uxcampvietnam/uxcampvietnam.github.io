@@ -19,11 +19,10 @@
 
 	<!-- external script -->
 
-	<script src="script/script.js" defer></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-	<script src="../../script/matter-js-interaction.js" defer></script>
 	<script src="script/libs/svg-inject.min.js"></script>
+	<script src="../../script/matter-js-interaction.js" defer></script>
+	<script src="script/script.js" defer></script>
 
 	<!-- custom css -->
 
@@ -108,13 +107,14 @@
 					án bảo vệ từ hội đồng chuyên môn. Dưới đây là 6 thách thức phổ biến mà chúng tôi muốn giải quyết:
 				</p>
 
-				<div id="introductionMouse" class="crimsonpro20regular hide-content toggleMouse d-none d-md-flex">
-					<span> Xem nào! </span>
-					<span> Ok biết ời </span>
-				</div>
-				<div onmousemove="toggleMouseOver(event, 'introductionMouse')"
+
+				<div onmousemove="toggleMouseOver(this, event, 'introductionMouse')"
 					onmouseout="toggleMouseOut('introductionMouse')" onclick="toggleContent(this, 'introductionMouse')"
 					class="toggle-container hide-content row crimsonpro16regular">
+					<div id="introductionMouse" class="crimsonpro20regular hide-content toggleMouse d-none d-md-flex">
+						<span> Xem nào! </span>
+						<span> Ok biết ời </span>
+					</div>
 					<div class="accordion-el col-12 col-md-6">
 						<p class="accordion-title crimsonpro24regular">Thiếu tư duy sản phẩm</p>
 						<div class="panel">
@@ -235,17 +235,20 @@
 		<div class="row bootcamp-section" id="bootcamp-goal">
 			<h2 class="col-12">II. Mục tiêu bootcamp</h2>
 			<div class=" col-12 crimsonpro16regular bootcamp-section-content">
-				<div id="bootcampGoalMouse" class="crimsonpro20regular hide-content toggleMouse d-none d-md-flex">
-					<span> Xem nào! </span>
-					<span> Ok biết ời </span>
-				</div>
+
 
 				<h5>Chương trình được thiết kế nhằm trang bị cho người tham dự tư duy sản phẩm, kỹ năng ra quyết định
 					dựa trên dữ liệu và khả năng phối hợp hiệu quả trong đội ngũ đa chức năng - từ đó nâng cao năng lực
 					phát triển sản phẩm số một cách bài bản, linh hoạt và có thể mở rộng.</h5>
-				<div onmousemove="toggleMouseOver(event, 'bootcampGoalMouse')"
+				<div onmousemove="toggleMouseOver(this, event, 'bootcampGoalMouse')"
 					onmouseout="toggleMouseOut('bootcampGoalMouse')" onclick="toggleContent(this, 'bootcampGoalMouse')"
 					class="toggle-container hide-content row crimsonpro16regular">
+
+					<div id="bootcampGoalMouse" class="crimsonpro20regular hide-content toggleMouse d-none d-md-flex">
+						<span> Xem nào! </span>
+						<span> Ok biết ời </span>
+					</div>
+
 					<div class="accordion-el col-12">
 						<p class="accordion-title crimsonpro24regular">Product Discovery: Ra quyết định dựa trên insight
 						</p>
@@ -327,14 +330,17 @@
 		<div class="row bootcamp-section" id="syllabus">
 			<h2 class="col-12">IV. Giáo trình</h2>
 
-			<div class="container bootcamp-section-content">
-				<div id="syllabusMouse" class="crimsonpro20regular hide-content toggleMouse d-none d-md-flex">
-					<span> Expand </span>
-					<span> Collapse </span>
-				</div>
-				<div onmousemove="toggleMouseOver(event, 'syllabusMouse')" onmouseout="toggleMouseOut('syllabusMouse')"
-					onclick="toggleContent(this, 'syllabusMouse' )"
+			<div class="container bootcamp-section-content toggle-container">
+
+				<div onmousemove="toggleMouseOver(this, event, 'syllabusMouse')"
+					onmouseout="toggleMouseOut('syllabusMouse')" onclick="toggleContent(this, 'syllabusMouse' )"
 					class="row syllabus-container hide-content crimsonpro16regular">
+
+					<div id="syllabusMouse" class="crimsonpro20regular hide-content toggleMouse d-none d-md-flex">
+						<span> Expand </span>
+						<span> Collapse </span>
+					</div>
+
 					<div class="syllabus-section col-12 col-md-6 col-lg-4">
 						<div class="syllabus-module-header">
 							<h5>α. </h5>
@@ -1002,11 +1008,6 @@
 
 		<div class="row what-learners-say bootcamp-section" id="what-learners-say">
 			<h2 class="col-12">VII. Người tham dự nói gì?</h2>
-			<div id="feedbackDetailContainer" class="container align-item-center">
-				<div class="row col-12 justify-content-center align-item-center">
-					<div id="feedback-content" class="col-12 col-md-10 col-lg-8"></div>
-				</div>
-			</div>
 			<div class="col-12 crimsonpro16regular bootcamp-section-content">
 				<div class="feedback-list">
 				</div>
@@ -1163,6 +1164,13 @@
 		</div>
 	</div>
 
+
+	<!-- Feedback Detail Container ===================== -->
+	<div id="feedbackDetailContainer" class="container-fluid align-item-center">
+		<div class="row col-12 justify-content-center align-item-center">
+			<div id="feedback-content" class="col-12 col-md-10 col-lg-8"></div>
+		</div>
+	</div>
 </body>
 
-</html>˚
+</html>

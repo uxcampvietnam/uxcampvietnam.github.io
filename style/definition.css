@@ -524,6 +524,19 @@ hr {
   --highlight-yellow: #dca015;
   --highlight-magenta: #e523de;
 }
+@media (min-width: 768px) {
+
+	.accordion-el,
+	/* .accordion:nth-last-child(2) {
+		border-bottom: 0.5px solid var(--main-colors-foreground-f900);
+	} */
+
+	.table-of-content-item:last-child,
+	.table-of-content-item:nth-last-child(2),
+	.table-of-content-item:nth-last-child(3) {
+		border-bottom: 0.5px solid var(--main-colors-foreground-f900);
+	}
+}
 
 @media (prefers-color-scheme: dark) {
   :root {

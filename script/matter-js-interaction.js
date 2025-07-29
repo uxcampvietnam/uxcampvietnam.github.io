@@ -9,7 +9,6 @@ var centerX = container.getBoundingClientRect().width / 2;
 var centerY = container.getBoundingClientRect().height / 2;
 var randomFallingImg = 0;
 
-
 const {
     Engine,
     Render,
@@ -78,12 +77,13 @@ if (window.innerWidth < 500) {
 // if desktop size
 else {
     numberOfFallingImg = 110;
-    scaleFactor = 0.4;
+    scaleFactor = 0.6;
     InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
 }
 
 function createImageBody(x, y, image) {
-    return Bodies.rectangle(x, y, image.width * scaleFactor, image.height * scaleFactor, {
+    var randomScale = 0.5 + Math.random() * 0.5;
+    return Bodies.rectangle(x, y, image.width * scaleFactor * randomScale, image.height * scaleFactor * randomScale, {
         url: 'test',
         title: 'test',
         imgtype: 'bootcamp-cover',
@@ -95,8 +95,8 @@ function createImageBody(x, y, image) {
         render: {
             sprite: {
                 texture: image.url,
-                xScale: scaleFactor,
-                yScale: scaleFactor
+                xScale: scaleFactor * randomScale,
+                yScale: scaleFactor * randomScale
             }
         }
     });
@@ -104,1329 +104,223 @@ function createImageBody(x, y, image) {
 
 // =============================================================================================
 
-
-function getRandomImages(arr, count) {
-    // Create a shallow copy of the array to avoid modifying the original
-    const shuffled = [...arr];
-    const result = [];
-    let i = arr.length;
-    let randomIndex;
-
-    // Ensure the count does not exceed the array's length
-    const actualCount = Math.min(count, arr.length);
-
-    // While there are elements to shuffle and we haven't reached the desired count
-    while (actualCount > 0 && i > 0) {
-        // Pick a remaining element...
-        randomIndex = Math.floor(Math.random() * i--);
-
-        // Add it to the result array
-        result.push(shuffled[randomIndex]);
-
-        // Swap it with the current element to ensure it's not picked again
-        [shuffled[randomIndex], shuffled[i]] = [shuffled[i], shuffled[randomIndex]];
-
-        // Decrement the count of items needed
-        if (result.length === actualCount) {
-            break; // Stop once we have enough items
-        }
-    }
-
-    return result;
-}
-
 const imageGraduationUrls = [
-    'asset/image/graduation/1.png',
-    'asset/image/graduation/2.png',
-    'asset/image/graduation/3.png',
-    'asset/image/graduation/4.png',
-    'asset/image/graduation/5.png',
-    'asset/image/graduation/6.png',
-    'asset/image/graduation/7.png',
-    'asset/image/graduation/8.png',
-    'asset/image/graduation/9.png',
-    'asset/image/graduation/10.png',
-    'asset/image/graduation/11.png',
-    'asset/image/graduation/12.png',
-    'asset/image/graduation/13.png',
-    'asset/image/graduation/14.png',
-    'asset/image/graduation/15.png',
-    'asset/image/graduation/16.png',
-    'asset/image/graduation/17.png',
-    'asset/image/graduation/18.png',
-    'asset/image/graduation/19.png',
-    'asset/image/graduation/20.png',
-    'asset/image/graduation/21.png',
-    'asset/image/graduation/22.png',
-    'asset/image/graduation/23.png',
-    'asset/image/graduation/24.png',
-    'asset/image/graduation/25.png',
-    'asset/image/graduation/26.png',
-    'asset/image/graduation/27.png',
-    'asset/image/graduation/28.png',
-    'asset/image/graduation/29.png',
-    'asset/image/graduation/30.png',
-    'asset/image/graduation/31.png',
-    'asset/image/graduation/32.png',
-    'asset/image/graduation/33.png',
-    'asset/image/graduation/34.png',
-    'asset/image/graduation/35.png',
-    'asset/image/graduation/36.png',
-    'asset/image/graduation/37.png',
-    'asset/image/graduation/38.png',
-    'asset/image/graduation/39.png',
-    'asset/image/graduation/40.png',
-    'asset/image/graduation/41.png',
-    'asset/image/graduation/42.png',
-    'asset/image/graduation/43.png',
-    'asset/image/graduation/44.png',
-    'asset/image/graduation/45.png',
-    'asset/image/graduation/46.png',
-    'asset/image/graduation/47.png',
-    'asset/image/graduation/48.png',
-    'asset/image/graduation/49.png',
-    'asset/image/graduation/50.png',
-    'asset/image/graduation/51.png',
-    'asset/image/graduation/52.png',
-    'asset/image/graduation/53.png',
-    'asset/image/graduation/54.png',
-    'asset/image/graduation/55.png',
-    'asset/image/graduation/56.png',
-    'asset/image/graduation/57.png',
-    'asset/image/graduation/58.png',
-    'asset/image/graduation/59.png',
-    'asset/image/graduation/60.png',
-    'asset/image/graduation/61.png',
-    'asset/image/graduation/62.png',
-    'asset/image/graduation/63.png',
-    'asset/image/graduation/64.png',
-    'asset/image/graduation/65.png',
-    'asset/image/graduation/66.png',
-    'asset/image/graduation/67.png',
-    'asset/image/graduation/68.png',
-    'asset/image/graduation/69.png',
-    'asset/image/graduation/70.png',
-    'asset/image/graduation/71.png',
-    'asset/image/graduation/72.png',
-    'asset/image/graduation/73.png',
-    'asset/image/graduation/74.png',
-    'asset/image/graduation/75.png',
-    'asset/image/graduation/76.png',
-    'asset/image/graduation/77.png',
-    'asset/image/graduation/78.png',
-    'asset/image/graduation/79.png',
-    'asset/image/graduation/80.png',
-    'asset/image/graduation/81.png',
-    'asset/image/graduation/82.png',
-    'asset/image/graduation/83.png',
-    'asset/image/graduation/84.png',
-    'asset/image/graduation/85.png',
-    'asset/image/graduation/86.png',
-    'asset/image/graduation/87.png',
-    'asset/image/graduation/88.png',
-    'asset/image/graduation/89.png',
-    'asset/image/graduation/90.png',
-    'asset/image/graduation/91.png',
-    'asset/image/graduation/92.png',
-    'asset/image/graduation/93.png',
-    'asset/image/graduation/94.png',
-    'asset/image/graduation/95.png',
-    'asset/image/graduation/96.png',
-    'asset/image/graduation/97.png',
-    'asset/image/graduation/98.png',
-    'asset/image/graduation/99.png',
-    'asset/image/graduation/100.png',
-    'asset/image/graduation/101.png',
-    'asset/image/graduation/102.png',
-    'asset/image/graduation/103.png',
-    'asset/image/graduation/104.png',
-    'asset/image/graduation/105.png',
-    'asset/image/graduation/106.png',
-    'asset/image/graduation/107.png',
-    'asset/image/graduation/108.png',
-    'asset/image/graduation/109.png',
-    'asset/image/graduation/110.png',
-    'asset/image/graduation/111.png',
-    'asset/image/graduation/112.png'
+    'asset/image/graduation/1.webp',
+    'asset/image/graduation/2.webp',
+    'asset/image/graduation/3.webp',
+    'asset/image/graduation/4.webp',
+    'asset/image/graduation/5.webp',
+    'asset/image/graduation/6.webp',
+    'asset/image/graduation/7.webp',
+    'asset/image/graduation/8.webp',
+    'asset/image/graduation/9.webp',
+    'asset/image/graduation/10.webp',
+    'asset/image/graduation/11.webp',
+    'asset/image/graduation/12.webp',
+    'asset/image/graduation/13.webp',
+    'asset/image/graduation/14.webp',
+    'asset/image/graduation/15.webp',
+    'asset/image/graduation/16.webp',
+    'asset/image/graduation/17.webp',
+    'asset/image/graduation/18.webp',
+    'asset/image/graduation/19.webp',
+    'asset/image/graduation/20.webp',
+    'asset/image/graduation/21.webp',
+    'asset/image/graduation/22.webp',
+    'asset/image/graduation/23.webp',
+    'asset/image/graduation/24.webp',
+    'asset/image/graduation/25.webp',
+    'asset/image/graduation/26.webp',
+    'asset/image/graduation/27.webp',
+    'asset/image/graduation/28.webp',
+    'asset/image/graduation/29.webp',
+    'asset/image/graduation/30.webp',
+    'asset/image/graduation/31.webp',
+    'asset/image/graduation/32.webp',
+    'asset/image/graduation/33.webp',
+    'asset/image/graduation/34.webp',
+    'asset/image/graduation/35.webp',
+    'asset/image/graduation/36.webp',
+    'asset/image/graduation/37.webp',
+    'asset/image/graduation/38.webp',
+    'asset/image/graduation/39.webp',
+    'asset/image/graduation/40.webp',
+    'asset/image/graduation/41.webp',
+    'asset/image/graduation/42.webp',
+    'asset/image/graduation/43.webp',
+    'asset/image/graduation/44.webp',
+    'asset/image/graduation/45.webp',
+    'asset/image/graduation/46.webp',
+    'asset/image/graduation/47.webp',
+    'asset/image/graduation/48.webp',
+    'asset/image/graduation/49.webp',
+    'asset/image/graduation/50.webp',
+    'asset/image/graduation/51.webp',
+    'asset/image/graduation/52.webp',
+    'asset/image/graduation/53.webp',
+    'asset/image/graduation/54.webp',
+    'asset/image/graduation/55.webp',
+    'asset/image/graduation/56.webp',
+    'asset/image/graduation/57.webp',
+    'asset/image/graduation/58.webp',
+    'asset/image/graduation/59.webp',
+    'asset/image/graduation/60.webp',
+    'asset/image/graduation/61.webp',
+    'asset/image/graduation/62.webp',
+    'asset/image/graduation/63.webp',
+    'asset/image/graduation/64.webp',
+    'asset/image/graduation/65.webp',
+    'asset/image/graduation/66.webp',
+    'asset/image/graduation/67.webp',
+    'asset/image/graduation/68.webp',
+    'asset/image/graduation/69.webp',
+    'asset/image/graduation/70.webp',
+    'asset/image/graduation/71.webp',
+    'asset/image/graduation/72.webp',
+    'asset/image/graduation/73.webp',
+    'asset/image/graduation/74.webp',
+    'asset/image/graduation/75.webp',
+    'asset/image/graduation/76.webp',
+    'asset/image/graduation/77.webp',
+    'asset/image/graduation/78.webp',
+    'asset/image/graduation/79.webp',
+    'asset/image/graduation/80.webp',
+    'asset/image/graduation/81.webp',
+    'asset/image/graduation/82.webp',
+    'asset/image/graduation/83.webp',
+    'asset/image/graduation/84.webp',
+    'asset/image/graduation/85.webp',
+    'asset/image/graduation/86.webp',
+    'asset/image/graduation/87.webp',
+    'asset/image/graduation/88.webp',
+    'asset/image/graduation/89.webp',
+    'asset/image/graduation/90.webp',
+    'asset/image/graduation/91.webp',
+    'asset/image/graduation/92.webp',
+    'asset/image/graduation/93.webp',
+    'asset/image/graduation/94.webp',
+    'asset/image/graduation/95.webp',
+    'asset/image/graduation/96.webp',
+    'asset/image/graduation/97.webp',
+    // 'asset/image/graduation/98.webp',
+    // 'asset/image/graduation/99.webp',
+    // 'asset/image/graduation/100.webp',
+    // 'asset/image/graduation/101.webp',
+    // 'asset/image/graduation/102.webp',
+    // 'asset/image/graduation/103.webp',
+    // 'asset/image/graduation/104.webp',
+    // 'asset/image/graduation/105.webp',
+    // 'asset/image/graduation/106.webp',
+    // 'asset/image/graduation/107.webp',
+    // 'asset/image/graduation/108.webp',
+    // 'asset/image/graduation/109.webp',
+    // 'asset/image/graduation/110.webp',
+    // 'asset/image/graduation/111.webp',
+    // 'asset/image/graduation/112.webp'
 ];
 
 const imageBootcampUrls = [
-    'asset/image/bootcamp-img/bootcamp-1.png',
-    'asset/image/bootcamp-img/bootcamp-2.png',
-    'asset/image/bootcamp-img/bootcamp-3.png',
-    'asset/image/bootcamp-img/bootcamp-4.png',
-    'asset/image/bootcamp-img/bootcamp-5.png',
-    'asset/image/bootcamp-img/bootcamp-6.png',
-    'asset/image/bootcamp-img/bootcamp-7.png',
-    'asset/image/bootcamp-img/bootcamp-8.png',
-    'asset/image/bootcamp-img/bootcamp-9.png',
-    'asset/image/bootcamp-img/bootcamp-10.png',
-    'asset/image/bootcamp-img/bootcamp-11.png',
-    'asset/image/bootcamp-img/bootcamp-12.png'
+    'asset/image/bootcamp-img/bootcamp-1.webp',
+    'asset/image/bootcamp-img/bootcamp-2.webp',
+    'asset/image/bootcamp-img/bootcamp-3.webp',
+    'asset/image/bootcamp-img/bootcamp-4.webp',
+    'asset/image/bootcamp-img/bootcamp-5.webp',
+    'asset/image/bootcamp-img/bootcamp-6.webp',
+    'asset/image/bootcamp-img/bootcamp-7.webp',
+    'asset/image/bootcamp-img/bootcamp-8.webp',
+    'asset/image/bootcamp-img/bootcamp-9.webp',
+    'asset/image/bootcamp-img/bootcamp-10.webp',
+    'asset/image/bootcamp-img/bootcamp-11.webp',
+    'asset/image/bootcamp-img/bootcamp-12.webp'
 ];
 
 const imageParticipantUrls = [
-    "asset/image/participant/aDat.png",
-    "asset/image/participant/CongHiep.png",
-    "asset/image/participant/DoanNgocThach.png",
-    "asset/image/participant/DoHuongQuynh.png",
-    "asset/image/participant/DucHai.png",
-    "asset/image/participant/DucHanh.png",
-    "asset/image/participant/HaiAnh.png",
-    "asset/image/participant/HaiBac.png",
-    "asset/image/participant/HaiLong.png",
-    "asset/image/participant/HoangDam.png",
-    "asset/image/participant/HoangNhung.png",
-    "asset/image/participant/HongDam.png",
-    "asset/image/participant/HungPham.png",
-    "asset/image/participant/Huong.png",
-    "asset/image/participant/HuyenThuong.png",
-    "asset/image/participant/IvyHua.png",
-    "asset/image/participant/KimChi.png",
-    "asset/image/participant/Lan.png",
-    "asset/image/participant/LanNguyen.png",
-    "asset/image/participant/LeBach.png",
-    "asset/image/participant/MinhGiang.png",
-    "asset/image/participant/MinhLe.png",
-    "asset/image/participant/MinhQuan.png",
-    "asset/image/participant/ThanhHa.png",
-    "asset/image/participant/Nam.png",
-    "asset/image/participant/Ngan.png",
-    "asset/image/participant/NgocXuyen.png",
-    "asset/image/participant/NguyenDuyDat.png",
-    "asset/image/participant/NguyenNgocTu.png",
-    "asset/image/participant/NguyenPhanLinhChi.png",
-    "asset/image/participant/NguyenPhuongHa.png",
-    "asset/image/participant/NguyenTienThanh.png",
-    "asset/image/participant/NguyenTrungThanh.png",
-    "asset/image/participant/Nhung.png",
-    "asset/image/participant/Phuong.png",
-    "asset/image/participant/PhuongMai.png",
-    "asset/image/participant/Quynh.png",
-    "asset/image/participant/SonTruongGiang.png",
-    "asset/image/participant/TamMinh.png",
-    "asset/image/participant/TaQuangDat.png",
-    "asset/image/participant/ThanhLuan.png",
-    "asset/image/participant/Thao.png",
-    "asset/image/participant/TheHai.png",
-    "asset/image/participant/Thinh.png",
-    "asset/image/participant/Thu.png",
-    "asset/image/participant/ThuHa.png",
-    "asset/image/participant/ThuongHuyen.png",
-    "asset/image/participant/ThuyTien.png",
-    "asset/image/participant/Tram.png",
-    "asset/image/participant/TramAnh.png",
-    "asset/image/participant/TrangTran.png",
-    "asset/image/participant/TranHanh.png",
-    "asset/image/participant/TranKhanhLinh.png",
-    "asset/image/participant/TruongThuHuong.png",
-    "asset/image/participant/VietHa.png",
-    "asset/image/participant/VuCaoCuong.png",
-    "asset/image/participant/VuHaiAnh.png",
-    "asset/image/participant/XuanAnh.png"
+    "asset/image/participant/aDat.webp",
+    "asset/image/participant/CongHiep.webp",
+    "asset/image/participant/DoanNgocThach.webp",
+    "asset/image/participant/DoHuongQuynh.webp",
+    "asset/image/participant/DucHai.webp",
+    "asset/image/participant/DucHanh.webp",
+    "asset/image/participant/HaiAnh.webp",
+    "asset/image/participant/HaiBac.webp",
+    "asset/image/participant/HaiLong.webp",
+    "asset/image/participant/HoangDam.webp",
+    "asset/image/participant/HoangNhung.webp",
+    "asset/image/participant/HongDam.webp",
+    "asset/image/participant/HungPham.webp",
+    "asset/image/participant/Huong.webp",
+    "asset/image/participant/HuyenThuong.webp",
+    "asset/image/participant/IvyHua.webp",
+    "asset/image/participant/KimChi.webp",
+    "asset/image/participant/Lan.webp",
+    "asset/image/participant/LanNguyen.webp",
+    "asset/image/participant/LeBach.webp",
+    "asset/image/participant/MinhGiang.webp",
+    "asset/image/participant/MinhLe.webp",
+    "asset/image/participant/MinhQuan.webp",
+    "asset/image/participant/ThanhHa.webp",
+    "asset/image/participant/Nam.webp",
+    "asset/image/participant/Ngan.webp",
+    "asset/image/participant/NgocXuyen.webp",
+    "asset/image/participant/NguyenDuyDat.webp",
+    "asset/image/participant/NguyenNgocTu.webp",
+    "asset/image/participant/NguyenPhanLinhChi.webp",
+    "asset/image/participant/NguyenPhuongHa.webp",
+    "asset/image/participant/NguyenTienThanh.webp",
+    "asset/image/participant/NguyenTrungThanh.webp",
+    "asset/image/participant/Nhung.webp",
+    "asset/image/participant/Phuong.webp",
+    "asset/image/participant/PhuongMai.webp",
+    "asset/image/participant/Quynh.webp",
+    "asset/image/participant/SonTruongGiang.webp",
+    "asset/image/participant/TamMinh.webp",
+    "asset/image/participant/TaQuangDat.webp",
+    "asset/image/participant/ThanhLuan.webp",
+    "asset/image/participant/Thao.webp",
+    "asset/image/participant/TheHai.webp",
+    "asset/image/participant/Thinh.webp",
+    "asset/image/participant/Thu.webp",
+    "asset/image/participant/ThuHa.webp",
+    "asset/image/participant/ThuongHuyen.webp",
+    "asset/image/participant/ThuyTien.webp",
+    "asset/image/participant/Tram.webp",
+    "asset/image/participant/TramAnh.webp",
+    "asset/image/participant/TrangTran.webp",
+    "asset/image/participant/TranHanh.webp",
+    "asset/image/participant/TranKhanhLinh.webp",
+    "asset/image/participant/TruongThuHuong.webp",
+    "asset/image/participant/VietHa.webp",
+    "asset/image/participant/VuCaoCuong.webp",
+    "asset/image/participant/VuHaiAnh.webp",
+    "asset/image/participant/XuanAnh.webp"
 ];
 
-var imageUrlsWithDimension = [
-    {
-        "url": "asset/image/graduation/1.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/2.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/3.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/4.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/5.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/6.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/7.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/8.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/9.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/10.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/11.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/12.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/13.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/14.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/15.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/16.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/17.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/18.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/19.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/20.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/21.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/22.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/23.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/24.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/25.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/26.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/27.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/28.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/29.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/30.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/31.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/32.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/33.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/34.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/35.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/36.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/37.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/38.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/39.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/40.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/41.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/42.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/43.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/44.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/45.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/46.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/47.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/48.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/49.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/50.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/51.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/52.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/53.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/54.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/55.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/56.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/57.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/58.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/59.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/60.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/61.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/62.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/63.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/64.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/65.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/66.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/67.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/68.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/69.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/70.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/71.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/72.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/73.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/74.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/75.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/76.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/77.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/78.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/79.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/80.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/81.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/82.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/83.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/84.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/85.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/86.png",
-        "width": 301,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/87.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/88.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/89.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/90.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/91.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/92.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/93.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/94.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/95.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/96.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/97.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/98.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/99.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/100.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/101.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/102.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/103.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/104.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/105.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/106.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/107.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/108.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/109.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/110.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/111.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/graduation/112.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/aDat.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/CongHiep.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/DoanNgocThach.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/DoHuongQuynh.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/DucHai.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/DucHanh.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/HaiAnh.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/HaiBac.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/HaiLong.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/HoangDam.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/HoangNhung.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/HongDam.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/HungPham.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/Huong.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/HuyenThuong.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/IvyHua.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/KimChi.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/Lan.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/LanNguyen.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/LeBach.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/MinhGiang.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/MinhLe.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/MinhQuan.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/ThanhHa.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/Nam.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/Ngan.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/NgocXuyen.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/NguyenDuyDat.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/NguyenNgocTu.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/NguyenPhanLinhChi.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/NguyenPhuongHa.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/NguyenTienThanh.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/NguyenTrungThanh.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/Nhung.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/Phuong.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/PhuongMai.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/Quynh.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/SonTruongGiang.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/TamMinh.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/TaQuangDat.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/ThanhLuan.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/Thao.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/TheHai.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/Thinh.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/Thu.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/ThuHa.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/ThuongHuyen.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/ThuyTien.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/Tram.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/TramAnh.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/TrangTran.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/TranHanh.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/TranKhanhLinh.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/TruongThuHuong.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/VietHa.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/VuCaoCuong.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/VuHaiAnh.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/participant/XuanAnh.png",
-        "width": 300,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/bootcamp-img/bootcamp-1.png",
-        "width": 405,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/bootcamp-img/bootcamp-2.png",
-        "width": 405,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/bootcamp-img/bootcamp-3.png",
-        "width": 405,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/bootcamp-img/bootcamp-4.png",
-        "width": 405,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/bootcamp-img/bootcamp-5.png",
-        "width": 405,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/bootcamp-img/bootcamp-6.png",
-        "width": 405,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/bootcamp-img/bootcamp-7.png",
-        "width": 405,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/bootcamp-img/bootcamp-8.png",
-        "width": 405,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/bootcamp-img/bootcamp-9.png",
-        "width": 405,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/bootcamp-img/bootcamp-10.png",
-        "width": 405,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/bootcamp-img/bootcamp-11.png",
-        "width": 405,
-        "height": 300,
-        "shape": "rect"
-    },
-    {
-        "url": "asset/image/bootcamp-img/bootcamp-12.png",
-        "width": 405,
-        "height": 300,
-        "shape": "rect"
-    }
-];
-
-
+var imageUrlsWithDimension = [];
 
 // =============================================================================================
 
 // Đoạn code chạy để lấy kích thước width height của ảnh.
-const imageUrls = imageGraduationUrls.concat(imageParticipantUrls).concat(imageBootcampUrls);
+const imageUrls = shuffle(imageGraduationUrls.concat(imageParticipantUrls));
+
+function shuffle(array) {
+    var copy = [], n = array.length, i;
+
+    // While there remain elements to shuffle…
+    while (n) {
+
+        // Pick a remaining element…
+        i = Math.floor(Math.random() * array.length);
+
+        // If not already shuffled, move it to the new array.
+        if (i in array) {
+            copy.push(array[i]);
+            delete array[i];
+            n--;
+        }
+    }
+
+    return copy;
+}
 
 async function loadImagesInfo(urls) {
     const promises = urls.map(url => {
@@ -1447,7 +341,7 @@ async function loadImagesInfo(urls) {
                     height: img.height,
                     shape: 'rect'
                 }
-
+                imageUrlsWithDimension[imageUrlsWithDimension.length] = testing;
                 // Ảnh sau khi load xong được đẩy vào fallingImg
                 if (fallingImgCount < numberOfFallingImg) {
                     const x = width / 2;
@@ -1472,7 +366,7 @@ async function loadImagesInfo(urls) {
 
 loadImagesInfo(imageUrls).then(imageInfos => {
     // imageUrlsWithDimension = imageInfos;
-    console.log(imageInfos);
+    // console.log(imageInfos);
 });
 
 // =============================================================================================
@@ -1571,12 +465,19 @@ var speed = 0.00003; // radians per ms
 
 // Create image elements
 for (let i = 0; i < imageGraduationUrls.length; i++) {
+
     const img = document.createElement('img');
     img.src = imageGraduationUrls[i];
     img.className = 'flyer';
-    container.appendChild(img);
+
+    const flyerContainer = document.createElement('div');
+    flyerContainer.className = 'flyer-container';
+    flyerContainer.style.backgroundImage = `url("${imageGraduationUrls[i]}")`;
+    
+    // flyerContainer.appendChild(img);
+    container.appendChild(flyerContainer);
     graduationImgEls.push({
-        el: img,
+        el: flyerContainer,
         angle: (i / imageGraduationUrls.length) * 2 * Math.PI // spread evenly
     });
 }
@@ -1590,7 +491,9 @@ function animate(time) {
         const percentageY = 2 * (mouseY - (container.getBoundingClientRect().top + container.getBoundingClientRect().height / 2)) / window.innerHeight;
 
         var distance = Math.sqrt(percentageX * percentageX + percentageY * percentageY);
-        speed = 0.002 * percentageX / 2 + 0.00003;
+        speed = 0.0007 * percentageX / 2 + 0.00003;
+
+        // speed = 0;
 
         // Position on oval
         const x = centerX + InfiniteLoadingWidth * Math.sin(img.angle);
@@ -1602,8 +505,8 @@ function animate(time) {
 
         const scale = smallestSize + largestSize * (Math.abs(relativeX));
 
-        img.el.style.transform = `translate(${x-50}px, ${y-50}px) scale(${scale})`;
-        // img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle)}px, ${y}px) scale(${scale})`;
+        img.el.style.transform = `translate(${x - 50}px, ${y - 50}px) scale(${scale})`;
+        // img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y - 50}px) scale(${scale})`;
 
 
     });

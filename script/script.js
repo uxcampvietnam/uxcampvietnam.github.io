@@ -9,59 +9,88 @@ for (i = 0; i < acc.length; i++) {
 var bootcamp_list, feedback_list, syllabus_01;
 
 
-$.get('script/feedback.csv', function (csvText) {
-    feedback_list = parseCSVToObjects(csvText, 'listing', '1');
-    // bạn có thể render ra DOM ở đây
-    var feedback_list_Els = document.querySelectorAll(".feedback-list");
-    for (var i = 0; i < feedback_list_Els.length; i++) {
-        var feedback_list_innerHTML = `<div class="feedback-horizontal-scroll">`;
+fetch('script/feedback.csv')
+    .then(response => response.text())
+    .then(csvText => {
+        feedback_list = parseCSVToObjects(csvText, 'listing', '1');
+        const feedback_list_Els = document.querySelectorAll(".feedback-list");
 
-        for (var j = 0; j < feedback_list.length; j++) {
-            feedback_list_innerHTML += `
-            <div onclick="showFeedback(${feedback_list[j].feedback_id})" onmousemove="showFeedbackImg(this, event)"
-					onmouseout="hideFeedbackImg(this, event)" data-feedback-id = "${feedback_list[j].feedback_id}" data-feedback-participant-name = "${feedback_list[j].name}" data-feedback-participant-title = "${feedback_list[j].title}" class="feedback-item" >
-                <img class="feedback-thumbnail" src="../asset/image/participant/${feedback_list[j].img}">
-                <div class="feedback-item-content">
-                    <span class="crimsonpro38regular participant-name"><i>${feedback_list[j].name} </i></span>
-                    <div class = "caption">
-                        <span class="crimsonpro14regular participant-title">${feedback_list[j].title}</span>
-                        ${feedback_list[j].company != '-' ? '<span class="crimsonpro14regular participant-company"> <i>' + feedback_list[j].company + '</i></span>' : ''}
+        for (let i = 0; i < feedback_list_Els.length; i++) {
+            let feedback_list_innerHTML = `<div class="feedback-horizontal-scroll">`;
+
+            for (let j = 0; j < feedback_list.length; j++) {
+                const item = feedback_list[j];
+
+                feedback_list_innerHTML += `
+          <div onclick="showFeedback(${item.feedback_id})"
+               onmousemove="showFeedbackImg(this, event)"
+               onmouseout="hideFeedbackImg(this, event)"
+               data-feedback-id="${item.feedback_id}"
+               data-feedback-participant-name="${item.name}"
+               data-feedback-participant-title="${item.title}"
+               class="feedback-item">
+            <img class="feedback-thumbnail" src="../asset/image/participant/${item.img}">
+            <div class="feedback-item-content">
+              <span class="crimsonpro38regular participant-name"><i>${item.name}</i></span>
+              <div class="caption">
+                <span class="crimsonpro14regular participant-title">${item.title}</span>
+                ${item.company !== '-' ? `<span class="crimsonpro14regular participant-company"><i>${item.company}</i></span>` : ''}
+              </div>
+            </div>
+          </div>`;
+            }
+
+            feedback_list_innerHTML += `<div class="margin-right-for-feedback"></div></div>`;
+            feedback_list_Els[i].innerHTML += feedback_list_innerHTML;
+        }
+    })
+    .catch(error => {
+        console.error("Lỗi khi tải feedback CSV:", error);
+    });
+
+
+fetch('script/bootcamp_list.csv')
+    .then(response => response.text())
+    .then(csvText => {
+        bootcamp_list = parseCSVToObjects(csvText, 'listing', '1');
+
+        // showing bootcamp list
+        const bootcamp_list_Els = document.querySelectorAll(".bootcamp-list");
+
+        for (let i = 0; i < bootcamp_list_Els.length; i++) {
+            let bootcamp_innerHTML = `<div class="horizontal-scroll row flex-row flex-nowrap">`;
+
+            for (let j = 0; j < bootcamp_list.length; j++) {
+                const item = bootcamp_list[j];
+
+                bootcamp_innerHTML += `
+                <div ${item.is_open == 1 ? "onmousemove='openBootcampMouseOver(this, event)' onmouseout='openBootcampMouseOut(this, event)'" : ""} 
+                    class="bootcamp-item ${item.is_open == 1 ? "is_open" : "is_closed"}">
+                    <img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/${item.thumbnail}">
+                    <div class="bootcamp-item-content">
+                    <span class="crimsonpro30regular bootcamp-cohort-name">${item.bootcamp_name}</span>
+                    <span class="crimsonpro16regular bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online, toàn quốc"}</span>
+                    <span class="crimsonpro16regular bootcamp-start-date">${item.start_date}</span>
+                    <span class="crimsonpro16regular bootcamp-pricing">${item.pricing}</span>
+                    <span class="crimsonpro16regular bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Form đăng ký đã đóng"}</span>
                     </div>
-                </div>
-            </div>`;
+                    <button class="sign-up-now crimsonpro16regular">
+                    ${item.is_open == 1
+                        ? `Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>`
+                        : `<i>Ôi, mất lượt ờiii!</i>`
+                    }
+                    </button>
+                    <img class="opening-bootcamp-highlight" src="asset/icon/opening-bootcamp-highlight.svg">
+                </div>`;
+            }
+
+            bootcamp_innerHTML += `</div>`;
+            bootcamp_list_Els[i].innerHTML += bootcamp_innerHTML;
         }
-        feedback_list_innerHTML += `<div class= "margin-right-for-feedback"></div></div>`;
-
-        feedback_list_Els[i].innerHTML += feedback_list_innerHTML;
-    }
-});
-
-$.get('script/bootcamp_list.csv', function (csvText) {
-    bootcamp_list = parseCSVToObjects(csvText, 'listing', '1');
-    // showing bootcamp list
-    var bootcamp_list_Els = document.querySelectorAll(".bootcamp-list");
-    for (var i = 0; i < bootcamp_list_Els.length; i++) {
-        var bootcamp_innerHTML = `<div class="horizontal-scroll row flex-row flex-nowrap">`;
-
-        for (var j = 0; j < bootcamp_list.length; j++) {
-            bootcamp_innerHTML += `
-            <div ${bootcamp_list[j].is_open == 1 ? "onmousemove='openBootcampMouseOver(this, event)' onmouseout='openBootcampMouseOut(this, event)'" : ""}  class="bootcamp-item ${bootcamp_list[j].is_open == 1 ? "is_open" : "is_closed"} ">
-                <img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/${bootcamp_list[j].thumbnail}">
-                <div class="bootcamp-item-content">
-                    <span class="crimsonpro30regular bootcamp-cohort-name">${bootcamp_list[j].bootcamp_name}</span>
-                    <span class="crimsonpro16regular bootcamp-online-offline">${bootcamp_list[j].offline == 1 ? "Offline, " + bootcamp_list[j].location : "Online, toàn quốc"}</span>
-                    <span class="crimsonpro16regular bootcamp-start-date">${bootcamp_list[j].start_date}</span>
-                    <span class="crimsonpro16regular bootcamp-pricing">${bootcamp_list[j].pricing}</span>
-                    <span class="crimsonpro16regular bootcamp-is-open">${bootcamp_list[j].is_open == 1 ? "Đang mở đăng ký" : "Form đăng ký đã đóng"} </span>
-                </div>
-                <button class="sign-up-now crimsonpro16regular">${bootcamp_list[j].is_open == 1 ? "Đặt chỗ ngay <img src = 'asset/icon/arrow-right.svg' onload='SVGInject(this)' >" : "<i>Ôi, mất lượt ờiii!</i>"}</button>
-                <img class="opening-bootcamp-highlight" src = "asset/icon/opening-bootcamp-highlight.svg">
-            </div>`;
-        }
-        bootcamp_innerHTML += `</div>`;
-        bootcamp_list_Els[i].innerHTML += bootcamp_innerHTML;
-    }
-});
+    })
+    .catch(error => {
+        console.error("Lỗi khi tải CSV:", error);
+    });
 
 
 function parseCSVToObjects(csvText, filterColumn, filterValue) {
@@ -121,7 +150,7 @@ function parseCSVToObjects(csvText, filterColumn, filterValue) {
 
 
 function getFeedbackById(feedbackId) {
-    return feedback_list.find(feedback => feedback.feedback_id === String(feedbackId)) || null;
+    return feedback_list.find(feedback => feedback.feedback_id == String(feedbackId)) || null;
 }
 
 
@@ -150,7 +179,7 @@ function openBootcampMouseOver(el, event) {
 }
 
 function openBootcampMouseOut(el, event) {
-    console.log("mouse out");
+    // console.log("mouse out");
     el.style.top = 0 + "px";
     el.style.left = 0 + "px";
     el.style.transition = "top 5s ease-out, left 0.5s ease-out";
@@ -174,17 +203,18 @@ function toggleContent(element, mouseID) {
 }
 
 
-function toggleMouseOver(event, mouseID) {
+function toggleMouseOver(element, event, mouseID) {
     var mouse = document.getElementById(mouseID);
+    var bbox_rect = element.getBoundingClientRect();
     mouse.style.width = "180px";
     mouse.style.height = "80px";
     mouse.style.opacity = "1";
 
-    const mouseX = event.clientX;
-    const mouseY = event.clientY;
-
-    mouse.style.left = mouseX - mouse.getBoundingClientRect().width / 2 + "px";
-    mouse.style.top = mouseY - mouse.getBoundingClientRect().height / 2 + "px";
+    var mouseX = event.clientX;
+    var mouseY = event.clientY;
+        
+    mouse.style.left = mouseX - bbox_rect.left - mouse.getBoundingClientRect().width/2 + "px";
+    mouse.style.top = mouseY - bbox_rect.top - mouse.getBoundingClientRect().height/2 + "px";
 }
 
 function toggleMouseOut(mouseID) {

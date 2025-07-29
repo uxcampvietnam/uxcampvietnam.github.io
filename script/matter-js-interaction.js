@@ -70,8 +70,8 @@ World.add(world, [
 
 // Define scale factor, number of falling img
 if (window.innerWidth < 500) {
-    numberOfFallingImg = 40;
-    scaleFactor = 0.2;
+    numberOfFallingImg = 50;
+    scaleFactor = 0.35;
     InfiniteLoadingWidth = 550;
 }
 // if desktop size
@@ -505,7 +505,7 @@ function animate(time) {
 
         const scale = smallestSize + largestSize * (Math.abs(relativeX));
 
-        img.el.style.transform = `translate(${x - 50}px, ${y - 50}px) scale(${scale})`;
+        img.el.style.transform = `translate(${x - 75}px, ${y - 75}px) scale(${scale})`;
         // img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y - 50}px) scale(${scale})`;
 
 

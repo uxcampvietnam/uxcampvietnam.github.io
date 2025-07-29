@@ -491,7 +491,7 @@ tbody>tr:last-child {
 .toggle-container {
 	padding-top: 24px;
 	position: relative;
-	/* cursor: none; */
+	cursor: none;
 }
 
 .toggleMouse {

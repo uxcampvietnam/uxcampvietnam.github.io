@@ -1,6 +1,8 @@
 // variable definition
 // Flying image in Graduation project defense section
 const container = document.getElementById('flyingContainer');
+const container2 = document.getElementById('flyingContainer2');
+
 var numberOfFallingImg, fallingImgCount = 0;
 var scaleFactor = 0.4;
 var InfiniteLoadingWidth; // horizontal radius (x-axis)
@@ -9,100 +11,7 @@ var centerX = container.getBoundingClientRect().width / 2;
 var centerY = container.getBoundingClientRect().height / 2;
 var randomFallingImg = 0;
 
-const {
-    Engine,
-    Render,
-    Runner,
-    World,
-    Bodies,
-    Body,
-    Composite,
-    Mouse,
-    MouseConstraint,
-    Query
-} = Matter;
-const runner = Matter.Runner.create();
-
-const canvas = document.getElementById('interactiveImage');
-
-canvas.style.opacity = 1;
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const width = canvas.width;
-const height = canvas.height * 2;
-
-const engine = Engine.create();
-engine.world.gravity.y = -0.8;
-engine.world.gravity.x = 0;
-
-const world = engine.world;
-
-World.add(world, [
-
-    // Top --------
-    Bodies.rectangle(width / 2, 5, width, 1, {
-        isStatic: true,
-        render: {
-            fillStyle: 'transparent',
-            strokeStyle: 'transparent',
-            lineWidth: 0,
-        }
-    }),
-    // Left -------------------
-    Bodies.rectangle(5, height / 2, 1, height, {
-        isStatic: true,
-        render: {
-            fillStyle: 'transparent',
-            strokeStyle: 'transparent',
-            lineWidth: 0,
-        }
-    }),
-    // Right -------------------
-    Bodies.rectangle(width - 5, height / 2, 1, height, {
-        isStatic: true,
-        render: {
-            fillStyle: 'transparent',
-            strokeStyle: 'transparent',
-            lineWidth: 0,
-        }
-    })
-]);
-
-// Define scale factor, number of falling img
-if (window.innerWidth < 500) {
-    numberOfFallingImg = 50;
-    scaleFactor = 0.35;
-    InfiniteLoadingWidth = 550;
-}
-// if desktop size
-else {
-    numberOfFallingImg = 110;
-    scaleFactor = 0.6;
-    InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
-}
-
-function createImageBody(x, y, image) {
-    var randomScale = 0.5 + Math.random() * 0.5;
-    return Bodies.rectangle(x, y, image.width * scaleFactor * randomScale, image.height * scaleFactor * randomScale, {
-        url: 'test',
-        title: 'test',
-        imgtype: 'bootcamp-cover',
-        inertia: 10000000000,
-        restitution: 0.0000001,
-        friction: 0.4,
-        frictionAir: 0.01,
-        angle: 0.2 - Math.random() * 0.4, // slight tilt
-        render: {
-            sprite: {
-                texture: image.url,
-                xScale: scaleFactor * randomScale,
-                yScale: scaleFactor * randomScale
-            }
-        }
-    });
-}
-
-// =============================================================================================
+// Image List =============================================================================================
 
 const imageGraduationUrls = [
     'asset/image/graduation/1.webp',
@@ -295,12 +204,110 @@ const imageParticipantUrls = [
     "asset/image/participant/XuanAnh.webp"
 ];
 
+const imageUrls = shuffle(imageGraduationUrls.concat(imageParticipantUrls));
+
 var imageUrlsWithDimension = [];
 
 // =============================================================================================
 
 // Đoạn code chạy để lấy kích thước width height của ảnh.
-const imageUrls = shuffle(imageGraduationUrls.concat(imageParticipantUrls));
+
+const {
+    Engine,
+    Render,
+    Runner,
+    World,
+    Bodies,
+    Body,
+    Composite,
+    Mouse,
+    MouseConstraint,
+    Query
+} = Matter;
+const runner = Matter.Runner.create();
+
+const canvas = document.getElementById('interactiveImage');
+
+canvas.style.opacity = 1;
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+const width = canvas.width;
+const height = canvas.height * 2;
+
+const engine = Engine.create();
+engine.world.gravity.y = -0.3;
+engine.world.gravity.x = 0;
+
+const world = engine.world;
+
+World.add(world, [
+
+    // Top --------
+    Bodies.rectangle(width / 2, 5, width, 1, {
+        isStatic: true,
+        render: {
+            fillStyle: 'transparent',
+            strokeStyle: 'transparent',
+            lineWidth: 0,
+        }
+    }),
+    // Left -------------------
+    Bodies.rectangle(5, height / 2, 1, height, {
+        isStatic: true,
+        render: {
+            fillStyle: 'transparent',
+            strokeStyle: 'transparent',
+            lineWidth: 0,
+        }
+    }),
+    // Right -------------------
+    Bodies.rectangle(width - 5, height / 2, 1, height, {
+        isStatic: true,
+        render: {
+            fillStyle: 'transparent',
+            strokeStyle: 'transparent',
+            lineWidth: 0,
+        }
+    })
+]);
+
+// Define scale factor, number of falling img ================================================================
+if (window.innerWidth < 500) {
+    numberOfFallingImg = 70;
+    scaleFactor = 0.21;
+    // InfiniteLoadingWidth = 550;
+    InfiniteLoadingWidth = window.innerWidth / 2;
+    InfiniteLoadingHeight = 150;
+}
+// if desktop size
+else {
+    numberOfFallingImg = 110;
+    scaleFactor = 0.5;
+    InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
+}
+
+function createImageBody(x, y, image) {
+    var randomScale = 0.95 + Math.random() * (1 - scaleFactor);
+
+    return Bodies.rectangle(x, y, image.width * scaleFactor * randomScale, image.height * scaleFactor * randomScale, {
+        // url: 'test',
+        // title: 'test',
+        // imgtype: 'bootcamp-cover',
+        inertia: 0,
+        restitution: 0,
+        friction: 0.4,
+        frictionAir: 0.03,
+        angularVelocity: 1,
+        angle: 0.2 - Math.random() * 0.4, // slight tilt
+        render: {
+            sprite: {
+                texture: image.url,
+                xScale: scaleFactor * randomScale,
+                yScale: scaleFactor * randomScale
+            }
+        }
+    });
+}
 
 function shuffle(array) {
     var copy = [], n = array.length, i;
@@ -327,7 +334,7 @@ async function loadImagesInfo(urls) {
         return new Promise((resolve, reject) => {
             const img = new Image();
             img.onload = () => {
-                console.log("Image Loaded");
+                // console.log("Image Loaded");
                 resolve({
                     url: url,
                     width: img.width,
@@ -448,7 +455,8 @@ window.addEventListener('resize', () => {
 });
 
 function handleResizeEnd() {
-    // location.reload();
+    location.reload();
+    // Render.run(render);
     // window.innerWidth <= canvas.width ? console.log("cho nhỏ đi") : location.reload();
 }
 
@@ -457,11 +465,12 @@ function handleResizeEnd() {
 const smallestSize = 0.1;
 const largestSize = 0.5;
 const graduationImgEls = [];
+const graduationImgEls2 = [];
 
 var speed = 0.00003; // radians per ms
 
 
-// =======================================================================================
+// Animate 1 =======================================================================================
 
 // Create image elements
 for (let i = 0; i < imageGraduationUrls.length; i++) {
@@ -473,7 +482,7 @@ for (let i = 0; i < imageGraduationUrls.length; i++) {
     const flyerContainer = document.createElement('div');
     flyerContainer.className = 'flyer-container';
     flyerContainer.style.backgroundImage = `url("${imageGraduationUrls[i]}")`;
-    
+
     // flyerContainer.appendChild(img);
     container.appendChild(flyerContainer);
     graduationImgEls.push({
@@ -481,8 +490,6 @@ for (let i = 0; i < imageGraduationUrls.length; i++) {
         angle: (i / imageGraduationUrls.length) * 2 * Math.PI // spread evenly
     });
 }
-
-// Animate ===================================================================================
 
 function animate(time) {
     graduationImgEls.forEach(img => {
@@ -501,19 +508,63 @@ function animate(time) {
 
 
         const relativeX = Math.cos(img.angle); // -1 (left) to 1 (right)
-        // const scale = smallestSize + largestSize * (2.2 - Math.abs(distance)) * (1 - relativeX); // 0.5 to 1
 
+        // const scale = smallestSize + largestSize * (2.2 - Math.abs(distance)) * (1 - relativeX)/2; // 0.5 to 1
         const scale = smallestSize + largestSize * (Math.abs(relativeX));
 
         img.el.style.transform = `translate(${x - 75}px, ${y - 75}px) scale(${scale})`;
         // img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y - 50}px) scale(${scale})`;
 
-
     });
-
     requestAnimationFrame(animate);
 }
+
 requestAnimationFrame(animate);
+
+// Animate 2 ===================================================================================
+// Create image elements
+
+for (let i = 0; i < imageGraduationUrls.length; i++) {
+
+    const flyerContainer = document.createElement('div');
+    flyerContainer.className = 'flyer-container';
+    flyerContainer.style.backgroundImage = `url("${imageGraduationUrls[i]}")`;
+
+    // flyerContainer.appendChild(img);
+    container2.appendChild(flyerContainer);
+    graduationImgEls2.push({
+        el: flyerContainer,
+        angle: (i / imageGraduationUrls.length) * 2 * Math.PI // spread evenly
+    });
+}
+
+function animate2(time) {
+    graduationImgEls2.forEach(img => {
+        img.angle += 0.0001 * 16;
+
+        // Position on oval
+        const x = container2.getBoundingClientRect().width / 2 + container2.getBoundingClientRect().width * Math.sin(img.angle) / 1.5;
+        const y = container2.getBoundingClientRect().height / 2 + container2.getBoundingClientRect().height * Math.sin(img.angle) / 2.9;
+
+        var centerImgX = img.el.getBoundingClientRect().left + img.el.getBoundingClientRect().width / 2;
+        var centerImgY = img.el.getBoundingClientRect().top + img.el.getBoundingClientRect().height / 2;
+
+        var relativeImgX = Math.abs(mouseX - centerImgX);
+        var relativeImgY = Math.abs(mouseY - centerImgY);
+        var distance = Math.sqrt(relativeImgX * relativeImgX + relativeImgY * relativeImgY) / (Math.sqrt(flyingContainer2.getBoundingClientRect().height/2 * flyingContainer2.getBoundingClientRect().height/2 + flyingContainer2.getBoundingClientRect().width/2 * flyingContainer2.getBoundingClientRect().width/2));
+
+        var scale;
+        distance < 1 ? scale = 0.08 * (smoothGrowth(distance)) + 0.02: scale = 0.1; // 0.5 to 1
+
+
+        img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 60}px, ${y - 100}px) scale(${scale})`;
+    });
+    requestAnimationFrame(animate2);
+}
+requestAnimationFrame(animate2);
+
+
+// ===================================================================================
 
 document.getElementById("interactiveImage").onwheel = function (event) {
     // event.preventDefault();
@@ -527,4 +578,13 @@ var mouseX = 0, mouseY = 0;
 function getMousePositionOnScreen(e) {
     mouseX = e.x;
     mouseY = e.y;
+}
+
+
+function smoothGrowth(x) {
+    const k = 0.2; // độ dốc, càng lớn càng dốc ở giữa
+    const f = x => 1 / (1 + Math.exp(-k * (x - 0.5)));
+    const min = f(0);
+    const max = f(1);
+    return (f(x) - min) / (max - min);
 }

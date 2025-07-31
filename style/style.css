@@ -345,10 +345,10 @@ tbody>tr:last-child {
 .syllabus-section {
 	border-bottom: 0.5px solid var(--main-colors-background-b600);
 	/* border-left: 0.5px solid var(--main-colors-background-b600); */
-	padding: 32px 24px 16px 24px;
+	padding: var(--spacing-xl) var(--spacing-l) var(--spacing-s) var(--spacing-l);
 	flex-direction: column;
 	align-items: flex-start;
-	gap: 16px;
+	/* gap: var(--spacing-s); */
 	flex-shrink: 0;
 	display: flex;
 }
@@ -404,6 +404,7 @@ tbody>tr:last-child {
 #interactiveImage {
 	border: none;
 	outline: none;
+	/* background: var(--main-colors-background-b-300-main) !important; */
 	background: var(--main-colors-background-b-200-slide-bg) !important;
 	z-index: 100;
 	position: absolute;
@@ -416,16 +417,16 @@ tbody>tr:last-child {
 
 
 .designing-digital-product-per-stage-and-metric {
-	/* border: solid 1px red; */
-	background: var(--transparent-background---bg-color-40, rgba(251, 234, 213, 0.40));
+	background: var(--transparent-background-elevate-blur);
+	/* background: var(--transparent-background---bg-color-20, rgba(251, 234, 213, 0.40)); */
 	z-index: 10000;
 	display: flex;
 	position: relative;
 	gap: 56px;
 	flex-direction: column;
 	overflow-x: visible;
-	backdrop-filter: blur(20px);
-	padding: 32px;
+	backdrop-filter: blur(200px);
+	padding: var(--spacing-xl);
 	border-radius: 32px;
 }
 
@@ -434,7 +435,7 @@ tbody>tr:last-child {
 }
 
 .bootcamp-title-full .eye-logo {
-	height: 36px;
+	height: 24px;
 	width: auto;
 }
 
@@ -442,7 +443,7 @@ tbody>tr:last-child {
 	color: var(--main-colors-foreground-f300, #F1EEF1);
 	display: flex;
 	flex-direction: column;
-	gap: 16px;
+	gap: var(--spacing-s);
 }
 
 .row1 {
@@ -450,19 +451,9 @@ tbody>tr:last-child {
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
+	padding-bottom: var(--spacing-l);
 }
 
-.bootcamp-name {
-	font-family: "Crimson Pro";
-	font-size: 60px;
-	font-style: normal;
-	font-weight: 500;
-	line-height: 120%;
-	/* 72px */
-	letter-spacing: 0.72px;
-	mix-blend-mode: difference;
-
-}
 
 /* .bootcamp-title-full {
 	mix-blend-mode: difference;
@@ -520,11 +511,18 @@ tbody>tr:last-child {
 	cursor: pointer;
 }
 
+
 .bootcamp-section .accordion-title {
 	color: var(--main-colors-foreground-f100, #000) !important;
 	padding: 0px;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 0px !important;
 }
 
+.accordion-title span {
+	width: 100%;
+}
 
 /* Style the buttons that are used to open and close the accordion panel */
 .accordion-title {
@@ -541,12 +539,13 @@ tbody>tr:last-child {
 	transition: font-weight 0.4s ease;
 }
 
-.accordion-title .small-arrow {
-	width: 24px !important;
-	height: 24px !important;
+
+.small-arrow {
+	width: 24px;
+	height: 24px;
 }
 
-.small-arrow rect {
+.small-arrow path[fill] {
 	fill-opacity: 1;
 	fill: var(--transparent-foreground---main-color-30, rgba(55, 61, 72, 0.30));
 }
@@ -562,7 +561,8 @@ tbody>tr:last-child {
 	flex-direction: column;
 	gap: 0px;
 	transition: gap 0.5s ease-in-out,
-		padding-left 0.3s ease-in-out;
+		padding-left 0.3s ease-in-out,
+		padding-right 0.3s ease-in-out;
 }
 
 .accordion:hover {
@@ -588,7 +588,7 @@ tbody>tr:last-child {
 }
 
 .accordion-active .answer {
-	max-height: 500px;
+	max-height: 1000px;
 	opacity: 1;
 	/* margin-top: 12px; */
 }
@@ -677,30 +677,37 @@ a:visited {
 }
 
 #footer .bootcamp-section-content {
+	text-align: center;
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
-	margin: 20vh 0px;
+	justify-content: space-evenly;
+	/* margin: 20vh 0px; */
+	min-height: 100vh;
 }
 
 #footer .eye-logo {
-	width: 398px;
+	/* width: 398px;
+	height: auto; */
+	width: 84px;
 	height: auto;
+	margin-bottom: 32px;
 }
-
 
 #footer span {
 	color: var(--main-colors-foreground-f800);
 }
 
-
-.footer-img {
-	display: flex;
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-	margin-bottom: 10vh;
+.footer-row {
+	margin-bottom: 32px;
 }
+
+/* .footer-img {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 10000;
+} */
 
 
 svg path[fill="#0055FF"] {
@@ -710,6 +717,7 @@ svg path[fill="#0055FF"] {
 .bootcamp-section h2,
 .bootcamp-section h4,
 .bootcamp-section h5,
+.bootcamp-section h6,
 .bootcamp-section p,
 .bootcamp-section li {
 	color: var(--main-colors-foreground-f100);
@@ -730,13 +738,6 @@ ol>* {
 	padding-top: 4px;
 }
 
-
-/* .bootcamp-title-full {
-	pointer-events: none;
-	-webkit-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
-} */
 
 .organizer-member {
 	padding-bottom: 16px;
@@ -760,15 +761,12 @@ ol>* {
 }
 
 #what-learners-say .row {
-
 	padding-bottom: 16px;
 }
-
 
 .feedback-list {
 	padding-top: 60px;
 	overflow-x: auto;
-	/* background-color: crimson; */
 }
 
 .feedback-horizontal-scroll {
@@ -787,7 +785,7 @@ ol>* {
 #feedbackDetailContainer {
 	z-index: 100000000;
 	pointer-events: none;
-	opacity: 1;
+	opacity: 0;
 	width: 100%;
 	height: 100vh;
 	position: fixed;
@@ -803,6 +801,14 @@ ol>* {
 	backdrop-filter: blur(40px);
 }
 
+#close-feedback {
+	position: absolute;
+	right: 32px;
+	top: 32px;
+	pointer-events: all;
+	cursor: pointer;
+}
+
 #feedbackDetailContainer.show-feedback {
 	top: 0vh;
 	pointer-events: all;
@@ -816,7 +822,7 @@ ol>* {
 	background: var(--main-colors-background-elevate-1, #FFF7EB);
 	max-height: 90vh;
 	overflow-y: scroll;
-	padding: 32px 64px 64px 64px;
+	padding: var(--spacing-xl) var(--spacing-xxl) var(--spacing-xxl) var(--spacing-xxl);
 	max-width: 700px;
 }
 
@@ -835,9 +841,8 @@ ol>* {
 }
 
 .feedback-header img {
-	width: 75px;
+	width: 64px;
 }
-
 
 .feedback-item {
 	position: relative;
@@ -877,7 +882,7 @@ ol>* {
 
 .feedback-item .caption,
 .feedback-item-content .caption {
-	min-width: 120px;
+	/* min-width: 120px; */
 	/* background-color: #663470; */
 	display: flex;
 	flex-direction: column;
@@ -896,7 +901,7 @@ ol>* {
 .horizontal-scroll {
 	overflow-x: auto;
 	width: 120%;
-	padding: 16px 64px 16px 12px;
+	padding: 16px 64px 16px 8px;
 	box-sizing: border-box;
 	overflow-y: hidden;
 	white-space: nowrap;
@@ -998,7 +1003,6 @@ ol>* {
 	height: 500px;
 	width: 100%;
 	overflow-x: visible;
-	/* background-color: crimson; */
 }
 
 #flyingContainer {
@@ -1008,7 +1012,6 @@ ol>* {
 	width: 100%;
 	height: 100%;
 	overflow-x: visible;
-
 }
 
 .graduation-center-text {
@@ -1044,3 +1047,12 @@ ol>* {
 	width: 100%;
 	height: auto;
 }
+
+
+#flyingContainer2 {
+	width: 100%;
+	height: 500px;
+	position: relative;
+	/* background-color: cornflowerblue; */
+}
+

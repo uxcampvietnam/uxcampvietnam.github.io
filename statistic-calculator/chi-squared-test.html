@@ -21,8 +21,8 @@
     <div class="row">
       <div class="d-none d-md-block col-md-3 col-xl-2">
         <div class="statistical-test-menu">
-          <span class="crimsonpro14medium">Statistic Calculator</span>
-          <div class="links crimsonpro14regular">
+          <span class="caption medium">Statistic Calculator</span>
+          <div class="links caption">
             <a href="index.html">Introduction</a>
             <a href="sample-size-calculator.html">Sample Size Calculator</a>
             <a href="one-sample-t-test.html">One Sample t-Test</a>
@@ -41,9 +41,9 @@
         <div class="row">
           <div class="col-12 col-lg-8">
             <div class="chi-squared-test-container statistical-test-container-body">
-              <h2 class="crimsonpro38regular">Chi-squared Test</h2>
-              <div class="dataset crimsonpro14regular">
-                <div class="crimsonpro14regular table-size-input-container">
+              <h2 class="h2">Chi-squared Test</h2>
+              <div class="dataset caption">
+                <div class="caption table-size-input-container">
                   <span>
                     <label>Số hàng:</label>
                     <input style="width: 60px;" type="number" id="rows" value="2" min="2" class="single-input">
@@ -54,13 +54,13 @@
                     <button onclick="createTable()" class="cta-small ">Tạo bảng</button>
                   </span>
                 </div>
-                <div id="tableContainer" class="crimsonpro14regular">
+                <div id="tableContainer" class="caption">
                   <table id="dataTable" onpaste="pasteDataToTable()" cellspacing="0" cellpadding="0">
                   </table>
                 </div>
 
-                <div class="crimsonpro14regular" id="alpha">
-                  <label class="crimsonpro14regular">Mức ý nghĩa - α</label>
+                <div class="caption" id="alpha">
+                  <label class="caption">Mức ý nghĩa - α</label>
                   <span>
                     <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
                     <label for="alpha010">0.10</label>
@@ -75,12 +75,12 @@
                   </span>
                 </div>
               </div>
-              <button class="perform-statistic-test cta-large crimsonpro14medium"
+              <button class="perform-statistic-test cta-large caption medium"
                 onclick="calculateChiSquared()">Perform Chi-squared Test</button>
             </div>
           </div>
           <div class="col-12 col-lg-4">
-            <div id="result" class="crimsonpro14regular"></div>
+            <div id="result" class="caption"></div>
           </div>
         </div>
       </div>

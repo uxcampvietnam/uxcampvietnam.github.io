@@ -19,8 +19,8 @@
     <div class="row">
       <div class="d-none d-md-block col-md-3 col-xl-2">
         <div class="statistical-test-menu">
-          <span class="crimsonpro14medium">Statistic Calculator</span>
-          <div class="links crimsonpro14regular">
+          <span class="caption medium">Statistic Calculator</span>
+          <div class="links caption">
             <a href="index.html">Introduction</a>
             <a href="sample-size-calculator.html">Sample Size Calculator</a>
             <a href="one-sample-t-test.html">One Sample t-Test</a>
@@ -41,10 +41,10 @@
             <div class="two-sample-t-test-container statistical-test-container-body">
               <h2>Two Sample t-Test</h2>
 
-              <div class="dataset crimsonpro14regular">
+              <div class="dataset caption">
                 <div class="section">
                   <input class="single-input" type="text" id="group1Name" placeholder="Group A" value="Group A">
-                  <textarea class="crimsonpro14regular" id="group1Data"
+                  <textarea class="caption" id="group1Data"
                     placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
                 </div>
 
@@ -52,8 +52,8 @@
                   <input class="single-input" type="text" id="group2Name" placeholder="Group B" value="Group B">
                   <textarea id="group2Data" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
                 </div>
-                <div class="crimsonpro14regular input-row-container" id="alpha">
-                  <label class="crimsonpro14regular input-row-title">Mức ý nghĩa - α</label>
+                <div class="caption input-row-container" id="alpha">
+                  <label class="caption input-row-title">Mức ý nghĩa - α</label>
                   <span>
                     <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
                     <label for="alpha010">0.10</label>
@@ -68,8 +68,8 @@
                   </span>
                 </div>
 
-                <div class="crimsonpro14regular input-row-container" id="testType">
-                  <label class="crimsonpro14regular input-row-title">Loại kiểm định:</label>
+                <div class="caption input-row-container" id="testType">
+                  <label class="caption input-row-title">Loại kiểm định:</label>
                   <span>
                     <input type="radio" id="two-tailed" name="testType-selection" value="two-tailed" checked>
                     <label for="two-tailed">Hai phía (≠)</label>
@@ -85,15 +85,12 @@
                 </div>
               </div>
 
-
-
-
-              <button class="cta-large crimsonpro14medium" onclick="calculateTwoSampleTTest()">Perform Two Sample
+              <button class="cta-large caption medium" onclick="calculateTwoSampleTTest()">Perform Two Sample
                 t-Test</button>
             </div>
           </div>
           <div class="col-12 col-lg-4">
-            <div id="result" class="result crimsonpro14regular"></div>
+            <div id="result" class="result caption"></div>
           </div>
         </div>
       </div>

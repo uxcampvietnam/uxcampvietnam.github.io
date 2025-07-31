@@ -22,10 +22,10 @@ $.get('script/feedback.csv', function (csvText) {
 					onmouseout="hideFeedbackImg(this, event)" data-feedback-id = "${feedback_list[j].feedback_id}" data-feedback-participant-name = "${feedback_list[j].name}" data-feedback-participant-title = "${feedback_list[j].title}" class="feedback-item" >
                 <img class="feedback-thumbnail" src="../asset/image/participant/${feedback_list[j].img}">
                 <div class="feedback-item-content">
-                    <span class="crimsonpro38regular participant-name"><i>${feedback_list[j].name} </i></span>
+                    <span class="h2 participant-name"><i>${feedback_list[j].name} </i></span>
                     <div class = "caption">
-                        <span class="crimsonpro14regular participant-title">${feedback_list[j].title}</span>
-                        ${feedback_list[j].company != '-' ? '<span class="crimsonpro14regular participant-company"> <i>' + feedback_list[j].company + '</i></span>' : ''}
+                        <span class="caption participant-title">${feedback_list[j].title}</span>
+                        ${feedback_list[j].company != '-' ? '<span class="caption participant-company"> <i>' + feedback_list[j].company + '</i></span>' : ''}
                     </div>
                 </div>
             </div>`;
@@ -48,13 +48,13 @@ $.get('script/bootcamp_list.csv', function (csvText) {
             <div ${bootcamp_list[j].is_open == 1 ? "onmousemove='openBootcampMouseOver(this, event)' onmouseout='openBootcampMouseOut(this, event)'" : ""}  class="bootcamp-item ${bootcamp_list[j].is_open == 1 ? "is_open" : "is_closed"} ">
                 <img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/${bootcamp_list[j].thumbnail}">
                 <div class="bootcamp-item-content">
-                    <span class="crimsonpro30regular bootcamp-cohort-name">${bootcamp_list[j].bootcamp_name}</span>
-                    <span class="crimsonpro16regular bootcamp-online-offline">${bootcamp_list[j].offline == 1 ? "Offline, " + bootcamp_list[j].location : "Online, toàn quốc"}</span>
-                    <span class="crimsonpro16regular bootcamp-start-date">${bootcamp_list[j].start_date}</span>
-                    <span class="crimsonpro16regular bootcamp-pricing">${bootcamp_list[j].pricing}</span>
-                    <span class="crimsonpro16regular bootcamp-is-open">${bootcamp_list[j].is_open == 1 ? "Đang mở đăng ký" : "Form đăng ký đã đóng"} </span>
+                    <span class="h3 bootcamp-cohort-name">${bootcamp_list[j].bootcamp_name}</span>
+                    <span class="paragraph bootcamp-online-offline">${bootcamp_list[j].offline == 1 ? "Offline, " + bootcamp_list[j].location : "Online, toàn quốc"}</span>
+                    <span class="paragraph bootcamp-start-date">${bootcamp_list[j].start_date}</span>
+                    <span class="paragraph bootcamp-pricing">${bootcamp_list[j].pricing}</span>
+                    <span class="paragraph bootcamp-is-open">${bootcamp_list[j].is_open == 1 ? "Đang mở đăng ký" : "Form đăng ký đã đóng"} </span>
                 </div>
-                <button class="sign-up-now crimsonpro16regular">${bootcamp_list[j].is_open == 1 ? "Đặt chỗ ngay <img src = 'asset/icon/arrow-right.svg' onload='SVGInject(this)' >" : "<i>Ôi, mất lượt ờiii!</i>"}</button>
+                <button class="sign-up-now paragraph">${bootcamp_list[j].is_open == 1 ? "Đặt chỗ ngay <img src = 'asset/icon/arrow-right.svg' onload='SVGInject(this)' >" : "<i>Ôi, mất lượt ờiii!</i>"}</button>
                 <img class="opening-bootcamp-highlight" src = "asset/icon/opening-bootcamp-highlight.svg">
             </div>`;
         }
@@ -232,7 +232,7 @@ function showFeedback(feedbackId) {
 
     feedbackContentEl.innerHTML = ``;
     feedbackContentEl.innerHTML +=
-        `<div class ="feedback-header crimsonpro14regular">
+        `<div class ="feedback-header caption">
             <div class = "feedback-header-content">
                 <p><i>
                     ${feedback.bootcamp} <br> ${feedback.bootcamp_name}
@@ -240,14 +240,14 @@ function showFeedback(feedbackId) {
                 </div>
         <img src = '../asset/image/participant/${feedback.img}'>
     </div>`
-    feedbackContentEl.innerHTML += `<br><div class = "crimsonpro16regular"> ${feedback.feedback.replace(/\n/g, '<br>')} </div>`;
+    feedbackContentEl.innerHTML += `<br><div class = "paragraph"> ${feedback.feedback.replace(/\n/g, '<br>')} </div>`;
 
     feedbackContentEl.innerHTML += `<br>
         <div class="feedback-item-content">
-            <span class="crimsonpro38regular participant-name"><i>${feedback.name} </i></span>
+            <span class="h2 participant-name"><i>${feedback.name} </i></span>
             <div class = "caption">
-                <span class="crimsonpro14regular participant-title">${feedback.title}</span>
-                ${feedback.company != '-' ? '<span class="crimsonpro14regular participant-company"> <i>' + feedback.company + '</i></span>' : ''}
+                <span class="caption participant-title">${feedback.title}</span>
+                ${feedback.company != '-' ? '<span class="caption participant-company"> <i>' + feedback.company + '</i></span>' : ''}
             </div>
         </div>
 `

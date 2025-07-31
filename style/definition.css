@@ -1,5 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 
+.row {
+  margin-left: 0px;
+  margin-right: 0px;
+}
+
+.container-fluid {
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+}
+
+
 
 .italic {
   font-style: italic;
@@ -9,395 +22,130 @@
   text-decoration: underline;
 }
 
-.crimsonpro12extralight {
-  /* Crimson Pro/12/Extra-Light */
-  font-family: "Crimson Pro";
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 200;
-  line-height: 150%;
-  /* 18px */
-  letter-spacing: 0.144px;
+.extralight {
+  font-weight: 200 !important;
 }
 
-.crimsonpro12regular {
-  /* Crimson Pro/12/Regular */
-  font-family: "Crimson Pro";
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
-  /* 18px */
-  letter-spacing: 0.144px;
+.medium {
+  font-weight: 450 !important;
 }
 
-.crimsonpro12medium {
-  /* Crimson Pro/12/Medium */
-  font-family: "Crimson Pro";
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 150%;
-  /* 18px */
-  letter-spacing: 0.144px;
-}
-
-.crimsonpro12bold {
-  /* Crimson Pro/12/Bold */
-  font-family: "Crimson Pro";
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 150%;
-  /* 18px */
-  letter-spacing: 0.144px;
+.bold {
+  font-weight: 600 !important;
 }
 
 /* --------------------------- */
-
-.crimsonpro14extralight {
-  /* Crimson Pro/14 (Base)/Extra-Light */
+.x-small {
   font-family: "Crimson Pro";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 200;
-  line-height: 150%;
-  /* 21px */
-  letter-spacing: 0.168px;
+  font-size: var(--font-size-x-small);
+  font-weight: 300;
+  line-height: var(--font-line-height-x-small);
+  letter-spacing: var(--font-letter-spacing-x-small);
 }
 
-.crimsonpro14regular {
-  /* Crimson Pro/14 (Base)/Regular */
+.small {
   font-family: "Crimson Pro";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
-  /* 21px */
-  letter-spacing: 0.168px;
-  margin: 0px !important;
+  font-size: var(--font-size-small);
+  font-weight: 300;
+  line-height: var(--font-line-height-small);
+  letter-spacing: var(--font-letter-spacing-small);
 }
 
-.crimsonpro14medium {
-  /* Crimson Pro/14 (Base)/Medium */
+.caption {
   font-family: "Crimson Pro";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 150%;
-  /* 21px */
-  letter-spacing: 0.168px;
+  font-size: var(--font-size-caption);
+  font-weight: 300;
+  line-height: var(--font-line-height-caption);
+  letter-spacing: var(--font-letter-spacing-caption);
 }
 
-
-.crimsonpro14bold {
-  /* Crimson Pro/14 (Base)/Bold */
+.paragraph,
+p, li {
   font-family: "Crimson Pro";
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 150%;
-  /* 21px */
-  letter-spacing: 0.168px;
+  font-size: var(--font-size-paragraph);
+  font-weight: 300;
+  line-height: var(--font-line-height-paragraph);
+  letter-spacing: var(--font-letter-spacing-paragraph);
 }
 
-/* --------------------------- */
-
-.crimsonpro16extralight {
-  /* Crimson Pro/16/Extra-Light */
+h6,
+.h6 {
   font-family: "Crimson Pro";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 200;
-  line-height: 150%;
-  /* 24px */
-  letter-spacing: 0.192px;
+  font-size: var(--font-size-h6);
+  font-weight: 300;
+  line-height: var(--font-line-height-h6);
+  letter-spacing: var(--font-letter-spacing-h6);
 }
 
-.crimsonpro16regular,
-p {
-  /* Crimson Pro/16/Regular */
+h5,
+.h5 {
   font-family: "Crimson Pro";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 150%;
-  /* 24px */
-  letter-spacing: 0.192px;
-  margin: 0px !important;
+  font-size: var(--font-size-h5);
+  font-weight: 300;
+  line-height: var(--font-line-height-h5);
+  letter-spacing: var(--font-letter-spacing-h5);
 }
 
-.crimsonpro16medium {
-  /* Crimson Pro/16/Medium */
+h4,
+.h4 {
   font-family: "Crimson Pro";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 150%;
-  /* 24px */
-  letter-spacing: 0.192px;
+  font-size: var(--font-size-h4);
+  font-weight: 300;
+  line-height: var(--font-line-height-h4);
+  letter-spacing: var(--font-letter-spacing-h4);
 }
 
-.crimsonpro16bold {
-  /* Crimson Pro/16/Bold */
+.h3,
+.h3 {
   font-family: "Crimson Pro";
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 150%;
-  /* 24px */
-  letter-spacing: 0.192px;
+  font-size: var(--font-size-h3);
+  font-weight: 300;
+  line-height: var(--font-line-height-h3);
+  letter-spacing: var(--font-letter-spacing-h3);
 }
 
-
-/* --------------------------- */
-
-.crimsonpro20extralight {
-  /* Crimson Pro/20/Extra-Light */
+h2,
+.h2 {
   font-family: "Crimson Pro";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 200;
-  line-height: 120%;
-  /* 24px */
-  letter-spacing: 0.24px;
+  font-size: var(--font-size-h2);
+  font-weight: 300;
+  line-height: var(--font-line-height-h2);
+  letter-spacing: var(--font-letter-spacing-h2);
 }
 
-.crimsonpro20regular,
-h5 {
-  /* Crimson Pro/20/Regular */
+h1,
+.h1 {
   font-family: "Crimson Pro";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 120%;
-  /* 24px */
-  letter-spacing: 0.24px;
-  margin: 0px !important;
-
+  font-size: var(--font-size-h1);
+  font-weight: 300;
+  line-height: var(--font-line-height-h1);
+  letter-spacing: var(--font-letter-spacing-h1);
 }
 
-.crimsonpro20medium {
-  /* Crimson Pro/20/Medium */
+.title {
   font-family: "Crimson Pro";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 120%;
-  /* 24px */
-  letter-spacing: 0.24px;
+  font-size: var(--font-size-title);
+  font-weight: 300;
+  line-height: var(--font-line-height-title);
+  letter-spacing: var(--font-letter-spacing-title);
 }
 
-.crimsonpro20bold {
-  /* Crimson Pro/20/Bold */
+.xl-title {
   font-family: "Crimson Pro";
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 120%;
-  /* 24px */
-  letter-spacing: 0.24px;
+  font-size: var(--font-size-xl-title);
+  font-weight: 300;
+  line-height: var(--font-line-height-xl-title);
+  letter-spacing: var(--font-letter-spacing-xl-title);
 }
 
 /* --------------------------- */
-
-.crimsonpro24extralight {
-  /* Crimson Pro/24/Extra-Light */
-  font-family: "Crimson Pro";
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 200;
-  line-height: 120%;
-  /* 28.8px */
-  letter-spacing: 0.288px;
-}
-
-.crimsonpro24regular,
-h4 {
-  /* Crimson Pro/24/Regular */
-  font-family: "Crimson Pro";
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 120%;
-  /* 28.8px */
-  letter-spacing: 0.288px;
-}
-
-.crimsonpro24medium,
-h3 {
-  /* Crimson Pro/24/Medium */
-  font-family: "Crimson Pro";
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 120%;
-  /* 28.8px */
-  letter-spacing: 0.288px;
-  margin: 0px !important;
-}
-
-.crimsonpro24bold {
-  /* Crimson Pro/24/Bold */
-  font-family: "Crimson Pro";
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 120%;
-  /* 28.8px */
-  letter-spacing: 0.288px;
-}
-
-/* --------------------------- */
-
-.crimsonpro30extralight {
-  /* Crimson Pro/30/Extra-Light */
-  font-family: "Crimson Pro";
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 200;
-  line-height: 120%;
-  /* 36px */
-  letter-spacing: 0.36px;
-}
-
-.crimsonpro30regular {
-  /* Crimson Pro/30/Regular */
-  font-family: "Crimson Pro";
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 120%;
-  /* 36px */
-  letter-spacing: 0.36px;
-}
-
-.crimsonpro30medium {
-  /* Crimson Pro/30/Medium */
-  font-family: "Crimson Pro";
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 120%;
-  /* 36px */
-  letter-spacing: 0.36px;
-}
-
-.crimsonpro30bold {
-  /* Crimson Pro/30/Bold */
-  font-family: "Crimson Pro";
-  font-size: 30px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 120%;
-  /* 36px */
-  letter-spacing: 0.36px;
-}
-
-
-/* --------------------------- */
-
-.crimsonpro38extralight {
-  /* Crimson Pro/38/Extra-Light */
-  font-family: "Crimson Pro";
-  font-size: 38px;
-  font-style: normal;
-  font-weight: 200;
-  line-height: 120%;
-  /* 45.6px */
-  letter-spacing: 0.456px;
-}
-
-.crimsonpro38regular,
-h2 {
-  /* Crimson Pro/38/Regular */
-  font-family: "Crimson Pro";
-  font-size: 38px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 120%;
-  /* 45.6px */
-  letter-spacing: 0.456px;
-  margin: 0px !important;
-
-}
-
-.crimsonpro38medium {
-  /* Crimson Pro/38/Medium */
-  font-family: "Crimson Pro";
-  font-size: 38px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 120%;
-  /* 45.6px */
-  letter-spacing: 0.456px;
-}
-
-.crimsonpro38bold {
-  /* Crimson Pro/38/Bold */
-  font-family: "Crimson Pro";
-  font-size: 38px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 120%;
-  /* 45.6px */
-  letter-spacing: 0.456px;
-}
-
-/* --------------------------- */
-
-.crimsonpro48extralight {
-  /* Crimson Pro/48/Extra-Light */
-  font-family: "Crimson Pro";
-  font-size: 48px;
-  font-style: normal;
-  font-weight: 200;
-  line-height: 120%;
-  /* 57.6px */
-  letter-spacing: 0.576px;
-}
-
-.crimsonpro48regular {
-  /* Crimson Pro/48/Regular */
-  font-family: "Crimson Pro";
-  font-size: 48px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 120%;
-  /* 57.6px */
-  letter-spacing: 0.576px;
-}
-
-.crimsonpro48medium {
-  /* Crimson Pro/48/Medium */
-  font-family: "Crimson Pro";
-  font-size: 48px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 120%;
-  /* 57.6px */
-  letter-spacing: 0.576px;
-}
-
-.crimsonpro48bold {
-  /* Crimson Pro/48/Bold */
-  font-family: "Crimson Pro";
-  font-size: 48px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 120%;
-  /* 57.6px */
-  letter-spacing: 0.576px;
-}
-
-
 
 html,
 body {
   max-width: 100vw !important;
   overflow-x: hidden;
   overflow-y: scroll;
-
+  /* background: var(--main-colors-background-b-300-main, #020A18); */
   background: var(--main-colors-background-b-200-slide-bg);
 }
 
@@ -416,7 +164,6 @@ hr {
 
 /* Color variables for darkmode and lightmode ============================*/
 :root {
-
   /* fix colors */
   --fix-white---white-100: #ffffff;
   --fix-white---white-90: rgba(255, 255, 255, 0.9);
@@ -470,6 +217,7 @@ hr {
   --main-colors-background-b700: #8f8985;
   --main-colors-background-elevate-1: #fff7eb;
   --main-colors-background-elevate-2: #FFF9F1;
+  --transparent-background-elevate-blur: #fcf0e09d;
 
 
   /* transparent foreground */
@@ -524,18 +272,179 @@ hr {
   --highlight-yellow: #dca015;
   --highlight-magenta: #e523de;
 }
+
+/* Laptop size ======================= */
+@media (min-width: 1201px) {
+  :root {
+    --font-letter-spacing-xl-title: 0px;
+    --font-letter-spacing-title: 0.72px;
+    --font-letter-spacing-h1: 0.2px;
+    --font-letter-spacing-h2: 0.23px;
+    --font-letter-spacing-h3: 0.36px;
+    --font-letter-spacing-h4: 0.28px;
+    --font-letter-spacing-h5: 0.24px;
+    --font-letter-spacing-h6: 0.216px;
+    --font-letter-spacing-paragraph: 0.200px;
+    --font-letter-spacing-caption: 0.16px;
+    --font-letter-spacing-small: 0.200px;
+    --font-letter-spacing-x-small: 0.30px;
+
+
+    --font-line-height-xl-title: 115px;
+    --font-line-height-title: 68px;
+    --font-line-height-h1: 61px;
+    --font-line-height-h2: 57px;
+    --font-line-height-h3: 38px;
+    --font-line-height-h4: 31px;
+    --font-line-height-h5: 29px;
+    --font-line-height-h6: 27px;
+    --font-line-height-paragraph: 23px;
+    --font-line-height-caption: 21px;
+    --font-line-height-small: 18px;
+    --font-line-height-x-small: 16px;
+
+    --font-size-xl-title: 112px;
+    --font-size-title: 60px;
+    --font-size-h1: 48px;
+    --font-size-h2: 38px;
+    --font-size-h3: 30px;
+    --font-size-h4: 24px;
+    --font-size-h5: 20px;
+    --font-size-h6: 18px;
+    --font-size-paragraph: 17px;
+    --font-size-caption: 14px;
+    --font-size-small: 12px;
+    --font-size-x-small: 10px;
+
+    --spacing-xxl: 48px;
+    --spacing-xl: 32px;
+    --spacing-l: 24px;
+    --spacing-m: 20px;
+    --spacing-s: 16px;
+    --spacing-xs: 12px;
+    --spacing-xxs: 8px;
+  }
+}
+
+/* Tablet size ======================= */
+@media (min-width: 575px) and (max-width: 1200px) {
+  :root {
+    --font-letter-spacing-xl-title: 1.343px;
+    --font-letter-spacing-title: 0.72px;
+    --font-letter-spacing-h1: 0.575px;
+    --font-letter-spacing-h2: 0.45px;
+    --font-letter-spacing-h3: 0.20px;
+    --font-letter-spacing-h4: 0.20px;
+    --font-letter-spacing-h5: 0.12px;
+    --font-letter-spacing-h6: 0.10px;
+    --font-letter-spacing-paragraph: 0.30px;
+    --font-letter-spacing-caption: 0.5px;
+    --font-letter-spacing-small: 0.5px;
+    --font-letter-spacing-xsmall: 0.5px;
+
+    --font-line-height-xl-title: 62px;
+    --font-line-height-title: 52px;
+    --font-line-height-h1: 48px;
+    --font-line-height-h2: 42px;
+    --font-line-height-h3: 38px;
+    --font-line-height-h4: 34px;
+    --font-line-height-h5: 29px;
+    --font-line-height-h6: 27px;
+    --font-line-height-paragraph: 24px;
+    --font-line-height-caption: 22px;
+    --font-line-height-small: 19px;
+    --font-line-height-xsmall: 18px;
+
+
+    --font-size-xl-title: 60px;
+    --font-size-title: 48px;
+    --font-size-h1: 42px;
+    --font-size-h2: 36px;
+    --font-size-h3: 30px;
+    --font-size-h4: 26px;
+    --font-size-h5: 20px;
+    --font-size-h6: 18px;
+    --font-size-paragraph: 16px;
+    --font-size-caption: 14px;
+    --font-size-small: 12px;
+    --font-size-xsmall: 10px;
+
+    --spacing-xxl: 48px;
+    --spacing-xl: 32px;
+    --spacing-l: 24px;
+    --spacing-m: 20px;
+    --spacing-s: 16px;
+    --spacing-xs: 12px;
+    --spacing-xxs: 8px;
+  }
+}
+
+/* Mobile size ======================= */
+@media (max-width: 575px) {
+  :root {
+    --font-letter-spacing-xl-title: 0px;
+    --font-letter-spacing-title: 0.15px;
+    --font-letter-spacing-h1: -0.10px;
+    --font-letter-spacing-h2: 0.20px;
+    --font-letter-spacing-h3: 0.36px;
+    --font-letter-spacing-h4: 0.30px;
+    --font-letter-spacing-h5: 0.30px;
+    --font-letter-spacing-h6: 0.21px;
+    --font-letter-spacing-paragraph: 0.40px;
+    --font-letter-spacing-caption: 0.5px;
+    --font-letter-spacing-small: 0.5px;
+    --font-letter-spacing-xsmall: 0.5px;
+
+    --font-line-height-xl-title: 54px;
+    --font-line-height-title: 44px;
+    --font-line-height-h1: 40px;
+    --font-line-height-h2: 34px;
+    --font-line-height-h3: 31px;
+    --font-line-height-h4: 26px;
+    --font-line-height-h5: 26px;
+    --font-line-height-h6: 28px;
+    --font-line-height-paragraph: 20px;
+    --font-line-height-caption: 18px;
+    --font-line-height-small: 17px;
+    --font-line-height-xsmall: 16px;
+
+    --font-size-xl-title: 52px;
+    --font-size-title: 40px;
+    --font-size-h1: 36px;
+    --font-size-h2: 30px;
+    --font-size-h3: 24px;
+    --font-size-h4: 22px;
+    --font-size-h5: 20px;
+    --font-size-h6: 18px;
+    --font-size-paragraph: 16px;
+    --font-size-caption: 14px;
+    --font-size-small: 12px;
+    --font-size-xsmall: 10px;
+
+    --spacing-xxl: 20px;
+    --spacing-xl: 20px;
+    --spacing-l: 16px;
+    --spacing-m: 12px;
+    --spacing-s: 8px;
+    --spacing-xs: 4px;
+    --spacing-xxs: 2px;
+  }
+}
+
+/*  ======================= */
+
 @media (min-width: 768px) {
 
-	.accordion-el,
-	/* .accordion:nth-last-child(2) {
+  .accordion-el,
+  /* .accordion:nth-last-child(2) {
 		border-bottom: 0.5px solid var(--main-colors-foreground-f900);
 	} */
 
-	.table-of-content-item:last-child,
-	.table-of-content-item:nth-last-child(2),
-	.table-of-content-item:nth-last-child(3) {
-		border-bottom: 0.5px solid var(--main-colors-foreground-f900);
-	}
+  .table-of-content-item:last-child,
+  .table-of-content-item:nth-last-child(2),
+  .table-of-content-item:nth-last-child(3) {
+    border-bottom: 0.5px solid var(--main-colors-foreground-f900);
+  }
 }
 
 @media (prefers-color-scheme: dark) {
@@ -565,6 +474,7 @@ hr {
     --main-colors-background-b700: #636270;
     --main-colors-background-elevate-1: #061020;
     --main-colors-background-elevate-2: #0D192C;
+    --transparent-background-elevate-blur: #0104099d;
 
 
     /* transparent foreground */
@@ -622,7 +532,7 @@ hr {
 /* Custom scroll bar ============================*/
 /* width */
 ::-webkit-scrollbar {
-  width: 4px;
+  width: 0px;
   height: 4px;
   border-radius: 100px;
 }
@@ -641,6 +551,8 @@ hr {
 ::-webkit-scrollbar-thumb {
   background: var(--transparent-foreground---main-color-50);
   border-radius: 100px;
+  width: 32px;
+  height: 32px;
 }
 
 /* Handle on hover */

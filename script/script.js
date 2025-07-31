@@ -31,10 +31,10 @@ fetch('script/feedback.csv')
                class="feedback-item">
             <img class="feedback-thumbnail" src="../asset/image/participant/${item.img}">
             <div class="feedback-item-content">
-              <span class="crimsonpro38regular participant-name"><i>${item.name}</i></span>
+              <span class="h2 participant-name"><i>${item.name}</i></span>
               <div class="caption">
-                <span class="crimsonpro14regular participant-title">${item.title}</span>
-                ${item.company !== '-' ? `<span class="crimsonpro14regular participant-company"><i>${item.company}</i></span>` : ''}
+                <span class="caption participant-title">${item.title}</span>
+                ${item.company !== '-' ? `<span class="caption participant-company"><i>${item.company}</i></span>` : ''}
               </div>
             </div>
           </div>`;
@@ -68,13 +68,13 @@ fetch('script/bootcamp_list.csv')
                     class="bootcamp-item ${item.is_open == 1 ? "is_open" : "is_closed"}">
                     <img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/${item.thumbnail}">
                     <div class="bootcamp-item-content">
-                    <span class="crimsonpro30regular bootcamp-cohort-name">${item.bootcamp_name}</span>
-                    <span class="crimsonpro16regular bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online, toàn quốc"}</span>
-                    <span class="crimsonpro16regular bootcamp-start-date">${item.start_date}</span>
-                    <span class="crimsonpro16regular bootcamp-pricing">${item.pricing}</span>
-                    <span class="crimsonpro16regular bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Form đăng ký đã đóng"}</span>
+                    <span class="h3 bootcamp-cohort-name">${item.bootcamp_name}</span>
+                    <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online, toàn quốc"}</span>
+                    <span class="paragraph bootcamp-start-date">${item.start_date}</span>
+                    <span class="paragraph bootcamp-pricing">${item.pricing}</span>
+                    <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Form đăng ký đã đóng"}</span>
                     </div>
-                    <button class="sign-up-now crimsonpro16regular">
+                    <button class="sign-up-now paragraph">
                     ${item.is_open == 1
                         ? `Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>`
                         : `<i>Ôi, mất lượt ờiii!</i>`
@@ -212,9 +212,9 @@ function toggleMouseOver(element, event, mouseID) {
 
     var mouseX = event.clientX;
     var mouseY = event.clientY;
-        
-    mouse.style.left = mouseX - bbox_rect.left - mouse.getBoundingClientRect().width/2 + "px";
-    mouse.style.top = mouseY - bbox_rect.top - mouse.getBoundingClientRect().height/2 + "px";
+
+    mouse.style.left = mouseX - bbox_rect.left - mouse.getBoundingClientRect().width / 2 + "px";
+    mouse.style.top = mouseY - bbox_rect.top - mouse.getBoundingClientRect().height / 2 + "px";
 }
 
 function toggleMouseOut(mouseID) {
@@ -249,35 +249,35 @@ function hideFeedbackImg(element, event) {
 }
 
 var feedbackContentEl = document.getElementById('feedback-content');
+var closeFeedbackIcon = document.getElementById('close-feedback');
+
+function closeFeedback(){
+    feedbackDetailContainer.classList.remove('show-feedback');
+}
 
 function showFeedback(feedbackId) {
     var feedback = getFeedbackById(feedbackId);
     var feedbackDetailContainer = document.getElementById('feedbackDetailContainer');
-    feedbackDetailContainer.classList.toggle('show-feedback');
-
-    feedbackDetailContainer.onclick = () => {
-        feedbackDetailContainer.classList.toggle('show-feedback');
-    }
-
+    feedbackDetailContainer.classList.add('show-feedback');
 
     feedbackContentEl.innerHTML = ``;
     feedbackContentEl.innerHTML +=
-        `<div class ="feedback-header crimsonpro14regular">
+        `<div class ="feedback-header caption">
             <div class = "feedback-header-content">
-                <p><i>
+                <span><i>
                     ${feedback.bootcamp} <br> ${feedback.bootcamp_name}
-                </i></p>
+                </i></span>
                 </div>
         <img src = '../asset/image/participant/${feedback.img}'>
     </div>`
-    feedbackContentEl.innerHTML += `<br><div class = "crimsonpro16regular"> ${feedback.feedback.replace(/\n/g, '<br>')} </div>`;
+    feedbackContentEl.innerHTML += `<br><div class = "paragraph"> ${feedback.feedback.replace(/\n/g, '<br>')} </div>`;
 
     feedbackContentEl.innerHTML += `<br>
         <div class="feedback-item-content">
-            <span class="crimsonpro38regular participant-name"><i>${feedback.name} </i></span>
+            <span class="h2 participant-name"><i>${feedback.name} </i></span>
             <div class = "caption">
-                <span class="crimsonpro14regular participant-title">${feedback.title}</span>
-                ${feedback.company != '-' ? '<span class="crimsonpro14regular participant-company"> <i>' + feedback.company + '</i></span>' : ''}
+                <span class="caption participant-title">${feedback.title}</span>
+                ${feedback.company != '-' ? '<span class="caption participant-company"> <i>' + feedback.company + '</i></span>' : ''}
             </div>
         </div>
 `

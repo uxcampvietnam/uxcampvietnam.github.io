@@ -144,64 +144,64 @@ const imageBootcampUrls = [
 ];
 
 const imageParticipantUrls = [
-"asset/image/participant/adat.webp",
-"asset/image/participant/conghiep.webp",
-"asset/image/participant/doanngocthach.webp",
-"asset/image/participant/dohuongquynh.webp",
-"asset/image/participant/duchai.webp",
-"asset/image/participant/duchanh.webp",
-"asset/image/participant/haianh.webp",
-"asset/image/participant/haibac.webp",
-"asset/image/participant/hailong.webp",
-"asset/image/participant/hoangdam.webp",
-"asset/image/participant/hoangnhung.webp",
-"asset/image/participant/hongdam.webp",
-"asset/image/participant/hungpham.webp",
-"asset/image/participant/huong.webp",
-"asset/image/participant/huyenthuong.webp",
-"asset/image/participant/ivyhua.webp",
-"asset/image/participant/kimchi.webp",
-"asset/image/participant/lan.webp",
-"asset/image/participant/lannguyen.webp",
-"asset/image/participant/lebach.webp",
-"asset/image/participant/minhgiang.webp",
-"asset/image/participant/minhle.webp",
-"asset/image/participant/minhquan.webp",
-"asset/image/participant/thanhha.webp",
-"asset/image/participant/nam.webp",
-"asset/image/participant/ngan.webp",
-"asset/image/participant/ngocxuyen.webp",
-"asset/image/participant/nguyenduydat.webp",
-"asset/image/participant/nguyenngoctu.webp",
-"asset/image/participant/nguyenphanlinhchi.webp",
-"asset/image/participant/nguyenphuongha.webp",
-"asset/image/participant/nguyentienthanh.webp",
-"asset/image/participant/nguyentrungthanh.webp",
-"asset/image/participant/nhung.webp",
-"asset/image/participant/phuong.webp",
-"asset/image/participant/phuongmai.webp",
-"asset/image/participant/quynh.webp",
-"asset/image/participant/sontruonggiang.webp",
-"asset/image/participant/tamminh.webp",
-"asset/image/participant/taquangdat.webp",
-"asset/image/participant/thanhluan.webp",
-"asset/image/participant/thao.webp",
-"asset/image/participant/thehai.webp",
-"asset/image/participant/thinh.webp",
-"asset/image/participant/thu.webp",
-"asset/image/participant/thuha.webp",
-"asset/image/participant/thuonghuyen.webp",
-"asset/image/participant/thuytien.webp",
-"asset/image/participant/tram.webp",
-"asset/image/participant/tramanh.webp",
-"asset/image/participant/trangtran.webp",
-"asset/image/participant/tranhanh.webp",
-"asset/image/participant/trankhanhlinh.webp",
-"asset/image/participant/truongthuhuong.webp",
-"asset/image/participant/vietha.webp",
-"asset/image/participant/vucaocuong.webp",
-"asset/image/participant/vuhaianh.webp",
-"asset/image/participant/xuananh.webp",];
+    'asset/image/participant/adat.webp',
+    'asset/image/participant/conghiep.webp',
+    'asset/image/participant/doanngocthach.webp',
+    'asset/image/participant/dohuongquynh.webp',
+    'asset/image/participant/duchai.webp',
+    'asset/image/participant/duchanh.webp',
+    'asset/image/participant/haianh.webp',
+    'asset/image/participant/haibac.webp',
+    'asset/image/participant/hailong.webp',
+    'asset/image/participant/hoangdam.webp',
+    'asset/image/participant/hoangnhung.webp',
+    'asset/image/participant/hongdam.webp',
+    'asset/image/participant/hungpham.webp',
+    'asset/image/participant/huong.webp',
+    'asset/image/participant/huyenthuong.webp',
+    'asset/image/participant/ivyhua.webp',
+    'asset/image/participant/kimchi.webp',
+    'asset/image/participant/lan.webp',
+    'asset/image/participant/lannguyen.webp',
+    'asset/image/participant/lebach.webp',
+    'asset/image/participant/minhgiang.webp',
+    'asset/image/participant/minhle.webp',
+    'asset/image/participant/minhquan.webp',
+    'asset/image/participant/thanhha.webp',
+    'asset/image/participant/nam.webp',
+    'asset/image/participant/ngan.webp',
+    'asset/image/participant/ngocxuyen.webp',
+    'asset/image/participant/nguyenduydat.webp',
+    'asset/image/participant/nguyenngoctu.webp',
+    'asset/image/participant/nguyenphanlinhchi.webp',
+    'asset/image/participant/nguyenphuongha.webp',
+    'asset/image/participant/nguyentienthanh.webp',
+    'asset/image/participant/nguyentrungthanh.webp',
+    'asset/image/participant/nhung.webp',
+    'asset/image/participant/phuong.webp',
+    'asset/image/participant/phuongmai.webp',
+    'asset/image/participant/quynh.webp',
+    'asset/image/participant/sontruonggiang.webp',
+    'asset/image/participant/tamminh.webp',
+    'asset/image/participant/taquangdat.webp',
+    'asset/image/participant/thanhluan.webp',
+    'asset/image/participant/thao.webp',
+    'asset/image/participant/thehai.webp',
+    'asset/image/participant/thinh.webp',
+    'asset/image/participant/thu.webp',
+    'asset/image/participant/thuha.webp',
+    'asset/image/participant/thuonghuyen.webp',
+    'asset/image/participant/thuytien.webp',
+    'asset/image/participant/tram.webp',
+    'asset/image/participant/tramanh.webp',
+    'asset/image/participant/trangtran.webp',
+    'asset/image/participant/tranhanh.webp',
+    'asset/image/participant/trankhanhlinh.webp',
+    'asset/image/participant/truongthuhuong.webp',
+    'asset/image/participant/vietha.webp',
+    'asset/image/participant/vucaocuong.webp',
+    'asset/image/participant/vuhaianh.webp',
+    'asset/image/participant/xuananh.webp',];
 
 const imageUrls = shuffle(imageGraduationUrls.concat(imageParticipantUrls));
 
@@ -436,8 +436,8 @@ render.canvas.addEventListener('mousedown', function (event) {
 });
 
 let resizeTimeout;
+var oldWidthScreenSize;
 window.addEventListener('resize', () => {
-
     InfiniteLoadingWidth = window.innerWidth * 0.8 / 2; // horizontal radius (x-axis)
     InfiniteLoadingHeight = container.getBoundingClientRect().height / 2 - 40; // vertical radius (y-axis)
     centerX = container.getBoundingClientRect().width / 2;
@@ -456,7 +456,10 @@ window.addEventListener('resize', () => {
 function handleResizeEnd() {
     // location.reload();
     // Render.run(render);
-    window.innerWidth <= canvas.width ? console.log("cho nhỏ đi") : location.reload();
+    if (oldWidthScreenSize < window.innerWidth) {
+        location.reload();
+    }
+    oldWidthScreenSize = window.innerWidth;
 }
 
 // Settings =======================================================================================
@@ -550,10 +553,10 @@ function animate2(time) {
 
         var relativeImgX = Math.abs(mouseX - centerImgX);
         var relativeImgY = Math.abs(mouseY - centerImgY);
-        var distance = Math.sqrt(relativeImgX * relativeImgX + relativeImgY * relativeImgY) / (Math.sqrt(flyingContainer2.getBoundingClientRect().height/2 * flyingContainer2.getBoundingClientRect().height/2 + flyingContainer2.getBoundingClientRect().width/2 * flyingContainer2.getBoundingClientRect().width/2));
+        var distance = Math.sqrt(relativeImgX * relativeImgX + relativeImgY * relativeImgY) / (Math.sqrt(flyingContainer2.getBoundingClientRect().height / 2 * flyingContainer2.getBoundingClientRect().height / 2 + flyingContainer2.getBoundingClientRect().width / 2 * flyingContainer2.getBoundingClientRect().width / 2));
 
         var scale;
-        distance < 1 ? scale = 0.08 * (smoothGrowth(distance)) + 0.02: scale = 0.1; // 0.5 to 1
+        distance < 1 ? scale = 0.08 * (smoothGrowth(distance)) + 0.02 : scale = 0.1; // 0.5 to 1
 
 
         img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 60}px, ${y - 100}px) scale(${scale})`;
@@ -561,7 +564,6 @@ function animate2(time) {
     requestAnimationFrame(animate2);
 }
 requestAnimationFrame(animate2);
-
 
 // ===================================================================================
 

@@ -455,9 +455,9 @@ window.addEventListener('resize', () => {
 });
 
 function handleResizeEnd() {
-    location.reload();
+    // location.reload();
     // Render.run(render);
-    // window.innerWidth <= canvas.width ? console.log("cho nhỏ đi") : location.reload();
+    window.innerWidth <= canvas.width ? console.log("cho nhỏ đi") : location.reload();
 }
 
 // Settings =======================================================================================

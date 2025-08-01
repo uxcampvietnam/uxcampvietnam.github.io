@@ -251,7 +251,7 @@ function hideFeedbackImg(element, event) {
 var feedbackContentEl = document.getElementById('feedback-content');
 var closeFeedbackIcon = document.getElementById('close-feedback');
 
-function closeFeedback(){
+function closeFeedback() {
     feedbackDetailContainer.classList.remove('show-feedback');
 }
 
@@ -282,3 +282,31 @@ function showFeedback(feedbackId) {
         </div>
 `
 }
+
+
+window.onload = function () {
+    setTimeout(() => {
+        ScrollTrigger.create({
+            trigger: "#flyingContainer",
+            start: "top bottom",
+            end: "bottom top",
+            // markers: true,
+            onEnter: () => startAnimation1(),
+            onEnterBack: () => startAnimation1(),
+            onLeave: () => stopAnimation1(),
+            onLeaveBack: () => stopAnimation1()
+        });
+
+        ScrollTrigger.create({
+            trigger: "#flyingContainer2",
+            start: "top bottom",
+            end: "bottom top",
+            // markers: true,
+            onEnter: () => startAnimation2(),
+            onEnterBack: () => startAnimation2(),
+            onLeave: () => stopAnimation2(),
+            onLeaveBack: () => stopAnimation2(),
+        });
+    }, 50);
+
+};

@@ -10,6 +10,25 @@ var InfiniteLoadingHeight = container.getBoundingClientRect().height / 2 - 40; /
 var centerX = container.getBoundingClientRect().width / 2;
 var centerY = container.getBoundingClientRect().height / 2;
 var randomFallingImg = 0;
+const canvas = document.getElementById('interactiveImage');
+
+canvas.style.opacity = 1;
+var worldTopBorder, worldLeftBorder, worldRightBorder;
+
+// Define scale factor, number of falling img ================================================================
+if (window.innerWidth < 500) {
+    numberOfFallingImg = 40;
+    scaleFactor = 0.22;
+    // InfiniteLoadingWidth = 550;
+    InfiniteLoadingWidth = window.innerWidth / 2;
+    InfiniteLoadingHeight = 150;
+}
+// if desktop size
+else {
+    numberOfFallingImg = 150;
+    scaleFactor = 0.45;
+    InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
+}
 
 // Image List =============================================================================================
 
@@ -201,15 +220,12 @@ const imageParticipantUrls = [
     'asset/image/participant/vietha.webp',
     'asset/image/participant/vucaocuong.webp',
     'asset/image/participant/vuhaianh.webp',
-    'asset/image/participant/xuananh.webp',];
+    'asset/image/participant/xuananh.webp'
+];
 
 const imageUrls = shuffle(imageGraduationUrls.concat(imageParticipantUrls));
 
 var imageUrlsWithDimension = [];
-
-// =============================================================================================
-
-// Đoạn code chạy để lấy kích thước width height của ảnh.
 
 const {
     Engine,
@@ -224,71 +240,48 @@ const {
     Query
 } = Matter;
 const runner = Matter.Runner.create();
-
-const canvas = document.getElementById('interactiveImage');
-
-canvas.style.opacity = 1;
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-const width = canvas.width;
-const height = canvas.height * 2;
-
 const engine = Engine.create();
 engine.world.gravity.y = -0.3;
 engine.world.gravity.x = 0;
-
+var width, height
 const world = engine.world;
 
-World.add(world, [
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+width = canvas.width;
+height = canvas.height * 2;
 
-    // Top --------
-    Bodies.rectangle(width / 2, 5, width, 1, {
-        isStatic: true,
-        render: {
-            fillStyle: 'transparent',
-            strokeStyle: 'transparent',
-            lineWidth: 0,
-        }
-    }),
-    // Left -------------------
-    Bodies.rectangle(5, height / 2, 1, height, {
-        isStatic: true,
-        render: {
-            fillStyle: 'transparent',
-            strokeStyle: 'transparent',
-            lineWidth: 0,
-        }
-    }),
-    // Right -------------------
-    Bodies.rectangle(width - 5, height / 2, 1, height, {
-        isStatic: true,
-        render: {
-            fillStyle: 'transparent',
-            strokeStyle: 'transparent',
-            lineWidth: 0,
-        }
-    })
-]);
+worldTopBorder = Bodies.rectangle(width / 2, 5, width, 1, {
+    isStatic: true,
+    render: {
+        fillStyle: 'transparent',
+        strokeStyle: 'transparent',
+        lineWidth: 0,
+    }
+});
+worldLeftBorder = Bodies.rectangle(5, height / 2, 1, height, {
+    isStatic: true,
+    render: {
+        fillStyle: 'transparent',
+        strokeStyle: 'transparent',
+        lineWidth: 0,
+    }
+});
+worldRightBorder = Bodies.rectangle(width - 5, height / 2, 1, height, {
+    isStatic: true,
+    render: {
+        fillStyle: 'transparent',
+        strokeStyle: 'transparent',
+        lineWidth: 0,
+    }
+});
+World.add(world, [worldTopBorder, worldLeftBorder, worldRightBorder]);
 
-// Define scale factor, number of falling img ================================================================
-if (window.innerWidth < 500) {
-    numberOfFallingImg = 70;
-    scaleFactor = 0.21;
-    // InfiniteLoadingWidth = 550;
-    InfiniteLoadingWidth = window.innerWidth / 2;
-    InfiniteLoadingHeight = 150;
-}
-// if desktop size
-else {
-    numberOfFallingImg = 110;
-    scaleFactor = 0.5;
-    InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
-}
 
 function createImageBody(x, y, image) {
     var randomScale = 0.95 + Math.random() * (1 - scaleFactor);
 
-    return Bodies.rectangle(x, y, image.width * scaleFactor * randomScale, image.height * scaleFactor * randomScale, {
+    return Bodies.rectangle(x, y, image.width * scaleFactor * randomScale + 10, image.height * scaleFactor * randomScale + 10, {
         // url: 'test',
         // title: 'test',
         // imgtype: 'bootcamp-cover',
@@ -328,6 +321,7 @@ function shuffle(array) {
     return copy;
 }
 
+// Lấy kích thước width height của ảnh. ========================
 async function loadImagesInfo(urls) {
     const promises = urls.map(url => {
         return new Promise((resolve, reject) => {
@@ -394,7 +388,6 @@ Runner.run(Runner.create(), engine);
 const ctx = canvas.getContext("2d");
 ctx.imageSmoothingEnabled = true;
 
-
 const mouse = Matter.Mouse.create(render.canvas);
 mouse.pixelRatio = window.devicePixelRatio;  // <- this is the fix
 
@@ -435,6 +428,7 @@ render.canvas.addEventListener('mousedown', function (event) {
     }
 });
 
+
 let resizeTimeout;
 var oldWidthScreenSize;
 window.addEventListener('resize', () => {
@@ -458,9 +452,14 @@ function handleResizeEnd() {
     // Render.run(render);
     if (oldWidthScreenSize < window.innerWidth) {
         location.reload();
+        // console.log("resized");
     }
     oldWidthScreenSize = window.innerWidth;
 }
+
+
+
+
 
 // Settings =======================================================================================
 
@@ -493,7 +492,11 @@ for (let i = 0; i < imageGraduationUrls.length; i++) {
     });
 }
 
-function animate(time) {
+var animation1, animation2;
+var animation1Animating = false, animation2Animating = false;
+function animate() {
+    console.log("test 1");
+
     graduationImgEls.forEach(img => {
         img.angle += speed * 16;
         const percentageX = 2 * (mouseX - (container.getBoundingClientRect().left + container.getBoundingClientRect().width / 2)) / window.innerWidth;
@@ -518,10 +521,25 @@ function animate(time) {
         // img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y - 50}px) scale(${scale})`;
 
     });
-    requestAnimationFrame(animate);
+    animation1 = requestAnimationFrame(animate);
 }
 
-requestAnimationFrame(animate);
+function startAnimation1() {
+    if (!animation1Animating) {
+        animation1Animating = true;
+        animate();
+    }
+}
+
+function stopAnimation1() {
+    if (animation1Animating) {
+        cancelAnimationFrame(animation1);
+        animation1Animating = false;
+    }
+}
+
+// requestAnimationFrame(animate);
+
 
 // Animate 2 ===================================================================================
 // Create image elements
@@ -540,7 +558,9 @@ for (let i = 0; i < imageGraduationUrls.length; i++) {
     });
 }
 
-function animate2(time) {
+function animate2() {
+    console.log("test 2");
+
     graduationImgEls2.forEach(img => {
         img.angle += 0.0001 * 16;
 
@@ -561,9 +581,23 @@ function animate2(time) {
 
         img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 60}px, ${y - 100}px) scale(${scale})`;
     });
-    requestAnimationFrame(animate2);
+    animation2 = requestAnimationFrame(animate2);
 }
-requestAnimationFrame(animate2);
+
+
+function startAnimation2() {
+    if (!animation2Animating) {
+        animation2Animating = true;
+        animate2();
+    }
+}
+
+function stopAnimation2() {
+    if (animation2Animating) {
+        cancelAnimationFrame(animation2);
+        animation2Animating = false;
+    }
+}
 
 // ===================================================================================
 
@@ -589,3 +623,4 @@ function smoothGrowth(x) {
     const max = f(1);
     return (f(x) - min) / (max - min);
 }
+

@@ -4,6 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Sample Size Calculator</title>
+    <meta property="og:image" content="https://i.ibb.co/Xf4f4HXx/06.png" />
+    <meta property="og:description" content='UXCamp Vietnam' />
+    <meta property="og:url" content='http://uxcamp.vn/' />
+
     <script src="script.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -12,92 +16,92 @@
 </head>
 
 <body>
-<div class="statistic-calculator-container container">
-<div class="row">
-    <div class="d-none d-md-block col-md-3 col-xl-2">
-        <div class="statistical-test-menu">
-            <span class="caption medium">Statistic Calculator</span>
-            <div class="links caption">
-                <a href="index.html">Introduction</a>
-                <a class="highlighted" href="sample-size-calculator.html">Sample Size Calculator</a>
-                <a href="one-sample-t-test.html">One Sample t-Test</a>
-                <a href="two-sample-t-test.html">Two Sample t-Test</a>
-                <a href="paired-sample-t-test.html">Paired Sample t-Test</a>
-                <a href="chi-squared-test.html">Chi-squared Test</a>
-                <a href="kruskal-wallis-test.html">Kruskal-Wallis Test</a>
-                <a href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
-                <a href="bootstrap.html">Bootstrap for Quantiles</a>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="introduction-statistic-test-container col-12 col-xs-12 col-md-9 col-xl-10">
+    <div class="statistic-calculator-container container">
         <div class="row">
-            <div class="col-12 col-lg-8">
-                <div class="sample-size-calculator statistical-test-container-body">
-                    <h2>Sample Size Calculator</h2>
-                    <div class="caption dataset">
-                        <div class="input-row-container">
-                            <label class="input-row-title">Population Size:</label>
-                            <input class="single-input" type="number" id="population" placeholder="e.g., 10000"
-                                value="10000">
-                        </div>
+            <div class="d-none d-md-block col-md-3 col-xl-2">
+                <div class="statistical-test-menu">
+                    <span class="caption medium">Statistic Calculator</span>
+                    <div class="links caption">
+                        <a href="index.html">Introduction</a>
+                        <a class="highlighted" href="sample-size-calculator.html">Sample Size Calculator</a>
+                        <a href="one-sample-t-test.html">One Sample t-Test</a>
+                        <a href="two-sample-t-test.html">Two Sample t-Test</a>
+                        <a href="paired-sample-t-test.html">Paired Sample t-Test</a>
+                        <a href="chi-squared-test.html">Chi-squared Test</a>
+                        <a href="kruskal-wallis-test.html">Kruskal-Wallis Test</a>
+                        <a href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
+                        <a href="bootstrap.html">Bootstrap for Quantiles</a>
 
-                        <div class="input-row-container">
-                            <label class="input-row-title">Margin of Error (%):</label>
-                            <input class="single-input" type="number" id="margin" placeholder="e.g., 5"
-                                value="5">
-
-                        </div>
-
-                        <div class="caption input-row-container" id="confidence">
-                            <label class="caption input-row-title">Confidence Level:</label>
-                            <span>
-                                <input type="radio" id="confident-level-80" name="confidence-level-selection"
-                                    value="1.28155157">
-                                <label for="confident-level-80">80%</label>
-                            </span>
-                            <span>
-                                <input type="radio" id="confident-level-85" name="confidence-level-selection"
-                                    value="1.43953147">
-                                <label for="confident-level-85">85%</label>
-                            </span>
-                            <span>
-                                <input type="radio" id="confident-level-90" name="confidence-level-selection"
-                                    value="1.64485363">
-                                <label for="confident-level-90">90%</label>
-                            </span>
-                            <span>
-                                <input type="radio" id="confident-level-95" name="confidence-level-selection"
-                                    value="1.95996398" checked>
-                                <label for="confident-level-95">95%</label>
-                            </span>
-                            <span>
-                                <input type="radio" id="confident-level-99" name="confidence-level-selection"
-                                    value="2.57582930">
-                                <label for="confident-level-99">99%</label>
-                            </span>
-                        </div>
                     </div>
-                    <button class="cta-large caption medium" onclick="calculateSampleSize()">Calculate
-                        Sample Size</button>
                 </div>
             </div>
-            <div class="col-12 col-lg-4">
-                <div id="result" class="result caption"></div>
+
+            <div class="introduction-statistic-test-container col-12 col-xs-12 col-md-9 col-xl-10">
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div class="sample-size-calculator statistical-test-container-body">
+                            <h2>Sample Size Calculator</h2>
+                            <div class="caption dataset">
+                                <div class="input-row-container">
+                                    <label class="input-row-title">Population Size:</label>
+                                    <input class="single-input" type="number" id="population" placeholder="e.g., 10000"
+                                        value="10000">
+                                </div>
+
+                                <div class="input-row-container">
+                                    <label class="input-row-title">Margin of Error (%):</label>
+                                    <input class="single-input" type="number" id="margin" placeholder="e.g., 5"
+                                        value="5">
+
+                                </div>
+
+                                <div class="caption input-row-container" id="confidence">
+                                    <label class="caption input-row-title">Confidence Level:</label>
+                                    <span>
+                                        <input type="radio" id="confident-level-80" name="confidence-level-selection"
+                                            value="1.28155157">
+                                        <label for="confident-level-80">80%</label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" id="confident-level-85" name="confidence-level-selection"
+                                            value="1.43953147">
+                                        <label for="confident-level-85">85%</label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" id="confident-level-90" name="confidence-level-selection"
+                                            value="1.64485363">
+                                        <label for="confident-level-90">90%</label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" id="confident-level-95" name="confidence-level-selection"
+                                            value="1.95996398" checked>
+                                        <label for="confident-level-95">95%</label>
+                                    </span>
+                                    <span>
+                                        <input type="radio" id="confident-level-99" name="confidence-level-selection"
+                                            value="2.57582930">
+                                        <label for="confident-level-99">99%</label>
+                                    </span>
+                                </div>
+                            </div>
+                            <button class="cta-large caption medium" onclick="calculateSampleSize()">Calculate
+                                Sample Size</button>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div id="result" class="result caption"></div>
+                    </div>
+                </div>
             </div>
+
+
+            <!-- ---------------------- -->
+
+
+
+
         </div>
     </div>
-
-
-    <!-- ---------------------- -->
-
-
-
-
-</div>
-</div>
 
 </body>
 

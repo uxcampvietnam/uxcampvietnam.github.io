@@ -97,7 +97,7 @@ h4,
   letter-spacing: var(--font-letter-spacing-h4);
 }
 
-.h3,
+h3,
 .h3 {
   font-family: "Crimson Pro";
   font-size: var(--font-size-h3);
@@ -147,7 +147,6 @@ body {
   max-width: 100vw !important;
   overflow-x: hidden;
   overflow-y: scroll;
-  /* background: var(--main-colors-background-b-300-main, #020A18); */
   background: var(--main-colors-background-b-200-slide-bg);
 }
 
@@ -211,15 +210,15 @@ hr {
 
   /* main background */
   --main-colors-background-b100: #ffffff;
-  --main-colors-background-b-200-slide-bg: #fff8f0;
-  --main-colors-background-b-300-main: #fbead5;
+  --main-colors-background-b-200-slide-bg: #F4EDE4;
+  --main-colors-background-b-300-main: #F5EADB;
   --main-colors-background-b400: #f1d7b7;
   --main-colors-background-b500: #cabdb0;
   --main-colors-background-b600: #aea69d;
   --main-colors-background-b700: #8f8985;
-  --main-colors-background-elevate-1: #fff7eb;
-  --main-colors-background-elevate-2: #FFF9F1;
-  --transparent-background-elevate-blur: #fff8f09d;
+  --main-colors-background-elevate-1: #F8F1E8;
+  --main-colors-background-elevate-2: #FAF5EF;
+  --transparent-background-elevate-blur: rgba(244, 237, 228, 0.6);
 
 
   /* transparent foreground */
@@ -279,7 +278,7 @@ hr {
 @media (min-width: 1201px) {
   :root {
     --font-letter-spacing-xl-title: 0px;
-    --font-letter-spacing-title: 0.72px;
+    --font-letter-spacing-title: 0.22px;
     --font-letter-spacing-h1: 0.2px;
     --font-letter-spacing-h2: 0.23px;
     --font-letter-spacing-h3: 0.36px;
@@ -293,7 +292,7 @@ hr {
 
 
     --font-line-height-xl-title: 115px;
-    --font-line-height-title: 68px;
+    --font-line-height-title: 78px;
     --font-line-height-h1: 61px;
     --font-line-height-h2: 57px;
     --font-line-height-h3: 38px;
@@ -306,7 +305,7 @@ hr {
     --font-line-height-x-small: 16px;
 
     --font-size-xl-title: 112px;
-    --font-size-title: 60px;
+    --font-size-title: 72px;
     --font-size-h1: 48px;
     --font-size-h2: 38px;
     --font-size-h3: 30px;
@@ -460,9 +459,9 @@ hr {
     --main-colors-background-b500: #262a35;
     --main-colors-background-b600: #454654;
     --main-colors-background-b700: #636270;
-    --main-colors-background-elevate-1: #061020;
-    --main-colors-background-elevate-2: #0D192C;
-    --transparent-background-elevate-blur: #0104099d;
+    --main-colors-background-elevate-1: #0F141C;
+    --main-colors-background-elevate-2: #121821;
+    --transparent-background-elevate-blur: rgba(1, 4, 9, 0.6);
 
 
     /* transparent foreground */
@@ -609,9 +608,9 @@ input[type=number] {
   align-items: center;
   gap: 4px;
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: 8px;
   border: 0.5px solid var(--Transparent-Foreground---main-color-40, rgba(55, 61, 72, 0.40));
-  background: var(--main-colors-background-b-300-main, #FBEAD5);
+  background: var(--main-colors-background-elevate-2);
   /* Inner Glow (Light) */
   box-shadow: 0px 4px 16px 0px var(--Fix-White---white-05, rgba(255, 255, 255, 0.05)) inset;
   backdrop-filter: blur(50px);
@@ -640,7 +639,7 @@ input[type=number] {
 span:has(input[type="radio"]) {
   border-radius: 8px;
   border: 0.5px solid var(--transparent-foreground---main-color-40, rgba(55, 61, 72, 0.40));
-  background: var(--main-colors-background-b-300-main, #FBEAD5);
+  background: var(--main-colors-background-elevate-2);
   /* Inner Glow (Light) */
   box-shadow: 0px 4px 16px 0px var(--Fix-White---white-05, rgba(255, 255, 255, 0.05)) inset;
   backdrop-filter: blur(50px);
@@ -651,7 +650,7 @@ span:has(input[type="radio"]) {
 
 span:has(input[type="radio"]:checked) {
   border: 0.5px solid var(--stroke-gradient, rgba(255, 255, 255, 0.40));
-  background: var(--main-colors-background-b600, #AEA69D);
+  background: var(--button-background, rgba(60, 37, 9, 0.50));
 }
 
 span:has(input[type="radio"]) input[type="radio"] {

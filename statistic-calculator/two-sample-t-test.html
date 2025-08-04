@@ -45,10 +45,10 @@
             <div class="two-sample-t-test-container statistical-test-container-body">
               <h2>Two Sample t-Test</h2>
 
-              <div class="dataset caption">
+              <div class="dataset paragraph">
                 <div class="section">
                   <input class="single-input" type="text" id="group1Name" placeholder="Group A" value="Group A">
-                  <textarea class="caption" id="group1Data"
+                  <textarea class="paragraph" id="group1Data"
                     placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
                 </div>
 
@@ -76,20 +76,20 @@
                   <label class="caption input-row-title">Loại kiểm định:</label>
                   <span>
                     <input type="radio" id="two-tailed" name="testType-selection" value="two-tailed" checked>
-                    <label for="two-tailed">Hai phía (≠)</label>
+                    <label for="two-tailed">Hai phía: ≠</label>
                   </span>
                   <span>
                     <input type="radio" id="greater" name="testType-selection" value="greater">
-                    <label for="greater">Một phía: Lớn hơn</label>
+                    <label for="greater">Một phía: ></label>
                   </span>
                   <span>
                     <input type="radio" id="less" name="testType-selection" value="less">
-                    <label for="less">Một phía: Nhỏ hơn </label>
+                    <label for="less">Một phía: < </label>
                   </span>
                 </div>
               </div>
 
-              <button class="cta-large caption medium" onclick="calculateTwoSampleTTest()">Perform Two Sample
+              <button class="cta-large paragraph medium" onclick="calculateTwoSampleTTest()">Perform Two Sample
                 t-Test</button>
             </div>
           </div>

@@ -47,7 +47,7 @@
           <div class="col-12 col-lg-8">
             <div class="chi-squared-test-container statistical-test-container-body">
               <h2 class="h2">Chi-squared Test</h2>
-              <div class="dataset caption">
+              <div class="dataset paragraph">
                 <div class="caption table-size-input-container">
                   <span>
                     <label>Số hàng:</label>
@@ -59,13 +59,13 @@
                     <button onclick="createTable()" class="cta-small ">Tạo bảng</button>
                   </span>
                 </div>
-                <div id="tableContainer" class="caption">
+                <div id="tableContainer" class="paragraph">
                   <table id="dataTable" onpaste="pasteDataToTable()" cellspacing="0" cellpadding="0">
                   </table>
                 </div>
 
-                <div class="caption" id="alpha">
-                  <label class="caption">Mức ý nghĩa - α</label>
+                <div class="paragraph" id="alpha">
+                  <label class="paragraph">Mức ý nghĩa - α</label>
                   <span>
                     <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
                     <label for="alpha010">0.10</label>
@@ -80,12 +80,12 @@
                   </span>
                 </div>
               </div>
-              <button class="perform-statistic-test cta-large caption medium" onclick="calculateChiSquared()">Perform
+              <button class="perform-statistic-test cta-large paragraph medium" onclick="calculateChiSquared()">Perform
                 Chi-squared Test</button>
             </div>
           </div>
           <div class="col-12 col-lg-4">
-            <div id="result" class="caption"></div>
+            <div id="result" class="paragraph"></div>
           </div>
         </div>
       </div>

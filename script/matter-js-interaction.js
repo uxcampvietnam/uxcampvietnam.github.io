@@ -450,11 +450,11 @@ window.addEventListener('resize', () => {
 function handleResizeEnd() {
     // location.reload();
     // Render.run(render);
-    if (oldWidthScreenSize < window.innerWidth) {
+    if (oldWidthScreenSize < document.getElementsByTagName('body')[0].getBoundingClientRect().width) {
         location.reload();
         // console.log("resized");
     }
-    oldWidthScreenSize = window.innerWidth;
+    oldWidthScreenSize = document.getElementsByTagName('body')[0].getBoundingClientRect().width;
 }
 
 
@@ -495,8 +495,6 @@ for (let i = 0; i < imageGraduationUrls.length; i++) {
 var animation1, animation2;
 var animation1Animating = false, animation2Animating = false;
 function animate() {
-    console.log("test 1");
-
     graduationImgEls.forEach(img => {
         img.angle += speed * 16;
         const percentageX = 2 * (mouseX - (container.getBoundingClientRect().left + container.getBoundingClientRect().width / 2)) / window.innerWidth;
@@ -559,8 +557,6 @@ for (let i = 0; i < imageGraduationUrls.length; i++) {
 }
 
 function animate2() {
-    console.log("test 2");
-
     graduationImgEls2.forEach(img => {
         img.angle += 0.0001 * 16;
 

@@ -65,7 +65,7 @@
           <div class="col-12 col-lg-8">
             <div class="chi-squared-test-container statistical-test-container-body">
               <h2 class="h2">Kruskal-Wallis Test Demo</h2>
-              <p class="caption">Cột là các dữ liệu ordinal (Likert / tần suất / rating...), Dòng là dữ liệu
+              <p class="paragraph">Cột là các dữ liệu ordinal (Likert / tần suất / rating...), Dòng là dữ liệu
                 từ các nhóm respondent khác nhau:</p>
 
               <div class="caption table-size-input-container">
@@ -79,13 +79,13 @@
                   <button onclick="createTable()" class="cta-small ">Tạo bảng</button>
                 </span>
               </div>
-              <div id="tableContainer" class="caption">
+              <div id="tableContainer" class="paragraph">
                 <table id="dataTable" onpaste="pasteDataToTable()" cellspacing="0" cellpadding="0">
                 </table>
               </div>
 
-              <div class="caption" id="alpha">
-                <label class="caption">Mức ý nghĩa - α</label>
+              <div class="paragraph" id="alpha">
+                <label class="paragraph">Mức ý nghĩa - α</label>
                 <span>
                   <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
                   <label for="alpha010">0.10</label>
@@ -100,12 +100,12 @@
                 </span>
               </div>
 
-              <button class="perform-statistic-test cta-large caption medium"
+              <button class="perform-statistic-test cta-large paragraph medium"
                 onclick="performKruskalWallisTest()">Perform Kruskal-Wallis Test</button>
             </div>
           </div>
           <div class="col-12 col-lg-4">
-            <div id="result" class="caption"></div>
+            <div id="result" class="paragraph"></div>
           </div>
         </div>
       </div>

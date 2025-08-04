@@ -72,6 +72,7 @@ fetch('script/bootcamp_list.csv')
                     <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online, toàn quốc"}</span>
                     <span class="paragraph bootcamp-start-date">${item.start_date}</span>
                     <span class="paragraph bootcamp-pricing">${item.pricing}</span>
+                    <span class="caption"> Chi phí chưa bao gồm chi phí di chuyển, ăn ở cho bảo vệ cuối khóa</span>
                     <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Form đăng ký đã đóng"}</span>
                     </div>
                     <button class="sign-up-now paragraph">
@@ -285,28 +286,73 @@ function showFeedback(feedbackId) {
 
 
 window.onload = function () {
-    setTimeout(() => {
-        ScrollTrigger.create({
-            trigger: "#flyingContainer",
-            start: "top bottom",
-            end: "bottom top",
-            // markers: true,
-            onEnter: () => startAnimation1(),
-            onEnterBack: () => startAnimation1(),
-            onLeave: () => stopAnimation1(),
-            onLeaveBack: () => stopAnimation1()
-        });
+    ScrollTrigger.create({
+        trigger: "#flyingContainer",
+        start: "top bottom",
+        end: "bottom top",
+        // markers: true,
+        onEnter: () => startAnimation1(),
+        onEnterBack: () => startAnimation1(),
+        onLeave: () => stopAnimation1(),
+        onLeaveBack: () => stopAnimation1()
+    });
 
-        ScrollTrigger.create({
-            trigger: "#flyingContainer2",
-            start: "top bottom",
-            end: "bottom top",
-            // markers: true,
-            onEnter: () => startAnimation2(),
-            onEnterBack: () => startAnimation2(),
-            onLeave: () => stopAnimation2(),
-            onLeaveBack: () => stopAnimation2(),
-        });
-    }, 50);
+    ScrollTrigger.create({
+        trigger: "#flyingContainer2",
+        start: "top bottom",
+        end: "bottom top",
+        // markers: true,
+        onEnter: () => startAnimation2(),
+        onEnterBack: () => startAnimation2(),
+        onLeave: () => stopAnimation2(),
+        onLeaveBack: () => stopAnimation2(),
+    });
 
+
+    const title = new SplitType('.title, .sub-title', {
+        types: 'words, chars'
+    });
+
+    var timeline = gsap.timeline({
+        repeat: 0,
+        onComplete: () => { ScrollTrigger.refresh() }
+    });
+    timeline
+        .to('.interactive-image-container', {
+            height: () => {
+                var height = window.innerHeight - document.querySelectorAll('.bootcamp-title-full')[0].getBoundingClientRect().height - 56;
+                return height + "px";
+            },
+            duration: 0.8,
+            ease: 'Power2.easeOut',
+        }, '1.5')
+        .from(title.chars, {
+            opacity: 0,
+            y: 40,
+            stagger: 0.015,
+            duration: 0.8,
+            ease: 'power2.out',
+        }, '-=1');
+
+
+
+    const feedback = new SplitType('.feedback-item-content > *', {
+        types: 'words, chars'
+    });
+
+    gsap.from(feedback.chars, {
+        scrollTrigger: {
+            trigger: '.feedback-list',
+            start: 'top 90%',
+            end: 'bottom center',
+            toggleActions: 'play none play reverse', //onEnter, onLeave, onEnterBack, and onLeaveBack -> sẽ nhận 1 trong các giá trị sau: "play", "pause", "resume", "reset", "restart", "complete", "reverse", and "none".
+            // markers: true,
+            // scrub: true,
+        },
+        opacity: 0,
+        y: 20,
+        stagger: 0.005,
+        duration: 0.3,
+        ease: 'power2.out',
+    });
 };

@@ -41,6 +41,7 @@
   font-weight: 300;
   line-height: var(--font-line-height-x-small);
   letter-spacing: var(--font-letter-spacing-x-small);
+  margin: 0px;
 }
 
 .small {
@@ -49,6 +50,8 @@
   font-weight: 300;
   line-height: var(--font-line-height-small);
   letter-spacing: var(--font-letter-spacing-small);
+  margin: 0px;
+
 }
 
 .caption {
@@ -57,6 +60,8 @@
   font-weight: 300;
   line-height: var(--font-line-height-caption);
   letter-spacing: var(--font-letter-spacing-caption);
+  margin: 0px;
+
 }
 
 .paragraph,
@@ -68,6 +73,8 @@ span {
   font-weight: 300;
   line-height: var(--font-line-height-paragraph);
   letter-spacing: var(--font-letter-spacing-paragraph);
+  margin: 0px;
+
 }
 
 h6,
@@ -77,6 +84,8 @@ h6,
   font-weight: 300;
   line-height: var(--font-line-height-h6);
   letter-spacing: var(--font-letter-spacing-h6);
+  margin: 0px;
+
 }
 
 h5,
@@ -86,6 +95,8 @@ h5,
   font-weight: 300;
   line-height: var(--font-line-height-h5);
   letter-spacing: var(--font-letter-spacing-h5);
+  margin: 0px;
+
 }
 
 h4,
@@ -95,6 +106,8 @@ h4,
   font-weight: 300;
   line-height: var(--font-line-height-h4);
   letter-spacing: var(--font-letter-spacing-h4);
+  margin: 0px;
+
 }
 
 h3,
@@ -104,6 +117,8 @@ h3,
   font-weight: 300;
   line-height: var(--font-line-height-h3);
   letter-spacing: var(--font-letter-spacing-h3);
+  margin: 0px;
+
 }
 
 h2,
@@ -113,6 +128,8 @@ h2,
   font-weight: 300;
   line-height: var(--font-line-height-h2);
   letter-spacing: var(--font-letter-spacing-h2);
+  margin: 0px;
+
 }
 
 h1,
@@ -122,6 +139,8 @@ h1,
   font-weight: 300;
   line-height: var(--font-line-height-h1);
   letter-spacing: var(--font-letter-spacing-h1);
+  margin: 0px;
+
 }
 
 .title {
@@ -130,6 +149,8 @@ h1,
   font-weight: 300;
   line-height: var(--font-line-height-title);
   letter-spacing: var(--font-letter-spacing-title);
+  margin: 0px;
+
 }
 
 .xl-title {
@@ -138,12 +159,15 @@ h1,
   font-weight: 300;
   line-height: var(--font-line-height-xl-title);
   letter-spacing: var(--font-letter-spacing-xl-title);
+  margin: 0px;
+
 }
 
 /* --------------------------- */
 
 html,
 body {
+  margin: 0px !important;
   max-width: 100vw !important;
   overflow-x: hidden;
   overflow-y: scroll;
@@ -155,7 +179,8 @@ html {
 }
 
 hr {
-  border: 0.1px solid var(--main-color-10) !important;
+  /* border: 0.1px solid var(--main-color-10) !important; */
+  border: 0.5px solid var(--transparent-foreground---main-color-80) !important;
 }
 
 .blur-background {
@@ -218,7 +243,7 @@ hr {
   --main-colors-background-b700: #8f8985;
   --main-colors-background-elevate-1: #F8F1E8;
   --main-colors-background-elevate-2: #FAF5EF;
-  --transparent-background-elevate-blur: rgba(244, 237, 228, 0.6);
+  --transparent-background-elevate-blur: rgba(244, 237, 228, 0.3);
 
 
   /* transparent foreground */
@@ -461,7 +486,7 @@ hr {
     --main-colors-background-b700: #636270;
     --main-colors-background-elevate-1: #0F141C;
     --main-colors-background-elevate-2: #121821;
-    --transparent-background-elevate-blur: rgba(1, 4, 9, 0.6);
+    --transparent-background-elevate-blur: rgba(1, 4, 9, 0.3);
 
 
     /* transparent foreground */
@@ -563,80 +588,71 @@ input[type=number] {
 
 /* BUTTON ========================================================= */
 
-
-.cta-small {
-  color: var(--fix-white---white-100) !important;
-
-  display: flex;
-  padding: 4px 12px;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  box-sizing: border-box;
-  border-radius: 4px;
-  border: 0.5px solid var(--stroke-gradient, rgba(255, 255, 255, 0.40));
-  background: var(--button-background, rgba(60, 37, 9, 0.50));
-  /* Inner Glow (Light) */
-  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05, rgba(255, 255, 255, 0.05)) inset;
-  backdrop-filter: blur(50px);
-}
-
+.cta-small,
 .cta-large {
   color: var(--fix-white---white-100) !important;
   display: flex;
-  height: 44px;
-  padding: 8px 24px 8px 24px;
   justify-content: center;
   align-items: center;
   gap: 4px;
-  align-self: stretch;
   border-radius: 4px;
   border: 0.5px solid var(--stroke-gradient, rgba(255, 255, 255, 0.40));
   background: var(--button-background, rgba(60, 37, 9, 0.50));
-
   /* Inner Glow (Light) */
   box-shadow: 0px 4px 16px 0px var(--fix-white---white-05, rgba(255, 255, 255, 0.05)) inset;
   backdrop-filter: blur(50px);
 }
 
-.secondary-button-small {
-  color: var(--main-colors-foreground-f-500-main, #373D48) !important;
-
-  display: flex;
-  padding: 4px 12px;
-  justify-content: center;
-  align-items: center;
-  gap: 4px;
-  box-sizing: border-box;
-  border-radius: 8px;
-  border: 0.5px solid var(--Transparent-Foreground---main-color-40, rgba(55, 61, 72, 0.40));
-  background: var(--main-colors-background-elevate-2);
-  /* Inner Glow (Light) */
-  box-shadow: 0px 4px 16px 0px var(--Fix-White---white-05, rgba(255, 255, 255, 0.05)) inset;
-  backdrop-filter: blur(50px);
+.cta-small:hover,
+.cta-large:hover {
+  background: var(--button-background-hover, rgba(60, 37, 9, 0.50));
 }
 
+.cta-small {
+  padding: 4px 12px;
+  box-sizing: border-box;
+}
+
+.cta-large {
+  height: 44px;
+  padding: 8px 24px 8px 24px;
+  align-self: stretch;
+}
+
+.secondary-button-small,
 .secondary-button-large {
   color: var(--main-colors-foreground-f-500-main, #373D48) !important;
   display: flex;
-  height: 44px;
-  padding: 8px 24px 8px 24px;
   justify-content: center;
   align-items: center;
   gap: 4px;
-  align-self: stretch;
-  border-radius: 4px;
   border: 0.5px solid var(--Transparent-Foreground---main-color-40, rgba(55, 61, 72, 0.40));
   background: var(--main-colors-background-b-300-main, #FBEAD5);
   /* Inner Glow (Light) */
   box-shadow: 0px 4px 16px 0px var(--Fix-White---white-05, rgba(255, 255, 255, 0.05)) inset;
   backdrop-filter: blur(50px);
+
+}
+
+.secondary-button-small {
+  padding: 4px 12px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  border-radius: 4px;
+
+}
+
+.secondary-button-large {
+  height: 44px;
+  padding: 8px 24px 8px 24px;
+  align-self: stretch;
 }
 
 
 /* RADIO BUTTON AS CHIP SELECTION ===================================== */
 
-span:has(input[type="radio"]) {
+span:has(input[type="radio"]),
+span:has(input[type="checkbox"]) {
   border-radius: 8px;
   border: 0.5px solid var(--transparent-foreground---main-color-40, rgba(55, 61, 72, 0.40));
   background: var(--main-colors-background-elevate-2);
@@ -646,23 +662,35 @@ span:has(input[type="radio"]) {
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  box-sizing: border-box;
+  display: inline-block;
 }
 
-span:has(input[type="radio"]:checked) {
+span:has(input[type="radio"]:checked),
+span:has(input[type="checkbox"]:checked) {
   border: 0.5px solid var(--stroke-gradient, rgba(255, 255, 255, 0.40));
   background: var(--button-background, rgba(60, 37, 9, 0.50));
 }
 
-span:has(input[type="radio"]) input[type="radio"] {
+span:has(input[type="radio"]:not(:checked)),
+span:has(input[type="checkbox"]:not(:checked)) {
+  opacity: 0.6;
+}
+
+span:has(input[type="radio"]) input[type="radio"],
+span:has(input[type="checkbox"]) input[type="checkbox"] {
   display: none;
 }
 
-span:has(input[type="radio"]) label {
+
+span:has(input[type="radio"]) label,
+span:has(input[type="checkbox"]) label {
   padding: 4px 12px;
 }
 
 
-span:has(input[type="radio"]:checked) label {
+span:has(input[type="radio"]:checked) label,
+span:has(input[type="checkbox"]:checked) label {
   color: var(--fix-white---white-100) !important;
 }
 

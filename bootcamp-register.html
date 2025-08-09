@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UXCAMP VIETNAM</title>
+    <link rel="icon" href="/asset/icon/eye.ico">
+    <meta name="title" content="Đăng ký tham gia UXCamp">
+    <meta property="og:type" content="website">
+    <meta property="description" content='UXCamp Vietnam' />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <meta property="og:image" content="https://i.ibb.co/M5ZR6WQs/uxcampvietnam.jpg" />
+    <meta property="og:description" content='UXCamp Vietnam' />
+    <meta property="og:url" content='http://uxcamp.vn/' />
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+    <meta property="og:image" content="https://i.ibb.co/C4tgnzm/08.png" />
+    <meta property="og:description" content='UXCamp Vietnam' />
+    <meta property="og:url" content='http://uxcamp.vn/' />
+
+    <!-- external script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="script/libs/svg-inject.min.js"></script>
+    <script src="script/libs/split-type.js"></script>
+    <script src="script/matter-js-interaction.js" defer></script>
+    <script src="script/script.js" defer></script>
+
+    <!-- custom css -->
+
+    <link rel="stylesheet" type="text/css" href="style/definition.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+
+</head>
+
+<body>
+
+    <!-- <div class="navigation">
+        <div class="navigation-row1">
+            <a class="paragraph" href="index.html">Bootcamp</a>
+            <a href="index.html"><img class="eye-logo justify-content-center" src="asset/image/Eye.svg"
+                    onload="SVGInject(this)"></a>
+            <a class="paragraph" href="corporate-training.html">Corporate Training</a>
+
+        </div>
+        <div class="navigation-row2">
+            <a class="paragraph" href="statistic-calculator/index.html">Calculator</a>
+            <a class="paragraph" href="bigtextbox.html">BigTextBox</a>
+        </div>
+    </div> -->
+
+
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8 ">
+                <form id="bootcamp-register" target="_blank"
+                    action="https://formsubmit.co/7c3c2a11b6abfc8649c9eda437617675" method="POST">
+                    <div class="bootcamp-title-full form-group">
+                        <div class="row1">
+                            <div class="h5 text-logo">UXCAMP VIETNAM</div>
+                        </div>
+                        <div class="bootcamp-title">
+                            <div class="title medium">Đăng ký: Designing Digital Product per Stage and Metric
+                            </div>
+                            <div class="h2 extralight sub-title"><i>Fact based, move fast, measure what matters</i>
+                            </div>
+                            <div class="paragraph">Bạn vui lòng hoàn thành form đăng ký dưới đây nhé.<br>
+                                Sau khi gửi form đăng ký thành công, Ban tổ chức của UXCamp Vietnam sẽ liên hệ với
+                                bạn và sắp xếp một buổi in-depth interview trước khi lên danh sách người tham dự
+                                chính thức. Việc này nhằm:<br>
+                                1. Thông báo kịp thời cho các bạn về lộ trình tìm hiểu kiến thức trước khóa học<br>
+                                2. Đưa ra chia sẻ về mức độ phù hợp của bạn với chương trình học<br>
+                                3. Điều chỉnh ví dụ minh họa, phương pháp tiếp cận phù hợp với từng nhóm tham dự<br>
+                                4. Đảm bảo chất lượng đào tạo<br>
+                                Giáo trình chi tiết vui lòng xem tại <a href="index.html">https://uxcamp.vn</a><br>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="radio-group form-group">
+                        <span class="col-12 h5 input-row-title">Bạn đăng ký bootcamp:</span>
+                        <div id="signUp_bootcamp_list">
+
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <label class="h5 input-row-title" for="name">Họ và tên *</label>
+                        <input class="col-12 single-input h3" type="text" id="name" name="name" placeholder=""
+                            required />
+                    </div>
+                    <div class="col-12 form-group">
+                        <label class="h5 input-row-title" for="dob">Năm sinh *</label>
+                        <input class="col-12 single-input h3" type="number" id="dob" name="dob" placeholder=""
+                            required />
+                    </div>
+                    <div class="col-12 form-group">
+                        <label class="h5 input-row-title" for="facebook">Facebook của bạn là *</label>
+                        <input class="col-12 single-input h3" type="url" id="facebook" name="facebook" placeholder=""
+                            required />
+                    </div>
+                    <div class="col-12 form-group">
+                        <label class="h5 input-row-title" for="phone">Số điện thoại *</label>
+                        <input class="col-12 single-input h3" type="tel" id="phone" name="phone" placeholder=""
+                            required />
+                    </div>
+                    <div class="col-12 form-group">
+                        <label class="h5 input-row-title" for="email">Email *</label>
+                        <input class="col-12 single-input h3" type="email" id="email" name="email" placeholder=""
+                            required />
+                    </div>
+                    <div class="form-group">
+                        <span class="col-12 h5 input-row-title">Title nào mô tả sát nhất công việc hiện tại của bạn
+                            (chọn tối đa 2 đáp án) *</span>
+                        <div class="tags">
+                            <span>
+                                <input type="checkbox" id="pm" name="position[]" value="Product Manager">
+                                <label class="h3 input-row-title" for="pm">Product Manager</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" id="pd" name="position[]" value="Product Designer">
+                                <label class="h3 input-row-title" for="pd">Product Designer</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" id="ba" name="position[]" value="Business Analyst">
+                                <label class="h3 input-row-title" for="ba">Business Analyst</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" id="ux" name="position[]" value="UX Researcher">
+                                <label class="h3 input-row-title" for="ux">UX Researcher</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" id="da" name="position[]" value="Data Analyst">
+                                <label class="h3 input-row-title" for="da">Data Analyst</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" id="pmk" name="position[]" value="Product Marketing">
+                                <label class="h3 input-row-title" for="pmk">Product Marketing</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" id="bo" name="position[]" value="Business Owner">
+                                <label class="h3 input-row-title" for="bo">Business Owner</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" id="otherRole" name="position[]" value="Other">
+                                <label class="h3 input-row-title" for="otherRole">Other</label>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="h5 input-row-title" for="exp">Tổng số năm kinh nghiệm làm Tech /
+                            Product của bạn là (đơn vị: năm) *</label>
+                        <input class="col-12 single-input h3" type="number" id="exp" name="experience" placeholder=""
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <span class="col-12 h5 input-row-title">Bạn đã trải qua giai đoạn nào của sản phẩm rồi ?
+                            *</span>
+                        <div class="tags">
+                            <span>
+                                <input type="checkbox" id="poc" name="stage[]" value="Proof of concepts">
+                                <label class="h3 input-row-title" for="poc">Proof of concepts</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" id="pmf" name="stage[]" value="Product Market Fit">
+                                <label class="h3 input-row-title" for="pmf">Product Market Fit</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" id="growth" name="stage[]" value="Growth">
+                                <label class="h3 input-row-title" for="growth">Growth</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" id="maturity" name="stage[]" value="Maturity">
+                                <label class="h3 input-row-title" for="maturity">Maturity</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" id="decline" name="stage[]" value="Decline">
+                                <label class="h3 input-row-title" for="decline">Decline</label>
+                            </span>
+                            <span>
+                                <input type="checkbox" id="dontknow" name="stage[]" value="Tôi không biết nữa!">
+                                <label class="h3 input-row-title" for="dontknow">Tôi không biết nữa!</label>
+                            </span>
+
+                        </div>
+                    </div>
+
+                    <!-- <div class="radio-group form-group">
+                        <span class="col-12 h5 input-row-title">Bạn biết tới bootcamp do người quen, người tham
+                            dự các bootcamp trước giới thiệu?</span>
+                        <span>
+                            <input type="radio" name="referral" value="Đúng" id="referred" />
+                            <label class="h5 input-row-title" for="referred"> Đúng</label>
+                        </span>
+                        <span>
+                            <input type="radio" name="referral" value="Không" id="notReffered" />
+                            <label class="h5 input-row-title" for="notReffered"> Không</label>
+                        </span>
+                    </div> -->
+
+                    <!-- Part 2 Config -------------- -->
+
+                    <!-- <label class="col-12 h2 input-row-title">Part 2: Đánh giá mức độ phù hợp của bạn với "Designing
+                        Digital Product per Stage and Metric</label>
+                    <br> <br>
+                    <div class="col-12 form-group">
+                        <label class="h5 input-row-title" for="current-problem">Các vấn đề anh/chị đang gặp phải trong
+                            công việc:</label>
+                        <textarea class="col-12 h3 auto-resize" rows="6" type="text" id="current-problem"
+                            name="current-problem"
+                            placeholder="Hãy chia sẻ những vấn đề của bạn khiến bạn nghĩ bootcamp sẽ giúp ích được bạn nhé"
+                            required></textarea>
+                    </div> -->
+
+                    <!-- Form Config -------------- -->
+                    <input type="hidden" name="_next" value="https://uxcamp.vn/form-submitted.html">
+                    <input type="hidden" name="_subject"
+                        value="New Respond - Designing Digital Product per Stage and Metric">
+                    <input type="hidden" name="_cc" value="hello@tamdovisual.com">
+                    <input type="hidden" name="_captcha" value="false">
+
+
+
+                    <!-- Form Submit CTA -------------- -->
+
+
+                    <button type="submit" style="height: auto; width: 100%;" class="cta-large h3 medium">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row bootcamp-section" id="footer">
+        <div class="col-12 bootcamp-section-content">
+
+            <div class="row justify-content-center">
+                <div class="footer-row col-12 h3 justify-content-center">
+                    <span>Bootcamp</span>
+                    <br><a href="index.html">Designing Digital Product per Stage and Metric</a>
+                    <!-- <br><a href="corporate-training.html">Corporation Training</a> -->
+                </div>
+
+                <div class="footer-row col-12 h6 justify-content-center">
+                    <span>Contact</span>
+                    <br><span><a target="_blank" rel="noopener noreferrer"
+                            href="https://www.linkedin.com/company/uxcamp-vietnam">Linkedin</a>, <a target="_blank"
+                            rel="noopener noreferrer" href="https://www.facebook.com/uxcampvn/">Facebook</a>, <a
+                            target="_blank" rel="noopener noreferrer"
+                            href="https://www.youtube.com/@UXCampVietnam">Youtube
+                        </a>
+                    </span>
+                    <!-- <br><a>Term & Condition</a> -->
+                </div>
+                <img class="eye-logo footer-img col-12" src="asset/image/Eye.svg" onload="SVGInject(this)">
+            </div>
+
+        </div>
+    </div>
+
+
+    <!-- <script>
+        document.getElementById('bootcamp-register').addEventListener('submit', function (event) {
+            event.preventDefault(); // Ngăn gửi form
+
+            const formData = new FormData(event.target);
+            const result = {};
+
+            // Xử lý checkbox (có thể nhiều giá trị)
+            for (const [key, value] of formData.entries()) {
+                if (result[key]) {
+                    if (Array.isArray(result[key])) {
+                        result[key].push(value);
+                    } else {
+                        result[key] = [result[key], value];
+                    }
+                } else {
+                    result[key] = value;
+                }
+            }
+
+            console.log(result);
+        });
+    </script> -->
+
+</body>
+
+</html>

@@ -16,12 +16,21 @@
 	<meta property="og:description" content='UXCamp Vietnam' />
 	<meta property="og:url" content='http://uxcamp.vn/' />
 
-	<!-- external script -->
 
-	<script src="script/script.js" defer></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+	<meta property="og:image" content="https://i.ibb.co/C4tgnzm/08.png" />
+	<meta property="og:description" content='UXCamp Vietnam' />
+	<meta property="og:url" content='http://uxcamp.vn/' />
+
+	<!-- external script -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/ScrollTrigger.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
-	<script src="../../script/matter-js-interaction.js" defer></script>
 	<script src="script/libs/svg-inject.min.js"></script>
+	<script src="script/libs/split-type.js"></script>
+	<script src="script/matter-js-interaction.js" defer></script>
+	<script src="script/script.js" defer></script>
 
 	<!-- custom css -->
 
@@ -31,39 +40,184 @@
 </head>
 
 <body>
-	<canvas id="interactiveImage" style="border: none; outline: none;"></canvas>
+
+	<div class="navigation">
+		<div class="navigation-row1">
+			<a class="paragraph" href="index.html">Bootcamp</a>
+			<a href="index.html"><img class="eye-logo justify-content-center" src="asset/image/Eye.svg"
+					onload="SVGInject(this)"></a>
+			<a class="paragraph" href="corporate-training.html">Corporate Training</a>
+
+		</div>
+		<div class="navigation-row2">
+			<a class="paragraph" href="statistic-calculator/index.html">Calculator</a>
+			<a class="paragraph" href="bigtextbox.html">BigTextBox</a>
+		</div>
+	</div>
 
 
-	<div class="designing-digital-product-per-stage-and-metric container">
+	<div class="corporate-training container" onmousemove="getMousePositionOnScreen(event)">
+		<div class="row bootcamp-title-full">
+			<div class="bootcamp-title col-12">
+				<div class="title medium">Corporate Training</div>
+				<div class="h2 extralight sub-title"><i>A custom blueprint for your team's success.</i></div>
+			</div>
+			<div id="sliding-img-container"></div>
+
+			<div class="row bootcamp-section" id="bootcamp-introduction">
+				<h2 class="col-12">Introduction</h2>
+				<div class="col-12 bootcamp-section-content">
+					<p>"Designing Digital Product per Stage and Metric" là một chương trình đào tạo liên ngành cường
+						độ cao, dành cho product builders - bao gồm Product Managers, Product Designers, UX
+						Researchers, Business Analysts và Data Analysts. Chương trình là sự hợp nhất giữa 3 nhóm
+						kiến thức: Product Discovery, Product Delivery và Data-Driven Decision Making, từ đó mang
+						lại một chương trình thực tiễn và toàn diện.</p> <br>
+					<button class="cta-large paragraph medium">Request a seminar / training course <img
+							src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>
+					</button>
+				</div>
+			</div>
+		</div>
+
+		<div class="row bootcamp-section" id="delivered-activities">
+			<h2 class="col-12">Course, seminar and workshop we've delivered</h2>
+			<div class="col-12 bootcamp-section-content">
+				<div class="delivered-activities-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h4 italic">Solving user's problem and measuring product impact</span>
+				</div>
+				<div class="delivered-activities-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h4 italic">Product life cycle</span>
+				</div>
+				<div class="delivered-activities-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h4 italic">Product discovery & Product delivery</span>
+				</div>
+				<div class="delivered-activities-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h4 italic">Drive business with user experience factors</span>
+				</div>
+				<div class="delivered-activities-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h4 italic">Sisu talk: UI UX Among geeks</span>
+				</div>
+				<div class="delivered-activities-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h4 italic">Validating your user's problems and product hypothesiss</span>
+				</div>
+				<div class="delivered-activities-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h4 italic">Validated by user, driven by data</span>
+				</div>
+				<div class="delivered-activities-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h4 italic">Post-production for photojournalism</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="row bootcamp-section justify-content-center" id="advantage">
+			<h2 class="col-12">Get the UXCamp Vietnam Learning Advantage</h2>
+			<div class="col-12 col-md-4 col-lg-4">
+				<div class="advantage-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h5">Highly qualified and Accredited Trainers</span>
+				</div>
+			</div>
+			<div class=" col-12 col-md-4 col-lg-4">
+				<div class="advantage-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h5">Training Satisfaction Guaranteed</span>
+				</div>
+			</div>
+			<div class=" col-12 col-md-4 col-lg-4">
+				<div class="advantage-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h5">Real-life case-study in various markets</span>
+				</div>
+			</div>
+			<div class=" col-12 col-md-4 col-lg-4">
+				<div class="advantage-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h5">Reinforce with Retrospective Session</span>
+				</div>
+			</div>
+			<div class=" col-12 col-md-4 col-lg-4">
+				<div class="advantage-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h5">Wide range of Courses and Topics</span>
+				</div>
+			</div>
+			<div class=" col-12 col-md-4 col-lg-4">
+				<div class="advantage-item">
+					<img src="/asset/image/corporate-training/vps.png">
+					<span class="h5">Fully customization as your need</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="row bootcamp-section" id="organizer">
+			<h2 class="col-12">VI. Ban tổ chức</h2>
+			<div class=" col-12  bootcamp-section-content">
+				<div class="row justify-content-md-start justify-content-center">
+					<div class="col-6 col-md-2 organizer-member">
+						<img src="asset/image/organizer-01.png">
+						<span class="name paragraph">Đỗ Minh Tâm</span>
+						<span class="caption"><i>Trainer</i></span>
+					</div>
+
+					<div class="col-6 col-md-2 organizer-member">
+						<img src="asset/image/organizer-02.png">
+						<span class="name paragraph">Nguyễn Minh Trang</span>
+						<span class="caption"><i>Trainer</i></span>
+					</div>
+
+					<div class="col-6 col-md-2 organizer-member">
+						<img src="asset/image/organizer-03.png">
+						<span class="name paragraph">Trương Thu Hương</span>
+						<span class="caption"><i>Trainer</i></span>
+					</div>
+
+					<div class="col-6 col-md-2 organizer-member">
+						<img src="asset/image/organizer-04.png">
+						<span class="name paragraph">Hoàng Nhung</span>
+						<span class="caption"><i>Trainer</i></span>
+					</div>
+
+					<div class="col-6 col-md-2 organizer-member">
+						<img src="asset/image/organizer-05.png">
+						<span class="name paragraph">Trần Thùy Dương</span>
+						<span class="caption"><i>Trainer</i></span>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
 
 		<div class="row bootcamp-section" id="footer">
 			<div class="col-12 bootcamp-section-content">
-				<img class="eye-logo col-12" src="asset/image/Eye.svg" onload="SVGInject(this)">
 
-				<div class="row">
-					<div class="col-12 col-md-6 h3">
-						<span class="row">Bootcamp</span>
-						<a class="row" href="index.html">Designing Digital Product per Stage and Metric</a>
-						<a class="row" href="corporate-training.html">Corporation Training</a>
+				<div class="row justify-content-center">
+					<div class="footer-row col-12 h3 justify-content-center">
+						<span>Bootcamp</span>
+						<br><a href="index.html">Designing Digital Product per Stage and Metric</a>
+						<br><a href="corporate-training.html">Corporation Training</a>
 					</div>
 
-					<div class="col-12 col-md-3 caption">
-						<span class="row">Links</span>
-						<a class="row" href="statistic-calculator/index.html">Inferential Statistics Calculator</a>
-						<a class="row">Competency Assessment</a>
-						<a class="row">About UXCamp Vietnam</a>
-						<a class="row">Blogs</a>
+					<div class="footer-row col-12 h6 justify-content-center">
+						<span>Contact</span>
+						<br><span><a target="_blank" rel="noopener noreferrer"
+								href="https://www.linkedin.com/company/uxcamp-vietnam">Linkedin</a>, <a target="_blank"
+								rel="noopener noreferrer" href="https://www.facebook.com/uxcampvn/">Facebook</a>, <a
+								target="_blank" rel="noopener noreferrer"
+								href="https://www.youtube.com/@UXCampVietnam">Youtube
+							</a>
+						</span>
+						<!-- <br><a>Term & Condition</a> -->
 					</div>
-
-					<div class="col-12 col-md-3 caption">
-						<span class="row">Contact</span>
-						<a class="row">30 Nguyên Hồng, Đống Đa, Hà Nội</a>
-						<a class="row">Email: hello@uxcamp.vn</a>
-						<a class="row">Linkedin, Facebook, Youtube</a>
-						<a class="row">Term & Condition</a>
-					</div>
-
-
+					<img class="eye-logo footer-img col-12" src="asset/image/Eye.svg" onload="SVGInject(this)">
 				</div>
 
 			</div>

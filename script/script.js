@@ -56,38 +56,76 @@ fetch('script/bootcamp_list.csv')
 
         // showing bootcamp list
         const bootcamp_list_Els = document.querySelectorAll(".bootcamp-list");
+        if (bootcamp_list_Els !== null) {
+            for (let i = 0; i < bootcamp_list_Els.length; i++) {
+                let bootcamp_innerHTML = `<div class="horizontal-scroll row flex-row flex-nowrap">`;
+                for (let j = 0; j < bootcamp_list.length; j++) {
+                    const item = bootcamp_list[j];
 
-        for (let i = 0; i < bootcamp_list_Els.length; i++) {
-            let bootcamp_innerHTML = `<div class="horizontal-scroll row flex-row flex-nowrap">`;
-
-            for (let j = 0; j < bootcamp_list.length; j++) {
-                const item = bootcamp_list[j];
-
-                bootcamp_innerHTML += `
+                    bootcamp_innerHTML += `
                 <div ${item.is_open == 1 ? "onmousemove='openBootcampMouseOver(this, event)' onmouseout='openBootcampMouseOut(this, event)'" : ""} 
                     class="bootcamp-item ${item.is_open == 1 ? "is_open" : "is_closed"}">
                     <img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/${item.thumbnail}">
                     <div class="bootcamp-item-content">
-                    <span class="h3 bootcamp-cohort-name">${item.bootcamp_name}</span>
-                    <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online, toàn quốc"}</span>
+                    <h3 class="bootcamp-cohort-name">${item.bootcamp_name}</h3>
+                    <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
                     <span class="paragraph bootcamp-start-date">${item.start_date}</span>
                     <span class="paragraph bootcamp-pricing">${item.pricing}</span>
                     <span class="caption"> Chi phí chưa bao gồm chi phí di chuyển, ăn ở cho bảo vệ cuối khóa</span>
                     <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Form đăng ký đã đóng"}</span>
                     </div>
-                    <button class="sign-up-now paragraph">
+                    <a href="bootcamp-register.html?bootcamp_id=${item.bootcamp_id}" class="sign-up-now paragraph">
                     ${item.is_open == 1
-                        ? `Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>`
-                        : `<i>Ôi, mất lượt ờiii!</i>`
-                    }
-                    </button>
+                            ? `Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>`
+                            : `<i>Ôi, mất lượt ờiii!</i>`
+                        }
+                    </a>
                     <img class="opening-bootcamp-highlight" src="asset/icon/opening-bootcamp-highlight.svg">
                 </div>`;
+
+                }
+                bootcamp_innerHTML += `</div>`;
+                bootcamp_list_Els[i].innerHTML += bootcamp_innerHTML;
+            }
+        }
+
+
+        const signUp_bootcamp_list_Els = document.getElementById("signUp_bootcamp_list");
+        if (signUp_bootcamp_list_Els !== null) {
+
+
+            // Lấy toàn bộ query string từ URL
+            const queryString = window.location.search;
+            // Tạo object URLSearchParams từ query string
+            const params = new URLSearchParams(queryString);
+            // Lấy giá trị của 'bootcamp_id'
+            const selectedBootcamp = params.get('bootcamp_id');
+
+            var signUp_bootcamp_innerHTML = ``;
+            for (let j = 0; j < bootcamp_list.length; j++) {
+                const item = bootcamp_list[j];
+                if (item.is_open == 1) {
+                    signUp_bootcamp_innerHTML += `
+                 <span class = "bootcamp-item sign-up-bootcamp-item">
+                    <label for="bootcamp_${item.bootcamp_id}">
+                        <input type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${item.bootcamp_id === selectedBootcamp ? "checked" : ""} />
+                        <img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/${item.thumbnail}">
+                        <div class="bootcamp-item-content">
+                            <h3 class="bootcamp-cohort-name">${item.bootcamp_name}</h3>
+                            <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
+                            <span class="paragraph bootcamp-start-date">${item.start_date}</span>
+                            <span class="paragraph bootcamp-pricing">${item.pricing}</span>
+                            <span class="caption"> Chi phí chưa bao gồm chi phí di chuyển, ăn ở cho bảo vệ cuối khóa</span>
+                        </div>
+                    </label>
+                </span>`;
+                };
             }
 
-            bootcamp_innerHTML += `</div>`;
-            bootcamp_list_Els[i].innerHTML += bootcamp_innerHTML;
+            signUp_bootcamp_list_Els.innerHTML += signUp_bootcamp_innerHTML;
         }
+
+
     })
     .catch(error => {
         console.error("Lỗi khi tải CSV:", error);
@@ -188,10 +226,16 @@ function openBootcampMouseOut(el, event) {
 }
 
 // full width for feedback học viên.
-document.querySelectorAll('.feedback-list')[0].style.width = window.innerWidth - document.querySelectorAll('.feedback-list')[0].getBoundingClientRect().left + "px";
+if (document.querySelectorAll('.feedback-list')[0]) {
+    document.querySelectorAll('.feedback-list')[0].style.width = window.innerWidth - document.querySelectorAll('.feedback-list')[0].getBoundingClientRect().left + "px";
+
+}
 
 window.addEventListener('resize', () => {
-    document.querySelectorAll('.feedback-list')[0].style.width = window.innerWidth - document.querySelectorAll('.feedback-list')[0].getBoundingClientRect().left + "px";
+
+    if (document.querySelectorAll('.feedback-list')[0] != null) {
+        document.querySelectorAll('.feedback-list')[0].style.width = window.innerWidth - document.querySelectorAll('.feedback-list')[0].getBoundingClientRect().left + "px";
+    }
 });
 
 
@@ -202,7 +246,6 @@ function toggleContent(element, mouseID) {
     document.getElementById(mouseID).classList.toggle("hide-content");
     document.getElementById(mouseID).classList.toggle("show-content");
 }
-
 
 function toggleMouseOver(element, event, mouseID) {
     var mouse = document.getElementById(mouseID);
@@ -226,7 +269,6 @@ function toggleMouseOut(mouseID) {
     mouse.style.opacity = "0";
 }
 
-
 function showFeedbackImg(element, event) {
     var feedbackImg = element.getElementsByClassName('feedback-thumbnail')[0];
     const mouseX = event.clientX - element.getBoundingClientRect().left;
@@ -238,7 +280,6 @@ function showFeedbackImg(element, event) {
     feedbackImg.style.height = "100px";
     feedbackImg.style.width = "auto";
     feedbackImg.style.opacity = "1";
-
 }
 
 function hideFeedbackImg(element, event) {
@@ -284,75 +325,147 @@ function showFeedback(feedbackId) {
 `
 }
 
-
 window.onload = function () {
-    ScrollTrigger.create({
-        trigger: "#flyingContainer",
-        start: "top bottom",
-        end: "bottom top",
-        // markers: true,
-        onEnter: () => startAnimation1(),
-        onEnterBack: () => startAnimation1(),
-        onLeave: () => stopAnimation1(),
-        onLeaveBack: () => stopAnimation1()
-    });
 
-    ScrollTrigger.create({
-        trigger: "#flyingContainer2",
-        start: "top bottom",
-        end: "bottom top",
-        // markers: true,
-        onEnter: () => startAnimation2(),
-        onEnterBack: () => startAnimation2(),
-        onLeave: () => stopAnimation2(),
-        onLeaveBack: () => stopAnimation2(),
-    });
+    if (document.querySelectorAll('#flyingContainer')[0] != null) {
+        ScrollTrigger.create({
+            trigger: "#flyingContainer",
+            start: "top bottom",
+            end: "bottom top",
+            // markers: true,
+            onEnter: () => startAnimation1(),
+            onEnterBack: () => startAnimation1(),
+            onLeave: () => stopAnimation1(),
+            onLeaveBack: () => stopAnimation1()
+        });
+    }
+
+    if (document.querySelectorAll('#flyingContainer2')[0] != null) {
+        ScrollTrigger.create({
+            trigger: "#flyingContainer2",
+            start: "top bottom",
+            end: "bottom top",
+            // markers: true,
+            onEnter: () => startAnimation2(),
+            onEnterBack: () => startAnimation2(),
+            onLeave: () => stopAnimation2(),
+            onLeaveBack: () => stopAnimation2(),
+        });
+    }
 
 
     const title = new SplitType('.title, .sub-title', {
         types: 'words, chars'
     });
 
-    var timeline = gsap.timeline({
-        repeat: 0,
-        onComplete: () => { ScrollTrigger.refresh() }
-    });
-    timeline
-        .to('.interactive-image-container', {
-            height: () => {
-                var height = window.innerHeight - document.querySelectorAll('.bootcamp-title-full')[0].getBoundingClientRect().height - 56;
-                return height + "px";
+
+    if (document.querySelectorAll('.interactive-image-container')[0] != null) {
+        var timeline = gsap.timeline({
+            repeat: 0,
+            onComplete: () => { ScrollTrigger.refresh() }
+        });
+        timeline
+            .to('.interactive-image-container', {
+                height: () => {
+                    var height = window.innerHeight - document.querySelectorAll('.bootcamp-title-full')[0].getBoundingClientRect().height - 56;
+                    return height + "px";
+                },
+                duration: 0.8,
+                ease: 'Power2.easeOut',
+            }, '1.5')
+            .from(title.chars, {
+                opacity: 0,
+                y: 40,
+                stagger: 0.015,
+                duration: 0.8,
+                ease: 'power2.out',
+            }, '-=1');
+    }
+
+    if (document.querySelectorAll('.feedback-item-content > *')[0] != null) {
+        const feedback = new SplitType('.feedback-item-content > *', {
+            types: 'words, chars'
+        });
+
+        gsap.from(feedback.chars, {
+            scrollTrigger: {
+                trigger: '.feedback-list',
+                start: 'top 90%',
+                end: 'bottom center',
+                toggleActions: 'play none play reverse', //onEnter, onLeave, onEnterBack, and onLeaveBack -> sẽ nhận 1 trong các giá trị sau: "play", "pause", "resume", "reset", "restart", "complete", "reverse", and "none".
+                // markers: true,
+                // scrub: true,
             },
-            duration: 0.8,
-            ease: 'Power2.easeOut',
-        }, '1.5')
-        .from(title.chars, {
             opacity: 0,
-            y: 40,
-            stagger: 0.015,
-            duration: 0.8,
+            y: 20,
+            stagger: 0.005,
+            duration: 0.3,
             ease: 'power2.out',
-        }, '-=1');
+        });
+    }
 
 
 
-    const feedback = new SplitType('.feedback-item-content > *', {
-        types: 'words, chars'
-    });
+    // Corporate Training ================
 
-    gsap.from(feedback.chars, {
-        scrollTrigger: {
-            trigger: '.feedback-list',
-            start: 'top 90%',
-            end: 'bottom center',
-            toggleActions: 'play none play reverse', //onEnter, onLeave, onEnterBack, and onLeaveBack -> sẽ nhận 1 trong các giá trị sau: "play", "pause", "resume", "reset", "restart", "complete", "reverse", and "none".
-            // markers: true,
-            // scrub: true,
-        },
-        opacity: 0,
-        y: 20,
-        stagger: 0.005,
-        duration: 0.3,
-        ease: 'power2.out',
-    });
+
+    var slidingImg = document.getElementById('sliding-img-container');
+
+    if (slidingImg != null) {
+        var totalImg = 45;
+        var slidingImgInnerHTML = ``;
+        for (var i = 1; i <= totalImg; i++) {
+            slidingImgInnerHTML += `<img class="sliding-img" src = "asset/image/corporate-training/${i}.webp">`;
+        }
+
+        slidingImg.innerHTML = slidingImgInnerHTML;
+
+        var slidingTimeline = gsap.timeline({
+            repeat: 0,
+            onComplete: () => { ScrollTrigger.refresh() }
+        });
+
+        slidingTimeline
+            .from(title.chars, {
+                opacity: 0,
+                y: 20,
+                stagger: 0.01,
+                duration: 1,
+                ease: "elastic.out(1.5,0.9)",
+            },)
+            .from('#sliding-img-container', {
+                height: '0px',
+                duration: 2,
+                ease: "elastic.out(1.5,0.9)",
+            }, '<')
+            .from('.corporate-training>.bootcamp-title-full', {
+                gap: '0px',
+                duration: 2,
+                ease: "elastic.out(1.5,0.9)",
+            }, '<')
+
+            .from('.sliding-img', {
+                right: 2000,
+
+                stagger: {
+                    each: 0.05,
+                    from: "end" // Animates from the last element to the first
+                },
+                duration: 2,
+                ease: "power4.inOut",
+            }, '<')
+            .from('.sliding-img', {
+                scale: 0,
+                opacity: 0,
+                stagger: {
+                    each: 0.05,
+                    from: "end" // Animates from the last element to the first
+                },
+                duration: 0.4,
+                ease: "power3.inOut",
+            }, '<')
+            ;
+    }
+
+
 };

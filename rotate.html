@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demo Nghiêng Hình Chữ Nhật</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.2/p5.min.js"></script>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      font-family: Arial, sans-serif;
+    }
+    canvas {
+      border: 1px solid #000;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <button id="requestPermission">Yêu cầu quyền cảm biến</button>
+  <script>
+    let permissionGranted = false;
+
+    function setup() {
+      createCanvas(windowWidth, windowHeight);
+      const btn = document.getElementById('requestPermission');
+      btn.addEventListener('click', requestDeviceOrientation);
+    }
+
+    function requestDeviceOrientation() {
+      if (typeof DeviceOrientationEvent !== 'undefined' && 
+          typeof DeviceOrientationEvent.requestPermission === 'function') {
+        DeviceOrientationEvent.requestPermission()
+          .then(permissionState => {
+            if (permissionState === 'granted') {
+              permissionGranted = true;
+              window.addEventListener('deviceorientation', handleOrientation);
+              document.getElementById('requestPermission').style.display = 'none';
+            } else {
+              alert('Quyền truy cập cảm biến bị từ chối. Vui lòng cấp quyền để sử dụng.');
+            }
+          })
+          .catch(err => {
+            console.error('Lỗi khi yêu cầu quyền:', err);
+            alert('Không thể yêu cầu quyền cảm biến. Vui lòng kiểm tra cài đặt Safari.');
+          });
+      } else {
+        // Trên các thiết bị không cần quyền (như Android)
+        permissionGranted = true;
+        window.addEventListener('deviceorientation', handleOrientation);
+        document.getElementById('requestPermission').style.display = 'none';
+      }
+    }
+
+    let tilt = 0;
+
+    function handleOrientation(event) {
+      // Lấy góc beta (nghiêng trái-phải, đơn vị là độ)
+      tilt = event.beta ? event.beta : 0;
+      // Chuẩn hóa góc để phù hợp với canvas
+      tilt = constrain(tilt, -90, 90);
+    }
+
+    function draw() {
+      background(220);
+      if (!permissionGranted) {
+        textAlign(CENTER, CENTER);
+        textSize(20);
+        text('Nhấn nút để cấp quyền cảm biến', width / 2, height / 2);
+        return;
+      }
+      // Di chuyển gốc tọa độ đến giữa canvas
+      translate(width / 2, height / 2);
+      // Xoay canvas theo góc nghiêng
+      rotate(radians(tilt));
+      // Vẽ hình chữ nhật
+      fill(0, 128, 255);
+      rectMode(CENTER);
+      rect(0, 0, 200, 100);
+    }
+
+    // Điều chỉnh kích thước canvas khi thay đổi kích thước cửa sổ
+    function windowResized() {
+      resizeCanvas(windowWidth, windowHeight);
+    }
+  </script>
+</body>
+</html>

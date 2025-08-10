@@ -237,8 +237,7 @@ if (canvas != null) {
     if (window.innerWidth < 500) {
         numberOfFallingImg = 40;
         scaleFactor = 0.22;
-        // InfiniteLoadingWidth = 550;
-        InfiniteLoadingWidth = window.innerWidth / 2;
+        InfiniteLoadingWidth = window.innerWidth / 2 + 40;
         InfiniteLoadingHeight = 150;
     }
     // if desktop size
@@ -406,28 +405,39 @@ if (canvas != null) {
     Matter.World.add(engine.world, mouseConstraint);
     render.mouse = mouse;
 
-    render.canvas.addEventListener('mousedown', function (event) {
+    function handleClickOrTap(event) {
+        let x, y;
 
-        const { x, y } = mouse.position;
+        if (event.type.startsWith('touch')) {
+            // Lấy tọa độ chạm trên màn hình và quy về canvas
+            const rect = render.canvas.getBoundingClientRect();
+            x = event.touches[0].clientX - rect.left;
+            y = event.touches[0].clientY - rect.top;
+        } else {
+            // Sử dụng chuột
+            ({ x, y } = mouse.position);
+        }
 
-        // Use Matter.Query.point to find which body is under the mouse
         const bodiesAtPoint = Query.point(Composite.allBodies(engine.world), { x, y });
 
-        if (bodiesAtPoint.length > 0) {
-            // console.log("Clicked on body:", bodiesAtPoint[0].url);
-            console.log("Clicked on body:", bodiesAtPoint[0]);
+        // if (bodiesAtPoint.length > 0) {
+        //     console.log("Clicked on body:", bodiesAtPoint[0]);
+        // } else {
+        console.log("Clicked on empty space.");
+        if (randomFallingImg < imageUrlsWithDimension.length - 1) {
+            randomFallingImg++;
         } else {
-            console.log("Clicked on empty space.");
-            if (randomFallingImg < imageUrlsWithDimension.length - 1) { randomFallingImg++ }
-            else {
-                randomFallingImg = 0;
-            };
-            const img = imageUrlsWithDimension[randomFallingImg];
-            const body = createImageBody(x, y, img);
-            World.add(world, body);
-            // }
+            randomFallingImg = 0;
         }
-    });
+        const img = imageUrlsWithDimension[randomFallingImg];
+        const body = createImageBody(x, y, img);
+        World.add(world, body);
+        // }
+    }
+
+    render.canvas.addEventListener('mousedown', handleClickOrTap);
+    render.canvas.addEventListener('touchstart', handleClickOrTap);
+
 
     // ===================================================================================
 
@@ -500,13 +510,19 @@ if (container !== null) {
     function animate() {
         graduationImgEls.forEach(img => {
             img.angle += speed * 16;
-            const percentageX = 2 * (mouseX - (container.getBoundingClientRect().left + container.getBoundingClientRect().width / 2)) / window.innerWidth;
-            const percentageY = 2 * (mouseY - (container.getBoundingClientRect().top + container.getBoundingClientRect().height / 2)) / window.innerHeight;
+            // speed = 0.0007 * percentageX / 2 + 0.00003;
+            if (deviceHasMouse()) {
+                const percentageX = 2 * (mouseX - (container.getBoundingClientRect().left + container.getBoundingClientRect().width / 2)) / InfiniteLoadingWidth;
+                const percentageY = 2 * (mouseY - (container.getBoundingClientRect().top + container.getBoundingClientRect().height / 2)) / InfiniteLoadingHeight;
 
-            var distance = Math.sqrt(percentageX * percentageX + percentageY * percentageY);
-            speed = 0.0007 * percentageX / 2 + 0.00003;
+                var distance = Math.sqrt(percentageX * percentageX + percentageY * percentageY);
 
-            // Position on oval
+                speed = (0.0007 * percentageX / 2 + 0.00003)
+            }
+            else {
+                speed = 0.0003;
+            }
+
             const x = centerX + InfiniteLoadingWidth * Math.sin(img.angle);
             const y = centerY + InfiniteLoadingHeight * Math.sin(img.angle) * Math.cos(img.angle) * 2;
 
@@ -578,8 +594,14 @@ if (container2 !== null) {
             var distance = Math.sqrt(relativeImgX * relativeImgX + relativeImgY * relativeImgY) / (Math.sqrt(flyingContainer2.getBoundingClientRect().height / 2 * flyingContainer2.getBoundingClientRect().height / 2 + flyingContainer2.getBoundingClientRect().width / 2 * flyingContainer2.getBoundingClientRect().width / 2));
 
             var scale;
-            distance < 1 ? scale = 0.08 * (smoothGrowth(distance)) + 0.02 : scale = 0.1; // 0.5 to 1
+            // distance < 1 ? scale = 0.08 * (smoothGrowth(distance)) + 0.02 : scale = 0.1; // 0.5 to 1
 
+            if (deviceHasMouse()) {
+                distance < 1 ? scale = 0.08 * (smoothGrowth(distance)) + 0.02 : scale = 0.1;
+            }
+            else {
+                scale = 0.1;
+            }
 
             img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 70}px, ${y - 100}px) scale(${scale})`;
         });
@@ -635,4 +657,6 @@ function handleResizeEnd() {
 }
 
 
-
+function deviceHasMouse() {
+    return matchMedia('(pointer:fine)').matches == true ? true : false;
+}

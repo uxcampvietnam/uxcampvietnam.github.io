@@ -343,13 +343,12 @@ tbody>tr:last-child {
 
 .syllabus-section {
 	border-bottom: 0.5px solid var(--main-colors-background-b600);
-	/* border-left: 0.5px solid var(--main-colors-background-b600); */
 	padding: var(--spacing-xl) var(--spacing-l) var(--spacing-xl) var(--spacing-l);
 	flex-direction: column;
 	align-items: flex-start;
-	/* gap: var(--spacing-s); */
 	flex-shrink: 0;
 	display: flex;
+	box-sizing: border-box;
 }
 
 .syllabus-section:last-child {
@@ -741,7 +740,7 @@ ol>* {
 }
 
 .bootcamp-section-content ul {
-	padding-left: 16px;
+	padding-left: 20px;
 	padding-top: 0px;
 	padding-bottom: 8px;
 	margin: 0px;
@@ -910,7 +909,7 @@ ol>* {
 
 .horizontal-scroll {
 	overflow-x: auto;
-	/* width: 150%; */
+	width: 100vw;
 	padding: 16px 16px 16px 8px;
 	gap: 16px;
 	box-sizing: border-box;
@@ -970,7 +969,7 @@ ol>* {
 
 .bootcamp-item-content {
 	display: flex;
-	padding: 0px 8px;
+	padding: 12px 8px;
 	flex-direction: column;
 	gap: 4px;
 	align-self: stretch;
@@ -1217,14 +1216,15 @@ form .tags {
 .sign-up-bootcamp-item:has(input[type="checkbox"]:not(:checked)) {
 	opacity: 0.3;
 	transition: opacity 0.2s ease-in-out;
+	background: none !important;
+
 }
 
 
 .sign-up-bootcamp-item:has(input[type="radio"]:checked),
 .sign-up-bootcamp-item:has(input[type="checkbox"]:checked) {
-	background: var(--main-colors-background-elevate-2) !important;
+	/* background: var(--main-colors-background-elevate-2) !important; */
 	border: 0.5px solid var(--transparent-foreground---main-color-40, rgba(55, 61, 72, 0.40));
-
 }
 
 
@@ -1233,8 +1233,9 @@ form .tags {
 	flex-direction: row;
 	gap: 8px;
 	flex-wrap: nowrap;
-	justify-content: flex-start;
-	padding: 0px !important;
+	padding: 8px !important;
+	align-content: center;
+	align-items: center;
 }
 
 .sign-up-bootcamp-item:hover,
@@ -1243,19 +1244,19 @@ form .tags {
 }
 
 .sign-up-bootcamp-item label img {
-	width: 180px;
-	/* border-radius: 16px; */
+	height: 140px;
+	width: auto;
+	border-radius: 4px;
 }
 
 .sign-up-bootcamp-item {
-	border-radius: 24px !important;
 	pointer-events: all !important;
 	cursor: pointer !important;
 	align-self: stretch;
 	padding: 0px !important;
 	box-sizing: border-box;
-	border-radius: 0px !important;
 	border: none !important;
+	border-radius: 8px;
 }
 
 #signUp_bootcamp_list {
@@ -1263,8 +1264,11 @@ form .tags {
 	flex-direction: row;
 	width: fit-content;
 	justify-content: flex-start;
-	overflow-x: scroll;
 	align-items: stretch;
 	flex-wrap: wrap;
 	width: 100%;
+	border-radius: 8px;
+	border: 0.5px solid var(--transparent-foreground---main-color-40, rgba(55, 61, 72, 0.40));
+	padding: 0px !important;
+	overflow: hidden;
 }

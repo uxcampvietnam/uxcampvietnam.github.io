@@ -344,7 +344,7 @@ tbody>tr:last-child {
 .syllabus-section {
 	border-bottom: 0.5px solid var(--main-colors-background-b600);
 	/* border-left: 0.5px solid var(--main-colors-background-b600); */
-	padding: var(--spacing-xl) var(--spacing-l) var(--spacing-s) var(--spacing-l);
+	padding: var(--spacing-xl) var(--spacing-l) var(--spacing-xl) var(--spacing-l);
 	flex-direction: column;
 	align-items: flex-start;
 	/* gap: var(--spacing-s); */
@@ -601,7 +601,7 @@ tbody>tr:last-child {
 	width: 100%;
 	transition: opacity 1s ease-in,
 		max-height 0.5s ease-out;
-	max-height: 250px;
+	max-height: 350px;
 	opacity: 1;
 }
 
@@ -910,8 +910,8 @@ ol>* {
 
 .horizontal-scroll {
 	overflow-x: auto;
-	width: 150%;
-	padding: 16px 64px 16px 8px;
+	/* width: 150%; */
+	padding: 16px 16px 16px 8px;
 	gap: 16px;
 	box-sizing: border-box;
 	overflow-y: hidden;
@@ -972,9 +972,12 @@ ol>* {
 	display: flex;
 	padding: 0px 8px;
 	flex-direction: column;
-	align-items: flex-start;
 	gap: 4px;
 	align-self: stretch;
+	justify-content: center;
+	flex-wrap: nowrap;
+	align-content: flex-start;
+	align-items: stretch;
 }
 
 .bootcamp-item-content * {
@@ -1209,34 +1212,6 @@ form .tags {
 	gap: 8px;
 }
 
-.sign-up-bootcamp-item {
-	border-radius: 24px !important;
-	/* margin-right: 8px; */
-	pointer-events: all !important;
-	cursor: pointer !important;
-}
-
-.sign-up-bootcamp-item label {
-	padding: 0px !important;
-	display: flex;
-	flex-direction: column;
-	align-content: flex-start;
-	justify-content: flex-start;
-	align-items: flex-start;
-	flex-wrap: nowrap;
-}
-
-#signUp_bootcamp_list {
-	display: flex;
-	flex-direction: row;
-	width: fit-content;
-	justify-content: flex-start;
-	align-items: flex-start;
-	align-content: flex-start;
-	gap: 12px;
-}
-
-
 
 .sign-up-bootcamp-item:has(input[type="radio"]:not(:checked)),
 .sign-up-bootcamp-item:has(input[type="checkbox"]:not(:checked)) {
@@ -1255,12 +1230,41 @@ form .tags {
 
 .sign-up-bootcamp-item>label {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	gap: 8px;
-	margin-bottom: 4px;
+	flex-wrap: nowrap;
+	justify-content: flex-start;
+	padding: 0px !important;
 }
 
 .sign-up-bootcamp-item:hover,
 .sign-up-bootcamp-item:hover {
 	opacity: 1 !important;
+}
+
+.sign-up-bootcamp-item label img {
+	width: 180px;
+	/* border-radius: 16px; */
+}
+
+.sign-up-bootcamp-item {
+	border-radius: 24px !important;
+	pointer-events: all !important;
+	cursor: pointer !important;
+	align-self: stretch;
+	padding: 0px !important;
+	box-sizing: border-box;
+	border-radius: 0px !important;
+	border: none !important;
+}
+
+#signUp_bootcamp_list {
+	display: flex;
+	flex-direction: row;
+	width: fit-content;
+	justify-content: flex-start;
+	overflow-x: scroll;
+	align-items: stretch;
+	flex-wrap: wrap;
+	width: 100%;
 }

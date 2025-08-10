@@ -106,22 +106,21 @@ fetch('script/bootcamp_list.csv')
                 const item = bootcamp_list[j];
                 if (item.is_open == 1) {
                     signUp_bootcamp_innerHTML += `
-                 <span class = "bootcamp-item sign-up-bootcamp-item">
+                 <span class = "sign-up-bootcamp-item col-12 col-md-6 col-lg-6">
                     <label for="bootcamp_${item.bootcamp_id}">
                         <input type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${item.bootcamp_id === selectedBootcamp ? "checked" : ""} />
                         <img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/${item.thumbnail}">
                         <div class="bootcamp-item-content">
                             <h3 class="bootcamp-cohort-name">${item.bootcamp_name}</h3>
                             <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
+                            <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Form đăng ký đã đóng"}</span>
                             <span class="paragraph bootcamp-start-date">${item.start_date}</span>
-                            <span class="paragraph bootcamp-pricing">${item.pricing}</span>
-                            <span class="caption"> Chi phí chưa bao gồm chi phí di chuyển, ăn ở cho bảo vệ cuối khóa</span>
                         </div>
                     </label>
                 </span>`;
                 };
             }
-
+            signUp_bootcamp_innerHTML += ``
             signUp_bootcamp_list_Els.innerHTML += signUp_bootcamp_innerHTML;
         }
 

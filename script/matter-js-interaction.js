@@ -237,7 +237,7 @@ if (canvas != null) {
     if (window.innerWidth < 500) {
         numberOfFallingImg = 40;
         scaleFactor = 0.22;
-        InfiniteLoadingWidth = window.innerWidth / 2 + 40;
+        InfiniteLoadingWidth = window.innerWidth * 0.6;
         InfiniteLoadingHeight = 150;
     }
     // if desktop size
@@ -405,25 +405,106 @@ if (canvas != null) {
     Matter.World.add(engine.world, mouseConstraint);
     render.mouse = mouse;
 
-    function handleClickOrTap(event) {
-        let x, y;
+    // function handleClickOrTap(event) {
+    //     var x, y;
+    //     var touch = false;
 
-        if (event.type.startsWith('touch')) {
-            // Lấy tọa độ chạm trên màn hình và quy về canvas
-            const rect = render.canvas.getBoundingClientRect();
-            x = event.touches[0].clientX - rect.left;
-            y = event.touches[0].clientY - rect.top;
-        } else {
-            // Sử dụng chuột
-            ({ x, y } = mouse.position);
+    //     if (event.type.startsWith('touch')) {
+    //         touch = true;
+    //         // Lấy tọa độ chạm trên màn hình và quy về canvas
+    //         const rect = render.canvas.getBoundingClientRect();
+    //         x = event.touches[0].clientX - rect.left;
+    //         y = event.touches[0].clientY - rect.top;
+    //     } else {
+    //         // Sử dụng chuột
+    //         ({ x, y } = mouse.position);
+    //     }
+
+    //     const bodiesAtPoint = Query.point(Composite.allBodies(engine.world), { x, y });
+
+    //     if (bodiesAtPoint.length > 0 && touch == false) {
+    //         console.log("Clicked on body:", bodiesAtPoint[0]);
+    //     } else {
+    //     console.log("Clicked on empty space.");
+    //     if (randomFallingImg < imageUrlsWithDimension.length - 1) {
+    //         randomFallingImg++;
+    //     } else {
+    //         randomFallingImg = 0;
+    //     }
+    //     const img = imageUrlsWithDimension[randomFallingImg];
+    //     const body = createImageBody(x, y, img);
+    //     World.add(world, body);
+    //     }
+    // }
+
+    // render.canvas.addEventListener('click', handleClickOrTap);
+    // render.canvas.addEventListener('touchstart', handleClickOrTap);
+
+
+
+    let touchStartX = 0, touchStartY = 0;
+    let touchMoved = false;
+
+    render.canvas.addEventListener('touchstart', function (event) {
+        const rect = render.canvas.getBoundingClientRect();
+        touchStartX = event.touches[0].clientX - rect.left;
+        touchStartY = event.touches[0].clientY - rect.top;
+        touchMoved = false;
+    });
+
+    render.canvas.addEventListener('touchmove', function (event) {
+        const rect = render.canvas.getBoundingClientRect();
+        const x = event.touches[0].clientX - rect.left;
+        const y = event.touches[0].clientY - rect.top;
+
+        // Nếu người dùng kéo quá 10px thì coi là drag
+        if (Math.abs(x - touchStartX) > 10 || Math.abs(y - touchStartY) > 10) {
+            touchMoved = true;
+        }
+    });
+
+    render.canvas.addEventListener('touchend', function (event) {
+        if (!touchMoved) {
+            // TAP → xử lý như click của bạn
+            handleClickAt(touchStartX, touchStartY);
+        }
+    });
+
+    render.canvas.addEventListener('mousedown', function (event) {
+        const rect = render.canvas.getBoundingClientRect();
+        touchStartX = event.clientX - rect.left;
+        touchStartY = event.clientY - rect.top;
+        touchMoved = false;
+    });
+
+    render.canvas.addEventListener('mousemove', function (event) {
+        const rect = render.canvas.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+
+        // Nếu người dùng kéo quá 10px thì coi là drag
+        if (Math.abs(x - touchStartX) > 10 || Math.abs(y - touchStartY) > 10) {
+            touchMoved = true;
+        }
+    });
+
+
+    render.canvas.addEventListener('mouseup', function (event) {
+        if (!touchMoved) {
+            // TAP → xử lý như click của bạn
+            var { x, y } = mouse.position;
+            handleClickAt(x, y)
         }
 
+    });
+
+    function handleClickAt(x, y) {
         const bodiesAtPoint = Query.point(Composite.allBodies(engine.world), { x, y });
 
         // if (bodiesAtPoint.length > 0) {
-        //     console.log("Clicked on body:", bodiesAtPoint[0]);
+        //     console.log("Tapped on body:", bodiesAtPoint[0]);
         // } else {
-        console.log("Clicked on empty space.");
+        console.log("Tapped on empty space.");
         if (randomFallingImg < imageUrlsWithDimension.length - 1) {
             randomFallingImg++;
         } else {
@@ -434,9 +515,6 @@ if (canvas != null) {
         World.add(world, body);
         // }
     }
-
-    render.canvas.addEventListener('mousedown', handleClickOrTap);
-    render.canvas.addEventListener('touchstart', handleClickOrTap);
 
 
     // ===================================================================================
@@ -517,7 +595,7 @@ if (container !== null) {
 
                 var distance = Math.sqrt(percentageX * percentageX + percentageY * percentageY);
 
-                speed = (0.0007 * percentageX / 2 + 0.00003)
+                speed = (0.0002 * percentageX / 2 + 0.00003)
             }
             else {
                 speed = 0.0003;
@@ -600,7 +678,7 @@ if (container2 !== null) {
                 distance < 1 ? scale = 0.08 * (smoothGrowth(distance)) + 0.02 : scale = 0.1;
             }
             else {
-                scale = 0.1;
+                scale = 0.05;
             }
 
             img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 70}px, ${y - 100}px) scale(${scale})`;
@@ -629,9 +707,16 @@ let resizeTimeout;
 var oldWidthScreenSize;
 window.addEventListener('resize', () => {
 
-    if (container != null) {
-        InfiniteLoadingWidth = window.innerWidth * 0.8 / 2; // horizontal radius (x-axis)
-        InfiniteLoadingHeight = container.getBoundingClientRect().height / 2 - 40; // vertical radius (y-axis)
+    if (container !== null) {
+        if (window.innerWidth < 500) {
+            InfiniteLoadingWidth = window.innerWidth * 0.6;
+            InfiniteLoadingHeight = 150;
+        }
+        // if desktop size
+        else {
+            InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
+            InfiniteLoadingHeight = container.getBoundingClientRect().height / 2 - 40; // vertical radius (y-axis)
+        }
         centerX = container.getBoundingClientRect().width / 2;
         centerY = container.getBoundingClientRect().height / 2;
     }

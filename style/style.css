@@ -635,6 +635,19 @@ tbody>tr:last-child {
 	#flyingContainer2 {
 		height: 500px;
 	}
+
+	#close-feedback {
+		right: 32px;
+		top: 32px;
+	}
+
+	#feedback-content {
+		max-height: 90vh;
+	}
+
+	.feedback-header img {
+		width: 64px;
+	}
 }
 
 @media (max-width: 768px) {
@@ -647,6 +660,19 @@ tbody>tr:last-child {
 
 	#flyingContainer2 {
 		height: 380px;
+	}
+
+	#close-feedback {
+		right: 30px;
+		top: 8px;
+	}
+
+	#feedback-content {
+		max-height: 80vh;
+	}
+
+	.feedback-header img {
+		width: 48px;
 	}
 }
 
@@ -812,8 +838,6 @@ ol>* {
 
 #close-feedback {
 	position: absolute;
-	right: 32px;
-	top: 32px;
 	pointer-events: all;
 	cursor: pointer;
 }
@@ -829,7 +853,6 @@ ol>* {
 
 #feedback-content {
 	background: var(--main-colors-background-elevate-1, #FFF7EB);
-	max-height: 90vh;
 	overflow-y: scroll;
 	padding: var(--spacing-xl) var(--spacing-xxl) var(--spacing-xxl) var(--spacing-xxl);
 	max-width: 700px;
@@ -849,9 +872,6 @@ ol>* {
 	align-items: flex-end;
 }
 
-.feedback-header img {
-	width: 64px;
-}
 
 .feedback-item {
 	position: relative;
@@ -969,7 +989,7 @@ ol>* {
 
 .bootcamp-item-content {
 	display: flex;
-	padding: 12px 8px;
+	padding-left: 8px;
 	flex-direction: column;
 	gap: 4px;
 	align-self: stretch;
@@ -1192,7 +1212,7 @@ form {
 	margin-top: 72px;
 }
 
-form>.form-group {
+form .form-group {
 	margin-bottom: 24px;
 }
 
@@ -1214,21 +1234,19 @@ form .tags {
 
 .sign-up-bootcamp-item:has(input[type="radio"]:not(:checked)),
 .sign-up-bootcamp-item:has(input[type="checkbox"]:not(:checked)) {
-	opacity: 0.3;
+	opacity: 0.5;
 	transition: opacity 0.2s ease-in-out;
-	background: none !important;
-
 }
 
 
 .sign-up-bootcamp-item:has(input[type="radio"]:checked),
 .sign-up-bootcamp-item:has(input[type="checkbox"]:checked) {
-	/* background: var(--main-colors-background-elevate-2) !important; */
+	background: var(--main-colors-background-elevate-2) !important;
 	border: 0.5px solid var(--transparent-foreground---main-color-40, rgba(55, 61, 72, 0.40));
 }
 
 
-.sign-up-bootcamp-item>label {
+.sign-up-bootcamp-item label {
 	display: flex;
 	flex-direction: row;
 	gap: 8px;
@@ -1236,6 +1254,8 @@ form .tags {
 	padding: 8px !important;
 	align-content: center;
 	align-items: center;
+	border: 0.5px solid var(--transparent-foreground---main-color-40, rgba(55, 61, 72, 0.40));
+	border-radius: 10px;
 }
 
 .sign-up-bootcamp-item:hover,
@@ -1244,7 +1264,7 @@ form .tags {
 }
 
 .sign-up-bootcamp-item label img {
-	height: 140px;
+	height: 120px;
 	width: auto;
 	border-radius: 4px;
 }
@@ -1257,6 +1277,8 @@ form .tags {
 	box-sizing: border-box;
 	border: none !important;
 	border-radius: 8px;
+	width: 100%;
+	margin-bottom: var(--bs-gutter-x);
 }
 
 #signUp_bootcamp_list {
@@ -1267,8 +1289,6 @@ form .tags {
 	align-items: stretch;
 	flex-wrap: wrap;
 	width: 100%;
-	border-radius: 8px;
-	border: 0.5px solid var(--transparent-foreground---main-color-40, rgba(55, 61, 72, 0.40));
-	padding: 0px !important;
+	/* padding: 0px !important; */
 	overflow: hidden;
 }

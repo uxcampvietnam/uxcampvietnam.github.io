@@ -637,7 +637,6 @@ tbody>tr:last-child {
 	}
 
 	#close-feedback {
-		right: 32px;
 		top: 32px;
 	}
 
@@ -663,7 +662,6 @@ tbody>tr:last-child {
 	}
 
 	#close-feedback {
-		right: 30px;
 		top: 8px;
 	}
 
@@ -860,6 +858,7 @@ ol>* {
 }
 
 #close-feedback {
+	right: var(--spacing-xxl);
 	position: absolute;
 	pointer-events: all;
 	cursor: pointer;

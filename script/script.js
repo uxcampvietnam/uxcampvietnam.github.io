@@ -4,6 +4,10 @@ let isDragging = false;
 let draggingInitialX = 0;
 let draggingOffsetX = 0;
 let clickableFeedback = true;
+let velocity = 0;
+let lastX = 0;
+let lastTime = 0;
+let momentumID;
 
 
 var i;
@@ -40,8 +44,8 @@ fetch('script/feedback.csv')
             <div class="feedback-item-content">
               <span class="h2 participant-name"><i>${item.name}</i></span>
               <div class="caption">
-                <span class="caption participant-title">${item.title}</span>
-                ${item.company !== '-' ? `<span class="caption participant-company"><i>${item.company}</i></span>` : ''}
+                <span class="italic caption participant-title">${item.title}</span>
+                ${item.company !== '-' ? `<span class="italic caption participant-company">${item.company}</span>` : ''}
               </div>
             </div>
           </div>`;
@@ -480,19 +484,17 @@ window.onload = function () {
     // Đặt chiều cao parent-div
     if (draggableDiv) {
         draggableDiv.parentNode.style.height = draggableDiv.getBoundingClientRect().height + 'px';
+
+        // Chuột
         draggableDiv.addEventListener('mousedown', e => startDrag(e.clientX));
+        draggableDiv.addEventListener('mousemove', e => duringDrag(e.clientX));
+        draggableDiv.addEventListener('mouseup', endDrag);
+
+        // Cảm ứng
         draggableDiv.addEventListener('touchstart', e => {
             const touch = e.touches[0];
             startDrag(touch.clientX);
         }, { passive: true });
-
-
-        // Sự kiện chuột
-        draggableDiv.addEventListener('mousemove', e => duringDrag(e.clientX));
-        draggableDiv.addEventListener('mouseup', endDrag);
-
-        // Sự kiện cảm ứng
-
 
         draggableDiv.addEventListener('touchmove', e => {
             const touch = e.touches[0];
@@ -500,58 +502,77 @@ window.onload = function () {
         }, { passive: true });
 
         draggableDiv.addEventListener('touchend', endDrag);
-
     }
 
-    // Hàm bắt đầu kéo
+
+
     function startDrag(x) {
+        cancelAnimationFrame(momentumID);
         isDragging = true;
         draggingInitialX = x;
         draggingOffsetX = draggableDiv.offsetLeft;
         draggableDiv.style.cursor = 'grabbing';
+        lastX = x;
+        lastTime = Date.now();
     }
 
-    // Hàm khi đang kéo
     function duringDrag(x) {
         if (!isDragging) return;
         clickableFeedback = false;
 
         const dx = x - draggingInitialX;
-
         draggableDiv.style.left = (draggingOffsetX + dx) + 'px';
 
+        // Tính vận tốc (px/ms)
+        const now = Date.now();
+        velocity = (x - lastX) / (now - lastTime);
+        lastX = x;
+        lastTime = now;
     }
 
-    // Hàm kết thúc kéo
     function endDrag() {
         isDragging = false;
         setTimeout(() => { clickableFeedback = true; }, 200);
         draggableDiv.style.cursor = 'grab';
-        // console.log(draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().right);
-        // console.log(draggableDiv.parentElement.getBoundingClientRect().right);
 
-        if (0 > draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().right - draggableDiv.parentElement.getBoundingClientRect().right) {
-            console.log('cuộn quá nhiều');
-            // console.log(draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().left);
-            // console.log(draggableDiv.getElementsByClassName('feedback-item')[0].getBoundingClientRect().left);
-            var position = draggableDiv.getElementsByClassName('feedback-item')[0].getBoundingClientRect().left - draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().left;
-            gsap.to(draggableDiv, {
-                left: position,
-                duration: 1,
-                ease: "elastic.out(1.9,0.9)",
-            });
+        momentumScroll();
+        isDragging = false;
+        setTimeout(() => { clickableFeedback = true; }, 200);
+        draggableDiv.style.cursor = 'grab';
+    }
+
+    function momentumScroll() {
+        // Nếu vận tốc nhỏ thì dừng
+        if (Math.abs(velocity) < 0.01) {
+            if (0 > draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().right - draggableDiv.parentElement.getBoundingClientRect().right) {
+                console.log('cuộn quá nhiều');
+                
+                var position = draggableDiv.getElementsByClassName('feedback-item')[0].getBoundingClientRect().left - draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().left;
+                gsap.to(draggableDiv, {
+                    left: position,
+                    duration: 1,
+                    ease: "elastic.out(1.9,0.9)",
+                });
+
+                return;
+            }
+            else if (draggableDiv.getBoundingClientRect().left > draggableDiv.parentElement.getBoundingClientRect().left) {
+                console.log('quay về đầu');
+                gsap.to(draggableDiv, {
+                    left: 0,
+                    duration: 1,
+                    ease: "elastic.out(1.9,0.9)",
+                });
+            }
 
             return;
-        }
-        else if (draggableDiv.getBoundingClientRect().left > draggableDiv.parentElement.getBoundingClientRect().left) {
-            console.log('quay về đầu');
-            gsap.to(draggableDiv, {
-                left: 0,
-                duration: 1,
-                ease: "elastic.out(1.9,0.9)",
-            });
-        }
+        };
 
+        draggingOffsetX = draggableDiv.offsetLeft + velocity * 16; // 16ms/frame
+        draggableDiv.style.left = draggingOffsetX + 'px';
+
+        velocity *= 0.95; // ma sát
+        momentumID = requestAnimationFrame(momentumScroll);
 
     }
 };

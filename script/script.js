@@ -1,4 +1,11 @@
 var acc = document.getElementsByClassName("accordion");
+
+let isDragging = false;
+let draggingInitialX = 0;
+let draggingOffsetX = 0;
+let clickableFeedback = true;
+
+
 var i;
 for (i = 0; i < acc.length; i++) {
     acc[i].addEventListener("click", function () {
@@ -228,17 +235,6 @@ function openBootcampMouseOut(el, event) {
 }
 
 // full width for feedback học viên.
-if (document.querySelectorAll('.feedback-list')[0]) {
-    document.querySelectorAll('.feedback-list')[0].style.width = window.innerWidth - document.querySelectorAll('.feedback-list')[0].getBoundingClientRect().left + "px";
-
-}
-
-window.addEventListener('resize', () => {
-
-    if (document.querySelectorAll('.feedback-list')[0] != null) {
-        document.querySelectorAll('.feedback-list')[0].style.width = window.innerWidth - document.querySelectorAll('.feedback-list')[0].getBoundingClientRect().left + "px";
-    }
-});
 
 
 var syllabusMouse = document.getElementById('syllabusMouse');
@@ -272,6 +268,9 @@ function toggleMouseOut(mouseID) {
 }
 
 function showFeedbackImg(element, event) {
+
+    if (!deviceHasMouse()) { return };
+
     var feedbackImg = element.getElementsByClassName('feedback-thumbnail')[0];
     const mouseX = event.clientX - element.getBoundingClientRect().left;
     const mouseY = event.clientY - element.getBoundingClientRect().top;
@@ -300,6 +299,10 @@ function closeFeedback() {
 }
 
 function showFeedback(feedbackId) {
+
+    if (clickableFeedback == null || clickableFeedback == false) { return };
+
+    // console.log('clicked feedback');
     var feedback = getFeedbackById(feedbackId);
     var feedbackDetailContainer = document.getElementById('feedbackDetailContainer');
     feedbackDetailContainer.classList.add('show-feedback');
@@ -403,9 +406,11 @@ window.onload = function () {
             stagger: 0.005,
             duration: 0.3,
             ease: 'power2.out',
+            onStart: () => {
+                document.getElementById('feedback-list').parentNode.style.height = document.getElementById('feedback-list').getBoundingClientRect().height;
+            },
         });
     }
-
 
 
     // Corporate Training ================
@@ -470,4 +475,79 @@ window.onload = function () {
     }
 
 
+    const draggableDiv = document.getElementById('feedback-list');
+
+    // Đặt chiều cao parent-div
+    if (draggableDiv) {
+        draggableDiv.parentNode.style.height = draggableDiv.getBoundingClientRect().height + 'px';
+        draggableDiv.addEventListener('mousedown', e => startDrag(e.clientX));
+        draggableDiv.addEventListener('touchstart', e => {
+            const touch = e.touches[0];
+            startDrag(touch.clientX);
+        }, { passive: true });
+
+
+        // Sự kiện chuột
+        draggableDiv.addEventListener('mousemove', e => duringDrag(e.clientX));
+        draggableDiv.addEventListener('mouseup', endDrag);
+
+        // Sự kiện cảm ứng
+
+
+        draggableDiv.addEventListener('touchmove', e => {
+            const touch = e.touches[0];
+            duringDrag(touch.clientX);
+        }, { passive: true });
+
+        draggableDiv.addEventListener('touchend', endDrag);
+
+    }
+
+    // Hàm bắt đầu kéo
+    function startDrag(x) {
+        isDragging = true;
+        draggingInitialX = x;
+        draggingOffsetX = draggableDiv.offsetLeft;
+        draggableDiv.style.cursor = 'grabbing';
+    }
+
+    // Hàm khi đang kéo
+    function duringDrag(x) {
+        if (!isDragging) return;
+        clickableFeedback = false;
+
+        const dx = x - draggingInitialX;
+
+        draggableDiv.style.left = (draggingOffsetX + dx) + 'px';
+
+    }
+
+    // Hàm kết thúc kéo
+    function endDrag() {
+        isDragging = false;
+        setTimeout(() => { clickableFeedback = true; }, 200);
+        draggableDiv.style.cursor = 'grab';
+
+        if (draggableDiv.getBoundingClientRect().left > draggableDiv.parentElement.getBoundingClientRect().left) {
+            gsap.to(draggableDiv, {
+                left: 0,
+                duration: 1,
+                ease: "elastic.out(1.9,0.9)",
+            });
+        }
+
+        if (0 > draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().right - draggableDiv.parentElement.getBoundingClientRect().right) {
+            var position = draggableDiv.parentElement.getBoundingClientRect().width - draggableDiv.getBoundingClientRect().width;
+            gsap.to(draggableDiv, {
+                left: position,
+                duration: 1,
+                ease: "elastic.out(1.9,0.9)",
+            });
+        }
+
+
+    }
 };
+
+
+

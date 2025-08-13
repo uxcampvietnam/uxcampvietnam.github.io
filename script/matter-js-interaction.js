@@ -504,7 +504,7 @@ if (canvas != null) {
         // if (bodiesAtPoint.length > 0) {
         //     console.log("Tapped on body:", bodiesAtPoint[0]);
         // } else {
-        console.log("Tapped on empty space.");
+        // console.log("Tapped on empty space.");
         if (randomFallingImg < imageUrlsWithDimension.length - 1) {
             randomFallingImg++;
         } else {

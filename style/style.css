@@ -798,10 +798,32 @@ ol>* {
 	padding-bottom: 16px;
 }
 
+#what-learners-say .bootcamp-section-content {
+	min-height: 400px;
+	position: relative;
+}
+
 .feedback-list {
 	padding-top: var(--spacing-xxl);
 	padding-bottom: var(--spacing-xxl);
-	overflow-x: auto;
+	overflow-x: visible;
+	position: absolute;
+	/* or relative */
+	cursor: grab;
+	/* background-color: crimson; */
+	/* Indicates it's draggable */
+	min-width: 100vw;
+
+
+	-webkit-user-select: none;
+	/* Safari */
+	-moz-user-select: none;
+	/* Firefox */
+	-ms-user-select: none;
+	/* IE 10+ */
+	user-select: none;
+	/* Standard */
+
 }
 
 .feedback-horizontal-scroll {
@@ -962,6 +984,10 @@ ol>* {
 	background: var(--main-colors-background-elevate-1);
 	transition: background-color 0.25s ease-in-out;
 	overflow: hidden;
+}
+
+.bootcamp-item:last-child {
+	margin-right: 64px;
 }
 
 .bootcamp-item img,

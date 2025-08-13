@@ -527,19 +527,26 @@ window.onload = function () {
         isDragging = false;
         setTimeout(() => { clickableFeedback = true; }, 200);
         draggableDiv.style.cursor = 'grab';
+        // console.log(draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().right);
+        // console.log(draggableDiv.parentElement.getBoundingClientRect().right);
 
-        if (draggableDiv.getBoundingClientRect().left > draggableDiv.parentElement.getBoundingClientRect().left) {
+        if (0 > draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().right - draggableDiv.parentElement.getBoundingClientRect().right) {
+            console.log('cuộn quá nhiều');
+            // console.log(draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().left);
+            // console.log(draggableDiv.getElementsByClassName('feedback-item')[0].getBoundingClientRect().left);
+            var position = draggableDiv.getElementsByClassName('feedback-item')[0].getBoundingClientRect().left - draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().left;
             gsap.to(draggableDiv, {
-                left: 0,
+                left: position,
                 duration: 1,
                 ease: "elastic.out(1.9,0.9)",
             });
-        }
 
-        if (0 > draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().right - draggableDiv.parentElement.getBoundingClientRect().right) {
-            var position = draggableDiv.parentElement.getBoundingClientRect().width - draggableDiv.getBoundingClientRect().width;
+            return;
+        }
+        else if (draggableDiv.getBoundingClientRect().left > draggableDiv.parentElement.getBoundingClientRect().left) {
+            console.log('quay về đầu');
             gsap.to(draggableDiv, {
-                left: position,
+                left: 0,
                 duration: 1,
                 ease: "elastic.out(1.9,0.9)",
             });

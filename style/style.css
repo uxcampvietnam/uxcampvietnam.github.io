@@ -827,16 +827,17 @@ ol>* {
 }
 
 .feedback-horizontal-scroll {
-	width: fit-content;
+	width: fit-content !important;
 	overflow-x: visible;
 	box-sizing: border-box;
 	display: flex;
 	height: 380px;
 	align-items: flex-start;
 	align-content: flex-start;
-	gap: 42px;
+	gap: 0px;
 	flex-direction: column;
 	flex-wrap: wrap;
+
 }
 
 #feedbackDetailContainer {
@@ -898,6 +899,8 @@ ol>* {
 .feedback-item {
 	position: relative;
 	cursor: none;
+	padding: 20px;
+	align-self: stretch;
 }
 
 .feedback-item * {
@@ -918,8 +921,7 @@ ol>* {
 
 .margin-right-for-feedback {
 	width: 400px;
-	height: 10px;
-	/* background-color: red; */
+	min-height: 10px;
 }
 
 .feedback-item-content {

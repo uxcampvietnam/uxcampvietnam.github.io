@@ -545,7 +545,7 @@ window.onload = function () {
         // Nếu vận tốc nhỏ thì dừng
         if (Math.abs(velocity) < 0.01) {
             if (0 > draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().right - draggableDiv.parentElement.getBoundingClientRect().right) {
-                console.log('cuộn quá nhiều');
+                // console.log('cuộn quá nhiều');
                 
                 var position = draggableDiv.getElementsByClassName('feedback-item')[0].getBoundingClientRect().left - draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().left;
                 gsap.to(draggableDiv, {
@@ -557,7 +557,7 @@ window.onload = function () {
                 return;
             }
             else if (draggableDiv.getBoundingClientRect().left > draggableDiv.parentElement.getBoundingClientRect().left) {
-                console.log('quay về đầu');
+                // console.log('quay về đầu');
                 gsap.to(draggableDiv, {
                     left: 0,
                     duration: 1,

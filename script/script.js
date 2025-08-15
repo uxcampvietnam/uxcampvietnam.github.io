@@ -82,7 +82,7 @@ fetch('script/bootcamp_list.csv')
                     <h3 class="bootcamp-cohort-name">${item.bootcamp_name}</h3>
                     <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
                     <span class="paragraph bootcamp-start-date">${item.start_date}</span>
-                    <span class="paragraph bootcamp-pricing">${item.pricing} (*)</span>                    
+                    <span class="paragraph bootcamp-pricing">${item.pricing} ${item.offline == 1 ? "(*)" : ""}</span>                    
                     <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Form đăng ký đã đóng"}</span>
                     </div>
                     <a href="bootcamp-register.html?bootcamp_id=${item.bootcamp_id}" class="sign-up-now paragraph">
@@ -99,7 +99,7 @@ fetch('script/bootcamp_list.csv')
                 <div style = "padding: 0px 16px;
                 color: var(--main-colors-foreground-f700);"
                 class = "paragraph italic col-12">
-                (*) Đối với các bootcamp offline, phí tham dự chưa bao gồm chi phí di chuyển, ăn ở cho chương trình graduation retreat. Địa điểm tổ chức graduation retreat sẽ được thống nhất với người tham dự 1 tháng trước ngày tổ chức bảo vệ cuối khóa.</div>`;
+                (*) Đối với các bootcamp offline: Phí tham dự chưa bao gồm chi phí di chuyển, ăn ở cho graduation retreat. Địa điểm tổ chức graduation retreat sẽ được thống nhất với người tham dự 1 tháng trước ngày tổ chức bảo vệ cuối khóa.</div>`;
                 bootcamp_list_Els[i].innerHTML += bootcamp_innerHTML;
             }
         }

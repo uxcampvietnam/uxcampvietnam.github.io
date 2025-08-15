@@ -64,7 +64,7 @@
                     action="https://formsubmit.co/7c3c2a11b6abfc8649c9eda437617675" method="POST">
                     <div class="bootcamp-title-full form-group row">
                         <div class="row1">
-                            <div class="h5 text-logo">UXCAMP VIETNAM</div>
+                            <a href="index.html"><div class="h5 text-logo">UXCAMP VIETNAM</div></a>
                         </div>
                         <div class="bootcamp-title">
                             <div class="h1 medium">Đăng ký tham dự: Designing Digital Product per Stage and Metric
@@ -78,7 +78,7 @@
                                 1. Thông báo kịp thời cho các bạn về lộ trình tìm hiểu kiến thức trước khóa học<br>
                                 2. Đưa ra chia sẻ về mức độ phù hợp của bạn với chương trình học<br>
                                 3. Điều chỉnh ví dụ minh họa, phương pháp tiếp cận phù hợp với từng nhóm tham dự<br>
-                                4. Đảm bảo chất lượng đào tạo<br>
+                                4. Đảm bảo chất lượng đào tạo bằng việc sắp xếp người tham dự theo các nhóm bổ trợ năng lực cho nhau.<br>
                                 Giáo trình chi tiết vui lòng xem tại <a href="index.html">https://uxcamp.vn</a><br>
                                 <br>
                             </div>
@@ -163,8 +163,30 @@
                         </div>
 
                         <div class="form-group">
-                            <span class="col-12 h5 input-row-title">Bạn đã trải qua giai đoạn nào của sản phẩm rồi ?
-                                *</span>
+                            <span class="col-12 h5 input-row-title">Bạn đã từng làm sản phẩm *</span>
+                            <div class="tags">
+                                <span>
+                                    <input type="checkbox" id="internal" name="productType[]"
+                                        value="Sản phẩm sử dụng nội bộ">
+                                    <label class="h3 extralight input-row-title" for="internal">Sản phẩm sử dụng nội
+                                        bộ</label>
+                                </span>
+                                <span>
+                                    <input type="checkbox" id="for-end-user" name="productType[]"
+                                        value="Sản phẩm cho end-user">
+                                    <label class="h3 extralight input-row-title" for="for-end-user">Sản phẩm cho
+                                        end-user</label>
+                                </span>
+                                <span>
+                                    <input type="checkbox" id="other-product-type" name="productType[]" value="Other">
+                                    <label class="h3 extralight input-row-title" for="other-product-type">Other</label>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <span class="col-12 h5 input-row-title">[Nếu đã phát triển sản phẩm cho end-user] Các giai
+                                đoạn của sản phẩm bạn đã trải qua *</span>
                             <div class="tags">
                                 <span>
                                     <input type="checkbox" id="poc" name="stage[]" value="Proof of concepts">
@@ -188,13 +210,17 @@
                                 </span>
                                 <span>
                                     <input type="checkbox" id="dontknow" name="stage[]" value="Tôi không biết nữa!">
-                                    <label class="h3 extralight input-row-title" for="dontknow">Tôi không biết
-                                        nữa!</label>
+                                    <label class="h3 extralight input-row-title" for="dontknow">Tôi không nắm
+                                        được</label>
                                 </span>
                             </div>
                         </div>
 
-
+                        <div class="form-group">
+                            <span class="col-12 h5 input-row-title">Các chỉ số sản phẩm nào được sử dụng để đánh giá hiệu quả công việc của bạn?. Ghi “không” nếu performance của bạn không được đánh giá bằng chỉ số sản phẩm</span>
+                            <input class="col-12 single-input h3" type="text" id="product-metrics" name="product-metrics" placeholder=""
+                                required />
+                        </div>
 
                         <!-- <div class="radio-group form-group">
                         <span class="col-12 h5 input-row-title">Bạn biết tới bootcamp do người quen, người tham

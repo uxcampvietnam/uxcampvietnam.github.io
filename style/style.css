@@ -646,6 +646,13 @@ tbody>tr:last-child {
 	.feedback-header img {
 		width: 64px;
 	}
+
+	.feedback-list {
+		width: max-content !important;
+		position: absolute;
+		cursor: grab;
+		min-width: 100vw;
+	}
 }
 
 @media (max-width: 768px) {
@@ -671,6 +678,14 @@ tbody>tr:last-child {
 	.feedback-header img {
 		width: 48px;
 	}
+
+
+	.feedback-list {
+		width: 100%;
+		overflow: scroll;
+		position: absolute;
+	}
+
 }
 
 
@@ -804,14 +819,7 @@ ol>* {
 .feedback-list {
 	padding-top: var(--spacing-xxl);
 	padding-bottom: var(--spacing-xxl);
-	overflow-x: visible;
 	position: absolute;
-	/* or relative */
-	cursor: grab;
-	/* background-color: crimson; */
-	/* Indicates it's draggable */
-	min-width: 100vw;
-
 
 	-webkit-user-select: none;
 	/* Safari */
@@ -821,15 +829,19 @@ ol>* {
 	/* IE 10+ */
 	user-select: none;
 	/* Standard */
-
 }
 
+#case-study {
+	margin-top: 32px;
+}
+
+
 .feedback-horizontal-scroll {
-	width: fit-content !important;
+	width: max-content !important;
 	overflow-x: visible;
 	box-sizing: border-box;
 	display: flex;
-	height: 380px;
+	height: 390px;
 	align-items: flex-start;
 	align-content: flex-start;
 	gap: 0px;

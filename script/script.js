@@ -51,7 +51,7 @@ fetch('script/feedback.csv')
           </div>`;
             }
 
-            feedback_list_innerHTML += `<div class="margin-right-for-feedback"></div></div>`;
+            feedback_list_innerHTML += `</div>`;
             feedback_list_Els[i].innerHTML += feedback_list_innerHTML;
         }
     })
@@ -509,18 +509,18 @@ window.onload = function () {
         draggableDiv.addEventListener('mousemove', e => duringDrag(e.clientX));
         draggableDiv.addEventListener('mouseup', endDrag);
 
-        // Cảm ứng
-        draggableDiv.addEventListener('touchstart', e => {
-            const touch = e.touches[0];
-            startDrag(touch.clientX);
-        }, { passive: true });
+        // // Cảm ứng
+        // draggableDiv.addEventListener('touchstart', e => {
+        //     const touch = e.touches[0];
+        //     startDrag(touch.clientX);
+        // }, { passive: true });
 
-        draggableDiv.addEventListener('touchmove', e => {
-            const touch = e.touches[0];
-            duringDrag(touch.clientX);
-        }, { passive: true });
+        // draggableDiv.addEventListener('touchmove', e => {
+        //     const touch = e.touches[0];
+        //     duringDrag(touch.clientX);
+        // }, { passive: true });
 
-        draggableDiv.addEventListener('touchend', endDrag);
+        // draggableDiv.addEventListener('touchend', endDrag);
     }
 
 
@@ -561,13 +561,12 @@ window.onload = function () {
 
     function momentumScroll() {
         // Nếu vận tốc nhỏ thì dừng
-        if (Math.abs(velocity) < 0.01) {
-            if (0 > draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().right - draggableDiv.parentElement.getBoundingClientRect().right) {
-                // console.log('cuộn quá nhiều');
 
-                var position = draggableDiv.getElementsByClassName('feedback-item')[0].getBoundingClientRect().left - draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().left;
+        if (Math.abs(velocity) < 0.01) {
+            if (draggableDiv.getElementsByClassName('feedback-horizontal-scroll')[0].getBoundingClientRect().right < draggableDiv.parentElement.getBoundingClientRect().right) {
+                // console.log('cuộn quá nhiều');
                 gsap.to(draggableDiv, {
-                    left: position,
+                    left: - draggableDiv.getElementsByClassName('feedback-horizontal-scroll')[0].getBoundingClientRect().width + draggableDiv.parentElement.getBoundingClientRect().width ,
                     duration: 1,
                     ease: "elastic.out(1.9,0.9)",
                 });
@@ -577,7 +576,7 @@ window.onload = function () {
             else if (draggableDiv.getBoundingClientRect().left > draggableDiv.parentElement.getBoundingClientRect().left) {
                 // console.log('quay về đầu');
                 gsap.to(draggableDiv, {
-                    left: 0,
+                    left: '0',
                     duration: 1,
                     ease: "elastic.out(1.9,0.9)",
                 });

@@ -1,36 +1,43 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-<meta charset="UTF-8">
-<title>Bài viết</title>
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Bài viết</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- custom css -->
+
+    <link rel="stylesheet" type="text/css" href="style/definition.css">
+    <link rel="stylesheet" type="text/css" href="style/style.css">
 </head>
+
 <body>
-<div id="content">Đang tải...</div>
+    <div id="content">Đang tải...</div>
 
-<script>
-async function loadPost() {
-  const params = new URLSearchParams(window.location.search);
-  const file = params.get("file");
-  if (!file) {
-    document.getElementById("content").textContent = "Không tìm thấy bài viết.";
-    return;
-  }
+    <script>
+        async function loadPost() {
+            const params = new URLSearchParams(window.location.search);
+            const file = params.get("file");
+            if (!file) {
+                document.getElementById("content").textContent = "Không tìm thấy bài viết.";
+                return;
+            }
 
-  try {
-    const res = await fetch(file);
-    const text = await res.text();
+            try {
+                const res = await fetch(file);
+                const text = await res.text();
 
-    // Bỏ phần front matter (--- ... ---)
-    const body = text.replace(/---[\s\S]*?---/, "").trim();
+                // Bỏ phần front matter (--- ... ---)
+                const body = text.replace(/---[\s\S]*?---/, "").trim();
 
-    // Hiển thị ra HTML
-    document.getElementById("content").innerHTML = marked.parse(body);
-  } catch (err) {
-    document.getElementById("content").textContent = "Lỗi tải bài viết.";
-  }
-}
-loadPost();
-</script>
+                // Hiển thị ra HTML
+                document.getElementById("content").innerHTML = marked.parse(body);
+            } catch (err) {
+                document.getElementById("content").textContent = "Lỗi tải bài viết.";
+            }
+        }
+        loadPost();
+    </script>
 </body>
+
 </html>

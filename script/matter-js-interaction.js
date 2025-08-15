@@ -703,43 +703,43 @@ if (container2 !== null) {
 }
 
 
-let resizeTimeout;
-var oldWidthScreenSize;
-window.addEventListener('resize', () => {
+// let resizeTimeout;
+// var oldWidthScreenSize;
+// window.addEventListener('resize', () => {
 
-    if (container !== null) {
-        if (window.innerWidth < 500) {
-            InfiniteLoadingWidth = window.innerWidth * 0.6;
-            InfiniteLoadingHeight = 150;
-        }
-        // if desktop size
-        else {
-            InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
-            InfiniteLoadingHeight = container.getBoundingClientRect().height / 2 - 40; // vertical radius (y-axis)
-        }
-        centerX = container.getBoundingClientRect().width / 2;
-        centerY = container.getBoundingClientRect().height / 2;
-    }
+//     if (container !== null) {
+//         if (window.innerWidth < 500) {
+//             InfiniteLoadingWidth = window.innerWidth * 0.6;
+//             InfiniteLoadingHeight = 150;
+//         }
+//         // if desktop size
+//         else {
+//             InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
+//             InfiniteLoadingHeight = container.getBoundingClientRect().height / 2 - 40; // vertical radius (y-axis)
+//         }
+//         centerX = container.getBoundingClientRect().width / 2;
+//         centerY = container.getBoundingClientRect().height / 2;
+//     }
 
-    // Clear any existing timeout to reset the timer
-    clearTimeout(resizeTimeout);
+//     // Clear any existing timeout to reset the timer
+//     clearTimeout(resizeTimeout);
 
-    // Set a new timeout
-    resizeTimeout = setTimeout(() => {
-        // This function will execute only after the user stops resizing for 200ms
-        handleResizeEnd();
-    }, 50); // Adjust the delay (in milliseconds) as needed
-});
+//     // Set a new timeout
+//     resizeTimeout = setTimeout(() => {
+//         // This function will execute only after the user stops resizing for 200ms
+//         handleResizeEnd();
+//     }, 50); // Adjust the delay (in milliseconds) as needed
+// });
 
-function handleResizeEnd() {
-    // location.reload();
-    // Render.run(render);
-    if (oldWidthScreenSize < document.getElementsByTagName('body')[0].getBoundingClientRect().width) {
-        location.reload();
-        // console.log("resized");
-    }
-    oldWidthScreenSize = document.getElementsByTagName('body')[0].getBoundingClientRect().width;
-}
+// function handleResizeEnd() {
+//     // location.reload();
+//     // Render.run(render);
+//     if (oldWidthScreenSize < document.getElementsByTagName('body')[0].getBoundingClientRect().width) {
+//         location.reload();
+//         // console.log("resized");
+//     }
+//     oldWidthScreenSize = document.getElementsByTagName('body')[0].getBoundingClientRect().width;
+// }
 
 
 function deviceHasMouse() {

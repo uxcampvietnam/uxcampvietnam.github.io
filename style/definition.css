@@ -422,7 +422,7 @@ hr {
     --font-letter-spacing-xsmall: 0.5px;
 
     --font-line-height-xl-title: 54px;
-    --font-line-height-title: 44px;
+    --font-line-height-title: 36px;
     --font-line-height-h1: 40px;
     --font-line-height-h2: 34px;
     --font-line-height-h3: 31px;
@@ -435,7 +435,7 @@ hr {
     --font-line-height-xsmall: 16px;
 
     --font-size-xl-title: 52px;
-    --font-size-title: 40px;
+    --font-size-title: 32px;
     --font-size-h1: 36px;
     --font-size-h2: 30px;
     --font-size-h3: 24px;
@@ -672,8 +672,8 @@ span:has(input[type="checkbox"]:checked) {
 
 span:has(input[type="radio"]:not(:checked)),
 span:has(input[type="checkbox"]:not(:checked)) {
-  /* opacity: 0.6; */
-  background: var(--main-colors-background-b-300-main, #F5EADB);
+  opacity: 0.6;
+  /* background: var(--main-colors-background-b200); */
 }
 
 span:has(input[type="radio"]) input[type="radio"],
@@ -681,6 +681,11 @@ span:has(input[type="checkbox"]) input[type="checkbox"] {
   display: none;
 }
 
+
+span:has(label.h3) label,
+span:has(label.h3) label {
+  padding: 8px 16px !important;
+}
 
 span:has(input[type="radio"]) label,
 span:has(input[type="checkbox"]) label {

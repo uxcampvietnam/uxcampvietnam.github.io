@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Blog</title>
+</head>
+<body>
+<h1>Danh sách bài viết</h1>
+<div id="blog-list"></div>
+
+<script>
+async function loadPosts() {
+  const postFiles = [
+    "posts/first-post.md",
+    "posts/another-post.md"
+  ];
+
+  const listEl = document.getElementById("blog-list");
+
+  for (let file of postFiles) {
+    const res = await fetch(file);
+    const text = await res.text();
+    const titleMatch = text.match(/title:\s*"(.*)"/);
+    const title = titleMatch ? titleMatch[1] : file;
+    const link = document.createElement("a");
+    link.href = file;
+    link.textContent = title;
+    const div = document.createElement("div");
+    div.appendChild(link);
+    listEl.appendChild(div);
+  }
+}
+loadPosts();
+</script>
+</body>
+</html>

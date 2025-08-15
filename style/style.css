@@ -307,7 +307,6 @@ tbody>tr:last-child {
 .interactive-image-container {
 	width: 100vw;
 	height: 100vh;
-	position: relative;
 	z-index: 1;
 }
 
@@ -404,7 +403,7 @@ tbody>tr:last-child {
 	outline: none;
 	background: var(--main-colors-background-b-200-slide-bg) !important;
 	z-index: 100;
-	position: absolute;
+	position: fixed;
 	top: 0px;
 	left: 0px;
 	cursor: pointer;
@@ -423,7 +422,7 @@ tbody>tr:last-child {
 	flex-direction: column;
 	overflow-x: visible;
 	backdrop-filter: blur(200px);
-	padding: var(--spacing-xl);
+	padding: 32px var(--spacing-m);
 	border-radius: 32px;
 }
 
@@ -743,6 +742,7 @@ h5,
 h6,
 p,
 .paragraph,
+.caption,
 span,
 .h1,
 .h2,
@@ -972,7 +972,7 @@ ol>* {
 
 .bootcamp-item {
 	position: relative;
-	width: 255px;
+	width: 250px;
 	display: flex;
 	padding: 12px;
 	flex-direction: column;
@@ -1005,7 +1005,7 @@ ol>* {
 .bootcamp-item .bootcamp-thumbnail {
 	border-radius: 12px;
 	width: 100%;
-	height: 100%;
+	/* height: 100%; */
 }
 
 .bootcamp-item.is_open:hover {
@@ -1017,13 +1017,14 @@ ol>* {
 .bootcamp-item-content {
 	display: flex;
 	padding-left: 8px;
-	flex-direction: column;
 	gap: 4px;
 	align-self: stretch;
-	justify-content: center;
+	justify-content: flex-start;
 	flex-wrap: nowrap;
 	align-content: flex-start;
 	align-items: stretch;
+	height: 100%;
+	flex-direction: column;
 }
 
 .bootcamp-item-content * {

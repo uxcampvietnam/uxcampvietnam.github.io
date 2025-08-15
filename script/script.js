@@ -69,7 +69,8 @@ fetch('script/bootcamp_list.csv')
         const bootcamp_list_Els = document.querySelectorAll(".bootcamp-list");
         if (bootcamp_list_Els !== null) {
             for (let i = 0; i < bootcamp_list_Els.length; i++) {
-                let bootcamp_innerHTML = `<div class="horizontal-scroll row flex-row flex-nowrap">`;
+                let bootcamp_innerHTML = `<div> </div>
+                <div class="horizontal-scroll row flex-row flex-nowrap">`;
                 for (let j = 0; j < bootcamp_list.length; j++) {
                     const item = bootcamp_list[j];
 
@@ -81,8 +82,7 @@ fetch('script/bootcamp_list.csv')
                     <h3 class="bootcamp-cohort-name">${item.bootcamp_name}</h3>
                     <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
                     <span class="paragraph bootcamp-start-date">${item.start_date}</span>
-                    <span class="paragraph bootcamp-pricing">${item.pricing}</span>
-                    <span class="caption"> Chi phí chưa bao gồm chi phí di chuyển, ăn ở cho bảo vệ cuối khóa</span>
+                    <span class="paragraph bootcamp-pricing">${item.pricing} (*)</span>                    
                     <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Form đăng ký đã đóng"}</span>
                     </div>
                     <a href="bootcamp-register.html?bootcamp_id=${item.bootcamp_id}" class="sign-up-now paragraph">
@@ -95,7 +95,11 @@ fetch('script/bootcamp_list.csv')
                 </div>`;
 
                 }
-                bootcamp_innerHTML += `</div>`;
+                bootcamp_innerHTML += `</div>
+                <div style = "padding: 0px 16px;
+                color: var(--main-colors-foreground-f700);"
+                class = "paragraph italic col-12">
+                (*) Đối với các bootcamp offline, phí tham dự chưa bao gồm chi phí di chuyển, ăn ở cho chương trình graduation retreat. Địa điểm tổ chức graduation retreat sẽ được thống nhất với người tham dự 1 tháng trước ngày tổ chức bảo vệ cuối khóa.</div>`;
                 bootcamp_list_Els[i].innerHTML += bootcamp_innerHTML;
             }
         }
@@ -336,6 +340,21 @@ function showFeedback(feedbackId) {
 
 window.onload = function () {
 
+
+    gsap.to('#interactiveImage', {
+        scrollTrigger: {
+            trigger: '.designing-digital-product-per-stage-and-metric',
+            start: 'top top',
+            end: 'center bottom',
+            toggleActions: 'play none play reverse', //onEnter, onLeave, onEnterBack, and onLeaveBack -> sẽ nhận 1 trong các giá trị sau: "play", "pause", "resume", "reset", "restart", "complete", "reverse", and "none".
+            // markers: true,
+            scrub: true,
+        },
+        opacity: 0,
+        duration: 1.2,
+        ease: 'power2.out',
+    });
+
     if (document.querySelectorAll('#flyingContainer')[0] != null) {
         ScrollTrigger.create({
             trigger: "#flyingContainer",
@@ -388,7 +407,7 @@ window.onload = function () {
                 stagger: 0.015,
                 duration: 0.8,
                 ease: 'power2.out',
-            }, '-=1');
+            }, '-=0.6');
     }
 
     if (document.querySelectorAll('.feedback-item-content > *')[0] != null) {
@@ -505,7 +524,6 @@ window.onload = function () {
     }
 
 
-
     function startDrag(x) {
         cancelAnimationFrame(momentumID);
         isDragging = true;
@@ -546,7 +564,7 @@ window.onload = function () {
         if (Math.abs(velocity) < 0.01) {
             if (0 > draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().right - draggableDiv.parentElement.getBoundingClientRect().right) {
                 // console.log('cuộn quá nhiều');
-                
+
                 var position = draggableDiv.getElementsByClassName('feedback-item')[0].getBoundingClientRect().left - draggableDiv.getElementsByClassName('feedback-item')[draggableDiv.getElementsByClassName('feedback-item').length - 1].getBoundingClientRect().left;
                 gsap.to(draggableDiv, {
                     left: position,
@@ -578,4 +596,33 @@ window.onload = function () {
 };
 
 
+let lastWidth = document.body.getBoundingClientRect().width;
+let resizeTimeout;
 
+const observer = new ResizeObserver(entries => {
+    const newWidth = entries[0].contentRect.width;
+
+    if (Math.abs(newWidth - lastWidth) > 20) {
+        // Reset timer mỗi lần width thay đổi
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (container !== null) {
+                if (window.innerWidth < 500) {
+                    InfiniteLoadingWidth = window.innerWidth * 0.6;
+                    InfiniteLoadingHeight = 150;
+                }
+                // if desktop size
+                else {
+                    InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
+                    InfiniteLoadingHeight = container.getBoundingClientRect().height / 2 - 40; // vertical radius (y-axis)
+                }
+                centerX = container.getBoundingClientRect().width / 2;
+                centerY = container.getBoundingClientRect().height / 2;
+            }
+            location.reload();
+        }, 200); // 200ms sau khi ngừng thay đổi
+        lastWidth = newWidth;
+    }
+});
+
+observer.observe(document.body);

@@ -64,7 +64,9 @@
                     action="https://formsubmit.co/7c3c2a11b6abfc8649c9eda437617675" method="POST">
                     <div class="bootcamp-title-full form-group row">
                         <div class="row1">
-                            <a href="index.html"><div class="h5 text-logo">UXCAMP VIETNAM</div></a>
+                            <a href="index.html">
+                                <div class="h5 text-logo">UXCAMP VIETNAM</div>
+                            </a>
                         </div>
                         <div class="bootcamp-title">
                             <div class="h1 medium">Đăng ký tham dự: Designing Digital Product per Stage and Metric
@@ -78,7 +80,8 @@
                                 1. Thông báo kịp thời cho các bạn về lộ trình tìm hiểu kiến thức trước khóa học<br>
                                 2. Đưa ra chia sẻ về mức độ phù hợp của bạn với chương trình học<br>
                                 3. Điều chỉnh ví dụ minh họa, phương pháp tiếp cận phù hợp với từng nhóm tham dự<br>
-                                4. Đảm bảo chất lượng đào tạo bằng việc sắp xếp người tham dự theo các nhóm bổ trợ năng lực cho nhau.<br>
+                                4. Đảm bảo chất lượng đào tạo bằng việc sắp xếp người tham dự theo các nhóm bổ trợ năng
+                                lực cho nhau.<br>
                                 Giáo trình chi tiết vui lòng xem tại <a href="index.html">https://uxcamp.vn</a><br>
                                 <br>
                             </div>
@@ -89,6 +92,7 @@
                         </div>
                     </div>
                     <div class="row">
+
                         <div class="col-12 form-group">
                             <label class="h5 input-row-title" for="name">Họ và tên *</label>
                             <input class="col-12 single-input h3" type="text" id="name" name="name" placeholder=""
@@ -217,9 +221,11 @@
                         </div>
 
                         <div class="form-group">
-                            <span class="col-12 h5 input-row-title">Các chỉ số sản phẩm nào được sử dụng để đánh giá hiệu quả công việc của bạn?. Ghi “không” nếu performance của bạn không được đánh giá bằng chỉ số sản phẩm</span>
-                            <input class="col-12 single-input h3" type="text" id="product-metrics" name="product-metrics" placeholder=""
-                                required />
+                            <span class="col-12 h5 input-row-title">Liệt kê các product metrics được dùng để đánh giá
+                                hiệu quả công việc của bạn. Ghi “không” nếu performance của bạn không được đánh giá
+                                bằng product metrics *</span>
+                            <textarea class="col-12 single-input h3" id="productMetric" name="productMetric"
+                                placeholder="" required></textarea>
                         </div>
 
                         <!-- <div class="radio-group form-group">
@@ -298,8 +304,8 @@
         </div>
     </div>
 
-
-    <!-- <script>
+<!-- 
+    <script>
         document.getElementById('bootcamp-register').addEventListener('submit', function (event) {
             event.preventDefault(); // Ngăn gửi form
 
@@ -319,7 +325,9 @@
                 }
             }
 
-            console.log(result);
+            console.log(result.bootcamp_name);
+
+            // event.target.submit()
         });
     </script> -->
 

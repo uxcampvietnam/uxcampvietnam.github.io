@@ -116,16 +116,17 @@ fetch('script/bootcamp_list.csv')
             // Lấy giá trị của 'bootcamp_id'
             const selectedBootcamp = params.get('bootcamp_id');
 
-            var signUp_bootcamp_innerHTML = `<span class="col-12 h5 input-row-title">Bạn đăng ký bootcamp:</span>
+            var signUp_bootcamp_innerHTML = `<span class="col-12 h5 input-row-title">Bạn đăng ký bootcamp *</span>
 `;
             for (let j = 0; j < bootcamp_list.length; j++) {
                 const item = bootcamp_list[j];
                 if (item.is_open == 1) {
+
                     signUp_bootcamp_innerHTML += `
                     <div class = 'col-12 col-md-6 col-lg-6'>
                     <span class = "sign-up-bootcamp-item">
                         <label for="bootcamp_${item.bootcamp_id}">
-                            <input type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${item.bootcamp_id === selectedBootcamp ? "checked" : ""} />
+                            <input required type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${item.bootcamp_id === selectedBootcamp ? "checked" : ""} />
                             <img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/${item.thumbnail}">
                             <div class="bootcamp-item-content">
                                 <h3 class="bootcamp-cohort-name">${item.bootcamp_name}</h3>

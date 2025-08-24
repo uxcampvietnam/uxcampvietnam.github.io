@@ -678,7 +678,11 @@ span:has(input[type="checkbox"]:not(:checked)) {
 
 span:has(input[type="radio"]) input[type="radio"],
 span:has(input[type="checkbox"]) input[type="checkbox"] {
-  display: none;
+  /* display: none; */
+  width: 0px;
+  opacity: 0;
+  visibility: none;
+  position: absolute;
 }
 
 

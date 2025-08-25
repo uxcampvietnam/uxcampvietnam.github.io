@@ -8,10 +8,9 @@ div[class^="col"] {
 } */
 
 /* ------------------------------------------------- */
-
-textarea,
 .single-input,
-input:-internal-autofill-selected {
+textarea,
+input {
 	display: flex;
 	padding: 4px 8px;
 	justify-content: center;
@@ -19,7 +18,7 @@ input:-internal-autofill-selected {
 	gap: 4px;
 	border-radius: 4px;
 	border: 0.5px solid var(--transparent-foreground---main-color-40, rgba(55, 61, 72, 0.40));
-	background: var(--main-colors-background-elevate-2, #FFF7EB) !important;
+	background: var(--main-colors-background-elevate-2) !important;
 }
 
 textarea.auto-resize {
@@ -606,7 +605,7 @@ tbody>tr:last-child {
 
 .accordion-el {
 	border-top: 0.5px solid var(--main-colors-foreground-f900) !important;
-	padding: 24px 0px;
+	padding: 24px 16px 24px 0px;
 }
 
 .accordion:last-child {

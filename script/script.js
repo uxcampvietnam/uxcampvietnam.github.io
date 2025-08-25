@@ -123,7 +123,7 @@ fetch('script/bootcamp_list.csv')
                 if (item.is_open == 1) {
 
                     signUp_bootcamp_innerHTML += `
-                    <div class = 'col-12 col-md-6 col-lg-6'>
+                    <div class = 'col-12 col-md-12 col-lg-6'>
                     <span class = "sign-up-bootcamp-item">
                         <label for="bootcamp_${item.bootcamp_id}">
                             <input required type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${item.bootcamp_id === selectedBootcamp ? "checked" : ""} />

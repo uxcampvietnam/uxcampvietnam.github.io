@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>UXCAMP VIETNAM</title>
+    <title>Bootcamp Register - UXCamp Vietnam</title>
     <link rel="icon" href="/asset/icon/eye.ico">
     <meta name="title" content="Đăng ký tham gia UXCamp">
     <meta property="og:type" content="website">
@@ -31,12 +31,12 @@
     <script src="script/libs/split-type.js"></script>
     <script src="script/matter-js-interaction.js" defer></script>
     <script src="script/script.js" defer></script>
+    <script src="script/libs/mixpanel.js"></script>
 
     <!-- custom css -->
 
     <link rel="stylesheet" type="text/css" href="style/definition.css">
     <link rel="stylesheet" type="text/css" href="style/style.css">
-
 </head>
 
 <body>
@@ -56,10 +56,9 @@
     </div> -->
 
 
-
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-10 col-lg-8 ">
+            <div class="col-12 col-md-10 col-lg-10 col-xl-8 ">
                 <form id="bootcamp-register" target="_blank"
                     action="https://formsubmit.co/7c3c2a11b6abfc8649c9eda437617675" method="POST">
                     <div class="bootcamp-title-full form-group row">
@@ -95,13 +94,13 @@
 
                         <div class="col-12 form-group">
                             <label class="h5 input-row-title" for="name">Họ và tên *</label>
-                            <input class="col-12 single-input h3" type="text" id="name" name="name" placeholder=""
-                                required />
+                            <input class="col-12 single-input h3" type="text" id="name" name="name" autocomplete="name"
+                                placeholder="" required />
                         </div>
                         <div class="col-12 form-group">
                             <label class="h5 input-row-title" for="dob">Năm sinh *</label>
-                            <input class="col-12 single-input h3" type="number" id="dob" name="dob" placeholder=""
-                                required />
+                            <input class="col-12 single-input h3" type="number" id="dob" autocomplete="dob" name="dob"
+                                placeholder="" required />
                         </div>
                         <div class="col-12 form-group">
                             <label class="h5 input-row-title" for="facebook">Link Facebook của bạn là *</label>
@@ -110,13 +109,13 @@
                         </div>
                         <div class="col-12 form-group">
                             <label class="h5 input-row-title" for="phone">Số điện thoại *</label>
-                            <input class="col-12 single-input h3" type="tel" id="phone" name="phone" placeholder=""
-                                required />
+                            <input class="col-12 single-input h3" type="tel" id="phone" autocomplete="tel" name="phone"
+                                placeholder="" required />
                         </div>
                         <div class="col-12 form-group">
                             <label class="h5 input-row-title" for="email">Email *</label>
-                            <input class="col-12 single-input h3" type="email" id="email" name="email" placeholder=""
-                                required />
+                            <input class="col-12 single-input h3" type="email" id="email" autocomplete="email"
+                                name="email" placeholder="" required />
                         </div>
 
                         <div class="form-group">
@@ -254,13 +253,14 @@
                             placeholder="Hãy chia sẻ những vấn đề của bạn khiến bạn nghĩ bootcamp sẽ giúp ích được bạn nhé"
                             required></textarea>
                     </div> -->
+
                         <!-- Form Config -------------- -->
                         <input type="hidden" name="_next" value="https://uxcamp.vn/form-submitted.html">
                         <input type="hidden" name="_subject"
                             value="New Respond - Designing Digital Product per Stage and Metric">
                         <input type="hidden" name="_cc" value="hello@tamdovisual.com">
                         <input type="hidden" name="_captcha" value="false">
-
+                        <input type="hidden" name="_url" value="https://uxcamp.vn/bootcamp-register.html">
 
                         <!-- Form Submit CTA -------------- -->
 
@@ -269,8 +269,6 @@
                                 class="cta-large h3 medium">Submit</button>
                         </div>
                     </div>
-
-
                 </form>
             </div>
         </div>
@@ -300,11 +298,10 @@
                 </div>
                 <img class="eye-logo footer-img col-12" src="asset/image/Eye.svg" onload="SVGInject(this)">
             </div>
-
         </div>
     </div>
 
-<!-- 
+
     <script>
         document.getElementById('bootcamp-register').addEventListener('submit', function (event) {
             event.preventDefault(); // Ngăn gửi form
@@ -324,12 +321,10 @@
                     result[key] = value;
                 }
             }
-
-            console.log(result.bootcamp_name);
-
-            // event.target.submit()
+            mixpanel.track('bootcamp_form_submit', result);
+            event.target.submit();
         });
-    </script> -->
+    </script>
 
 </body>
 

@@ -1,5 +1,3 @@
-<!-- Form Submit sử dụng Google Sheet -->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -61,7 +59,8 @@
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-md-10 col-lg-10 col-xl-8 ">
-                <form id="bootcamp-register" target="_blank">
+                <form id="bootcamp-register" target="_blank"
+                    action="https://formsubmit.co/7c3c2a11b6abfc8649c9eda437617675" method="POST">
                     <div class="bootcamp-title-full form-group row">
                         <div class="row1">
                             <a href="index.html">
@@ -228,6 +227,41 @@
                                 placeholder="" required></textarea>
                         </div>
 
+                        <!-- <div class="radio-group form-group">
+                        <span class="col-12 h5 input-row-title">Bạn biết tới bootcamp do người quen, người tham
+                            dự các bootcamp trước giới thiệu?</span>
+                        <span>
+                            <input type="radio" name="referral" value="Đúng" id="referred" />
+                            <label class="h5 input-row-title" for="referred"> Đúng</label>
+                        </span>
+                        <span>
+                            <input type="radio" name="referral" value="Không" id="notReffered" />
+                            <label class="h5 input-row-title" for="notReffered"> Không</label>
+                        </span>
+                    </div> -->
+
+                        <!-- Part 2 Config -------------- -->
+
+                        <!-- <label class="col-12 h2 input-row-title">Part 2: Đánh giá mức độ phù hợp của bạn với "Designing
+                        Digital Product per Stage and Metric</label>
+                    <br> <br>
+                    <div class="col-12 form-group">
+                        <label class="h5 input-row-title" for="current-problem">Các vấn đề anh/chị đang gặp phải trong
+                            công việc:</label>
+                        <textarea class="col-12 h3 auto-resize" rows="6" type="text" id="current-problem"
+                            name="current-problem"
+                            placeholder="Hãy chia sẻ những vấn đề của bạn khiến bạn nghĩ bootcamp sẽ giúp ích được bạn nhé"
+                            required></textarea>
+                    </div> -->
+
+                        <!-- Form Config -------------- -->
+                        <input type="hidden" name="_next" value="https://uxcamp.vn/form-submitted.html">
+                        <input type="hidden" name="_subject"
+                            value="New Respond - Designing Digital Product per Stage and Metric">
+                        <input type="hidden" name="_cc" value="hello@tamdovisual.com">
+                        <input type="hidden" name="_captcha" value="false">
+                        <input type="hidden" name="_url" value="https://uxcamp.vn/bootcamp-register.html">
+
                         <!-- Form Submit CTA -------------- -->
 
                         <div class="col-12">
@@ -266,45 +300,32 @@
             </div>
         </div>
     </div>
+
+
     <script>
-        const form = document.getElementById("bootcamp-register");
+        document.getElementById('bootcamp-register').addEventListener('submit', function (event) {
+            event.preventDefault(); // Ngăn gửi form
 
-        form.addEventListener("submit", function (e) {
-            e.preventDefault();
+            const formData = new FormData(event.target);
+            const result = {};
 
-            const formData = new FormData(form);
-            const data = {};
-
-            // gom dữ liệu vào object JSON
-            formData.forEach((value, key) => {
-                if (key.endsWith("[]")) {
-                    if (!data[key]) data[key] = [];
-                    data[key].push(value);
+            // Xử lý checkbox (có thể nhiều giá trị)
+            for (const [key, value] of formData.entries()) {
+                if (result[key]) {
+                    if (Array.isArray(result[key])) {
+                        result[key].push(value);
+                    } else {
+                        result[key] = [result[key], value];
+                    }
                 } else {
-                    data[key] = value;
+                    result[key] = value;
                 }
-            });
-
-            fetch("https://script.google.com/macros/s/AKfycbybjjV9WWBYAXbgUpR6F25JFcIEIcjNtvntev0svTM6cfoWoC7cpmGhdOHiSrSVS6Fzhg/exec", {
-                method: "POST",
-                body: JSON.stringify(data),
-                headers: { "Content-Type": "application/json" },
-                mode: "no-cors"   // ✅ fix CORS
-            })
-                .then(response => response.text())
-                .then(result => {
-                    console.log("Success:", result);
-                    // Redirect sang trang khác
-                    window.location.href = "form-submitted.html";
-                })
-                .catch(error => {
-                    console.error("Error:", error);
-                    alert("Có lỗi xảy ra, vui lòng thử lại!");
-                });
+            }
+            console.log(result);
+            // mixpanel.track('bootcamp_form_submit', result);
+            // event.target.submit();
         });
     </script>
-
-
 
 </body>
 

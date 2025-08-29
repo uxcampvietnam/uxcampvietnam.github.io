@@ -359,7 +359,7 @@ window.onload = function () {
     if (document.querySelectorAll('#flyingContainer')[0] != null) {
         ScrollTrigger.create({
             trigger: "#flyingContainer",
-            start: "top bottom",
+            start: "top center",
             end: "bottom top",
             // markers: true,
             onEnter: () => startAnimation1(),

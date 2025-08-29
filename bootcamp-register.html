@@ -189,8 +189,8 @@
                         </div>
 
                         <div class="form-group">
-                            <span class="col-12 h5 input-row-title">[Nếu đã phát triển sản phẩm cho end-user] Các giai
-                                đoạn của sản phẩm bạn đã trải qua *</span>
+                            <span class="col-12 h5 input-row-title">[Nếu đã làm sản phẩm cho end-user] Bạn đã trải qua những giai
+                                đoạn nào của sản phẩm? *</span>
                             <div class="tags">
                                 <span>
                                     <input type="checkbox" id="poc" name="stage[]" value="Proof of concepts">
@@ -231,7 +231,7 @@
                         <!-- Form Submit CTA -------------- -->
 
                         <div class="col-12">
-                            <button type="submit" style="height: auto; width: 100%;"
+                            <button id="submit-btt" type="submit" style="height: auto; width: 100%;"
                                 class="cta-large h3 medium">Submit</button>
                         </div>
                     </div>
@@ -271,7 +271,7 @@
 
         form.addEventListener("submit", function (e) {
             e.preventDefault();
-
+            document.getElementById('submit-btt').innerHTML = "Form đang được gửi đi nèe...";
             const formData = new FormData(form);
             const data = {};
 
@@ -294,6 +294,7 @@
                 .then(response => response.text())
                 .then(result => {
                     console.log("Success:", result);
+                    document.getElementById('submit-btt').innerHTML = "Submit";
 
                     // Redirect sang trang khác
                     window.location.href = "form-submitted.html";
@@ -301,6 +302,7 @@
                 .catch(error => {
                     console.error("Error:", error);
                     alert("Có lỗi xảy ra, vui lòng thử lại!");
+                    document.getElementById('submit-btt').innerHTML = "Submit";
                 });
         });
     </script>

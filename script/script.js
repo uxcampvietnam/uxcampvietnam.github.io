@@ -359,8 +359,8 @@ window.onload = function () {
     if (document.querySelectorAll('#flyingContainer')[0] != null) {
         ScrollTrigger.create({
             trigger: "#flyingContainer",
-            start: "top center",
-            end: "bottom top",
+            start: "top-=100 bottom",
+            end: "bottom+=100 top",
             // markers: true,
             onEnter: () => startAnimation1(),
             onEnterBack: () => startAnimation1(),
@@ -372,8 +372,8 @@ window.onload = function () {
     if (document.querySelectorAll('#flyingContainer2')[0] != null) {
         ScrollTrigger.create({
             trigger: "#flyingContainer2",
-            start: "top bottom",
-            end: "bottom top",
+            start: "top-=100 bottom",
+            end: "bottom+=100 top",
             // markers: true,
             onEnter: () => startAnimation2(),
             onEnterBack: () => startAnimation2(),

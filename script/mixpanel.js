@@ -1,6 +1,8 @@
-mixpanel.init('95a1a163446d82709a0295d9eb1295e2', {debug: false, track_pageview: true, persistence: 'localStorage'});
+mixpanel.init('95a1a163446d82709a0295d9eb1295e2',
+    {debug: false,
+        track_pageview: true,
+        persistence: 'localStorage'});
  
-// Set this to a unique identifier for the user performing the event.
 // Identify user ID.
 // mixpanel.identify('USER_ID')
 

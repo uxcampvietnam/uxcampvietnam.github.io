@@ -193,7 +193,16 @@ const imageParticipantUrls = [
     'asset/image/participant/vietha.webp',
     'asset/image/participant/vucaocuong.webp',
     'asset/image/participant/vuhaianh.webp',
-    'asset/image/participant/xuananh.webp'
+    'asset/image/participant/xuananh.webp',
+    'asset/image/participant/chuthao.webp',
+    'asset/image/participant/daothaiha.webp',
+    'asset/image/participant/duongngochuyen.webp',
+    'asset/image/participant/hanvietanh.webp',
+    'asset/image/participant/lekimhong.webp',
+    'asset/image/participant/lethanhtung.webp',
+    'asset/image/participant/ngoclong.webp',
+    'asset/image/participant/phamduythanh.webp',
+    'asset/image/participant/vuphuonghoa.webp'
 ];
 
 const imageUrls = shuffle(imageGraduationUrls.concat(imageParticipantUrls));

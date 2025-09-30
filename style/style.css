@@ -786,6 +786,7 @@ ol>* {
 
 
 .organizer-member {
+	mix-blend-mode: luminosity;
 	padding-bottom: 16px;
 	display: flex;
 	gap: 4px;

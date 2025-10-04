@@ -344,9 +344,9 @@ window.onload = function () {
 
     gsap.to('#interactiveImage', {
         scrollTrigger: {
-            trigger: '.designing-digital-product-per-stage-and-metric',
-            start: 'top top',
-            end: 'center bottom',
+            trigger: '.syllabus-container',
+            start: 'top bottom',
+            end: 'top center',
             toggleActions: 'play none play reverse', //onEnter, onLeave, onEnterBack, and onLeaveBack -> sẽ nhận 1 trong các giá trị sau: "play", "pause", "resume", "reset", "restart", "complete", "reverse", and "none".
             // markers: true,
             scrub: true,

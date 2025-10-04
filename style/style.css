@@ -311,13 +311,18 @@ tbody>tr:last-child {
 
 .syllabus-container {
 	background: var(--main-colors-background-elevate-1, #FFF7EB);
-	border-radius: 16px;
+	border-radius: var(--spacing-xl);
 	border: 0.5px solid var(--main-colors-background-b600, #AEA69D);
 	padding: 0px !important;
 	overflow-x: visible;
 	overflow-y: visible;
 	cursor: none;
 }
+.syllabus-illus{
+	width: 100%;
+	height: auto;
+}
+
 
 .toggleMouse span {
 	color: var(--main-colors-background-b-300-main, #FBEAD5) !important;
@@ -341,12 +346,13 @@ tbody>tr:last-child {
 
 .syllabus-section {
 	border-bottom: 0.5px solid var(--main-colors-background-b600);
-	padding: var(--spacing-xl) var(--spacing-l) var(--spacing-xl) var(--spacing-l);
+	padding: var(--spacing-l) var(--spacing-l) var(--spacing-l) var(--spacing-l);
 	flex-direction: column;
 	align-items: flex-start;
 	flex-shrink: 0;
 	display: flex;
 	box-sizing: border-box;
+	gap: 4px;
 }
 
 .syllabus-section:last-child {
@@ -360,6 +366,7 @@ tbody>tr:last-child {
 }
 
 .syllabus-module-header {
+	margin-top: 8px;
 	display: flex;
 	flex-direction: row;
 	gap: 0px;

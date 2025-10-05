@@ -680,16 +680,7 @@ tbody>tr:last-child {
 		width: 48px;
 	}
 
-
-	.feedback-list {
-		width: 100%;
-		overflow: scroll;
-		position: absolute;
-	}
-
 }
-
-
 
 
 #bootcamp-goal span {
@@ -947,7 +938,7 @@ ol>* {
 	/* background-color: #663470; */
 	display: flex;
 	/* flex-direction: column; */
-	gap: 8px;
+	gap: 4px;
 }
 
 .feedback-item .caption span {

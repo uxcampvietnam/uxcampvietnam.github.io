@@ -42,10 +42,10 @@ fetch('script/feedback.csv')
                class="feedback-item col-12 col-md-6 col-lg-4">
             <img class="feedback-thumbnail" src="../asset/image/participant/${item.img}">
             <div class="feedback-item-content">
-              <span class="h2 participant-name"><i>${item.name}</i></span>
+              <span class="h3 participant-name"><i>${item.name}</i></span>
               <div class="caption">
                 <span class="italic caption participant-title">${item.title}</span>
-                ${item.company !== '-' ? `<span class="italic caption participant-company">${item.company}</span>` : ''}
+                ${item.company !== '-' ? `<span class="italic caption participant-company">- ${item.company}</span>` : ''}
               </div>
             </div>
           </div>`;

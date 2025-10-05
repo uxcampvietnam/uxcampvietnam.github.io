@@ -318,7 +318,8 @@ tbody>tr:last-child {
 	overflow-y: visible;
 	cursor: none;
 }
-.syllabus-illus{
+
+.syllabus-illus {
 	width: 100%;
 	height: auto;
 }
@@ -653,12 +654,6 @@ tbody>tr:last-child {
 		width: 64px;
 	}
 
-	.feedback-list {
-		width: max-content !important;
-		position: absolute;
-		cursor: grab;
-		min-width: 100vw;
-	}
 }
 
 @media (max-width: 768px) {
@@ -819,15 +814,12 @@ ol>* {
 }
 
 #what-learners-say .bootcamp-section-content {
-	min-height: 400px;
-	position: relative;
+	height: fit-content;
 }
 
 .feedback-list {
-	padding-top: var(--spacing-xxl);
+	/* padding-top: var(--spacing-xxl); */
 	padding-bottom: var(--spacing-xxl);
-	position: absolute;
-
 	-webkit-user-select: none;
 	/* Safari */
 	-moz-user-select: none;
@@ -843,18 +835,16 @@ ol>* {
 }
 
 
-.feedback-horizontal-scroll {
-	width: max-content !important;
+.feedback-container {
 	overflow-x: visible;
 	box-sizing: border-box;
 	display: flex;
-	height: 390px;
+	/* height: 390px; */
 	align-items: flex-start;
 	align-content: flex-start;
 	gap: 0px;
-	flex-direction: column;
+	flex-direction: row;
 	flex-wrap: wrap;
-
 }
 
 #feedbackDetailContainer {
@@ -917,8 +907,8 @@ ol>* {
 .feedback-item {
 	position: relative;
 	cursor: none;
-	padding: 20px;
-	align-self: stretch;
+	padding: 12px 12px 12px 0px;
+	/* border: solid 1px blueviolet; */
 }
 
 .feedback-item * {
@@ -943,12 +933,12 @@ ol>* {
 }
 
 .feedback-item-content {
-	gap: 8px;
+	gap: 2px;
 	display: flex;
 	justify-content: flex-start;
-	flex-direction: row;
+	flex-direction: column;
 	flex-wrap: nowrap;
-	align-items: center;
+	align-items: flex-start;
 }
 
 .feedback-item .caption,
@@ -956,8 +946,8 @@ ol>* {
 	/* min-width: 120px; */
 	/* background-color: #663470; */
 	display: flex;
-	flex-direction: column;
-	gap: 0px;
+	/* flex-direction: column; */
+	gap: 8px;
 }
 
 .feedback-item .caption span {
@@ -1134,6 +1124,7 @@ ol>* {
 
 
 #flyingContainer2 {
+	opacity: 0;
 	width: 100%;
 	position: relative;
 }

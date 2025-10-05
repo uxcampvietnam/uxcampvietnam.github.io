@@ -629,6 +629,7 @@ if (container !== null) {
     function startAnimation1() {
         if (!animation1Animating) {
             animation1Animating = true;
+            flyingContainer.style.opacity = 1;
             animate();
         }
     }
@@ -636,6 +637,7 @@ if (container !== null) {
     function stopAnimation1() {
         if (animation1Animating) {
             cancelAnimationFrame(animation1);
+            flyingContainer.style.opacity = 0;
             animation1Animating = false;
         }
     }
@@ -667,6 +669,7 @@ if (container2 !== null) {
 
     function animate2() {
         graduationImgEls2.forEach(img => {
+            // img.el.style.opacity = 1;
             img.angle += 0.0001 * 16;
 
             // Position on oval
@@ -699,12 +702,14 @@ if (container2 !== null) {
     function startAnimation2() {
         if (!animation2Animating) {
             animation2Animating = true;
+            flyingContainer2.style.opacity = 1;
             animate2();
         }
     }
 
     function stopAnimation2() {
         if (animation2Animating) {
+            flyingContainer2.style.opacity = 0;
             cancelAnimationFrame(animation2);
             animation2Animating = false;
         }

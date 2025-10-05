@@ -27,7 +27,7 @@ fetch('script/feedback.csv')
         const feedback_list_Els = document.querySelectorAll(".feedback-list");
 
         for (let i = 0; i < feedback_list_Els.length; i++) {
-            let feedback_list_innerHTML = `<div class="feedback-horizontal-scroll">`;
+            let feedback_list_innerHTML = `<div class="feedback-container col-12">`;
 
             for (let j = 0; j < feedback_list.length; j++) {
                 const item = feedback_list[j];
@@ -39,7 +39,7 @@ fetch('script/feedback.csv')
                data-feedback-id="${item.feedback_id}"
                data-feedback-participant-name="${item.name}"
                data-feedback-participant-title="${item.title}"
-               class="feedback-item">
+               class="feedback-item col-12 col-md-6 col-lg-4">
             <img class="feedback-thumbnail" src="../asset/image/participant/${item.img}">
             <div class="feedback-item-content">
               <span class="h2 participant-name"><i>${item.name}</i></span>
@@ -344,9 +344,9 @@ window.onload = function () {
 
     gsap.to('#interactiveImage', {
         scrollTrigger: {
-            trigger: '.syllabus-container',
-            start: 'top bottom',
-            end: 'top center',
+            trigger: '#bootcamp-goal',
+            start: 'center bottom',
+            end: 'bottom center',
             toggleActions: 'play none play reverse', //onEnter, onLeave, onEnterBack, and onLeaveBack -> sẽ nhận 1 trong các giá trị sau: "play", "pause", "resume", "reset", "restart", "complete", "reverse", and "none".
             // markers: true,
             scrub: true,
@@ -499,100 +499,100 @@ window.onload = function () {
     }
 
 
-    const draggableDiv = document.getElementById('feedback-list');
+    // const draggableDiv = document.getElementById('feedback-list');
 
-    // Đặt chiều cao parent-div
-    if (draggableDiv) {
-        draggableDiv.parentNode.style.height = draggableDiv.getBoundingClientRect().height + 'px';
+    // // Đặt chiều cao parent-div
+    // if (draggableDiv) {
+    //     draggableDiv.parentNode.style.height = draggableDiv.getBoundingClientRect().height + 'px';
 
-        // Chuột
-        draggableDiv.addEventListener('mousedown', e => startDrag(e.clientX));
-        draggableDiv.addEventListener('mousemove', e => duringDrag(e.clientX));
-        draggableDiv.addEventListener('mouseup', endDrag);
+    //     // Chuột
+    //     draggableDiv.addEventListener('mousedown', e => startDrag(e.clientX));
+    //     draggableDiv.addEventListener('mousemove', e => duringDrag(e.clientX));
+    //     draggableDiv.addEventListener('mouseup', endDrag);
 
-        // // Cảm ứng
-        // draggableDiv.addEventListener('touchstart', e => {
-        //     const touch = e.touches[0];
-        //     startDrag(touch.clientX);
-        // }, { passive: true });
+    //     // // Cảm ứng
+    //     // draggableDiv.addEventListener('touchstart', e => {
+    //     //     const touch = e.touches[0];
+    //     //     startDrag(touch.clientX);
+    //     // }, { passive: true });
 
-        // draggableDiv.addEventListener('touchmove', e => {
-        //     const touch = e.touches[0];
-        //     duringDrag(touch.clientX);
-        // }, { passive: true });
+    //     // draggableDiv.addEventListener('touchmove', e => {
+    //     //     const touch = e.touches[0];
+    //     //     duringDrag(touch.clientX);
+    //     // }, { passive: true });
 
-        // draggableDiv.addEventListener('touchend', endDrag);
-    }
+    //     // draggableDiv.addEventListener('touchend', endDrag);
+    // }
 
 
-    function startDrag(x) {
-        cancelAnimationFrame(momentumID);
-        isDragging = true;
-        draggingInitialX = x;
-        draggingOffsetX = draggableDiv.offsetLeft;
-        draggableDiv.style.cursor = 'grabbing';
-        lastX = x;
-        lastTime = Date.now();
-    }
+    // function startDrag(x) {
+    //     cancelAnimationFrame(momentumID);
+    //     isDragging = true;
+    //     draggingInitialX = x;
+    //     draggingOffsetX = draggableDiv.offsetLeft;
+    //     draggableDiv.style.cursor = 'grabbing';
+    //     lastX = x;
+    //     lastTime = Date.now();
+    // }
 
-    function duringDrag(x) {
-        if (!isDragging) return;
-        clickableFeedback = false;
+    // function duringDrag(x) {
+    //     if (!isDragging) return;
+    //     clickableFeedback = false;
 
-        const dx = x - draggingInitialX;
-        draggableDiv.style.left = (draggingOffsetX + dx) + 'px';
+    //     const dx = x - draggingInitialX;
+    //     draggableDiv.style.left = (draggingOffsetX + dx) + 'px';
 
-        // Tính vận tốc (px/ms)
-        const now = Date.now();
-        velocity = (x - lastX) / (now - lastTime);
-        lastX = x;
-        lastTime = now;
-    }
+    //     // Tính vận tốc (px/ms)
+    //     const now = Date.now();
+    //     velocity = (x - lastX) / (now - lastTime);
+    //     lastX = x;
+    //     lastTime = now;
+    // }
 
-    function endDrag() {
-        isDragging = false;
-        setTimeout(() => { clickableFeedback = true; }, 200);
-        draggableDiv.style.cursor = 'grab';
+    // function endDrag() {
+    //     isDragging = false;
+    //     setTimeout(() => { clickableFeedback = true; }, 200);
+    //     draggableDiv.style.cursor = 'grab';
 
-        momentumScroll();
-        isDragging = false;
-        setTimeout(() => { clickableFeedback = true; }, 200);
-        draggableDiv.style.cursor = 'grab';
-    }
+    //     momentumScroll();
+    //     isDragging = false;
+    //     setTimeout(() => { clickableFeedback = true; }, 200);
+    //     draggableDiv.style.cursor = 'grab';
+    // }
 
-    function momentumScroll() {
-        // Nếu vận tốc nhỏ thì dừng
+    // function momentumScroll() {
+    //     // Nếu vận tốc nhỏ thì dừng
 
-        if (Math.abs(velocity) < 0.01) {
-            if (draggableDiv.getElementsByClassName('feedback-horizontal-scroll')[0].getBoundingClientRect().right < draggableDiv.parentElement.getBoundingClientRect().right) {
-                // console.log('cuộn quá nhiều');
-                gsap.to(draggableDiv, {
-                    left: - draggableDiv.getElementsByClassName('feedback-horizontal-scroll')[0].getBoundingClientRect().width + draggableDiv.parentElement.getBoundingClientRect().width ,
-                    duration: 1,
-                    ease: "elastic.out(1.9,0.9)",
-                });
+    //     if (Math.abs(velocity) < 0.01) {
+    //         if (draggableDiv.getElementsByClassName('feedback-container')[0].getBoundingClientRect().right < draggableDiv.parentElement.getBoundingClientRect().right) {
+    //             // console.log('cuộn quá nhiều');
+    //             gsap.to(draggableDiv, {
+    //                 left: - draggableDiv.getElementsByClassName('feedback-container')[0].getBoundingClientRect().width + draggableDiv.parentElement.getBoundingClientRect().width ,
+    //                 duration: 1,
+    //                 ease: "elastic.out(1.9,0.9)",
+    //             });
 
-                return;
-            }
-            else if (draggableDiv.getBoundingClientRect().left > draggableDiv.parentElement.getBoundingClientRect().left) {
-                // console.log('quay về đầu');
-                gsap.to(draggableDiv, {
-                    left: '0',
-                    duration: 1,
-                    ease: "elastic.out(1.9,0.9)",
-                });
-            }
+    //             return;
+    //         }
+    //         else if (draggableDiv.getBoundingClientRect().left > draggableDiv.parentElement.getBoundingClientRect().left) {
+    //             // console.log('quay về đầu');
+    //             gsap.to(draggableDiv, {
+    //                 left: '0',
+    //                 duration: 1,
+    //                 ease: "elastic.out(1.9,0.9)",
+    //             });
+    //         }
 
-            return;
-        };
+    //         return;
+    //     };
 
-        draggingOffsetX = draggableDiv.offsetLeft + velocity * 16; // 16ms/frame
-        draggableDiv.style.left = draggingOffsetX + 'px';
+    //     draggingOffsetX = draggableDiv.offsetLeft + velocity * 16; // 16ms/frame
+    //     draggableDiv.style.left = draggingOffsetX + 'px';
 
-        velocity *= 0.95; // ma sát
-        momentumID = requestAnimationFrame(momentumScroll);
+    //     velocity *= 0.95; // ma sát
+    //     momentumID = requestAnimationFrame(momentumScroll);
 
-    }
+    // }
 };
 
 

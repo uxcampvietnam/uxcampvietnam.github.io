@@ -96,7 +96,7 @@ fetch('script/bootcamp_list.csv')
 
                 }
                 bootcamp_innerHTML += `</div>
-                <div style = "padding: 0px 16px;
+                <div style = "padding: 12px 16px 0px 16px;
                 color: var(--main-colors-foreground-f700);"
                 class = "paragraph italic col-12">
                 (*) Đối với các bootcamp offline: Phí tham dự chưa bao gồm chi phí di chuyển, ăn ở cho graduation retreat. Địa điểm tổ chức graduation retreat sẽ được thống nhất với người tham dự 1 tháng trước ngày tổ chức bảo vệ cuối khóa.</div>`;

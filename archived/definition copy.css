@@ -310,7 +310,7 @@ hr {
     --font-letter-spacing-h4: 0.28px;
     --font-letter-spacing-h5: 0.24px;
     --font-letter-spacing-h6: 0.216px;
-    --font-letter-spacing-paragraph: 0.2px;
+    --font-letter-spacing-paragraph: 0.200px;
     --font-letter-spacing-caption: 0.16px;
     --font-letter-spacing-small: 0.200px;
     --font-letter-spacing-x-small: 0.30px;
@@ -324,7 +324,7 @@ hr {
     --font-line-height-h4: 31px;
     --font-line-height-h5: 29px;
     --font-line-height-h6: 27px;
-    --font-line-height-paragraph: 26px;
+    --font-line-height-paragraph: 23px;
     --font-line-height-caption: 21px;
     --font-line-height-small: 18px;
     --font-line-height-x-small: 16px;
@@ -337,7 +337,7 @@ hr {
     --font-size-h4: 24px;
     --font-size-h5: 20px;
     --font-size-h6: 18px;
-    --font-size-paragraph: 18px;
+    --font-size-paragraph: 17px;
     --font-size-caption: 14px;
     --font-size-small: 12px;
     --font-size-x-small: 10px;
@@ -376,7 +376,7 @@ hr {
     --font-line-height-h4: 34px;
     --font-line-height-h5: 29px;
     --font-line-height-h6: 27px;
-    --font-line-height-paragraph: 26px;
+    --font-line-height-paragraph: 24px;
     --font-line-height-caption: 22px;
     --font-line-height-small: 19px;
     --font-line-height-xsmall: 18px;
@@ -390,7 +390,7 @@ hr {
     --font-size-h4: 26px;
     --font-size-h5: 20px;
     --font-size-h6: 18px;
-    --font-size-paragraph: 18px;
+    --font-size-paragraph: 16px;
     --font-size-caption: 14px;
     --font-size-small: 12px;
     --font-size-xsmall: 10px;
@@ -416,7 +416,7 @@ hr {
     --font-letter-spacing-h4: 0.30px;
     --font-letter-spacing-h5: 0.30px;
     --font-letter-spacing-h6: 0.21px;
-    --font-letter-spacing-paragraph: 0.20px;
+    --font-letter-spacing-paragraph: 0.40px;
     --font-letter-spacing-caption: 0.5px;
     --font-letter-spacing-small: 0.5px;
     --font-letter-spacing-xsmall: 0.5px;
@@ -429,7 +429,7 @@ hr {
     --font-line-height-h4: 26px;
     --font-line-height-h5: 26px;
     --font-line-height-h6: 28px;
-    --font-line-height-paragraph: 26px;
+    --font-line-height-paragraph: 20px;
     --font-line-height-caption: 18px;
     --font-line-height-small: 17px;
     --font-line-height-xsmall: 16px;
@@ -442,7 +442,7 @@ hr {
     --font-size-h4: 22px;
     --font-size-h5: 20px;
     --font-size-h6: 18px;
-    --font-size-paragraph: 18px;
+    --font-size-paragraph: 16px;
     --font-size-caption: 14px;
     --font-size-small: 12px;
     --font-size-xsmall: 10px;

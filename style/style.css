@@ -1017,7 +1017,7 @@ ol>* {
 .bootcamp-item-content {
 	display: flex;
 	padding-left: 8px;
-	gap: 4px;
+	/* gap: 2px; */
 	align-self: stretch;
 	justify-content: flex-start;
 	flex-wrap: nowrap;
@@ -1264,17 +1264,14 @@ form .tags {
 
 .sign-up-bootcamp-item:has(input[type="radio"]:not(:checked)),
 .sign-up-bootcamp-item:has(input[type="checkbox"]:not(:checked)) {
-	opacity: 0.5;
+	opacity: 0.25;
 	transition: opacity 0.2s ease-in-out;
 }
 
-
 .sign-up-bootcamp-item:has(input[type="radio"]:checked),
 .sign-up-bootcamp-item:has(input[type="checkbox"]:checked) {
-	background: var(--main-colors-background-elevate-2) !important;
-	border: 0.5px solid var(--transparent-foreground---main-color-40, rgba(55, 61, 72, 0.40));
+	background: var(--fix-white---white-20) !important;
 }
-
 
 .sign-up-bootcamp-item label {
 	display: flex;

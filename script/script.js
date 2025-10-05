@@ -345,8 +345,8 @@ window.onload = function () {
     gsap.to('#interactiveImage', {
         scrollTrigger: {
             trigger: '#bootcamp-goal',
-            start: 'center bottom',
-            end: 'bottom center',
+            start: 'bottom bottom',
+            end: 'bottom 70%',
             toggleActions: 'play none play reverse', //onEnter, onLeave, onEnterBack, and onLeaveBack -> sẽ nhận 1 trong các giá trị sau: "play", "pause", "resume", "reset", "restart", "complete", "reverse", and "none".
             // markers: true,
             scrub: true,

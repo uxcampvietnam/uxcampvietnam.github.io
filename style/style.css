@@ -606,14 +606,14 @@ tbody>tr:last-child {
 	width: 100%;
 	transition: opacity 1s ease-in,
 		max-height 0.5s ease-out;
-	max-height: 350px;
+	max-height: 400px;
 	opacity: 1;
 }
 
 
 .accordion-el {
 	border-top: 0.5px solid var(--main-colors-foreground-f900) !important;
-	padding: 24px 16px 24px 0px;
+	padding: 24px 8px 24px 0px;
 }
 
 .accordion:last-child {

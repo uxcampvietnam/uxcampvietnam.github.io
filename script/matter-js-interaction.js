@@ -2,8 +2,8 @@ const canvas = document.getElementById('interactiveImage');
 
 // variable definition
 // Flying image in Graduation project defense section
-const container = document.getElementById('flyingContainer');
-const container2 = document.getElementById('flyingContainer2');
+var container1 = document.getElementById('flyingContainer');
+var container2 = document.getElementById('flyingContainer2');
 var numberOfFallingImg, fallingImgCount = 0;
 const imageGraduationUrls = [
     'asset/image/graduation/1.webp',
@@ -234,9 +234,9 @@ function shuffle(array) {
 if (canvas != null) {
     var scaleFactor = 0.4;
     var InfiniteLoadingWidth; // horizontal radius (x-axis)
-    var InfiniteLoadingHeight = container.getBoundingClientRect().height / 2 - 40; // vertical radius (y-axis)
-    var centerX = container.getBoundingClientRect().width / 2;
-    var centerY = container.getBoundingClientRect().height / 2;
+    var InfiniteLoadingHeight = container1.getBoundingClientRect().height / 2 - 40; // vertical radius (y-axis)
+    var centerX = container1.getBoundingClientRect().width / 2;
+    var centerY = container1.getBoundingClientRect().height / 2;
     var randomFallingImg = 0;
 
     canvas.style.opacity = 1;
@@ -414,43 +414,6 @@ if (canvas != null) {
     Matter.World.add(engine.world, mouseConstraint);
     render.mouse = mouse;
 
-    // function handleClickOrTap(event) {
-    //     var x, y;
-    //     var touch = false;
-
-    //     if (event.type.startsWith('touch')) {
-    //         touch = true;
-    //         // Lấy tọa độ chạm trên màn hình và quy về canvas
-    //         const rect = render.canvas.getBoundingClientRect();
-    //         x = event.touches[0].clientX - rect.left;
-    //         y = event.touches[0].clientY - rect.top;
-    //     } else {
-    //         // Sử dụng chuột
-    //         ({ x, y } = mouse.position);
-    //     }
-
-    //     const bodiesAtPoint = Query.point(Composite.allBodies(engine.world), { x, y });
-
-    //     if (bodiesAtPoint.length > 0 && touch == false) {
-    //         console.log("Clicked on body:", bodiesAtPoint[0]);
-    //     } else {
-    //     console.log("Clicked on empty space.");
-    //     if (randomFallingImg < imageUrlsWithDimension.length - 1) {
-    //         randomFallingImg++;
-    //     } else {
-    //         randomFallingImg = 0;
-    //     }
-    //     const img = imageUrlsWithDimension[randomFallingImg];
-    //     const body = createImageBody(x, y, img);
-    //     World.add(world, body);
-    //     }
-    // }
-
-    // render.canvas.addEventListener('click', handleClickOrTap);
-    // render.canvas.addEventListener('touchstart', handleClickOrTap);
-
-
-
     let touchStartX = 0, touchStartY = 0;
     let touchMoved = false;
 
@@ -566,7 +529,7 @@ function smoothGrowth(x) {
 
 // Animate 1 =======================================================================================
 
-if (container !== null) {
+if (container1 !== null) {
     // Settings =================================
     const smallestSize = 0.1;
     const largestSize = 0.5;
@@ -585,7 +548,7 @@ if (container !== null) {
         flyerContainer.style.backgroundImage = `url("${imageGraduationUrls[i]}")`;
 
         // flyerContainer.appendChild(img);
-        container.appendChild(flyerContainer);
+        container1.appendChild(flyerContainer);
         graduationImgEls.push({
             el: flyerContainer,
             angle: (i / imageGraduationUrls.length) * 2 * Math.PI // spread evenly
@@ -595,23 +558,20 @@ if (container !== null) {
     var animation1;
     var animation1Animating = false, animation2Animating = false;
     function animate() {
+
         graduationImgEls.forEach(img => {
             img.angle += speed * 16;
             // speed = 0.0007 * percentageX / 2 + 0.00003;
             if (deviceHasMouse()) {
-                const percentageX = 2 * (mouseX - (container.getBoundingClientRect().left + container.getBoundingClientRect().width / 2)) / InfiniteLoadingWidth;
-                const percentageY = 2 * (mouseY - (container.getBoundingClientRect().top + container.getBoundingClientRect().height / 2)) / InfiniteLoadingHeight;
-
-                var distance = Math.sqrt(percentageX * percentageX + percentageY * percentageY);
-
+                const percentageX = 2 * (mouseX - (container1.getBoundingClientRect().left + container1.getBoundingClientRect().width / 2)) / InfiniteLoadingWidth;
                 speed = (0.0002 * percentageX / 2 + 0.00003)
             }
             else {
                 speed = 0.0003;
             }
 
-            const x = centerX - 50 + InfiniteLoadingWidth * Math.sin(img.angle);
-            const y = centerY - 50 + InfiniteLoadingHeight * Math.sin(img.angle) * Math.cos(img.angle) * 2;
+            var x = centerX - 50 + InfiniteLoadingWidth * Math.sin(img.angle);
+            var y = centerY - 50 + InfiniteLoadingHeight * Math.sin(img.angle) * Math.cos(img.angle) * 2;
 
 
             const relativeX = Math.cos(img.angle); // -1 (left) to 1 (right)

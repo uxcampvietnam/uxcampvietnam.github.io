@@ -498,101 +498,6 @@ window.onload = function () {
             ;
     }
 
-
-    // const draggableDiv = document.getElementById('feedback-list');
-
-    // // Đặt chiều cao parent-div
-    // if (draggableDiv) {
-    //     draggableDiv.parentNode.style.height = draggableDiv.getBoundingClientRect().height + 'px';
-
-    //     // Chuột
-    //     draggableDiv.addEventListener('mousedown', e => startDrag(e.clientX));
-    //     draggableDiv.addEventListener('mousemove', e => duringDrag(e.clientX));
-    //     draggableDiv.addEventListener('mouseup', endDrag);
-
-    //     // // Cảm ứng
-    //     // draggableDiv.addEventListener('touchstart', e => {
-    //     //     const touch = e.touches[0];
-    //     //     startDrag(touch.clientX);
-    //     // }, { passive: true });
-
-    //     // draggableDiv.addEventListener('touchmove', e => {
-    //     //     const touch = e.touches[0];
-    //     //     duringDrag(touch.clientX);
-    //     // }, { passive: true });
-
-    //     // draggableDiv.addEventListener('touchend', endDrag);
-    // }
-
-
-    // function startDrag(x) {
-    //     cancelAnimationFrame(momentumID);
-    //     isDragging = true;
-    //     draggingInitialX = x;
-    //     draggingOffsetX = draggableDiv.offsetLeft;
-    //     draggableDiv.style.cursor = 'grabbing';
-    //     lastX = x;
-    //     lastTime = Date.now();
-    // }
-
-    // function duringDrag(x) {
-    //     if (!isDragging) return;
-    //     clickableFeedback = false;
-
-    //     const dx = x - draggingInitialX;
-    //     draggableDiv.style.left = (draggingOffsetX + dx) + 'px';
-
-    //     // Tính vận tốc (px/ms)
-    //     const now = Date.now();
-    //     velocity = (x - lastX) / (now - lastTime);
-    //     lastX = x;
-    //     lastTime = now;
-    // }
-
-    // function endDrag() {
-    //     isDragging = false;
-    //     setTimeout(() => { clickableFeedback = true; }, 200);
-    //     draggableDiv.style.cursor = 'grab';
-
-    //     momentumScroll();
-    //     isDragging = false;
-    //     setTimeout(() => { clickableFeedback = true; }, 200);
-    //     draggableDiv.style.cursor = 'grab';
-    // }
-
-    // function momentumScroll() {
-    //     // Nếu vận tốc nhỏ thì dừng
-
-    //     if (Math.abs(velocity) < 0.01) {
-    //         if (draggableDiv.getElementsByClassName('feedback-container')[0].getBoundingClientRect().right < draggableDiv.parentElement.getBoundingClientRect().right) {
-    //             // console.log('cuộn quá nhiều');
-    //             gsap.to(draggableDiv, {
-    //                 left: - draggableDiv.getElementsByClassName('feedback-container')[0].getBoundingClientRect().width + draggableDiv.parentElement.getBoundingClientRect().width ,
-    //                 duration: 1,
-    //                 ease: "elastic.out(1.9,0.9)",
-    //             });
-
-    //             return;
-    //         }
-    //         else if (draggableDiv.getBoundingClientRect().left > draggableDiv.parentElement.getBoundingClientRect().left) {
-    //             // console.log('quay về đầu');
-    //             gsap.to(draggableDiv, {
-    //                 left: '0',
-    //                 duration: 1,
-    //                 ease: "elastic.out(1.9,0.9)",
-    //             });
-    //         }
-
-    //         return;
-    //     };
-
-    //     draggingOffsetX = draggableDiv.offsetLeft + velocity * 16; // 16ms/frame
-    //     draggableDiv.style.left = draggingOffsetX + 'px';
-
-    //     velocity *= 0.95; // ma sát
-    //     momentumID = requestAnimationFrame(momentumScroll);
-
-    // }
 };
 
 
@@ -606,7 +511,7 @@ const observer = new ResizeObserver(entries => {
         // Reset timer mỗi lần width thay đổi
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            if (container !== null) {
+            if (container1 !== null) {
                 if (window.innerWidth < 500) {
                     InfiniteLoadingWidth = window.innerWidth * 0.6;
                     InfiniteLoadingHeight = 150;
@@ -614,10 +519,10 @@ const observer = new ResizeObserver(entries => {
                 // if desktop size
                 else {
                     InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
-                    InfiniteLoadingHeight = container.getBoundingClientRect().height / 2 - 40; // vertical radius (y-axis)
+                    InfiniteLoadingHeight = container1.getBoundingClientRect().height / 2 - 40; // vertical radius (y-axis)
                 }
-                centerX = container.getBoundingClientRect().width / 2;
-                centerY = container.getBoundingClientRect().height / 2;
+                centerX = container1.getBoundingClientRect().width / 2;
+                centerY = container1.getBoundingClientRect().height / 2;
             }
             location.reload();
         }, 200); // 200ms sau khi ngừng thay đổi

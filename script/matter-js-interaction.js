@@ -610,16 +610,15 @@ if (container !== null) {
                 speed = 0.0003;
             }
 
-            const x = centerX + InfiniteLoadingWidth * Math.sin(img.angle);
-            const y = centerY + InfiniteLoadingHeight * Math.sin(img.angle) * Math.cos(img.angle) * 2;
+            const x = centerX - 50 + InfiniteLoadingWidth * Math.sin(img.angle);
+            const y = centerY - 50 + InfiniteLoadingHeight * Math.sin(img.angle) * Math.cos(img.angle) * 2;
 
 
             const relativeX = Math.cos(img.angle); // -1 (left) to 1 (right)
 
             // const scale = smallestSize + largestSize * (2.2 - Math.abs(distance)) * (1 - relativeX)/2; // 0.5 to 1
             const scale = smallestSize + largestSize * (Math.abs(relativeX));
-
-            img.el.style.transform = `translate(${x - 75}px, ${y - 75}px) scale(${scale})`;
+            img.el.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
             // img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y - 50}px) scale(${scale})`;
 
         });
@@ -684,7 +683,6 @@ if (container2 !== null) {
             var distance = Math.sqrt(relativeImgX * relativeImgX + relativeImgY * relativeImgY) / (Math.sqrt(flyingContainer2.getBoundingClientRect().height / 2 * flyingContainer2.getBoundingClientRect().height / 2 + flyingContainer2.getBoundingClientRect().width / 2 * flyingContainer2.getBoundingClientRect().width / 2));
 
             var scale;
-            // distance < 1 ? scale = 0.08 * (smoothGrowth(distance)) + 0.02 : scale = 0.1; // 0.5 to 1
 
             if (deviceHasMouse()) {
                 distance < 1 ? scale = 0.08 * (smoothGrowth(distance)) + 0.02 : scale = 0.1;
@@ -692,8 +690,9 @@ if (container2 !== null) {
             else {
                 scale = 0.05;
             }
+            var centerX2 = container2.getBoundingClientRect().width / 2;
 
-            img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 70}px, ${y - 100}px) scale(${scale})`;
+            img.el.style.transform = `translate(${centerX2 - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y - 50}px) scale(${scale})`;
         });
         animation2 = requestAnimationFrame(animate2);
     }
@@ -715,45 +714,6 @@ if (container2 !== null) {
         }
     }
 }
-
-
-// let resizeTimeout;
-// var oldWidthScreenSize;
-// window.addEventListener('resize', () => {
-
-//     if (container !== null) {
-//         if (window.innerWidth < 500) {
-//             InfiniteLoadingWidth = window.innerWidth * 0.6;
-//             InfiniteLoadingHeight = 150;
-//         }
-//         // if desktop size
-//         else {
-//             InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
-//             InfiniteLoadingHeight = container.getBoundingClientRect().height / 2 - 40; // vertical radius (y-axis)
-//         }
-//         centerX = container.getBoundingClientRect().width / 2;
-//         centerY = container.getBoundingClientRect().height / 2;
-//     }
-
-//     // Clear any existing timeout to reset the timer
-//     clearTimeout(resizeTimeout);
-
-//     // Set a new timeout
-//     resizeTimeout = setTimeout(() => {
-//         // This function will execute only after the user stops resizing for 200ms
-//         handleResizeEnd();
-//     }, 50); // Adjust the delay (in milliseconds) as needed
-// });
-
-// function handleResizeEnd() {
-//     // location.reload();
-//     // Render.run(render);
-//     if (oldWidthScreenSize < document.getElementsByTagName('body')[0].getBoundingClientRect().width) {
-//         location.reload();
-//         // console.log("resized");
-//     }
-//     oldWidthScreenSize = document.getElementsByTagName('body')[0].getBoundingClientRect().width;
-// }
 
 
 function deviceHasMouse() {

@@ -1117,10 +1117,10 @@ ol>* {
 
 .flyer-container {
 	position: absolute;
-	width: 150px;
-	height: 150px;
+	width: 100px;
+	height: 100px;
 	will-change: transform;
-	transform-origin: center center;
+	transform-origin: center center !important;
 	flex-direction: row;
 	align-content: center;
 	align-items: center;
@@ -1142,6 +1142,7 @@ ol>* {
 	opacity: 0;
 	width: 100%;
 	position: relative;
+	/* background-color: crimson; */
 }
 
 

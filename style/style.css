@@ -1344,3 +1344,17 @@ form .tags {
 	/* padding: 0px !important; */
 	overflow: hidden;
 }
+
+
+
+.case-study-container{
+	/* background-color: crimson; */
+	margin-bottom: 16px;
+	padding-left: 0px;
+}
+
+.case-study-thumbnail{
+	width: 100%;
+	border: solid 1px rgba(86, 86, 86, 0.273);
+	border-radius: 8px;
+}

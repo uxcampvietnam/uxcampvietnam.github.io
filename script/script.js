@@ -533,7 +533,6 @@ const observer = new ResizeObserver(entries => {
 observer.observe(document.body);
 
 
-
 // track case-study click
 
 document.querySelectorAll(".case-study-container").forEach(link => {

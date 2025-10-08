@@ -596,7 +596,7 @@ if (container1 !== null) {
     function stopAnimation1() {
         if (animation1Animating) {
             cancelAnimationFrame(animation1);
-            flyingContainer.style.opacity = 0;
+            // flyingContainer.style.opacity = 0;
             animation1Animating = false;
         }
     }

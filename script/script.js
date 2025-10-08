@@ -252,6 +252,10 @@ function toggleContent(element, mouseID) {
     element.classList.toggle("hide-content");
     document.getElementById(mouseID).classList.toggle("hide-content");
     document.getElementById(mouseID).classList.toggle("show-content");
+    setTimeout(function () {
+        ScrollTrigger.refresh();
+        console.log("update trigger position");
+    }, 1100);
 }
 
 function toggleMouseOver(element, event, mouseID) {

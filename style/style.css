@@ -420,7 +420,7 @@ tbody>tr:last-child {
 
 
 .designing-digital-product-per-stage-and-metric,
-.corporate-training {
+.corporate-training, .tab-and-task {
 	background: var(--transparent-background-elevate-blur);
 	z-index: 1000;
 	display: flex;

@@ -249,12 +249,32 @@ function openBootcampMouseOut(el, event) {
 var syllabusMouse = document.getElementById('syllabusMouse');
 
 function toggleContent(element, mouseID) {
+
+
+    // console.log(element.classList);
+    // console.log(element.dataset.elementName);
+
+    if (element.classList.contains("hide-content")) {
+        // true == expand collection
+        mixpanel.track('change accordion-visibility', {
+            "accordion-name": element.dataset.elementName,
+            "collapse": false,
+        });
+
+    }
+    else {
+        mixpanel.track('change accordion-visibility', {
+            "accordion-name": element.dataset.elementName,
+            "collapse": true,
+        });
+    }
+
     element.classList.toggle("hide-content");
     document.getElementById(mouseID).classList.toggle("hide-content");
     document.getElementById(mouseID).classList.toggle("show-content");
+
     setTimeout(function () {
         ScrollTrigger.refresh();
-        console.log("update trigger position");
     }, 1100);
 }
 
@@ -340,11 +360,18 @@ function showFeedback(feedbackId) {
                 ${feedback.company != '-' ? '<span class="caption participant-company"> <i>' + feedback.company + '</i></span>' : ''}
             </div>
         </div>
-`
+`;
+
+
+    // console.log(feedback.name);
+    mixpanel.track('view feedback', {
+        participant: feedback.name,
+        bootcamp: feedback.bootcamp_name
+    });
+
 }
 
 window.onload = function () {
-
 
     gsap.to('#interactiveImage', {
         scrollTrigger: {

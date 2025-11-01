@@ -420,15 +420,18 @@ tbody>tr:last-child {
 
 
 .designing-digital-product-per-stage-and-metric,
-.corporate-training, .tab-and-task {
-	background: var(--transparent-background-elevate-blur);
+.corporate-training,
+.tab-and-task {
+	/* background: var(--transparent-background-elevate-blur); */
+	background: var(--main-colors-background-b-200-slide-bg);
 	z-index: 1000;
 	display: flex;
 	position: relative;
 	gap: 56px;
 	flex-direction: column;
 	overflow-x: visible;
-	backdrop-filter: blur(200px);
+	-webkit-backdrop-filter: blur(200px) !important;
+	backdrop-filter: blur(200px) !important;
 	padding: 32px var(--spacing-m);
 	border-radius: 32px;
 }
@@ -1346,13 +1349,13 @@ form .tags {
 
 
 
-.case-study-container{
+.case-study-container {
 	/* background-color: crimson; */
 	margin-bottom: 16px;
 	padding-left: 0px;
 }
 
-.case-study-thumbnail{
+.case-study-thumbnail {
 	width: 100%;
 	border: solid 1px rgba(86, 86, 86, 0.273);
 	border-radius: 8px;

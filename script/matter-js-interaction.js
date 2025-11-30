@@ -578,8 +578,8 @@ if (container1 !== null) {
 
             // const scale = smallestSize + largestSize * (2.2 - Math.abs(distance)) * (1 - relativeX)/2; // 0.5 to 1
             const scale = smallestSize + largestSize * (Math.abs(relativeX));
-            img.el.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-            // img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y - 50}px) scale(${scale})`;
+            // img.el.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
+            img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y}px) scale(${scale/2})`;
 
         });
         animation1 = requestAnimationFrame(animate);

@@ -275,7 +275,7 @@
             const formData = new FormData(form);
             const data = {};
 
-            // gom dữ liệu vào object JSON
+            // Creating JSON object
             formData.forEach((value, key) => {
                 if (key.endsWith("[]")) {
                     if (!data[key]) data[key] = [];
@@ -285,6 +285,9 @@
                 }
             });
             mixpanel.track('bootcamp_form_submit', data);
+
+
+
             fetch("https://script.google.com/macros/s/AKfycbzX6h4_4XNjPegpaBu8hohY_uUIQZYitxMx_S-GQSpU11_KJ8Bd_Y6ldAIpu99tyAaYrg/exec", {
                 method: "POST",
                 body: JSON.stringify(data),

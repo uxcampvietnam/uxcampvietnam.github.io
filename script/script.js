@@ -372,7 +372,7 @@ function showFeedback(feedbackId) {
 }
 
 window.onload = function () {
-6868
+
     gsap.to('#interactiveImage', {
         scrollTrigger: {
             trigger: '#bootcamp-goal',

@@ -83,12 +83,12 @@ fetch('script/bootcamp_list.csv')
                     <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
                     <span class="paragraph bootcamp-start-date">${item.start_date}</span>
                     <span class="paragraph bootcamp-pricing">${item.pricing} ${item.offline == 1 ? "(*)" : ""}</span>                    
-                    <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Form đăng ký đã đóng"}</span>
+                    <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Fully booked"}</span>
                     </div>
                     <a href="bootcamp-register.html?bootcamp_id=${item.bootcamp_id}" class="sign-up-now paragraph">
                     ${item.is_open == 1
                             ? `Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>`
-                            : `<i>Ôi, mất lượt ờiii!</i>`
+                            : `<i>Form đã đóng</i>`
                         }
                     </a>
                     <img class="opening-bootcamp-highlight" src="asset/icon/opening-bootcamp-highlight.svg">
@@ -131,7 +131,7 @@ fetch('script/bootcamp_list.csv')
                             <div class="bootcamp-item-content">
                                 <h3 class="bootcamp-cohort-name">${item.bootcamp_name}</h3>
                                 <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
-                                <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Form đăng ký đã đóng"}</span>
+                                <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Fully booked"}</span>
                                 <span class="paragraph bootcamp-start-date">${item.start_date}</span>
                             </div>
                         </label>

@@ -455,7 +455,7 @@ function calculateTwoSampleTTest() {
     const se = Math.sqrt(v1 / n1 + v2 / n2);
     const t = (m1 - m2) / se;
 
-    /* Welch–Satterthwaite df */
+    /* Welch-Satterthwaite df */
     const df = Math.pow(v1 / n1 + v2 / n2, 2) /
         (Math.pow(v1 / n1, 2) / (n1 - 1) + Math.pow(v2 / n2, 2) / (n2 - 1));
 

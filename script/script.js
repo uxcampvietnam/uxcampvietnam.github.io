@@ -19,9 +19,6 @@ for (i = 0; i < acc.length; i++) {
 
 var bootcamp_list, feedback_list, syllabus_01;
 
-
-
-
 // lấy dữ liệu bootcamp_list & feedback từ google sheet
 fetch("https://script.google.com/macros/s/AKfycbyrXt-iM1AbxybQfmczKb7vqWkssNtLrqaHuD2D9rDJeFuqoE312XoUWQ-aOiwrTdUQ/exec")
     .then(res => res.json())
@@ -112,7 +109,6 @@ fetch("https://script.google.com/macros/s/AKfycbyrXt-iM1AbxybQfmczKb7vqWkssNtLrq
         // lấy dữ liệu feedback
         
         feedback_list = data.feedback.filter(item => item.listing == 1);
-
         const feedback_list_Els = document.querySelectorAll(".feedback-list");
 
         for (let i = 0; i < feedback_list_Els.length; i++) {

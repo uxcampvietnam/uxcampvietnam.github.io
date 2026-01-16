@@ -19,6 +19,7 @@ for (i = 0; i < acc.length; i++) {
 
 var bootcamp_list, feedback_list, syllabus_01;
 
+
 // lấy dữ liệu bootcamp_list & feedback từ google sheet
 fetch("https://script.google.com/macros/s/AKfycbyrXt-iM1AbxybQfmczKb7vqWkssNtLrqaHuD2D9rDJeFuqoE312XoUWQ-aOiwrTdUQ/exec")
     .then(res => res.json())
@@ -107,7 +108,7 @@ fetch("https://script.google.com/macros/s/AKfycbyrXt-iM1AbxybQfmczKb7vqWkssNtLrq
         }
 
         // lấy dữ liệu feedback
-        
+
         feedback_list = data.feedback.filter(item => item.listing == 1);
         const feedback_list_Els = document.querySelectorAll(".feedback-list");
 
@@ -497,7 +498,7 @@ function showFeedback(feedbackId) {
 }
 
 window.onload = function () {
-
+    //   console.log('test window.onload');
     gsap.to('#interactiveImage', {
         scrollTrigger: {
             trigger: '#bootcamp-goal',
@@ -539,10 +540,80 @@ window.onload = function () {
     }
 
 
+    // Corporate Training ================
+
+    var slidingImg = document.getElementById('sliding-img-container');
+
+    if (slidingImg != null) {
+        const corporateTrainingTitle = new SplitType('.title, .sub-title', {
+            types: 'words, chars'
+        });
+        var totalImg = 45;
+        var slidingImgInnerHTML = ``;
+        for (var i = 1; i <= totalImg; i++) {
+            slidingImgInnerHTML += `<img class="sliding-img" src = "asset/image/corporate-training/${i}.webp">`;
+        }
+
+        slidingImg.innerHTML = slidingImgInnerHTML;
+
+        var slidingTimeline = gsap.timeline({
+            repeat: 0,
+            onComplete: () => { ScrollTrigger.refresh() }
+        });
+
+        slidingTimeline
+            .from(corporateTrainingTitle.chars, {
+                opacity: 0,
+                y: 20,
+                stagger: 0.01,
+                duration: 1,
+                ease: "elastic.out(1.5,0.9)",
+            },)
+            .from('#sliding-img-container', {
+                height: '0px',
+                duration: 2,
+                ease: "elastic.out(1.5,0.9)",
+            }, '<')
+            .from('.corporate-training>.bootcamp-title-full', {
+                gap: '0px',
+                duration: 2,
+                ease: "elastic.out(1.5,0.9)",
+            }, '<')
+
+            .from('.sliding-img', {
+                right: 2000,
+
+                stagger: {
+                    each: 0.05,
+                    from: "end" // Animates from the last element to the first
+                },
+                duration: 2,
+                ease: "power4.inOut",
+            }, '<')
+            .from('.sliding-img', {
+                scale: 0,
+                opacity: 0,
+                stagger: {
+                    each: 0.05,
+                    from: "end" // Animates from the last element to the first
+                },
+                duration: 0.4,
+                ease: "power3.inOut",
+            }, '<')
+            ;
+    }
+
+};
+
+
+// DOMContentLoaded
+document.addEventListener("DOMContentLoaded", () => {
+
+    //   console.log('test DOMContentLoaded');
+
     const title = new SplitType('.title, .sub-title', {
         types: 'words, chars'
     });
-
 
     if (document.querySelectorAll('.interactive-image-container')[0] != null) {
         var timeline = gsap.timeline({
@@ -592,101 +663,8 @@ window.onload = function () {
         });
     }
 
-
-    // Corporate Training ================
-
-
-    var slidingImg = document.getElementById('sliding-img-container');
-
-    if (slidingImg != null) {
-        var totalImg = 45;
-        var slidingImgInnerHTML = ``;
-        for (var i = 1; i <= totalImg; i++) {
-            slidingImgInnerHTML += `<img class="sliding-img" src = "asset/image/corporate-training/${i}.webp">`;
-        }
-
-        slidingImg.innerHTML = slidingImgInnerHTML;
-
-        var slidingTimeline = gsap.timeline({
-            repeat: 0,
-            onComplete: () => { ScrollTrigger.refresh() }
-        });
-
-        slidingTimeline
-            .from(title.chars, {
-                opacity: 0,
-                y: 20,
-                stagger: 0.01,
-                duration: 1,
-                ease: "elastic.out(1.5,0.9)",
-            },)
-            .from('#sliding-img-container', {
-                height: '0px',
-                duration: 2,
-                ease: "elastic.out(1.5,0.9)",
-            }, '<')
-            .from('.corporate-training>.bootcamp-title-full', {
-                gap: '0px',
-                duration: 2,
-                ease: "elastic.out(1.5,0.9)",
-            }, '<')
-
-            .from('.sliding-img', {
-                right: 2000,
-
-                stagger: {
-                    each: 0.05,
-                    from: "end" // Animates from the last element to the first
-                },
-                duration: 2,
-                ease: "power4.inOut",
-            }, '<')
-            .from('.sliding-img', {
-                scale: 0,
-                opacity: 0,
-                stagger: {
-                    each: 0.05,
-                    from: "end" // Animates from the last element to the first
-                },
-                duration: 0.4,
-                ease: "power3.inOut",
-            }, '<')
-            ;
-    }
-
-};
-
-
-let lastWidth = document.body.getBoundingClientRect().width;
-let resizeTimeout;
-
-const observer = new ResizeObserver(entries => {
-    const newWidth = entries[0].contentRect.width;
-
-    if (Math.abs(newWidth - lastWidth) > 20) {
-        // Reset timer mỗi lần width thay đổi
-        clearTimeout(resizeTimeout);
-        resizeTimeout = setTimeout(() => {
-            if (container1 !== null) {
-                if (window.innerWidth < 500) {
-                    InfiniteLoadingWidth = window.innerWidth * 0.6;
-                    InfiniteLoadingHeight = 150;
-                }
-                // if desktop size
-                else {
-                    InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
-                    InfiniteLoadingHeight = container1.getBoundingClientRect().height / 2 - 40; // vertical radius (y-axis)
-                }
-                centerX = container1.getBoundingClientRect().width / 2;
-                centerY = container1.getBoundingClientRect().height / 2;
-            }
-            location.reload();
-        }, 200); // 200ms sau khi ngừng thay đổi
-        lastWidth = newWidth;
-    }
 });
 
-observer.observe(document.body);
 
 
 // track case-study click

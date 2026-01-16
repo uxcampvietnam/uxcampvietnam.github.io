@@ -244,7 +244,7 @@ if (canvas != null) {
 
     // Define scale factor, number of falling img ================================================================
     if (window.innerWidth < 500) {
-        numberOfFallingImg = 40;
+        numberOfFallingImg = 20;
         scaleFactor = 0.22;
         InfiniteLoadingWidth = window.innerWidth * 0.6;
         InfiniteLoadingHeight = 150;
@@ -252,7 +252,7 @@ if (canvas != null) {
     // if desktop size
     else {
         numberOfFallingImg = 130;
-        scaleFactor = 0.45;
+        scaleFactor = 0.38;
         InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
     }
 
@@ -557,33 +557,57 @@ if (container1 !== null) {
 
     var animation1;
     var animation1Animating = false, animation2Animating = false;
+
+
     function animate() {
 
+        // LẤY LAYOUT 1 LẦN / FRAME
+        const rect = container1.getBoundingClientRect();
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const radiusX = InfiniteLoadingWidth;
+        const radiusY = InfiniteLoadingHeight;
+
+        // mouse → speed
+        if (deviceHasMouse()) {
+            const percentageX =
+                (mouseX - (rect.left + centerX)) / radiusX;
+            speed = 0.00003 + 0.0001 * percentageX;
+        } else {
+            speed = 0.0003;
+        }
+
         graduationImgEls.forEach(img => {
+
+            //UPDATE ANGLE
             img.angle += speed * 16;
-            // speed = 0.0007 * percentageX / 2 + 0.00003;
-            if (deviceHasMouse()) {
-                const percentageX = 2 * (mouseX - (container1.getBoundingClientRect().left + container1.getBoundingClientRect().width / 2)) / InfiniteLoadingWidth;
-                speed = (0.0002 * percentageX / 2 + 0.00003)
-            }
-            else {
-                speed = 0.0003;
-            }
 
-            var x = centerX - 50 + InfiniteLoadingWidth * Math.sin(img.angle);
-            var y = centerY - 50 + InfiniteLoadingHeight * Math.sin(img.angle) * Math.cos(img.angle) * 2;
+            const sin = Math.sin(img.angle);
+            const cos = Math.cos(img.angle);
 
+            //QUỸ ĐẠO
+            const orbitX = radiusX * sin;
+            const orbitY = radiusY * sin * cos * 2;
 
-            const relativeX = Math.cos(img.angle); // -1 (left) to 1 (right)
+            const x = centerX + orbitX;
+            const y = centerY + orbitY;
 
-            // const scale = smallestSize + largestSize * (2.2 - Math.abs(distance)) * (1 - relativeX)/2; // 0.5 to 1
-            const scale = smallestSize + largestSize * (Math.abs(relativeX));
-            // img.el.style.transform = `translate(${x}px, ${y}px) scale(${scale})`;
-            img.el.style.transform = `translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y}px) scale(${scale/2})`;
+            // SCALE
+            const relativeX = Math.abs(cos);
+            const scale = smallestSize + largestSize * relativeX;
+
+            // APPLY TRANSFORM
+            img.el.style.transform = `
+            translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y - 50}px)
+            scale(${scale / 2})`;
 
         });
+
         animation1 = requestAnimationFrame(animate);
     }
+
 
     function startAnimation1() {
         if (!animation1Animating) {
@@ -679,3 +703,36 @@ if (container2 !== null) {
 function deviceHasMouse() {
     return matchMedia('(pointer:fine)').matches == true ? true : false;
 }
+
+
+
+let lastWidth = document.body.getBoundingClientRect().width;
+let resizeTimeout;
+
+const observer = new ResizeObserver(entries => {
+    const newWidth = entries[0].contentRect.width;
+
+    if (Math.abs(newWidth - lastWidth) > 20) {
+        // Reset timer mỗi lần width thay đổi
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            if (container1 !== null) {
+                if (window.innerWidth < 500) {
+                    InfiniteLoadingWidth = window.innerWidth * 0.6;
+                    InfiniteLoadingHeight = 150;
+                }
+                // if desktop size
+                else {
+                    InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
+                    InfiniteLoadingHeight = container1.getBoundingClientRect().height / 2 - 40; // vertical radius (y-axis)
+                }
+                centerX = container1.getBoundingClientRect().width / 2;
+                centerY = container1.getBoundingClientRect().height / 2;
+            }
+            location.reload();
+        }, 200); // 200ms sau khi ngừng thay đổi
+        lastWidth = newWidth;
+    }
+});
+
+observer.observe(document.body);

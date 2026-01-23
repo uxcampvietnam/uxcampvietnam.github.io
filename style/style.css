@@ -406,8 +406,18 @@ tbody>tr:last-child {
 }
 
 #interactiveImage {
-	border: none;
-	outline: none;
+
+
+	display: block;
+	/* xoá inline-gap */
+	border-color: var(--main-colors-background-b-200-slide-bg) !important;
+	color: var(--main-colors-background-b-200-slide-bg) !important;
+	outline: none !important;
+	box-shadow: none !important;
+	/* background: transparent; */
+	transform: translateZ(0);
+	backface-visibility: hidden;
+
 	background: var(--main-colors-background-b-200-slide-bg) !important;
 	z-index: 100;
 	position: fixed;

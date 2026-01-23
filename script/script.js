@@ -677,3 +677,213 @@ document.querySelectorAll(".case-study-container").forEach(link => {
         });
     });
 });
+
+
+
+// animation 1 & animation 2
+
+
+
+var mouseX = 0, mouseY = 0;
+function getMousePositionOnScreen(e) {
+    mouseX = e.x;
+    mouseY = e.y;
+}
+
+function smoothGrowth(x) {
+    const k = 0.2; // độ dốc, càng lớn càng dốc ở giữa
+    const f = x => 1 / (1 + Math.exp(-k * (x - 0.5)));
+    const min = f(0);
+    const max = f(1);
+    return (f(x) - min) / (max - min);
+}
+
+
+
+// Animate 1 =======================================================================================
+
+if (container1 !== null) {
+    // Settings =================================
+    const smallestSize = 0.1;
+    const largestSize = 0.5;
+    const graduationImgEls = [];
+    var speed = 0.00003; // radians per ms
+
+    // Create image elements =================================
+    for (let i = 0; i < imageGraduationUrls.length; i++) {
+
+        const img = document.createElement('img');
+        img.src = imageGraduationUrls[i];
+        img.className = 'flyer';
+
+        const flyerContainer = document.createElement('div');
+        flyerContainer.className = 'flyer-container';
+        flyerContainer.style.backgroundImage = `url("${imageGraduationUrls[i]}")`;
+
+        // flyerContainer.appendChild(img);
+        container1.appendChild(flyerContainer);
+        graduationImgEls.push({
+            el: flyerContainer,
+            angle: (i / imageGraduationUrls.length) * 2 * Math.PI // spread evenly
+        });
+    }
+
+    var animation1;
+    var animation1Animating = false, animation2Animating = false;
+
+
+    function animate() {
+
+        // LẤY LAYOUT 1 LẦN / FRAME
+        const rect = container1.getBoundingClientRect();
+
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+
+        const radiusX = InfiniteLoadingWidth;
+        const radiusY = InfiniteLoadingHeight;
+
+        // mouse → speed
+        if (deviceHasMouse()) {
+            const percentageX =
+                (mouseX - (rect.left + centerX)) / radiusX;
+            speed = 0.00003 + 0.0001 * percentageX;
+        } else {
+            speed = 0.0003;
+        }
+
+        graduationImgEls.forEach(img => {
+
+            //UPDATE ANGLE
+            img.angle += speed * 16;
+
+            const sin = Math.sin(img.angle);
+            const cos = Math.cos(img.angle);
+
+            //QUỸ ĐẠO
+            const orbitX = radiusX * sin;
+            const orbitY = radiusY * sin * cos * 2;
+
+            const x = centerX + orbitX;
+            const y = centerY + orbitY;
+
+            // SCALE
+            const relativeX = Math.abs(cos);
+            const scale = smallestSize + largestSize * relativeX;
+
+            // APPLY TRANSFORM
+            img.el.style.transform = `
+            translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y - 50}px)
+            scale(${scale / 2})`;
+
+        });
+
+        animation1 = requestAnimationFrame(animate);
+    }
+
+
+    function startAnimation1() {
+        if (!animation1Animating) {
+            animation1Animating = true;
+            flyingContainer.style.opacity = 1;
+            animate();
+        }
+    }
+
+    function stopAnimation1() {
+        if (animation1Animating) {
+            cancelAnimationFrame(animation1);
+            flyingContainer.style.opacity = 0;
+            animation1Animating = false;
+        }
+    }
+
+    // requestAnimationFrame(animate);
+
+}
+
+
+// Animate 2 ===================================================================================
+
+if (container2 !== null) {
+
+    var animation2;
+    const graduationImgEls2 = [];
+    for (let i = 0; i < imageGraduationUrls.length; i++) {
+
+        const flyerContainer = document.createElement('div');
+        flyerContainer.className = 'flyer-container';
+        flyerContainer.style.backgroundImage = `url("${imageGraduationUrls[i]}")`;
+
+        // flyerContainer.appendChild(img);
+        container2.appendChild(flyerContainer);
+        graduationImgEls2.push({
+            el: flyerContainer,
+            angle: (i / imageGraduationUrls.length) * 2 * Math.PI // spread evenly
+        });
+    }
+
+    function animate2() {
+        graduationImgEls2.forEach(img => {
+            // img.el.style.opacity = 1;
+            img.angle += 0.0001 * 16;
+
+            // Position on oval
+            const x = container2.getBoundingClientRect().width / 2 + container2.getBoundingClientRect().width * Math.sin(img.angle) / 1.5;
+            const y = container2.getBoundingClientRect().height / 2 + container2.getBoundingClientRect().height * Math.sin(img.angle) / 2.9;
+
+            var centerImgX = img.el.getBoundingClientRect().left + img.el.getBoundingClientRect().width / 2;
+            var centerImgY = img.el.getBoundingClientRect().top + img.el.getBoundingClientRect().height / 2;
+
+            var relativeImgX = Math.abs(mouseX - centerImgX);
+            var relativeImgY = Math.abs(mouseY - centerImgY);
+            var distance = Math.sqrt(relativeImgX * relativeImgX + relativeImgY * relativeImgY) / (Math.sqrt(flyingContainer2.getBoundingClientRect().height / 2 * flyingContainer2.getBoundingClientRect().height / 2 + flyingContainer2.getBoundingClientRect().width / 2 * flyingContainer2.getBoundingClientRect().width / 2));
+
+            var scale;
+
+            if (deviceHasMouse()) {
+                distance < 1 ? scale = 0.08 * (smoothGrowth(distance)) + 0.02 : scale = 0.1;
+            }
+            else {
+                scale = 0.05;
+            }
+            var centerX2 = container2.getBoundingClientRect().width / 2;
+
+            img.el.style.transform = `translate(${centerX2 - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y - 50}px) scale(${scale})`;
+        });
+        animation2 = requestAnimationFrame(animate2);
+    }
+
+
+    function startAnimation2() {
+        if (!animation2Animating) {
+            animation2Animating = true;
+            flyingContainer2.style.opacity = 1;
+            animate2();
+        }
+    }
+
+    function stopAnimation2() {
+        if (animation2Animating) {
+            flyingContainer2.style.opacity = 0;
+            cancelAnimationFrame(animation2);
+            animation2Animating = false;
+        }
+    }
+}
+
+
+function deviceHasMouse() {
+    return matchMedia('(pointer:fine)').matches == true ? true : false;
+}
+
+
+window.onwheel = function (event) {
+    // event.preventDefault();
+    ScrollTrigger.refresh();
+};
+
+window.onmousewheel = function (event) {
+    // event.preventDefault();
+    ScrollTrigger.refresh();
+};

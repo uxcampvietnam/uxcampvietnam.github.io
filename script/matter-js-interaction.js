@@ -244,9 +244,9 @@ let InfiniteLoadingHeight;
 
 if (window.innerWidth < 500) {
     numberOfFallingImg = 40;
-    scaleFactor = 0.22;
-    InfiniteLoadingWidth = window.innerWidth * 0.6;
-    InfiniteLoadingHeight = 150;
+    scaleFactor = 0.28;
+    InfiniteLoadingWidth = window.innerWidth;
+    InfiniteLoadingHeight = 250;
 } 
 else {
     numberOfFallingImg = 130;
@@ -366,8 +366,8 @@ if (canvas) {
         return Bodies.rectangle(
             x,
             y,
-            image.width * scaleFactor * randomScale,
-            image.height * scaleFactor * randomScale,
+            image.width * scaleFactor * randomScale + 10,
+            image.height * scaleFactor * randomScale + 10,
             {
                 friction: 0.2,
                 frictionAir: 0.01,
@@ -377,7 +377,7 @@ if (canvas) {
                         texture: image.url,
                         xScale: scaleFactor * randomScale,
                         yScale: scaleFactor * randomScale
-                    }
+                    },
                 }
             }
         );

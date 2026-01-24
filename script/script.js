@@ -774,7 +774,7 @@ if (container1 !== null) {
             // APPLY TRANSFORM
             img.el.style.transform = `
             translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y - 50}px)
-            scale(${scale / 2})`;
+            scale(${scale / 3})`;
 
         });
 

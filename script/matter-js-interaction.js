@@ -247,9 +247,10 @@ if (window.innerWidth < 500) {
     scaleFactor = 0.22;
     InfiniteLoadingWidth = window.innerWidth * 0.6;
     InfiniteLoadingHeight = 150;
-} else {
+} 
+else {
     numberOfFallingImg = 130;
-    scaleFactor = 0.45;
+    scaleFactor = 0.4;
     InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
     InfiniteLoadingHeight = container1
         ? container1.getBoundingClientRect().height / 2 - 40
@@ -368,8 +369,8 @@ if (canvas) {
             image.width * scaleFactor * randomScale,
             image.height * scaleFactor * randomScale,
             {
-                friction: 0.4,
-                frictionAir: 0.03,
+                friction: 0.2,
+                frictionAir: 0.01,
                 restitution: 0,
                 render: {
                     sprite: {

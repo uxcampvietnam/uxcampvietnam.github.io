@@ -42,20 +42,20 @@
 </head>
 
 <body>
-    
-  <div class="navigation">
-    <div class="navigation-row1">
-      <!-- <a class="paragraph" href="../index.html">Bootcamp</a> -->
-      <a href="../index.html"><img class="eye-logo justify-content-center" src="../asset/image/Eye.svg"
-          onload="SVGInject(this)"></a>
-      <!-- <a class="paragraph" href="../corporate-training.html">Corporate Training</a> -->
 
+    <div class="navigation">
+        <div class="navigation-row1">
+            <!-- <a class="paragraph" href="../index.html">Bootcamp</a> -->
+            <a href="../index.html"><img class="eye-logo justify-content-center" src="../asset/image/Eye.svg"
+                    onload="SVGInject(this)"></a>
+            <!-- <a class="paragraph" href="../corporate-training.html">Corporate Training</a> -->
+
+        </div>
+        <div class="navigation-row2">
+            <!-- <a class="paragraph" href="index.html">Calculator</a> -->
+            <!-- <a class="paragraph" href="../bigtextbox.html">BigTextBox</a> -->
+        </div>
     </div>
-    <div class="navigation-row2">
-      <!-- <a class="paragraph" href="index.html">Calculator</a> -->
-      <!-- <a class="paragraph" href="../bigtextbox.html">BigTextBox</a> -->
-    </div>
-  </div>
 
 
     <div class="container">
@@ -82,7 +82,8 @@
                                 3. Điều chỉnh ví dụ minh họa, phương pháp tiếp cận phù hợp với từng nhóm tham dự<br>
                                 4. Đảm bảo chất lượng đào tạo bằng việc sắp xếp người tham dự theo các nhóm bổ trợ năng
                                 lực cho nhau.<br>
-                                Giáo trình chi tiết vui lòng xem tại <a style="text-decoration: underline;" href="index.html">https://uxcamp.vn</a><br>
+                                Giáo trình chi tiết vui lòng xem tại <a style="text-decoration: underline;"
+                                    href="index.html">https://uxcamp.vn</a><br>
                                 <br>
                             </div>
                         </div>
@@ -189,7 +190,8 @@
                         </div>
 
                         <div class="form-group">
-                            <span class="col-12 h5 input-row-title">[Nếu đã làm sản phẩm cho end-user] Bạn đã trải qua những giai
+                            <span class="col-12 h5 input-row-title">[Nếu đã làm sản phẩm cho end-user] Bạn đã trải qua
+                                những giai
                                 đoạn nào của sản phẩm? *</span>
                             <div class="tags">
                                 <span>
@@ -284,11 +286,10 @@
                     data[key] = value;
                 }
             });
+
             mixpanel.track('bootcamp_form_submit', data);
 
-
-
-            fetch("https://script.google.com/macros/s/AKfycbzX6h4_4XNjPegpaBu8hohY_uUIQZYitxMx_S-GQSpU11_KJ8Bd_Y6ldAIpu99tyAaYrg/exec", {
+            fetch("https://script.google.com/macros/s/AKfycbzjJsLh4AGaiuG-DG5_J0G7tj41cUGofeSoYtmx1a5TdwT2IaKrMCLNxXsz6OwTB5w1aA/exec", {
                 method: "POST",
                 body: JSON.stringify(data),
                 headers: { "Content-Type": "application/json" },
@@ -309,9 +310,6 @@
                 });
         });
     </script>
-
-
-
 </body>
 
 </html>

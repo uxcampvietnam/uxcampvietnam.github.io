@@ -247,7 +247,7 @@ if (window.innerWidth < 500) {
     scaleFactor = 0.28;
     InfiniteLoadingWidth = window.innerWidth;
     InfiniteLoadingHeight = 250;
-} 
+}
 else {
     numberOfFallingImg = 130;
     scaleFactor = 0.37;

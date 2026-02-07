@@ -250,7 +250,7 @@ if (window.innerWidth < 500) {
 }
 else {
     numberOfFallingImg = 130;
-    scaleFactor = 0.37;
+    scaleFactor = 0.45;
     InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
     InfiniteLoadingHeight = container1
         ? container1.getBoundingClientRect().height / 2 - 40

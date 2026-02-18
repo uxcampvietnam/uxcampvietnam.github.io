@@ -5,108 +5,125 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shared Collection - Tab & Task</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../style/style.css">
+    <link rel="stylesheet" href="../style/definition.css">
+
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
     <style>
+        .hidden {
+            display: none;
+        }
+
+        .favicon {
+            width: 24px;
+            height: 24px;
+        }
+
         body {
             display: flex;
             justify-content: center;
             align-items: flex-start;
             padding-top: 50px;
-            background-color: var(--main-colors-background-B200, #FCF0E0);
         }
 
         .container {
             width: 100%;
             max-width: 800px;
-            flex-direction: column;
-            align-items: center;
             padding: 24px;
         }
 
         .collection-header {
             width: 100%;
-            margin-bottom: 24px;
+            margin-bottom: 12px;
             text-align: left;
-        }
-
-        .collection-title {
-            font-size: 24px;
-            font-weight: bold;
-            color: var(--main-colors-foreground-F500);
-            margin-bottom: 8px;
-        }
-
-        .collection-meta {
-            font-size: 14px;
-            color: var(--main-colors-foreground-F600);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-direction: row;
         }
 
         .savedTabList {
-            width: 100%;
             display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-            list-style: none;
-            padding: 0;
+            align-items: center;
+            align-content: center;
+            gap: 8px;
+            align-self: stretch;
+            padding-inline-start: 0px !important;
+            margin: 0px;
+            padding-top: 12px;
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .savedTabItem span {
+            @supports (-webkit-line-clamp: 2) {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: initial;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
         }
 
         .error-message {
-            color: #d32f2f;
+            background-color: var(--alternative-foreground-red);
             padding: 20px;
-            background: #ffebee;
+            color: var(--main-colors-foreground-f100);
             border-radius: 8px;
         }
 
         /* Override styles for standalone page */
         .savedTabItem {
+            display: flex;
+            height: 72px;
+            box-sizing: border-box;
+            width: 100%;
+            padding: 12px;
+            align-items: center;
+            gap: 8px;
+            /* flex: 1 0 0; */
+            border: 1px solid var(--transparent-foreground-main-color-10);
+            background-color: var(--saved-tab-item-background);
+            overflow: hidden;
+            border-radius: 4px;
             cursor: pointer;
         }
 
-        .delete-btn {
-            display: none !important;
-            /* No delete in public view */
+        .savedTabItem:hover {
+            background-color: var(--saved-tab-item-background-hover);
+        }
+
+        .share-tag {
+            background-color: var(--transparent-foreground-main-color-10);
+            color: var(--main-colors-foreground-f300);
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div id="loading">Loading collection...</div>
+        <p id="loading">Loading collection...</p>
         <div id="content" class="hidden" style="width: 100%;">
             <div class="collection-header">
-                <div class="collection-title" id="folderTitle"></div>
-                <div class="collection-meta" id="folderMeta"></div>
+                <span class="collection-title h1" id="folderTitle"></span>
+                <div class="share-tag caption">public</div>
+                <p class="collection-meta caption" id="folderMeta"></p>
             </div>
             <ul class="savedTabList" id="tabList"></ul>
         </div>
-        <div id="error" class="hidden error-message"></div>
+        <p id="error" class="hidden error-message "></p>
     </div>
 
-    <!-- Configuration Script (Inject your Supabase Config here or load from common file if possible) -->
-    <!-- For this demo, we assume we need to hardcode or read from a shared config file. 
-         Since verify_uuid.js is not shown to contain config, I will use a placeholder or try to read from newtab-src if it had it.
-         Wait, user said "Tab & Task Supabase", assuming the config is known or I should use the same one.
-         For the standalone page to work 'via a webpage', it likely needs the config embedded or fetched.
-         I'll add a script that attempts to reuse the existing config strategy if applicable, 
-         or I will ask the user to provide the URL/Key if I can't find it.
-         However, for now I will use the pattern seen in newtab-src.js: window.SUPABASE_CONFIG.
-         I will include a config.js if it exists, otherwise I'll need to extract it.
-    -->
 
     <script>
-        window.SUPABASE_CONFIG = {
-            url: "https://yzqtzrbkxkvtachwpdxt.supabase.co",   // e.g. https://xxxxxxxx.supabase.co
-            anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl6cXR6cmJreGt2dGFjaHdwZHh0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzAyNzEzODIsImV4cCI6MjA4NTg0NzM4Mn0.i4a1rYYCmxnqrFAEdPEh7Blon95Lcj0qgbdoeniFZLk",   // Project API key (anon public)
-            // Where to send users after they click the email confirmation or password reset link (must be in Supabase Redirect URLs)
-            emailRedirectTo: "https://uxcamp.vn/"
-        };
-        // Fallback config if config.js is missing or doesn't set it (You should replace these with your project details)
         if (!window.SUPABASE_CONFIG) {
             console.warn("SUPABASE_CONFIG not found. Please ensure config.js is present or keys are set.");
-            // Try to load from local storage or prompt? No, public page needs it.
-            // For now, I'll rely on the user having a config.js or similar.
-            // If the user hasn't created a config.js, I should probably create one or extract keys from where they are initialized.
         }
 
         async function loadPublicCollection() {
@@ -127,14 +144,17 @@
 
             try {
                 // 1. Fetch Folder
+                // Use maybeSingle() so that when RLS returns 0 rows (private/non-existent folder)
+                // we get null instead of a hard PGRST116 error.
                 const { data: folder, error: folderError } = await supabase
                     .from('folders')
                     .select('*')
                     .eq('id', folderId)
-                    .single();
+                    .eq('is_deleted', false)
+                    .maybeSingle();
 
                 if (folderError) throw folderError;
-                if (!folder) throw new Error("Collection not found.");
+                if (!folder) throw new Error("Collection not found or is not publicly accessible.");
                 if (!folder.is_public) {
                     // Check if we are logged in? 
                     // For public view, if is_public is false, we try to see if user has access via share?
@@ -152,6 +172,7 @@
                     .from('tabs')
                     .select('*')
                     .eq('folder_id', folderId)
+                    .eq('is_deleted', false)
                     .order('position');
 
                 if (tabsError) throw tabsError;
@@ -168,7 +189,8 @@
             document.getElementById('loading').classList.add('hidden');
             document.getElementById('content').classList.remove('hidden');
 
-            document.getElementById('folderTitle').textContent = folder.title || "Untitled Collection";
+            document.getElementById('folderTitle').textContent = folder.name || "Untitled Collection";
+            document.title = "Shared folder: " + (folder.name || "Untitled Collection");
             document.getElementById('folderMeta').textContent = `${tabs.length} items`; // • Created ${new Date(folder.created_at).toLocaleDateString()}
 
             const list = document.getElementById('tabList');
@@ -185,8 +207,8 @@
                 li.onclick = () => window.open(tab.url, '_blank');
 
                 li.innerHTML = `
-                    <img class="favicon" src="${tab.favIconUrl || 'assets/uxcamp-logo.svg'}" alt="icon" onerror="this.src='assets/uxcamp-logo.svg'">
-                    <span>${tab.title}</span>
+                    <img class="favicon" src="${tab.favicon || '../asset/image/Eye.svg'}" alt="icon" onerror="this.src='../asset/image/Eye.svg'">
+                    <span class="">${tab.title}</span>
                 `;
                 list.appendChild(li);
             });

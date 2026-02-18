@@ -12,8 +12,6 @@
   padding-right: 0px;
 }
 
-
-
 .italic {
   font-style: italic;
 }
@@ -61,7 +59,6 @@
   line-height: var(--font-line-height-caption);
   letter-spacing: var(--font-letter-spacing-caption);
   margin: 0px;
-
 }
 
 .paragraph,
@@ -178,7 +175,7 @@ html {
 
 hr {
   /* border: 0.1px solid var(--main-color-10) !important; */
-  border: 0.5px solid var(--transparent-foreground---main-color-80) !important;
+  border: 0.5px solid var(--transparent-foreground-main-color-80) !important;
 }
 
 .blur-background {
@@ -188,6 +185,11 @@ hr {
 
 /* Color variables for darkmode and lightmode ============================*/
 :root {
+  --body-background: #EBE1D4;
+  --collection-bacground: #F4EDE4;
+  --saved-tab-item-background: #F8F5F0;
+  --saved-tab-item-background-hover: #FCFCFB;
+
   /* fix colors */
   --fix-white---white-100: #ffffff;
   --fix-white---white-90: rgba(255, 255, 255, 0.9);
@@ -241,34 +243,34 @@ hr {
   --main-colors-background-b700: #8f8985;
   --main-colors-background-elevate-1: #F8F1E8;
   --main-colors-background-elevate-2: #FAF5EF;
-  --transparent-background-elevate-blur: rgba(244, 237, 228, 0.5);
+  --transparent-background-elevate-blur: rgba(244, 237, 228, 0.6);
 
 
   /* transparent foreground */
-  --transparent-foreground---main-color-100: #373d48;
-  --transparent-foreground---main-color-90: rgba(55, 61, 72, 0.9);
-  --transparent-foreground---main-color-80: rgba(55, 61, 72, 0.8);
-  --transparent-foreground---main-color-70: rgba(55, 61, 72, 0.7);
-  --transparent-foreground---main-color-60: rgba(55, 61, 72, 0.6);
-  --transparent-foreground---main-color-50: rgba(55, 61, 72, 0.5);
-  --transparent-foreground---main-color-40: rgba(55, 61, 72, 0.4);
-  --transparent-foreground---main-color-30: rgba(55, 61, 72, 0.3);
-  --transparent-foreground---main-color-20: rgba(55, 61, 72, 0.2);
-  --transparent-foreground---main-color-10: rgba(55, 61, 72, 0.1);
-  --transparent-foreground---main-color-05: rgba(55, 61, 72, 0.05);
+  --transparent-foreground-main-color-100: #373d48;
+  --transparent-foreground-main-color-90: rgba(55, 61, 72, 0.9);
+  --transparent-foreground-main-color-80: rgba(55, 61, 72, 0.8);
+  --transparent-foreground-main-color-70: rgba(55, 61, 72, 0.7);
+  --transparent-foreground-main-color-60: rgba(55, 61, 72, 0.6);
+  --transparent-foreground-main-color-50: rgba(55, 61, 72, 0.5);
+  --transparent-foreground-main-color-40: rgba(55, 61, 72, 0.4);
+  --transparent-foreground-main-color-30: rgba(55, 61, 72, 0.3);
+  --transparent-foreground-main-color-20: rgba(55, 61, 72, 0.2);
+  --transparent-foreground-main-color-10: rgba(55, 61, 72, 0.1);
+  --transparent-foreground-main-color-05: rgba(55, 61, 72, 0.05);
 
   /* transparent background */
-  --transparent-background---bg-color-100: #fbead5;
-  --transparent-background---bg-color-90: rgba(251, 234, 213, 0.9);
-  --transparent-background---bg-color-80: rgba(251, 234, 213, 0.8);
-  --transparent-background---bg-color-70: rgba(251, 234, 213, 0.7);
-  --transparent-background---bg-color-60: rgba(251, 234, 213, 0.6);
-  --transparent-background---bg-color-50: rgba(251, 234, 213, 0.5);
-  --transparent-background---bg-color-40: rgba(251, 234, 213, 0.4);
-  --transparent-background---bg-color-30: rgba(251, 234, 213, 0.3);
-  --transparent-background---bg-color-20: rgba(251, 234, 213, 0.2);
-  --transparent-background---bg-color-10: rgba(251, 234, 213, 0.1);
-  --transparent-background---bg-color-05: rgba(251, 234, 213, 0.05);
+  --transparent-background-bg-color-100: #fbead5;
+  --transparent-background-bg-color-90: rgba(251, 234, 213, 0.9);
+  --transparent-background-bg-color-80: rgba(251, 234, 213, 0.8);
+  --transparent-background-bg-color-70: rgba(251, 234, 213, 0.7);
+  --transparent-background-bg-color-60: rgba(251, 234, 213, 0.6);
+  --transparent-background-bg-color-50: rgba(251, 234, 213, 0.5);
+  --transparent-background-bg-color-40: rgba(251, 234, 213, 0.4);
+  --transparent-background-bg-color-30: rgba(251, 234, 213, 0.3);
+  --transparent-background-bg-color-20: rgba(251, 234, 213, 0.2);
+  --transparent-background-bg-color-10: rgba(251, 234, 213, 0.1);
+  --transparent-background-bg-color-05: rgba(251, 234, 213, 0.05);
 
 
   /* alternative foreground */
@@ -279,6 +281,8 @@ hr {
   --alternative-foreground-yellow: #493f0e;
   --alternative-foreground-magenta: #891057;
   --alternative-foreground-cyan: #12303e;
+  --alternative-foreground-gold: #878377;
+  --alternative-foreground-light-gold: rgba(135, 131, 119, 0.5);
 
   /* alternative background */
   --alternative-background-blue-case-study: #eae9ff;
@@ -287,6 +291,8 @@ hr {
   --alternative-background-yellow-quiz: #ffeea6;
   --alternative-background-magenta: #fedcf2;
   --alternative-background-cyan: #dff3ff;
+  --alternative-background-gold: #D4D1C5;
+  --alternative-background-light-gold: rgba(212, 209, 197, 0.5);
 
 
   /* highlight */
@@ -459,6 +465,10 @@ hr {
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --body-background: #000000;
+    --collection-bacground: #141414;
+    --saved-tab-item-background: #1A1A1A;
+    --saved-tab-item-background-hover: #292929;
 
     --button-background: rgba(80, 124, 175, 0.25);
     --button-background-hover: rgba(92, 133, 182, 0.35);
@@ -488,30 +498,30 @@ hr {
 
 
     /* transparent foreground */
-    --transparent-foreground---main-color-100: #c9c4ca;
-    --transparent-foreground---main-color-90: rgba(201, 196, 202, 0.9);
-    --transparent-foreground---main-color-80: rgba(201, 196, 202, 0.8);
-    --transparent-foreground---main-color-70: rgba(201, 196, 202, 0.7);
-    --transparent-foreground---main-color-60: rgba(201, 196, 202, 0.6);
-    --transparent-foreground---main-color-50: rgba(201, 196, 202, 0.5);
-    --transparent-foreground---main-color-40: rgba(201, 196, 202, 0.4);
-    --transparent-foreground---main-color-30: rgba(201, 196, 202, 0.3);
-    --transparent-foreground---main-color-20: rgba(201, 196, 202, 0.2);
-    --transparent-foreground---main-color-10: rgba(201, 196, 202, 0.1);
-    --transparent-foreground---main-color-05: rgba(201, 196, 202, 0.05);
+    --transparent-foreground-main-color-100: #c9c4ca;
+    --transparent-foreground-main-color-90: rgba(201, 196, 202, 0.9);
+    --transparent-foreground-main-color-80: rgba(201, 196, 202, 0.8);
+    --transparent-foreground-main-color-70: rgba(201, 196, 202, 0.7);
+    --transparent-foreground-main-color-60: rgba(201, 196, 202, 0.6);
+    --transparent-foreground-main-color-50: rgba(201, 196, 202, 0.5);
+    --transparent-foreground-main-color-40: rgba(201, 196, 202, 0.4);
+    --transparent-foreground-main-color-30: rgba(201, 196, 202, 0.3);
+    --transparent-foreground-main-color-20: rgba(201, 196, 202, 0.2);
+    --transparent-foreground-main-color-10: rgba(201, 196, 202, 0.1);
+    --transparent-foreground-main-color-05: rgba(201, 196, 202, 0.05);
 
     /* transparent background */
-    --transparent-background---bg-color-100: #020a18;
-    --transparent-background---bg-color-90: rgba(2, 10, 24, 0.9);
-    --transparent-background---bg-color-80: rgba(2, 10, 24, 0.8);
-    --transparent-background---bg-color-70: rgba(2, 10, 24, 0.7);
-    --transparent-background---bg-color-60: rgba(2, 10, 24, 0.6);
-    --transparent-background---bg-color-50: rgba(2, 10, 24, 0.5);
-    --transparent-background---bg-color-40: rgba(2, 10, 24, 0.4);
-    --transparent-background---bg-color-30: rgba(2, 10, 24, 0.3);
-    --transparent-background---bg-color-20: rgba(2, 10, 24, 0.2);
-    --transparent-background---bg-color-10: rgba(2, 10, 24, 0.1);
-    --transparent-background---bg-color-05: rgba(2, 10, 24, 0.05);
+    --transparent-background-bg-color-100: #020a18;
+    --transparent-background-bg-color-90: rgba(2, 10, 24, 0.9);
+    --transparent-background-bg-color-80: rgba(2, 10, 24, 0.8);
+    --transparent-background-bg-color-70: rgba(2, 10, 24, 0.7);
+    --transparent-background-bg-color-60: rgba(2, 10, 24, 0.6);
+    --transparent-background-bg-color-50: rgba(2, 10, 24, 0.5);
+    --transparent-background-bg-color-40: rgba(2, 10, 24, 0.4);
+    --transparent-background-bg-color-30: rgba(2, 10, 24, 0.3);
+    --transparent-background-bg-color-20: rgba(2, 10, 24, 0.2);
+    --transparent-background-bg-color-10: rgba(2, 10, 24, 0.1);
+    --transparent-background-bg-color-05: rgba(2, 10, 24, 0.05);
 
     /* alternative foreground */
     --alternative-foreground-blue: #b0ace4;
@@ -520,14 +530,18 @@ hr {
     --alternative-foreground-yellow: #e4d1a1;
     --alternative-foreground-magenta: #e4b0d0;
     --alternative-foreground-cyan: #dff3ff;
+    --alternative-foreground-gold: #D4D1C5;
+    --alternative-foreground-light-gold: rgba(212, 209, 197, 0.5);
 
     /* alternative background */
-    --alternative-background-blue-case-study: #1e1d42;
-    --alternative-background-green-further-reading: #152f19;
-    --alternative-background-red-to-do: #401010;
-    --alternative-background-yellow-quiz: #31280e;
-    --alternative-background-magenta: #3e122f;
-    --alternative-background-cyan: #12303e;
+    --alternative-background-blue-case-study: #0C0B31;
+    --alternative-background-green-further-reading: #142617;
+    --alternative-background-red-to-do: #320D0D;
+    --alternative-background-yellow-quiz: #2E2814;
+    --alternative-background-magenta: #52183E;
+    --alternative-background-cyan: #143849;
+    --alternative-background-gold: #878377;
+    --alternative-background-light-gold: rgba(135, 131, 119, 0.5);
 
     /* highlight */
     --highlight-blue: #2e7aed;
@@ -549,7 +563,7 @@ hr {
 
 /* Track */
 ::-webkit-scrollbar-track {
-  /* background: var(--transparent-foreground---main-color-05); */
+  /* background: var(--transparent-foreground-main-color-05); */
   background: none;
 }
 
@@ -559,7 +573,7 @@ hr {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--transparent-foreground---main-color-50);
+  background: var(--transparent-foreground-main-color-50);
   border-radius: 100px;
   width: 32px;
   height: 32px;
@@ -567,7 +581,7 @@ hr {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--transparent-foreground---main-color-80);
+  background: var(--transparent-foreground-main-color-80);
 }
 
 
@@ -624,7 +638,7 @@ input[type=number] {
   justify-content: center;
   align-items: center;
   gap: 4px;
-  border: 0.5px solid var(--Transparent-Foreground---main-color-40, rgba(55, 61, 72, 0.40));
+  border: 0.5px solid var(--Transparent-Foreground-main-color-40, rgba(55, 61, 72, 0.40));
   background: var(--main-colors-background-b-300-main, #FBEAD5);
   /* Inner Glow (Light) */
   box-shadow: 0px 4px 16px 0px var(--Fix-White---white-05, rgba(255, 255, 255, 0.05)) inset;
@@ -650,7 +664,7 @@ input[type=number] {
 span:has(input[type="radio"]),
 span:has(input[type="checkbox"]) {
   border-radius: 8px;
-  border: 0.5px solid var(--transparent-foreground---main-color-40, rgba(55, 61, 72, 0.40));
+  border: 0.5px solid var(--transparent-foreground-main-color-40, rgba(55, 61, 72, 0.40));
   background: var(--main-colors-background-elevate-2);
   /* Inner Glow (Light) */
   box-shadow: 0px 4px 16px 0px var(--Fix-White---white-05, rgba(255, 255, 255, 0.05)) inset;
@@ -705,8 +719,8 @@ span:has(input[type="checkbox"]:checked) label {
 #result .result-table tr {
   border-left: none;
   border-right: none;
-  border-top: 0.5px solid var(--transparent-foreground---main-color-10, rgba(55, 61, 72, 0.10));
-  border-bottom: 0.5px solid var(--transparent-foreground---main-color-10, rgba(55, 61, 72, 0.10));
+  border-top: 0.5px solid var(--transparent-foreground-main-color-10, rgba(55, 61, 72, 0.10));
+  border-bottom: 0.5px solid var(--transparent-foreground-main-color-10, rgba(55, 61, 72, 0.10));
   padding-top: 8px;
   padding-bottom: 8px;
 

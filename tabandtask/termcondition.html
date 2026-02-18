@@ -39,7 +39,6 @@
     <script src="../script/libs/svg-inject.min.js"></script>
     <script src="../script/libs/split-type.js"></script>
 
-    <script src="../script/libs/mixpanel.js"></script>
 
     <!-- custom css -->
 
@@ -67,7 +66,8 @@
             fill: var(--main-colors-foreground-f300);
         }
 
-        li, .title {
+        li,
+        .title {
             color: var(--main-colors-foreground-f-500-main);
         }
     </style>
@@ -91,168 +91,141 @@
 
                 <div class="row bootcamp-section" id="privacy-policy">
                     <div class="col-12 bootcamp-section-content">
-                        <h1>I. Privacy Policy</h1>
-                        <p><strong>Effective Date:</strong> October 9, 2025</p>
+                        <h1>Part I: Terms and Conditions</h1>
 
+                        <h4>1. Introduction</h4>
                         <p>
-                            Tab & Task is a Chrome extension designed to help you manage your tabs, and to-do
-                            lists more efficiently.
-                            We respect your privacy and are committed to protecting your personal data.
+                            The Tab & Task Supabase Sync Extension is a productivity tool designed to help you organize
+                            browser tabs and manage tasks. It features local storage and cloud synchronization through
+                            Supabase integration, allowing for cross-device access and collaboration.
                         </p>
 
-                        <h4>Information We Access</h4>
-                        <p>
-                            Tab & Task operates entirely within your browser. It uses the following Chrome APIs to
-                            provide its features:
-                        </p>
+                        <h4>2. Permissions</h4>
+                        <p>This Extension requires the following permissions to function:</p>
                         <ul>
-                            <li><strong>tabs</strong> - to list and manage your open tabs.</li>
-                            <li><strong>storage</strong> - to locally save your settings, notes, or to-do items.</li>
+                            <li><strong>Storage:</strong> To save your preferences, settings, and local tab/task data on
+                                your device.</li>
+                            <li><strong>Tabs:</strong> To list, organize, and manage your open browser tabs.</li>
+                            <li><strong>Host Permissions (<code>https://*.supabase.co/*</code>):</strong> To connect
+                                securely with Supabase for data synchronization.</li>
+                        </ul>
+                        <p>We only use these permissions for their intended purposes and never access or distribute your
+                            private browsing data.</p>
+
+                        <h4>3. User Responsibilities</h4>
+                        <p>By using this Extension, you agree to:</p>
+                        <ul>
+                            <li>Use the Extension in compliance with all applicable laws.</li>
+                            <li>Not use the Extension for illegal, harmful, or malicious purposes.</li>
+                            <li>Not attempt to reverse engineer or interfere with the Extension's functionality.</li>
+                            <li>Be responsible for the content you save or share within the Extension.</li>
                         </ul>
 
-                        <p>
-                            All data related to your tabs, and to-do items is stored locally on your device.
-                            We do not transmit or sell any personal information to third parties.
-                        </p>
-
-                        <h4>Optional Analytics (Mixpanel)</h4>
-                        <p>
-                            To improve user experience, Tab & Task optionally uses <a href="https://mixpanel.com/"
-                                target="_blank">Mixpanel</a> for anonymous usage analytics.
-                            Analytics are <strong>disabled by default</strong> and can be enabled through the
-                            extension’s settings panel (opt-in).
-                        </p>
-
-                        <p>
-                            When analytics are enabled, the extension may collect:
-                        </p>
+                        <h4>4. Collaboration and Shared Folders</h4>
+                        <p>The Extension allows you to share folders with other users. Please be aware of the following
+                            roles:</p>
                         <ul>
-                            <li>Anonymous events such as “created to-do”, “saved link”, “opened tab”</li>
-                            <li>General usage frequency (e.g., number of actions performed)</li>
+                            <li><strong>Owners:</strong> Can create, read, update, and delete all content in a shared
+                                folder, including managing members.</li>
+                            <li><strong>Editors:</strong> Can add, modify, or delete tabs and tasks within shared
+                                folders. Actions taken by editors are visible to the owner and other collaborators.</li>
+                            <li><strong>Viewers:</strong> Have read-only access to the shared folders.</li>
                         </ul>
 
-                        <p>
-                            We do <strong>not</strong> collect or transmit personally identifiable information, website
-                            content, or sensitive data.
-                            Specifically, the text you type in your to-do list and the actual URLs of your tabs are
-                            <strong>never sent</strong> to Mixpanel or any other service.
-                        </p>
-
-                        <h4>Data Storage and Retention</h4>
-                        <p>
-                            All user data, settings, and saved lists are stored locally in Chrome’s extension storage
-                            system.
-                            When you uninstall the extension, all stored data is permanently deleted from your device.
-                        </p>
-
-                        <h4>Your Control</h4>
-                        <p>
-                            You can view, clear, or disable analytics data collection at any time within the extension
-                            settings.
-                            You may also remove all data by uninstalling the extension or clearing Chrome’s extension
-                            storage.
-                        </p>
-
-                        <h4>Third-Party Services</h4>
-                        <p>
-                            Apart from Mixpanel (used only when enabled by you), Tab & Task does not integrate with any
-                            external APIs, analytics, or advertising platforms.
-                        </p>
-
-                        <h4>Policy Updates</h4>
-                        <p>
-                            This Privacy Policy may be updated periodically to reflect product or legal changes. Updates
-                            will be posted on this page with a revised effective date.
-                        </p>
-
-
-
-
-                        <h1>II. Terms of Use</h1>
-                        <p><strong>Effective Date:</strong> October 9, 2025</p>
-
-                        <p>
-                            Welcome to <strong>Tab & Task</strong> — a Chrome extension developed by UXCamp Vietnam
-                            to help you organize your browser tabs, and to-do lists.
-                            By installing or using this extension, you agree to comply with these Terms of Use.
-                        </p>
-
-                        <h4>Acceptance of Terms</h4>
-                        <p>
-                            By using Tab & Task, you acknowledge that you have read, understood, and agreed to these
-                            Terms.
-                            If you do not agree, please uninstall the extension immediately.
-                        </p>
-
-                        <h4>Use of the Extension</h4>
-                        <p>
-                            Tab & Task is provided solely for personal, non-commercial use.
-                            You agree not to use the extension in any manner that violates applicable laws or infringes
-                            the rights of others.
-                        </p>
+                        <h4>5. Public Access</h4>
+                        <p>Users have the option to make specific folders "Public."</p>
                         <ul>
-                            <li>You may not reverse-engineer, decompile, or modify the extension’s source code.</li>
-                            <li>You may not use the extension to collect or share data unlawfully.</li>
-                            <li>You may not distribute altered versions of the extension without prior written
-                                permission.</li>
+                            <li>Public folders are accessible to anyone who has the unique public link.</li>
+                            <li>No authentication is required to view the content of a public folder.</li>
+                            <li>Ensure that you do not include sensitive information in folders you choose to make
+                                public.</li>
                         </ul>
 
-                        <h4>Data Usage and Privacy</h4>
+                        <h4>6. Intellectual Property</h4>
                         <p>
-                            Your use of Tab & Task is also governed by our
-                            <a href="tab-task-privacy.html" target="_blank">Privacy Policy</a>.
-                            The extension may request certain permissions from Chrome (such as access to tabs, and
-                            storage)
-                            to provide its functionality. These permissions are used only within your browser
-                            environment.
+                            The Extension, its code, graphics, and documentation are the intellectual property of UXCamp
+                            Vietnam. You may not reproduce or redistribute the Extension without prior written
+                            permission. Supabase integration is provided by Supabase, Inc., and is subject to their own
+                            terms.
                         </p>
 
-                        <h4>Analytics and Improvement</h4>
+                        <h4>7. Limitation of Liability</h4>
                         <p>
-                            To improve user experience, Tab & Task may collect anonymous usage data via Mixpanel, if you
-                            have
-                            explicitly enabled analytics in the extension’s settings (opt-in).
-                            No personally identifiable information, tab content, or private data is ever collected or
-                            transmitted.
+                            The Extension is provided "as is" without any warranties. UXCamp Vietnam shall not be liable
+                            for any indirect or consequential damages, including loss of data or profits, arising from
+                            your use of the tool.
                         </p>
 
-                        <h4>Intellectual Property</h4>
+                        <h4>8. Changes to Terms</h4>
                         <p>
-                            Tab & Task and all related design elements, logos, and source code are the intellectual
-                            property
-                            of UXCamp Vietnam. You may not copy, reproduce, or redistribute the extension or its
-                            materials
-                            without written consent.
+                            We reserve the right to modify these terms at any time. Continued use of the Extension after
+                            changes are posted constitutes acceptance of the new terms.
                         </p>
 
-                        <h4>Disclaimer of Warranties</h4>
-                        <p>
-                            Tab & Task is provided “as is” without warranty of any kind.
-                            We make no guarantees about reliability, performance, or fitness for a particular purpose.
-                            You use the extension at your own risk.
-                        </p>
+                        <h4>9. Governing Law</h4>
+                        <p>These terms and conditions are governed by the laws of Vietnam.</p>
 
-                        <h4>Limitation of Liability</h4>
-                        <p>
-                            UXCamp Vietnam shall not be liable for any indirect, incidental, or consequential damages
-                            arising from your use or inability to use Tab & Task.
-                        </p>
+                        <h4>10. Contact Information</h4>
+                        <p>For questions regarding these terms, please contact:</p>
+                        <ul>
+                            <li><strong>Email:</strong> <a href="mailto:hello@uxcamp.vn">hello@uxcamp.vn</a>
+                            </li>
+                            <li><strong>Website:</strong> <a href="https://uxcamp.vn"
+                                    target="_blank">https://uxcamp.vn</a></li>
+                        </ul>
 
-                        <h4>Modifications to the Terms</h4>
-                        <p>
-                            We reserve the right to update these Terms at any time.
-                            Updated versions will be posted on this page with a revised effective date.
-                        </p>
+                        <hr style="margin: 60px 0;">
 
-                        <h4>Contact Us</h4>
-                        <p>
-                            For any questions about this Privacy Policy or Tab & Task, please contact:
-                            <a href="mailto:tamdo.des@gmail.com">tamdo.des@gmail.com</a>
-                        </p>
+                        <h1>Part II: Privacy Policy</h1>
+
+                        <h4>1. Information We Collect</h4>
+                        <p><strong>We take a privacy-first approach:</strong></p>
+                        <ul>
+                            <li><strong>No PII:</strong> We do not collect personally identifiable information such as
+                                your name, phone number, or browsing history.</li>
+                            <li><strong>No Tracking:</strong> We do not use third-party analytics, tracking cookies, or
+                                advertising services.</li>
+                            <li><strong>Local Data:</strong> By default, your data is stored locally on your device.
+                            </li>
+                        </ul>
+
+                        <h4>2. Data You Choose to Share (Cloud Sync)</h4>
+                        <p>If you enable Supabase synchronization:</p>
+                        <ul>
+                            <li>Your tabs and tasks are stored on Supabase’s secure servers to enable sync across
+                                devices.</li>
+                            <li>We do not have access to view or modify your data stored on Supabase.</li>
+                            <li>You have full control to delete your cloud data at any time via the Extension interface.
+                            </li>
+                        </ul>
+
+                        <h4>3. Data Security and Third Parties</h4>
+                        <ul>
+                            <li><strong>Supabase Integration:</strong> We use Supabase, Inc. for data storage. Supabase
+                                implements industry-standard security, including encryption at rest and in transit.</li>
+                            <li><strong>Third-Party Links:</strong> The Extension may contain links to external sites.
+                                We are not responsible for the privacy practices of those sites.</li>
+                        </ul>
+
+                        <h4>4. Your Rights</h4>
+                        <ul>
+                            <li><strong>Access and Portability:</strong> You can view and export your data at any time
+                                through the Extension.</li>
+                            <li><strong>Deletion:</strong> You can permanently delete all local data by removing the
+                                Extension, or delete cloud data through the internal settings.</li>
+                            <li><strong>GDPR/CCPA:</strong> As we do not collect or process personal data on our own
+                                servers, the Extension is designed to respect the principles of data minimization and
+                                user control.</li>
+                        </ul>
+
+                        <h4>5. Children's Privacy</h4>
+                        <p>This Extension is not intended for children under 13. We do not knowingly collect information
+                            from children.</p>
 
                         <p style="margin-top: 40px;">
-                            © 2025 Tab & Task by <a href="index.html">UXCamp Vietnam</a>
+                            © 2026 Tab & Task by <a href="index.html">UXCamp Vietnam</a>
                         </p>
+
 
 
                     </div>
@@ -287,7 +260,8 @@
                                 </span>
                                 <!-- <br><a>Term & Condition</a> -->
                             </div>
-                            <img class="eye-logo footer-img col-12" src="../../asset/image/Eye.svg" onload="SVGInject(this)">
+                            <img class="eye-logo footer-img col-12" src="../../asset/image/Eye.svg"
+                                onload="SVGInject(this)">
                         </div>
 
                     </div>

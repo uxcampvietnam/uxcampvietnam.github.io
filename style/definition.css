@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
 
 .row {
   margin-left: 0px;
@@ -12,152 +12,6 @@
   padding-right: 0px;
 }
 
-.italic {
-  font-style: italic;
-}
-
-.underline {
-  text-decoration: underline;
-}
-
-.extralight {
-  font-weight: 200 !important;
-}
-
-.medium {
-  font-weight: 450 !important;
-}
-
-.bold {
-  font-weight: 600 !important;
-}
-
-/* --------------------------- */
-.x-small {
-  font-family: "Crimson Pro";
-  font-size: var(--font-size-x-small);
-  font-weight: 300;
-  line-height: var(--font-line-height-x-small);
-  letter-spacing: var(--font-letter-spacing-x-small);
-  margin: 0px;
-}
-
-.small {
-  font-family: "Crimson Pro";
-  font-size: var(--font-size-small);
-  font-weight: 300;
-  line-height: var(--font-line-height-small);
-  letter-spacing: var(--font-letter-spacing-small);
-  margin: 0px;
-
-}
-
-.caption {
-  font-family: "Crimson Pro";
-  font-size: var(--font-size-caption);
-  font-weight: 300;
-  line-height: var(--font-line-height-caption);
-  letter-spacing: var(--font-letter-spacing-caption);
-  margin: 0px;
-}
-
-.paragraph,
-p,
-li,
-span {
-  font-family: "Crimson Pro";
-  font-size: var(--font-size-paragraph);
-  font-weight: 300;
-  line-height: var(--font-line-height-paragraph);
-  letter-spacing: var(--font-letter-spacing-paragraph);
-  margin: 0px;
-
-}
-
-h6,
-.h6 {
-  font-family: "Crimson Pro";
-  font-size: var(--font-size-h6);
-  font-weight: 300;
-  line-height: var(--font-line-height-h6);
-  letter-spacing: var(--font-letter-spacing-h6);
-  margin: 0px;
-
-}
-
-h5,
-.h5 {
-  font-family: "Crimson Pro";
-  font-size: var(--font-size-h5);
-  font-weight: 300;
-  line-height: var(--font-line-height-h5);
-  letter-spacing: var(--font-letter-spacing-h5);
-  margin: 0px;
-}
-
-h4,
-.h4 {
-  font-family: "Crimson Pro";
-  font-size: var(--font-size-h4);
-  font-weight: 300;
-  line-height: var(--font-line-height-h4);
-  letter-spacing: var(--font-letter-spacing-h4);
-  margin: 0px;
-
-}
-
-h3,
-.h3 {
-  font-family: "Crimson Pro";
-  font-size: var(--font-size-h3);
-  font-weight: 300;
-  line-height: var(--font-line-height-h3);
-  letter-spacing: var(--font-letter-spacing-h3);
-  margin: 0px;
-}
-
-h2,
-.h2 {
-  font-family: "Crimson Pro";
-  font-size: var(--font-size-h2);
-  font-weight: 300;
-  line-height: var(--font-line-height-h2);
-  letter-spacing: var(--font-letter-spacing-h2);
-  margin: 0px;
-
-}
-
-h1,
-.h1 {
-  font-family: "Crimson Pro";
-  font-size: var(--font-size-h1);
-  font-weight: 300;
-  line-height: var(--font-line-height-h1);
-  letter-spacing: var(--font-letter-spacing-h1);
-  margin: 0px;
-
-}
-
-.title {
-  font-family: "Crimson Pro";
-  font-size: var(--font-size-title);
-  font-weight: 300;
-  line-height: var(--font-line-height-title);
-  letter-spacing: var(--font-letter-spacing-title);
-  margin: 0px;
-
-}
-
-.xl-title {
-  font-family: "Crimson Pro";
-  font-size: var(--font-size-xl-title);
-  font-weight: 300;
-  line-height: var(--font-line-height-xl-title);
-  letter-spacing: var(--font-letter-spacing-xl-title);
-  margin: 0px;
-
-}
-
 /* --------------------------- */
 
 html,
@@ -166,7 +20,7 @@ body {
   max-width: 100vw !important;
   overflow-x: hidden;
   overflow-y: scroll;
-  background: var(--main-colors-background-b-200-slide-bg);
+  background-color: var(--main-colors-background-b-200-slide-bg);
 }
 
 html {
@@ -181,6 +35,250 @@ hr {
 .blur-background {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+}
+
+
+/* =====================================================
+   SERIF
+===================================================== */
+
+.font-serif-xl-title,
+.xl-title {
+  font-family: var(--font-serif-family);
+  font-weight: 400;
+  font-size: var(--font-serif-xl-title-size);
+  line-height: var(--font-serif-xl-title-line);
+  letter-spacing: var(--font-serif-xl-title-letter);
+}
+
+.font-serif-title,
+.title {
+  font-family: var(--font-serif-family);
+  font-weight: 400;
+  font-size: var(--font-serif-title-size);
+  line-height: var(--font-serif-title-line);
+  letter-spacing: var(--font-serif-title-letter);
+}
+
+.font-serif-h1,
+h1,
+.h1 {
+  font-family: var(--font-serif-family);
+  font-weight: 400;
+  font-size: var(--font-serif-h1-size);
+  line-height: var(--font-serif-h1-line);
+  letter-spacing: var(--font-serif-h1-letter);
+}
+
+.font-serif-h2,
+h2,
+.h2 {
+  font-family: var(--font-serif-family);
+  font-weight: 400;
+  font-size: var(--font-serif-h2-size);
+  line-height: var(--font-serif-h2-line);
+  letter-spacing: var(--font-serif-h2-letter);
+}
+
+.font-serif-h3,
+h3,
+.h3 {
+  font-family: var(--font-serif-family);
+  font-weight: 400;
+  font-size: var(--font-serif-h3-size);
+  line-height: var(--font-serif-h3-line);
+  letter-spacing: var(--font-serif-h3-letter);
+}
+
+.font-serif-h4,
+h4,
+.h4 {
+  font-family: var(--font-serif-family);
+  font-weight: 400;
+  font-size: var(--font-serif-h4-size);
+  line-height: var(--font-serif-h4-line);
+  letter-spacing: var(--font-serif-h4-letter);
+}
+
+.font-serif-h5,
+h5,
+.h5 {
+  font-family: var(--font-serif-family);
+  font-weight: 400;
+  font-size: var(--font-serif-h5-size);
+  line-height: var(--font-serif-h5-line);
+  letter-spacing: var(--font-serif-h5-letter);
+}
+
+.font-serif-h6,
+h6,
+.h6 {
+  font-family: var(--font-serif-family);
+  font-weight: 400;
+  font-size: var(--font-serif-h6-size);
+  line-height: var(--font-serif-h6-line);
+  letter-spacing: var(--font-serif-h6-letter);
+}
+
+.font-serif-paragraph,
+.paragraph,
+p,
+li,
+span {
+  font-family: var(--font-serif-family);
+  font-weight: 400;
+  font-size: var(--font-serif-paragraph-size);
+  line-height: var(--font-serif-paragraph-line);
+  letter-spacing: var(--font-serif-paragraph-letter);
+}
+
+.font-serif-caption,
+.caption {
+  font-family: var(--font-serif-family);
+  font-weight: 400;
+  font-size: var(--font-serif-caption-size);
+  line-height: var(--font-serif-caption-line);
+  letter-spacing: var(--font-serif-caption-letter);
+}
+
+.font-serif-small,
+.small {
+  font-family: var(--font-serif-family);
+  font-weight: 400;
+  font-size: var(--font-serif-small-size);
+  line-height: var(--font-serif-small-line);
+  letter-spacing: var(--font-serif-small-letter);
+}
+
+.font-serif-x-small,
+.x-small {
+  font-family: var(--font-serif-family);
+  font-weight: 400;
+  font-size: var(--font-serif-x-small-size);
+  line-height: var(--font-serif-x-small-line);
+  letter-spacing: var(--font-serif-x-small-letter);
+}
+
+
+/* =====================================================
+   SANS
+===================================================== */
+
+.font-sans-xl-title {
+  font-family: var(--font-sans-family);
+  font-weight: 400;
+  font-size: var(--font-sans-xl-title-size);
+  line-height: var(--font-sans-xl-title-line);
+  letter-spacing: var(--font-sans-xl-title-letter);
+}
+
+.font-sans-title {
+  font-family: var(--font-sans-family);
+  font-weight: 400;
+  font-size: var(--font-sans-title-size);
+  line-height: var(--font-sans-title-line);
+  letter-spacing: var(--font-sans-title-letter);
+}
+
+.font-sans-h1 {
+  font-family: var(--font-sans-family);
+  font-weight: 400;
+  font-size: var(--font-sans-h1-size);
+  line-height: var(--font-sans-h1-line);
+  letter-spacing: var(--font-sans-h1-letter);
+}
+
+.font-sans-h2 {
+  font-family: var(--font-sans-family);
+  font-weight: 400;
+  font-size: var(--font-sans-h2-size);
+  line-height: var(--font-sans-h2-line);
+  letter-spacing: var(--font-sans-h2-letter);
+}
+
+.font-sans-h3 {
+  font-family: var(--font-sans-family);
+  font-weight: 400;
+  font-size: var(--font-sans-h3-size);
+  line-height: var(--font-sans-h3-line);
+  letter-spacing: var(--font-sans-h3-letter);
+}
+
+.font-sans-h4 {
+  font-family: var(--font-sans-family);
+  font-weight: 400;
+  font-size: var(--font-sans-h4-size);
+  line-height: var(--font-sans-h4-line);
+  letter-spacing: var(--font-sans-h4-letter);
+}
+
+.font-sans-h5 {
+  font-family: var(--font-sans-family);
+  font-weight: 400;
+  font-size: var(--font-sans-h5-size);
+  line-height: var(--font-sans-h5-line);
+  letter-spacing: var(--font-sans-h5-letter);
+}
+
+.font-sans-h6 {
+  font-family: var(--font-sans-family);
+  font-weight: 400;
+  font-size: var(--font-sans-h6-size);
+  line-height: var(--font-sans-h6-line);
+  letter-spacing: var(--font-sans-h6-letter);
+}
+
+.font-sans-paragraph {
+  font-family: var(--font-sans-family);
+  font-weight: 400;
+  font-size: var(--font-sans-paragraph-size);
+  line-height: var(--font-sans-paragraph-line);
+  letter-spacing: var(--font-sans-paragraph-letter);
+}
+
+.font-sans-caption {
+  font-family: var(--font-sans-family);
+  font-weight: 400;
+  font-size: var(--font-sans-caption-size);
+  line-height: var(--font-sans-caption-line);
+  letter-spacing: var(--font-sans-caption-letter);
+}
+
+.font-sans-small {
+  font-family: var(--font-sans-family);
+  font-weight: 400;
+  font-size: var(--font-sans-small-size);
+  line-height: var(--font-sans-small-line);
+  letter-spacing: var(--font-sans-small-letter);
+}
+
+.font-sans-x-small {
+  font-family: var(--font-sans-family);
+  font-weight: 400;
+  font-size: var(--font-sans-x-small-size);
+  line-height: var(--font-sans-x-small-line);
+  letter-spacing: var(--font-sans-x-small-letter);
+}
+
+
+.underline {
+  text-decoration: underline;
+}
+
+.italic {
+  font-style: italic;
+}
+
+.extralight {
+  font-weight: 200 !important;
+}
+
+.medium {
+  font-weight: 450 !important;
+}
+
+.bold {
+  font-weight: 500;
 }
 
 /* Color variables for darkmode and lightmode ============================*/
@@ -303,48 +401,213 @@ hr {
   --highlight-magenta: #e523de;
 }
 
-/* Laptop size ======================= */
-@media (min-width: 1201px) {
+/* ======================================================
+   DEFAULT = MOBILE
+====================================================== */
+
+:root {
+
+  /* =====================
+     SERIF
+  ====================== */
+
+  --font-serif-family: "Crimson Pro", serif;
+
+  --font-serif-xl-title-size: 30px;
+  --font-serif-xl-title-line: 38px;
+  --font-serif-xl-title-letter: 0.2px;
+
+  --font-serif-title-size: 20px;
+  --font-serif-title-line: 29px;
+  --font-serif-title-letter: 0.12px;
+
+  --font-serif-h1-size: 17px;
+  --font-serif-h1-line: 29px;
+  --font-serif-h1-letter: 0.12px;
+
+  --font-serif-h2-size: 14px;
+  --font-serif-h2-line: 24px;
+  --font-serif-h2-letter: 0.3px;
+
+  --font-serif-h3-size: 18px;
+  --font-serif-h3-line: 24px;
+  --font-serif-h3-letter: 0.3px;
+
+  --font-serif-h4-size: 16px;
+  --font-serif-h4-line: 24px;
+  --font-serif-h4-letter: 0.3px;
+
+  --font-serif-h5-size: 14px;
+  --font-serif-h5-line: 22px;
+  --font-serif-h5-letter: 0.5px;
+
+  --font-serif-h6-size: 12px;
+  --font-serif-h6-line: 19px;
+  --font-serif-h6-letter: 0.5px;
+
+  --font-serif-paragraph-size: 14px;
+  --font-serif-paragraph-line: 24px;
+  --font-serif-paragraph-letter: 0.3px;
+
+  --font-serif-caption-size: 12px;
+  --font-serif-caption-line: 19px;
+  --font-serif-caption-letter: 0.5px;
+
+  --font-serif-small-size: 10px;
+  --font-serif-small-line: 18px;
+  --font-serif-small-letter: 0.5px;
+
+  --font-serif-x-small-size: 9px;
+  --font-serif-x-small-line: 18px;
+  --font-serif-x-small-letter: 0.5px;
+
+  /* =====================
+     SANS
+  ====================== */
+
+  --font-sans-family: "Work Sans", sans-serif;
+
+  --font-sans-xl-title-size: 30px;
+  --font-sans-xl-title-line: 38px;
+  --font-sans-xl-title-letter: 0px;
+
+  --font-sans-title-size: 20px;
+  --font-sans-title-line: 29px;
+  --font-sans-title-letter: 0px;
+
+  --font-sans-h1-size: 17px;
+  --font-sans-h1-line: 29px;
+  --font-sans-h1-letter: 0.12px;
+
+  --font-sans-h2-size: 14px;
+  --font-sans-h2-line: 24px;
+  --font-sans-h2-letter: 0.3px;
+
+  --font-sans-h3-size: 18px;
+  --font-sans-h3-line: 24px;
+  --font-sans-h3-letter: 0.3px;
+
+  --font-sans-h4-size: 16px;
+  --font-sans-h4-line: 24px;
+  --font-sans-h4-letter: 0.3px;
+
+  --font-sans-h5-size: 14px;
+  --font-sans-h5-line: 22px;
+  --font-sans-h5-letter: 0.5px;
+
+  --font-sans-h6-size: 12px;
+  --font-sans-h6-line: 19px;
+  --font-sans-h6-letter: 0.5px;
+
+  --font-sans-paragraph-size: 14px;
+  --font-sans-paragraph-line: 24px;
+  --font-sans-paragraph-letter: 0.3px;
+
+  --font-sans-caption-size: 12px;
+  --font-sans-caption-line: 19px;
+  --font-sans-caption-letter: 0.5px;
+
+  --font-sans-small-size: 10px;
+  --font-sans-small-line: 18px;
+  --font-sans-small-letter: 0.5px;
+
+  --font-sans-x-small-size: 9px;
+  --font-sans-x-small-line: 18px;
+  --font-sans-x-small-letter: 0.5px;
+
+
+  --spacing-xxl: 20px;
+  --spacing-xl: 20px;
+  --spacing-l: 16px;
+  --spacing-m: 12px;
+  --spacing-s: 8px;
+  --spacing-xs: 4px;
+  --spacing-xxs: 2px;
+}
+
+
+/* ======================================================
+   TABLET
+====================================================== */
+
+@media (min-width: 768px) {
+
   :root {
-    --font-letter-spacing-xl-title: 0px;
-    --font-letter-spacing-title: 0.22px;
-    --font-letter-spacing-h1: 0.2px;
-    --font-letter-spacing-h2: 0.23px;
-    --font-letter-spacing-h3: 0.36px;
-    --font-letter-spacing-h4: 0.28px;
-    --font-letter-spacing-h5: 0.24px;
-    --font-letter-spacing-h6: 0.216px;
-    --font-letter-spacing-paragraph: 0.2px;
-    --font-letter-spacing-caption: 0.16px;
-    --font-letter-spacing-small: 0.200px;
-    --font-letter-spacing-x-small: 0.30px;
+
+    --font-serif-xl-title-size: 60px;
+    --font-serif-xl-title-line: 62px;
+    --font-serif-xl-title-letter: 1.344px;
+
+    --font-serif-title-size: 48px;
+    --font-serif-title-line: 52px;
+    --font-serif-title-letter: 0.72px;
+
+    --font-serif-h1-size: 42px;
+    --font-serif-h1-line: 48px;
+    --font-serif-h1-letter: 0.576px;
+
+    --font-serif-h2-size: 36px;
+    --font-serif-h2-line: 42px;
+    --font-serif-h2-letter: 0.456px;
+
+    --font-serif-h3-size: 30px;
+    --font-serif-h3-line: 38px;
+    --font-serif-h3-letter: 0.2px;
+
+    --font-serif-h4-size: 26px;
+    --font-serif-h4-line: 34px;
+    --font-serif-h4-letter: 0.2px;
+
+    --font-serif-h5-size: 20px;
+    --font-serif-h5-line: 29px;
+    --font-serif-h5-letter: 0.12px;
+
+    --font-serif-h6-size: 18px;
+    --font-serif-h6-line: 27px;
+    --font-serif-h6-letter: 0.1px;
+
+    --font-serif-paragraph-size: 16px;
+    --font-serif-paragraph-line: 24px;
+    --font-serif-paragraph-letter: 0.3px;
+
+    --font-serif-caption-size: 14px;
+    --font-serif-caption-line: 22px;
+    --font-serif-caption-letter: 0.5px;
+
+    --font-serif-small-size: 12px;
+    --font-serif-small-line: 19px;
+    --font-serif-small-letter: 0.5px;
+
+    --font-serif-x-small-size: 10px;
+    --font-serif-x-small-line: 18px;
+    --font-serif-x-small-letter: 0.5px;
 
 
-    --font-line-height-xl-title: 115px;
-    --font-line-height-title: 78px;
-    --font-line-height-h1: 61px;
-    --font-line-height-h2: 57px;
-    --font-line-height-h3: 38px;
-    --font-line-height-h4: 31px;
-    --font-line-height-h5: 29px;
-    --font-line-height-h6: 27px;
-    --font-line-height-paragraph: 26px;
-    --font-line-height-caption: 21px;
-    --font-line-height-small: 18px;
-    --font-line-height-x-small: 16px;
+    --font-sans-xl-title-size: 60px;
+    --font-sans-xl-title-line: 62px;
+    --font-sans-title-size: 42px;
+    --font-sans-title-line: 52px;
 
-    --font-size-xl-title: 112px;
-    --font-size-title: 72px;
-    --font-size-h1: 48px;
-    --font-size-h2: 38px;
-    --font-size-h3: 30px;
-    --font-size-h4: 24px;
-    --font-size-h5: 20px;
-    --font-size-h6: 18px;
-    --font-size-paragraph: 18px;
-    --font-size-caption: 14px;
-    --font-size-small: 12px;
-    --font-size-x-small: 10px;
+    --font-sans-h1-size: 37px;
+    --font-sans-h1-line: 48px;
+    --font-sans-h1-letter: 0.576px;
+
+    --font-sans-h2-size: 32px;
+    --font-sans-h2-line: 42px;
+    --font-sans-h2-letter: 0.456px;
+
+    --font-sans-h3-size: 26px;
+    --font-sans-h3-line: 37px;
+    --font-sans-h3-letter: 0.2px;
+
+    --font-sans-h4-size: 23px;
+    --font-sans-h4-line: 31px;
+
+    --font-sans-h5-size: 17px;
+    --font-sans-h5-line: 29px;
+
+    --font-sans-h6-size: 16px;
+    --font-sans-h6-line: 27px;
 
     --spacing-xxl: 48px;
     --spacing-xl: 32px;
@@ -356,48 +619,63 @@ hr {
   }
 }
 
-/* Tablet size ======================= */
-@media (min-width: 575px) and (max-width: 1200px) {
+
+/* ======================================================
+   LAPTOP / DESKTOP
+====================================================== */
+
+@media (min-width: 1200px) {
+
   :root {
-    --font-letter-spacing-xl-title: 1.343px;
-    --font-letter-spacing-title: 0.72px;
-    --font-letter-spacing-h1: 0.575px;
-    --font-letter-spacing-h2: 0.45px;
-    --font-letter-spacing-h3: 0.20px;
-    --font-letter-spacing-h4: 0.20px;
-    --font-letter-spacing-h5: 0.12px;
-    --font-letter-spacing-h6: 0.10px;
-    --font-letter-spacing-paragraph: 0.30px;
-    --font-letter-spacing-caption: 0.5px;
-    --font-letter-spacing-small: 0.5px;
-    --font-letter-spacing-xsmall: 0.5px;
 
-    --font-line-height-xl-title: 62px;
-    --font-line-height-title: 52px;
-    --font-line-height-h1: 48px;
-    --font-line-height-h2: 42px;
-    --font-line-height-h3: 38px;
-    --font-line-height-h4: 34px;
-    --font-line-height-h5: 29px;
-    --font-line-height-h6: 27px;
-    --font-line-height-paragraph: 26px;
-    --font-line-height-caption: 22px;
-    --font-line-height-small: 19px;
-    --font-line-height-xsmall: 18px;
+    --font-serif-xl-title-size: 72px;
+    --font-serif-xl-title-line: 76px;
+
+    --font-serif-title-size: 60px;
+    --font-serif-title-line: 62px;
+
+    --font-serif-h1-size: 48px;
+    --font-serif-h1-line: 52px;
+
+    --font-serif-h2-size: 42px;
+    --font-serif-h2-line: 48px;
+
+    --font-serif-h3-size: 36px;
+    --font-serif-h3-line: 42px;
+
+    --font-serif-h4-size: 30px;
+    --font-serif-h4-line: 38px;
+
+    --font-serif-h5-size: 24px;
+    --font-serif-h5-line: 34px;
+
+    --font-serif-h6-size: 20px;
+    --font-serif-h6-line: 29px;
 
 
-    --font-size-xl-title: 60px;
-    --font-size-title: 48px;
-    --font-size-h1: 42px;
-    --font-size-h2: 36px;
-    --font-size-h3: 30px;
-    --font-size-h4: 26px;
-    --font-size-h5: 20px;
-    --font-size-h6: 18px;
-    --font-size-paragraph: 18px;
-    --font-size-caption: 14px;
-    --font-size-small: 12px;
-    --font-size-xsmall: 10px;
+    --font-sans-xl-title-size: 72px;
+    --font-sans-xl-title-line: 76px;
+
+    --font-sans-title-size: 48px;
+    --font-sans-title-line: 52px;
+
+    --font-sans-h1-size: 42px;
+    --font-sans-h1-line: 48px;
+
+    --font-sans-h2-size: 36px;
+    --font-sans-h2-line: 42px;
+
+    --font-sans-h3-size: 30px;
+    --font-sans-h3-line: 38px;
+
+    --font-sans-h4-size: 26px;
+    --font-sans-h4-line: 34px;
+
+    --font-sans-h5-size: 20px;
+    --font-sans-h5-line: 29px;
+
+    --font-sans-h6-size: 18px;
+    --font-sans-h6-line: 27px;
 
     --spacing-xxl: 48px;
     --spacing-xl: 32px;
@@ -406,60 +684,10 @@ hr {
     --spacing-s: 16px;
     --spacing-xs: 12px;
     --spacing-xxs: 8px;
+
   }
 }
 
-/* Mobile size ======================= */
-@media (max-width: 575px) {
-  :root {
-    --font-letter-spacing-xl-title: 0px;
-    --font-letter-spacing-title: 0.15px;
-    --font-letter-spacing-h1: -0.10px;
-    --font-letter-spacing-h2: 0.20px;
-    --font-letter-spacing-h3: 0.36px;
-    --font-letter-spacing-h4: 0.30px;
-    --font-letter-spacing-h5: 0.30px;
-    --font-letter-spacing-h6: 0.21px;
-    --font-letter-spacing-paragraph: 0.20px;
-    --font-letter-spacing-caption: 0.5px;
-    --font-letter-spacing-small: 0.5px;
-    --font-letter-spacing-xsmall: 0.5px;
-
-    --font-line-height-xl-title: 54px;
-    --font-line-height-title: 36px;
-    --font-line-height-h1: 40px;
-    --font-line-height-h2: 34px;
-    --font-line-height-h3: 31px;
-    --font-line-height-h4: 26px;
-    --font-line-height-h5: 26px;
-    --font-line-height-h6: 28px;
-    --font-line-height-paragraph: 26px;
-    --font-line-height-caption: 18px;
-    --font-line-height-small: 17px;
-    --font-line-height-xsmall: 16px;
-
-    --font-size-xl-title: 52px;
-    --font-size-title: 32px;
-    --font-size-h1: 36px;
-    --font-size-h2: 30px;
-    --font-size-h3: 24px;
-    --font-size-h4: 22px;
-    --font-size-h5: 20px;
-    --font-size-h6: 18px;
-    --font-size-paragraph: 18px;
-    --font-size-caption: 14px;
-    --font-size-small: 12px;
-    --font-size-xsmall: 10px;
-
-    --spacing-xxl: 20px;
-    --spacing-xl: 20px;
-    --spacing-l: 16px;
-    --spacing-m: 12px;
-    --spacing-s: 8px;
-    --spacing-xs: 4px;
-    --spacing-xxs: 2px;
-  }
-}
 
 /*  ======================= */
 

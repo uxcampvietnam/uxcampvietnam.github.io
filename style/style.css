@@ -70,6 +70,10 @@ textarea.auto-resize {
 	align-items: center;
 }
 
+.tab-and-task-logo path {
+	fill: var(--main-colors-foreground-f300);
+}
+
 .statistical-test-menu {
 	display: flex;
 	flex-direction: column;
@@ -370,7 +374,7 @@ tbody>tr:last-child {
 	margin-top: 8px;
 	display: flex;
 	flex-direction: row;
-	gap: 0px;
+	gap: 4px;
 }
 
 .syllabus-module-header h5:first-child {
@@ -778,7 +782,7 @@ a:visited {
 }
 
 .footer-row {
-	margin-bottom: var(--spacing-xl);
+	margin-bottom: var(--spacing-xl) !important;
 }
 
 
@@ -804,6 +808,7 @@ span,
 .h5,
 .h6 {
 	color: var(--main-colors-foreground-f-500-main);
+	margin-bottom: 0px;
 }
 
 .bootcamp-section li {

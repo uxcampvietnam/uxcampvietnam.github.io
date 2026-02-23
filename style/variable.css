@@ -1,0 +1,253 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+
+	--body-background: #EBE1D4;
+	--collection-bacground: #F4EDE4;
+	--saved-tab-item-background: #F8F5F0;
+	--saved-tab-item-background-hover: #FCFCFB;
+
+	/* main foreground */
+	--main-colors-foreground-f100: #000000;
+	--main-colors-foreground-f200: #010710;
+	--main-colors-foreground-f300: #02112c;
+	--main-colors-foreground-f400: #1c2535;
+	--main-colors-foreground-f-500-main: #373d48;
+	--main-colors-foreground-f600: #53545b;
+	--main-colors-foreground-f700: #706e6f;
+	--main-colors-foreground-f800: #8f8985;
+	--main-colors-foreground-f900: #aea69d;
+
+	/* main background */
+	--main-colors-background-b100: #ffffff;
+	--main-colors-background-b-200-slide-bg: #f4ede4;
+	--main-colors-background-b-300-main: #f5eadb;
+	--main-colors-background-b400: #f1d7b7;
+	--main-colors-background-b500: #cabdb0;
+	--main-colors-background-b600: #aea69d;
+	--main-colors-background-b700: #8f8985;
+	--main-colors-background-elevate-1: #F8F1E8;
+	--main-colors-background-elevate-2: #FAF5EF;
+	--transparent-background-elevate-blur: rgba(244, 237, 228, 0.6);
+
+
+	/* transparent foreground */
+	--transparent-foreground-main-color-100: #373d48;
+	--transparent-foreground-main-color-90: rgba(55, 61, 72, 0.9);
+	--transparent-foreground-main-color-80: rgba(55, 61, 72, 0.8);
+	--transparent-foreground-main-color-70: rgba(55, 61, 72, 0.7);
+	--transparent-foreground-main-color-60: rgba(55, 61, 72, 0.6);
+	--transparent-foreground-main-color-50: rgba(55, 61, 72, 0.5);
+	--transparent-foreground-main-color-40: rgba(55, 61, 72, 0.4);
+	--transparent-foreground-main-color-30: rgba(55, 61, 72, 0.3);
+	--transparent-foreground-main-color-20: rgba(55, 61, 72, 0.2);
+	--transparent-foreground-main-color-10: rgba(55, 61, 72, 0.1);
+	--transparent-foreground-main-color-05: rgba(55, 61, 72, 0.05);
+
+	/* transparent background */
+	--transparent-background-bg-color-100: #fbead5;
+	--transparent-background-bg-color-90: rgba(251, 234, 213, 0.9);
+	--transparent-background-bg-color-80: rgba(251, 234, 213, 0.8);
+	--transparent-background-bg-color-70: rgba(251, 234, 213, 0.7);
+	--transparent-background-bg-color-60: rgba(251, 234, 213, 0.6);
+	--transparent-background-bg-color-50: rgba(251, 234, 213, 0.5);
+	--transparent-background-bg-color-40: rgba(251, 234, 213, 0.4);
+	--transparent-background-bg-color-30: rgba(251, 234, 213, 0.3);
+	--transparent-background-bg-color-20: rgba(251, 234, 213, 0.2);
+	--transparent-background-bg-color-10: rgba(251, 234, 213, 0.1);
+	--transparent-background-bg-color-05: rgba(251, 234, 213, 0.05);
+
+
+	/* alternative foreground */
+
+	--alternative-foreground-blue: #3229be;
+	--alternative-foreground-green: #0f591c;
+	--alternative-foreground-red: #a21111;
+	--alternative-foreground-yellow: #493f0e;
+	--alternative-foreground-magenta: #891057;
+	--alternative-foreground-cyan: #12303e;
+	--alternative-foreground-gold: #878377;
+	--alternative-foreground-light-gold: rgba(135, 131, 119, 0.5);
+
+	/* alternative background */
+	--alternative-background-blue-case-study: #eae9ff;
+	--alternative-background-green-further-reading: #c6fecf;
+	--alternative-background-red-to-do: #ffdddd;
+	--alternative-background-yellow-quiz: #ffeaa6;
+	--alternative-background-magenta: #fedcf2;
+	--alternative-background-cyan: #dff3ff;
+	--alternative-background-gold: #d4d1c5;
+	--alternative-background-light-gold: rgba(212, 209, 197, 0.5);
+
+
+	/* highlight */
+	--highlight-blue: #1c70ee;
+	--highlight-green: #01b313;
+	--highlight-red: #e62e2e;
+	--highlight-yellow: #dca015;
+	--highlight-magenta: #e523de;
+
+
+
+	/* fix colors */
+	--fix-white---white-100: #ffffff;
+	--fix-white---white-90: rgba(255, 255, 255, 0.9);
+	--fix-white---white-80: rgba(255, 255, 255, 0.8);
+	--fix-white---white-70: rgba(255, 255, 255, 0.7);
+	--fix-white---white-60: rgba(255, 255, 255, 0.6);
+	--fix-white---white-50: rgba(255, 255, 255, 0.5);
+	--fix-white---white-40: rgba(255, 255, 255, 0.4);
+	--fix-white---white-30: rgba(255, 255, 255, 0.3);
+	--fix-white---white-20: rgba(255, 255, 255, 0.2);
+	--fix-white---white-10: rgba(255, 255, 255, 0.1);
+	--fix-white---white-05: rgba(255, 255, 255, 0.05);
+
+
+	--fix-black---black-100: #000000;
+	--fix-black---black-90: rgba(0, 0, 0, 0.9);
+	--fix-black---black-80: rgba(0, 0, 0, 0.8);
+	--fix-black---black-70: rgba(0, 0, 0, 0.7);
+	--fix-black---black-60: rgba(0, 0, 0, 0.6);
+	--fix-black---black-50: rgba(0, 0, 0, 0.5);
+	--fix-black---black-40: rgba(0, 0, 0, 0.4);
+	--fix-black---black-30: rgba(0, 0, 0, 0.3);
+	--fix-black---black-20: rgba(0, 0, 0, 0.2);
+	--fix-black---black-10: rgba(0, 0, 0, 0.1);
+	--fix-black---black-05: rgba(0, 0, 0, 0.05);
+
+
+	/* light mode variables */
+	--button-background: rgba(60, 37, 9, 0.50);
+	--button-background-hover: rgba(115, 69, 13, 0.50);
+
+}
+
+@media (prefers-color-scheme: dark) {
+	:root {
+
+		--body-background: #000000;
+		--collection-bacground: #141414;
+		--saved-tab-item-background: #1A1A1A;
+		--saved-tab-item-background-hover: #292929;
+
+		--button-background: rgba(80, 124, 175, 0.25);
+		--button-background-hover: rgba(92, 133, 182, 0.35);
+
+		/* main foreground */
+		--main-colors-foreground-f100: #ffffff;
+		--main-colors-foreground-f200: #faf9fa;
+		--main-colors-foreground-f300: #f1eef1;
+		--main-colors-foreground-f400: #e0dbe0;
+		--main-colors-foreground-f-500-main: #c9c4ca;
+		--main-colors-foreground-f600: #a8a4ad;
+		--main-colors-foreground-f700: #85808e;
+		--main-colors-foreground-f800: #636270;
+		--main-colors-foreground-f900: #454654;
+
+		/* main background */
+		--main-colors-background-b100: #000000;
+		--main-colors-background-b-200-slide-bg: #010409;
+		--main-colors-background-b-300-main: #020a18;
+		--main-colors-background-b400: #121721;
+		--main-colors-background-b500: #262a35;
+		--main-colors-background-b600: #454654;
+		--main-colors-background-b700: #636270;
+		--main-colors-background-elevate-1: #0F141C;
+		--main-colors-background-elevate-2: #121821;
+		--transparent-background-elevate-blur: rgba(1, 4, 9, 0.2);
+
+
+		/* transparent foreground */
+		--transparent-foreground-main-color-100: #c9c4ca;
+		--transparent-foreground-main-color-90: rgba(201, 196, 202, 0.9);
+		--transparent-foreground-main-color-80: rgba(201, 196, 202, 0.8);
+		--transparent-foreground-main-color-70: rgba(201, 196, 202, 0.7);
+		--transparent-foreground-main-color-60: rgba(201, 196, 202, 0.6);
+		--transparent-foreground-main-color-50: rgba(201, 196, 202, 0.5);
+		--transparent-foreground-main-color-40: rgba(201, 196, 202, 0.4);
+		--transparent-foreground-main-color-30: rgba(201, 196, 202, 0.3);
+		--transparent-foreground-main-color-20: rgba(201, 196, 202, 0.2);
+		--transparent-foreground-main-color-10: rgba(201, 196, 202, 0.1);
+		--transparent-foreground-main-color-05: rgba(201, 196, 202, 0.05);
+
+		/* transparent background */
+		--transparent-background-bg-color-100: #020a18;
+		--transparent-background-bg-color-90: rgba(2, 10, 24, 0.9);
+		--transparent-background-bg-color-80: rgba(2, 10, 24, 0.8);
+		--transparent-background-bg-color-70: rgba(2, 10, 24, 0.7);
+		--transparent-background-bg-color-60: rgba(2, 10, 24, 0.6);
+		--transparent-background-bg-color-50: rgba(2, 10, 24, 0.5);
+		--transparent-background-bg-color-40: rgba(2, 10, 24, 0.4);
+		--transparent-background-bg-color-30: rgba(2, 10, 24, 0.3);
+		--transparent-background-bg-color-20: rgba(2, 10, 24, 0.2);
+		--transparent-background-bg-color-10: rgba(2, 10, 24, 0.1);
+		--transparent-background-bg-color-05: rgba(2, 10, 24, 0.05);
+
+		/* alternative foreground */
+		--alternative-foreground-blue: #b0ace4;
+		--alternative-foreground-green: #9fe1ab;
+		--alternative-foreground-red: #e49da0;
+		--alternative-foreground-yellow: #e4d1a1;
+		--alternative-foreground-magenta: #e4b0d0;
+		--alternative-foreground-cyan: #dff3ff;
+		--alternative-foreground-gold: #D4D1C5;
+		--alternative-foreground-light-gold: rgba(212, 209, 197, 0.5);
+
+		/* alternative background */
+		--alternative-background-blue-case-study: #0C0B31;
+		--alternative-background-green-further-reading: #142617;
+		--alternative-background-red-to-do: #320D0D;
+		--alternative-background-yellow-quiz: #2E2814;
+		--alternative-background-magenta: #52183E;
+		--alternative-background-cyan: #143849;
+		--alternative-background-gold: #878377;
+		--alternative-background-light-gold: rgba(135, 131, 119, 0.5);
+
+		/* highlight */
+		--highlight-blue: #2e7aed;
+		--highlight-green: #68ee47;
+		--highlight-red: #ff6464;
+		--highlight-yellow: #ffcc54;
+		--highlight-magenta: #ff64f9;
+	}
+}
+
+.effectStyleBackgroundBlur80 {
+	backdrop-filter: blur(80px);
+}
+
+.effectStyleBackgroundBlur200 {
+	backdrop-filter: blur(200px);
+}
+
+.effectStyleLayerBlur12 {
+	filter: blur(12px);
+}
+
+.effectStyleLayerBlur32 {
+	filter: blur(32px);
+}
+
+.effectStyleLayerBlur80 {
+	filter: blur(80px);
+}
+
+.effectStyleLayerBlur200 {
+	filter: blur(200px);
+}
+
+.effectStyleInnerGlowLight {
+	box-shadow: inset 0px 4px 16px 0px rgba(255, 255, 255, 0.05);
+}
+
+.effectStyleInnerGlowStrong {
+	box-shadow: inset 0px 8px 24px 0px rgba(255, 255, 255, 0.3);
+}
+
+.effectStyleActiveTabShadow {
+	box-shadow: 0px 9px 24px 0px rgba(0, 0, 0, 0.3);
+}
+
+.effectStyleChartTopBorder {
+	box-shadow: inset 0px 2px 0px 0px rgba(255, 255, 255, 0.4);
+}

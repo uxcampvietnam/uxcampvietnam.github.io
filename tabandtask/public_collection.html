@@ -5,8 +5,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shared Collection - Tab & Task</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
     <link rel="stylesheet" href="../style/style.css">
     <link rel="stylesheet" href="../style/definition.css">
+    <link rel="icon" href="../asset/icon/tab-task-favicon.svg">
+    <script src="../script/libs/svg-inject.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="config.js"></script>
@@ -48,7 +53,7 @@
             display: flex;
             align-items: center;
             align-content: center;
-            gap: 8px;
+            gap: 4px;
             align-self: stretch;
             padding-inline-start: 0px !important;
             margin: 0px;
@@ -58,12 +63,12 @@
         }
 
         .savedTabItem span {
-            @supports (-webkit-line-clamp: 2) {
+            @supports (-webkit-line-clamp: 1) {
                 overflow: hidden;
                 text-overflow: ellipsis;
                 white-space: initial;
                 display: -webkit-box;
-                -webkit-line-clamp: 2;
+                -webkit-line-clamp: 1;
                 -webkit-box-orient: vertical;
             }
         }
@@ -78,7 +83,6 @@
         /* Override styles for standalone page */
         .savedTabItem {
             display: flex;
-            height: 72px;
             box-sizing: border-box;
             width: 100%;
             padding: 12px;
@@ -96,29 +100,49 @@
             background-color: var(--saved-tab-item-background-hover);
         }
 
-        .share-tag {
-            background-color: var(--transparent-foreground-main-color-10);
-            color: var(--main-colors-foreground-f300);
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
+        .shared-tag-view {
+            background: var(--transparent-foreground-main-color-10);
+            color: var(--main-colors-foreground-f800);
+        }
+
+        .shared-tag {
+            padding: 2px 8px;
+            border-radius: 20px;
+            color: var(--main-colors-foreground-f-500-main);
+            border: 0.5px solid var(--main-colors-background-b500);
+        }
+
+        .bootcamp-title-full {
+            margin-bottom: 32px;
+            border-bottom: 0.5px solid var(--main-colors-background-b500, #262A35);
+            padding-bottom: 32px;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <p id="loading">Loading collection...</p>
-        <div id="content" class="hidden" style="width: 100%;">
-            <div class="collection-header">
-                <span class="collection-title h1" id="folderTitle"></span>
-                <div class="share-tag caption">public</div>
-                <p class="collection-meta caption" id="folderMeta"></p>
+        <div class="row bootcamp-title-full">
+            <div class="col-10">
+                <div class="h6 text-logo"><a href="../index.html">UXCAMP VIETNAM</a></div>
+                <div class="title medium">Tab & Task</div>
+                <div class="h6 extralight sub-title"><i>Managing your tab and todos</i></div>
             </div>
-            <ul class="savedTabList" id="tabList"></ul>
+            <img class="col-2 tab-and-task-logo align-self-center" src="../asset/icon/tab-and-task.svg"
+                onload="SVGInject(this)">
         </div>
-        <p id="error" class="hidden error-message "></p>
+        <div class="row">
+            <p id="loading" class="col-12">Loading collection...</p>
+            <div id="content" class="hidden col-12">
+                <div class="collection-header">
+                    <span class="collection-title font-sans-h4" id="folderTitle"></span>
+                    <div class="shared-tag-view shared-tag font-sans-x-small">public</div>
+                    <p class="collection-meta font-sans-x-small" id="folderMeta"></p>
+                </div>
+                <ul class="savedTabList col-12" id="tabList"></ul>
+            </div>
+            <p id="error" class="hidden error-message col-12"></p>
+        </div>
     </div>
 
 
@@ -182,7 +206,11 @@
 
             } catch (err) {
                 console.error(err);
-                showError(err.message || "Failed to load collection.");
+                if (err.message.toString().includes("invalid input syntax for type uuid")) {
+                    showError("Collection not found. Invalid ID format.");
+                } else {
+                    showError(err.message || "Failed to load collection.");
+                }
             }
         }
 
@@ -209,7 +237,7 @@
 
                 li.innerHTML = `
                     <img class="favicon" src="${tab.favicon || '../asset/image/Eye.svg'}" alt="icon" onerror="this.src='../asset/image/Eye.svg'">
-                    <span class="">${tab.title}</span>
+                    <span class="font-sans-caption">${tab.title}</span>
                 `;
                 list.appendChild(li);
             });

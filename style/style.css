@@ -914,6 +914,10 @@ ol>* {
 	cursor: pointer;
 }
 
+#close-feedback path{
+	fill: var(--main-colors-foreground-f300);
+}
+
 #feedbackDetailContainer.show-feedback {
 	top: 0vh;
 	pointer-events: all;

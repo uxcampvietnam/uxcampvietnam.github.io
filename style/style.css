@@ -791,6 +791,11 @@ svg path[fill="#0055FF"] {
 }
 
 
+svg path[fill="#FF0000"], svg path[fill="rgb(255, 0, 0)"] {
+	fill: var(--main-colors-background-b100);
+}
+
+
 h1,
 h2,
 h3,
@@ -914,7 +919,7 @@ ol>* {
 	cursor: pointer;
 }
 
-#close-feedback path{
+#close-feedback path {
 	fill: var(--main-colors-foreground-f300);
 }
 

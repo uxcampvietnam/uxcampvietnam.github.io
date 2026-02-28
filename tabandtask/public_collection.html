@@ -123,13 +123,15 @@
 <body>
     <div class="container">
         <div class="row bootcamp-title-full">
-            <div class="col-10">
+            <div class="col-9">
                 <div class="h6 text-logo"><a href="../index.html">UXCAMP VIETNAM</a></div>
-                <div class="title medium">Tab & Task</div>
+                <div class="title medium" style="color: var(--main-colors-foreground-f300);">Tab & Task</div>
                 <div class="h6 extralight sub-title"><i>Managing your tab and todos</i></div>
             </div>
-            <img class="col-2 tab-and-task-logo align-self-center" src="../asset/icon/tab-and-task.svg"
-                onload="SVGInject(this)">
+            <a href=" https://chromewebstore.google.com/detail/tabtask/ldeceampkbbeigojeglgajnceomfohlf" target="_blank" class="col-3 d-flex justify-content-end">
+                <img class="download-on-store" style="width: 100%;"
+                    src="../asset/icon/Available Chrome Web Store.svg"  onload="SVGInject(this)">
+            </a>
         </div>
         <div class="row">
             <p id="loading" class="col-12">Loading collection...</p>
@@ -236,7 +238,7 @@
                 li.onclick = () => window.open(tab.url, '_blank');
 
                 li.innerHTML = `
-                    <img class="favicon" src="${tab.favicon || '../asset/image/Eye.svg'}" alt="icon" onerror="this.src='../asset/image/Eye.svg'">
+                    <img class="favicon" src="${tab.favicon || '../asset/image/Eye.svg'}" alt="icon" onerror="this.src='../asset/image/Eye.svg'" onload="SVGInject(this)">
                     <span class="font-sans-caption">${tab.title}</span>
                 `;
                 list.appendChild(li);

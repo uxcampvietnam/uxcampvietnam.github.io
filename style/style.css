@@ -21,6 +21,23 @@ input {
 	background: var(--main-colors-background-elevate-2) !important;
 }
 
+.social-links {
+	display: flex;
+	flex-direction: row;
+	align-content: center;
+	justify-content: center;
+	align-items: center;
+	gap: 12px;
+}
+
+.social-link-svg path {
+	fill: var(--main-colors-foreground-f-500-main)
+}
+
+.social-link-svg:hover path {
+	fill: var(--main-colors-foreground-f100);
+}
+
 textarea.auto-resize {
 	field-sizing: content;
 	min-height: 56px;
@@ -791,7 +808,8 @@ svg path[fill="#0055FF"] {
 }
 
 
-svg path[fill="#FF0000"], svg path[fill="rgb(255, 0, 0)"] {
+svg path[fill="#FF0000"],
+svg path[fill="rgb(255, 0, 0)"] {
 	fill: var(--main-colors-background-b100);
 }
 

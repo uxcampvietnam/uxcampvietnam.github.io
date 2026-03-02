@@ -413,51 +413,51 @@ span {
 
   --font-serif-family: "Crimson Pro", serif;
 
-  --font-serif-xl-title-size: 30px;
-  --font-serif-xl-title-line: 38px;
+  --font-serif-xl-title-size: 40px;
+  --font-serif-xl-title-line: 48px;
   --font-serif-xl-title-letter: 0.2px;
 
-  --font-serif-title-size: 20px;
-  --font-serif-title-line: 29px;
+  --font-serif-title-size: 32px;
+  --font-serif-title-line: 40px;
   --font-serif-title-letter: 0.12px;
 
-  --font-serif-h1-size: 17px;
-  --font-serif-h1-line: 29px;
+  --font-serif-h1-size: 28px;
+  --font-serif-h1-line: 36px;
   --font-serif-h1-letter: 0.12px;
 
-  --font-serif-h2-size: 14px;
-  --font-serif-h2-line: 24px;
+  --font-serif-h2-size: 24px;
+  --font-serif-h2-line: 32px;
   --font-serif-h2-letter: 0.3px;
 
-  --font-serif-h3-size: 18px;
-  --font-serif-h3-line: 24px;
+  --font-serif-h3-size: 22px;
+  --font-serif-h3-line: 28px;
   --font-serif-h3-letter: 0.3px;
 
-  --font-serif-h4-size: 16px;
-  --font-serif-h4-line: 24px;
+  --font-serif-h4-size: 20px;
+  --font-serif-h4-line: 26px;
   --font-serif-h4-letter: 0.3px;
 
-  --font-serif-h5-size: 14px;
-  --font-serif-h5-line: 22px;
+  --font-serif-h5-size: 18px;
+  --font-serif-h5-line: 24px;
   --font-serif-h5-letter: 0.5px;
 
-  --font-serif-h6-size: 12px;
-  --font-serif-h6-line: 19px;
+  --font-serif-h6-size: 16px;
+  --font-serif-h6-line: 22px;
   --font-serif-h6-letter: 0.5px;
 
-  --font-serif-paragraph-size: 14px;
+  --font-serif-paragraph-size: 15px;
   --font-serif-paragraph-line: 24px;
   --font-serif-paragraph-letter: 0.3px;
 
-  --font-serif-caption-size: 12px;
-  --font-serif-caption-line: 19px;
+  --font-serif-caption-size: 14px;
+  --font-serif-caption-line: 20px;
   --font-serif-caption-letter: 0.5px;
 
-  --font-serif-small-size: 10px;
+  --font-serif-small-size: 12px;
   --font-serif-small-line: 18px;
   --font-serif-small-letter: 0.5px;
 
-  --font-serif-x-small-size: 9px;
+  --font-serif-x-small-size: 11px;
   --font-serif-x-small-line: 18px;
   --font-serif-x-small-letter: 0.5px;
 
@@ -467,51 +467,51 @@ span {
 
   --font-sans-family: "Work Sans", sans-serif;
 
-  --font-sans-xl-title-size: 30px;
-  --font-sans-xl-title-line: 38px;
+  --font-sans-xl-title-size: 40px;
+  --font-sans-xl-title-line: 48px;
   --font-sans-xl-title-letter: 0px;
 
-  --font-sans-title-size: 20px;
-  --font-sans-title-line: 29px;
+  --font-sans-title-size: 32px;
+  --font-sans-title-line: 40px;
   --font-sans-title-letter: 0px;
 
-  --font-sans-h1-size: 17px;
-  --font-sans-h1-line: 29px;
+  --font-sans-h1-size: 28px;
+  --font-sans-h1-line: 36px;
   --font-sans-h1-letter: 0.12px;
 
-  --font-sans-h2-size: 14px;
-  --font-sans-h2-line: 24px;
+  --font-sans-h2-size: 24px;
+  --font-sans-h2-line: 32px;
   --font-sans-h2-letter: 0.3px;
 
-  --font-sans-h3-size: 18px;
-  --font-sans-h3-line: 24px;
+  --font-sans-h3-size: 22px;
+  --font-sans-h3-line: 26px;
   --font-sans-h3-letter: 0.3px;
 
-  --font-sans-h4-size: 16px;
+  --font-sans-h4-size: 20px;
   --font-sans-h4-line: 24px;
   --font-sans-h4-letter: 0.3px;
 
-  --font-sans-h5-size: 14px;
+  --font-sans-h5-size: 18px;
   --font-sans-h5-line: 22px;
   --font-sans-h5-letter: 0.5px;
 
-  --font-sans-h6-size: 12px;
-  --font-sans-h6-line: 19px;
+  --font-sans-h6-size: 16px;
+  --font-sans-h6-line: 20px;
   --font-sans-h6-letter: 0.5px;
 
-  --font-sans-paragraph-size: 14px;
+  --font-sans-paragraph-size: 15px;
   --font-sans-paragraph-line: 24px;
   --font-sans-paragraph-letter: 0.3px;
 
-  --font-sans-caption-size: 12px;
-  --font-sans-caption-line: 19px;
+  --font-sans-caption-size: 14px;
+  --font-sans-caption-line: 20px;
   --font-sans-caption-letter: 0.5px;
 
-  --font-sans-small-size: 10px;
+  --font-sans-small-size: 12px;
   --font-sans-small-line: 18px;
   --font-sans-small-letter: 0.5px;
 
-  --font-sans-x-small-size: 9px;
+  --font-sans-x-small-size: 11px;
   --font-sans-x-small-line: 18px;
   --font-sans-x-small-letter: 0.5px;
 
@@ -823,6 +823,7 @@ input::-webkit-inner-spin-button {
 /* Firefox */
 input[type=number] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 
 

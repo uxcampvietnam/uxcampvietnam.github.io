@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>UXCAMP VIETNAM</title>
+	<link rel="icon" href="https://uxcamp.vn/asset/icon/favicon.ico">
+	<meta name="title" content="UXCamp Vietnam">
+	<meta property="og:type" content="website">
+	<meta property="og:image" content="https://uxcamp.vn/asset/website-thumbnail/uxcampvietnam.jpg" />
+	<meta property="og:description" content='Applied UX Analytic' />
+	<meta property="og:url" content='http://uxcamp.vn/' />
+	<meta property="description" content='Applied UX Analytic là bootcamp giúp UX/UI Designers, Product Designers hiểu và sử dụng dữ liệu hành vi người dùng để đưa ra quyết định thiết kế chính xác thay vì dựa trên trực giác, những người đang cần làm việc với công cụ tracking (GA4, Firebase,Clevertap, Mixpanel, Amplitude…) và quy trình phân tích hành vi người dùng trong sản phẩm thực tế.
+' />
+
+	<!-- Open Graph / Facebook -->
+	<meta property="og:url" content="https://uxcamp.vn/">
+	<meta property="og:title" content="UXCamp Vietnam">
+	<meta property="og:description" content="Applied UX Analytic">
+	<meta property="og:image" content="https://i.ibb.co/7x4FWwHJ/uxcampvietnam.jpg">
+
+	<!-- Twitter -->
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:url" content="https://uxcamp.vn/">
+	<meta name="twitter:title" content="UXCamp Vietnam">
+	<meta name="twitter:description" content="Applied UX Analytic">
+	<meta name="twitter:image" content="https://i.ibb.co/7x4FWwHJ/uxcampvietnam.jpg">
+
+
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+
+	<!-- external script -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/ScrollTrigger.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+	<script src="script/libs/svg-inject.min.js"></script>
+	<script src="script/libs/split-type.js"></script>
+	<script src="../../script/matter-js-interaction.js" defer></script>
+	<script src="script/script.js" defer></script>
+
+	<script src="script/libs/mixpanel.js"></script>
+
+	<!-- custom css -->
+
+	<link rel="stylesheet" type="text/css" href="style/definition.css">
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+
+</head>
+
+<body onmousemove="getMousePositionOnScreen(event)">
+
+	<div class="interactive-image-container">
+		<canvas id="interactiveImage" style="border: none; outline: none;"></canvas>
+	</div>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="designing-digital-product-per-stage-and-metric col-12 col-lg-10 ">
+				<div class="row bootcamp-title-full">
+					<div class="row1">
+						<div class="h6 text-logo">UXCAMP VIETNAM</div>
+						<img class="col-2 eye-logo" src="asset/image/Eye.svg" onload="SVGInject(this)">
+					</div>
+					<div class="bootcamp-title">
+						<div class="title medium">Applied UX Analytic
+						</div>
+						<div class="h3 extralight sub-title"><i>Design Backed by Evidence, Not Assumptions</i></div>
+					</div>
+				</div>
+
+				<div class="row bootcamp-section" id="bootcamp-introduction">
+					<h2 class="col-12">I. Giới thiệu</h2>
+					<div class="col-12 bootcamp-section-content">
+						<p>Applied UX Analytic là bootcamp giúp Designers hiểu và sử dụng dữ
+							liệu hành vi người dùng để đưa ra quyết định thiết kế chính xác thay vì dựa trên trực giác,
+							những người đang cần làm việc với công cụ tracking (GA4, Firebase,Clevertap, Mixpanel,
+							Amplitude…) và quy trình phân tích hành vi người dùng trong sản phẩm thực tế.
+							<br><br>
+						</p>
+						<br>
+						<p>Bootcamp này phù hợp nếu bạn: <br></p>
+
+						<div onmousemove="toggleMouseOver(this, event, 'introductionMouse')"
+							onmouseout="toggleMouseOut('introductionMouse')"
+							onclick="toggleContent(this, 'introductionMouse')" data-element-name="participant-problem"
+							class="participant-problem toggle-container hide-content row paragraph">
+							<div id="introductionMouse" class="h6 hide-content toggleMouse d-none d-md-flex">
+								<span> Xem nào! </span>
+								<span> Ok biết ời </span>
+							</div>
+							<div class="accordion-el col-12 col-md-6">
+								<div class="accordion-title"><span class="h6 italic">1. Thiết kế thiếu cơ sở dữ
+										liệu</span>
+								</div>
+
+								<div class="panel">
+									<ul>
+										<li>Quyết định dựa trên cảm tính
+										</li>
+
+										<li>Không biết UX ảnh hưởng business ra sao
+										</li>
+
+										<li>Không đo lường được hiệu quả thiết kế
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="accordion-el col-12 col-md-6">
+								<div class="accordion-title"><span class="h6 italic">2. Không biết đọc & khai thác dữ
+										liệu analytic</span>
+								</div>
+
+								<div class="panel">
+									<ul>
+										<li>Không biết bắt đầu từ đâu
+										</li>
+										<li>Không hiểu các chỉ số product metrics
+										</li>
+										<li>Không phát hiện được vấn đề UX từ data
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="accordion-el col-12 col-md-6">
+								<div class="accordion-title"><span class="h6 italic">3. Không biết cần track hành vi
+										gì</span>
+								</div>
+
+								<div class="panel">
+									<ul>
+										<li>Không biết define user behavior quan trọng
+										</li>
+										<li>Không biết viết tracking plan cho dev
+										</li>
+										<li>Tracking sai dẫn đến data vô nghĩa
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="accordion-el col-12 col-md-6">
+								<div class="accordion-title"><span class="h6 italic">4. Không tự tin khi làm data</span>
+								</div>
+								<div class="panel">
+									<ul>
+										<li>Không biết đặt câu hỏi đúng về dữ liệu
+										</li>
+										<li>Không giải thích được insight
+										</li>
+										<li>Không bảo vệ được đề xuất thiết kế
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="accordion-el col-12 col-md-6">
+								<div class="accordion-title"><span class="h6 italic">5. Không biết kết hợp Data &
+										Research</span>
+								</div>
+
+								<div class="panel">
+									<ul>
+										<li>Không biết khi nào cần usability testing
+										</li>
+										<li>Không biết xác minh nguyên nhân UX issues
+										</li>
+										<li>Insight rời rạc, không có bằng chứng rõ ràng
+										</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="accordion-el col-12 col-md-6">
+								<div class="accordion-title"><span class="h6 italic">6. Báo cáo UX thiếu thuyết
+										phục</span></div>
+								<div class="panel">
+									<ul>
+										<li>Insight chỉ dừng ở “user drop nhiều”
+										</li>
+										<li>Không biết ưu tiên vấn đề theo impact
+										</li>
+										<li>Không kể được câu chuyện bằng dữ liệu
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row bootcamp-section" id="bootcamp-goal">
+					<h2 class="col-12">II. Mục tiêu</h2>
+					<div class=" col-12 paragraph bootcamp-section-content">
+						<p>Sau bootcamp, người tham dự sẽ nắm được:</p>
+						<div onmousemove="toggleMouseOver(this, event, 'bootcampGoalMouse')"
+							onmouseout="toggleMouseOut('bootcampGoalMouse')"
+							onclick="toggleContent(this, 'bootcampGoalMouse')" data-element-name="bootcamp-goal"
+							class="toggle-container paragraph">
+
+							<div id="bootcampGoalMouse" class="h6 show-content toggleMouse d-none d-md-flex">
+								<span> Xem nào! </span>
+								<span> Ok ok </span>
+							</div>
+
+							<div class="accordion-el col-12">
+								<h6 class="accordion-title medium italic">UX Analytic trong sản phẩm</h6>
+								<div class="panel">
+									<ul>
+										<li>Hiểu vai trò của dữ liệu trong UX &amp; Product Decision</li>
+										<li>Phân biệt UX Metrics - Product Metrics - Business Metrics</li>
+										<li>Hiểu UX trong vòng đời sản phẩm</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="accordion-el col-12">
+								<h6 class="accordion-title medium italic">UX Measurement &amp; Tracking</h6>
+								<div class="panel">
+									<ul>
+										<li>Xác định hành vi người dùng quan trọng cần đo lường</li>
+										<li>Mapping UX Problems & Measurable Behaviors</li>
+										<li>Thiết kế Tracking Plan cho tính năng / sản phẩm</li>
+										<li>Làm việc hiệu quả với Developer &amp; Data team</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="accordion-el col-12">
+								<h6 class="accordion-title medium italic">UX Analytic &amp; Insight</h6>
+								<div class="panel">
+									<ul>
+										<li>Đọc hiểu dashboard phổ biến</li>
+										<li>Phân tích Funnel, User Flow, Cohort, Retention</li>
+										<li>Phát hiện UX issues thông qua dữ liệu hành vi</li>
+										<li>Đánh giá mức độ nghiêm trọng của UX problems</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="accordion-el col-12">
+								<h6 class="accordion-title medium italic">Data-driven UX Research</h6>
+								<div class="panel">
+									<ul>
+										<li>Biết khi nào cần làm explanatory research</li>
+										<li>Kết hợp dữ liệu định tính &amp; behavior analytic</li>
+										<li>Xác minh nguyên nhân gốc rễ của UX issues</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="accordion-el col-12">
+								<h6 class="accordion-title medium italic">Statistics for Designers</h6>
+								<div class="panel">
+									<ul>
+										<li>Hiểu thống kê mô tả để đọc dữ liệu đúng</li>
+										<li>Hiểu thống kê suy luận cơ bản để tránh kết luận sai</li>
+										<li>Biết cách đọc A/B Testing results</li>
+										<li>Tránh các bẫy phổ biến khi diễn giải dữ liệu</li>
+									</ul>
+								</div>
+							</div>
+
+							<div class="accordion-el col-12">
+								<h6 class="accordion-title medium italic">Insight &amp; UX Recommendation</h6>
+								<div class="panel">
+									<ul>
+										<li>Biến dữ liệu thành insight có giá trị</li>
+										<li>Phân biệt Correlation vs Causation</li>
+										<li>Ưu tiên cải tiến UX theo Impact</li>
+										<li>Viết UX recommendation thuyết phục stakeholder</li>
+										<li>Data storytelling cho UX report</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<br>
+					</div>
+				</div>
+
+				<div class="bootcamp-item">
+					<img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/applied-ux-analytic.webp">
+					<div class="bootcamp-item-content">
+						<span class="paragraph bootcamp-online-offline">Online / Offline (Hà Nội)</span>
+						<span class="paragraph bootcamp-start-date">Tháng 4, 2026</span>
+						<span class="paragraph bootcamp-pricing">6.789.000 VNĐ / người</span>
+						<span class="paragraph bootcamp-is-open">Đang mở đăng ký</span>
+					</div>
+					<a href="https://forms.gle/Ct9nWXE3UpvLDpy6A" target="_blank" class="sign-up-now paragraph">
+						Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>
+					</a>
+				</div>
+
+				<div class="row bootcamp-section" id="syllabus">
+					<h2 class="col-12">III. Giáo trình</h2>
+					<div class=" col-12 paragraph bootcamp-section-content">
+						<h5>Giáo trình được xây dựng cho:</h5>
+						<ul>
+							<li>10-12 buổi học x 2,5 - 3h giờ / buổi</li>
+							<li>6 buổi chữa bài, review công việc.</li>
+							<li>Làm project theo nhóm từ 3-5 người</li>
+							<li>Chương trình bảo vệ cuối khóa có sự góp mặt của hội đồng đánh giá, với các thành viên
+								đến từ nhiều công ty và chuyên môn khác nhau.</li>
+						</ul>
+						<br>
+					</div>
+					<div class="container bootcamp-section-content toggle-container">
+						<div onmousemove="toggleMouseOver(this, event, 'syllabusMouse')"
+							onmouseout="toggleMouseOut('syllabusMouse')" onclick="toggleContent(this, 'syllabusMouse' )"
+							data-element-name="syllabus" class="row syllabus-container hide-content paragraph">
+
+							<div id="syllabusMouse" class="h6 hide-content toggleMouse d-none d-md-flex">
+								<span> Chi tiết giáo trình </span>
+								<span> Đóng lại đi </span>
+							</div>
+
+
+							<div class="syllabus-section col-12 col-md-6 col-lg-4">
+								<img class="syllabus-illus"
+									src="./asset/image/syllabus-illus/applied-ux-analytic/01.webp">
+								<div class="syllabus-module-header">
+									<h6>α.</h6>
+									<h6>Know the unknown</h6>
+								</div>
+								<div class="syllabus-module-content">
+									<ul>
+										<li>Product Metrics</li>
+										<li>Descriptive Statistics</li>
+										<li>Inferential Statistics</li>
+										<li>User Behavior & Insight</li>
+										<li>Building Product Dashboard</li>
+										<li>Hypothesis Testing</li>
+										<li>Conducting Explanatory Research</li>
+										<li>Questionnaire Design</li>
+										<li>Sampling</li>
+									</ul>
+									<p><strong>Outcome:</strong> Bài test đầu vào giúp đánh giá năng lực khách quan
+										người tham dự, từ đó thời lượng và cách giảng dạy các modules phía sau sẽ được
+										điều chỉnh phù hợp hơn..</p>
+								</div>
+							</div>
+
+							<div class="syllabus-section col-12 col-md-6 col-lg-4">
+								<img class="syllabus-illus"
+									src="./asset/image/syllabus-illus/applied-ux-analytic/02.webp">
+								<div class="syllabus-module-header">
+									<h6>α.</h6>
+									<h6>UX in Business Context</h6>
+								</div>
+								<div class="syllabus-module-content">
+									<ul>
+										<li>UX ảnh hưởng business metrics thế nào</li>
+										<li>UX trong product lifecycle</li>
+										<li>Vì sao UX cần data thay vì cảm tính</li>
+										<li>Case study thực tế</li>
+									</ul>
+									<p><strong>Outcome:</strong> Hiểu UX không chỉ là “làm đẹp” mà là tối ưu hiệu quả
+										sản phẩm.</p>
+								</div>
+							</div>
+
+							<div class="syllabus-section col-12 col-md-6 col-lg-4">
+								<img class="syllabus-illus"
+									src="./asset/image/syllabus-illus/applied-ux-analytic/03.webp">
+								<div class="syllabus-module-header">
+									<h6>β.</h6>
+									<h6>Goal Setting for UX Measurement</h6>
+								</div>
+								<div class="syllabus-module-content">
+									<ul>
+										<li>UX Goals vs Product Goals</li>
+										<li>Chọn UX Metrics phù hợp</li>
+										<li>Leading vs Lagging Indicators</li>
+										<li>Success Criteria cho UX improvement</li>
+									</ul>
+									<p><strong>Outcome:</strong> Biết “đo cái gì” trước khi cải tiến UX.</p>
+								</div>
+							</div>
+
+							<div class="syllabus-section col-12 col-md-6 col-lg-4">
+								<img class="syllabus-illus"
+									src="./asset/image/syllabus-illus/applied-ux-analytic/04.webp">
+								<div class="syllabus-module-header">
+									<h6>γ.</h6>
+									<h6>Defining Measurable User Behavior</h6>
+								</div>
+								<div class="syllabus-module-content">
+									<ul>
+										<li>User Journey → Key Behaviors</li>
+										<li>Macro vs Micro Conversions</li>
+										<li>Behavioral Signals của UX Issues</li>
+										<li>Mapping UX Problems → Measurable Events</li>
+									</ul>
+									<p><strong>Outcome:</strong> Biến UX thành thứ có thể đo lường.</p>
+								</div>
+							</div>
+
+							<div class="syllabus-section col-12 col-md-6 col-lg-4">
+								<img class="syllabus-illus"
+									src="./asset/image/syllabus-illus/applied-ux-analytic/05.webp">
+								<div class="syllabus-module-header">
+									<h6>δ.</h6>
+									<h6>UX Event Tracking & Data Foundation</h6>
+								</div>
+								<div class="syllabus-module-content">
+									<ul>
+										<li>UX Event Tracking là gì</li>
+										<li>Tracking Plan cho Designer</li>
+										<li>Làm việc với Dev/Data team</li>
+										<li>Common Tracking Mistakes</li>
+									</ul>
+									<p><strong>Outcome:</strong> Biết yêu cầu tracking đúng để data có giá trị.</p>
+								</div>
+							</div>
+
+							<div class="syllabus-section col-12 col-md-6 col-lg-4">
+								<img class="syllabus-illus"
+									src="./asset/image/syllabus-illus/applied-ux-analytic/06.webp">
+								<div class="syllabus-module-header">
+									<h6>ε.</h6>
+									<h6>Data Quality & Tracking Validation</h6>
+								</div>
+								<div class="syllabus-module-content">
+									<ul>
+										<li>Kiểm tra tracking đúng hay sai</li>
+										<li>Missing events & duplicate events</li>
+										<li>Data sampling & accuracy</li>
+										<li>Khi nào data không đáng tin</li>
+									</ul>
+									<p><strong>Outcome:</strong> Không ra quyết định dựa trên data lỗi.</p>
+								</div>
+							</div>
+
+							<div class="syllabus-section col-12 col-md-6 col-lg-4">
+								<img class="syllabus-illus"
+									src="./asset/image/syllabus-illus/applied-ux-analytic/07.webp">
+								<div class="syllabus-module-header">
+									<h6>ζ.</h6>
+									<h6>Descriptive Statistics</h6>
+								</div>
+								<div class="syllabus-module-content">
+									<ul>
+										<li>Raw Data</li>
+										<li>Categorical variables</li>
+										<li>Numerical variables</li>
+										<li>Measuring Central Tendency: Mean, Median & Mode</li>
+										<li>Measuring Variability: Range, Variance & SD</li>
+										<li>Percentage vs Percentile</li>
+										<li>Working with data visualization</li>
+									</ul>
+									<p><strong>Outcome:</strong> Đủ kiến thức để đọc số liệu mà không hiểu sai.</p>
+								</div>
+							</div>
+
+							<div class="syllabus-section col-12 col-md-6 col-lg-4">
+								<img class="syllabus-illus"
+									src="./asset/image/syllabus-illus/applied-ux-analytic/08.webp">
+								<div class="syllabus-module-header">
+									<h6>ζ.</h6>
+									<h6>Inferential Statistics</h6>
+								</div>
+								<div class="syllabus-module-content">
+									<ul>
+										<li>Inferential Statistics</li>
+										<li>Testing with different variable types</li>
+										<li>Forming a Hypothesis</li>
+										<li>Designing a Experiment</li>
+										<li>Testing a Hypothesis</li>
+										<li>Drawing a Conclusion</li>
+										<li>Type I & Type II Error</li>
+										<li>p-value & Confidence Interval</li>
+										<li>Regression Analysis</li>
+										<li>Statistical Errors</li>
+										<li>Statistical Fallacy</li>
+									</ul>
+									<p><strong>Outcome:</strong> Trả lời được câu hỏi: Nên lựa chọn phương pháp kiểm
+										định nào? Sự khác biệt về dữ liệu có thực sự có ý nghĩa thống kê?
+										Biết nghiên cứu đến khi nào là đủ?</p>
+								</div>
+							</div>
+
+							<div class="syllabus-section col-12 col-md-6 col-lg-4">
+								<img class="syllabus-illus"
+									src="./asset/image/syllabus-illus/applied-ux-analytic/09.webp">
+								<div class="syllabus-module-header">
+									<h6>η.</h6>
+									<h6>Analyzing User Behavior for UX Insights</h6>
+								</div>
+								<div class="syllabus-module-content">
+									<ul>
+										<li>Funnel Analysis cho UX</li>
+										<li>User Flow & Path Analysis</li>
+										<li>Drop-off & Friction Points</li>
+										<li>Retention Analysis</li>
+										<li>Cohort Analysis cho UX</li>
+									</ul>
+									<p><strong>Outcome:</strong> Tìm ra UX issues từ hành vi người dùng.</p>
+								</div>
+							</div>
+
+							<div class="syllabus-section col-12 col-md-6 col-lg-4">
+								<img class="syllabus-illus"
+									src="./asset/image/syllabus-illus/applied-ux-analytic/10.webp">
+								<div class="syllabus-module-header">
+									<h6>θ.</h6>
+									<h6>Explanatory Research for UX Problems</h6>
+								</div>
+								<div class="syllabus-module-content">
+									<ul>
+										<li>Khi nào behavior & product performance data là chưa đủ</li>
+										<li>Quy trình kết hợp nghiên cứu định tính</li>
+										<li>Session replay & heatmap</li>
+										<li>Deep-dive user journey</li>
+										<li>Xác minh nguyên nhân UX issues</li>
+									</ul>
+									<p><strong>Outcome:</strong> Biết cách tìm root-cause thay vì chỉ đặt giả thuyết.
+									</p>
+								</div>
+							</div>
+
+							<div class="syllabus-section col-12 col-md-6 col-lg-4">
+								<img class="syllabus-illus"
+									src="./asset/image/syllabus-illus/applied-ux-analytic/11.webp">
+								<div class="syllabus-module-header">
+									<h6>ι.</h6>
+									<h6>Insight Synthesis & UX Recommendations</h6>
+								</div>
+								<div class="syllabus-module-content">
+									<ul>
+										<li>Insight ≠ Data</li>
+										<li>Insight Framework cho UX</li>
+										<li>Correlation vs Causation</li>
+										<li>Prioritizing UX Issues by Impact</li>
+										<li>Viết UX Recommendation thuyết phục</li>
+										<li>Data Storytelling cho stakeholder</li>
+									</ul>
+									<p><strong>Outcome:</strong> Biến insight thành đề xuất có sức nặng.</p>
+								</div>
+							</div>
+
+							<div class="syllabus-section col-12 col-md-6 col-lg-4">
+								<img class="syllabus-illus"
+									src="./asset/image/syllabus-illus/applied-ux-analytic/01.webp">
+								<div class="syllabus-module-header">
+									<h6>α.</h6>
+									<h6>Know the unknown</h6>
+								</div>
+								<div class="syllabus-module-content">
+									<ul>
+										<li>Đánh giá chất lượng đầu ra</li>
+									</ul>
+									<p><strong>Reason:</strong> Để thực sự chứng minh: “Chương trình
+										này mang lại value cho người tham dự” cần 2 yếu tố: Cảm nhận từ người tham dự về
+										chương trình và chủ quan kiến thức nắm được. Việc test đầu vào và đầu ra giúp so
+										sánh sự khác biệt về điểm số có ý nghĩa thống kê.</p>
+								</div>
+							</div>
+
+							<div class="syllabus-section col-12">
+								<div class="syllabus-module-header flyingContainer">
+									<div id="flyingContainer">
+										<div class="graduation-center-text h1">
+											φ. Graduation
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="bootcamp-item">
+					<img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/applied-ux-analytic.webp">
+					<div class="bootcamp-item-content">
+						<span class="paragraph bootcamp-online-offline">Online / Offline (Hà Nội)</span>
+						<span class="paragraph bootcamp-start-date">Tháng 4, 2026</span>
+						<span class="paragraph bootcamp-pricing">6.789.000 VNĐ / người</span>
+						<span class="paragraph bootcamp-is-open">Đang mở đăng ký</span>
+					</div>
+					<a href="https://forms.gle/Ct9nWXE3UpvLDpy6A" target="_blank" class="sign-up-now paragraph">
+						Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>
+					</a>
+				</div>
+
+				<div class="row bootcamp-section" id="footer">
+					<div class="col-12 bootcamp-section-content">
+						<div id="flyingContainer2"> </div>
+
+						<div class="row justify-content-center">
+							<div class="footer-row col-12 h3 justify-content-center">
+								<span>Bootcamp</span>
+								<br><a href="index.html">Designing Digital Product per Stage and Metric</a>
+								<br><a href="applied-ux-analytic.html">Applied UX Analytic</a>
+							</div>
+
+							<div class="footer-row col-12 h6 justify-content-center">
+								<span>Tools</span>
+								<br><a href="statistic-calculator/index.html">Statistic Calculator</a>
+								<br><a href="https://quiz.uxcamp.vn/">Quiz Cực Căng</a>
+								<br><a href="bigtextbox.html">Bigtextbox</a>
+								<br><a href="tabandtask/index.html">Tab&Task</a>
+							</div>
+
+							<div class="footer-row col-12 h6 justify-content-center">
+								<span>Links</span>
+								<br><a href="https://blog.uxcamp.vn/">Blogs</a>
+							</div>
+
+							<div class="footer-row col-12 h6 justify-content-center">
+								<span>Contact</span>
+								<br>
+								<div class="social-links">
+
+									<a target="_blank" rel="noopener noreferrer"
+										href="https://www.facebook.com/uxcampvn/"
+										title="https://www.facebook.com/uxcampvn"><img class="social-link-svg"
+											src="asset/icon/facebook.svg" onload="SVGInject(this)"></a>
+									<a target="_blank" rel="noopener noreferrer"
+										href="https://www.linkedin.com/company/uxcamp-vietnam"
+										title="https://www.linkedin.com/company/uxcamp-vietnam"><img
+											class="social-link-svg" src="asset/icon/linkedin.svg"
+											onload="SVGInject(this)"></a>
+									<a target="_blank" rel="noopener noreferrer"
+										href="https://www.youtube.com/@UXCampVietnam"
+										title="https://www.youtube.com/@UXCampVietnam"><img class="social-link-svg"
+											src="asset/icon/youtube.svg" onload="SVGInject(this)"></a>
+									<a target="_blank" rel="noopener noreferrer" href="mailto:hello@uxcamp.vn"
+										title="hello@uxcamp.vn"><img class="social-link-svg" src="asset/icon/email.svg"
+											onload="SVGInject(this)"></a>
+								</div>
+							</div>
+							<img class="eye-logo footer-img col-12" src="asset/image/Eye.svg" onload="SVGInject(this)">
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+	</div>
+	</div>
+
+	<!-- Feedback Detail Container ===================== -->
+	<!-- <div id="feedbackDetailContainer" class="container-fluid align-item-center">
+		<img onclick="closeFeedback()" id="close-feedback" src="asset/icon/close.svg" onload="SVGInject(this)">
+		<div class="row col-12 justify-content-center align-item-center">
+			<div id="feedback-content" class="col-12 col-md-10 col-lg-8"></div>
+		</div>
+	</div> -->
+
+
+</body>
+
+</html>

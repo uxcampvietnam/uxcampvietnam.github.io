@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="../script/libs/svg-inject.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="../style/definition.css">
+
+    <script src="./fluid-simulation.js" defer></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+    <script src="../script/libs/svg-inject.min.js"></script>
+    <script src="../script/libs/split-type.js"></script>
+
+    <!-- <script src="../script/script.js" defer></script> -->
+    <script src="script.js" defer type="module"></script>
+
+    <script src="../script/libs/mixpanel.js"></script>
+</head>
+
+<body>
+    <canvas id="fluidCanvas"></canvas>
+
+    <div class="container-fluid applied-ux-analytic-container">
+
+        <div class="bootcamp-name-hero">
+            <img class="applied-ux-analytic-name-fluid text" src="../asset/icon/applied-ux-analytic.svg" alt=""
+                onload="SVGInject(this)">
+
+            <img class="applied-ux-analytic-name-fluid fluid-obstacle" src="../asset/icon/applied-ux-analytic-block.svg"
+                alt="" onload="SVGInject(this)">
+
+        </div>
+
+        <div class="applied-ux-analytic bootcamp-section-full row intro-section">
+            <div class="col-6 bootcamp-section-header">
+                <h2 class="mono-h1">I. Giới thiệu</h2>
+                <p class="mono-h4">Applied UX Analytic: The Oracle of <span class="mono-h4"
+                        style="color: var(--main-colors-background-b-200-slide-bg) !important">hidden</span>
+                    User Behavior
+                    là bootcamp giúp bạn quyết định dựa trên hành vi người dùng. Bootcamp này phù hợp
+                    nếu bạn:
+                    <br><br>
+                </p>
+            </div>
+
+            <div class="col-12 bootcamp-section-content">
+                <div class="row">
+                    <div class="col obstacle-container flex-left">
+                        <img src="../asset/icon/applied-ux-analytic/arrow.svg" alt="" onload="SVGInject(this)">
+                    </div>
+                    <div class="col-12 col-lg-4">
+                        <div class="mono-h3">Thiết kế cảm tính</div>
+                        <ul>
+                            <li class="mono-body">Mục tiêu cải tiến không rõ ràng.
+                            </li>
+                            <li class="mono-body">Chỉ nghiên cứu định tính.
+                            </li>
+                            <li class="mono-body">Thiếu các nghiên cứu mô tả.
+                            </li>
+                            <li class="mono-body">Chưa từng phân tích hành vi người dùng.
+                            </li>
+                            <li class="mono-body">Define thiếu → không có dữ liệu.
+                            </li>
+                            <li class="mono-body">Setup sai → dữ liệu vô nghĩa.
+                            </li>
+                        </ul>
+                    </div>
+                    <br>
+
+                    <div class="col-12  col-lg-4">
+                        <div class="mono-h3">Không biết hiệu quả</div>
+                        <ul>
+                            <li class="mono-body">Không biết đo lường chỉ số gì?
+                            </li>
+                            <li class="mono-body">Chỉ số được tính toán như thế nào?
+                            </li>
+                            <li class="mono-body">Không biết đọc product metrics
+                            </li>
+                            <li class="mono-body">Báo cáo thiếu chiều sâu
+                            </li>
+                            <li class="mono-body">Không biết ưu tiên vấn đề theo mức độ tác động.
+                            </li>
+                            <li class="mono-body">Thấy vấn đề nhưng không giải thích được tại sao.
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="applied-ux-analytic bootcamp-section-full row goal-section">
+            <div class="col-6 bootcamp-section-header">
+                <h2 class="mono-h1">II. Mục tiêu bootcamp</h2>
+                <p class="mono-h4">Người tham dự sẽ tham gia đầy đủ quy trình gồm:
+                </p>
+            </div>
+
+            <div class="row bootcamp-section-content">
+                <div class="col-12 col-md-4 col-lg-2">
+                    <div class="bootcamp-goal-card-container">
+                        <div class="bootcamp-goal-card-above fluid-container-hover">
+                            <div>
+                                <span class="mono-h3">Goal</span>
+                            </div>
+                            <img class="illus-img" src="../asset/icon/applied-ux-analytic/ascii-illus-03.svg" alt=""
+                                onload="SVGInject(this)">
+                            <div>
+                                <span class="mono-h3">Setting</span>
+                            </div>
+                        </div>
+
+                        <div class="bootcamp-goal-card-below">
+                            <p class="mono-h4">Xác định và biến mục tiêu thành chỉ số có thể đo lường được. Từ đó đánh
+                                giá các hành vi của user tác động đến mục tiêu sản phẩm.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 col-lg-2">
+                    <div class="bootcamp-goal-card-container">
+                        <div class="bootcamp-goal-card-above fluid-container fluid-container-hover">
+                            <div>
+                                <span class="mono-h3">Event</span>
+                            </div>
+                            <img class="illus-img" src="../asset/icon/applied-ux-analytic/ascii-illus-05.svg" alt=""
+                                onload="SVGInject(this)">
+                            <div>
+                                <span class="mono-h3">Tracking</span>
+                            </div>
+                        </div>
+
+                        <div class="bootcamp-goal-card-below">
+                            <p class="mono-h4">Lập kế hoạch tracking, quy chuẩn hóa event, trigger và property. Phối hợp
+                                kỹ
+                                thuật triển khai và kiểm chứng độ chính xác dữ liệu.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 col-lg-2">
+                    <div class="bootcamp-goal-card-container">
+                        <div class="bootcamp-goal-card-above fluid-container fluid-container-hover">
+                            <div>
+                                <span class="mono-h3">Behavior</span>
+                            </div>
+                            <img class="illus-img" src="../asset/icon/applied-ux-analytic/ascii-illus-08.svg" alt=""
+                                onload="SVGInject(this)">
+                            <div>
+                                <span class="mono-h3">Analysis</span>
+                            </div>
+                        </div>
+
+                        <div class="bootcamp-goal-card-below">
+                            <p class="mono-h4">Xây dựng chân dung và hành vi người dùng trên sản phẩm.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 col-lg-2">
+                    <div class="bootcamp-goal-card-container">
+                        <div class="bootcamp-goal-card-above fluid-container fluid-container-hover">
+                            <div>
+                                <span class="mono-h3">Explanatory</span>
+                            </div>
+                            <img class="illus-img" src="../asset/icon/applied-ux-analytic/ascii-illus-10.svg" alt=""
+                                onload="SVGInject(this)">
+                            <div>
+                                <span class="mono-h3">Research</span>
+                            </div>
+                        </div>
+
+                        <div class="bootcamp-goal-card-below">
+                            <p class="mono-h4">Kết hợp định lượng và định tính để tìm nguyên nhân gốc rễ qua
+                                Heatmap/Replay. Chuyển hóa dữ liệu thô thành nhận thức giá trị.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 col-lg-2">
+                    <div class="bootcamp-goal-card-container">
+                        <div class="bootcamp-goal-card-above fluid-container fluid-container-hover">
+                            <div>
+                                <span class="mono-h3">Conclusion</span>
+                            </div>
+                            <img class="illus-img" src="../asset/icon/applied-ux-analytic/ascii-illus-11.svg" alt=""
+                                onload="SVGInject(this)">
+                            <div>
+                                <span class="mono-h3">Recommendation</span>
+                            </div>
+                        </div>
+
+                        <div class="bootcamp-goal-card-below">
+                            <p class="mono-h4">Kết hợp định lượng và định tính để tìm nguyên nhân gốc rễ qua
+                                Heatmap/Replay. Chuyển hóa dữ liệu thô thành nhận thức giá trị.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-4 col-lg-2">
+                    <div class="bootcamp-goal-card-container">
+                        <div class="bootcamp-goal-card-above fluid-container fluid-container-hover">
+                            <div>
+                                <span class="mono-h3">Experiment</span>
+                            </div>
+                            <img class="illus-img" src="../asset/icon/applied-ux-analytic/ascii-illus-06.svg" alt=""
+                                onload="SVGInject(this)">
+                            <div>
+                                <span class="mono-h3">Validation</span>
+                            </div>
+                        </div>
+
+                        <div class="bootcamp-goal-card-below">
+                            <p class="mono-h4">Ưu tiên cải tiến theo mức độ tác động và xây dựng Dashboard theo dõi. Kể
+                                chuyện bằng dữ liệu để thuyết phục Stakeholders.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="applied-ux-analytic bootcamp-section-full row opening-bootcamp">
+            <div class="col-12 bootcamp-section-header">
+                <h2 class="mono-h1">III. Danh sách bootcamp</h2>
+            </div>
+
+            <div class="row bootcamp-section-content" id="bootcamp-list-container">
+            </div>
+        </div>
+
+
+        <div class="applied-ux-analytic bootcamp-section-full row syllabus">
+            <div class="col-6 bootcamp-section-header">
+                <h2 class="mono-h1">IV. Giáo trình</h2>
+                <p class="mono-h4">Giáo trình được xây dựng cho:
+                    <br>16 buổi học x 3 giờ / buổi
+                    <br>Học viên làm 2 project cá nhân và 1 đồ án tốt nghiệp.
+                </p>
+
+            </div>
+
+            <div class="row">
+                <div class="col-6">
+                </div>
+                <div class="col-6 bootcamp-section-content">
+
+                    <div class="syllabus-container">
+                        <img class="fluid-obstacle syllabus-obstacle"
+                            src="../asset/icon/applied-ux-analytic/ascii-illus-01.svg" onload="SVGInject(this)">
+                        <span class="mono-h4">Test đầu vào</span>
+                        <ul>
+                            <li class="mono-body">Product Metrics</li>
+                            <li class="mono-body">Descriptive Statistics</li>
+                            <li class="mono-body">Inferential Statistics</li>
+                            <li class="mono-body">User Behavior & Insight</li>
+                            <li class="mono-body">Building Product Dashboard</li>
+                            <li class="mono-body">Hypothesis Testing</li>
+                            <li class="mono-body">Conducting Explanatory Research</li>
+                            <li class="mono-body">Questionnaire Design</li>
+                            <li class="mono-body">Sampling</li>
+                        </ul>
+                    </div>
+
+                    <div class="syllabus-container">
+                        <img class="fluid-obstacle syllabus-obstacle"
+                            src="../asset/icon/applied-ux-analytic/ascii-illus-02.svg" onload="SVGInject(this)">
+                        <span class="mono-h4">UX in Business Context</span>
+                        <ul>
+                            <li class="mono-body">UX ảnh hưởng business metrics thế nào</li>
+                            <li class="mono-body">UX trong product lifecycle</li>
+                            <li class="mono-body">Vì sao UX cần data thay vì cảm tính</li>
+                            <li class="mono-body">Các ví dụ phản trực giác về UX</li>
+                        </ul>
+                    </div>
+
+                    <div class="syllabus-container">
+                        <img class="fluid-obstacle syllabus-obstacle"
+                            src="../asset/icon/applied-ux-analytic/ascii-illus-03.svg" onload="SVGInject(this)">
+                        <span class="mono-h4">Goal Setting for UX Measurement</span>
+                        <ul>
+                            <li class="mono-body">UX Goals vs Product Goals</li>
+                            <li class="mono-body">Chọn UX Metrics phù hợp</li>
+                            <li class="mono-body">Leading vs Lagging Indicators</li>
+                            <li class="mono-body">Success Criteria cho UX improvement</li>
+                        </ul>
+                    </div>
+
+                    <div class="syllabus-container">
+                        <img class="fluid-obstacle syllabus-obstacle"
+                            src="../asset/icon/applied-ux-analytic/ascii-illus-04.svg" onload="SVGInject(this)">
+
+                        <span class="mono-h4">Defining Measurable User Behavior</span>
+                        <ul>
+                            <li class="mono-body">User Journey → Key Behaviors</li>
+                            <li class="mono-body">Macro vs Micro Conversions</li>
+                            <li class="mono-body">Behavioral Signals của UX Issues</li>
+                            <li class="mono-body">Mapping UX Problems → Measurable Events</li>
+                        </ul>
+                    </div>
+
+                    <div class="syllabus-container">
+                        <img class="fluid-obstacle syllabus-obstacle"
+                            src="../asset/icon/applied-ux-analytic/ascii-illus-05.svg" onload="SVGInject(this)">
+                        <span class="mono-h4">Event Tracking 101</span>
+                        <ul>
+                            <li class="mono-body">UX Event Tracking là gì</li>
+                            <li class="mono-body">Tracking Plan cho Designer</li>
+                            <li class="mono-body">Trigger, Event, Property</li>
+                            <li class="mono-body">Quy chuẩn đặt tên cho đối tượng & hành vi</li>
+                            <li class="mono-body">Data source: Backend vs Frontend</li>
+                            <li class="mono-body">Common Tracking Mistakes</li>
+                        </ul>
+                    </div>
+
+                    <div class="syllabus-container">
+                        <img class="fluid-obstacle syllabus-obstacle"
+                            src="../asset/icon/applied-ux-analytic/ascii-illus-06.svg" onload="SVGInject(this)">
+                        <span class="mono-h4">Data Quality & Tracking Validation</span>
+                        <ul>
+                            <li class="mono-body">Kiểm tra tracking đúng hay sai</li>
+                            <li class="mono-body">Missing events & duplicate events</li>
+                            <li class="mono-body">Data sampling & accuracy</li>
+                            <li class="mono-body">Khi nào data không đáng tin</li>
+                        </ul>
+                    </div>
+
+                    <div class="syllabus-container">
+                        <img class="fluid-obstacle syllabus-obstacle"
+                            src="../asset/icon/applied-ux-analytic/ascii-illus-07.svg" onload="SVGInject(this)">
+                        <span class="mono-h4">Descriptive statistics for UX</span>
+                        <ul>
+                            <li class="mono-body">Raw Data</li>
+                            <li class="mono-body">Categorical variables</li>
+                            <li class="mono-body">Numerical variables</li>
+                            <li class="mono-body">Measuring Central Tendency: Mean, Median & Mode</li>
+                            <li class="mono-body">Measuring Variability: Range, Variance & SD</li>
+                            <li class="mono-body">Percentage vs Percentile</li>
+                            <li class="mono-body">Working with data visualization</li>
+                        </ul>
+                    </div>
+
+                    <div class="syllabus-container">
+                        <img class="fluid-obstacle syllabus-obstacle"
+                            src="../asset/icon/applied-ux-analytic/ascii-illus-08.svg" onload="SVGInject(this)">
+                        <span class="mono-h4">Analyzing User Behavior for UX Insights</span>
+                        <ul>
+                            <li class="mono-body">Toán tử & Logical operations</li>
+                            <li class="mono-body">Các đơn vị đo lường và cách chúng được tính toán</li>
+                            <li class="mono-body">Event analysis</li>
+                            <li class="mono-body">User journey, User Flow & Path Analysis</li>
+                            <li class="mono-body">Funnel Analysis, phân loại Funnel, đơn vị đo lường</li>
+                            <li class="mono-body">Drop-off & Friction Points</li>
+                            <li class="mono-body">Retention Analysis</li>
+                            <li class="mono-body">Cohort Analysis</li>
+                            <li class="mono-body">Các phép tổng hợp (aggregation) trong phân tích</li>
+                            <li class="mono-body">Regression analysis</li>
+                            <li class="mono-body">Correlation analysis</li>
+                            <li class="mono-body">Cluster analysis</li>
+                            <li class="mono-body">Factor analysis</li>
+                            <li class="mono-body">Time series analysis</li>
+                        </ul>
+                    </div>
+
+                    <div class="syllabus-container">
+                        <img class="fluid-obstacle syllabus-obstacle"
+                            src="../asset/icon/applied-ux-analytic/ascii-illus-09.svg" onload="SVGInject(this)">
+                        <span class="mono-h4">Inferential Statistics</span>
+                        <ul>
+                            <li class="mono-body">Testing with different variable types</li>
+                            <li class="mono-body">Significance Level & Statistical Errors</li>
+                            <li class="mono-body">Comparing Means</li>
+                            <li class="mono-body">Paired samples t-test</li>
+                            <li class="mono-body">Independent samples t-test</li>
+                            <li class="mono-body">Paired sample t-test</li>
+                            <li class="mono-body">Independent samples t-test</li>
+                            <li class="mono-body">Chi-square test</li>
+                        </ul>
+                    </div>
+
+                    <div class="syllabus-container">
+                        <img class="fluid-obstacle syllabus-obstacle"
+                            src="../asset/icon/applied-ux-analytic/ascii-illus-10.svg" onload="SVGInject(this)">
+                        <span class="mono-h4">Explanatory Research</span>
+                        <ul>
+                            <li class="mono-body">Khi nào behavior & product performance data là chưa đủ</li>
+                            <li class="mono-body">Quy trình kết hợp nghiên cứu định tính</li>
+                            <li class="mono-body">Session replay & heatmap</li>
+                            <li class="mono-body">Deep-dive user journey</li>
+                            <li class="mono-body">Xác minh nguyên nhân UX issues</li>
+                            <li class="mono-body">Outcome: Biết cách tìm root-cause thay vì chỉ đặt giả thuyết.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="syllabus-container">
+                        <img class="fluid-obstacle syllabus-obstacle"
+                            src="../asset/icon/applied-ux-analytic/ascii-illus-11.svg" onload="SVGInject(this)">
+                        <span class="mono-h4">Insight Synthesis & UX Recommendations</span>
+                        <ul>
+                            <li class="mono-body">Insight ≠ Data</li>
+                            <li class="mono-body">Insight Framework cho UX</li>
+                            <li class="mono-body">Correlation vs Causation</li>
+                            <li class="mono-body">Prioritizing UX Issues by Impact</li>
+                            <li class="mono-body">Viết UX Recommendation thuyết phục</li>
+                            <li class="mono-body">Data Storytelling cho stakeholder</li>
+                        </ul>
+                    </div>
+
+                    <div class="syllabus-container">
+                        <img class="fluid-obstacle syllabus-obstacle"
+                            src="../asset/icon/applied-ux-analytic/ascii-illus-01.svg" onload="SVGInject(this)">
+                        <span class="mono-h4">Bảo vệ & test đầu ra</span>
+                        <ul>
+                            <li class="mono-body">Product Metrics</li>
+                            <li class="mono-body">Descriptive Statistics</li>
+                            <li class="mono-body">Inferential Statistics</li>
+                            <li class="mono-body">User Behavior & Insight</li>
+                            <li class="mono-body">Building Product Dashboard</li>
+                            <li class="mono-body">Hypothesis Testing</li>
+                            <li class="mono-body">Conducting Explanatory Research</li>
+                            <li class="mono-body">Questionnaire Design</li>
+                            <li class="mono-body">Sampling</li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="applied-ux-analytic row bootcamp-section-full lecturer">
+            <div class="col-12 bootcamp-section-header">
+                <h2 class="mono-h1">V. Giảng viên</h2>
+            </div>
+
+            <div class="col bootcamp-section-content">
+                <!-- <img src="../asset/image/organizer_01.webp" alt=""> -->
+                <img class="fluid-obstacle lecturer-obstacle" style="height: 200px;"
+                    src="../asset/icon/applied-ux-analytic/portrait-ascii.svg" alt="">
+            </div>
+        </div>
+
+        <div class="applied-ux-analytic row justify-content-center footer">
+
+            <img class="fluid-obstacle" src="../asset/icon/applied-ux-analytic.svg" alt="" onload="SVGInject(this)">
+
+            <div class="footer-row col-12 h3 justify-content-center">
+                <br>
+                <span class="font-serif-caption italic">another bootcamp</span>
+                <br>
+                <a href="../index.html" class="mono-body">Designing Digital Product per Stage and
+                    Metric</a>
+            </div>
+
+            <div class="footer-row col-12 h6 justify-content-center">
+                <span class="font-serif-caption italic">Tools</span>
+                <br><a href="statistic-calculator/index.html" class="mono-body">Statistic Calculator</a>
+                <br><a href="https://quiz.uxcamp.vn/" class="mono-body">Quiz Cực Căng</a>
+                <br><a href="bigtextbox.html" class="mono-body">Bigtextbox</a>
+                <br><a href="tabandtask/index.html" class="mono-body">Tab&Task</a>
+            </div>
+
+            <div class="footer-row col-12 h6 justify-content-center">
+                <span class="font-serif-caption italic">Links</span>
+                <br><a href="https://blog.uxcamp.vn/" class="mono-body">Blogs</a>
+            </div>
+
+            <div class="footer-row col-12 h6 justify-content-center">
+                <span class="font-serif-caption italic" class="mono-body">Contact</span>
+                <br>
+                <div class="social-links">
+
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/uxcampvn/"
+                        title="https://www.facebook.com/uxcampvn"><img class="social-link-svg"
+                            src="../asset/icon/facebook.svg" onload="SVGInject(this)"></a>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.linkedin.com/company/uxcamp-vietnam"
+                        title="https://www.linkedin.com/company/uxcamp-vietnam"><img class="social-link-svg"
+                            src="../asset/icon/linkedin.svg" onload="SVGInject(this)"></a>
+                    <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@UXCampVietnam"
+                        title="https://www.youtube.com/@UXCampVietnam"><img class="social-link-svg"
+                            src="../asset/icon/youtube.svg" onload="SVGInject(this)"></a>
+                    <a target="_blank" rel="noopener noreferrer" href="mailto:hello@uxcamp.vn"
+                        title="hello@uxcamp.vn"><img class="social-link-svg" src="../asset/icon/email.svg"
+                            onload="SVGInject(this)"></a>
+                </div>
+            </div>
+            <img class="eye-logo footer-img col-12" src="../asset/image/Eye.svg" onload="SVGInject(this)">
+        </div>
+    </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,200..900;1,200..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100..900;1,100..900&display=swap');
 
 .row {
   margin-left: 0px;
@@ -12,6 +13,7 @@
   padding-right: 0px;
 }
 
+
 /* --------------------------- */
 
 html,
@@ -20,7 +22,7 @@ body {
   max-width: 100vw !important;
   overflow-x: hidden;
   overflow-y: scroll;
-  background-color: var(--main-colors-background-b-200-slide-bg);
+  background-color: var(--main-colors-background-b-200-slide-bg) !important;
 }
 
 html {
@@ -260,6 +262,65 @@ span {
   letter-spacing: var(--font-sans-x-small-letter);
 }
 
+/* Monospace */
+
+.mono-h1 {
+  font-family: var(--font-mono);
+  font-size: 48px;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls);
+}
+
+.mono-h2 {
+  font-family: var(--font-mono);
+  font-size: 38px;
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls);
+}
+
+.mono-h3 {
+  font-family: var(--font-mono);
+  font-size: 30px;
+  line-height: var(--lh-normal);
+  letter-spacing: var(--ls);
+}
+
+.mono-h4 {
+  font-family: var(--font-mono);
+  font-size: 24px;
+  line-height: var(--lh-normal);
+  letter-spacing: var(--ls);
+}
+
+.mono-h5 {
+  font-family: var(--font-mono);
+  font-size: 20px;
+  line-height: var(--lh-normal);
+  letter-spacing: var(--ls);
+}
+
+.mono-body {
+  font-family: var(--font-mono);
+  font-size: 16px;
+  line-height: var(--lh-normal);
+  letter-spacing: var(--ls);
+}
+
+.mono-caption {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: var(--lh-normal);
+  letter-spacing: var(--ls);
+}
+
+.mono-small {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  line-height: var(--lh-normal);
+  letter-spacing: var(--ls);
+}
+
+/* Modifier */
 
 .underline {
   text-decoration: underline;
@@ -399,6 +460,25 @@ span {
   --highlight-red: #e62e2e;
   --highlight-yellow: #dca015;
   --highlight-magenta: #e523de;
+
+  --applied-analytic-main: #0000ff;
+  --applied-analytic-main-hover: #312FFA;
+
+
+  --applied-analytic-text-color: #0000ff;
+
+  /* =====================
+     MONO
+  ====================== */
+
+  --font-mono: 'Chivo Mono', monospace;
+
+  /* line-height */
+  --lh-tight: 120%;
+  --lh-normal: 150%;
+
+  /* letter spacing */
+  --ls: 0.012em;
 }
 
 /* ======================================================
@@ -693,6 +773,10 @@ span {
 
 @media (prefers-color-scheme: dark) {
   :root {
+
+    --applied-analytic-text-color: #ffffff;
+    --applied-analytic-main-hover: #0001CE;
+
     --body-background: #000000;
     --collection-bacground: #141414;
     --saved-tab-item-background: #1A1A1A;

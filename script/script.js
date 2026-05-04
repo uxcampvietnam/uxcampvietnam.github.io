@@ -4,7 +4,7 @@ let isDragging = false;
 let draggingInitialX = 0;
 let draggingOffsetX = 0;
 let clickableFeedback = true;
-let velocity = 0;
+// let velocity = 0;
 let lastX = 0;
 let lastTime = 0;
 let momentumID;
@@ -21,7 +21,7 @@ var bootcamp_list, feedback_list, syllabus_01;
 
 
 // lấy dữ liệu bootcamp_list & feedback từ google sheet
-fetch("https://script.google.com/macros/s/AKfycbyrXt-iM1AbxybQfmczKb7vqWkssNtLrqaHuD2D9rDJeFuqoE312XoUWQ-aOiwrTdUQ/exec")
+fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82XWQqXdKR6e1pXvTUtCATu95jnd0QouBwyD/exec")
     .then(res => res.json())
     .then(data => {
 
@@ -499,19 +499,21 @@ function showFeedback(feedbackId) {
 
 window.onload = function () {
     //   console.log('test window.onload');
-    gsap.to('#interactiveImage', {
-        scrollTrigger: {
-            trigger: '#bootcamp-goal',
-            start: 'bottom bottom-=200',
-            end: 'bottom center',
-            toggleActions: 'play none play reverse', //onEnter, onLeave, onEnterBack, and onLeaveBack -> sẽ nhận 1 trong các giá trị sau: "play", "pause", "resume", "reset", "restart", "complete", "reverse", and "none".
-            // markers: true,
-            // scrub: true,
-        },
-        opacity: 0,
-        duration: 1.2,
-        ease: 'power2.out',
-    });
+    if (document.querySelectorAll('#interactiveImage')[0] != null) {
+        gsap.to('#interactiveImage', {
+            scrollTrigger: {
+                trigger: '#bootcamp-goal',
+                start: 'bottom bottom-=200',
+                end: 'bottom center',
+                toggleActions: 'play none play reverse', //onEnter, onLeave, onEnterBack, and onLeaveBack -> sẽ nhận 1 trong các giá trị sau: "play", "pause", "resume", "reset", "restart", "complete", "reverse", and "none".
+                // markers: true,
+                // scrub: true,
+            },
+            opacity: 0,
+            duration: 1.2,
+            ease: 'power2.out',
+        });
+    }
 
     if (document.querySelectorAll('#flyingContainer')[0] != null) {
         ScrollTrigger.create({
@@ -696,180 +698,6 @@ function smoothGrowth(x) {
     const min = f(0);
     const max = f(1);
     return (f(x) - min) / (max - min);
-}
-
-
-
-// Animate 1 =======================================================================================
-
-if (container1 !== null) {
-    // Settings =================================
-    const smallestSize = 0.1;
-    const largestSize = 0.5;
-    const graduationImgEls = [];
-    var speed = 0.00003; // radians per ms
-
-    // Create image elements =================================
-    for (let i = 0; i < imageGraduationUrls.length; i++) {
-
-        const img = document.createElement('img');
-        img.src = imageGraduationUrls[i];
-        img.className = 'flyer';
-
-        const flyerContainer = document.createElement('div');
-        flyerContainer.className = 'flyer-container';
-        flyerContainer.style.backgroundImage = `url("${imageGraduationUrls[i]}")`;
-
-        // flyerContainer.appendChild(img);
-        container1.appendChild(flyerContainer);
-        graduationImgEls.push({
-            el: flyerContainer,
-            angle: (i / imageGraduationUrls.length) * 2 * Math.PI // spread evenly
-        });
-    }
-
-    var animation1;
-    var animation1Animating = false, animation2Animating = false;
-
-
-    function animate() {
-
-        // LẤY LAYOUT 1 LẦN / FRAME
-        const rect = container1.getBoundingClientRect();
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const radiusX = InfiniteLoadingWidth;
-        const radiusY = InfiniteLoadingHeight;
-
-        // mouse → speed
-        if (deviceHasMouse()) {
-            const percentageX =
-                (mouseX - (rect.left + centerX)) / radiusX;
-            speed = 0.00003 + 0.0001 * percentageX;
-        } else {
-            speed = 0.0003;
-        }
-
-        graduationImgEls.forEach(img => {
-
-            //UPDATE ANGLE
-            img.angle += speed * 16;
-
-            const sin = Math.sin(img.angle);
-            const cos = Math.cos(img.angle);
-
-            //QUỸ ĐẠO
-            const orbitX = radiusX * sin;
-            const orbitY = radiusY * sin * cos * 2;
-
-            const x = centerX + orbitX;
-            const y = centerY + orbitY;
-
-            // SCALE
-            const relativeX = Math.abs(cos);
-            const scale = smallestSize + largestSize * relativeX;
-
-            // APPLY TRANSFORM
-            img.el.style.transform = `
-            translate(${centerX - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y - 50}px)
-            scale(${scale / 3})`;
-
-        });
-
-        animation1 = requestAnimationFrame(animate);
-    }
-
-
-    function startAnimation1() {
-        if (!animation1Animating) {
-            animation1Animating = true;
-            flyingContainer.style.opacity = 1;
-            animate();
-        }
-    }
-
-    function stopAnimation1() {
-        if (animation1Animating) {
-            cancelAnimationFrame(animation1);
-            flyingContainer.style.opacity = 0;
-            animation1Animating = false;
-        }
-    }
-
-    // requestAnimationFrame(animate);
-
-}
-
-
-// Animate 2 ===================================================================================
-
-if (container2 !== null) {
-
-    var animation2;
-    const graduationImgEls2 = [];
-    for (let i = 0; i < imageGraduationUrls.length; i++) {
-
-        const flyerContainer = document.createElement('div');
-        flyerContainer.className = 'flyer-container';
-        flyerContainer.style.backgroundImage = `url("${imageGraduationUrls[i]}")`;
-
-        // flyerContainer.appendChild(img);
-        container2.appendChild(flyerContainer);
-        graduationImgEls2.push({
-            el: flyerContainer,
-            angle: (i / imageGraduationUrls.length) * 2 * Math.PI // spread evenly
-        });
-    }
-
-    function animate2() {
-        graduationImgEls2.forEach(img => {
-            // img.el.style.opacity = 1;
-            img.angle += 0.0001 * 16;
-
-            // Position on oval
-            const x = container2.getBoundingClientRect().width / 2 + container2.getBoundingClientRect().width * Math.sin(img.angle) / 1.5;
-            const y = container2.getBoundingClientRect().height / 2 + container2.getBoundingClientRect().height * Math.sin(img.angle) / 2.9;
-
-            var centerImgX = img.el.getBoundingClientRect().left + img.el.getBoundingClientRect().width / 2;
-            var centerImgY = img.el.getBoundingClientRect().top + img.el.getBoundingClientRect().height / 2;
-
-            var relativeImgX = Math.abs(mouseX - centerImgX);
-            var relativeImgY = Math.abs(mouseY - centerImgY);
-            var distance = Math.sqrt(relativeImgX * relativeImgX + relativeImgY * relativeImgY) / (Math.sqrt(flyingContainer2.getBoundingClientRect().height / 2 * flyingContainer2.getBoundingClientRect().height / 2 + flyingContainer2.getBoundingClientRect().width / 2 * flyingContainer2.getBoundingClientRect().width / 2));
-
-            var scale;
-
-            if (deviceHasMouse()) {
-                distance < 1 ? scale = 0.08 * (smoothGrowth(distance)) + 0.02 : scale = 0.1;
-            }
-            else {
-                scale = 0.05;
-            }
-            var centerX2 = container2.getBoundingClientRect().width / 2;
-
-            img.el.style.transform = `translate(${centerX2 - x * Math.sin(img.angle) * Math.cos(img.angle) - 50}px, ${y - 50}px) scale(${scale})`;
-        });
-        animation2 = requestAnimationFrame(animate2);
-    }
-
-
-    function startAnimation2() {
-        if (!animation2Animating) {
-            animation2Animating = true;
-            flyingContainer2.style.opacity = 1;
-            animate2();
-        }
-    }
-
-    function stopAnimation2() {
-        if (animation2Animating) {
-            flyingContainer2.style.opacity = 0;
-            cancelAnimationFrame(animation2);
-            animation2Animating = false;
-        }
-    }
 }
 
 

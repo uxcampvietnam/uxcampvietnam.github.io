@@ -34,6 +34,7 @@ input {
 	fill: var(--main-colors-foreground-f-500-main)
 }
 
+
 .social-link-svg:hover path {
 	fill: var(--main-colors-foreground-f100);
 }

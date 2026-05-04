@@ -1,0 +1,315 @@
+/* Applied UX Analytic =========================== */
+
+#footer .eye-logo {
+    /* width: 398px;
+	height: auto; */
+    width: 84px;
+    height: auto;
+    margin-bottom: 32px;
+}
+
+#footer span {
+    color: var(--main-colors-foreground-f800);
+}
+
+.footer-row {
+    margin-bottom: var(--spacing-xl) !important;
+}
+
+.main-blue-text,
+.main-blue-text * {
+    color: var(--applied-analytic-main) !important;
+}
+
+/* ================================= */
+
+
+.fluid-obstacle * {
+    fill: var(--applied-analytic-main);
+}
+
+.applied-ux-analytic-container * {
+    color: var(--applied-analytic-text-color);
+}
+
+.bootcamp-goal-card-container:hover .fluid-container {
+    background-color: var(--applied-analytic-main-hover);
+}
+
+.bootcamp-name-hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    /* border: red 1px solid */
+}
+
+.bootcamp-name-hero-hide * {
+    display: none;
+}
+
+.applied-ux-analytic-name-fluid.text * {
+    opacity: 0;
+}
+
+.applied-ux-analytic-name-fluid {
+    transition: opacity 0.1s ease-in-out;
+    position: fixed;
+    overflow: visible;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw !important;
+    height: auto !important;
+    aspect-ratio: 1/1;
+    z-index: 200 !important;
+}
+
+.applied-ux-analytic-name-fluid.fluid-obstacle {
+    z-index: 100 !important;
+}
+
+.applied-ux-analytic-name-fluid * {
+    fill: var(--applied-analytic-main);
+}
+
+.applied-ux-analytic-name-fluid.fluid-obstacle * {
+    fill: var(--main-colors-background-b-200-slide-bg);
+}
+
+@media (prefers-color-scheme: dark) {
+    .applied-ux-analytic-name-fluid * {
+        /* fill: var(--fix-white---white-100); */
+    }
+
+    .applied-ux-analytic-name-fluid.fluid-obstacle * {
+        fill: var(--main-colors-background-b-200-slide-bg);
+    }
+}
+
+
+.applied-ux-analytic {
+    z-index: 200;
+    display: flex;
+    position: relative;
+    gap: 56px;
+    flex-direction: column;
+    overflow-x: visible;
+    padding: 32px var(--spacing-m);
+    /* border-radius: 32px; */
+}
+
+#fluidCanvas {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.fluid-obstacle {
+    width: auto;
+    /* height: 100%; */
+}
+
+.obstacle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.flex-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+
+.bootcamp-goal-container {
+    border-bottom: 0.5px solid var(--applied-analytic-main);
+    padding-bottom: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+    padding-top: 24px;
+}
+
+.bootcamp-section-content {
+    opacity: 1;
+}
+
+.char {
+    opacity: 0;
+}
+
+.syllabus-container .syllabus-obstacle {
+    /* position: fixed; */
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+}
+
+.syllabus-container {
+    /* border: 1px solid red; */
+    padding: 30px 0px;
+    border-bottom: 1px solid var(--applied-analytic-main);
+}
+
+.syllabus-container li {
+    padding: 8px 0px;
+}
+
+.footer {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.social-links * {
+    fill: var(--applied-analytic-text-color);
+}
+
+.footer .eye-logo {
+    width: 84px;
+    height: auto;
+    margin-bottom: 32px;
+}
+
+
+.fluid-container {
+    /* border: solid 1px red; */
+    height: fit-content;
+    margin: 5px;
+}
+
+.bootcamp-goal-card-container {
+    position: relative;
+    height: 450px;
+}
+
+.bootcamp-goal-card-above {
+    opacity: 0;
+}
+
+.bootcamp-goal-card-above .illus-img {
+    width: 100%;
+    min-height: 300px;
+    height: 100%;
+}
+
+.bootcamp-goal-card-above .illus-img * {
+    fill: white;
+}
+
+.bootcamp-goal-card-above {
+    height: 100%;
+    margin: 0px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--applied-analytic-main);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.bootcamp-goal-card-below {
+    height: 100%;
+    margin: 0px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    color: white;
+    transition: opacity 0;
+    z-index: 5 !important;
+    /* border: 1px solid var(--applied-analytic-main); */
+}
+
+.bootcamp-goal-card-container:has(.bootcamp-goal-card-above:hover) .bootcamp-goal-card-below {
+    opacity: 1;
+    transition: opacity 0.5s ease-in-out;
+
+    /* background-color: crimson; */
+}
+
+.bootcamp-goal-card-above div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.bootcamp-goal-card-above div span {
+    color: white;
+}
+
+
+.bootcamp-section-full {
+    min-height: 50vh;
+}
+
+.bootcamp-section-full {
+    padding-bottom: 10vh;
+}
+
+
+.intro-section li {
+    padding-top: 8px;
+}
+
+.applied-ux-analytic-container,
+.applied-ux-analytic,
+.applied-ux-analytic-name-fluid,
+.applied-ux-analytic *:not(.syllabus-obstacle):not(.syllabus-container):not(.fluid-container) {
+    pointer-events: none;
+}
+
+a,
+button {
+    pointer-events: all !important;
+    cursor: pointer;
+}
+
+.fluid-container-hover {
+    pointer-events: all !important;
+}
+
+svg path[fill="#0055FF"] {
+    fill: var(--applied-analytic-text-color);
+}
+
+svg path[fill="#FF0000"],
+svg path[fill="rgb(255, 0, 0)"] {
+    fill: var(--main-colors-background-b100);
+}
+
+.bootcamp-section-content {
+    padding-top: 32px;
+    padding-bottom: 72px;
+}
+
+
+.bootcamp-section-content:has(.lecturer-obstacle) {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    justify-content: center;
+}

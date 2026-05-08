@@ -455,7 +455,7 @@
     // 12. HEATMAP RENDERER  (time-spent per section, Y-axis in seconds)
     // ─────────────────────────────────────────────────────────────
 
-    const HEATMAP_LABELS = ['Intro', 'Goal', 'Register', 'Modules', 'General', 'Link', 'Demo'];
+    const HEATMAP_LABELS = ['Intro', 'Goal', 'Register', 'Syllabus', 'General', 'Link', 'Demo'];
     const HEATMAP_KEYS = ['intro', 'goal', 'register', 'syllabus', 'general', 'footer', 'demo'];
 
     /**

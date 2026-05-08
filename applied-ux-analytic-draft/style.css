@@ -425,7 +425,7 @@ svg path[fill="rgb(255, 0, 0)"] {
     border: 1px solid var(--console-stroke);
     width: 100%;
     overflow: hidden;
-    background: var(--applied-analytic-background);
+    /* background: var(--applied-analytic-background); */
     z-index: 500;
 }
 

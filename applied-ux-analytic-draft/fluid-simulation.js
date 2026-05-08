@@ -29,54 +29,32 @@ var defaultConfig = {
     // DENSITY_DIFFUSION
     DENSITY_DISSIPATION: isDarkMode ? 2 : 2,
 
-    VELOCITY_DISSIPATION: isDarkMode ? 0.001 : 0.1,
+    VELOCITY_DISSIPATION: isDarkMode ? 0.1 : 0.1,
     PRESSURE: isDarkMode ? 0 : 0.63,
-    PRESSURE_ITERATIONS: 2,
+    PRESSURE_ITERATIONS: 0.5,
 
     // VORTICITY
     CURL: isDarkMode ? 0 : 0.13,
-    // SPLAT_RADIUS: isDarkMode ? 0.76 : 0.8,
-    SPLAT_RADIUS: isDarkMode ? 1 : 1,
+    SPLAT_RADIUS: isDarkMode ? 0.5 : 0.5,
 
-    COLORFUL: isDarkMode ? true : false,
-    COLOR_UPDATE_SPEED: 10,
-    SPLASH_COLOR: { r: 50, g: 50, b: 255 },
-    // SPLASH_COLOR: { r: 150, g: 150, b: 150 },
-
-    COLOR_MIN: isDarkMode ? 0.55 : 0.6,
-    COLOR_MAX: isDarkMode ? 0.77 : 0.75,
-
-    BACK_COLOR: isDarkMode ? { r: 1, g: 4, b: 9 } : { r: 244, g: 237, b: 228 },
-    // BACK_COLOR: isDarkMode ? { r: 1, g: 4, b: 9 } : { r: 0, g: 0, b: 255 },
-
-    BLOOM: true,
-    BLOOM_ITERATIONS: isDarkMode ? 1 : 8,
-    BLOOM_RESOLUTION: 256,
-
-    BLOOM_INTENSITY: isDarkMode ? 0.1 : 0.1,
-    BLOOM_THRESHOLD: isDarkMode ? 1 : 1,
-    BLOOM_SOFT_KNEE: isDarkMode ? 0.1 : 0.9,
-
-    SUNRAYS: isDarkMode ? true : false,
-    SUNRAYS_WEIGHT: isDarkMode ? 0.75 : 1,
-    SUNRAYS_RESOLUTION: 196,
-
+    BACK_COLOR: isDarkMode ? { r: 0, g: 0, b: 0 } : { r: 245, g: 245, b: 245 },
 
     // Obstacle configuration
-    OBSTACLE_TRANSPARENT: true,
-    OBSTACLE_COLOR: { r: 255, g: 255, b: 255 },
-    OBSTACLE_USE_SVG_COLOR: false,
 
-    // first random fluid
-    SPLAT_ON_START: isDarkMode ? true : true,
-    SPLAT_ON_START_AMOUNT: isDarkMode ? 15 : 12,
+    // ASCII rendering
+    ASCII: true,
+    ASCII_CHARS: " .:-=+*#%@",
+    // ASCII_CHARS: " ⋅∘∙◌◯◎●",
+    // ASCII_CHARS: " ▁▂▃▄▅▆▇█▃▂ ▁",
+
+    ASCII_CELL_SIZE: 14,
+    ASCII_COLOR: isDarkMode ? { r: 255, g: 255, b: 255 } : { r: 0, g: 0, b: 0 },
 }
 
 var config = {
     SIM_RESOLUTION: 256,
     // Obstacle configuration
     DYE_RESOLUTION: 1024,
-    CAPTURE_RESOLUTION: 512,
 
     // DENSITY_DIFFUSION
     DENSITY_DISSIPATION: defaultConfig.DENSITY_DISSIPATION,
@@ -90,36 +68,17 @@ var config = {
     SPLAT_RADIUS: defaultConfig.SPLAT_RADIUS,
 
     SPLAT_FORCE: 6000,
-    SHADING: true,
 
-    COLORFUL: defaultConfig.COLORFUL,
-    COLOR_UPDATE_SPEED: 20,
-    SPLASH_COLOR: defaultConfig.SPLASH_COLOR,
-    COLOR_MIN: defaultConfig.COLOR_MIN,
-    COLOR_MAX: defaultConfig.COLOR_MAX,
     PAUSED: false,
     BACK_COLOR: defaultConfig.BACK_COLOR,
-    TRANSPARENT: false,
-    BLOOM: true,
-    BLOOM_ITERATIONS: defaultConfig.BLOOM_ITERATIONS,
-    BLOOM_RESOLUTION: defaultConfig.BLOOM_RESOLUTION,
-    BLOOM_INTENSITY: defaultConfig.BLOOM_INTENSITY,
-    BLOOM_THRESHOLD: defaultConfig.BLOOM_THRESHOLD,
-    BLOOM_SOFT_KNEE: defaultConfig.BLOOM_SOFT_KNEE,
-    SUNRAYS: defaultConfig.SUNRAYS,
-    SUNRAYS_RESOLUTION: defaultConfig.SUNRAYS_RESOLUTION,
-    SUNRAYS_WEIGHT: defaultConfig.SUNRAYS_WEIGHT,
-
-
-    // Obstacle configuration
     OBSTACLE_ENABLED: true,
-    OBSTACLE_TRANSPARENT: true,
-    OBSTACLE_COLOR: defaultConfig.OBSTACLE_COLOR,
-    OBSTACLE_USE_SVG_COLOR: defaultConfig.OBSTACLE_USE_SVG_COLOR,
 
-    // first random fluid
-    SPLAT_ON_START: defaultConfig.SPLAT_ON_START,
-    SPLAT_ON_START_AMOUNT: defaultConfig.SPLAT_ON_START_AMOUNT,
+
+    // ASCII rendering
+    ASCII: defaultConfig.ASCII,
+    ASCII_CHARS: defaultConfig.ASCII_CHARS,
+    ASCII_CELL_SIZE: defaultConfig.ASCII_CELL_SIZE,
+    ASCII_COLOR: defaultConfig.ASCII_COLOR,
 }
 
 // setting config in dark and light mode. ===================================
@@ -127,39 +86,19 @@ var config = {
 const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
 colorSchemeQuery.addEventListener('change', (event) => {
+    isDarkMode = event.matches;
+    config.DENSITY_DISSIPATION = isDarkMode ? 2 : 2;
+    config.VELOCITY_DISSIPATION = isDarkMode ? 0.001 : 0.1;
+    config.PRESSURE = isDarkMode ? 0 : 0.63;
+    config.CURL = isDarkMode ? 0 : 0.13;
+    config.SPLAT_RADIUS = isDarkMode ? 1 : 1;
 
-    config = {
-
-        DENSITY_DISSIPATION: defaultConfig.DENSITY_DISSIPATION,
-        VELOCITY_DISSIPATION: defaultConfig.VELOCITY_DISSIPATION,
-        PRESSURE: defaultConfig.PRESSURE,
-        CURL: defaultConfig.CURL,
-        SPLAT_RADIUS: defaultConfig.SPLAT_RADIUS,
-        COLORFUL: defaultConfig.COLORFUL,
-        COLOR_UPDATE_SPEED: 20,
-        SPLASH_COLOR: defaultConfig.SPLASH_COLOR,
-        COLOR_MIN: defaultConfig.COLOR_MIN,
-        COLOR_MAX: defaultConfig.COLOR_MAX,
-        BACK_COLOR: defaultConfig.BACK_COLOR,
-        BLOOM_ITERATIONS: defaultConfig.BLOOM_ITERATIONS,
-        BLOOM_RESOLUTION: defaultConfig.BLOOM_RESOLUTION,
-        BLOOM_INTENSITY: defaultConfig.BLOOM_INTENSITY,
-        BLOOM_THRESHOLD: defaultConfig.BLOOM_THRESHOLD,
-        BLOOM_SOFT_KNEE: defaultConfig.BLOOM_SOFT_KNEE,
-        SUNRAYS: defaultConfig.SUNRAYS,
-        SUNRAYS_RESOLUTION: defaultConfig.SUNRAYS_RESOLUTION,
-        SUNRAYS_WEIGHT: defaultConfig.SUNRAYS_WEIGHT,
-        SPLAT_ON_START: defaultConfig.SPLAT_ON_START,
-        SPLAT_ON_START_AMOUNT: defaultConfig.SPLAT_ON_START_AMOUNT,
-    }
-
-    if (event.matches) { // dark mode
-        config.BACK_COLOR = { r: 1, g: 4, b: 9 };
-        isDarkMode = true;
-    } else { // light mode
-        // config.BACK_COLOR = { r: 244, g: 237, b: 228 };
-        config.BACK_COLOR = { r: 235, g: 229, b: 222 };
-        isDarkMode = false;
+    if (isDarkMode) {
+        config.BACK_COLOR = { r: 0, g: 0, b: 0 };
+        config.ASCII_COLOR = { r: 255, g: 255, b: 255 };
+    } else {
+        config.BACK_COLOR = { r: 245, g: 245, b: 245 };
+        config.ASCII_COLOR = { r: 0, g: 0, b: 0 };
     }
 });
 
@@ -177,7 +116,7 @@ function pointerPrototype() {
     this.deltaY = 0;
     this.down = false;
     this.moved = false;
-    this.color = generateColor();
+    this.color = { r: 0.15, g: 0.15, b: 0.15 };
 }
 
 let pointers = [];
@@ -194,12 +133,7 @@ if (isMobile()) {
 }
 if (!ext.supportLinearFiltering) {
     config.DYE_RESOLUTION = 512;
-    config.SHADING = false;
-    config.BLOOM = false;
-    config.SUNRAYS = false;
 }
-
-// startGUI();
 
 function getWebGLContext(fluid_canvas) {
     const params = { alpha: true, depth: false, stencil: false, antialias: false, preserveDrawingBuffer: false };
@@ -291,46 +225,6 @@ function isMobile() {
 }
 
 
-function framebufferToTexture(target) {
-    gl.bindFramebuffer(gl.FRAMEBUFFER, target.fbo);
-    let length = target.width * target.height * 4;
-    let texture = new Float32Array(length);
-    gl.readPixels(0, 0, target.width, target.height, gl.RGBA, gl.FLOAT, texture);
-    return texture;
-}
-
-function normalizeTexture(texture, width, height) {
-    let result = new Uint8Array(texture.length);
-    let id = 0;
-    for (let i = height - 1; i >= 0; i--) {
-        for (let j = 0; j < width; j++) {
-            let nid = i * width * 4 + j * 4;
-            result[nid + 0] = clamp01(texture[id + 0]) * 255;
-            result[nid + 1] = clamp01(texture[id + 1]) * 255;
-            result[nid + 2] = clamp01(texture[id + 2]) * 255;
-            result[nid + 3] = clamp01(texture[id + 3]) * 255;
-            id += 4;
-        }
-    }
-    return result;
-}
-
-function clamp01(input) {
-    return Math.min(Math.max(input, 0), 1);
-}
-
-function textureToCanvas(texture, width, height) {
-    let captureCanvas = document.createElement('canvas');
-    let ctx = captureCanvas.getContext('2d');
-    captureCanvas.width = width;
-    captureCanvas.height = height;
-
-    let imageData = ctx.createImageData(width, height);
-    imageData.data.set(texture);
-    ctx.putImageData(imageData, 0, 0);
-
-    return captureCanvas;
-}
 
 class Material {
     constructor(vertexShader, fragmentShaderSource) {
@@ -441,40 +335,6 @@ const baseVertexShader = compileShader(gl.VERTEX_SHADER, `
     }
 `);
 
-const blurVertexShader = compileShader(gl.VERTEX_SHADER, `
-    precision highp float;
-
-    attribute vec2 aPosition;
-    varying vec2 vUv;
-    varying vec2 vL;
-    varying vec2 vR;
-    uniform vec2 texelSize;
-
-    void main () {
-        vUv = aPosition * 0.5 + 0.5;
-        float offset = 1.33333333;
-        vL = vUv - texelSize * offset;
-        vR = vUv + texelSize * offset;
-        gl_Position = vec4(aPosition, 0.0, 1.0);
-    }
-`);
-
-const blurShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision mediump float;
-    precision mediump sampler2D;
-
-    varying vec2 vUv;
-    varying vec2 vL;
-    varying vec2 vR;
-    uniform sampler2D uTexture;
-
-    void main () {
-        vec4 sum = texture2D(uTexture, vUv) * 0.29411764;
-        sum += texture2D(uTexture, vL) * 0.35294117;
-        sum += texture2D(uTexture, vR) * 0.35294117;
-        gl_FragColor = sum;
-    }
-`);
 
 const copyShader = compileShader(gl.FRAGMENT_SHADER, `
     precision mediump float;
@@ -539,181 +399,35 @@ const displayShaderSource = `
     varying vec2 vT;
     varying vec2 vB;
     uniform sampler2D uTexture;
-    uniform sampler2D uBloom;
-    uniform sampler2D uSunrays;
-    uniform sampler2D uDithering;
-    uniform sampler2D uObstacle;
-    uniform vec3 uObstacleColor;
-    uniform bool uObstacleUseSvgColor;
-    uniform vec2 ditherScale;
-    uniform vec2 texelSize;
 
-    vec3 linearToGamma (vec3 color) {
-        color = max(color, vec3(0));
-        return max(1.055 * pow(color, vec3(0.416666667)) - 0.055, vec3(0));
-    }
+    // ASCII Uniforms
+    uniform sampler2D uAsciiTexture;
+    uniform float uAsciiCharsCount;
+    uniform float uAsciiCellSize;
+    uniform vec3 uAsciiColor;
+    uniform vec2 uScreenSize;
 
     void main () {
-        vec3 c = texture2D(uTexture, vUv).rgb;
-
-    #ifdef SHADING
-        vec3 lc = texture2D(uTexture, vL).rgb;
-        vec3 rc = texture2D(uTexture, vR).rgb;
-        vec3 tc = texture2D(uTexture, vT).rgb;
-        vec3 bc = texture2D(uTexture, vB).rgb;
-
-        float dx = length(rc) - length(lc);
-        float dy = length(tc) - length(bc);
-
-        vec3 n = normalize(vec3(dx, dy, length(texelSize)));
-        vec3 l = vec3(0.0, 0.0, 1.0);
-
-        float diffuse = clamp(dot(n, l) + 0.7, 0.7, 1.0);
-        c *= diffuse;
-    #endif
-
-    #ifdef BLOOM
-        vec3 bloom = texture2D(uBloom, vUv).rgb;
-    #endif
-
-    #ifdef SUNRAYS
-        float sunrays = texture2D(uSunrays, vUv).r;
-        c *= sunrays;
-    #ifdef BLOOM
-        bloom *= sunrays;
-    #endif
-    #endif
-
-    #ifdef BLOOM
-        float noise = texture2D(uDithering, vUv * ditherScale).r;
-        noise = noise * 2.0 - 1.0;
-        bloom += noise / 255.0;
-        bloom = linearToGamma(bloom);
-        c += bloom;
-    #endif
-
-    #ifdef OBSTACLE
-        vec4 mask = texture2D(uObstacle, vUv);
-        if (mask.a > 0.1)
-            c = uObstacleUseSvgColor ? mask.rgb : uObstacleColor;
-    #endif
-
-        float a = max(c.r, max(c.g, c.b));
-        gl_FragColor = vec4(c, a);
+        vec2 cellPixels = uScreenSize / uAsciiCellSize;
+        vec2 cellCenterUv = (floor(vUv * cellPixels) + 0.5) / cellPixels;
+        
+        vec3 cellColor = texture2D(uTexture, cellCenterUv).rgb;
+        float brightness = max(cellColor.r, max(cellColor.g, cellColor.b));
+        
+        brightness = clamp(brightness * 1.5, 0.0, 0.999);
+        
+        float charIndex = floor(brightness * uAsciiCharsCount);
+        
+        vec2 localUv = fract(vUv * cellPixels);
+        vec2 asciiUv = vec2((charIndex + localUv.x) / uAsciiCharsCount, 1.0 - localUv.y);
+        
+        float asciiMask = texture2D(uAsciiTexture, asciiUv).r;
+        vec3 c = uAsciiColor * asciiMask;
+        gl_FragColor = vec4(c, asciiMask);
     }
 `;
 
-const bloomPrefilterShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision mediump float;
-    precision mediump sampler2D;
 
-    varying vec2 vUv;
-    uniform sampler2D uTexture;
-    uniform vec3 curve;
-    uniform float threshold;
-
-    void main () {
-        vec3 c = texture2D(uTexture, vUv).rgb;
-        float br = max(c.r, max(c.g, c.b));
-        float rq = clamp(br - curve.x, 0.0, curve.y);
-        rq = curve.z * rq * rq;
-        c *= max(rq, br - threshold) / max(br, 0.0001);
-        gl_FragColor = vec4(c, 0.0);
-    }
-`);
-
-const bloomBlurShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision mediump float;
-    precision mediump sampler2D;
-
-    varying vec2 vL;
-    varying vec2 vR;
-    varying vec2 vT;
-    varying vec2 vB;
-    uniform sampler2D uTexture;
-
-    void main () {
-        vec4 sum = vec4(0.0);
-        sum += texture2D(uTexture, vL);
-        sum += texture2D(uTexture, vR);
-        sum += texture2D(uTexture, vT);
-        sum += texture2D(uTexture, vB);
-        sum *= 0.25;
-        gl_FragColor = sum;
-    }
-`);
-
-const bloomFinalShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision mediump float;
-    precision mediump sampler2D;
-
-    varying vec2 vL;
-    varying vec2 vR;
-    varying vec2 vT;
-    varying vec2 vB;
-    uniform sampler2D uTexture;
-    uniform float intensity;
-
-    void main () {
-        vec4 sum = vec4(0.0);
-        sum += texture2D(uTexture, vL);
-        sum += texture2D(uTexture, vR);
-        sum += texture2D(uTexture, vT);
-        sum += texture2D(uTexture, vB);
-        sum *= 0.25;
-        gl_FragColor = sum * intensity;
-    }
-`);
-
-const sunraysMaskShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision highp float;
-    precision highp sampler2D;
-
-    varying vec2 vUv;
-    uniform sampler2D uTexture;
-
-    void main () {
-        vec4 c = texture2D(uTexture, vUv);
-        float br = max(c.r, max(c.g, c.b));
-        c.a = 1.0 - min(max(br * 20.0, 0.0), 0.8);
-        gl_FragColor = c;
-    }
-`);
-
-const sunraysShader = compileShader(gl.FRAGMENT_SHADER, `
-    precision highp float;
-    precision highp sampler2D;
-
-    varying vec2 vUv;
-    uniform sampler2D uTexture;
-    uniform float weight;
-
-    #define ITERATIONS 16
-
-    void main () {
-        float Density = 0.3;
-        float Decay = 0.95;
-        float Exposure = 0.7;
-
-        vec2 coord = vUv;
-        vec2 dir = vUv - 0.5;
-
-        dir *= 1.0 / float(ITERATIONS) * Density;
-        float illuminationDecay = 1.0;
-
-        float color = texture2D(uTexture, vUv).a;
-
-        for (int i = 0; i < ITERATIONS; i++)
-        {
-            coord -= dir;
-            float col = texture2D(uTexture, coord).a;
-            color += col * illuminationDecay * weight;
-            illuminationDecay *= Decay;
-        }
-
-        gl_FragColor = vec4(color * Exposure, 0.0, 0.0, 1.0);
-    }
-`);
 
 const splatShader = compileShader(gl.FRAGMENT_SHADER, `
     precision highp float;
@@ -948,37 +662,17 @@ const blit = (() => {
     }
 })();
 
-function CHECK_FRAMEBUFFER_STATUS() {
-    let status = gl.checkFramebufferStatus(gl.FRAMEBUFFER);
-    if (status != gl.FRAMEBUFFER_COMPLETE)
-        console.trace("Framebuffer error: " + status);
-}
 
 let dye;
 let velocity;
 let divergence;
 let curl;
 let pressure;
-let bloom;
-let bloomFramebuffers = [];
-let sunrays;
-let sunraysTemp;
 let obstacle;
-let obstacleImage = new Image();
-let obstaclePaths = [];
-
-let ditheringTexture = createTextureAsync('LDR_LLL1_1.png');
-
-const blurProgram = new Program(blurVertexShader, blurShader);
 const copyProgram = new Program(baseVertexShader, copyShader);
 const clearProgram = new Program(baseVertexShader, clearShader);
 const colorProgram = new Program(baseVertexShader, colorShader);
 const checkerboardProgram = new Program(baseVertexShader, checkerboardShader);
-const bloomPrefilterProgram = new Program(baseVertexShader, bloomPrefilterShader);
-const bloomBlurProgram = new Program(baseVertexShader, bloomBlurShader);
-const bloomFinalProgram = new Program(baseVertexShader, bloomFinalShader);
-const sunraysMaskProgram = new Program(baseVertexShader, sunraysMaskShader);
-const sunraysProgram = new Program(baseVertexShader, sunraysShader);
 const splatProgram = new Program(baseVertexShader, splatShader);
 const advectionProgram = new Program(baseVertexShader, advectionShader);
 const divergenceProgram = new Program(baseVertexShader, divergenceShader);
@@ -1015,8 +709,6 @@ function initFramebuffers() {
     curl = createFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
     pressure = createDoubleFBO(simRes.width, simRes.height, r.internalFormat, r.format, texType, gl.NEAREST);
 
-    initBloomFramebuffers();
-    initSunraysFramebuffers();
     initObstacleFramebuffer();
 }
 
@@ -1027,37 +719,6 @@ function initObstacleFramebuffer() {
     renderObstacleMask();
 }
 
-function initBloomFramebuffers() {
-    let res = getResolution(config.BLOOM_RESOLUTION);
-
-    const texType = ext.halfFloatTexType;
-    const rgba = ext.formatRGBA;
-    const filtering = ext.supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
-
-    bloom = createFBO(res.width, res.height, rgba.internalFormat, rgba.format, texType, filtering);
-
-    bloomFramebuffers.length = 0;
-    for (let i = 0; i < config.BLOOM_ITERATIONS; i++) {
-        let width = res.width >> (i + 1);
-        let height = res.height >> (i + 1);
-
-        if (width < 2 || height < 2) break;
-
-        let fbo = createFBO(width, height, rgba.internalFormat, rgba.format, texType, filtering);
-        bloomFramebuffers.push(fbo);
-    }
-}
-
-function initSunraysFramebuffers() {
-    let res = getResolution(config.SUNRAYS_RESOLUTION);
-
-    const texType = ext.halfFloatTexType;
-    const r = ext.formatR;
-    const filtering = ext.supportLinearFiltering ? gl.LINEAR : gl.NEAREST;
-
-    sunrays = createFBO(res.width, res.height, r.internalFormat, r.format, texType, filtering);
-    sunraysTemp = createFBO(res.width, res.height, r.internalFormat, r.format, texType, filtering);
-}
 
 function createFBO(w, h, internalFormat, format, type, param) {
     gl.activeTexture(gl.TEXTURE0);
@@ -1142,45 +803,52 @@ function resizeDoubleFBO(target, w, h, internalFormat, format, type, param) {
     return target;
 }
 
-function createTextureAsync(url) {
-    let texture = gl.createTexture();
-    gl.bindTexture(gl.TEXTURE_2D, texture);
+
+let asciiTexture = null;
+function updateAsciiTexture() {
+    if (!config.ASCII) return;
+
+    let chars = config.ASCII_CHARS;
+    let canvas = document.createElement('canvas');
+    let ctx = canvas.getContext('2d');
+    let size = 64; // size per character
+    canvas.width = chars.length * size;
+    canvas.height = size;
+
+    ctx.fillStyle = "black";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.font = "bold 54px monospace";
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+
+    for (let i = 0; i < chars.length; i++) {
+        ctx.fillText(chars[i], i * size + size / 2, size / 2 + 4);
+    }
+
+    if (asciiTexture == null) {
+        asciiTexture = {
+            texture: gl.createTexture(),
+            attach(id) {
+                gl.activeTexture(gl.TEXTURE0 + id);
+                gl.bindTexture(gl.TEXTURE_2D, this.texture);
+                return id;
+            }
+        };
+    }
+
+    gl.bindTexture(gl.TEXTURE_2D, asciiTexture.texture);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
     gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
-    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.REPEAT);
-    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, 1, 1, 0, gl.RGB, gl.UNSIGNED_BYTE, new Uint8Array([255, 255, 255]));
-
-    let obj = {
-        texture,
-        width: 1,
-        height: 1,
-        attach(id) {
-            gl.activeTexture(gl.TEXTURE0 + id);
-            gl.bindTexture(gl.TEXTURE_2D, texture);
-            return id;
-        }
-    };
-
-    let image = new Image();
-    image.onload = () => {
-        obj.width = image.width;
-        obj.height = image.height;
-        gl.bindTexture(gl.TEXTURE_2D, texture);
-        gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGB, gl.RGB, gl.UNSIGNED_BYTE, image);
-    };
-    image.src = url;
-
-    return obj;
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, canvas);
 }
 
+
 function updateKeywords() {
-    let displayKeywords = [];
-    if (config.SHADING) displayKeywords.push("SHADING");
-    if (config.BLOOM) displayKeywords.push("BLOOM");
-    if (config.SUNRAYS) displayKeywords.push("SUNRAYS");
-    if (config.OBSTACLE_ENABLED && !config.OBSTACLE_TRANSPARENT) displayKeywords.push("OBSTACLE");
-    displayMaterial.setKeywords(displayKeywords);
+    displayMaterial.setKeywords([]);
     updateObstacle();
 }
 
@@ -1333,13 +1001,7 @@ function renderObstacleMask() {
 updateKeywords();
 initFramebuffers();
 
-// first random fluid
-if (config.SPLAT_ON_START) {
-    multipleSplats(config.SPLAT_ON_START_AMOUNT);
-}
-
 let lastUpdateTime = Date.now();
-let colorUpdateTimer = 0.0;
 
 window.fluidToContainer = function (fluidContainer) {
     // console.log('fluid to container');
@@ -1437,12 +1099,12 @@ function checkContainerUpdates() {
                 }, 500);
             });
 
-            fluidContainer.addEventListener('mouseenter', () => {
-                if (!fluidContainer.classList.contains('fluid-container-show')) {
-                    fluidContainer.classList.add('fluid-container-show');
-                    containerToFluid(fluidContainer);
-                }
-            });
+            // fluidContainer.addEventListener('mouseenter', () => {
+            //     if (!fluidContainer.classList.contains('fluid-container-show')) {
+            //         fluidContainer.classList.add('fluid-container-show');
+            //         containerToFluid(fluidContainer);
+            //     }
+            // });
 
         }
     });
@@ -1456,7 +1118,6 @@ function update() {
         initFramebuffers();
     checkObstacleUpdates();
     checkContainerUpdates();
-    updateColors(dt);
     applyInputs();
     if (!config.PAUSED)
         step(dt);
@@ -1483,22 +1144,7 @@ function resizeCanvas() {
     return false;
 }
 
-function updateColors(dt) {
-    if (!config.COLORFUL) {
-        pointers.forEach(p => {
-            p.color = generateColor();
-        });
-        return;
-    }
 
-    colorUpdateTimer += dt * config.COLOR_UPDATE_SPEED;
-    if (colorUpdateTimer >= 1) {
-        colorUpdateTimer = wrap(colorUpdateTimer, 0, 1);
-        pointers.forEach(p => {
-            p.color = generateColor();
-        });
-    }
-}
 
 function applyInputs() {
     if (splatStack.length > 0)
@@ -1588,25 +1234,9 @@ function step(dt) {
 }
 
 function render(target) {
-    if (config.BLOOM)
-        applyBloom(dye.read, bloom);
-    if (config.SUNRAYS) {
-        applySunrays(dye.read, dye.write, sunrays);
-        blur(sunrays, sunraysTemp, 1);
-    }
-
-    if (target == null || !config.TRANSPARENT) {
-        gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
-        gl.enable(gl.BLEND);
-    }
-    else {
-        gl.disable(gl.BLEND);
-    }
-
-    if (!config.TRANSPARENT)
-        drawColor(target, normalizeColor(config.BACK_COLOR));
-    if (target == null && config.TRANSPARENT)
-        drawCheckerboard(target);
+    gl.blendFunc(gl.ONE, gl.ONE_MINUS_SRC_ALPHA);
+    gl.enable(gl.BLEND);
+    drawColor(target, normalizeColor(config.BACK_COLOR));
     drawDisplay(target);
 }
 
@@ -1616,104 +1246,27 @@ function drawColor(target, color) {
     blit(target);
 }
 
-function drawCheckerboard(target) {
-    checkerboardProgram.bind();
-    gl.uniform1f(checkerboardProgram.uniforms.aspectRatio, fluid_canvas.width / fluid_canvas.height);
-    blit(target);
-}
-
 function drawDisplay(target) {
     let width = target == null ? gl.drawingBufferWidth : target.width;
     let height = target == null ? gl.drawingBufferHeight : target.height;
 
     displayMaterial.bind();
-    if (config.SHADING)
-        gl.uniform2f(displayMaterial.uniforms.texelSize, 1.0 / width, 1.0 / height);
     gl.uniform1i(displayMaterial.uniforms.uTexture, dye.read.attach(0));
-    if (config.BLOOM) {
-        gl.uniform1i(displayMaterial.uniforms.uBloom, bloom.attach(1));
-        gl.uniform1i(displayMaterial.uniforms.uDithering, ditheringTexture.attach(2));
-        let scale = getTextureScale(ditheringTexture, width, height);
-        gl.uniform2f(displayMaterial.uniforms.ditherScale, scale.x, scale.y);
+
+    if (config.ASCII) {
+        if (!asciiTexture) updateAsciiTexture();
+        let pixelRatio = window.devicePixelRatio || 1;
+        gl.uniform1i(displayMaterial.uniforms.uAsciiTexture, asciiTexture.attach(5));
+        gl.uniform1f(displayMaterial.uniforms.uAsciiCharsCount, config.ASCII_CHARS.length);
+        gl.uniform1f(displayMaterial.uniforms.uAsciiCellSize, config.ASCII_CELL_SIZE * pixelRatio);
+        gl.uniform3f(displayMaterial.uniforms.uAsciiColor, config.ASCII_COLOR.r / 255.0, config.ASCII_COLOR.g / 255.0, config.ASCII_COLOR.b / 255.0);
+        gl.uniform2f(displayMaterial.uniforms.uScreenSize, width, height);
     }
-    if (config.SUNRAYS)
-        gl.uniform1i(displayMaterial.uniforms.uSunrays, sunrays.attach(3));
-    gl.uniform1i(displayMaterial.uniforms.uObstacle, obstacle.attach(4));
-    gl.uniform3f(displayMaterial.uniforms.uObstacleColor, config.OBSTACLE_COLOR.r / 255.0, config.OBSTACLE_COLOR.g / 255.0, config.OBSTACLE_COLOR.b / 255.0);
-    gl.uniform1i(displayMaterial.uniforms.uObstacleUseSvgColor, config.OBSTACLE_USE_SVG_COLOR);
+
     blit(target);
 }
 
-function applyBloom(source, destination) {
-    if (bloomFramebuffers.length < 2)
-        return;
 
-    let last = destination;
-
-    gl.disable(gl.BLEND);
-    bloomPrefilterProgram.bind();
-    let knee = config.BLOOM_THRESHOLD * config.BLOOM_SOFT_KNEE + 0.0001;
-    let curve0 = config.BLOOM_THRESHOLD - knee;
-    let curve1 = knee * 2;
-    let curve2 = 0.25 / knee;
-    gl.uniform3f(bloomPrefilterProgram.uniforms.curve, curve0, curve1, curve2);
-    gl.uniform1f(bloomPrefilterProgram.uniforms.threshold, config.BLOOM_THRESHOLD);
-    gl.uniform1i(bloomPrefilterProgram.uniforms.uTexture, source.attach(0));
-    blit(last);
-
-    bloomBlurProgram.bind();
-    for (let i = 0; i < bloomFramebuffers.length; i++) {
-        let dest = bloomFramebuffers[i];
-        gl.uniform2f(bloomBlurProgram.uniforms.texelSize, last.texelSizeX, last.texelSizeY);
-        gl.uniform1i(bloomBlurProgram.uniforms.uTexture, last.attach(0));
-        blit(dest);
-        last = dest;
-    }
-
-    gl.blendFunc(gl.ONE, gl.ONE);
-    gl.enable(gl.BLEND);
-
-    for (let i = bloomFramebuffers.length - 2; i >= 0; i--) {
-        let baseTex = bloomFramebuffers[i];
-        gl.uniform2f(bloomBlurProgram.uniforms.texelSize, last.texelSizeX, last.texelSizeY);
-        gl.uniform1i(bloomBlurProgram.uniforms.uTexture, last.attach(0));
-        gl.viewport(0, 0, baseTex.width, baseTex.height);
-        blit(baseTex);
-        last = baseTex;
-    }
-
-    gl.disable(gl.BLEND);
-    bloomFinalProgram.bind();
-    gl.uniform2f(bloomFinalProgram.uniforms.texelSize, last.texelSizeX, last.texelSizeY);
-    gl.uniform1i(bloomFinalProgram.uniforms.uTexture, last.attach(0));
-    gl.uniform1f(bloomFinalProgram.uniforms.intensity, config.BLOOM_INTENSITY);
-    blit(destination);
-}
-
-function applySunrays(source, mask, destination) {
-    gl.disable(gl.BLEND);
-    sunraysMaskProgram.bind();
-    gl.uniform1i(sunraysMaskProgram.uniforms.uTexture, source.attach(0));
-    blit(mask);
-
-    sunraysProgram.bind();
-    gl.uniform1f(sunraysProgram.uniforms.weight, config.SUNRAYS_WEIGHT);
-    gl.uniform1i(sunraysProgram.uniforms.uTexture, mask.attach(0));
-    blit(destination);
-}
-
-function blur(target, temp, iterations) {
-    blurProgram.bind();
-    for (let i = 0; i < iterations; i++) {
-        gl.uniform2f(blurProgram.uniforms.texelSize, target.texelSizeX, 0.0);
-        gl.uniform1i(blurProgram.uniforms.uTexture, target.attach(0));
-        blit(temp);
-
-        gl.uniform2f(blurProgram.uniforms.texelSize, 0.0, target.texelSizeY);
-        gl.uniform1i(blurProgram.uniforms.uTexture, temp.attach(0));
-        blit(target);
-    }
-}
 
 function splatPointer(pointer) {
     let dx = pointer.deltaX * config.SPLAT_FORCE;
@@ -1724,10 +1277,7 @@ function splatPointer(pointer) {
 // FIRST SPLASH CONFIG
 function multipleSplats(amount) {
     for (let i = 0; i < amount; i++) {
-        const color = generateColor();
-        color.r *= 10.0;
-        color.g *= 10.0;
-        color.b *= 10.0;
+        const color = { r: 1.5, g: 1.5, b: 1.5 };
         const x = Math.random();
         const y = Math.random();
         const dx = 1000 * (Math.random() - 0.5);
@@ -1738,21 +1288,6 @@ function multipleSplats(amount) {
     }
 }
 
-function fullscreenSplats(amount) {
-    for (let i = 0; i < amount; i++) {
-        const color = generateColor();
-        color.r = 0;
-        color.g = 0;
-        color.b = 1;
-        const x = Math.random();
-        const y = Math.random();
-        const dx = 1000 * (Math.random() - 0.5);
-        const dy = 1000 * (Math.random() - 0.5);
-        // splat(x, y, dx, dy, color);
-        // splat(0.5, 0.6, dx, dy, color);
-        splat(Math.random(), Math.random(), dx, dy, color);
-    }
-}
 
 function splat(x, y, dx, dy, color) {
     splatProgram.bind();
@@ -1862,7 +1397,7 @@ function updatePointerDownData(pointer, id, posX, posY) {
     pointer.prevTexcoordY = pointer.texcoordY;
     pointer.deltaX = 0;
     pointer.deltaY = 0;
-    pointer.color = generateColor();
+    pointer.color = { r: 0.15, g: 0.15, b: 0.15 };
 }
 
 function updatePointerMoveData(pointer, posX, posY) {
@@ -1891,51 +1426,6 @@ function correctDeltaY(delta) {
     return delta;
 }
 
-function randomBetween(min, max) {
-    return Math.random() * (max - min) + min;
-}
-
-function generateColor() {
-    let c;
-    if (config.COLORFUL) {
-        c = HSVtoRGB(randomBetween(config.COLOR_MIN, config.COLOR_MAX), 1, 1);
-
-    } else {
-        c = {
-            r: config.SPLASH_COLOR.r / 255,
-            g: config.SPLASH_COLOR.g / 255,
-            b: config.SPLASH_COLOR.b / 255
-        };
-    }
-    c.r *= 0.15;
-    c.g *= 0.15;
-    c.b *= 0.15;
-    return c;
-}
-
-function HSVtoRGB(h, s, v) {
-    let r, g, b, i, f, p, q, t;
-    i = Math.floor(h * 6);
-    f = h * 6 - i;
-    p = v * (1 - s);
-    q = v * (1 - f * s);
-    t = v * (1 - (1 - f) * s);
-
-    switch (i % 6) {
-        case 0: r = v, g = t, b = p; break;
-        case 1: r = q, g = v, b = p; break;
-        case 2: r = p, g = v, b = t; break;
-        case 3: r = p, g = q, b = v; break;
-        case 4: r = t, g = p, b = v; break;
-        case 5: r = v, g = p, b = q; break;
-    }
-
-    return {
-        r,
-        g,
-        b
-    };
-}
 
 function normalizeColor(input) {
     let output = {
@@ -1946,11 +1436,6 @@ function normalizeColor(input) {
     return output;
 }
 
-function wrap(value, min, max) {
-    let range = max - min;
-    if (range == 0) return min;
-    return (value - min) % range + min;
-}
 
 function getResolution(resolution) {
     let aspectRatio = gl.drawingBufferWidth / gl.drawingBufferHeight;
@@ -1966,13 +1451,6 @@ function getResolution(resolution) {
         return { width: min, height: max };
 }
 
-function getTextureScale(texture, width, height) {
-
-    return {
-        x: width / texture.width,
-        y: height / texture.height
-    };
-}
 
 function scaleByPixelRatio(input) {
     let pixelRatio = window.devicePixelRatio || 1;

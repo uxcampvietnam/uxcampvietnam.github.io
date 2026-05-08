@@ -394,7 +394,7 @@ span {
 
   /* main background */
   --main-colors-background-b100: #ffffff;
-  --main-colors-background-b-200-slide-bg: #F4EDE4;
+  --main-colors-background-b-200-slide-bg: rgb(244, 237, 228);
   --main-colors-background-b-300-main: #F5EADB;
   --main-colors-background-b400: #f1d7b7;
   --main-colors-background-b500: #cabdb0;
@@ -461,11 +461,18 @@ span {
   --highlight-yellow: #dca015;
   --highlight-magenta: #e523de;
 
-  --applied-analytic-main: #0000ff;
-  --applied-analytic-main-hover: #312FFA;
+  /*Applied Analytic variables */
+  --applied-analytic-main: #000000;
+  --applied-analytic-secondary: #5b5b5b;
 
 
-  --applied-analytic-text-color: #0000ff;
+  --applied-analytic-reverse-main: #ffffff;
+  --applied-analytic-reverse-secondary: #a5a5a5;
+
+  --applied-analytic-background: #f5f5f5;
+  --console-stroke: rgb(200, 200, 200);
+
+  --applied-analytic-main-hover: #404040;
 
   /* =====================
      MONO
@@ -480,6 +487,116 @@ span {
   /* letter spacing */
   --ls: 0.012em;
 }
+
+/*  ======================= */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+
+    /*Applied Analytic variables */
+    --applied-analytic-main: #fff;
+    --applied-analytic-secondary: #c1c1c1;
+
+    --applied-analytic-reverse-main: #000000;
+    --applied-analytic-reverse-secondary: #5b5b5b;
+
+    --applied-analytic-background: #000000;
+    --console-stroke: hsl(0, 0%, 24%);
+
+    --applied-analytic-main-hover: #cccccc;
+
+
+
+
+
+    --body-background: #000000;
+    --collection-bacground: #141414;
+    --saved-tab-item-background: #1A1A1A;
+    --saved-tab-item-background-hover: #292929;
+
+    --button-background: rgba(80, 124, 175, 0.25);
+    --button-background-hover: rgba(92, 133, 182, 0.35);
+
+    /* main foreground */
+    --main-colors-foreground-f100: #ffffff;
+    --main-colors-foreground-f200: #faf9fa;
+    --main-colors-foreground-f300: #f1eef1;
+    --main-colors-foreground-f400: #e0dbe0;
+    --main-colors-foreground-f-500-main: #c9c4ca;
+    --main-colors-foreground-f600: #a8a4ad;
+    --main-colors-foreground-f700: #85808e;
+    --main-colors-foreground-f800: #636270;
+    --main-colors-foreground-f900: #454654;
+
+    /* main background */
+    --main-colors-background-b100: #000000;
+    --main-colors-background-b-200-slide-bg: #010409;
+    --main-colors-background-b-300-main: #020a18;
+    --main-colors-background-b400: #121721;
+    --main-colors-background-b500: #262a35;
+    --main-colors-background-b600: #454654;
+    --main-colors-background-b700: #636270;
+    --main-colors-background-elevate-1: #0F141C;
+    --main-colors-background-elevate-2: #121821;
+    --transparent-background-elevate-blur: rgba(1, 4, 9, 0.2);
+
+
+    /* transparent foreground */
+    --transparent-foreground-main-color-100: #c9c4ca;
+    --transparent-foreground-main-color-90: rgba(201, 196, 202, 0.9);
+    --transparent-foreground-main-color-80: rgba(201, 196, 202, 0.8);
+    --transparent-foreground-main-color-70: rgba(201, 196, 202, 0.7);
+    --transparent-foreground-main-color-60: rgba(201, 196, 202, 0.6);
+    --transparent-foreground-main-color-50: rgba(201, 196, 202, 0.5);
+    --transparent-foreground-main-color-40: rgba(201, 196, 202, 0.4);
+    --transparent-foreground-main-color-30: rgba(201, 196, 202, 0.3);
+    --transparent-foreground-main-color-20: rgba(201, 196, 202, 0.2);
+    --transparent-foreground-main-color-10: rgba(201, 196, 202, 0.1);
+    --transparent-foreground-main-color-05: rgba(201, 196, 202, 0.05);
+
+    /* transparent background */
+    --transparent-background-bg-color-100: #020a18;
+    --transparent-background-bg-color-90: rgba(2, 10, 24, 0.9);
+    --transparent-background-bg-color-80: rgba(2, 10, 24, 0.8);
+    --transparent-background-bg-color-70: rgba(2, 10, 24, 0.7);
+    --transparent-background-bg-color-60: rgba(2, 10, 24, 0.6);
+    --transparent-background-bg-color-50: rgba(2, 10, 24, 0.5);
+    --transparent-background-bg-color-40: rgba(2, 10, 24, 0.4);
+    --transparent-background-bg-color-30: rgba(2, 10, 24, 0.3);
+    --transparent-background-bg-color-20: rgba(2, 10, 24, 0.2);
+    --transparent-background-bg-color-10: rgba(2, 10, 24, 0.1);
+    --transparent-background-bg-color-05: rgba(2, 10, 24, 0.05);
+
+    /* alternative foreground */
+    --alternative-foreground-blue: #b0ace4;
+    --alternative-foreground-green: #9fe1ab;
+    --alternative-foreground-red: #e49da0;
+    --alternative-foreground-yellow: #e4d1a1;
+    --alternative-foreground-magenta: #e4b0d0;
+    --alternative-foreground-cyan: #dff3ff;
+    --alternative-foreground-gold: #D4D1C5;
+    --alternative-foreground-light-gold: rgba(212, 209, 197, 0.5);
+
+    /* alternative background */
+    --alternative-background-blue-case-study: #0C0B31;
+    --alternative-background-green-further-reading: #142617;
+    --alternative-background-red-to-do: #320D0D;
+    --alternative-background-yellow-quiz: #2E2814;
+    --alternative-background-magenta: #52183E;
+    --alternative-background-cyan: #143849;
+    --alternative-background-gold: #878377;
+    --alternative-background-light-gold: rgba(135, 131, 119, 0.5);
+
+    /* highlight */
+    --highlight-blue: #2e7aed;
+    --highlight-green: #68ee47;
+    --highlight-red: #ff6464;
+    --highlight-yellow: #ffcc54;
+    --highlight-magenta: #ff64f9;
+  }
+}
+
+
 
 /* ======================================================
    DEFAULT = MOBILE
@@ -768,103 +885,6 @@ span {
   }
 }
 
-
-/*  ======================= */
-
-@media (prefers-color-scheme: dark) {
-  :root {
-
-    --applied-analytic-text-color: #ffffff;
-    --applied-analytic-main-hover: #0001CE;
-
-    --body-background: #000000;
-    --collection-bacground: #141414;
-    --saved-tab-item-background: #1A1A1A;
-    --saved-tab-item-background-hover: #292929;
-
-    --button-background: rgba(80, 124, 175, 0.25);
-    --button-background-hover: rgba(92, 133, 182, 0.35);
-
-    /* main foreground */
-    --main-colors-foreground-f100: #ffffff;
-    --main-colors-foreground-f200: #faf9fa;
-    --main-colors-foreground-f300: #f1eef1;
-    --main-colors-foreground-f400: #e0dbe0;
-    --main-colors-foreground-f-500-main: #c9c4ca;
-    --main-colors-foreground-f600: #a8a4ad;
-    --main-colors-foreground-f700: #85808e;
-    --main-colors-foreground-f800: #636270;
-    --main-colors-foreground-f900: #454654;
-
-    /* main background */
-    --main-colors-background-b100: #000000;
-    --main-colors-background-b-200-slide-bg: #010409;
-    --main-colors-background-b-300-main: #020a18;
-    --main-colors-background-b400: #121721;
-    --main-colors-background-b500: #262a35;
-    --main-colors-background-b600: #454654;
-    --main-colors-background-b700: #636270;
-    --main-colors-background-elevate-1: #0F141C;
-    --main-colors-background-elevate-2: #121821;
-    --transparent-background-elevate-blur: rgba(1, 4, 9, 0.2);
-
-
-    /* transparent foreground */
-    --transparent-foreground-main-color-100: #c9c4ca;
-    --transparent-foreground-main-color-90: rgba(201, 196, 202, 0.9);
-    --transparent-foreground-main-color-80: rgba(201, 196, 202, 0.8);
-    --transparent-foreground-main-color-70: rgba(201, 196, 202, 0.7);
-    --transparent-foreground-main-color-60: rgba(201, 196, 202, 0.6);
-    --transparent-foreground-main-color-50: rgba(201, 196, 202, 0.5);
-    --transparent-foreground-main-color-40: rgba(201, 196, 202, 0.4);
-    --transparent-foreground-main-color-30: rgba(201, 196, 202, 0.3);
-    --transparent-foreground-main-color-20: rgba(201, 196, 202, 0.2);
-    --transparent-foreground-main-color-10: rgba(201, 196, 202, 0.1);
-    --transparent-foreground-main-color-05: rgba(201, 196, 202, 0.05);
-
-    /* transparent background */
-    --transparent-background-bg-color-100: #020a18;
-    --transparent-background-bg-color-90: rgba(2, 10, 24, 0.9);
-    --transparent-background-bg-color-80: rgba(2, 10, 24, 0.8);
-    --transparent-background-bg-color-70: rgba(2, 10, 24, 0.7);
-    --transparent-background-bg-color-60: rgba(2, 10, 24, 0.6);
-    --transparent-background-bg-color-50: rgba(2, 10, 24, 0.5);
-    --transparent-background-bg-color-40: rgba(2, 10, 24, 0.4);
-    --transparent-background-bg-color-30: rgba(2, 10, 24, 0.3);
-    --transparent-background-bg-color-20: rgba(2, 10, 24, 0.2);
-    --transparent-background-bg-color-10: rgba(2, 10, 24, 0.1);
-    --transparent-background-bg-color-05: rgba(2, 10, 24, 0.05);
-
-    /* alternative foreground */
-    --alternative-foreground-blue: #b0ace4;
-    --alternative-foreground-green: #9fe1ab;
-    --alternative-foreground-red: #e49da0;
-    --alternative-foreground-yellow: #e4d1a1;
-    --alternative-foreground-magenta: #e4b0d0;
-    --alternative-foreground-cyan: #dff3ff;
-    --alternative-foreground-gold: #D4D1C5;
-    --alternative-foreground-light-gold: rgba(212, 209, 197, 0.5);
-
-    /* alternative background */
-    --alternative-background-blue-case-study: #0C0B31;
-    --alternative-background-green-further-reading: #142617;
-    --alternative-background-red-to-do: #320D0D;
-    --alternative-background-yellow-quiz: #2E2814;
-    --alternative-background-magenta: #52183E;
-    --alternative-background-cyan: #143849;
-    --alternative-background-gold: #878377;
-    --alternative-background-light-gold: rgba(135, 131, 119, 0.5);
-
-    /* highlight */
-    --highlight-blue: #2e7aed;
-    --highlight-green: #68ee47;
-    --highlight-red: #ff6464;
-    --highlight-yellow: #ffcc54;
-    --highlight-magenta: #ff64f9;
-  }
-}
-
-
 /* Custom scroll bar ============================*/
 /* width */
 ::-webkit-scrollbar {
@@ -998,7 +1018,6 @@ span:has(input[type="checkbox"]:checked) {
 span:has(input[type="radio"]:not(:checked)),
 span:has(input[type="checkbox"]:not(:checked)) {
   opacity: 0.6;
-  /* background: var(--main-colors-background-b200); */
 }
 
 span:has(input[type="radio"]) input[type="radio"],

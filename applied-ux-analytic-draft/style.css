@@ -1,0 +1,717 @@
+/* Applied UX Analytic =========================== */
+
+#footer .eye-logo {
+    /* width: 398px;
+	height: auto; */
+    width: 84px;
+    height: auto;
+    margin-bottom: 32px;
+}
+
+#footer span {
+    color: var(--main-colors-foreground-f800);
+}
+
+.footer {
+    padding: 32px var(--spacing-m);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+
+.footer .footer-content>div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 32px;
+    gap: 12px;
+}
+
+
+.footer * {
+    z-index: 500;
+}
+
+.footer .fluid-obstacle {
+    width: 80%;
+    height: auto;
+}
+
+
+/* ================================= */
+
+
+.fluid-obstacle * {
+    fill: var(--applied-analytic-main);
+}
+
+.applied-ux-analytic-container * {
+    color: var(--applied-analytic-main);
+}
+
+.bootcamp-goal-card-above.clicked {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.bootcamp-name-hero {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+}
+
+.bootcamp-name-hero-hide * {
+    display: none;
+}
+
+.applied-ux-analytic-name-fluid.text * {
+    opacity: 0;
+}
+
+.applied-ux-analytic-name-fluid {
+    transition: opacity 0.1s ease-in-out;
+    position: fixed;
+    overflow: visible;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50vw !important;
+    height: auto !important;
+    aspect-ratio: 1/1;
+    z-index: 200 !important;
+}
+
+.applied-ux-analytic-name-fluid.fluid-obstacle {
+    z-index: 100 !important;
+}
+
+.applied-ux-analytic-name-fluid * {
+    fill: var(--applied-analytic-main);
+}
+
+.applied-ux-analytic-name-fluid.fluid-obstacle * {
+    fill: var(--applied-analytic-background);
+}
+
+
+.portraitLight {
+    display: block;
+}
+
+.portraitDark {
+    display: none;
+}
+
+
+.primary-text {
+    color: var(--applied-analytic-main);
+}
+
+.secondary-text {
+    color: var(--applied-analytic-secondary);
+}
+
+@media (prefers-color-scheme: dark) {
+    .portraitLight {
+        display: none;
+    }
+
+    .portraitDark {
+        display: block;
+    }
+}
+
+
+.applied-ux-analytic {
+    z-index: 200;
+    display: flex;
+    position: relative;
+    gap: 56px;
+    flex-direction: column;
+    overflow-x: visible;
+    padding: 32px var(--spacing-m);
+}
+
+
+#fluidCanvas {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.fluid-obstacle {
+    width: auto;
+    /* height: 100%; */
+}
+
+.obstacle-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+}
+
+.flex-left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: nowrap;
+}
+
+
+.bootcamp-goal-container {
+    border-bottom: 0.5px solid var(--applied-analytic-main);
+    padding-bottom: 24px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    align-self: stretch;
+    padding-top: 24px;
+}
+
+.bootcamp-section-content {
+    opacity: 1;
+}
+
+.char {
+    opacity: 0;
+}
+
+.syllabus-container .syllabus-ascii {
+    position: relative;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+.syllabus-container {
+    padding: 30px 0px;
+    border-bottom: 1px solid var(--applied-analytic-main);
+}
+
+.syllabus-container li {
+    padding: 8px 0px;
+}
+
+
+.social-links * {
+    fill: var(--applied-analytic-main);
+}
+
+
+
+.fluid-container {
+    /* border: solid 1px red; */
+    height: fit-content;
+    margin: 5px;
+}
+
+.bootcamp-goal-card-container {
+    position: relative;
+    height: 480px;
+    margin-bottom: 30px;
+}
+
+
+.bootcamp-goal-card-above {
+    height: 100%;
+    margin: 0px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--applied-analytic-background);
+    border: 1px solid var(--applied-analytic-main);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.bootcamp-goal-card-below {
+    height: 100%;
+    margin: 0px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    color: white;
+    transition: opacity 0;
+    z-index: 5 !important;
+    border: 1px solid var(--applied-analytic-main);
+}
+
+.bootcamp-goal-card-container:has(.bootcamp-goal-card-above.clicked) .bootcamp-goal-card-below {
+    opacity: 1;
+    transition: opacity 0.4s ease-in-out;
+}
+
+.bootcamp-goal-card-above div {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.bootcamp-section-full {
+    min-height: 50vh;
+}
+
+.bootcamp-section-full {
+    padding-bottom: 10vh;
+}
+
+
+.intro-section li {
+    padding-top: 8px;
+}
+
+.applied-ux-analytic-container,
+.applied-ux-analytic,
+.applied-ux-analytic-name-fluid,
+.applied-ux-analytic *:not(.syllabus-ascii):not(.syllabus-container):not(.fluid-container) {
+    pointer-events: none;
+}
+
+a,
+button {
+    pointer-events: all !important;
+    cursor: pointer;
+}
+
+.bootcamp-goal-card-above {
+    pointer-events: all !important;
+}
+
+svg path[fill="#0055FF"] {
+    fill: var(--applied-analytic-main);
+}
+
+svg path[fill="#FF0000"],
+svg path[fill="rgb(255, 0, 0)"] {
+    fill: var(--applied-analytic-background);
+}
+
+.bootcamp-section-content {
+    padding-top: 32px;
+    padding-bottom: 72px;
+}
+
+
+.bootcamp-section-content:has(.lecturer-ascii) {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    justify-content: center;
+}
+
+
+.progress-bar-indicator {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100000;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    background: var(--applied-analytic-background);
+    padding: 10px 24px;
+    gap: 10px;
+}
+
+#progress-indicator {
+    text-align: left;
+}
+
+.progress-bar {
+    width: 100%;
+    border-bottom: 1px solid var(--applied-analytic-main);
+}
+
+.progress-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.progress-list a {
+    text-decoration: none !important;
+}
+
+.ascii-row {
+    height: 1.6ch;
+    white-space: nowrap;
+    text-align: center;
+}
+
+.ascii-char {
+    display: inline-block;
+    text-align: center;
+    font-family: "Chivo Mono";
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 120%;
+    letter-spacing: -0.24px;
+}
+
+.closed-bootcamp * {
+    opacity: 0.5;
+}
+
+.closed-bootcamp {
+    background-color: var(--applied-analytic-background);
+    border: 0.1px solid var(--applied-analytic-background);
+}
+
+.open-bootcamp {
+    background-color: var(--applied-analytic-main);
+    border: 0.1px solid var(--applied-analytic-background);
+}
+
+.open-bootcamp * {
+    color: var(--applied-analytic-reverse-main);
+    text-decoration: none;
+}
+
+.open-bootcamp .register-link {
+    width: 100%;
+    background-color: var(--applied-analytic-background);
+    color: var(--applied-analytic-main);
+    padding: 10px 24px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.open-bootcamp,
+.closed-bootcamp {
+    padding: 20px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0px;
+}
+
+
+/* ===================================================
+   UX ANALYTICS LIVE CONSOLE
+=================================================== */
+
+.ux-console {
+    border: 1px solid var(--console-stroke);
+    width: 100%;
+    overflow: hidden;
+    background: var(--applied-analytic-background);
+    z-index: 500;
+}
+
+.ux-console-topbar {
+    border-bottom: 1px solid var(--console-stroke);
+    padding: 8px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+@keyframes ux-blink {
+
+    0%,
+    49% {
+        opacity: 1;
+    }
+
+    50%,
+    100% {
+        opacity: 0;
+    }
+}
+
+.ux-console-blink {
+    animation: ux-blink 1s step-end infinite;
+}
+
+.ux-cursor-blink {
+    animation: ux-blink 0.8s step-end infinite;
+    display: inline-block;
+}
+
+.ux-console-body {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+/* Panel */
+.ux-panel {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.ux-panel-left {
+    border-right: none;
+}
+
+@media (min-width: 992px) {
+    .ux-panel-left {
+        border-right: 1px solid var(--console-stroke);
+    }
+}
+
+/* Block */
+.ux-block {
+    border-bottom: 1px solid var(--console-stroke);
+    padding: 12px 16px;
+}
+
+.ux-block:last-child {
+    border-bottom: none;
+}
+
+.ux-block-title {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-bottom: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.ux-dash {
+    flex: 1;
+    height: 1px;
+    background-color: var(--console-stroke);
+    margin-left: 8px;
+    opacity: 0.4;
+    display: inline-block;
+}
+
+/* Key-Value grid */
+.ux-kv-grid {
+    display: grid;
+    grid-template-columns: auto 12px 1fr;
+    gap: 2px 4px;
+    align-items: center;
+}
+
+.ux-kv-spacer {
+    padding-top: 6px;
+    display: block;
+}
+
+/* Progress bar */
+.ux-progress-wrap {
+    display: flex !important;
+    align-items: center;
+    gap: 8px;
+}
+
+.ux-progress-bar {
+    display: inline-block;
+    width: 120px;
+    height: 10px;
+    border: 1px solid var(--console-stroke);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.ux-progress-fill {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    background: var(--console-stroke);
+}
+
+/* Attention state */
+.ux-state-active {
+    position: relative;
+    padding-left: 12px;
+}
+
+.ux-state-active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--applied-analytic-main);
+    animation: ux-blink 1.2s step-end infinite;
+}
+
+/* Scroll Heatmap */
+.ux-heatmap {
+    padding-top: 4px;
+}
+
+.ux-heatmap-chart {
+    display: flex;
+    align-items: flex-start;
+    /* y-axis top aligns with bar-wrap top */
+    gap: 8px;
+}
+
+.ux-heatmap-yaxis {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 120px;
+    /* must match .ux-bar-wrap height */
+    text-align: right;
+    flex-shrink: 0;
+    gap: 0;
+    /* no padding — 0 label aligns exactly with bar bottom */
+}
+
+/* .ux-heatmap-yaxis span {
+    font-size: 10px !important;
+    line-height: 1;
+} */
+
+.ux-heatmap-bars {
+    display: flex;
+    flex: 1;
+    align-items: flex-start;
+    /* columns start at the same top as y-axis */
+    gap: 6px;
+}
+
+.ux-heatmap-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+    gap: 4px;
+}
+
+.ux-heatmap-col>span {
+    /* font-size: 9px !important; */
+    margin-top: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    text-align: center;
+    display: block;
+}
+
+.ux-bar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    /* bar grows from the bottom of this box */
+    width: 100%;
+    height: 120px;
+    /* fixed — must match .ux-heatmap-yaxis height */
+}
+
+.ux-bar {
+    width: 80%;
+    max-width: 28px;
+    background: var(--applied-analytic-main);
+    /* no min-height: 0-second sections show no bar at all */
+}
+
+/* Event stream */
+.ux-event-stream {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.ux-event-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    line-height: 1.5;
+}
+
+.ux-pipe {
+    flex-shrink: 0;
+}
+
+.ux-event-time {
+    flex-shrink: 0;
+    min-width: 56px;
+}
+
+.ux-event-sep {
+    flex-shrink: 0;
+}
+
+.ux-event-alert .ux-event-time,
+.ux-event-alert span:last-child {
+    color: var(--applied-analytic-main) !important;
+    font-weight: 700;
+}
+
+/* User state grid */
+.ux-state-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    border: 1px solid var(--console-stroke);
+}
+
+.ux-state-cell {
+    padding: 8px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-right: 1px solid var(--console-stroke);
+    border-bottom: 1px solid var(--console-stroke);
+}
+
+.ux-state-cell:nth-child(even) {
+    border-right: none;
+}
+
+.ux-state-cell-full {
+    grid-column: 1 / -1;
+    border-right: none;
+}
+
+/* Funnel */
+.ux-funnel {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.ux-funnel-check {
+    flex-shrink: 0;
+    min-width: 28px;
+}
+
+.ux-funnel-check.done {
+    color: var(--applied-analytic-main) !important;
+}

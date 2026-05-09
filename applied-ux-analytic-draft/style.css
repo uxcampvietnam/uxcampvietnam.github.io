@@ -222,6 +222,7 @@
 .bootcamp-goal-card-container {
     position: relative;
     height: 480px;
+    border: 1px solid var(--applied-analytic-secondary);
     /* margin-bottom: 30px; */
 }
 
@@ -236,7 +237,6 @@
     align-items: center;
     justify-content: space-between;
     background-color: var(--applied-analytic-background);
-    border: 1px solid var(--applied-analytic-main);
     position: absolute;
     top: 0;
     left: 0;
@@ -257,7 +257,7 @@
     color: white;
     transition: opacity 0;
     z-index: 5 !important;
-    border: 1px solid var(--applied-analytic-main);
+    /* border: 1px solid var(--applied-analytic-main); */
 }
 
 .bootcamp-goal-card-container:has(.bootcamp-goal-card-above.clicked) .bootcamp-goal-card-below {
@@ -349,7 +349,7 @@ svg path[fill="rgb(255, 0, 0)"] {
 
 .progress-bar {
     width: 100%;
-    border-bottom: 1px solid var(--applied-analytic-main);
+    border-bottom: 1px solid var(--applied-analytic-secondary);
 }
 
 .progress-list {

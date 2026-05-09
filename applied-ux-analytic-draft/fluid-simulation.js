@@ -43,7 +43,7 @@ var defaultConfig = {
 
     // ASCII rendering
     ASCII: true,
-    ASCII_CHARS: " .:-=+*#%@",
+    ASCII_CHARS: " .:-=+*%#@",
     // ASCII_CHARS: " ⋅∘∙◌◯◎●",
     // ASCII_CHARS: " ▁▂▃▄▅▆▇█▃▂ ▁",
 

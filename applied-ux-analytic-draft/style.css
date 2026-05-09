@@ -8,13 +8,14 @@
     margin-bottom: 32px;
 }
 
+/* 
 #footer span {
     color: var(--main-colors-foreground-f800);
-}
+} */
 
 .footer {
     padding: 32px var(--spacing-m);
-    min-height: 100vh;
+    min-height: 50vh;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -81,7 +82,8 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 50vw !important;
+    width: 100% !important;
+    max-width: 1108px;
     height: auto !important;
     aspect-ratio: 1/1;
     z-index: 200 !important;
@@ -197,7 +199,7 @@
 
 .syllabus-container {
     padding: 30px 0px;
-    border-bottom: 1px solid var(--applied-analytic-main);
+    border-bottom: 1px solid var(--applied-analytic-secondary);
 }
 
 .syllabus-container li {
@@ -220,7 +222,7 @@
 .bootcamp-goal-card-container {
     position: relative;
     height: 480px;
-    margin-bottom: 30px;
+    /* margin-bottom: 30px; */
 }
 
 
@@ -295,6 +297,7 @@
 a,
 button {
     pointer-events: all !important;
+    text-decoration: none !important;
     cursor: pointer;
 }
 
@@ -714,4 +717,14 @@ svg path[fill="rgb(255, 0, 0)"] {
 
 .ux-funnel-check.done {
     color: var(--applied-analytic-main) !important;
+}
+
+
+.test {
+    background-color: blue;
+}
+
+.test * {
+    border: 1px solid red;
+    z-index: 10000;
 }

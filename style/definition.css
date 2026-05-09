@@ -494,8 +494,8 @@ span {
   :root {
 
     /*Applied Analytic variables */
-    --applied-analytic-main: #fff;
-    --applied-analytic-secondary: #c1c1c1;
+    --applied-analytic-main: #dfdfdf;
+    --applied-analytic-secondary: #666666;
 
     --applied-analytic-reverse-main: #000000;
     --applied-analytic-reverse-secondary: #5b5b5b;

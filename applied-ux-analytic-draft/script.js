@@ -10,27 +10,27 @@ function hideFluidText() {
 
 const ascii_art = {
   bootcamp_name: `
-uxcamp_vietnam                                                                                                   
-                                 ____      __                      __                                            
-                                   __                              __                                            
- _____    __ ____     __ ____      __    ____       _____      ___ __                                            
-      __  ____   __   ____   __    __      __     __    __   __   ___                                            
- _______  __     __   __     __    __      __     ________   __    __                                            
-__    __  ____   __   ____   __    __      __     __         __   ___                                            
- _______  __ ____     __ ____    ______  ______     ______     ___ __                                            
-          __          __                                                                                         
-          __          __                                                                                         
-                                                                                                                 
-                                                                 ||||                   ||          ||           
-                                                                   ||                   ||                       
+uxcamp_vietnam
+                                 ____      __                      __
+                                   __                              __
+ _____    __ ____     __ ____      __    ____       _____      ___ __
+      __  ____   __   ____   __    __      __     __    __   __   ___
+ _______  __     __   __     __    __      __     ________   __    __
+__    __  ____   __   ____   __    __      __     __         __   ___
+ _______  __ ____     __ ____    ______  ______     ______     ___ __
+          __          __
+          __          __
+
+                                                                 ||||                   ||          ||
+                                                                   ||                   ||
 ||     ||  ||      ||           |||||||   || ||||      ||||||      ||     ||     ||   ||||||      ||||     ||||||
 ||     ||    ||  ||                   ||  ||||   ||         ||     ||     ||     ||     ||          ||    ||     
 ||     ||      ||               ||||||||  ||     ||    |||||||     ||     ||    |||     ||          ||    ||     
 ||   ||||    ||  ||           ||      ||  ||     ||  ||     ||     ||       |||| ||     ||   ||     ||    ||     
  ||||| ||  ||      ||           ||||||||  ||     ||    |||||||   ||||||          ||      ||||     ||||||   ||||||
-                      |||||||                                             ||     ||                              
-                                                                            ||||||                               
-the_oracle_of_hidden_user_behavior                                                                               
+                      |||||||                                             ||     ||
+                                                                            ||||||
+the_oracle_of_hidden_user_behavior
 `,
   asciiIllus01: `
 ++++
@@ -277,7 +277,7 @@ the_oracle_of_hidden_user_behavior
                  .#@@..    :%-    .        :*.   *%..  .%*..  
 Giảng viên     . .#@@=     .*#.       .   ..+..  =%.   .%*.   
                   .*@%     .+@.   ..       .=..  -%..  :@*.  .
-Đỗ Minh Tâm  ›     .@.  .  .=@.  .          =.   :     +.   
+Đỗ Minh Tâm  ›     .@.  .  .=@.  .          =.   :     +.     
 `,
   portraitDark: `
                          .              .           .         
@@ -504,7 +504,7 @@ fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82
                 <span class="mono-body reverse-color">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
                 <span class="mono-body reverse-color">${item.pricing}</span>
                 <span class="mono-body reverse-color">${item.is_open == 1 ? "Đang mở đăng ký" : "Form closed"}</span>
-                ${item.is_open == 1 ? `<a href="${item.register_link}" class="mono-body register-link">Đăng ký ›</a>` : ''}
+                ${item.is_open == 1 ? `<a href="${item.register_link}" class="mono-body register-link button-reverse">Đăng ký ›</a>` : ''}
             `;
 
       container.appendChild(col);

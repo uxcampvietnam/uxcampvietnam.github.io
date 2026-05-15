@@ -30,6 +30,10 @@
         <header class="terminal-header">
             <p class="d-none d-md-block asciiIllus syllabus-ascii primary-text align-left avoid-mouse" data-avoid="true"
                 data-img-src="bootcamp_name"></p>
+
+            <p class="d-block d-md-none primary-text mono-body">uxcamp_vietnam <br>
+                applied_ux_analytic</p>
+
         </header>
 
         <input type="hidden" name="form_type" value="applied_ux_analytic">
@@ -185,13 +189,13 @@
                             </div>
                         </div>
                         <div class="col-6 col-md-4 col-lg-3">
-                            <div class="option-item mono-body">Health & Wellness<input type="checkbox" name="domains[]"
-                                    value="Health & Wellness">
+                            <div class="option-item mono-body">Health<input type="checkbox" name="domains[]"
+                                    value="Health">
                             </div>
                         </div>
                         <div class="col-6 col-md-4 col-lg-3">
-                            <div class="option-item mono-body">Ecommerce, Marketplace<input type="checkbox"
-                                    name="domains[]" value="Ecommerce, Marketplace"></div>
+                            <div class="option-item mono-body">Ecommerce<input type="checkbox" name="domains[]"
+                                    value="Ecommerce"></div>
                         </div>
                         <div class="col-6 col-md-4 col-lg-3">
                             <div class="option-item mono-body">Khác<input type="checkbox" name="domains[]" value="Khác">
@@ -215,14 +219,14 @@
                         </div>
 
                         <div class="col-6 col-md-4 col-lg-3">
-                            <div class="option-item mono-body">Plugins & Extensions<input type="checkbox"
-                                    name="product_types[]" value="Plugins & Extensions"></div>
+                            <div class="option-item mono-body">Extensions<input type="checkbox" name="product_types[]"
+                                    value="Extensions"></div>
                         </div>
 
 
                         <div class="col-6 col-md-4 col-lg-3">
-                            <div class="option-item mono-body">AI Prompts & Automation<input type="checkbox"
-                                    name="product_types[]" value="AI Prompts & Automation"></div>
+                            <div class="option-item mono-body">AI / Automation<input type="checkbox"
+                                    name="product_types[]" value="AI / Automation"></div>
                         </div>
 
                         <div class="col-6 col-md-4 col-lg-3">
@@ -265,27 +269,29 @@
 
                         <tbody>
                             <tr class="matrix-section-header">
-                                <td>[Quy trình xác định mục tiêu]</td>
+                                <td>[Xác định mục tiêu]</td>
                                 <td>1</td>
                                 <td>2</td>
                                 <td>3</td>
                             </tr>
                             <tr>
-                                <td>Xác định product goal</td>
-                                <td class="matrix-option"><input type="radio" name="phase_business_goal" value="1"
+                                <td>Define product goal</td>
+                                <td class="matrix-option"><input type="radio" name="phase_product_goal" value="1"
                                         required></td>
-                                <td class="matrix-option"><input type="radio" name="phase_business_goal" value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="phase_business_goal" value="3"></td>
+                                <td class="matrix-option"><input type="radio" name="phase_product_goal" value="2"></td>
+                                <td class="matrix-option"><input type="radio" name="phase_product_goal" value="3"></td>
                             </tr>
                             <tr>
-                                <td>Xác định customer journey hoặc user flow</td>
-                                <td class="matrix-option"><input type="radio" name="phase_user_journey" value="1"
+                                <td>Define customer journey hoặc user flow</td>
+                                <td class="matrix-option"><input type="radio" name="phase_customer_journey" value="1"
                                         required></td>
-                                <td class="matrix-option"><input type="radio" name="phase_user_journey" value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="phase_user_journey" value="3"></td>
+                                <td class="matrix-option"><input type="radio" name="phase_customer_journey" value="2">
+                                </td>
+                                <td class="matrix-option"><input type="radio" name="phase_customer_journey" value="3">
+                                </td>
                             </tr>
                             <tr>
-                                <td>Xác định success metric</td>
+                                <td>Define key metrics</td>
                                 <td class="matrix-option"><input type="radio" name="phase_key_metrics" value="1"
                                         required></td>
                                 <td class="matrix-option"><input type="radio" name="phase_key_metrics" value="2"></td>
@@ -293,7 +299,7 @@
                             </tr>
 
                             <tr class="matrix-section-header">
-                                <td>[Quy trình cài đặt tracking, kiểm thử]</td>
+                                <td>[Cài đặt tracking]</td>
                                 <td>1</td>
                                 <td>2</td>
                                 <td>3</td>
@@ -337,7 +343,7 @@
                             </tr>
 
                             <tr class="matrix-section-header">
-                                <td>[Quy trình phân tích]</td>
+                                <td>[Phân tích]</td>
                                 <td>1</td>
                                 <td>2</td>
                                 <td>3</td>
@@ -372,11 +378,11 @@
                             </tr>
                             <tr>
                                 <td>Phân tích conversion rate</td>
-                                <td class="matrix-option"><input type="radio" name="phase_funnel_cr_analysis" value="1"
+                                <td class="matrix-option"><input type="radio" name="phase_cr_analysis" value="1"
                                         required></td>
-                                <td class="matrix-option"><input type="radio" name="phase_funnel_cr_analysis" value="2">
+                                <td class="matrix-option"><input type="radio" name="phase_cr_analysis" value="2">
                                 </td>
-                                <td class="matrix-option"><input type="radio" name="phase_funnel_cr_analysis" value="3">
+                                <td class="matrix-option"><input type="radio" name="phase_cr_analysis" value="3">
                                 </td>
                             </tr>
                             <tr>
@@ -398,17 +404,17 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Xây dựng dashboard số liệu</td>
-                                <td class="matrix-option"><input type="radio" name="phase_dashboard_building" value="1"
+                                <td>Build metrics dashboard</td>
+                                <td class="matrix-option"><input type="radio" name="phase_build_dashboard" value="1"
                                         required></td>
-                                <td class="matrix-option"><input type="radio" name="phase_dashboard_building" value="2">
+                                <td class="matrix-option"><input type="radio" name="phase_build_dashboard" value="2">
                                 </td>
-                                <td class="matrix-option"><input type="radio" name="phase_dashboard_building" value="3">
+                                <td class="matrix-option"><input type="radio" name="phase_build_dashboard" value="3">
                                 </td>
                             </tr>
 
                             <tr class="matrix-section-header">
-                                <td>[Phương pháp nghiên cứu giải thích]</td>
+                                <td>[Nghiên cứu giải thích]</td>
                                 <td>1</td>
                                 <td>2</td>
                                 <td>3</td>
@@ -424,7 +430,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Focus group discussion</td>
+                                <td>Focus group</td>
                                 <td class="matrix-option"><input type="radio" name="phase_focus_group" value="1"
                                         required></td>
                                 <td class="matrix-option"><input type="radio" name="phase_focus_group" value="2"></td>
@@ -432,13 +438,15 @@
                             </tr>
                             <tr>
                                 <td>Correlation analysis</td>
-                                <td class="matrix-option"><input type="radio" name="phase_data_mining" value="1"
-                                        required></td>
-                                <td class="matrix-option"><input type="radio" name="phase_data_mining" value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="phase_data_mining" value="3"></td>
+                                <td class="matrix-option"><input type="radio" name="phase_correlation_analysis"
+                                        value="1" required></td>
+                                <td class="matrix-option"><input type="radio" name="phase_correlation_analysis"
+                                        value="2"></td>
+                                <td class="matrix-option"><input type="radio" name="phase_correlation_analysis"
+                                        value="3"></td>
                             </tr>
                             <tr>
-                                <td>Root cause analysis (5 Whys)</td>
+                                <td>Root cause analysis</td>
                                 <td class="matrix-option"><input type="radio" name="phase_root_cause_analysis" value="1"
                                         required></td>
                                 <td class="matrix-option"><input type="radio" name="phase_root_cause_analysis"
@@ -463,20 +471,22 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>secondary research</td>
-                                <td class="matrix-option"><input type="radio" name="phase_literature_review" value="1"
+                                <td>Secondary research</td>
+                                <td class="matrix-option"><input type="radio" name="phase_secondary_research" value="1"
                                         required></td>
-                                <td class="matrix-option"><input type="radio" name="phase_literature_review" value="2">
+                                <td class="matrix-option"><input type="radio" name="phase_secondary_research" value="2">
                                 </td>
-                                <td class="matrix-option"><input type="radio" name="phase_literature_review" value="3">
+                                <td class="matrix-option"><input type="radio" name="phase_secondary_research" value="3">
                                 </td>
                             </tr>
                             <tr>
                                 <td>Internal workshop</td>
-                                <td class="matrix-option"><input type="radio" name="phase_workshop" value="1" required>
+                                <td class="matrix-option"><input type="radio" name="phase_internal_workshop" value="1"
+                                        required></td>
+                                <td class="matrix-option"><input type="radio" name="phase_internal_workshop" value="2">
                                 </td>
-                                <td class="matrix-option"><input type="radio" name="phase_workshop" value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="phase_workshop" value="3"></td>
+                                <td class="matrix-option"><input type="radio" name="phase_internal_workshop" value="3">
+                                </td>
                             </tr>
                             <tr>
                                 <td>Thematic analysis</td>
@@ -488,7 +498,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Tổng hợp kết luận và đề xuất giải pháp</td>
+                                <td>Tổng hợp, kết luận, đề xuất</td>
                                 <td class="matrix-option"><input type="radio" name="phase_solution_proposal" value="1"
                                         required></td>
                                 <td class="matrix-option"><input type="radio" name="phase_solution_proposal" value="2">
@@ -506,9 +516,9 @@
         </div>
 
 
-        <div class="form-step active" data-title="IV. VẤN ĐỀ GẶP PHẢI">
+        <div class="form-step active" data-title="IV. VẤN ĐỀ">
 
-            <p class="mono-body section-title">IV. VẤN ĐỀ GẶP PHẢI VIỆC</p>
+            <p class="mono-body section-title">IV. ĐÁNH GIÁ VẤN ĐỀ</p>
 
             <div class="question-block matrix-question col-12">
                 <label class="question-label mono-body">Đánh giá mức độ đồng tình với các quan điểm dưới đây *</label>
@@ -518,10 +528,92 @@
                     <table class="likert-matrix mono-body">
                         <tbody>
                             <tr class="matrix-section-header">
-                                <td>[Tư duy & Decision-making]</td>
+                                <td>[Tracking]</td>
                                 <td>1</td>
                                 <td>2</td>
                                 <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>Tôi không biết cần data gì để ra quyết định</td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_needed_data" value="1"
+                                        required></td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_needed_data" value="2">
+                                </td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_needed_data" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Event tracking hiện tại của tôi khó phân tích.</td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_hard_to_analyze"
+                                        value="1" required></td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_hard_to_analyze"
+                                        value="2"></td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_hard_to_analyze"
+                                        value="3"></td>
+                            </tr>
+                            <tr>
+                                <td>Tôi cảm thấy team đang track quá nhiều thứ không cần thiết.</td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_bloat" value="1"
+                                        required></td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_bloat" value="2"></td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_bloat" value="3"></td>
+                            </tr>
+                            <tr>
+                                <td>Tôi không biết data hiện tại có đáng tin không.</td>
+                                <td class="matrix-option"><input type="radio" name="pain_data_trust" value="1" required>
+                                </td>
+                                <td class="matrix-option"><input type="radio" name="pain_data_trust" value="2"></td>
+                                <td class="matrix-option"><input type="radio" name="pain_data_trust" value="3"></td>
+                            </tr>
+                            <tr>
+                                <td>Event naming của tôi chưa được chuẩn hóa.</td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_naming_standard"
+                                        value="1" required></td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_naming_standard"
+                                        value="2"></td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_naming_standard"
+                                        value="3"></td>
+                            </tr>
+                            <tr>
+                                <td>Tôi không biết hiệu quả sau cải tiến của mình là gì.</td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_post_improvement_effect"
+                                        value="1" required></td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_post_improvement_effect"
+                                        value="2"></td>
+                                <td class="matrix-option"><input type="radio" name="pain_track_post_improvement_effect"
+                                        value="3"></td>
+                            </tr>
+
+                            <tr class="matrix-section-header">
+                                <td>[Decision-Making]</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>3</td>
+                            </tr>
+                            <tr>
+                                <td>Tôi chưa có tư duy thống kê tốt</td>
+                                <td class="matrix-option"><input type="radio" name="pain_dm_stats_thinking" value="1"
+                                        required></td>
+                                <td class="matrix-option"><input type="radio" name="pain_dm_stats_thinking" value="2">
+                                </td>
+                                <td class="matrix-option"><input type="radio" name="pain_dm_stats_thinking" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Tôi không biết để quyết định cần dữ liệu từ nguồn nào?</td>
+                                <td class="matrix-option"><input type="radio" name="pain_dm_data_source" value="1"
+                                        required></td>
+                                <td class="matrix-option"><input type="radio" name="pain_dm_data_source" value="2"></td>
+                                <td class="matrix-option"><input type="radio" name="pain_dm_data_source" value="3"></td>
+                            </tr>
+                            <tr>
+                                <td>Tôi không giải thích hành vi trước khi quyết định</td>
+                                <td class="matrix-option"><input type="radio" name="pain_dm_behavior_explanation"
+                                        value="1" required></td>
+                                <td class="matrix-option"><input type="radio" name="pain_dm_behavior_explanation"
+                                        value="2"></td>
+                                <td class="matrix-option"><input type="radio" name="pain_dm_behavior_explanation"
+                                        value="3"></td>
                             </tr>
                             <tr>
                                 <td>Tôi thường phải quyết định khi dữ liệu chưa đầy đủ.</td>
@@ -533,33 +625,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Tôi không biết cách làm priority.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_dm_priority" value="1"
-                                        required>
-                                </td>
-                                <td class="matrix-option"><input type="radio" name="pain_dm_priority" value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="pain_dm_priority" value="3"></td>
-                            </tr>
-                            <tr>
-                                <td>Tôi gặp khó khăn khi dùng data để quyết định UX/Product.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_dm_data_decision" value="1"
-                                        required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_dm_data_decision" value="2">
-                                </td>
-                                <td class="matrix-option"><input type="radio" name="pain_dm_data_decision" value="3">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tôi không chắc insight có đủ mạnh để triển khai.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_dm_insight_strength" value="1"
-                                        required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_dm_insight_strength" value="2">
-                                </td>
-                                <td class="matrix-option"><input type="radio" name="pain_dm_insight_strength" value="3">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tôi gặp khó khăn khi xử lý trade-off giữa metrics.</td>
+                                <td>Tôi không biết đánh đổi giữa các chỉ số.</td>
                                 <td class="matrix-option"><input type="radio" name="pain_dm_metric_tradeoff" value="1"
                                         required></td>
                                 <td class="matrix-option"><input type="radio" name="pain_dm_metric_tradeoff" value="2">
@@ -569,35 +635,35 @@
                             </tr>
 
                             <tr class="matrix-section-header">
-                                <td>[Data & Signal Quality]</td>
+                                <td>[Business Impact]</td>
                                 <td>1</td>
                                 <td>2</td>
                                 <td>3</td>
                             </tr>
                             <tr>
-                                <td>Tôi không biết data hiện tại có đáng tin không.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_data_trust" value="1" required>
-                                </td>
-                                <td class="matrix-option"><input type="radio" name="pain_data_trust" value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="pain_data_trust" value="3"></td>
+                                <td>Tôi không biết connect user behavior với business outcome.</td>
+                                <td class="matrix-option"><input type="radio" name="pain_user_behavior_business_impact"
+                                        value="1" required></td>
+                                <td class="matrix-option"><input type="radio" name="pain_user_behavior_business_impact"
+                                        value="2"></td>
+                                <td class="matrix-option"><input type="radio" name="pain_user_behavior_business_impact"
+                                        value="3"></td>
                             </tr>
                             <tr>
-                                <td>Tôi khó phân biệt signal quan trọng và noise.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_data_signal_noise" value="1"
-                                        required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_data_signal_noise" value="2">
-                                </td>
-                                <td class="matrix-option"><input type="radio" name="pain_data_signal_noise" value="3">
-                                </td>
+                                <td>Tôi phân tích nhiều nhưng không ra actionable insight.</td>
+                                <td class="matrix-option"><input type="radio" name="pain_impact_actionable_insight"
+                                        value="1" required></td>
+                                <td class="matrix-option"><input type="radio" name="pain_impact_actionable_insight"
+                                        value="2"></td>
+                                <td class="matrix-option"><input type="radio" name="pain_impact_actionable_insight"
+                                        value="3"></td>
                             </tr>
                             <tr>
-                                <td>Tôi thường bị ảnh hưởng bởi vanity metrics.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_data_vanity_metrics" value="1"
+                                <td>Tôi không biết nên priority vấn đề nào trước.</td>
+                                <td class="matrix-option"><input type="radio" name="pain_dm_priority" value="1"
                                         required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_data_vanity_metrics" value="2">
-                                </td>
-                                <td class="matrix-option"><input type="radio" name="pain_data_vanity_metrics" value="3">
-                                </td>
+                                <td class="matrix-option"><input type="radio" name="pain_dm_priority" value="2"></td>
+                                <td class="matrix-option"><input type="radio" name="pain_dm_priority" value="3"></td>
                             </tr>
                             <tr>
                                 <td>Tôi gặp khó khăn khi qualitative và quantitative conflict.</td>
@@ -610,126 +676,45 @@
                             </tr>
 
                             <tr class="matrix-section-header">
-                                <td>[Hiểu người dùng & Product Behavior]</td>
+                                <td>[Stakeholder Management]</td>
                                 <td>1</td>
                                 <td>2</td>
                                 <td>3</td>
                             </tr>
                             <tr>
-                                <td>Tôi khó giải thích nguyên nhân đằng sau hành vi user.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_user_behavior_reason" value="1"
+                                <td>Tổ chức của tôi không cho tôi tiếp cận vào số liệu</td>
+                                <td class="matrix-option"><input type="radio" name="pain_stakeholder_access" value="1"
                                         required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_user_behavior_reason"
-                                        value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="pain_user_behavior_reason"
-                                        value="3"></td>
+                                <td class="matrix-option"><input type="radio" name="pain_stakeholder_access" value="2">
+                                </td>
+                                <td class="matrix-option"><input type="radio" name="pain_stakeholder_access" value="3">
+                                </td>
                             </tr>
                             <tr>
-                                <td>Tôi hiểu tool analytics nhiều hơn behavior của user.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_user_tool_vs_behavior"
+                                <td>Tổ chức của tôi không có văn hóa data-driven decision</td>
+                                <td class="matrix-option"><input type="radio" name="pain_stakeholder_culture" value="1"
+                                        required></td>
+                                <td class="matrix-option"><input type="radio" name="pain_stakeholder_culture" value="2">
+                                </td>
+                                <td class="matrix-option"><input type="radio" name="pain_stakeholder_culture" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Stakeholder không buy in vào số liệu tôi cung cấp</td>
+                                <td class="matrix-option"><input type="radio" name="pain_stakeholder_buyin" value="1"
+                                        required></td>
+                                <td class="matrix-option"><input type="radio" name="pain_stakeholder_buyin" value="2">
+                                </td>
+                                <td class="matrix-option"><input type="radio" name="pain_stakeholder_buyin" value="3">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Team tôi thiếu framework ra quyết định</td>
+                                <td class="matrix-option"><input type="radio" name="pain_stakeholder_framework"
                                         value="1" required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_user_tool_vs_behavior"
+                                <td class="matrix-option"><input type="radio" name="pain_stakeholder_framework"
                                         value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="pain_user_tool_vs_behavior"
-                                        value="3"></td>
-                            </tr>
-                            <tr>
-                                <td>Tôi gặp khó khăn khi connect user behavior với business impact.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_user_behavior_business_impact"
-                                        value="1" required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_user_behavior_business_impact"
-                                        value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="pain_user_behavior_business_impact"
-                                        value="3"></td>
-                            </tr>
-
-                            <tr class="matrix-section-header">
-                                <td>[Measurement & Tracking]</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>Tôi có nhiều data nhưng không biết làm gì với chúng.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_no_action" value="1"
-                                        required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_no_action" value="2">
-                                </td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_no_action" value="3">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tôi cảm thấy tracking hiện tại không giúp ra quyết định tốt hơn.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_useless" value="1"
-                                        required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_useless" value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_useless" value="3"></td>
-                            </tr>
-                            <tr>
-                                <td>Tôi không biết nên đo gì để validate hypothesis.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_validate_hypothesis"
-                                        value="1" required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_validate_hypothesis"
-                                        value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_validate_hypothesis"
-                                        value="3"></td>
-                            </tr>
-                            <tr>
-                                <td>Tôi gặp khó khăn khi làm A/B testing hoặc experiment.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_experiment" value="1"
-                                        required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_experiment" value="2">
-                                </td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_experiment" value="3">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tôi cảm thấy team đang track quá nhiều thứ không cần thiết.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_bloat" value="1"
-                                        required>
-                                </td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_bloat" value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="pain_track_bloat" value="3"></td>
-                            </tr>
-
-                            <tr class="matrix-section-header">
-                                <td>[Business & Product Impact]</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>Tôi không biết vấn đề UX nào ảnh hưởng business nhiều nhất.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_impact_ux_priority" value="1"
-                                        required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_impact_ux_priority" value="2">
-                                </td>
-                                <td class="matrix-option"><input type="radio" name="pain_impact_ux_priority" value="3">
-                                </td>
-                            </tr>
-
-                            <tr class="matrix-section-header">
-                                <td>[Communication & Stakeholder]</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                            </tr>
-                            <tr>
-                                <td>Tôi gặp khó khăn khi bảo vệ insight với stakeholder.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_comm_defend_insight" value="1"
-                                        required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_comm_defend_insight" value="2">
-                                </td>
-                                <td class="matrix-option"><input type="radio" name="pain_comm_defend_insight" value="3">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tôi không biết làm gì khi stakeholder không tin data.</td>
-                                <td class="matrix-option"><input type="radio" name="pain_comm_stakeholder_trust"
-                                        value="1" required></td>
-                                <td class="matrix-option"><input type="radio" name="pain_comm_stakeholder_trust"
-                                        value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="pain_comm_stakeholder_trust"
+                                <td class="matrix-option"><input type="radio" name="pain_stakeholder_framework"
                                         value="3"></td>
                             </tr>
                         </tbody>
@@ -803,15 +788,6 @@
                                 <td class="matrix-option"><input type="radio" name="exp_tf_ambiguous_decision"
                                         value="3">
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>Tăng confidence khi làm product decisions</td>
-                                <td class="matrix-option"><input type="radio" name="exp_tf_decision_confidence"
-                                        value="1" required></td>
-                                <td class="matrix-option"><input type="radio" name="exp_tf_decision_confidence"
-                                        value="2"></td>
-                                <td class="matrix-option"><input type="radio" name="exp_tf_decision_confidence"
-                                        value="3"></td>
                             </tr>
 
                             <tr class="matrix-section-header">
@@ -961,6 +937,17 @@
                                 </td>
                             </tr>
 
+                            <tr>
+                                <td>Cải thiện kỹ năng presentation và storytelling</td>
+                                <td class="matrix-option"><input type="radio" name="exp_cs_presentation_storytelling"
+                                        value="1" required></td>
+                                <td class="matrix-option"><input type="radio" name="exp_cs_presentation_storytelling"
+                                        value="2"></td>
+                                <td class="matrix-option"><input type="radio" name="exp_cs_presentation_storytelling"
+                                        value="3">
+                                </td>
+                            </tr>
+
                             <tr class="matrix-section-header">
                                 <td>[Learning Experience & Application]</td>
                                 <td>1</td>
@@ -986,7 +973,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>Nội dung áp dụng được ngay vào công việc</td>
+                                <td>Áp dụng được ngay vào công việc</td>
                                 <td class="matrix-option"><input type="radio" name="exp_lea_work_application" value="1"
                                         required></td>
                                 <td class="matrix-option"><input type="radio" name="exp_lea_work_application" value="2">
@@ -994,15 +981,7 @@
                                 <td class="matrix-option"><input type="radio" name="exp_lea_work_application" value="3">
                                 </td>
                             </tr>
-                            <tr>
-                                <td>Được học cùng người có kinh nghiệm</td>
-                                <td class="matrix-option"><input type="radio" name="exp_lea_peer_learning" value="1"
-                                        required></td>
-                                <td class="matrix-option"><input type="radio" name="exp_lea_peer_learning" value="2">
-                                </td>
-                                <td class="matrix-option"><input type="radio" name="exp_lea_peer_learning" value="3">
-                                </td>
-                            </tr>
+
                         </tbody>
                     </table>
                 </div>
@@ -1020,49 +999,17 @@
                 <div class="question-block multi-select">
                     <label class="question-label mono-body">Điều bạn lo ngại khi tham gia bootcamp</label>
                     <div class="row g-2">
-                        <div class="col-12 mt-2"><span class="mono-body group-label primary-text">Difficulty &
-                                Content</span></div>
                         <div class="col-6 col-md-4">
-                            <div class="option-item mono-body">Sợ quá khó<input type="checkbox" name="concerns[]"
-                                    value="Sợ quá khó"></div>
+                            <div class="option-item mono-body">Sợ quá nhiều kiến thức<input type="checkbox"
+                                    name="concerns[]" value="Sợ quá nhiều kiến thức"></div>
                         </div>
                         <div class="col-6 col-md-4">
-                            <div class="option-item mono-body">Sợ quá overload<input type="checkbox" name="concerns[]"
-                                    value="Sợ quá overload"></div>
+                            <div class="option-item mono-body">Sợ kiến thức quá lý thuyết<input type="checkbox"
+                                    name="concerns[]" value="Sợ kiến thức quá lý thuyết"></div>
                         </div>
                         <div class="col-6 col-md-4">
-                            <div class="option-item mono-body">Không theo kịp kiến thức<input type="checkbox"
-                                    name="concerns[]" value="Không theo kịp kiến thức"></div>
-                        </div>
-
-                        <div class="col-12 mt-2"><span class="mono-body group-label primary-text">Time & ROI</span>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="option-item mono-body">Không đủ thời gian<input type="checkbox"
-                                    name="concerns[]" value="Không đủ thời gian"></div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="option-item mono-body">Chi phí / ROI<input type="checkbox" name="concerns[]"
-                                    value="Chi phí / ROI"></div>
-                        </div>
-
-                        <div class="col-12 mt-2"><span class="mono-body group-label primary-text">Application</span>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="option-item mono-body">Không biết áp dụng vào công việc hiện tại<input
-                                    type="checkbox" name="concerns[]" value="Không biết áp dụng vào công việc hiện tại">
-                            </div>
-                        </div>
-                        <div class="col-6 col-md-4">
-                            <div class="option-item mono-body">Chưa chắc mình phù hợp với hướng này<input
-                                    type="checkbox" name="concerns[]" value="Chưa chắc mình phù hợp với hướng này">
-                            </div>
-                        </div>
-
-                        <div class="col-12 mt-2"><span class="mono-body group-label primary-text">Khác</span></div>
-                        <div class="col-6 col-md-4">
-                            <div class="option-item mono-body">Khác<input type="checkbox" name="concerns[]"
-                                    value="Khác"></div>
+                            <div class="option-item mono-body">Sợ quá nhiều thực hành<input type="checkbox"
+                                    name="concerns[]" value="Sợ quá nhiều thực hành"></div>
                         </div>
                     </div>
                 </div>

@@ -910,7 +910,7 @@ textarea {
 .likert-matrix th,
 .likert-matrix td {
     border: 1px solid var(--console-stroke);
-    padding: 8px 8px;
+    padding: 12px 8px;
     text-align: center;
     vertical-align: middle;
 }

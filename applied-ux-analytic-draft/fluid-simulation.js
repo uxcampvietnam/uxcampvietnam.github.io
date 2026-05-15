@@ -870,14 +870,24 @@ function checkObstacleUpdates() {
             fluidContainer._fluidImage.onload = () => { fluidContainer._fluidImageReady = true; checkObstacleUpdates(); };
             fluidContainer._fluidImage.onerror = () => { fluidContainer._fluidImageReady = true; };
 
-            if (fluidContainer.tagName.toLowerCase() === 'svg') {
+            const tagName = fluidContainer.tagName.toLowerCase();
+            const isSVG = fluidContainer instanceof SVGElement;
+
+            if (tagName === 'svg') {
                 const svgString = new XMLSerializer().serializeToString(fluidContainer);
                 const blob = new Blob([svgString], { type: 'image/svg+xml' });
                 fluidContainer._fluidImage.src = URL.createObjectURL(blob);
-            } else if (fluidContainer.tagName.toLowerCase() === 'img') {
+            } else if (tagName === 'img') {
                 if (fluidContainer.src) {
                     fluidContainer._fluidImage.src = fluidContainer.src;
                 }
+            } else if (isSVG) {
+                // If it's an SVG element but not the root <svg> (like <text>, <path>)
+                // We wrap it in an <svg> tag to make it a valid image source
+                const rect = fluidContainer.getBoundingClientRect();
+                const svgString = `<svg xmlns="http://www.w3.org/2000/svg" width="${rect.width}" height="${rect.height}">${new XMLSerializer().serializeToString(fluidContainer)}</svg>`;
+                const blob = new Blob([svgString], { type: 'image/svg+xml' });
+                fluidContainer._fluidImage.src = URL.createObjectURL(blob);
             } else {
                 fluidContainer._fluidImageReady = true;
             }
@@ -972,21 +982,41 @@ function renderObstacleMask() {
             const display = getComputedStyle(el).display;
 
             if (rect.width > 0 && rect.height > 0 && display !== 'none' && opacity > 0) {
-                let imgWidth = el._fluidImage.width || rect.width;
-                let imgHeight = el._fluidImage.height || rect.height;
-
-                const fit = getFitContain(rect.width, rect.height, imgWidth, imgHeight);
-
-                const actualRelX = rect.left + fit.x - canvasRect.left;
-                const actualRelY = rect.top + fit.y - canvasRect.top;
-
-                const drawX = (actualRelX / fluid_canvas.clientWidth) * res.width;
-                const drawY = (actualRelY / fluid_canvas.clientHeight) * res.height;
-                const drawWidth = (fit.width / fluid_canvas.clientWidth) * res.width;
-                const drawHeight = (fit.height / fluid_canvas.clientHeight) * res.height;
+                const drawX = ((rect.left - canvasRect.left) / fluid_canvas.clientWidth) * res.width;
+                const drawY = ((rect.top - canvasRect.top) / fluid_canvas.clientHeight) * res.height;
+                const drawWidth = (rect.width / fluid_canvas.clientWidth) * res.width;
+                const drawHeight = (rect.height / fluid_canvas.clientHeight) * res.height;
 
                 ctx.globalAlpha = opacity;
-                ctx.drawImage(el._fluidImage, drawX, drawY, drawWidth, drawHeight);
+
+                if (el._fluidImage && el._fluidImage.src && el._fluidImage.complete && el._fluidImage.naturalWidth > 0) {
+                    // It's an image or SVG
+                    let imgWidth = el._fluidImage.width || rect.width;
+                    let imgHeight = el._fluidImage.height || rect.height;
+                    const fit = getFitContain(rect.width, rect.height, imgWidth, imgHeight);
+                    
+                    const actualRelX = rect.left + fit.x - canvasRect.left;
+                    const actualRelY = rect.top + fit.y - canvasRect.top;
+                    const fDrawX = (actualRelX / fluid_canvas.clientWidth) * res.width;
+                    const fDrawY = (actualRelY / fluid_canvas.clientHeight) * res.height;
+                    const fDrawWidth = (fit.width / fluid_canvas.clientWidth) * res.width;
+                    const fDrawHeight = (fit.height / fluid_canvas.clientHeight) * res.height;
+
+                    ctx.drawImage(el._fluidImage, fDrawX, fDrawY, fDrawWidth, fDrawHeight);
+                } else if (el.tagName.toLowerCase() === 'text' || (el.innerText && el.innerText.length < 50 && !el.children.length)) {
+                    // It's a text element (HTML or SVG text if it failed to load as image)
+                    const style = window.getComputedStyle(el);
+                    ctx.fillStyle = 'white';
+                    ctx.font = style.font;
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(el.innerText || el.textContent, drawX + drawWidth / 2, drawY + drawHeight / 2);
+                } else {
+                    // Fallback for div and other boxes
+                    ctx.fillStyle = 'white';
+                    ctx.fillRect(drawX, drawY, drawWidth, drawHeight);
+                }
+
                 ctx.globalAlpha = 1.0;
             }
         }

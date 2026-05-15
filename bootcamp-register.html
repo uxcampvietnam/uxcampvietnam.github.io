@@ -90,7 +90,7 @@
                     </div>
 
                     <div class="row">
-
+                        <input type="hidden" name="form_type" value="designing_digital_product_per_stage_and_metric">
                         <div class="col-12 form-group">
                             <label class="h6 input-row-title" for="name">Họ và tên *</label>
                             <input class="col-12 single-input h3" type="text" id="name" name="name" autocomplete="name"
@@ -229,7 +229,7 @@
 
 
                         <div class="radio-group form-group">
-                            <div id="signUp_bootcamp_list" class="row">
+                            <div id="signUp_bootcamp_list" class="row g-0">
                             </div>
                         </div>
 
@@ -315,9 +315,11 @@
                 }
             });
 
-            mixpanel.track('bootcamp_form_submit', data);
+            console.log("Form Data:", data);
 
-            fetch("https://script.google.com/macros/s/AKfycby0YtKP6yd5b2cHIEdzm_Kgi26UoI5gmi5BU3l8iZkqZ84ie8UyvLwX4ur-nIJ7sp5sVg/exec", {
+            // mixpanel.track('bootcamp_form_submit', data);
+
+            fetch("https://script.google.com/macros/s/AKfycbyz_nDpXETChpg0JVZQa7G4BVcfF7mrymvBLBibMREDw-tFfhcEdjoJ9CuBRmUaDJy7cw/exec", {
                 method: "POST",
                 body: JSON.stringify(data),
                 headers: { "Content-Type": "application/json" },

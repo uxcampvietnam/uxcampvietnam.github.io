@@ -72,13 +72,12 @@ fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82
             if (signUp_bootcamp_list_Els !== null) {
 
 
-                // Lấy toàn bộ query string từ URL
-                const queryString = window.location.search;
-                // Tạo object URLSearchParams từ query string
-                const params = new URLSearchParams(queryString);
                 // Lấy giá trị của 'bootcamp_id'
+                const queryString = window.location.search;
+                const params = new URLSearchParams(queryString);
                 const selectedBootcamp = params.get('bootcamp_id');
 
+                console.log("user selected bootcamp: ", selectedBootcamp);
                 var signUp_bootcamp_innerHTML = `<span class="col-12 h6 input-row-title">Bạn đăng ký bootcamp *</span>
 `;
                 for (let j = 0; j < bootcamp_list.length; j++) {
@@ -89,7 +88,7 @@ fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82
                     <div class = 'col-12 col-md-12 col-lg-6'>
                     <span class = "sign-up-bootcamp-item">
                         <label for="bootcamp_${item.bootcamp_id}">
-                            <input required type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${item.bootcamp_id === selectedBootcamp ? "checked" : ""} />
+                            <input required type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${item.bootcamp_id == selectedBootcamp ? "checked" : ""} />
                             <img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/${item.thumbnail}">
                             <div class="bootcamp-item-content">
                                 <h6 class="bootcamp-cohort-name">${item.bootcamp_name}</h6>
@@ -142,139 +141,6 @@ fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82
         }
 
     });
-
-
-// Lấy danh sách bootcamp từ file CSV
-
-// fetch('script/bootcamp_list.csv')
-//     .then(response => response.text())
-//     .then(csvText => {
-//         bootcamp_list = parseCSVToObjects(csvText, 'listing', '1');
-
-//         // showing bootcamp list
-//         const bootcamp_list_Els = document.querySelectorAll(".bootcamp-list");
-//         if (bootcamp_list_Els !== null) {
-//             for (let i = 0; i < bootcamp_list_Els.length; i++) {
-//                 let bootcamp_innerHTML = `<div> </div>
-//                 <div class="horizontal-scroll row flex-row flex-nowrap">`;
-//                 for (let j = 0; j < bootcamp_list.length; j++) {
-//                     const item = bootcamp_list[j];
-
-//                     bootcamp_innerHTML += `
-//                 <div ${item.is_open == 1 ? "onmousemove='openBootcampMouseOver(this, event)' onmouseout='openBootcampMouseOut(this, event)'" : ""} 
-//                     class="bootcamp-item ${item.is_open == 1 ? "is_open" : "is_closed"}">
-//                     <img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/${item.thumbnail}">
-//                     <div class="bootcamp-item-content">
-//                     <h6 class="bootcamp-cohort-name">${item.bootcamp_name}</h6>
-//                     <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
-//                     <span class="paragraph bootcamp-start-date">${item.start_date}</span>
-//                     <span class="paragraph bootcamp-pricing">${item.pricing} ${item.offline == 1 ? "(*)" : ""}</span>                    
-//                     <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Fully booked"}</span>
-//                     </div>
-//                     <a href="bootcamp-register.html?bootcamp_id=${item.bootcamp_id}" class="sign-up-now paragraph">
-//                     ${item.is_open == 1
-//                             ? `Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>`
-//                             : `<i>Form đã đóng</i>`
-//                         }
-//                     </a>
-//                     <img class="opening-bootcamp-highlight" src="asset/icon/opening-bootcamp-highlight.svg">
-//                 </div>`;
-
-//                 }
-//                 bootcamp_innerHTML += `</div>
-//                 <div style = "padding: 12px 16px 0px 16px;
-//                 color: var(--main-colors-foreground-f700);"
-//                 class = "paragraph italic col-12">
-//                 (*) Đối với các bootcamp offline: Phí tham dự chưa bao gồm chi phí di chuyển, ăn ở cho graduation retreat. Địa điểm tổ chức graduation retreat sẽ được thống nhất với người tham dự 1 tháng trước ngày tổ chức bảo vệ cuối khóa.</div>`;
-//                 bootcamp_list_Els[i].innerHTML += bootcamp_innerHTML;
-//             }
-//         }
-
-
-//         const signUp_bootcamp_list_Els = document.getElementById("signUp_bootcamp_list");
-//         if (signUp_bootcamp_list_Els !== null) {
-
-
-//             // Lấy toàn bộ query string từ URL
-//             const queryString = window.location.search;
-//             // Tạo object URLSearchParams từ query string
-//             const params = new URLSearchParams(queryString);
-//             // Lấy giá trị của 'bootcamp_id'
-//             const selectedBootcamp = params.get('bootcamp_id');
-
-//             var signUp_bootcamp_innerHTML = `<span class="col-12 h6 input-row-title">Bạn đăng ký bootcamp *</span>
-// `;
-//             for (let j = 0; j < bootcamp_list.length; j++) {
-//                 const item = bootcamp_list[j];
-//                 if (item.is_open == 1) {
-
-//                     signUp_bootcamp_innerHTML += `
-//                     <div class = 'col-12 col-md-12 col-lg-6'>
-//                     <span class = "sign-up-bootcamp-item">
-//                         <label for="bootcamp_${item.bootcamp_id}">
-//                             <input required type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${item.bootcamp_id === selectedBootcamp ? "checked" : ""} />
-//                             <img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/${item.thumbnail}">
-//                             <div class="bootcamp-item-content">
-//                                 <h6 class="bootcamp-cohort-name">${item.bootcamp_name}</h6>
-//                                 <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
-//                                 <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Fully booked"}</span>
-//                                 <span class="paragraph bootcamp-start-date">${item.start_date}</span>
-//                             </div>
-//                         </label>
-//                     </span>
-//                     </div>`;
-//                 };
-//             }
-//             signUp_bootcamp_innerHTML += ``
-//             signUp_bootcamp_list_Els.innerHTML += signUp_bootcamp_innerHTML;
-//         }
-
-
-//     })
-//     .catch(error => {
-//         console.error("Lỗi khi tải CSV:", error);
-//     });
-
-
-// lấy dữ liệu feedback từ file csv
-// fetch('script/feedback.csv')
-//     .then(response => response.text())
-//     .then(csvText => {
-//         feedback_list = parseCSVToObjects(csvText, 'listing', '1');
-//         const feedback_list_Els = document.querySelectorAll(".feedback-list");
-
-//         for (let i = 0; i < feedback_list_Els.length; i++) {
-//             let feedback_list_innerHTML = `<div class="feedback-container col-12">`;
-
-//             for (let j = 0; j < feedback_list.length; j++) {
-//                 const item = feedback_list[j];
-
-//                 feedback_list_innerHTML += `
-//           <div onclick="showFeedback(${item.feedback_id})"
-//                onmousemove="showFeedbackImg(this, event)"
-//                onmouseout="hideFeedbackImg(this, event)"
-//                data-feedback-id="${item.feedback_id}"
-//                data-feedback-participant-name="${item.name}"
-//                data-feedback-participant-title="${item.title}"
-//                class="feedback-item col-6 col-lg-4">
-//             <img class="feedback-thumbnail" src="../asset/image/participant/${item.img}">
-//             <div class="feedback-item-content">
-//               <span class="participant-name"><i>${item.name}</i></span>
-//               <div class="caption">
-//                 <span class="italic caption participant-title">${item.title}</span>
-//                 ${item.company !== '-' ? `<span class="italic caption participant-company">${item.company}</span>` : ''}
-//               </div>
-//             </div>
-//           </div>`;
-//             }
-
-//             feedback_list_innerHTML += `</div>`;
-//             feedback_list_Els[i].innerHTML += feedback_list_innerHTML;
-//         }
-//     })
-//     .catch(error => {
-//         console.error("Lỗi khi tải feedback CSV:", error);
-//     });
 
 
 

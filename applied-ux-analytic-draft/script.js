@@ -1,26 +1,50 @@
+import TextRepulsion from './text-repulsion.js';
+
 function showFluidText() {
-  config.SPLAT_RADIUS = defaultConfig.SPLAT_RADIUS;
+  // config.SPLAT_RADIUS = defaultConfig.SPLAT_RADIUS;
   document.querySelector('.bootcamp-name-hero').classList.remove('bootcamp-name-hero-hide');
 }
 
 function hideFluidText() {
   document.querySelector('.bootcamp-name-hero').classList.add('bootcamp-name-hero-hide');
-  config.SPLAT_RADIUS = 0.15;
+  // config.SPLAT_RADIUS = 0.15;
 }
 
 const ascii_art = {
-  bootcamp_name: `
-uxcamp_vietnam
-                                 ____      __                      __
-                                   __                              __
- _____    __ ____     __ ____      __    ____       _____      ___ __
-      __  ____   __   ____   __    __      __     __    __   __   ___
- _______  __     __   __     __    __      __     ________   __    __
-__    __  ____   __   ____   __    __      __     __         __   ___
- _______  __ ____     __ ____    ______  ______     ______     ___ __
-          __          __
-          __          __
-
+  case_study:
+    `      ###########                                  
+   #################                               
+  ###########################################      
+  ##############################################   
+  ####+.. ..      .  .      ..      .   . ..+####  
+  ###     .  . .     ..          . . .   .    ###  
+  ##-        .         .    .    .  .       . -##  
+  ##--#######################################--##  
+  ###############################################  
+  ###############################################  
+  ###############################################  
+  ###############################################  
+  ###############################################  
+  ###############################################  
+  ###############################################  
+  ###############################################  
+  ###############################################  
+  ###############################################  
+  ###############################################  
+  ###############################################  
+   #############################################   
+      #######################################`,
+  bootcamp_name:
+    `uxcamp_vietnam
+                                 ||||      ||                      ||
+                                   ||                              ||
+ |||||    || ||||     || ||||      ||    ||||       |||||      ||| ||
+      ||  ||||   ||   ||||   ||    ||      ||     ||    ||   ||   |||
+ |||||||  ||     ||   ||     ||    ||      ||     ||||||||   ||    ||
+||    ||  ||||   ||   ||||   ||    ||      ||     ||         ||   |||
+ |||||||  || ||||     || ||||    ||||||  ||||||     ||||||     ||| ||
+          ||          ||
+          ||          ||
                                                                  ||||                   ||          ||
                                                                    ||                   ||
 ||     ||  ||      ||           |||||||   || ||||      ||||||      ||     ||     ||   ||||||      ||||     ||||||
@@ -30,10 +54,9 @@ __    __  ____   __   ____   __    __      __     __         __   ___
  ||||| ||  ||      ||           ||||||||  ||     ||    |||||||   ||||||          ||      ||||     ||||||   ||||||
                       |||||||                                             ||     ||
                                                                             ||||||
-the_oracle_of_hidden_user_behavior
-`,
-  asciiIllus01: `
-++++
+the_oracle_of_hidden_user_behavior`,
+  asciiIllus01:
+    `++++
 ++++++
 +++      ++++++++++      +++
 ++++++++++++++++++++++++++
@@ -51,10 +74,9 @@ the_oracle_of_hidden_user_behavior
 ++++++++++++++++++++++++++
 +++      ++++++++++      +++
 ++++++
-++++
-`,
-  asciiIllus02: `
-+
+++++`,
+  asciiIllus02:
+    `+
 +
 +
 +
@@ -78,12 +100,9 @@ the_oracle_of_hidden_user_behavior
 +
 +
 +
-+
-`,
-  asciiIllus03: `
-
-  
-        +++++++++++++++++++++++        
++`,
+  asciiIllus03:
+    `        +++++++++++++++++++++++        
     ++++++++               ++++++++    
  ++++                             ++++ 
 +++                                 +++
@@ -102,12 +121,9 @@ the_oracle_of_hidden_user_behavior
          +++++++++++++++++++++         
           ++++++       ++++++          
             +++++++++++++++            
-              +++++++++++              
-
-
-            `,
-  asciiIllus04: `
-                       +++++++++                       
+              +++++++++++              `,
+  asciiIllus04:
+    `                       +++++++++                       
                       +++++++++++                      
                     +++++++++++++++                    
                    +++++++++++++++++                   
@@ -121,8 +137,8 @@ the_oracle_of_hidden_user_behavior
           +++++++++++++++++++++++++++++++++++          
        +++++++++++++++++++++++++++++++++++++++++       
 ++++++++++++++++++++++++++++++++++++++++++++++++++++++ `,
-  asciiIllus05: `
-     ++++++++++++     +++++++++++   
+  asciiIllus05:
+    `     ++++++++++++     +++++++++++   
   +++++++++++++++   ++++++++++++++  
  +++++++            ++++       ++++ 
 ++++               ++++         +++ 
@@ -143,11 +159,10 @@ the_oracle_of_hidden_user_behavior
  ++++        ++++  ++++++++    +++++
   ++++      ++++    ++++++++++++++  
    ++++++++++++     +++++++++++++   
-     ++++++++      ++++             
-`,
+     ++++++++      ++++             `,
 
-  asciiIllus06: `
-++++                            ++++
+  asciiIllus06:
+    `++++                            ++++
 ++++++                        ++++++
 +++++++    ++++    ++++    +++++++
 +++++++  ++++    ++++  +++++++
@@ -166,10 +181,9 @@ the_oracle_of_hidden_user_behavior
 +++++++  ++++    ++++  +++++++
 +++++++    ++++    ++++    +++++++
 ++++++                        ++++++
-++++                            ++++
-`,
-  asciiIllus07: `
-++++++++
+++++                            ++++`,
+  asciiIllus07:
+    `++++++++
 +++++++++++
 ++++++++++++
 ++++++++++++
@@ -187,11 +201,10 @@ the_oracle_of_hidden_user_behavior
 ++++++++++++
 ++++++++++++
 ++++++++++
-++++++++
-`,
+++++++++`,
 
-  asciiIllus08: `
-++++++++++      ++++++++++
+  asciiIllus08:
+    `++++++++++      ++++++++++
 ++++++++++      ++++++++++
 +++                    +++
 +++                    +++
@@ -208,11 +221,10 @@ the_oracle_of_hidden_user_behavior
 +++                    +++
 +++                    +++
 ++++++++++      ++++++++++
-++++++++++      ++++++++++
-`,
+++++++++++      ++++++++++`,
 
-  asciiIllus09: `
-              +++++                 
+  asciiIllus09:
+    `              +++++                 
        ++++++++++++++++++++         
    ++++++    ++         +++++++     
   +++                     ++++++    
@@ -228,13 +240,12 @@ the_oracle_of_hidden_user_behavior
            +++  ++++++++++++++++    
                    +++  +++++       
                      +++++          
-                       +++          
-`,
+                       +++          `,
 
 
 
-  portraitLight: `
-  .      .          .                   ..                    
+  portraitLight:
+    `  .      .          .                   ..                    
     .                                  .         .            
           .             ..-+###*=+=:..               .        
         .      .    ...+@@@@@@@@@@%@@@@%#-.   . .             
@@ -277,10 +288,9 @@ the_oracle_of_hidden_user_behavior
                  .#@@..    :%-    .        :*.   *%..  .%*..  
 Giảng viên     . .#@@=     .*#.       .   ..+..  =%.   .%*.   
                   .*@%     .+@.   ..       .=..  -%..  :@*.  .
-Đỗ Minh Tâm  ›     .@.  .  .=@.  .          =.   :     +.     
-`,
-  portraitDark: `
-                         .              .           .         
+Đỗ Minh Tâm  ›     .@.  .  .=@.  .          =.   :     +.     `,
+  portraitDark:
+    `                         .              .           .         
                    .  .  .-=+*#%%@@%#*+-.. .                  
                       .+@*.::-..=*:+%@@@@@@#.                 
     .    .         :*@*=+**+==++=-#+.:-*:+@@+               . 
@@ -323,13 +333,12 @@ Giảng viên     . .#@@=     .*#.       .   ..+..  =%.   .%*.
                 ..:.         ..                 .:-:.  ..-@. .
 Giảng viên    .  .:. .       ..         .   .   .:-:.  ..=@.  
                 ....    .    ..     .         . .:-:.  ..=%   
-Đỗ Minh Tâm  ›   ....        ..                 .:-:.  .:+*   
-`,
+Đỗ Minh Tâm  ›   ....        ..                 .:-:.  .:+*   `,
 }
 
-const applieduxanalyticIntroHeader = new SplitType('.bootcamp-section-header h2, .bootcamp-section-header p', {
-  types: 'words, chars'
-});
+// const applieduxanalyticIntroHeader = new SplitType('.bootcamp-section-header h2', {
+//   types: 'words, chars'
+// });
 
 document.querySelectorAll('.asciiIllus').forEach((element) => {
 
@@ -360,7 +369,7 @@ function buildAsciiHTML(text) {
               return `<span class="ascii-char space">&nbsp;</span>`;
             }
 
-            return `<span class="ascii-char">${char}</span>`;
+            return `<span class="ascii-char character">${char}</span>`;
 
           })
           .join('')
@@ -375,59 +384,69 @@ function buildAsciiHTML(text) {
 
 // ======================================
 
-// Click-to-reveal: clicking .bootcamp-goal-card-above fades it out to show .bootcamp-goal-card-below
-document.querySelectorAll('.bootcamp-goal-card-above').forEach(card => {
-  card.addEventListener('click', () => {
-    card.classList.toggle('clicked');
-  });
-});
-
 window.onload = () => {
 
-  ScrollTrigger.create({
-    trigger: ".ux-console",
-    start: "top 80%",
-    end: "top 80%",
-    // markers: true,
-    onEnter: () => {
-      config.ASCII_COLOR = isDarkMode ? { r: 100, g: 100, b: 100 } : { r: 190, g: 190, b: 190 };
-    },
-    onEnterBack: () => {
-      config.ASCII_COLOR = defaultConfig.ASCII_COLOR;
-    },
-  });
-
-
-  ScrollTrigger.create({
-    trigger: ".applied-ux-analytic",
-    start: "top 80%",
-    end: "top 80%",
-    // markers: true,
-    onEnter: () => hideFluidText(),
-    onEnterBack: () => showFluidText(),
-  });
-
-  gsap.to('.applied-ux-analytic-name-fluid.text *', {
-    opacity: 1,
-    delay: "random(0, 2)",
-    ease: "bounce.in",
-    duration: 0.5,
-  });
-
-  document.querySelectorAll('.bootcamp-section-full').forEach(bootcampSectionFull => {
-    gsap.to(bootcampSectionFull.getElementsByClassName('char'), {
+  if (document.querySelector('#fluidCanvas')) {
+    gsap.to('#fluidCanvas', {
       scrollTrigger: {
-        trigger: bootcampSectionFull,
-        start: "top bottom-=100",
-        end: "bottom top",
-        // markers: true,
-        toggleActions: 'play reverse play reverse', //onEnter, onLeave, onEnterBack, and onLeaveBack -> sẽ nhận 1 trong các giá trị sau: "play", "pause", "resume", "reset", "restart", "complete", "reverse", and "none".
+        trigger: '.applied-ux-analytic-container',
+        start: 'top top',
+        end: 'top top',
+        toggleActions: 'play none none reset',
       },
-      opacity: 1,
-      delay: "random(0.3, 0.9)",
-      // ease: "elastic.out(0.6, 1)",
+      display: 'none',
     });
-  })
+  }
+
+
+  // Click-to-reveal: clicking .bootcamp-goal-card-above fades it out to show .bootcamp-goal-card-below
+  document.querySelectorAll('.bootcamp-goal-card-above').forEach(card => {
+    card.addEventListener('click', () => {
+      card.classList.toggle('clicked');
+      if (card.getElementsByClassName('avoid-mouse')[0].dataset.avoid === "true") {
+        card.getElementsByClassName('avoid-mouse')[0].dataset.avoid = 'false';
+      } else {
+        card.getElementsByClassName('avoid-mouse')[0].dataset.avoid = 'true';
+      }
+    });
+  });
+
+  if (document.querySelector('.ux-console')) {
+    ScrollTrigger.create({
+      trigger: ".ux-console",
+      start: "top 80%",
+      end: "top 80%",
+      // markers: true,
+      onEnter: () => {
+        config.ASCII_COLOR = isDarkMode ? { r: 100, g: 100, b: 100 } : { r: 190, g: 190, b: 190 };
+      },
+      onEnterBack: () => {
+        config.ASCII_COLOR = defaultConfig.ASCII_COLOR;
+      },
+    });
+
+  }
+
+  if (document.querySelector('.applied-ux-analytic')) {
+    ScrollTrigger.create({
+      trigger: ".applied-ux-analytic",
+      start: "top 80%",
+      end: "top 80%",
+      // markers: true,
+      onEnter: () => hideFluidText(),
+      onEnterBack: () => showFluidText(),
+    });
+  }
+
+  if (document.querySelector('.applied-ux-analytic-name-fluid.text')) {
+    gsap.to('.applied-ux-analytic-name-fluid.text *', {
+      opacity: 1,
+      delay: "random(0, 2)",
+      ease: "bounce.in",
+      duration: 0.5,
+    });
+  }
+
 
   document.querySelectorAll('.syllabus-container').forEach(container => {
 
@@ -441,18 +460,25 @@ window.onload = () => {
         onEnter: () => {
           container.getElementsByClassName('syllabus-ascii')[0].style.position = 'fixed';
           container.getElementsByClassName('syllabus-ascii')[0].style.display = 'block';
+          window.textRepulsion.refresh();
         },
         onLeave: () => {
           container.getElementsByClassName('syllabus-ascii')[0].style.position = 'relative';
           container.getElementsByClassName('syllabus-ascii')[0].style.display = 'none';
+          window.textRepulsion.refresh();
+
         },
         onEnterBack: () => {
           container.getElementsByClassName('syllabus-ascii')[0].style.position = 'fixed';
           container.getElementsByClassName('syllabus-ascii')[0].style.display = 'block';
+          window.textRepulsion.refresh();
+
         },
         onLeaveBack: () => {
           container.getElementsByClassName('syllabus-ascii')[0].style.position = 'relative';
           container.getElementsByClassName('syllabus-ascii')[0].style.display = 'none';
+          window.textRepulsion.refresh();
+
         },
       },
     })
@@ -469,44 +495,76 @@ window.onload = () => {
   });
 
 
-  gsap.from('.lecturer .ascii-char', {
-    scrollTrigger: {
-      trigger: '.lecturer',
-      start: "top 70%",
-      end: "bottom 20%",
-      toggleActions: 'play reverse play reverse',
-      // markers: true,
-    },
-    opacity: 0,
-    delay: "random(0, 1)",
-    ease: "bounce.in",
-    duration: 0,
+  // Initialize interactive text repulsion
+  window.textRepulsion = new TextRepulsion({
+    radius: 200,               // Mouse influence radius
+    repulsionStrength: 50,     // Strength of the "magnet"
+    damping: 0.7,             // Friction (higher = more sluggish)
+    returnForce: 0.2,          // Speed of returning to base position
   });
-
 }
 
 
 fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82XWQqXdKR6e1pXvTUtCATu95jnd0QouBwyD/exec")
   .then(res => res.json())
   .then(data => {
+
+    // listing trên phần giới thiệu bootcamp.
     const bootcamps = data.applied_ux_analytic.filter(item => item.listing == 1);
     const container = document.getElementById('bootcamp-list-container');
-    if (!container) return;
+    const containerSignUp = document.getElementById('signUp_ux_analytic_bootcamp_list');
 
-    container.innerHTML = '';
+    if (!container && !containerSignUp) return;
 
-    bootcamps.forEach(item => {
-      const col = document.createElement('div');
-      item.is_open == 1 ? col.classList.add("open-bootcamp") : col.classList.add("closed-bootcamp");
-      col.classList.add('col');
-      col.innerHTML = `
+    // Lấy giá trị của 'bootcamp_id'
+    const queryString = window.location.search;
+    const params = new URLSearchParams(queryString);
+    const selectedBootcamp = params.get('bootcamp_id');
+
+
+
+    if (container) {
+      container.innerHTML = '';
+
+      bootcamps.forEach(item => {
+        const col = document.createElement('div');
+        item.is_open == 1 ? col.classList.add("open-bootcamp", "fluid-obstacle") : col.classList.add("closed-bootcamp", "fluid-obstacle");
+        col.classList.add('col');
+        col.innerHTML = `
                 <span class="mono-body reverse-color">${item.bootcamp_name}</span><br>
                 <span class="mono-body reverse-color">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
                 <span class="mono-body reverse-color">${item.pricing}</span>
                 <span class="mono-body reverse-color">${item.is_open == 1 ? "Đang mở đăng ký" : "Form closed"}</span>
-                ${item.is_open == 1 ? `<a href="${item.register_link}" class="mono-body register-link button-reverse">Đăng ký ›</a>` : ''}
+                ${item.is_open == 1 ? `<a href="bootcamp-register.html?bootcamp_id=${item.bootcamp_id}" class="mono-body register-link button-reverse">Đăng ký ›</a>` : ''}
             `;
 
-      container.appendChild(col);
-    });
+        container.appendChild(col);
+      });
+    };
+
+    // listing trên phần đăng ký.
+    if (containerSignUp) {
+      containerSignUp.innerHTML = '';
+
+      bootcamps.forEach(item => {
+        if (item.is_open == 1) {
+          const col = document.createElement('span');
+          col.classList.add('sign-up-ux-analytic-bootcamp-item', 'col-12', 'col-md-6');
+          col.innerHTML = `
+                <label for="bootcamp_${item.bootcamp_id}">
+                    <input required type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${item.bootcamp_id == selectedBootcamp ? "checked" : ""} />
+                    <div class="bootcamp-item-content">
+                      <span class="mono-body reverse-color">[<span class="is_selected">•</span>]
+                          ${item.bootcamp_name}
+                      </span>
+                      <span class="mono-body reverse-color">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
+                      <span class="mono-body reverse-color">${item.pricing}</span>
+                    </div>
+                </label>
+            `;
+          containerSignUp.appendChild(col);
+        }
+      });
+    };
+
   });

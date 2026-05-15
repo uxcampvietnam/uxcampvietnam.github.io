@@ -19,14 +19,19 @@
     <script src="../script/libs/svg-inject.min.js"></script>
     <script src="../script/libs/split-type.js"></script>
 
-    <!-- <script src="../script/script.js" defer></script> -->
     <script src="script.js" defer type="module"></script>
     <script src="console.js" defer></script>
     <script src="../script/libs/mixpanel.js"></script>
+
+    <style>
+        body,
+        html {
+            background-color: var(--applied-analytic-background) !important;
+        }
+    </style>
 </head>
 
 <body>
-
     <div class="progress-bar-indicator">
         <div class="progress-bar">
         </div>
@@ -41,8 +46,7 @@
         </div>
     </div>
 
-    <div class="applied-ux-analytic-container container-fluid">
-
+    <div class="bootcamp-hero-container">
         <div class="bootcamp-name-hero">
             <img class="applied-ux-analytic-name-fluid text" src="../asset/icon/applied-ux-analytic.svg" alt=""
                 onload="SVGInject(this)">
@@ -51,19 +55,21 @@
                 alt="" onload="SVGInject(this)">
 
         </div>
+        <canvas id="fluidCanvas"> </canvas>
+    </div>
+
+    <div class="applied-ux-analytic-container container-fluid">
 
         <div class="applied-ux-analytic bootcamp-section-full row intro-section">
 
             <div class="col-12 bootcamp-section-header" id="intro">
-                <h2 class="mono-body primary-text">I. Giới thiệu</h2>
+                <h2 class="mono-body primary-text">I. GIỚI THIỆU</h2>
                 <p class="mono-body primary-text">
                     Applied UX Analytic: Behavioral Decision-Making for Product Teams là bootcamp giúp Product
                     Team:
-                    <br> → hiểu hành vi người dùng ở cấp độ ra quyết định,
-                    <br> → xác định nguyên nhân gốc rễ của product problems,
-                    <br> → và giảm phụ thuộc vào cảm tính trong product & UX decisions.
-                    <br><br>
-                    Bootcamp này không đào tạo bạn trở thành Data Analyst.
+                    <br> → sử dụng hành vi người dùng để ra quyết định,
+                    <br> → xác định root cause của product problems,
+                    <br> → giảm phụ thuộc vào cảm tính trong product & UX decisions.
                     <br><br>
                     Mục tiêu là giúp Product Designer senior, Product Owner, Product Strategist đọc được
                     behavioral signals, đánh giá độ tin cậy của insight, và ra quyết định sản phẩm với mức độ tự tin cao
@@ -117,108 +123,94 @@
 
         <div class="applied-ux-analytic bootcamp-section-full row goal-section" id="goal">
             <div class="col bootcamp-section-header">
-                <h2 class="mono-body primary-text">II. Mục tiêu bootcamp</h2>
+                <h2 class="mono-body primary-text">II. MỤC TIÊU BOOTCAMP</h2>
                 <p class="mono-body primary-text">
-                    Bootcamp tập trung vào: sử dụng behavioral data để ra quyết định sản phẩm tốt hơn.<br>
-                    Mục tiêu là giảm ambiguity, tăng decision confidence, và giúp Product Team giải thích
-                    được:<br>
+                    Bootcamp tập trung vào sử dụng behavioral data để ra quyết định chắc chắn hơn.<br>
+                    Mục tiêu là giúp Product Team giải thích được:<br>
                     - “Vì sao user behavior đang dẫn tới product outcome hiện tại?”<br>
                     - "Nếu muốn thay đổi outcome, cần tác động vào đâu trong user behavior?"<br><br>
                     Để đạt được mục tiêu đó, người tham dự sẽ tham gia quy trình phân tích và ra quyết định gồm:
                 </p>
             </div>
 
-            <div class="row g-0 bootcamp-section-content justify-content-center">
+            <div class="row g-0 bootcamp-section-content justify-content-center fluid-obstacle">
+                <div class="col-12 col-lg-6 col-xl-4 bootcamp-goal-card-container">
+                    <div class="bootcamp-goal-card-above" id="bootcamp_goal_section_set_goal_card">
+                        <p class="asciiIllus avoid-mouse" data-avoid="true" data-img-src="asciiIllus02"></p>
+                        <div class="mono-body primary-text button">1. Define Decision Context ›</div>
+                    </div>
 
-                <div class="col-12 col-lg-6 col-xl-4">
-                    <div class="bootcamp-goal-card-container">
-                        <div class="bootcamp-goal-card-above" id="bootcamp_goal_section_set_goal_card">
-                            <p class="asciiIllus" data-img-src="asciiIllus02"></p>
-                            <div class="mono-body primary-text button">1. Define Decision Context ›</div>
-                        </div>
-
-                        <div class="bootcamp-goal-card-below">
-                            <p class="mono-body primary-text">Xác định product problem, business impact, uncertainty, và
-                                decision cần đưa ra. Học cách chuyển ambiguity thành measurable questions, xác định
-                                success criteria, và tránh optimization sai mục tiêu.
-                            </p>
-                        </div>
+                    <div class="bootcamp-goal-card-below">
+                        <p class="mono-body primary-text">Xác định product problem, business impact, uncertainty, và
+                            decision cần đưa ra. Học cách chuyển ambiguity thành measurable questions, xác định
+                            success criteria, và tránh optimization sai mục tiêu.
+                        </p>
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-6 col-xl-4">
-                    <div class="bootcamp-goal-card-container">
-                        <div class="bootcamp-goal-card-above" id="bootcamp_goal_section_track_card">
-                            <p class="asciiIllus" data-img-src="asciiIllus03"></p>
-                            <div class="mono-body primary-text button">2. Instrument Behavior ›</div>
-                        </div>
+                <div class="col-12 col-lg-6 col-xl-4 bootcamp-goal-card-container">
+                    <div class="bootcamp-goal-card-above" id="bootcamp_goal_section_track_card">
+                        <p class="asciiIllus avoid-mouse" data-avoid="true" data-img-src="asciiIllus03"></p>
+                        <div class="mono-body primary-text button">2. Instrument Behavior ›</div>
+                    </div>
 
-                        <div class="bootcamp-goal-card-below">
-                            <p class="mono-body primary-text">Thiết kế behavioral tracking phục vụ diagnosis,
-                                experimentation, prioritization, và decision-making. Bao gồm: event architecture,
-                                behavioral signals, tracking taxonomy, signal reliability, tracking debt.
-                            </p>
-                        </div>
+                    <div class="bootcamp-goal-card-below">
+                        <p class="mono-body primary-text">Thiết kế behavioral tracking phục vụ diagnosis,
+                            experimentation, prioritization, và decision-making. Bao gồm: event architecture,
+                            behavioral signals, tracking taxonomy, signal reliability, tracking debt.
+                        </p>
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-6 col-xl-4">
-                    <div class="bootcamp-goal-card-container">
-                        <div class="bootcamp-goal-card-above" id="bootcamp_goal_section_analyze_card">
-                            <p class="asciiIllus" data-img-src="asciiIllus05"></p>
-                            <div class="mono-body primary-text button">3. Analyze Behavioral Signals ›</div>
-                        </div>
+                <div class="col-12 col-lg-6 col-xl-4 bootcamp-goal-card-container">
+                    <div class="bootcamp-goal-card-above" id="bootcamp_goal_section_analyze_card">
+                        <p class="asciiIllus avoid-mouse" data-avoid="true" data-img-src="asciiIllus05"></p>
+                        <div class="mono-body primary-text button">3. Analyze Behavioral Signals ›</div>
+                    </div>
 
-                        <div class="bootcamp-goal-card-below">
-                            <p class="mono-body primary-text">Đọc và phân tích funnel, retention, cohort, user journey,
-                                friction points. Tập trung vào: “Behavior nào đang tác động tới product outcome?”
-                            </p>
-                        </div>
+                    <div class="bootcamp-goal-card-below">
+                        <p class="mono-body primary-text">Đọc và phân tích funnel, retention, cohort, user journey,
+                            friction points. Tập trung vào: “Behavior nào đang tác động tới product outcome?”
+                        </p>
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-6 col-xl-4">
-                    <div class="bootcamp-goal-card-container">
-                        <div class="bootcamp-goal-card-above" id="bootcamp_goal_section_explain_card">
-                            <p class="asciiIllus" data-img-src="asciiIllus09"></p>
-                            <div class="mono-body primary-text button">4. Explain Root Causes ›</div>
-                        </div>
+                <div class="col-12 col-lg-6 col-xl-4 bootcamp-goal-card-container">
+                    <div class="bootcamp-goal-card-above" id="bootcamp_goal_section_explain_card">
+                        <p class="asciiIllus avoid-mouse" data-avoid="true" data-img-src="asciiIllus09"></p>
+                        <div class="mono-body primary-text button">4. Explain Root Causes ›</div>
+                    </div>
 
-                        <div class="bootcamp-goal-card-below">
-                            <p class="mono-body primary-text">Kết hợp quant & qual, replay, heatmap để tìm root cause,
-                                behavioral motivation, cognitive friction, UX failure mechanism.
-                            </p>
-                        </div>
+                    <div class="bootcamp-goal-card-below">
+                        <p class="mono-body primary-text">Kết hợp quant & qual, replay, heatmap để tìm root cause,
+                            behavioral motivation, cognitive friction, UX failure mechanism.
+                        </p>
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-6 col-xl-4">
-                    <div class="bootcamp-goal-card-container">
-                        <div class="bootcamp-goal-card-above" id="bootcamp_goal_section_validate_card">
-                            <p class="asciiIllus" data-img-src="asciiIllus08"></p>
-                            <div class="mono-body primary-text button">5. Validate Decisions ›</div>
-                        </div>
+                <div class="col-12 col-lg-6 col-xl-4 bootcamp-goal-card-container">
+                    <div class="bootcamp-goal-card-above" id="bootcamp_goal_section_validate_card">
+                        <p class="asciiIllus avoid-mouse" data-avoid="true" data-img-src="asciiIllus08"></p>
+                        <div class="mono-body primary-text button">5. Validate Decisions ›</div>
+                    </div>
 
-                        <div class="bootcamp-goal-card-below">
-                            <p class="mono-body primary-text">Thiết kế hypothesis validation, product experiments, A/B
-                                testing, causal reasoning. Mục tiêu: giảm decision risk trước khi scale solution.
-                            </p>
-                        </div>
+                    <div class="bootcamp-goal-card-below">
+                        <p class="mono-body primary-text">Thiết kế hypothesis validation, product experiments, A/B
+                            testing, causal reasoning. Mục tiêu: giảm decision risk trước khi scale solution.
+                        </p>
                     </div>
                 </div>
 
-                <div class="col-12 col-lg-6 col-xl-4">
-                    <div class="bootcamp-goal-card-container">
-                        <div class="bootcamp-goal-card-above" id="bootcamp_goal_section_validate_card">
-                            <p class="asciiIllus" data-img-src="asciiIllus06"></p>
-                            <div class="mono-body primary-text button">6. Prioritize & Influence ›</div>
-                        </div>
+                <div class="col-12 col-lg-6 col-xl-4 bootcamp-goal-card-container">
+                    <div class="bootcamp-goal-card-above" id="bootcamp_goal_section_validate_card">
+                        <p class="asciiIllus avoid-mouse" data-avoid="true" data-img-src="asciiIllus06"></p>
+                        <div class="mono-body primary-text button">6. Prioritize & Influence ›</div>
+                    </div>
 
-                        <div class="bootcamp-goal-card-below">
-                            <p class="mono-body primary-text">Ưu tiên improvements dựa trên impact, confidence, business
-                                value. Học cách communicate insight, defend recommendation bằng evidence.
-                            </p>
-                        </div>
+                    <div class="bootcamp-goal-card-below">
+                        <p class="mono-body primary-text">Ưu tiên improvements dựa trên impact, confidence, business
+                            value. Học cách communicate insight, defend recommendation bằng evidence.
+                        </p>
                     </div>
                 </div>
             </div>
@@ -226,17 +218,16 @@
 
         <div class="applied-ux-analytic bootcamp-section-full row opening-bootcamp" id="register">
             <div class="col-12 bootcamp-section-header">
-                <h2 class="mono-body primary-text">III. Danh sách bootcamp</h2>
+                <h2 class="mono-body primary-text">III. DANH SÁCH BOOTCAMP</h2>
             </div>
 
             <div class="row bootcamp-section-content" id="bootcamp-list-container">
             </div>
         </div>
 
-
         <div class="applied-ux-analytic bootcamp-section-full row syllabus" id="syllabus">
             <div class="col-12 bootcamp-section-header">
-                <h2 class="mono-body primary-text">IV. Giáo trình</h2>
+                <h2 class="mono-body primary-text">IV. GIÁO TRÌNH</h2>
                 <p class="mono-body primary-text">Giáo trình được xây dựng cho:
                     <br>16 buổi học x 3 giờ / buổi
                     <br>Học viên làm 2 project cá nhân và 1 capstone project.
@@ -250,111 +241,119 @@
                 <div class="col-6 bootcamp-section-content">
 
                     <div class="syllabus-container">
-                        <p class="asciiIllus syllabus-ascii" data-img-src="asciiIllus01"></p>
-                        <span class="mono-body primary-text">1. Foundation: Behavioral Product Thinking<br></span>
+                        <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true" data-img-src="asciiIllus01">
+                        </p>
+                        <span class="mono-body primary-text">1. BEHAVIORAL PRODUCT THINKING<br></span>
                         <p class="mono-body secondary-text">
-                            ~ UX ảnh hưởng business metrics thế nào<br>
-                            ~ Product outcome vs UX outcome<br>
-                            ~ Decision under uncertainty<br>
-                            ~ Signal vs Noise<br>
-                            ~ Leading vs Lagging indicators<br>
-                            ~ False success metrics<br>
-                            ~ Observation vs Pattern vs Insight<br>
-                            ~ Insight reliability & Confidence scoring<br>
+                            → UX ảnh hưởng business metrics thế nào<br>
+                            → Product outcome vs UX outcome<br>
+                            → Decision under uncertainty<br>
+                            → Signal vs Noise<br>
+                            → Leading vs Lagging indicators<br>
+                            → False success metrics<br>
+                            → Observation vs Pattern vs Insight<br>
+                            → Insight reliability & Confidence scoring<br>
                         </p>
                     </div>
 
                     <div class="syllabus-container">
-                        <p class="asciiIllus syllabus-ascii" data-img-src="asciiIllus02"></p>
-                        <span class="mono-body primary-text">2. Behavioral Instrumentation<br></span>
+                        <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true" data-img-src="asciiIllus02">
+                        </p>
+                        <span class="mono-body primary-text">2. BEHAVIORAL INSTRUMENTATION<br></span>
                         <p class="mono-body secondary-text">
-                            ~ User Journey → Behavioral Signals<br>
-                            ~ Detecting hesitation/confusion/recovery<br>
-                            ~ Measuring intent & abandonment<br>
-                            ~ Event, Trigger, Property architecture<br>
-                            ~ Tracking taxonomy & Identity modeling<br>
-                            ~ Tracking for diagnosis vs experimentation<br>
-                            ~ Tracking debt & signal reliability<br>
+                            → User Journey → Behavioral Signals<br>
+                            → Detecting hesitation/confusion/recovery<br>
+                            → Measuring intent & abandonment<br>
+                            → Event, Trigger, Property architecture<br>
+                            → Tracking taxonomy & Identity modeling<br>
+                            → Tracking for diagnosis vs experimentation<br>
+                            → Tracking debt & signal reliability<br>
                         </p>
                     </div>
 
                     <div class="syllabus-container">
-                        <p class="asciiIllus syllabus-ascii" data-img-src="asciiIllus03"></p>
-                        <span class="mono-body primary-text">3. Behavioral Analytics<br></span>
+                        <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true" data-img-src="asciiIllus03">
+                        </p>
+                        <span class="mono-body primary-text">3. BEHAVIORAL ANALYTICS<br></span>
                         <p class="mono-body secondary-text">
-                            ~ Multi-step conversion analysis<br>
-                            ~ Friction & drop-off diagnosis<br>
-                            ~ User flow & path analysis<br>
-                            ~ Retention & Cohort analysis<br>
-                            ~ Behavioral segmentation<br>
-                            ~ Engagement quality analysis<br>
-                            ~ Identifying behavioral anomalies<br>
-                            ~ Product metrics hierarchy & KPIs<br>
+                            → Multi-step conversion analysis<br>
+                            → Friction & drop-off diagnosis<br>
+                            → User flow & path analysis<br>
+                            → Retention & Cohort analysis<br>
+                            → Behavioral segmentation<br>
+                            → Engagement quality analysis<br>
+                            → Identifying behavioral anomalies<br>
+                            → Product metrics hierarchy & KPIs<br>
                         </p>
                     </div>
 
                     <div class="syllabus-container">
-                        <p class="asciiIllus syllabus-ascii" data-img-src="asciiIllus04"></p>
-                        <span class="mono-body primary-text">4. Statistics for Product Decisions<br></span>
+                        <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true" data-img-src="asciiIllus04">
+                        </p>
+                        <span class="mono-body primary-text">4. STATISTICS FOR PRODUCT DECISIONS<br></span>
                         <p class="mono-body secondary-text">
-                            ~ Descriptive statistics & variability<br>
-                            ~ Percentage vs Percentile<br>
-                            ~ Sampling & Statistical significance<br>
-                            ~ Confidence interval<br>
-                            ~ Hypothesis testing basics<br>
-                            ~ Type I & Type II errors<br>
-                            ~ Reading statistical output<br>
+                            → Descriptive statistics & variability<br>
+                            → Percentage vs Percentile<br>
+                            → Sampling & Statistical significance<br>
+                            → Confidence interval<br>
+                            → Hypothesis testing basics<br>
+                            → Type I & Type II errors<br>
+                            → Reading statistical output<br>
                         </p>
                     </div>
 
                     <div class="syllabus-container">
-                        <p class="asciiIllus syllabus-ascii" data-img-src="asciiIllus05"></p>
-                        <span class="mono-body primary-text">5. Explanatory Research & Diagnosis<br></span>
+                        <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true" data-img-src="asciiIllus05">
+                        </p>
+                        <span class="mono-body primary-text">5. EXPLANATORY RESEARCH & DIAGNOSIS<br></span>
                         <p class="mono-body secondary-text">
-                            ~ Deep-dive behavioral investigation<br>
-                            ~ Session replay & Heatmap analysis<br>
-                            ~ Identifying expectation breakdown<br>
-                            ~ Detecting cognitive friction<br>
-                            ~ Combining qual & quant synthesis<br>
-                            ~ Contradicting signals & Triangulation<br>
+                            → Deep-dive behavioral investigation<br>
+                            → Session replay & Heatmap analysis<br>
+                            → Identifying expectation breakdown<br>
+                            → Detecting cognitive friction<br>
+                            → Combining qual & quant synthesis<br>
+                            → Contradicting signals & Triangulation<br>
                         </p>
                     </div>
 
                     <div class="syllabus-container">
-                        <p class="asciiIllus syllabus-ascii" data-img-src="asciiIllus09"></p>
-                        <span class="mono-body primary-text">6. Experimentation & Validation<br></span>
+                        <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true" data-img-src="asciiIllus09">
+                        </p>
+                        <span class="mono-body primary-text">6. EXPERIMENTATION & VALIDATION<br></span>
                         <p class="mono-body secondary-text">
-                            ~ Experiment-driven product development<br>
-                            ~ A/B testing fundamentals & Quasi-experiment<br>
-                            ~ Holdout groups & Pre/Post measurement<br>
-                            ~ Designing measurable hypotheses<br>
-                            ~ Causal reasoning in experimentation<br>
-                            ~ Measuring decision risk & Validation thresholds<br>
+                            → Experiment-driven product development<br>
+                            → A/B testing fundamentals & Quasi-experiment<br>
+                            → Holdout groups & Pre/Post measurement<br>
+                            → Designing measurable hypotheses<br>
+                            → Causal reasoning in experimentation<br>
+                            → Measuring decision risk & Validation thresholds<br>
                         </p>
                     </div>
 
                     <div class="syllabus-container">
-                        <p class="asciiIllus syllabus-ascii" data-img-src="asciiIllus06"></p>
-                        <span class="mono-body primary-text">7. Prioritization & Strategic Communication<br></span>
+                        <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true" data-img-src="asciiIllus06">
+                        </p>
+                        <span class="mono-body primary-text">7. PRIORITIZATION & STRATEGIC COMMUNICATION<br></span>
                         <p class="mono-body secondary-text">
-                            ~ ICE / RICE & Opportunity scoring<br>
-                            ~ Confidence-weighted prioritization<br>
-                            ~ Data storytelling & Defending recommendations<br>
-                            ~ Presenting uncertainty & Handling stakeholder bias<br>
-                            ~ Communicating trade-offs & KPI conflicts<br>
+                            → ICE / RICE & Opportunity scoring<br>
+                            → Confidence-weighted prioritization<br>
+                            → Data storytelling & Defending recommendations<br>
+                            → Presenting uncertainty & Handling stakeholder bias<br>
+                            → Communicating trade-offs & KPI conflicts<br>
                         </p>
                     </div>
 
                     <div class="syllabus-container">
-                        <p class="asciiIllus syllabus-ascii" data-img-src="asciiIllus01"></p>
-                        <span class="mono-body primary-text">8. Capstone Project<br></span>
+                        <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true" data-img-src="asciiIllus01">
+                        </p>
+                        <span class="mono-body primary-text">8. CAPSTONE PROJECT<br></span>
                         <p class="mono-body secondary-text">
-                            ~ Diagnose a real-world product problem<br>
-                            ~ Design instrumentation & Analyze behavior<br>
-                            ~ Explain root cause & Validate hypothesis<br>
-                            ~ Propose prioritized recommendations<br>
-                            ~ Deliver Tracking Plan & Behavioral Analysis<br>
-                            ~ Stakeholder Presentation<br>
+                            → Diagnose a real-world product problem<br>
+                            → Design instrumentation & Analyze behavior<br>
+                            → Explain root cause & Validate hypothesis<br>
+                            → Propose prioritized recommendations<br>
+                            → Deliver Tracking Plan & Behavioral Analysis<br>
+                            → Stakeholder Presentation<br>
                         </p>
                     </div>
 
@@ -364,7 +363,7 @@
 
         <div class="applied-ux-analytic row bootcamp-section-full lecturer" id="general">
             <div class="col-12 bootcamp-section-header">
-                <h2 class="mono-body primary-text">V. Thông tin chung</h2>
+                <h2 class="mono-body primary-text">V. THÔNG TIN CHUNG</h2>
             </div>
 
             <div class="col bootcamp-section-content">
@@ -376,11 +375,17 @@
         </div>
 
         <div class="row footer justify-content-center" id="footer">
-            <div class="col-6">
-                <p class="asciiIllus syllabus-ascii primary-text align-left" data-img-src="bootcamp_name"></p>
+            <div class="col-12 col-lg-8">
+                <p class="asciiIllus syllabus-ascii primary-text align-left avoid-mouse" data-avoid="true"
+                    data-img-src="bootcamp_name"></p>
             </div>
 
-            <div class="col-6 footer-content">
+            <div class="col-12 col-lg-4 footer-content">
+                <div class="mono-body primary-text">
+                    <span class="mono-body secondary-text">another bootcamp</span>
+                    <a href="../index.html" class="mono-body primary-text">Designing Digital Product per Stage and
+                        Metric ›</a>
+                </div>
                 <div class="mono-body primary-text">
                     <span class="mono-body secondary-text">Tools</span>
                     <a href="statistic-calculator/index.html" class="mono-body primary-text">Statistic Calculator ›</a>
@@ -393,15 +398,18 @@
                     <span class="mono-body secondary-text" class="mono-body primary-text">Contact</span>
                     <div class="social-links">
 
-                        <a target="_blank" rel="noopener noreferrer" href="https://www.facebook.com/uxcampvn/"
-                            title="https://www.facebook.com/uxcampvn">Facebook › </a>
-                        <a target="_blank" rel="noopener noreferrer"
+                        <a target="_blank" class="mono-body primary-text" rel="noopener noreferrer"
+                            href="https://www.facebook.com/uxcampvn/" title="https://www.facebook.com/uxcampvn">Facebook
+                            ›
+                        </a>
+                        <a target="_blank" class="mono-body primary-text" rel="noopener noreferrer"
                             href="https://www.linkedin.com/company/uxcamp-vietnam"
                             title="https://www.linkedin.com/company/uxcamp-vietnam">Linkedin › </a>
-                        <a target="_blank" rel="noopener noreferrer" href="https://www.youtube.com/@UXCampVietnam"
+                        <a target="_blank" class="mono-body primary-text" rel="noopener noreferrer"
+                            href="https://www.youtube.com/@UXCampVietnam"
                             title="https://www.youtube.com/@UXCampVietnam">Youtube › </a>
-                        <a target="_blank" rel="noopener noreferrer" href="mailto:hello@uxcamp.vn"
-                            title="hello@uxcamp.vn">Email › </a>
+                        <a target="_blank" class="mono-body primary-text" rel="noopener noreferrer"
+                            href="mailto:hello@uxcamp.vn" title="hello@uxcamp.vn">Email › </a>
                     </div>
                 </div>
 
@@ -414,7 +422,7 @@
 
         <div class="applied-ux-analytic bootcamp-section-full row" id="console">
             <div class="col-12 bootcamp-section-header">
-                <h2 class="mono-body primary-text">VI. Console</h2>
+                <h2 class="mono-body primary-text">VI. CONSOLE</h2>
             </div>
 
             <div class="col-12 bootcamp-section-content p-0">
@@ -433,7 +441,8 @@
                             <!-- Overall -->
                             <div class="ux-block">
                                 <div class="ux-block-title mono-body primary-text">[ OVERALL ]<span
-                                        class="ux-dash"></span></div>
+                                        class="ux-dash"></span>
+                                </div>
                                 <div class="ux-kv-grid">
                                     <span class="mono-body secondary-text">total_page_view</span>
                                     <span class="mono-body secondary-text">:</span>
@@ -772,7 +781,6 @@
         </div>
     </div>
 
-    <canvas id="fluidCanvas"></canvas>
 
 </body>
 

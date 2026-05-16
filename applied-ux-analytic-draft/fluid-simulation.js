@@ -45,7 +45,7 @@ var defaultConfig = {
     ASCII: true,
     ASCII_CHARS: " .:-=+*%#@",
     // ASCII_CHARS: " ⋅∘∙◌◯◎●",
-    // ASCII_CHARS: " ▁▂▃▄▅▆▇█▃▂ ▁",
+    // ASCII_CHARS: " ▁▂▃▄▅▆▇█▃▂▁",
 
     ASCII_CELL_SIZE: 14,
     ASCII_COLOR: isDarkMode ? { r: 255, g: 255, b: 255 } : { r: 0, g: 0, b: 0 },
@@ -994,7 +994,7 @@ function renderObstacleMask() {
                     let imgWidth = el._fluidImage.width || rect.width;
                     let imgHeight = el._fluidImage.height || rect.height;
                     const fit = getFitContain(rect.width, rect.height, imgWidth, imgHeight);
-                    
+
                     const actualRelX = rect.left + fit.x - canvasRect.left;
                     const actualRelY = rect.top + fit.y - canvasRect.top;
                     const fDrawX = (actualRelX / fluid_canvas.clientWidth) * res.width;

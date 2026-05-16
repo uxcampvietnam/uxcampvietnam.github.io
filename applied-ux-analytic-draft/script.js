@@ -1,14 +1,12 @@
 import TextRepulsion from './text-repulsion.js';
 
-function showFluidText() {
-  // config.SPLAT_RADIUS = defaultConfig.SPLAT_RADIUS;
-  document.querySelector('.bootcamp-name-hero').classList.remove('bootcamp-name-hero-hide');
-}
+// function showFluidText() {
+//   document.querySelector('.bootcamp-name-hero').classList.remove('bootcamp-name-hero-hide');
+// }
 
-function hideFluidText() {
-  document.querySelector('.bootcamp-name-hero').classList.add('bootcamp-name-hero-hide');
-  // config.SPLAT_RADIUS = 0.15;
-}
+// function hideFluidText() {
+//   document.querySelector('.bootcamp-name-hero').classList.add('bootcamp-name-hero-hide');
+// }
 
 const ascii_art = {
   case_study:
@@ -35,26 +33,33 @@ const ascii_art = {
    #############################################   
       #######################################`,
   bootcamp_name:
-    `uxcamp_vietnam
-                                 ||||      ||                      ||
-                                   ||                              ||
- |||||    || ||||     || ||||      ||    ||||       |||||      ||| ||
-      ||  ||||   ||   ||||   ||    ||      ||     ||    ||   ||   |||
- |||||||  ||     ||   ||     ||    ||      ||     ||||||||   ||    ||
-||    ||  ||||   ||   ||||   ||    ||      ||     ||         ||   |||
- |||||||  || ||||     || ||||    ||||||  ||||||     ||||||     ||| ||
-          ||          ||
-          ||          ||
-                                                                 ||||                   ||          ||
-                                                                   ||                   ||
-||     ||  ||      ||           |||||||   || ||||      ||||||      ||     ||     ||   ||||||      ||||     ||||||
-||     ||    ||  ||                   ||  ||||   ||         ||     ||     ||     ||     ||          ||    ||     
-||     ||      ||               ||||||||  ||     ||    |||||||     ||     ||    |||     ||          ||    ||     
-||   ||||    ||  ||           ||      ||  ||     ||  ||     ||     ||       |||| ||     ||   ||     ||    ||     
- ||||| ||  ||      ||           ||||||||  ||     ||    |||||||   ||||||          ||      ||||     ||||||   ||||||
-                      |||||||                                             ||     ||
-                                                                            ||||||
-the_oracle_of_hidden_user_behavior`,
+    `
+                                ||||      ||                      ||
+                                  ||                              ||
+ ||||||   || ||||    || ||||      ||    ||||       |||||      ||| ||
+      ||  ||||  ||   ||||  ||     ||      ||     ||    ||   ||   |||
+ |||||||  ||    ||   ||    ||     ||      ||     ||||||||   ||    ||
+||    ||  ||||  ||   ||||  ||     ||      ||     ||         ||   |||
+ |||||||  || ||||    || ||||    ||||||  ||||||     ||||||     ||| ||
+          ||         ||
+          ||         ||
+
+||     ||  ||      ||
+||     ||    ||  ||  
+||     ||      ||    
+||   ||||    ||  ||  
+ ||||| ||  ||      ||
+                                ||||                  ||          ||
+                                  ||                  ||
+ ||||||   || ||||     ||||||      ||     ||    ||   ||||||      ||||     ||||||
+      ||  ||||   ||        ||     ||     ||    ||     ||          ||    ||     
+ |||||||  ||     ||   |||||||     ||     ||   |||     ||          ||    ||     
+||    ||  ||     ||  |     ||     ||       ||| ||     ||   ||     ||    ||     
+ |||||||  ||     ||   |||||||   ||||||         ||      ||||     ||||||   ||||||
+                                         ||    ||
+                                           |||||
+                                           
+Behavioral Decision-Making for Product Teams`,
   asciiIllus01:
     `++++
 ++++++
@@ -427,16 +432,16 @@ window.onload = () => {
 
   }
 
-  if (document.querySelector('.applied-ux-analytic')) {
-    ScrollTrigger.create({
-      trigger: ".applied-ux-analytic",
-      start: "top 80%",
-      end: "top 80%",
-      // markers: true,
-      onEnter: () => hideFluidText(),
-      onEnterBack: () => showFluidText(),
-    });
-  }
+  // if (document.querySelector('.applied-ux-analytic')) {
+  //   ScrollTrigger.create({
+  //     trigger: ".applied-ux-analytic",
+  //     start: "top center",
+  //     end: "top center",
+  //     // markers: true,
+  //     onEnter: () => hideFluidText(),
+  //     onEnterBack: () => showFluidText(),
+  //   });
+  // }
 
   if (document.querySelector('.applied-ux-analytic-name-fluid.text')) {
     gsap.to('.applied-ux-analytic-name-fluid.text *', {
@@ -447,51 +452,54 @@ window.onload = () => {
     });
   }
 
+  let mm = gsap.matchMedia();
 
-  document.querySelectorAll('.syllabus-container').forEach(container => {
+  mm.add("(min-width: 992px)", () => {
+    // document.querySelectorAll('.syllabus-container').forEach(container => {
+    // gsap.to(container.querySelectorAll('.syllabus-ascii'), {
+    //   scrollTrigger: {
+    //     trigger: container,
+    //     start: "top 60%",
+    //     end: "bottom 60%",
+    //     toggleActions: 'play reset play reset',
+    //     onEnter: () => {
+    //       container.getElementsByClassName('syllabus-ascii')[0].style.opacity = '1';
+    //       window.textRepulsion.refresh();
+    //     },
+    //     onLeave: () => {
+    //       container.getElementsByClassName('syllabus-ascii')[0].style.opacity = '0';
+    //       window.textRepulsion.refresh();
+    //     },
+    //     onEnterBack: () => {
+    //       container.getElementsByClassName('syllabus-ascii')[0].style.opacity = '1';
+    //       window.textRepulsion.refresh();
+    //     },
+    //     onLeaveBack: () => {
+    //       container.getElementsByClassName('syllabus-ascii')[0].style.opacity = '0';
+    //       window.textRepulsion.refresh();
+    //     },
+    //   },
+    // })
 
-    gsap.to(container.querySelectorAll('.syllabus-ascii'), {
-      scrollTrigger: {
-        trigger: container,
-        start: "top 60%",
-        end: "bottom 60%",
-        toggleActions: 'play reset play reset',
-        // markers: true,
-        onEnter: () => {
-          container.getElementsByClassName('syllabus-ascii')[0].style.position = 'fixed';
-          container.getElementsByClassName('syllabus-ascii')[0].style.display = 'block';
-          window.textRepulsion.refresh();
-        },
-        onLeave: () => {
-          container.getElementsByClassName('syllabus-ascii')[0].style.position = 'relative';
-          container.getElementsByClassName('syllabus-ascii')[0].style.display = 'none';
-          window.textRepulsion.refresh();
+    // gsap.from(container.querySelectorAll('span, p'), {
+    //   scrollTrigger: {
+    //     trigger: container,
+    //     start: "top 60%",
+    //     end: "bottom 60%",
+    //     toggleActions: 'play reset play reset',
+    //   },
+    //   opacity: 0.4,
+    // })
+    // });
+  });
 
-        },
-        onEnterBack: () => {
-          container.getElementsByClassName('syllabus-ascii')[0].style.position = 'fixed';
-          container.getElementsByClassName('syllabus-ascii')[0].style.display = 'block';
-          window.textRepulsion.refresh();
-
-        },
-        onLeaveBack: () => {
-          container.getElementsByClassName('syllabus-ascii')[0].style.position = 'relative';
-          container.getElementsByClassName('syllabus-ascii')[0].style.display = 'none';
-          window.textRepulsion.refresh();
-
-        },
-      },
-    })
-
-    gsap.from(container.querySelectorAll('span, p'), {
-      scrollTrigger: {
-        trigger: container,
-        start: "top 60%",
-        end: "bottom 60%",
-        toggleActions: 'play reset play reset',
-      },
-      opacity: 0.4,
-    })
+  mm.add("(max-width: 991px)", () => {
+    document.querySelectorAll('.syllabus-container').forEach(container => {
+      // On mobile, just ensure they are visible and have no scroll trigger show/hide
+      gsap.set(container.querySelectorAll('.syllabus-ascii'), { opacity: 1 });
+      container.getElementsByClassName('syllabus-ascii')[0].style.display = 'block';
+      container.getElementsByClassName('syllabus-ascii')[0].style.position = 'relative';
+    });
   });
 
 
@@ -528,8 +536,8 @@ fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82
 
       bootcamps.forEach(item => {
         const col = document.createElement('div');
-        item.is_open == 1 ? col.classList.add("open-bootcamp", "fluid-obstacle") : col.classList.add("closed-bootcamp", "fluid-obstacle");
-        col.classList.add('col');
+        item.is_open == 1 ? col.classList.add("open-bootcamp") : col.classList.add("closed-bootcamp");
+        col.classList.add('col-12', 'col-md-6', 'col-lg-4');
         col.innerHTML = `
                 <span class="mono-body reverse-color">${item.bootcamp_name}</span><br>
                 <span class="mono-body reverse-color">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>

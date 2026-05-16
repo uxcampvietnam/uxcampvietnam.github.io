@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>applied ux analytic — diagnostic survey</title>
     <link rel="icon" href="https://uxcamp.vn/asset/icon/favicon.ico">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.0/gsap.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../style/definition.css">
     <link rel="stylesheet" href="style.css">
@@ -25,15 +26,17 @@
 
 
 
-    <form id="survey-form" class="container">
+    <form id="survey-form" class="container" novalidate>
 
         <header class="terminal-header">
-            <p class="d-none d-md-block asciiIllus syllabus-ascii primary-text align-left avoid-mouse" data-avoid="true"
+            <div>
+                <a href="../index.html" class="primary-text mono-body">uxcamp > </a>
+                <a href="index.html" class="primary-text mono-body">applied_ux_analytic</a>
+                <br><br>
+            </div>
+
+            <p class="d-none d-lg-block asciiIllus syllabus-ascii primary-text align-left avoid-mouse" data-avoid="true"
                 data-img-src="bootcamp_name"></p>
-
-            <p class="d-block d-md-none primary-text mono-body">uxcamp_vietnam <br>
-                applied_ux_analytic</p>
-
         </header>
 
         <input type="hidden" name="form_type" value="applied_ux_analytic">
@@ -42,16 +45,11 @@
         <div class="form-step active" data-title="Intro">
             <div class="question-block">
                 <p class="mono-body primary-text">Bạn vui lòng hoàn thành form đăng ký tham dự Applied UX Analytic này
-                    nhé. <br> Mục
-                    tiêu
-                    của form đăng ký này là:</p>
+                    nhé. <br> Mục tiêu của form đăng ký này là:</p>
                 <ul class="mono-body primary-text">
                     <li class="mono-body primary-text">Hiểu bối cảnh công việc hiện tại của bạn.</li>
                     <li class="mono-body primary-text">Hiểu pain point, nhu cầu & kỳ vọng để điều chỉnh nội dung chương
-                        trình cho phù
-                        hợp
-                        với
-                        những gì bạn quan tâm.</li>
+                        trình cho phù hợp với những gì bạn quan tâm.</li>
                 </ul>
                 <p class="mono-body primary-text">Thời gian hoàn thành ~ 10 phút.</p>
             </div>
@@ -63,22 +61,22 @@
             <div class="question-block">
                 <div class="col-12 mt-4">
                     <label class="question-label mono-body primary-text">Họ và tên *</label>
-                    <input type="text" name="full_name" required placeholder="nhập họ tên..."
-                        class="mono-body primary-text" autocomplete="name">
+                    <input type="text" name="full_name" required placeholder="..." class="mono-body primary-text"
+                        autocomplete="name">
                 </div>
                 <div class="col-12 mt-4">
                     <label class="question-label mono-body primary-text">Năm sinh *</label>
-                    <input type="number" name="year_of_birth" required placeholder="ví dụ: 2000"
-                        class="mono-body primary-text" autocomplete="bday-year">
+                    <input type="number" name="year_of_birth" required placeholder="..." class="mono-body primary-text"
+                        autocomplete="bday-year">
                 </div>
                 <div class="col-12 mt-4">
                     <label class="question-label mono-body primary-text">Email *</label>
-                    <input type="email" name="email" required placeholder="name@example.com"
-                        class="mono-body primary-text" autocomplete="email">
+                    <input type="email" name="email" required placeholder="..." class="mono-body primary-text"
+                        autocomplete="email">
                 </div>
                 <div class="col-12 mt-4">
                     <label class="question-label mono-body primary-text">Số điện thoại *</label>
-                    <input type="tel" name="phone" required placeholder="090..." class="mono-body primary-text"
+                    <input type="tel" name="phone" required placeholder="..." class="mono-body primary-text"
                         autocomplete="tel">
                 </div>
                 <div class="col-12 mt-4">
@@ -88,7 +86,7 @@
                 </div>
                 <div class="col-12 mt-4">
                     <label class="question-label mono-body primary-text">Tổng số năm kinh nghiệm của bạn *</label>
-                    <input type="number" name="years_of_experience" min="0" required placeholder="ví dụ: 2.5"
+                    <input type="number" name="years_of_experience" min="0" required placeholder="vd: 6.5"
                         class="mono-body primary-text">
                 </div>
             </div>
@@ -97,7 +95,7 @@
 
         <div class="form-step active" data-title="II. MÔI TRƯỜNG LÀM VIỆC">
 
-            <p class="mono-body section-title">II. MÔI TRƯỜNG LÀM VIỆC HIỆN TẠI</p>
+            <p class="mono-body section-title">II. MÔI TRƯỜNG LÀM VIỆC</p>
             <div class="question-block">
                 <div class="col-12 mt-4">
                     <label class="question-label mono-body">Website/fanpage của công ty *</label>
@@ -247,7 +245,6 @@
                     </div>
                 </div>
 
-
             </div>
         </div>
 
@@ -268,7 +265,7 @@
                     <table class="likert-matrix mono-body">
 
                         <tbody>
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Xác định mục tiêu]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -298,7 +295,7 @@
                                 <td class="matrix-option"><input type="radio" name="phase_key_metrics" value="3"></td>
                             </tr>
 
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Cài đặt tracking]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -342,7 +339,7 @@
                                 </td>
                             </tr>
 
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Phân tích]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -413,7 +410,7 @@
                                 </td>
                             </tr>
 
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Nghiên cứu giải thích]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -527,7 +524,7 @@
                 <div class="table-responsive">
                     <table class="likert-matrix mono-body">
                         <tbody>
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Tracking]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -584,7 +581,7 @@
                                         value="3"></td>
                             </tr>
 
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Decision-Making]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -634,7 +631,7 @@
                                 </td>
                             </tr>
 
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Business Impact]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -675,7 +672,7 @@
                                         value="3"></td>
                             </tr>
 
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Stakeholder Management]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -744,7 +741,7 @@
                 <div class="table-responsive">
                     <table class="likert-matrix mono-body">
                         <tbody>
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Tư duy & Framework]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -790,7 +787,7 @@
                                 </td>
                             </tr>
 
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Hiểu người dùng & Product Behavior]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -831,7 +828,7 @@
                                 </td>
                             </tr>
 
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Measurement & Tracking]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -876,7 +873,7 @@
                                 </td>
                             </tr>
 
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Insight & Decision-making]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -921,7 +918,7 @@
                                         value="3"></td>
                             </tr>
 
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Communication & Stakeholder]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -948,7 +945,7 @@
                                 </td>
                             </tr>
 
-                            <tr class="matrix-section-header">
+                            <tr class="matrix-section-header secondary-text">
                                 <td>[Learning Experience & Application]</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -1004,8 +1001,8 @@
                                     name="concerns[]" value="Sợ quá nhiều kiến thức"></div>
                         </div>
                         <div class="col-6 col-md-4">
-                            <div class="option-item mono-body">Sợ kiến thức quá lý thuyết<input type="checkbox"
-                                    name="concerns[]" value="Sợ kiến thức quá lý thuyết"></div>
+                            <div class="option-item mono-body">Sợ nặng lý thuyết<input type="checkbox" name="concerns[]"
+                                    value="Sợ nặng lý thuyết"></div>
                         </div>
                         <div class="col-6 col-md-4">
                             <div class="option-item mono-body">Sợ quá nhiều thực hành<input type="checkbox"
@@ -1025,7 +1022,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="btn-terminal mono-body" id="submit-btn">Finalize & Submit</button>
+            <button type="submit" class="btn-terminal mono-body" id="submit-btn">Submit ›</button>
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

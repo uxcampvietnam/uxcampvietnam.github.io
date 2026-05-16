@@ -288,7 +288,7 @@ span {
 
 .mono-body {
   font-family: var(--font-mono);
-  font-size: 16px;
+  font-size: var(--font-serif-mono-body-size);
   line-height: var(--lh-normal);
   letter-spacing: var(--ls);
 }
@@ -592,6 +592,9 @@ span {
 
 :root {
 
+  --font-serif-mono-body-size: 14px;
+
+
   /* =====================
      SERIF
   ====================== */
@@ -645,6 +648,7 @@ span {
   --font-serif-x-small-size: 11px;
   --font-serif-x-small-line: 18px;
   --font-serif-x-small-letter: 0.5px;
+
 
   /* =====================
      SANS
@@ -718,6 +722,8 @@ span {
 @media (min-width: 768px) {
 
   :root {
+
+    --font-serif-mono-body-size: 16px;
 
     --font-serif-xl-title-size: 60px;
     --font-serif-xl-title-line: 62px;
@@ -812,6 +818,8 @@ span {
 @media (min-width: 1200px) {
 
   :root {
+
+    --font-serif-mono-body-size: 17px;
 
     --font-serif-xl-title-size: 72px;
     --font-serif-xl-title-line: 76px;

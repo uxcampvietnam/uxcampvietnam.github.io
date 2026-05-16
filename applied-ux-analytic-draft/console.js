@@ -1,5 +1,4 @@
 
-
 // ============================================================
 //  UX ANALYTICS LIVE CONSOLE — Real Tracking Module
 //
@@ -8,7 +7,7 @@
 //  {
 //    firstVisit      : ISO string — very first page load ever
 //    totalPageViews  : number    — incremented on every page load
-//    totalDuration   : number    — accumulated ms from past sessions
+//    totalDuration   : number    — accumulated ms from past sessions (active only)
 //    sessionStart    : ISO string — reset each page load
 //    registerClicks  : number    — clicks on any register / CTA link
 //    isRegistered    : boolean   — true after first register click
@@ -16,6 +15,7 @@
 //    funnelDone      : object    — which funnel steps are complete
 //    sectionTime     : object    — cumulative seconds user spent in each section
 //    eventLog        : array     — last 50 events [{time, label, isAlert}]
+//    registrationStats : object  — frozen metrics at time of registration
 //  }
 // ============================================================
 
@@ -39,29 +39,25 @@
         return {
             firstVisit: new Date().toISOString(),
             totalPageViews: 0,
-            totalDuration: 0,       // accumulated ms from all past sessions
+            totalDuration: 0,       // accumulated ms from all past sessions (active only)
             sessionStart: null,
             registerClicks: 0,
             isRegistered: false,
             registeredDate: null,
+            formProgress: 0,        // tracks form completion %
+            registrationStats: null, // frozen stats at time of registration
             funnelDone: {
                 landing_view: false,
                 scroll_50: false,
-                view_register: false,  // shown as "view_pricing" in the funnel UI
+                view_register: false,
                 click_cta: false,
                 start_form: false,
                 submit_form: false,
             },
             sectionTime: {
-                intro: 0,      // cumulative seconds the user has spent with this section visible
-                goal: 0,
-                register: 0,
-                syllabus: 0,   // displayed as "Modules" in the heatmap
-                general: 0,
-                footer: 0,
-                demo: 0,
+                intro: 0, goal: 0, register: 0, syllabus: 0, general: 0, footer: 0, demo: 0,
             },
-            eventLog: [],    // [{time:"HH:MM:SS", label:"...", isAlert:bool}]
+            eventLog: [],
         };
     }
 
@@ -74,13 +70,12 @@
     // Initialise state
     const state = loadState();
 
+    // Per-session active timer (non-persistent, added to totalDuration on exit)
+    let sessionActiveMs = 0;
+
     // ── State migration ──────────────────────────────────────────
-    //  If localStorage contains the old "scrollHeatmap" key (saved before
-    //  the redesign), migrate it: zero out the new sectionTime bucket so the
-    //  rest of the code never sees `undefined` and crashes silently.
     if (!state.sectionTime) {
         state.sectionTime = { intro: 0, goal: 0, register: 0, syllabus: 0, general: 0, footer: 0, demo: 0 };
-        delete state.scrollHeatmap; // remove stale key
         saveState();
     }
 
@@ -90,14 +85,12 @@
 
     // Count this load as a new page view
     state.totalPageViews += 1;
-
-    // Stamp a fresh session start (used for elapsed-time calculations)
     state.sessionStart = new Date().toISOString();
 
     // Funnel step 1: user just did a landing_view
     if (!state.funnelDone.landing_view) {
         state.funnelDone.landing_view = true;
-        pushEvent('landing_view');  // hoisted — defined in §4
+        pushEvent('landing_view');
     }
 
     saveState();
@@ -106,11 +99,6 @@
     // 3. TIME / DATE HELPERS
     // ─────────────────────────────────────────────────────────────
 
-    /**
-     * Format milliseconds as "Xm:Ys" — used for all duration displays.
-     * e.g. 1_870_000 ms → "31m:10s"
-     * Hours are folded into minutes for readability (e.g. 90m:05s).
-     */
     function fmtDuration(ms) {
         const totalSec = Math.max(0, Math.floor(ms / 1000));
         const m = Math.floor(totalSec / 60);
@@ -118,7 +106,6 @@
         return `${m}m:${String(s).padStart(2, '0')}s`;
     }
 
-    /** Vietnamese short date from ISO string → "Thứ 4, 7/5/2026" */
     function fmtDate(isoStr) {
         if (!isoStr) return '—';
         const d = new Date(isoStr);
@@ -126,30 +113,26 @@
         return `${days[d.getDay()]}, ${d.getDate()}/${d.getMonth() + 1}/${d.getFullYear()}`;
     }
 
-    /** Elapsed ms since this page was loaded (current session only) */
     function sessionElapsedMs() {
-        return Date.now() - new Date(state.sessionStart).getTime();
+        return sessionActiveMs;
     }
 
-    /** Total ms = all past sessions + current session */
     function totalElapsedMs() {
-        return state.totalDuration + sessionElapsedMs();
+        return state.totalDuration + sessionActiveMs;
     }
 
     // ─────────────────────────────────────────────────────────────
     // 4. EVENT STREAM
     // ─────────────────────────────────────────────────────────────
 
-    /** Append one entry to the event log and re-render the stream panel */
     function pushEvent(label, isAlert = false) {
-        const time = new Date().toTimeString().slice(0, 8); // "HH:MM:SS"
+        const time = new Date().toTimeString().slice(0, 8);
         state.eventLog.push({ time, label, isAlert });
-        if (state.eventLog.length > 50) state.eventLog.shift(); // keep last 50
+        if (state.eventLog.length > 50) state.eventLog.shift();
         saveState();
         renderEventStream();
     }
 
-    /** Rebuild the event stream DOM from state.eventLog */
     function renderEventStream() {
         const container = document.getElementById('demo-event-stream');
         if (!container) return;
@@ -174,26 +157,21 @@
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 5. SCROLL TRACKING  (global depth only — heatmap uses time, not scroll %)
+    // 5. SCROLL TRACKING
     // ─────────────────────────────────────────────────────────────
 
-    // Maps section element IDs → sectionTime state keys
     const SECTION_MAP = {
         intro: 'intro', goal: 'goal', register: 'register',
         syllabus: 'syllabus', general: 'general', footer: 'footer', demo: 'demo',
     };
 
-    // Global scroll-depth milestones fired this session (reset on reload)
     const scrollMilestones = { 25: false, 50: false, 75: false, 90: false };
 
     function onScroll() {
         const scrollTop = window.scrollY;
         const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-
-        // Global page scroll percentage (0-100)
         const globalPct = docHeight > 0 ? Math.round((scrollTop / docHeight) * 100) : 0;
 
-        // Fire scroll-depth milestone events (each fires once per session)
         [25, 50, 75, 90].forEach(milestone => {
             if (!scrollMilestones[milestone] && globalPct >= milestone) {
                 scrollMilestones[milestone] = true;
@@ -201,20 +179,17 @@
             }
         });
 
-        // Funnel step: scroll_50 reached
         if (!state.funnelDone.scroll_50 && globalPct >= 50) {
             state.funnelDone.scroll_50 = true;
             saveState();
             renderFunnel();
         }
 
-        // Update live scroll-progress bar + percentage text
         const fillEl = document.getElementById('demo-scroll-fill');
         const pctEl = document.getElementById('demo-scroll-pct');
         if (fillEl) fillEl.style.width = globalPct + '%';
         if (pctEl) pctEl.textContent = globalPct + '%';
 
-        // sections_viewed: count sections where user has spent ≥ 3 s
         const viewed = Object.values(state.sectionTime).filter(v => v >= 3).length;
         const sectionsEl = document.getElementById('demo-sections');
         if (sectionsEl) sectionsEl.textContent = `${viewed} / ${Object.keys(state.sectionTime).length}`;
@@ -223,16 +198,11 @@
     window.addEventListener('scroll', onScroll, { passive: true });
 
     // ─────────────────────────────────────────────────────────────
-    // 6. SECTION TIME TRACKING (IntersectionObserver)
-    //
-    //  Each section element is observed. When it enters the viewport
-    //  we record `enterTime`. When it leaves we add the elapsed seconds
-    //  to state.sectionTime[key] and save. The live tick also flushes
-    //  currently-visible sections every second so the chart updates live.
+    // 6. SECTION TIME TRACKING
     // ─────────────────────────────────────────────────────────────
 
-    const seenSections = new Set();   // sections that have fired view_section event
-    const sectionEnter = {};          // sectionId → Date.now() when it entered viewport
+    const seenSections = new Set();
+    const sectionEnter = {};
 
     const sectionObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
@@ -240,25 +210,18 @@
             const key = SECTION_MAP[id];
 
             if (entry.isIntersecting) {
-                // ── Section entered viewport ──────────────────────────
                 sectionEnter[id] = Date.now();
-
-                // Fire view_section event once per session
                 if (!seenSections.has(id)) {
                     seenSections.add(id);
                     pushEvent(`view_section: ${id}`);
                 }
-
-                // Funnel: view_register step (maps to "view_pricing" in the UI)
                 if (id === 'register' && !state.funnelDone.view_register) {
                     state.funnelDone.view_register = true;
                     saveState();
                     renderFunnel();
                 }
-
             } else {
-                // ── Section left viewport — flush accumulated time ─────
-                if (sectionEnter[id] && key) {
+                if (sectionEnter[id] && key && !isIdle) {
                     const elapsedSec = (Date.now() - sectionEnter[id]) / 1000;
                     state.sectionTime[key] = (state.sectionTime[key] || 0) + elapsedSec;
                     delete sectionEnter[id];
@@ -267,27 +230,22 @@
                 }
             }
         });
-    }, { threshold: 0.2 }); // 20% visibility threshold
+    }, { threshold: 0.2 });
 
     Object.keys(SECTION_MAP).forEach(id => {
         const el = document.getElementById(id);
         if (el) sectionObserver.observe(el);
     });
 
-    /**
-     * Flush time for ALL currently-visible sections.
-     * Called every second from the live tick so the chart updates in real time
-     * without waiting for the section to leave the viewport.
-     */
     function flushVisibleSectionTime() {
+        if (isIdle) return;
         const now = Date.now();
         Object.entries(sectionEnter).forEach(([id, enterTs]) => {
             const key = SECTION_MAP[id];
             if (!key) return;
             const elapsedSec = (now - enterTs) / 1000;
-            // Add incremental time since last flush, then reset the enter timestamp
             state.sectionTime[key] = (state.sectionTime[key] || 0) + elapsedSec;
-            sectionEnter[id] = now; // reset so next flush doesn't double-count
+            sectionEnter[id] = now;
         });
         saveState();
         renderHeatmap();
@@ -299,14 +257,10 @@
 
     function onRegisterClick() {
         state.registerClicks += 1;
-
-        // First click → mark as registered and stamp the date
         if (!state.isRegistered) {
             state.isRegistered = true;
             state.registeredDate = new Date().toISOString();
         }
-
-        // Advance funnel steps
         if (!state.funnelDone.click_cta) state.funnelDone.click_cta = true;
         if (!state.funnelDone.start_form) state.funnelDone.start_form = true;
 
@@ -315,11 +269,8 @@
         render();
     }
 
-    /** Attach click listeners to register/CTA links (idempotent) */
     function attachRegisterListeners() {
-        document.querySelectorAll(
-            '.register-link, a[href*="form"], a[href*="register"]'
-        ).forEach(el => {
+        document.querySelectorAll('.register-link, a[href*="form"], a[href*="register"]').forEach(el => {
             if (!el.dataset.uxTracked) {
                 el.dataset.uxTracked = '1';
                 el.addEventListener('click', onRegisterClick);
@@ -327,9 +278,7 @@
         });
     }
 
-    // Re-attach after async bootcamp list is injected into the DOM
-    new MutationObserver(attachRegisterListeners)
-        .observe(document.body, { childList: true, subtree: true });
+    new MutationObserver(attachRegisterListeners).observe(document.body, { childList: true, subtree: true });
 
     // ─────────────────────────────────────────────────────────────
     // 8. IDLE / ATTENTION STATE
@@ -337,7 +286,7 @@
 
     let lastActivity = Date.now();
     let isIdle = false;
-    const IDLE_THRESHOLD_MS = 5000; // 5 s without interaction = IDLE
+    const IDLE_THRESHOLD_MS = 5000;
 
     function resetActivity() {
         lastActivity = Date.now();
@@ -355,32 +304,21 @@
     // 9. RAGE-CLICK DETECTION
     // ─────────────────────────────────────────────────────────────
 
-    let recentClicks = []; // timestamps of recent clicks
-
+    let recentClicks = [];
     document.addEventListener('click', e => {
         const now = Date.now();
-
-        // Collect clicks within a 2-second window
         recentClicks.push(now);
         recentClicks = recentClicks.filter(t => now - t < 2000);
-
-        // 5+ clicks in 2 s = rage click
         if (recentClicks.length >= 5) {
-            pushEvent(`rage_click detected (x${recentClicks.length})`, true /* isAlert */);
+            pushEvent(`rage_click detected (x${recentClicks.length})`, true);
             recentClicks = [];
         }
-
-        // Update last_action display with a human-readable click target label
         const tag = e.target.tagName.toLowerCase();
         const id = e.target.id ? `#${e.target.id}` : '';
-        const cls = typeof e.target.className === 'string' && e.target.className.trim()
-            ? '.' + e.target.className.trim().split(/\s+/)[0]
-            : '';
+        const cls = typeof e.target.className === 'string' && e.target.className.trim() ? '.' + e.target.className.trim().split(/\s+/)[0] : '';
         const clickLabel = `click_${tag}${id || cls}`;
         const lastActionEl = document.getElementById('demo-last-action');
         if (lastActionEl) lastActionEl.textContent = clickLabel;
-
-        // Also push every click into the Event Stream
         pushEvent(clickLabel);
     });
 
@@ -422,57 +360,35 @@
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 11. ENGAGEMENT SCORE (0-100)
-    //
-    //  Breakdown (each sub-score contributes 0-20 pts):
-    //    scroll_score   — global scroll depth reached (0-100% → 0-20 pts)
-    //    section_score  — sections scrolled into (out of 7 → 0-20 pts)
-    //    time_score     — time on page, capped at 10 min (0-20 pts)
-    //    cta_score      — 20 pts if any CTA was clicked, else 0
-    //    funnel_score   — funnel steps completed / 6 → 0-20 pts
+    // 11. ENGAGEMENT SCORE
     // ─────────────────────────────────────────────────────────────
 
     function calcEngagement() {
         const scrollPct = parseInt(document.getElementById('demo-scroll-fill')?.style.width) || 0;
         const scrollScore = Math.round((scrollPct / 100) * 20);
-
-        // sections_viewed: sections where user spent ≥ 3 s
         const viewed = Object.values(state.sectionTime).filter(v => v >= 3).length;
         const sectionScore = Math.round((viewed / 7) * 20);
-
         const timeMs = sessionElapsedMs();
-        const timeScore = Math.min(20, Math.round((timeMs / 600000) * 20)); // cap 10 min
-
+        const timeScore = Math.min(20, Math.round((timeMs / 600000) * 20));
         const ctaScore = state.funnelDone.click_cta ? 20 : 0;
-
         const funnelSteps = Object.values(state.funnelDone).filter(Boolean).length;
         const funnelScore = Math.round((funnelSteps / 6) * 20);
-
         return Math.min(100, scrollScore + sectionScore + timeScore + ctaScore + funnelScore);
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 12. HEATMAP RENDERER  (time-spent per section, Y-axis in seconds)
+    // 12. HEATMAP RENDERER
     // ─────────────────────────────────────────────────────────────
 
     const HEATMAP_LABELS = ['Intro', 'Goal', 'Register', 'Syllabus', 'General', 'Link', 'Demo'];
     const HEATMAP_KEYS = ['intro', 'goal', 'register', 'syllabus', 'general', 'footer', 'demo'];
 
-    /**
-     * Pick a "nice" tick step so the Y-axis has at most MAX_TICKS labels.
-     * Rounds up to a clean number: 1, 2, 5, 10, 15, 30, 60, 120, …
-     * @param {number} maxVal  The maximum data value (seconds)
-     * @param {number} maxTicks  Desired maximum number of tick lines
-     */
     function niceStep(maxVal, maxTicks = 6) {
         if (maxVal <= 0) return 1;
         const raw = maxVal / maxTicks;
-        // Candidate steps: 1,2,5,10,15,30,60,120,300,600 …
         const steps = [1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 1800];
-        for (const s of steps) {
-            if (s >= raw) return s;
-        }
-        return Math.ceil(raw / 600) * 600; // fall back to multiples of 600 s
+        for (const s of steps) { if (s >= raw) return s; }
+        return Math.ceil(raw / 600) * 600;
     }
 
     function renderHeatmap() {
@@ -480,45 +396,30 @@
         const yAxis = document.querySelector('.ux-heatmap-yaxis');
         if (!barsContainer) return;
 
-        // Time values in seconds for each section
         const values = HEATMAP_KEYS.map(k => state.sectionTime[k] || 0);
-        const maxVal = Math.max(...values, 1); // at least 1 s so chart always renders
+        const maxVal = Math.max(...values, 1);
+        const step = niceStep(maxVal);
+        const topTick = Math.ceil(maxVal / step) * step;
+        const tickCount = Math.round(topTick / step);
 
-        // ── Smart Y-axis ─────────────────────────────────────────
-        const step = niceStep(maxVal);         // tick interval in seconds
-        const topTick = Math.ceil(maxVal / step) * step; // round max up to next tick
-        const tickCount = Math.round(topTick / step); // number of ticks (≤ ~6)
-
-        // Rebuild Y-axis labels (top → bottom)
         if (yAxis) {
             const tickLabels = [];
             for (let t = tickCount; t >= 0; t--) {
                 const sec = t * step;
-                // Format tick: "Xs" for <60 s, "Xm" for ≥60 s
                 const label = sec >= 60 ? `${Math.round(sec / 60)}m` : `${sec}s`;
                 tickLabels.push(`<span class="mono-body secondary-text">${label}</span>`);
             }
             yAxis.innerHTML = tickLabels.join('');
         }
 
-        // ── Bar columns ──────────────────────────────────────────────
-        //  Bar height is in PIXELS matched to the CSS constant CHART_PX=120.
-        //  Using px (not %) avoids flexbox percentage-height resolution issues.
-        const CHART_PX = 120; // must match .ux-bar-wrap height in CSS
-
+        const CHART_PX = 120;
         barsContainer.innerHTML = HEATMAP_KEYS.map((key, i) => {
             const sec = state.sectionTime[key] || 0;
-
-            // Pixel height of this bar proportional to the tallest bar (topTick)
             const barPx = topTick > 0 ? Math.max(0, Math.round((sec / topTick) * CHART_PX)) : 0;
-
             return `
         <div class="ux-heatmap-col">
           <div class="ux-bar-wrap">
-            ${barPx > 0
-                    ? `<div class="ux-bar" style="height:${barPx}px" title="${sec.toFixed(1)}s"></div>`
-                    : ''
-                }
+            ${barPx > 0 ? `<div class="ux-bar" style="height:${barPx}px" title="${sec.toFixed(1)}s"></div>` : ''}
           </div>
           <span class="mono-body secondary-text">${HEATMAP_LABELS[i]}</span>
         </div>`;
@@ -541,7 +442,6 @@
     function renderFunnel() {
         const container = document.querySelector('.ux-funnel');
         if (!container) return;
-
         container.innerHTML = FUNNEL_STEPS.map(({ key, label }) => {
             const done = !!state.funnelDone[key];
             return `
@@ -554,48 +454,54 @@
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 14. MAIN RENDER — updates every DOM element in the console
+    // 14. MAIN RENDER
     // ─────────────────────────────────────────────────────────────
 
     function render() {
+        const submittedData = localStorage.getItem('bootcamp_submitted_data');
+        if (submittedData && !state.funnelDone.submit_form) {
+            state.funnelDone.submit_form = true;
+            state.formProgress = 100;
+            if (!state.registrationStats) {
+                const firstVisit = new Date(state.firstVisit);
+                const now = new Date();
+                const daysSinceFirstVisit = Math.floor((now - firstVisit) / (1000 * 60 * 60 * 24));
+                state.registrationStats = {
+                    totalPageViewToRegister: state.totalPageViews,
+                    firstPageView: state.firstVisit,
+                    daySinceFirstPageViewToRegister: daysSinceFirstVisit,
+                    registerClickCountToRegister: state.registerClicks,
+                    sectionTimes: { ...state.sectionTime }
+                };
+            }
+            pushEvent('FORM_SUBMIT_SUCCESS', true);
+            saveState();
+        }
 
-        // ── Overall ───────────────────────────────────────────────
-
-        // total_page_view: pageviews this user has ever made (persisted across sessions)
         const pvEl = document.getElementById('demo-total-pv');
         if (pvEl) pvEl.textContent = `${state.totalPageViews} lần`;
 
-        // first_page_view: date the user first visited this page (ever)
         const fpEl = document.getElementById('demo-first-pv');
         if (fpEl) fpEl.textContent = fmtDate(state.firstVisit);
 
-        // total_session_duration: sum of all past session times + current elapsed ("Xm:Ys")
         const totalDurEl = document.getElementById('demo-total-dur');
         if (totalDurEl) totalDurEl.textContent = fmtDuration(totalElapsedMs());
 
-        // currrent_session_duration: elapsed time since this page load ("Xm:Ys")
         const curDurEl = document.getElementById('demo-cur-dur');
         if (curDurEl) curDurEl.textContent = fmtDuration(sessionElapsedMs());
 
-        // register_click: number of times user clicked any register/CTA link
         const regClickEl = document.getElementById('demo-reg-click');
         if (regClickEl) regClickEl.textContent = `${state.registerClicks} lần`;
 
-        // is_registered: becomes true after the first register link click
         const isRegEl = document.getElementById('demo-is-reg');
         if (isRegEl) isRegEl.textContent = state.isRegistered ? 'true' : 'false';
 
-        // registered_date: date of first register click (or '—' if never clicked)
         const regDateEl = document.getElementById('demo-reg-date');
         if (regDateEl) regDateEl.textContent = fmtDate(state.registeredDate);
 
-        // ── User State ────────────────────────────────────────────
-
-        // time_on_page: live elapsed time for this session in "Xm:Ys" format
         const timeEl = document.getElementById('demo-time-on-page');
         if (timeEl) timeEl.textContent = fmtDuration(sessionElapsedMs());
 
-        // attention_state: ACTIVE if user interacted in last 5 s, else IDLE
         const nowTs = Date.now();
         if (nowTs - lastActivity > IDLE_THRESHOLD_MS && !isIdle) {
             isIdle = true;
@@ -604,59 +510,70 @@
         const attentionEl = document.getElementById('demo-attention');
         if (attentionEl) attentionEl.textContent = isIdle ? 'IDLE' : 'ACTIVE';
 
-        // cta_clicks: same as register_click count
         const ctaEl = document.getElementById('demo-cta');
         if (ctaEl) ctaEl.textContent = state.registerClicks;
 
-        // engagement_score: weighted formula (see §11)
         const engEl = document.getElementById('demo-eng');
         if (engEl) engEl.textContent = `${calcEngagement()} / 100`;
 
-        // ── User State grid (right panel) ─────────────────────────
-
-        // country: requires server-side IP lookup — shown as '—' (honest)
-        // device_type, os, browser, version: from navigator.userAgent
-        // is_dark_mode: from window.matchMedia
-        // screen dimensions: from window.screen
-
         const cells = document.querySelectorAll('.ux-state-cell');
         if (cells.length >= 9) {
-            // [0] country — cannot determine client-side without IP API
             cells[0].querySelector('span:last-child').textContent = '—';
-            // [1] device_type
             cells[1].querySelector('span:last-child').textContent = getDeviceType();
-            // [2] operating_system
             cells[2].querySelector('span:last-child').textContent = getOS();
-            // [3] is_dark_mode — system-level dark mode preference
-            cells[3].querySelector('span:last-child').textContent =
-                window.matchMedia('(prefers-color-scheme: dark)').matches ? 'true' : 'false';
-            // [4] region — cannot determine client-side without IP API
+            const progressLabel = cells[3].querySelector('span:first-child');
+            if (progressLabel) progressLabel.textContent = 'form_progress:';
+            cells[3].querySelector('span:last-child').textContent = `${state.formProgress || 0}%`;
             cells[4].querySelector('span:last-child').textContent = '—';
-            // [5] browser
             cells[5].querySelector('span:last-child').textContent = getBrowser();
-            // [6] browser_version — major version number
             cells[6].querySelector('span:last-child').textContent = getBrowserVersion();
-            // [7] screen_height_px — physical screen height in CSS pixels
             cells[7].querySelector('span:last-child').textContent = window.screen.height;
-            // [8] screen_width_px — physical screen width in CSS pixels
             cells[8].querySelector('span:last-child').textContent = window.screen.width;
         }
 
-        // ── Sub-renderers ─────────────────────────────────────────
         renderHeatmap();
         renderFunnel();
+        renderRegistrationSection();
+    }
+
+    function renderRegistrationSection() {
+        if (!state.registrationStats) return;
+        let container = document.getElementById('registration-stats-section');
+        if (!container) {
+            const body = document.querySelector('.ux-panel-right');
+            if (!body) return;
+            container = document.createElement('div');
+            container.id = 'registration-stats-section';
+            container.className = 'ux-block';
+            container.style.marginTop = '20px';
+            body.appendChild(container);
+        }
+        const stats = state.registrationStats;
+        container.innerHTML = `
+            <div class="ux-block-title mono-body primary-text" style="color: var(--applied-analytic-primary)">[ FROM FIRST PAGE VIEW TO REGISTER ]<span class="ux-dash"></span></div>
+            <div class="ux-kv-grid">
+                <span class="mono-body secondary-text">total_page_view_to_register</span>
+                <span class="mono-body secondary-text">:</span>
+                <span class="mono-body primary-text">${stats.totalPageViewToRegister}</span>
+                <span class="mono-body secondary-text">first_page_view</span>
+                <span class="mono-body secondary-text">:</span>
+                <span class="mono-body primary-text">${fmtDate(stats.firstPageView)}</span>
+                <span class="mono-body secondary-text">day_since_first_page_view_to_register</span>
+                <span class="mono-body secondary-text">:</span>
+                <span class="mono-body primary-text">${stats.daySinceFirstPageViewToRegister} days</span>
+                <span class="mono-body secondary-text">register_click_count_to_register</span>
+                <span class="mono-body secondary-text">:</span>
+                <span class="mono-body primary-text">${stats.registerClickCountToRegister}</span>
+            </div>`;
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 15. PERSIST DURATION ON PAGE LEAVE
-    //  Save the current session's elapsed time so totalDuration keeps
-    //  growing across page reloads / navigation.
+    // 15. PERSIST DURATION
     // ─────────────────────────────────────────────────────────────
 
     function persistDuration() {
-        state.totalDuration += sessionElapsedMs();
-        // Reset sessionStart so double-firing (pagehide + beforeunload) doesn't double-count
-        state.sessionStart = new Date().toISOString();
+        state.totalDuration += sessionActiveMs;
+        sessionActiveMs = 0;
         saveState();
     }
 
@@ -664,22 +581,24 @@
     window.addEventListener('beforeunload', persistDuration);
 
     // ─────────────────────────────────────────────────────────────
-    // 16. LIVE TICK — refresh time-sensitive displays every second
+    // 16. LIVE TICK
     // ─────────────────────────────────────────────────────────────
 
-    // Live tick: update time displays AND flush visible-section time counters
     setInterval(() => {
-        flushVisibleSectionTime(); // accumulate time for sections currently on screen
-        render();                  // refresh all DOM values
+        if (!isIdle) {
+            sessionActiveMs += 1000;
+            flushVisibleSectionTime();
+        }
+        render();
     }, 1000);
 
     // ─────────────────────────────────────────────────────────────
-    // 17. BOOTSTRAP — initial renders on page load
+    // 17. BOOTSTRAP
     // ─────────────────────────────────────────────────────────────
 
     render();
     renderEventStream();
     attachRegisterListeners();
-    onScroll(); // seed scroll state from current scroll position
+    onScroll();
 
-})(); // end UX Analytics Live Console module
+})();

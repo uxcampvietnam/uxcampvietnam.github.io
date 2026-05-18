@@ -788,6 +788,8 @@ function resizeFBO(target, w, h, internalFormat, format, type, param) {
     copyProgram.bind();
     gl.uniform1i(copyProgram.uniforms.uTexture, target.attach(0));
     blit(newFBO);
+    gl.deleteTexture(target.texture);
+    gl.deleteFramebuffer(target.fbo);
     return newFBO;
 }
 
@@ -795,6 +797,8 @@ function resizeDoubleFBO(target, w, h, internalFormat, format, type, param) {
     if (target.width == w && target.height == h)
         return target;
     target.read = resizeFBO(target.read, w, h, internalFormat, format, type, param);
+    gl.deleteTexture(target.write.texture);
+    gl.deleteFramebuffer(target.write.fbo);
     target.write = createFBO(w, h, internalFormat, format, type, param);
     target.width = w;
     target.height = h;
@@ -857,11 +861,21 @@ function updateObstacle() {
 }
 
 let lastObstaclesState = "";
+let lastLayoutCheck = 0;
+let cachedFluidContainers = null;
+
 function checkObstacleUpdates() {
+    const now = Date.now();
+    if (now - lastLayoutCheck < 33) return; // Limit to ~30 layout checks per second
+    lastLayoutCheck = now;
+
     const canvasRect = fluid_canvas.getBoundingClientRect();
 
     // Check for changes in any .fluid-obstacle or .fluid-container
-    const fluidContainers = document.querySelectorAll('.fluid-obstacle, .fluid-container');
+    if (!cachedFluidContainers || Math.random() < 0.05) { // Refresh occasionally
+        cachedFluidContainers = document.querySelectorAll('.fluid-obstacle, .fluid-container');
+    }
+    const fluidContainers = cachedFluidContainers;
     let state = `${canvasRect.width},${canvasRect.height},${activeContainingContainers.size}|`;
 
     fluidContainers.forEach((fluidContainer) => {
@@ -907,10 +921,18 @@ function checkObstacleUpdates() {
     }
 }
 
+let obstacleCanvas = null;
+let obstacleCtx = null;
+
 function renderObstacleMask() {
     let res = getResolution(config.DYE_RESOLUTION);
-    if (obstacle == null || obstacle.width != res.width || obstacle.height != res.height)
+    if (obstacle == null || obstacle.width != res.width || obstacle.height != res.height) {
+        if (obstacle != null) {
+            gl.deleteTexture(obstacle.texture);
+            gl.deleteFramebuffer(obstacle.fbo);
+        }
         obstacle = createFBO(res.width, res.height, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, gl.LINEAR);
+    }
 
     gl.bindFramebuffer(gl.FRAMEBUFFER, obstacle.fbo);
     gl.clearColor(0, 0, 0, 1);
@@ -920,10 +942,18 @@ function renderObstacleMask() {
         return;
     }
 
-    const canvas = document.createElement('canvas');
-    canvas.width = res.width;
-    canvas.height = res.height;
-    const ctx = canvas.getContext('2d');
+    if (!obstacleCanvas) {
+        obstacleCanvas = document.createElement('canvas');
+        obstacleCtx = obstacleCanvas.getContext('2d', { willReadFrequently: true });
+    }
+
+    if (obstacleCanvas.width !== res.width || obstacleCanvas.height !== res.height) {
+        obstacleCanvas.width = res.width;
+        obstacleCanvas.height = res.height;
+    }
+
+    const canvas = obstacleCanvas;
+    const ctx = obstacleCtx;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const canvasRect = fluid_canvas.getBoundingClientRect();
@@ -1302,6 +1332,21 @@ function splatPointer(pointer) {
     let dx = pointer.deltaX * config.SPLAT_FORCE;
     let dy = pointer.deltaY * config.SPLAT_FORCE;
     splat(pointer.texcoordX, pointer.texcoordY, dx, dy, pointer.color);
+}
+
+
+// FIRST SPLASH CONFIG
+function randomSplats(amount, minX, maxX, minY, maxY) {
+    for (let i = 0; i < amount; i++) {
+        const color = { r: 1.5, g: 1.5, b: 1.5 };
+        const x = Math.random() * (maxX - minX) + minX;
+        const y = Math.random() * (maxY - minY) + minY;
+        const dx = 1000 * (Math.random() - 0.5);
+        const dy = 1000 * (Math.random() - 0.5);
+        // splat(x, y, dx, dy, color);
+        // splat(0.5, 0.6, dx, dy, color);
+        splat(x, y, dx, dy, color);
+    }
 }
 
 // FIRST SPLASH CONFIG

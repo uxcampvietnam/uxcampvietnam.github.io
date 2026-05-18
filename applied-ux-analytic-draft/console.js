@@ -45,6 +45,14 @@
             isRegistered: false,
             registeredDate: null,
             formProgress: 0,        // tracks form completion %
+            sectionProgress: {
+                general: 0,
+                environment: 0,
+                characteristics: 0,
+                problem: 0,
+                expectations: 0,
+                registration: 0
+            },
             registrationStats: null, // frozen stats at time of registration
             funnelDone: {
                 landing_view: false,
@@ -76,6 +84,17 @@
     // ── State migration ──────────────────────────────────────────
     if (!state.sectionTime) {
         state.sectionTime = { intro: 0, goal: 0, register: 0, syllabus: 0, general: 0, footer: 0, demo: 0 };
+        saveState();
+    }
+    if (!state.sectionProgress) {
+        state.sectionProgress = {
+            general: 0,
+            environment: 0,
+            characteristics: 0,
+            problem: 0,
+            expectations: 0,
+            registration: 0
+        };
         saveState();
     }
 
@@ -363,18 +382,7 @@
     // 11. ENGAGEMENT SCORE
     // ─────────────────────────────────────────────────────────────
 
-    function calcEngagement() {
-        const scrollPct = parseInt(document.getElementById('demo-scroll-fill')?.style.width) || 0;
-        const scrollScore = Math.round((scrollPct / 100) * 20);
-        const viewed = Object.values(state.sectionTime).filter(v => v >= 3).length;
-        const sectionScore = Math.round((viewed / 7) * 20);
-        const timeMs = sessionElapsedMs();
-        const timeScore = Math.min(20, Math.round((timeMs / 600000) * 20));
-        const ctaScore = state.funnelDone.click_cta ? 20 : 0;
-        const funnelSteps = Object.values(state.funnelDone).filter(Boolean).length;
-        const funnelScore = Math.round((funnelSteps / 6) * 20);
-        return Math.min(100, scrollScore + sectionScore + timeScore + ctaScore + funnelScore);
-    }
+
 
     // ─────────────────────────────────────────────────────────────
     // 12. HEATMAP RENDERER
@@ -436,19 +444,35 @@
         { key: 'view_register', label: 'view_pricing' },
         { key: 'click_cta', label: 'click_cta' },
         { key: 'start_form', label: 'start_form' },
+        { key: 'form_general_section_completion', label: 'form_general_section_completion', isFormSection: true, total: 6, secKey: 'general' },
+        { key: 'form_environment_section_completion', label: 'form_environment_section_completion', isFormSection: true, total: 5, secKey: 'environment' },
+        { key: 'form_characteristics_section_completion', label: 'form_characteristics_section_completion', isFormSection: true, total: 24, secKey: 'characteristics' },
+        { key: 'form_problem_section_completion', label: 'form_problem_section_completion', isFormSection: true, total: 20, secKey: 'problem' },
+        { key: 'form_expectations_section_completion', label: 'form_expectations_section_completion', isFormSection: true, total: 23, secKey: 'expectations' },
+        { key: 'form_registration_section_completion', label: 'form_registration_section_completion', isFormSection: true, total: 1, secKey: 'registration' },
         { key: 'submit_form', label: 'submit_form' },
     ];
 
     function renderFunnel() {
         const container = document.querySelector('.ux-funnel');
         if (!container) return;
-        container.innerHTML = FUNNEL_STEPS.map(({ key, label }) => {
-            const done = !!state.funnelDone[key];
+        container.innerHTML = FUNNEL_STEPS.map((step) => {
+            let done = false;
+            let displayLabel = step.label;
+            
+            if (step.isFormSection) {
+                const filled = (state.sectionProgress && state.sectionProgress[step.secKey]) || 0;
+                done = filled === step.total;
+                displayLabel = `${step.label}: ${filled}/${step.total}`;
+            } else {
+                done = !!state.funnelDone[step.key];
+            }
+            
             return `
         <div class="ux-event-row">
           <span class="mono-body secondary-text ux-pipe">|</span>
           <span class="mono-body ${done ? 'primary-text ux-funnel-check done' : 'secondary-text ux-funnel-check'}">[${done ? '√' : ' '}]</span>
-          <span class="mono-body ${done ? 'primary-text' : 'secondary-text'}">${label}</span>
+          <span class="mono-body ${done ? 'primary-text' : 'secondary-text'}">${displayLabel}</span>
         </div>`;
         }).join('');
     }
@@ -510,25 +534,18 @@
         const attentionEl = document.getElementById('demo-attention');
         if (attentionEl) attentionEl.textContent = isIdle ? 'IDLE' : 'ACTIVE';
 
-        const ctaEl = document.getElementById('demo-cta');
-        if (ctaEl) ctaEl.textContent = state.registerClicks;
-
-        const engEl = document.getElementById('demo-eng');
-        if (engEl) engEl.textContent = `${calcEngagement()} / 100`;
-
         const cells = document.querySelectorAll('.ux-state-cell');
-        if (cells.length >= 9) {
-            cells[0].querySelector('span:last-child').textContent = '—';
-            cells[1].querySelector('span:last-child').textContent = getDeviceType();
-            cells[2].querySelector('span:last-child').textContent = getOS();
-            const progressLabel = cells[3].querySelector('span:first-child');
+        if (cells.length >= 8) {
+            cells[0].querySelector('span:last-child').textContent = getDeviceType();
+            cells[1].querySelector('span:last-child').textContent = getOS();
+            const progressLabel = cells[2].querySelector('span:first-child');
             if (progressLabel) progressLabel.textContent = 'form_progress:';
-            cells[3].querySelector('span:last-child').textContent = `${state.formProgress || 0}%`;
-            cells[4].querySelector('span:last-child').textContent = '—';
-            cells[5].querySelector('span:last-child').textContent = getBrowser();
-            cells[6].querySelector('span:last-child').textContent = getBrowserVersion();
-            cells[7].querySelector('span:last-child').textContent = window.screen.height;
-            cells[8].querySelector('span:last-child').textContent = window.screen.width;
+            cells[2].querySelector('span:last-child').textContent = `${state.formProgress || 0}%`;
+            cells[3].querySelector('span:last-child').textContent = '—';
+            cells[4].querySelector('span:last-child').textContent = getBrowser();
+            cells[5].querySelector('span:last-child').textContent = getBrowserVersion();
+            cells[6].querySelector('span:last-child').textContent = window.screen.height;
+            cells[7].querySelector('span:last-child').textContent = window.screen.width;
         }
 
         renderHeatmap();
@@ -591,6 +608,20 @@
         }
         render();
     }, 1000);
+
+    // ── Real-time localStorage Sync across tabs ──────────────────
+    window.addEventListener('storage', (e) => {
+        if (e.key === STORAGE_KEY) {
+            try {
+                const newState = JSON.parse(e.newValue);
+                if (newState) {
+                    Object.assign(state, newState);
+                    render();
+                    renderEventStream();
+                }
+            } catch (err) {}
+        }
+    });
 
     // ─────────────────────────────────────────────────────────────
     // 17. BOOTSTRAP

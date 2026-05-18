@@ -432,66 +432,23 @@ window.onload = () => {
 
   }
 
-  // if (document.querySelector('.applied-ux-analytic')) {
-  //   ScrollTrigger.create({
-  //     trigger: ".applied-ux-analytic",
-  //     start: "top center",
-  //     end: "top center",
-  //     // markers: true,
-  //     onEnter: () => hideFluidText(),
-  //     onEnterBack: () => showFluidText(),
-  //   });
-  // }
-
   if (document.querySelector('.applied-ux-analytic-name-fluid.text')) {
     gsap.to('.applied-ux-analytic-name-fluid.text *', {
       opacity: 1,
-      delay: "random(0, 2)",
+      delay: "random(1, 3)",
       ease: "bounce.in",
       duration: 0.5,
+      onStart: () => {
+
+        if (document.querySelector('#fluidCanvas')) {
+          randomSplats(16, 0, 1, 0.4, 0.6);
+        }
+
+      },
     });
   }
 
   let mm = gsap.matchMedia();
-
-  mm.add("(min-width: 992px)", () => {
-    // document.querySelectorAll('.syllabus-container').forEach(container => {
-    // gsap.to(container.querySelectorAll('.syllabus-ascii'), {
-    //   scrollTrigger: {
-    //     trigger: container,
-    //     start: "top 60%",
-    //     end: "bottom 60%",
-    //     toggleActions: 'play reset play reset',
-    //     onEnter: () => {
-    //       container.getElementsByClassName('syllabus-ascii')[0].style.opacity = '1';
-    //       window.textRepulsion.refresh();
-    //     },
-    //     onLeave: () => {
-    //       container.getElementsByClassName('syllabus-ascii')[0].style.opacity = '0';
-    //       window.textRepulsion.refresh();
-    //     },
-    //     onEnterBack: () => {
-    //       container.getElementsByClassName('syllabus-ascii')[0].style.opacity = '1';
-    //       window.textRepulsion.refresh();
-    //     },
-    //     onLeaveBack: () => {
-    //       container.getElementsByClassName('syllabus-ascii')[0].style.opacity = '0';
-    //       window.textRepulsion.refresh();
-    //     },
-    //   },
-    // })
-
-    // gsap.from(container.querySelectorAll('span, p'), {
-    //   scrollTrigger: {
-    //     trigger: container,
-    //     start: "top 60%",
-    //     end: "bottom 60%",
-    //     toggleActions: 'play reset play reset',
-    //   },
-    //   opacity: 0.4,
-    // })
-    // });
-  });
 
   mm.add("(max-width: 991px)", () => {
     document.querySelectorAll('.syllabus-container').forEach(container => {

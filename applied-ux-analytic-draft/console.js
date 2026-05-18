@@ -181,7 +181,7 @@
 
     const SECTION_MAP = {
         intro: 'intro', goal: 'goal', register: 'register',
-        syllabus: 'syllabus', general: 'general', footer: 'footer', demo: 'demo',
+        syllabus: 'syllabus', general: 'general', footer: 'footer', console: 'demo',
     };
 
     const scrollMilestones = { 25: false, 50: false, 75: false, 90: false };
@@ -240,9 +240,11 @@
                     renderFunnel();
                 }
             } else {
-                if (sectionEnter[id] && key && !isIdle) {
-                    const elapsedSec = (Date.now() - sectionEnter[id]) / 1000;
-                    state.sectionTime[key] = (state.sectionTime[key] || 0) + elapsedSec;
+                if (sectionEnter[id] && key) {
+                    if (!isIdle) {
+                        const elapsedSec = (Date.now() - sectionEnter[id]) / 1000;
+                        state.sectionTime[key] = (state.sectionTime[key] || 0) + elapsedSec;
+                    }
                     delete sectionEnter[id];
                     saveState();
                     renderHeatmap();
@@ -257,13 +259,14 @@
     });
 
     function flushVisibleSectionTime() {
-        if (isIdle) return;
         const now = Date.now();
         Object.entries(sectionEnter).forEach(([id, enterTs]) => {
             const key = SECTION_MAP[id];
             if (!key) return;
-            const elapsedSec = (now - enterTs) / 1000;
-            state.sectionTime[key] = (state.sectionTime[key] || 0) + elapsedSec;
+            if (!isIdle) {
+                const elapsedSec = (now - enterTs) / 1000;
+                state.sectionTime[key] = (state.sectionTime[key] || 0) + elapsedSec;
+            }
             sectionEnter[id] = now;
         });
         saveState();
@@ -315,7 +318,7 @@
         }
     }
 
-    ['mousemove', 'keydown', 'click', 'touchstart'].forEach(evt =>
+    ['mousemove', 'keydown', 'click', 'touchstart', 'scroll', 'wheel'].forEach(evt =>
         window.addEventListener(evt, resetActivity, { passive: true })
     );
 
@@ -604,8 +607,8 @@
     setInterval(() => {
         if (!isIdle) {
             sessionActiveMs += 1000;
-            flushVisibleSectionTime();
         }
+        flushVisibleSectionTime();
         render();
     }, 1000);
 

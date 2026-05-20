@@ -1437,6 +1437,13 @@ form .tags {
 	gap: 56px;
 }
 
+
+#interactiveImage.interactiveImageThumbnail {
+	background: var(--main-colors-background-elevate-1, #FFF7EB) !important;
+	border: none !important;
+}
+
+
 .uxcamp-homepage .hero-cta-row {
 	display: flex;
 	flex-direction: row;
@@ -1488,8 +1495,8 @@ article:has(.course-card) {
 	height: 380px;
 	overflow: hidden;
 	border-radius: 32px;
-	border: 0.5px solid var(--main-colors-background-b600, #AEA69D);
-	background: var(--main-colors-background-b-200-slide-bg);
+	/* border: 0.5px solid var(--main-colors-background-b600, #AEA69D);
+	background: var(--main-colors-background-b-200-slide-bg); */
 	cursor: pointer;
 }
 
@@ -1528,7 +1535,6 @@ article:has(.course-card) {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	width: 70% !important;
-	max-width: 220px;
 	height: auto !important;
 }
 

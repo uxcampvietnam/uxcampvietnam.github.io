@@ -1,6 +1,8 @@
 // new --------------------------------------------------
 
 const canvas = document.getElementById('interactiveImage');
+const cardContainer = canvas ? canvas.closest('.course-card-canvas-flagship') : null;
+const isCardMode = !!cardContainer;
 
 /* ===============================
    BASIC DOM
@@ -242,7 +244,12 @@ let scaleFactor = 0.4;
 let InfiniteLoadingWidth;
 let InfiniteLoadingHeight;
 
-if (window.innerWidth < 500) {
+if (isCardMode) {
+    numberOfFallingImg = window.innerWidth < 500 ? 18 : 32;
+    scaleFactor = window.innerWidth < 500 ? 0.18 : 0.22;
+    InfiniteLoadingWidth = 0;
+    InfiniteLoadingHeight = 0;
+} else if (window.innerWidth < 500) {
     numberOfFallingImg = 40;
     scaleFactor = 0.28;
     InfiniteLoadingWidth = window.innerWidth;
@@ -255,6 +262,20 @@ else {
     InfiniteLoadingHeight = container1
         ? container1.getBoundingClientRect().height / 2 - 40
         : 300;
+}
+
+function getCanvasSize() {
+    if (isCardMode) {
+        const rect = cardContainer.getBoundingClientRect();
+        return {
+            width: Math.max(rect.width, 280),
+            height: Math.max(rect.height, 220)
+        };
+    }
+    return {
+        width: window.innerWidth,
+        height: window.innerHeight * 2
+    };
 }
 
 /* ===============================
@@ -278,8 +299,7 @@ if (canvas) {
 
     engine.world.gravity.y = -0.4;
 
-    let width = window.innerWidth;
-    let height = window.innerHeight * 2;
+    let { width, height } = getCanvasSize();
 
     canvas.width = width;
     canvas.height = height;
@@ -289,26 +309,19 @@ if (canvas) {
     ================================ */
     function createWorldBorders(w, h) {
         const t = 10;
-        return {
-            top: Bodies.rectangle(w / 2, -t / 2, w, t, {
-                isStatic: true, render: {
-                    strokeStyle: '#00000000', // Custom stroke color (black)
-                    lineWidth: 0            // Custom stroke width (in pixels)
-                }
-            }),
-            left: Bodies.rectangle(-t / 2, h / 2, t, h, {
-                isStatic: true, render: {
-                    strokeStyle: '#00000000', // Custom stroke color (black)
-                    lineWidth: 0            // Custom stroke width (in pixels)
-                }
-            }),
-            right: Bodies.rectangle(w + t / 2, h / 2, t, h, {
-                isStatic: true, render: {
-                    strokeStyle: '#00000000', // Custom stroke color (black)
-                    lineWidth: 0            // Custom stroke width (in pixels)
-                }
-            })
+        const borderOpts = {
+            isStatic: true,
+            render: { strokeStyle: '#00000000', lineWidth: 0 }
         };
+        const borders = {
+            top: Bodies.rectangle(w / 2, -t / 2, w, t, borderOpts),
+            left: Bodies.rectangle(-t / 2, h / 2, t, h, borderOpts),
+            right: Bodies.rectangle(w + t / 2, h / 2, t, h, borderOpts)
+        };
+        if (isCardMode) {
+            borders.bottom = Bodies.rectangle(w / 2, h + t / 2, w, t, borderOpts);
+        }
+        return borders;
     }
 
     let borders = createWorldBorders(width, height);
@@ -436,39 +449,34 @@ if (canvas) {
        RESIZE FIX
     ================================ */
     function resizeMatter() {
-        const cssWidth = window.innerWidth;
-        const cssHeight = window.innerHeight * 2;
+        const size = getCanvasSize();
+        const cssWidth = size.width;
+        const cssHeight = size.height;
+        width = cssWidth;
+        height = cssHeight;
         const ratio = window.devicePixelRatio || 1;
 
-        // 1. CSS size (QUAN TRỌNG)
         canvas.style.width = cssWidth + 'px';
         canvas.style.height = cssHeight + 'px';
-
-        // 2. Internal canvas size
         canvas.width = cssWidth * ratio;
         canvas.height = cssHeight * ratio;
 
-        // 3. Update render
         render.options.width = cssWidth;
         render.options.height = cssHeight;
         render.pixelRatio = ratio;
 
-        // 4. Update bounds
         Matter.Render.lookAt(render, {
             min: { x: 0, y: 0 },
             max: { x: cssWidth, y: cssHeight }
         });
 
-        // 5. Rebuild borders
         World.remove(world, Object.values(borders));
         borders = createWorldBorders(cssWidth, cssHeight);
         World.add(world, Object.values(borders));
 
-        // 6. Update mouse
         mouse.pixelRatio = ratio;
 
-        // 7. Update orbit animation size
-        if (container1) {
+        if (!isCardMode && container1) {
             if (window.innerWidth < 500) {
                 InfiniteLoadingWidth = window.innerWidth * 0.6;
                 InfiniteLoadingHeight = 150;
@@ -482,12 +490,11 @@ if (canvas) {
         Composite.allBodies(world).forEach(body => {
             if (!body.isStatic) {
                 Matter.Body.setPosition(body, {
-                    x: Math.min(Math.max(body.position.x, 20), window.innerWidth - 20),
-                    y: Math.min(Math.max(body.position.y, 20), window.innerHeight * 2 - 20)
+                    x: Math.min(Math.max(body.position.x, 20), cssWidth - 20),
+                    y: Math.min(Math.max(body.position.y, 20), cssHeight - 20)
                 });
             }
         });
-
     }
 
     let resizeTimeout;
@@ -495,6 +502,13 @@ if (canvas) {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(resizeMatter, 150);
     });
+
+    if (isCardMode && typeof ResizeObserver !== 'undefined') {
+        new ResizeObserver(() => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(resizeMatter, 150);
+        }).observe(cardContainer);
+    }
 }
 
 

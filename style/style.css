@@ -1080,6 +1080,16 @@ ol>* {
 	pointer-events: none;
 }
 
+.bootcamp-item-homepage {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: flex-start;
+	gap: 8px;
+	padding: 12px 0px;
+	border-top: 0.5px solid var(--transparent-foreground-main-color-20, rgba(55, 61, 72, 0.20));
+}
+
 .bootcamp-item.is_closed {
 	border: 0.5px solid var(--transparent-foreground-main-color-20, rgba(55, 61, 72, 0.20));
 	background: var(--transparent-foreground-main-color-05, rgba(55, 61, 72, 0.05));
@@ -1418,4 +1428,201 @@ form .tags {
 	width: 100%;
 	border: solid 1px rgba(86, 86, 86, 0.273);
 	border-radius: 8px;
+}
+
+/* Homepage ========================================================= */
+
+.uxcamp-homepage,
+.uxcamp-homepage.designing-digital-product-per-stage-and-metric {
+	gap: 56px;
+}
+
+.uxcamp-homepage .hero-cta-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 12px;
+	padding-top: 24px;
+}
+
+.uxcamp-homepage .course-card {
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	padding: 16px;
+	border-radius: 48px;
+	position: relative;
+	top: 0px;
+	border: 0.5px solid var(--main-colors-background-b600, #AEA69D);
+	background: var(--main-colors-background-elevate-1, #FFF7EB);
+	height: 100%;
+	transition: top 0.1s ease-in-out;
+}
+
+.uxcamp-homepage .course-card:hover {
+	position: relative;
+	top: -10px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.uxcamp-homepage .course-card.applied-ux-analytic-card {
+	border: 0.5px solid var(--console-stroke);
+	background: var(--applied-analytic-main);
+	height: 100%;
+}
+
+.uxcamp-homepage .course-card.applied-ux-analytic-card * {
+	color: var(--applied-analytic-reverse-main);
+	fill: var(--applied-analytic-main);
+}
+
+
+.uxcamp-homepage .course-card-canvas {
+	position: relative;
+	width: 100%;
+	height: 380px;
+	overflow: hidden;
+	border-radius: 32px;
+	border: 0.5px solid var(--main-colors-background-b600, #AEA69D);
+	background: var(--main-colors-background-b-200-slide-bg);
+	cursor: pointer;
+}
+
+.uxcamp-homepage .course-card-canvas-flagship #interactiveImage {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	cursor: pointer;
+}
+
+.uxcamp-homepage .course-card-fluid-container #fluidCanvas {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 2;
+}
+
+.uxcamp-homepage .course-card-fluid-hero {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	pointer-events: none;
+	z-index: 3;
+}
+
+.uxcamp-homepage .course-card-fluid-hero .applied-ux-analytic-name-fluid {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 70% !important;
+	max-width: 220px;
+	height: auto !important;
+}
+
+.uxcamp-homepage .course-card-meta {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+.uxcamp-homepage .course-card-meta .course-status {
+	display: inline-block;
+	width: fit-content;
+	margin: 12px 0px;
+	padding: 4px 12px;
+	border-radius: 8px;
+	color: var(--main-colors-background-b-300-main, #FBEAD5);
+	background: var(--alternative-foreground-gold);
+	border: 0.5px solid var(--main-colors-foreground-f900);
+}
+
+.uxcamp-homepage .course-card-highlights {
+	padding-left: 20px;
+	margin: 0;
+}
+
+.uxcamp-homepage .comparison-table {
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: fixed;
+}
+
+.comparison-table th:first-child {
+	width: 25%;
+}
+
+.uxcamp-homepage .comparison-table th,
+.uxcamp-homepage .comparison-table td {
+	padding: 16px 12px;
+	border-top: 0.5px solid var(--main-colors-foreground-f900);
+	border-left: 0.5px solid var(--main-colors-foreground-f900);
+	vertical-align: top;
+}
+
+.uxcamp-homepage .comparison-table tr:hover {
+	background: var(--main-colors-background-elevate-1, #FFF7EB);
+}
+
+.uxcamp-homepage .comparison-table th {
+	color: var(--main-colors-foreground-f300);
+	font-weight: 400;
+}
+
+.uxcamp-homepage .outcome-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+	gap: 16px;
+}
+
+.uxcamp-homepage .outcome-item {
+	padding: var(--spacing-l);
+	border-radius: var(--spacing-xl);
+	border: 0.5px solid var(--main-colors-background-b600, #AEA69D);
+	background: var(--main-colors-background-elevate-1, #FFF7EB);
+}
+
+.uxcamp-homepage .audience-list {
+	margin-top: 16px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.uxcamp-homepage .audience-chip {
+	padding: 8px 16px;
+	border-radius: 8px;
+	border: 0.5px solid var(--transparent-foreground-main-color-40, rgba(55, 61, 72, 0.40));
+	background: var(--main-colors-background-elevate-2);
+}
+
+.uxcamp-homepage .final-cta-row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	gap: 12px;
+	padding-top: 16px;
+}
+
+.uxcamp-homepage .course-bootcamp-list {
+	width: 100%;
+	overflow: visible;
+}
+
+.uxcamp-homepage .course-cohort-list {
+	display: flex;
+	flex-direction: column;
+}
+
+.uxcamp-homepage .course-cohort-list .bootcamp-item {
+	width: 100%;
+	margin-right: 0;
 }

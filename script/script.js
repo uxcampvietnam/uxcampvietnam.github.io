@@ -17,7 +17,34 @@ for (i = 0; i < acc.length; i++) {
     });
 }
 
+// =============================================
+// MIXPANEL EVENT TRACKING - HOMEPAGE
+// =============================================
+
 var bootcamp_list, feedback_list, syllabus_01;
+
+function getAssetPrefix() {
+    return document.querySelector('.uxcamp-homepage') ? 'asset/' : '../asset/';
+}
+
+function renderCourseBootcampItem(item, registerUrl, assetPrefix) {
+    is_applied_ux_analytic = item.bootcamp == "Applied UX Analytic";
+    console.log(is_applied_ux_analytic);
+
+    return `<a href="${registerUrl}?bootcamp_id=${item.bootcamp_id}" class="bootcamp-item-homepage ${item.is_open == 1 ? "is_open" : "is_closed"} sign-up-now paragraph">
+                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"}">${item.bootcamp_name}</span>
+                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
+                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-start-date">${item.start_date}</span>
+                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-pricing">${item.pricing}${item.offline == 1 ? " (*)" : ""}</span>
+            </a>`;
+}
+
+function updateCourseStatus(statusEl, items) {
+    if (!statusEl) return;
+    const hasOpen = items.some(item => item.is_open == 1);
+    statusEl.textContent = hasOpen ? 'Đang mở đăng ký' : 'Upcoming Cohort';
+    statusEl.classList.add(hasOpen ? 'course-status-open' : 'course-status-upcoming');
+}
 
 
 // lấy dữ liệu bootcamp_list & feedback từ google sheet
@@ -28,9 +55,40 @@ fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82
 
         // lấy dữ liệu bootcamp_list
         {
-            bootcamp_list = data.bootcamp_list.filter(item => item.listing == 1);
+            bootcamp_list = data.bootcamp_list.filter(item => item.listing == 1 && item.is_open == 1);
+            const assetPrefix = getAssetPrefix();
+
+            // Course cards on homepage
+            document.querySelectorAll('.course-bootcamp-list[data-course="flagship"]').forEach(el => {
+                const items = bootcamp_list;
+                updateCourseStatus(document.getElementById('flagship-course-status'), items);
+                if (!items.length) {
+                    el.innerHTML = '<p class="paragraph italic">Chưa có cohort nào được công bố.</p>';
+                    return;
+                }
+                el.innerHTML = `
+                <div class="course-cohort-list">${items.map(item =>
+                    renderCourseBootcampItem(item, 'bootcamp-register.html', assetPrefix)
+                ).join('')}</div>`;
+            });
+
+            if (data.applied_ux_analytic) {
+                const analyticBootcamps = data.applied_ux_analytic.filter(item => item.listing == 1 && item.is_open == 1);
+                document.querySelectorAll('.course-bootcamp-list[data-course="applied-ux-analytic"]').forEach(el => {
+                    updateCourseStatus(document.getElementById('analytic-course-status'), analyticBootcamps);
+                    if (!analyticBootcamps.length) {
+                        el.innerHTML = '<p class="paragraph italic">Chưa có cohort nào được công bố.</p>';
+                        return;
+                    }
+                    el.innerHTML = `
+                    <div class="course-cohort-list">${analyticBootcamps.map(item =>
+                        renderCourseBootcampItem(item, 'applied-ux-analytic/bootcamp-register.html', assetPrefix)
+                    ).join('')}</div>`;
+                });
+            }
+
             // showing bootcamp list
-            const bootcamp_list_Els = document.querySelectorAll(".bootcamp-list");
+            const bootcamp_list_Els = document.querySelectorAll(".bootcamp-list:not(.course-bootcamp-list)");
             if (bootcamp_list_Els !== null) {
                 for (let i = 0; i < bootcamp_list_Els.length; i++) {
                     let bootcamp_innerHTML = `<div> </div>
@@ -41,7 +99,7 @@ fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82
                         bootcamp_innerHTML += `
                 <div ${item.is_open == 1 ? "onmousemove='openBootcampMouseOver(this, event)' onmouseout='openBootcampMouseOut(this, event)'" : ""} 
                     class="bootcamp-item ${item.is_open == 1 ? "is_open" : "is_closed"}">
-                    <img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/${item.thumbnail}">
+                    <img class="bootcamp-thumbnail" src="${getAssetPrefix()}image/bootcamp-img/${item.thumbnail}">
                     <div class="bootcamp-item-content">
                     <h6 class="bootcamp-cohort-name">${item.bootcamp_name}</h6>
                     <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
@@ -71,7 +129,6 @@ fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82
             const signUp_bootcamp_list_Els = document.getElementById("signUp_bootcamp_list");
             if (signUp_bootcamp_list_Els !== null) {
 
-
                 // Lấy giá trị của 'bootcamp_id'
                 const queryString = window.location.search;
                 const params = new URLSearchParams(queryString);
@@ -89,7 +146,7 @@ fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82
                     <span class = "sign-up-bootcamp-item">
                         <label for="bootcamp_${item.bootcamp_id}">
                             <input required type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${item.bootcamp_id == selectedBootcamp ? "checked" : ""} />
-                            <img class="bootcamp-thumbnail" src="../asset/image/bootcamp-img/${item.thumbnail}">
+                            <img class="bootcamp-thumbnail" src="${getAssetPrefix()}image/bootcamp-img/${item.thumbnail}">
                             <div class="bootcamp-item-content">
                                 <h6 class="bootcamp-cohort-name">${item.bootcamp_name}</h6>
                                 <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
@@ -125,7 +182,7 @@ fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82
                data-feedback-participant-name="${item.name}"
                data-feedback-participant-title="${item.title}"
                class="feedback-item col-6 col-lg-4">
-            <img class="feedback-thumbnail" src="../asset/image/participant/${item.img}">
+            <img class="feedback-thumbnail" src="${getAssetPrefix()}image/participant/${item.img}">
             <div class="feedback-item-content">
               <span class="participant-name"><i>${item.name}</i></span>
               <div class="caption">
@@ -248,15 +305,15 @@ function toggleContent(element, mouseID) {
 
     if (element.classList.contains("hide-content")) {
         // true == expand collection
-        mixpanel.track('change accordion-visibility', {
-            "accordion-name": element.dataset.elementName,
+        mixpanel.track('change_accordion_visibility', {
+            "accordion_name": element.dataset.elementName,
             "collapse": false,
         });
 
     }
     else {
-        mixpanel.track('change accordion-visibility', {
-            "accordion-name": element.dataset.elementName,
+        mixpanel.track('change_accordion_visibility', {
+            "accordion_name": element.dataset.elementName,
             "collapse": true,
         });
     }
@@ -340,7 +397,7 @@ function showFeedback(feedbackId) {
                     ${feedback.bootcamp} <br> ${feedback.bootcamp_name}
                 </i></span>
                 </div>
-        <img src = '../asset/image/participant/${feedback.img}'>
+        <img src = '${getAssetPrefix()}image/participant/${feedback.img}'>
     </div>`
     feedbackContentEl.innerHTML += `<br><div class = "paragraph"> ${feedback.feedback.replace(/\n/g, '<br>')} </div>`;
 
@@ -356,16 +413,19 @@ function showFeedback(feedbackId) {
 
 
     // console.log(feedback.name);
-    mixpanel.track('view feedback', {
-        participant: feedback.name,
-        bootcamp: feedback.bootcamp_name
+    mixpanel.track('view_feedback', {
+        participant_name: feedback.name,
+        participant_title: feedback.title,
+        participant_company: feedback.company,
+        bootcamp_name: feedback.bootcamp_name,
+        feedback_id: feedback.feedback_id,
     });
 
 }
 
 window.onload = function () {
     //   console.log('test window.onload');
-    if (document.querySelectorAll('#interactiveImage')[0] != null) {
+    if (document.querySelectorAll('#interactiveImage')[0] != null && document.getElementById('bootcamp-goal')) {
         gsap.to('#interactiveImage', {
             scrollTrigger: {
                 trigger: '#bootcamp-goal',
@@ -539,11 +599,193 @@ document.addEventListener("DOMContentLoaded", () => {
 
 document.querySelectorAll(".case-study-container").forEach(link => {
     link.addEventListener("click", function () {
-        mixpanel.track("View Case Study", {
-            "case_study": link.dataset.caseStudy,
-            "link_url": link.href
+        mixpanel.track("view_case_study", {
+            "case_study_name": link.dataset.caseStudy,
+            "link_url": link.href,
+            "section": "case_study",
         });
     });
+});
+
+
+// =============================================
+// NEWLY ADDED EVENTS - HOMEPAGE (index.html)
+// =============================================
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    const isHomepage = !!document.querySelector('.uxcamp-homepage');
+    if (!isHomepage) return;
+
+    // -- helpers --
+    function getDeviceType() {
+        const w = window.innerWidth;
+        if (w < 768) return 'mobile';
+        if (w < 1200) return 'tablet';
+        return 'desktop';
+    }
+
+    // newly added event - 2026-05-19
+    // ── 1. hero_cta_click ──
+    document.querySelectorAll('#hero .hero-cta-row a').forEach(cta => {
+        cta.addEventListener('click', function (e) {
+            const label = this.textContent.trim().replace(/\s+/g, ' ');
+            mixpanel.track('hero_cta_click', {
+                cta_text: label,
+                cta_url: this.getAttribute('href'),
+                cta_type: this.classList.contains('cta-large') ? 'primary' : 'secondary',
+                device_type: getDeviceType(),
+            });
+        });
+    });
+
+    // newly added event - 2026-05-19
+    // ── 2. course_card_cta_click ──
+    document.querySelectorAll('#courses .course-card .cta-large').forEach(cta => {
+        cta.addEventListener('click', function (e) {
+            const card = this.closest('.course-card');
+            const courseName = card ? card.querySelector('h3').textContent.trim() : '';
+            mixpanel.track('course_card_cta_click', {
+                course_name: courseName,
+                cta_text: this.textContent.trim().replace(/\s+/g, ' '),
+                cta_url: this.getAttribute('href'),
+                device_type: getDeviceType(),
+            });
+        });
+    });
+
+    // newly added event - 2026-05-19
+    // ── 3. cohort_link_click  (dynamically rendered, use delegation) ──
+    document.querySelectorAll('.course-bootcamp-list').forEach(container => {
+        container.addEventListener('click', function (e) {
+            const link = e.target.closest('.bootcamp-item-homepage');
+            if (!link) return;
+            const courseName = container.dataset.course; // "flagship" | "applied-ux-analytic"
+            mixpanel.track('cohort_link_click', {
+                course_type: courseName,
+                cohort_name: link.querySelector('.bootcamp-cohort-name') ? link.querySelector('.bootcamp-cohort-name').textContent.trim() : '',
+                cohort_format: link.querySelector('.bootcamp-online-offline') ? link.querySelector('.bootcamp-online-offline').textContent.trim() : '',
+                cohort_start_date: link.querySelector('.bootcamp-start-date') ? link.querySelector('.bootcamp-start-date').textContent.trim() : '',
+                cohort_pricing: link.querySelector('.bootcamp-pricing') ? link.querySelector('.bootcamp-pricing').textContent.trim() : '',
+                cohort_url: link.getAttribute('href'),
+                is_open: link.classList.contains('is_open'),
+                device_type: getDeviceType(),
+            });
+        });
+    });
+
+    // newly added event - 2026-05-19
+    // ── 4. faq_accordion_toggle ──
+    document.querySelectorAll('#faq .accordion-title').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const accordion = this.closest('.accordion');
+            const isExpanding = !accordion.classList.contains('accordion-active');
+            const questionText = this.querySelector('span') ? this.querySelector('span').textContent.trim() : '';
+            mixpanel.track('faq_accordion_toggle', {
+                question_text: questionText,
+                action: isExpanding ? 'expand' : 'collapse',
+                section: 'faq',
+                device_type: getDeviceType(),
+            });
+        });
+    });
+
+    // newly added event - 2026-05-19
+    // ── 5. final_cta_click ──
+    document.querySelectorAll('#final-cta .final-cta-row a').forEach(cta => {
+        cta.addEventListener('click', function () {
+            mixpanel.track('final_cta_click', {
+                cta_text: this.textContent.trim().replace(/\s+/g, ' '),
+                cta_url: this.getAttribute('href'),
+                cta_type: this.classList.contains('cta-large') ? 'primary' : 'secondary',
+                section: 'final_cta',
+                device_type: getDeviceType(),
+            });
+        });
+    });
+
+    // newly added event - 2026-05-19
+    // ── 6. footer_link_click ──
+    document.querySelectorAll('#footer .footer-row a:not(.social-links a)').forEach(link => {
+        link.addEventListener('click', function () {
+            const category = this.closest('.footer-row').querySelector('span');
+            mixpanel.track('footer_link_click', {
+                link_text: this.textContent.trim(),
+                link_url: this.getAttribute('href'),
+                link_category: category ? category.textContent.trim() : '',
+                is_external: this.getAttribute('target') === '_blank',
+                device_type: getDeviceType(),
+            });
+        });
+    });
+
+    // newly added event - 2026-05-19
+    // ── 7. social_link_click ──
+    document.querySelectorAll('#footer .social-links a').forEach(link => {
+        link.addEventListener('click', function () {
+            mixpanel.track('social_link_click', {
+                platform: this.getAttribute('title') || '',
+                link_url: this.getAttribute('href'),
+                section: 'footer',
+                device_type: getDeviceType(),
+            });
+        });
+    });
+
+    // newly added event - 2026-05-19
+    // ── 8. close_feedback_modal ──
+    var closeFeedbackBtn = document.getElementById('close-feedback');
+    if (closeFeedbackBtn) {
+        closeFeedbackBtn.addEventListener('click', function () {
+            mixpanel.track('close_feedback_modal', {
+                section: 'testimonials',
+                device_type: getDeviceType(),
+            });
+        });
+    }
+
+    // newly added event - 2026-05-19
+    // ── 9. section_viewed (scroll-based visibility via IntersectionObserver) ──
+    const trackedSections = new Set();
+    const sectionObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (entry.isIntersecting && !trackedSections.has(entry.target.id)) {
+                trackedSections.add(entry.target.id);
+                mixpanel.track('section_viewed', {
+                    section_id: entry.target.id,
+                    section_title: (entry.target.querySelector('h2') || entry.target.querySelector('h1') || {}).textContent || entry.target.id,
+                    device_type: getDeviceType(),
+                    viewport_width: window.innerWidth,
+                    viewport_height: window.innerHeight,
+                });
+            }
+        });
+    }, { threshold: 0.3 });
+
+    document.querySelectorAll('section[id], footer[id]').forEach(function (section) {
+        sectionObserver.observe(section);
+    });
+
+    // newly added event - 2026-05-19
+    // ── 10. canvas_interaction (user interacts with course card animations) ──
+    document.querySelectorAll('.course-card-canvas').forEach(function (canvas) {
+        var interacted = false;
+        var article = canvas.closest('.course-card');
+        var courseName = article ? (article.querySelector('h3') ? article.querySelector('h3').textContent.trim() : '') : '';
+        var canvasType = canvas.classList.contains('course-card-fluid-container') ? 'fluid_simulation' : 'matter_js';
+
+        canvas.addEventListener('pointerdown', function () {
+            if (interacted) return;
+            interacted = true;
+            mixpanel.track('canvas_interaction', {
+                course_name: courseName,
+                canvas_type: canvasType,
+                interaction_type: 'pointer_down',
+                device_type: getDeviceType(),
+            });
+        });
+    });
+
 });
 
 

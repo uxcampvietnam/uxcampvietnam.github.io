@@ -1,21 +1,21 @@
 
 // ============================================================
-//  UX ANALYTICS LIVE CONSOLE — Real Tracking Module
+//  UX ANALYTICS LIVE CONSOLE - Real Tracking Module
 //
 //  All persistent data is stored in localStorage under STORAGE_KEY.
 //  Data shape saved to localStorage:
 //  {
-//    firstVisit      : ISO string — very first page load ever
-//    totalPageViews  : number    — incremented on every page load
-//    totalDuration   : number    — accumulated ms from past sessions (active only)
-//    sessionStart    : ISO string — reset each page load
-//    registerClicks  : number    — clicks on any register / CTA link
-//    isRegistered    : boolean   — true after first register click
+//    firstVisit      : ISO string - very first page load ever
+//    totalPageViews  : number    - incremented on every page load
+//    totalDuration   : number    - accumulated ms from past sessions (active only)
+//    sessionStart    : ISO string - reset each page load
+//    registerClicks  : number    - clicks on any register / CTA link
+//    isRegistered    : boolean   - true after first register click
 //    registeredDate  : ISO string | null
-//    funnelDone      : object    — which funnel steps are complete
-//    sectionTime     : object    — cumulative seconds user spent in each section
-//    eventLog        : array     — last 50 events [{time, label, isAlert}]
-//    registrationStats : object  — frozen metrics at time of registration
+//    funnelDone      : object    - which funnel steps are complete
+//    sectionTime     : object    - cumulative seconds user spent in each section
+//    eventLog        : array     - last 50 events [{time, label, isAlert}]
+//    registrationStats : object  - frozen metrics at time of registration
 //  }
 // ============================================================
 
@@ -35,7 +35,7 @@
             if (raw) return JSON.parse(raw);
         } catch (e) { /* ignore corrupt / unavailable storage */ }
 
-        // First ever visit — return clean defaults
+        // First ever visit - return clean defaults
         return {
             firstVisit: new Date().toISOString(),
             totalPageViews: 0,
@@ -72,7 +72,7 @@
     /** Serialize and save the current state object */
     function saveState() {
         try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-        catch (e) { /* storage quota exceeded — fail silently */ }
+        catch (e) { /* storage quota exceeded - fail silently */ }
     }
 
     // Initialise state
@@ -99,7 +99,7 @@
     }
 
     // ─────────────────────────────────────────────────────────────
-    // 2. SESSION INIT — runs once per page load
+    // 2. SESSION INIT - runs once per page load
     // ─────────────────────────────────────────────────────────────
 
     // Count this load as a new page view
@@ -462,7 +462,7 @@
         container.innerHTML = FUNNEL_STEPS.map((step) => {
             let done = false;
             let displayLabel = step.label;
-            
+
             if (step.isFormSection) {
                 const filled = (state.sectionProgress && state.sectionProgress[step.secKey]) || 0;
                 done = filled === step.total;
@@ -470,7 +470,7 @@
             } else {
                 done = !!state.funnelDone[step.key];
             }
-            
+
             return `
         <div class="ux-event-row">
           <span class="mono-body secondary-text ux-pipe">|</span>
@@ -622,7 +622,7 @@
                     render();
                     renderEventStream();
                 }
-            } catch (err) {}
+            } catch (err) { }
         }
     });
 

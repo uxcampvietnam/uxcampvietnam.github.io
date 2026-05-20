@@ -1445,6 +1445,10 @@ form .tags {
 	padding-top: 24px;
 }
 
+article:has(.course-card) {
+	height: fit-content;
+}
+
 .uxcamp-homepage .course-card {
 	display: flex;
 	flex-direction: column;
@@ -1457,6 +1461,7 @@ form .tags {
 	background: var(--main-colors-background-elevate-1, #FFF7EB);
 	height: 100%;
 	transition: top 0.1s ease-in-out;
+	margin-bottom: 16px;
 }
 
 .uxcamp-homepage .course-card:hover {

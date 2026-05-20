@@ -35,7 +35,7 @@ function renderCourseBootcampItem(item, registerUrl, assetPrefix) {
                 <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"}">${item.bootcamp_name}</span>
                 <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
                 <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-start-date">${item.start_date}</span>
-                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-pricing">${item.pricing}${item.offline == 1 ? " (*)" : ""}</span>
+                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-pricing">${item.pricing}</span>
             </a>`;
 }
 

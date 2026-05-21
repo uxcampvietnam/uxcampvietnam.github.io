@@ -1653,3 +1653,10 @@ article:has(.course-card) {
 		padding-bottom: 16px;
 	}
 }
+
+/* Màn hình cảm ứng, mobile, điện thoại */
+@media (pointer: coarse) {
+	.uxcamp-homepage canvas {
+		pointer-events: none !important;
+	}
+}

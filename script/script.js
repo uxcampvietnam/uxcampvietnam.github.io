@@ -32,9 +32,9 @@ function renderCourseBootcampItem(item, registerUrl, assetPrefix) {
     console.log(is_applied_ux_analytic);
 
     return `<a href="${registerUrl}?bootcamp_id=${item.bootcamp_id}" class="bootcamp-item-homepage ${item.is_open == 1 ? "is_open" : "is_closed"} sign-up-now paragraph">
-                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-start-date">${item.start_date.length !== 0 ? item.start_date + ", " : " "}</span>
-                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-online-offline">${item.offline == 1 ? "Offline (" + item.location + "), " : "Online, "}</span>
-                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-pricing"> ${" " + item.pricing}</span>
+                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-start-date">${item.start_date.length !== 0 ? item.start_date : " "}</span>
+                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-online-offline">${item.offline == 1 ? ", Offline (" + item.location + ")" : ", Online"}</span>
+                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-pricing"> ${", " + item.pricing}</span>
             </a>`;
 }
 

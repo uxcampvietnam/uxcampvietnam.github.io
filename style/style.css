@@ -1452,7 +1452,7 @@ form .tags {
 }
 
 article:has(.course-card) {
-	height: fit-content;
+	margin-bottom: 24px;
 }
 
 .uxcamp-homepage .course-card {
@@ -1467,7 +1467,7 @@ article:has(.course-card) {
 	background: var(--main-colors-background-elevate-1, #FFF7EB);
 	height: 100%;
 	transition: top 0.1s ease-in-out;
-	margin-bottom: 16px;
+	height: 100%;
 }
 
 .uxcamp-homepage .course-card:hover {
@@ -1479,7 +1479,6 @@ article:has(.course-card) {
 .uxcamp-homepage .course-card.applied-ux-analytic-card {
 	border: 0.5px solid var(--console-stroke);
 	background: var(--applied-analytic-main);
-	height: 100%;
 }
 
 .uxcamp-homepage .course-card.applied-ux-analytic-card * {
@@ -1643,15 +1642,14 @@ article:has(.course-card) {
 	.uxcamp-homepage .mobile-comparison .mobile-criteria {
 		font-weight: 500;
 		color: var(--main-colors-foreground-f300);
-		background-color: var(--main-colors-background-elevate-2, rgba(0, 0, 0, 0.03));
 		border-bottom: none;
-		padding-bottom: 8px;
+		padding-bottom: 0px;
 		padding-top: 16px;
 	}
 
 	.uxcamp-homepage .mobile-comparison td:not(.mobile-criteria) {
 		border-top: none;
-		padding-top: 8px;
+		padding-top: 0px;
 		padding-bottom: 16px;
 	}
 }

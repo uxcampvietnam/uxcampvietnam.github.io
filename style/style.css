@@ -1657,6 +1657,6 @@ article:has(.course-card) {
 /* Màn hình cảm ứng, mobile, điện thoại */
 @media (pointer: coarse) {
 	.uxcamp-homepage canvas {
-		pointer-events: none !important;
+		/* pointer-events: none !important; */
 	}
 }

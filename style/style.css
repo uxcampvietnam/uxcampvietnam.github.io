@@ -1085,13 +1085,12 @@ ol>* {
 	flex-direction: row;
 	justify-content: flex-start;
 	align-items: flex-start;
-	gap: 8px;
 	padding: 12px 0px;
-	border-top: 0.5px solid var(--transparent-foreground-main-color-20, rgba(55, 61, 72, 0.20));
+	border-top: 0.5px solid hsla(0, 0%, 50%, 0.5);
 }
 
 .bootcamp-item.is_closed {
-	border: 0.5px solid var(--transparent-foreground-main-color-20, rgba(55, 61, 72, 0.20));
+	border: 0.5px solid var(--main-colors-foreground-f600);
 	background: var(--transparent-foreground-main-color-05, rgba(55, 61, 72, 0.05));
 	backdrop-filter: blur(40px);
 }
@@ -1461,7 +1460,7 @@ article:has(.course-card) {
 	flex-direction: column;
 	gap: 16px;
 	padding: 16px;
-	border-radius: 48px;
+	border-radius: 32px;
 	position: relative;
 	top: 0px;
 	border: 0.5px solid var(--main-colors-background-b600, #AEA69D);
@@ -1494,7 +1493,7 @@ article:has(.course-card) {
 	width: 100%;
 	height: 380px;
 	overflow: hidden;
-	border-radius: 32px;
+	border-radius: 16px;
 	/* border: 0.5px solid var(--main-colors-background-b600, #AEA69D);
 	background: var(--main-colors-background-b-200-slide-bg); */
 	cursor: pointer;
@@ -1550,7 +1549,7 @@ article:has(.course-card) {
 	margin: 12px 0px;
 	padding: 4px 12px;
 	border-radius: 8px;
-	color: var(--main-colors-background-b-300-main, #FBEAD5);
+	color: var(--main-colors-background-b100);
 	background: var(--alternative-foreground-gold);
 	border: 0.5px solid var(--main-colors-foreground-f900);
 }
@@ -1564,6 +1563,7 @@ article:has(.course-card) {
 	width: 100%;
 	border-collapse: collapse;
 	table-layout: fixed;
+	background-color: var(--main-colors-background-elevate-1);
 }
 
 .comparison-table th:first-child {
@@ -1579,7 +1579,7 @@ article:has(.course-card) {
 }
 
 .uxcamp-homepage .comparison-table tr:hover {
-	background: var(--main-colors-background-elevate-1, #FFF7EB);
+	background: var(--main-colors-background-elevate-2, #FFF7EB);
 }
 
 .uxcamp-homepage .comparison-table th {
@@ -1636,4 +1636,22 @@ article:has(.course-card) {
 .uxcamp-homepage .course-cohort-list .bootcamp-item {
 	width: 100%;
 	margin-right: 0;
+}
+
+/* Mobile Comparison Table Styles */
+@media (max-width: 991px) {
+	.uxcamp-homepage .mobile-comparison .mobile-criteria {
+		font-weight: 500;
+		color: var(--main-colors-foreground-f300);
+		background-color: var(--main-colors-background-elevate-2, rgba(0, 0, 0, 0.03));
+		border-bottom: none;
+		padding-bottom: 8px;
+		padding-top: 16px;
+	}
+
+	.uxcamp-homepage .mobile-comparison td:not(.mobile-criteria) {
+		border-top: none;
+		padding-top: 8px;
+		padding-bottom: 16px;
+	}
 }

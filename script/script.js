@@ -32,10 +32,9 @@ function renderCourseBootcampItem(item, registerUrl, assetPrefix) {
     console.log(is_applied_ux_analytic);
 
     return `<a href="${registerUrl}?bootcamp_id=${item.bootcamp_id}" class="bootcamp-item-homepage ${item.is_open == 1 ? "is_open" : "is_closed"} sign-up-now paragraph">
-                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"}">${item.bootcamp_name}</span>
-                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
-                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-start-date">${item.start_date}</span>
-                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-pricing">${item.pricing}</span>
+                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-start-date">${item.start_date.length !== 0 ? item.start_date + ", " : " "}</span>
+                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-online-offline">${item.offline == 1 ? "Offline (" + item.location + "), " : "Online, "}</span>
+                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-pricing"> ${" " + item.pricing}</span>
             </a>`;
 }
 
@@ -84,6 +83,32 @@ fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82
                     <div class="course-cohort-list">${analyticBootcamps.map(item =>
                         renderCourseBootcampItem(item, 'applied-ux-analytic/bootcamp-register.html', assetPrefix)
                     ).join('')}</div>`;
+                });
+
+                if (analyticBootcamps && analyticBootcamps.length > 0) {
+                    const aua = analyticBootcamps[0];
+                    document.querySelectorAll('.compare-aua-start-date').forEach(el => {
+                        el.textContent = aua.start_date !== '-' ? aua.start_date : aua.bootcamp_name;
+                    });
+                    document.querySelectorAll('.compare-aua-pricing').forEach(el => {
+                        el.textContent = aua.pricing;
+                    });
+                    document.querySelectorAll('.compare-aua-format').forEach(el => {
+                        el.textContent = aua.offline == 1 ? "Offline, " + aua.location : "Online";
+                    });
+                }
+            }
+
+            if (bootcamp_list && bootcamp_list.length > 0) {
+                const flagship = bootcamp_list[0];
+                document.querySelectorAll('.compare-flagship-start-date').forEach(el => {
+                    el.textContent = flagship.start_date !== '-' ? flagship.start_date : flagship.bootcamp_name;
+                });
+                document.querySelectorAll('.compare-flagship-pricing').forEach(el => {
+                    el.textContent = flagship.pricing;
+                });
+                document.querySelectorAll('.compare-flagship-format').forEach(el => {
+                    el.textContent = flagship.offline == 1 ? "Offline, " + flagship.location : "Online";
                 });
             }
 

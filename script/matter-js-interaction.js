@@ -245,7 +245,7 @@ let InfiniteLoadingWidth;
 let InfiniteLoadingHeight;
 
 if (isCardMode) {
-    numberOfFallingImg = window.innerWidth < 500 ? 18 : 32;
+    numberOfFallingImg = window.innerWidth < 500 ? 30 : 40;
     scaleFactor = window.innerWidth < 500 ? 0.18 : 0.22;
     InfiniteLoadingWidth = 0;
     InfiniteLoadingHeight = 0;

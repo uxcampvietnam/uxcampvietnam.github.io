@@ -245,7 +245,7 @@ let InfiniteLoadingWidth;
 let InfiniteLoadingHeight;
 
 if (isCardMode) {
-    numberOfFallingImg = window.innerWidth < 500 ? 30 : 40;
+    numberOfFallingImg = window.innerWidth < 500 ? 20 : 40;
     scaleFactor = window.innerWidth < 500 ? 0.18 : 0.22;
     InfiniteLoadingWidth = 0;
     InfiniteLoadingHeight = 0;
@@ -414,7 +414,9 @@ if (canvas) {
                     if (fallingImgCount < numberOfFallingImg) {
                         World.add(
                             world,
-                            createImageBody(width / 2, height / 2, data)
+                            // createImageBody(width / 2, height / 2, data)
+                            createImageBody(isCardMode ? width * Math.random() : width / 2, isCardMode ? height * Math.random() : height / 2, data)
+
                         );
                         fallingImgCount++;
                     }

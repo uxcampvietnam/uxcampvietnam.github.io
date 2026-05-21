@@ -1191,9 +1191,14 @@ ol>* {
 	border-radius: 12px;
 	border: 1px solid var(--stroke-gradient);
 	background: var(--alternative-foreground-gold);
-	color: var(--fix-white---white-100, #FFF) !important;
+	color: var(--main-colors-background-b100);
 	box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
 	backdrop-filter: blur(50px);
+}
+
+.call-to-action-button * {
+	color: var(--main-colors-background-b100);
+	fill: var(--main-colors-background-b100);
 }
 
 .bootcamp-item .sign-up-now:hover {
@@ -1517,8 +1522,8 @@ article:has(.course-card) {
 	border-radius: 32px;
 	position: relative;
 	top: 0px;
-	border: 0.5px solid var(--main-colors-background-b600, #AEA69D);
-	background: var(--main-colors-background-elevate-1, #FFF7EB);
+	border: 0.5px solid var(--console-stroke);
+	background: var(--main-colors-background-elevate-1);
 	height: 100%;
 	height: 100%;
 }
@@ -1527,18 +1532,14 @@ article:has(.course-card) {
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.uxcamp-homepage .course-card.applied-ux-analytic-card {
-	border: 0.5px solid var(--console-stroke);
-	background: var(--applied-analytic-main);
+.uxcamp-homepage .course-card p,
+.uxcamp-homepage .course-card span,
+.uxcamp-homepage .course-card a {
+	color: var(--main-colors-foreground-f-500-main);
 }
 
-.uxcamp-homepage .course-card.applied-ux-analytic-card * {
-	color: var(--applied-analytic-reverse-main);
-	fill: var(--applied-analytic-main);
-}
-
-.uxcamp-homepage .course-card.applied-ux-analytic-card .course-card-image * {
-	fill: var(--applied-analytic-reverse-main);
+.uxcamp-homepage .course-card .course-card-image * {
+	fill: var(--main-colors-foreground-f-500-main);
 }
 
 
@@ -1607,14 +1608,9 @@ article:has(.course-card) {
 }
 
 .uxcamp-homepage .course-card-meta .course-status {
+	margin-top: 8px;
 	display: inline-block;
 	width: fit-content;
-	margin: 12px 0px;
-	padding: 4px 12px;
-	border-radius: 8px;
-	color: var(--main-colors-background-b100);
-	background: var(--alternative-foreground-gold);
-	border: 0.5px solid var(--main-colors-foreground-f900);
 }
 
 .uxcamp-homepage .course-card-highlights {
@@ -1630,7 +1626,7 @@ article:has(.course-card) {
 }
 
 .comparison-table th:first-child {
-	width: 25%;
+	width: 180px;
 }
 
 .uxcamp-homepage .comparison-table th,
@@ -1639,10 +1635,6 @@ article:has(.course-card) {
 	border-top: 0.5px solid var(--main-colors-foreground-f900);
 	border-left: 0.5px solid var(--main-colors-foreground-f900);
 	vertical-align: top;
-}
-
-.uxcamp-homepage .comparison-table tr:hover {
-	background: var(--main-colors-background-elevate-2, #FFF7EB);
 }
 
 .uxcamp-homepage .comparison-table th {
@@ -1720,3 +1712,10 @@ article:has(.course-card) {
 
 /* Màn hình cảm ứng, mobile, điện thoại */
 @media (pointer: coarse) {}
+
+/* Dùng chuột, trackpad, máy tính, laptop, desktop... */
+@media (pointer: fine) {
+	.uxcamp-homepage .comparison-table tr:hover {
+		background: var(--main-colors-background-elevate-2, #FFF7EB);
+	}
+}

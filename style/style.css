@@ -721,7 +721,11 @@ tbody>tr:last-child {
 	}
 
 	.uxcamp-homepage .course-card-canvas {
-		height: 380px;
+		display: block;
+	}
+
+	.uxcamp-homepage .course-card-image {
+		display: none !important;
 	}
 
 }
@@ -771,8 +775,20 @@ tbody>tr:last-child {
 		pointer-events: none !important;
 	}
 
-
 	.uxcamp-homepage .course-card-canvas {
+		display: none !important;
+	}
+
+	.uxcamp-homepage .course-card-image {
+		position: relative;
+		width: 100%;
+		overflow: hidden;
+		border-radius: 16px;
+		cursor: pointer;
+		/* background-color: red; */
+		display: flex;
+		justify-content: center;
+		align-items: center;
 		height: 230px;
 	}
 
@@ -1154,6 +1170,31 @@ ol>* {
 	backdrop-filter: blur(50px);
 }
 
+.uxcamp-homepage .course-card .cta-container {
+	flex-grow: 1;
+	display: flex;
+	align-items: stretch;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	justify-content: flex-end;
+}
+
+
+.call-to-action-button {
+	display: flex;
+	height: 44px;
+	padding: 10px 20px 10px 24px;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+	align-self: stretch;
+	border-radius: 12px;
+	border: 1px solid var(--stroke-gradient);
+	background: var(--alternative-foreground-gold);
+	color: var(--fix-white---white-100, #FFF) !important;
+	box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
+	backdrop-filter: blur(50px);
+}
 
 .bootcamp-item .sign-up-now:hover {
 	border: 1px solid var(--stroke-gradient);
@@ -1496,6 +1537,11 @@ article:has(.course-card) {
 	fill: var(--applied-analytic-main);
 }
 
+.uxcamp-homepage .course-card.applied-ux-analytic-card .course-card-image * {
+	fill: var(--applied-analytic-reverse-main);
+}
+
+
 
 .uxcamp-homepage .course-card-canvas {
 	position: relative;
@@ -1503,6 +1549,16 @@ article:has(.course-card) {
 	overflow: hidden;
 	border-radius: 16px;
 	cursor: pointer;
+	height: 380px;
+}
+
+.uxcamp-homepage .course-card-image svg {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 100% !important;
+	height: auto !important;
 }
 
 .uxcamp-homepage .course-card-canvas-flagship #interactiveImage {
@@ -1547,6 +1603,7 @@ article:has(.course-card) {
 	display: flex;
 	flex-direction: column;
 	gap: 8px;
+	flex-grow: 1;
 }
 
 .uxcamp-homepage .course-card-meta .course-status {

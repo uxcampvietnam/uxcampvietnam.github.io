@@ -31,17 +31,17 @@ function renderCourseBootcampItem(item, registerUrl, assetPrefix) {
     is_applied_ux_analytic = item.bootcamp == "Applied UX Analytic";
     console.log(is_applied_ux_analytic);
 
-    return `<a href="${registerUrl}?bootcamp_id=${item.bootcamp_id}" class="bootcamp-item-homepage ${item.is_open == 1 ? "is_open" : "is_closed"} sign-up-now paragraph">
+    return `<span class="bootcamp-item-homepage ${item.is_open == 1 ? "is_open" : "is_closed"} paragraph">
                 <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-start-date">${item.start_date.length !== 0 ? item.start_date : " "}</span>
                 <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-online-offline">${item.offline == 1 ? ", Offline (" + item.location + ")" : ", Online"}</span>
                 <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-pricing"> ${", " + item.pricing}</span>
-            </a>`;
+            </span>`;
 }
 
 function updateCourseStatus(statusEl, items) {
     if (!statusEl) return;
     const hasOpen = items.some(item => item.is_open == 1);
-    statusEl.textContent = hasOpen ? 'Đang mở đăng ký' : 'Upcoming Cohort';
+    statusEl.textContent = hasOpen ? 'Đang mở đăng ký' : 'Upcoming';
     statusEl.classList.add(hasOpen ? 'course-status-open' : 'course-status-upcoming');
 }
 
@@ -62,7 +62,7 @@ fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82
                 const items = bootcamp_list;
                 updateCourseStatus(document.getElementById('flagship-course-status'), items);
                 if (!items.length) {
-                    el.innerHTML = '<p class="paragraph italic">Chưa có cohort nào được công bố.</p>';
+                    el.innerHTML = '<p class="paragraph italic">Sắp tới chưa có lịch đâu mommm.</p>';
                     return;
                 }
                 el.innerHTML = `

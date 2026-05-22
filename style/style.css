@@ -607,20 +607,15 @@ tbody>tr:last-child {
 	display: flex;
 	flex-direction: column;
 	gap: 0px;
-	transition: gap 0.5s ease-in-out,
-		padding-left 0.3s ease-in-out,
-		padding-right 0.3s ease-in-out;
+	transition: gap 0.5s ease-in-out;
 }
 
-.accordion:hover {
-	background: var(--main-colors-background-elevate-1, #FFF7EB);
-	padding: 48px 24px;
+.accordion:hover .small-arrow path[fill] {
+	fill: var(--transparent-foreground-main-color-80);
 }
 
 .accordion-active {
 	gap: 24px;
-	padding: 48px 24px;
-	background: var(--main-colors-background-elevate-1, #FFF7EB);
 }
 
 .answer {

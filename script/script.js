@@ -29,13 +29,12 @@ function getAssetPrefix() {
 
 function renderCourseBootcampItem(item, registerUrl, assetPrefix) {
     is_applied_ux_analytic = item.bootcamp == "Applied UX Analytic";
-    console.log(is_applied_ux_analytic);
 
-    return `<span class="bootcamp-item-homepage ${item.is_open == 1 ? "is_open" : "is_closed"} paragraph">
-                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-start-date">${item.start_date.length !== 0 ? item.start_date : " "}</span>
-                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-online-offline">${item.offline == 1 ? ", Offline (" + item.location + ")" : ", Online"}</span>
-                <span class=" ${is_applied_ux_analytic ? "mono-caption" : "paragraph"} bootcamp-pricing"> ${", " + item.pricing}</span>
-            </span>`;
+    return `<span class="bootcamp-item-homepage ${is_applied_ux_analytic ? "mono-caption" : "paragraph"}"> 
+    ${item.start_date.length !== 0 ? item.start_date : " "},
+    ${item.offline == 1 ? "Offline, " + item.location : "Online"},
+    ${item.pricing}
+    </span>`;
 }
 
 function updateCourseStatus(statusEl, items) {

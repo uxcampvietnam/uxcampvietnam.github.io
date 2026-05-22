@@ -184,7 +184,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         localStorage.setItem('survey_data', JSON.stringify(data));
-        
+
         // Update console state for progress tracking
         updateConsoleProgress(data);
     }
@@ -200,15 +200,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const val = data[name];
             return val !== undefined && val !== "" && (Array.isArray(val) ? val.length > 0 : true);
         });
-        
+
         const progress = Math.round((filledRequired.length / uniqueRequired.length) * 100);
-        
+
         try {
             const consoleStateRaw = localStorage.getItem('uxConsole_v1');
             if (consoleStateRaw) {
                 const state = JSON.parse(consoleStateRaw);
                 state.formProgress = progress;
-                
+
                 if (!state.sectionProgress) {
                     state.sectionProgress = {
                         general: 0,
@@ -219,13 +219,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         registration: 0
                     };
                 }
-                
+
                 // Track progress changes per section and push events to log
                 Object.entries(sectionsProgress).forEach(([secKey, secData]) => {
                     const prevFilled = state.sectionProgress[secKey] || 0;
                     if (secData.filled !== prevFilled) {
                         state.sectionProgress[secKey] = secData.filled;
-                        
+
                         const label = `${secData.eventKey}: ${secData.filled}/${secData.total}`;
                         const time = new Date().toTimeString().slice(0, 8);
                         if (!state.eventLog) state.eventLog = [];
@@ -304,7 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 data[key] = value;
             }
         });
-        
+
         const sectionsProgress = calculateSectionProgress(data);
         try {
             const consoleStateRaw = localStorage.getItem('uxConsole_v1');
@@ -316,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 Object.entries(sectionsProgress).forEach(([secKey, secData]) => {
                     state.sectionProgress[secKey] = secData.filled;
                 });
-                
+
                 // Ensure start_form is tracked
                 if (!state.funnelDone.start_form) {
                     state.funnelDone.start_form = true;
@@ -325,10 +325,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     state.eventLog.push({ time, label: 'start_form', isAlert: false });
                     if (state.eventLog.length > 50) state.eventLog.shift();
                 }
-                
+
                 localStorage.setItem('uxConsole_v1', JSON.stringify(state));
             }
-        } catch (e) {}
+        } catch (e) { }
     }
 
     loadFromLocal();
@@ -382,10 +382,10 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = false;
 
             const target = firstInvalid.closest('.question-block') || firstInvalid.closest('tr') || firstInvalid.parentElement;
-            
+
             // Scroll to the first invalid field
             target.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            
+
             // Add a little shake effect if GSAP is available
             if (typeof gsap !== 'undefined') {
                 gsap.to(target, { x: 10, repeat: 5, yoyo: true, duration: 0.05 });
@@ -395,7 +395,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         // -------------------------
 
-        fetch("https://script.google.com/macros/s/AKfycbyz_nDpXETChpg0JVZQa7G4BVcfF7mrymvBLBibMREDw-tFfhcEdjoJ9CuBRmUaDJy7cw/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbw3E3u5_-4fhsvwHbi04sQYz28Fgqk_uB5rqR56ILihUwVKN3_7x-swa0_7WN0aJ9roOw/exec", {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" },
@@ -412,14 +412,14 @@ document.addEventListener('DOMContentLoaded', () => {
                             const firstVisit = new Date(consoleState.firstVisit);
                             const now = new Date();
                             const daysSinceFirstVisit = Math.floor((now - firstVisit) / (1000 * 60 * 60 * 24));
-                            
+
                             consoleProps = {
                                 'total_page_view_to_register': consoleState.totalPageViews,
                                 'first_page_view': consoleState.firstVisit,
                                 'day_since_first_page_view': daysSinceFirstVisit,
                                 'register_click_count': consoleState.registerClicks
                             };
-                            
+
                             // Add duration for each section from index.html
                             if (consoleState.sectionTime) {
                                 Object.entries(consoleState.sectionTime).forEach(([section, seconds]) => {
@@ -454,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         state.formProgress = 100;
                         localStorage.setItem('uxConsole_v1', JSON.stringify(state));
                     }
-                } catch (e) {}
+                } catch (e) { }
 
                 localStorage.removeItem('survey_data');
                 window.location.href = "../form-submitted.html";

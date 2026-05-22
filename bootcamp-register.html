@@ -103,9 +103,9 @@
                                 placeholder="" required />
                         </div>
                         <div class="col-12 form-group">
-                            <label class="h6 input-row-title" for="facebook">Link Facebook của bạn là *</label>
-                            <input class="col-12 single-input h3" type="url" id="facebook" name="facebook"
-                                placeholder="" required />
+                            <label class="h6 input-row-title" for="email">Email *</label>
+                            <input class="col-12 single-input h3" type="email" id="email" autocomplete="email"
+                                name="email" placeholder="" required />
                         </div>
                         <div class="col-12 form-group">
                             <label class="h6 input-row-title" for="phone">Số điện thoại *</label>
@@ -113,9 +113,9 @@
                                 placeholder="" required />
                         </div>
                         <div class="col-12 form-group">
-                            <label class="h6 input-row-title" for="email">Email *</label>
-                            <input class="col-12 single-input h3" type="email" id="email" autocomplete="email"
-                                name="email" placeholder="" required />
+                            <label class="h6 input-row-title" for="facebook">Link Facebook của bạn là *</label>
+                            <input class="col-12 single-input h3" type="url" id="facebook" name="facebook"
+                                placeholder="" required />
                         </div>
 
                         <div class="form-group">
@@ -320,8 +320,8 @@
             console.log("Form Data:", data);
 
             // mixpanel.track('bootcamp_form_submit', data);
-
-            fetch("https://script.google.com/macros/s/AKfycbyz_nDpXETChpg0JVZQa7G4BVcfF7mrymvBLBibMREDw-tFfhcEdjoJ9CuBRmUaDJy7cw/exec", {
+            // submit form đăng ký
+            fetch("https://script.google.com/macros/s/AKfycbw3E3u5_-4fhsvwHbi04sQYz28Fgqk_uB5rqR56ILihUwVKN3_7x-swa0_7WN0aJ9roOw/exec", {
                 method: "POST",
                 body: JSON.stringify(data),
                 headers: { "Content-Type": "application/json" },

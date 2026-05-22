@@ -494,7 +494,7 @@ window.onload = () => {
   });
 }
 
-
+// dữ liệu bootcamp từ google sheet
 fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82XWQqXdKR6e1pXvTUtCATu95jnd0QouBwyD/exec")
   .then(res => res.json())
   .then(data => {

@@ -416,8 +416,8 @@ function buildAsciiHTML(text) {
 
 window.onload = () => {
 
-  if (document.querySelector('#fluidCanvas')) {
-    gsap.to('#fluidCanvas', {
+  if (document.querySelector('#appliedUxAnalytic_hero_fluidCanvas')) {
+    gsap.to('#appliedUxAnalytic_hero_fluidCanvas', {
       scrollTrigger: {
         trigger: '.applied-ux-analytic-container',
         start: 'top top',
@@ -465,7 +465,7 @@ window.onload = () => {
       duration: 0.5,
       onStart: () => {
 
-        if (document.querySelector('#fluidCanvas')) {
+        if (document.querySelector('#appliedUxAnalytic_hero_fluidCanvas')) {
           randomSplats(16, 0, 1, 0.4, 0.6);
         }
 
@@ -501,7 +501,7 @@ fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82
 
     // listing trên phần giới thiệu bootcamp.
     const bootcamps = data.applied_ux_analytic.filter(item => item.listing == 1);
-    const container = document.getElementById('bootcamp-list-container');
+    const container = document.getElementById('appliedUxAnalytic_register_bootcampListContainer');
     const containerSignUp = document.getElementById('signUp_ux_analytic_bootcamp_list');
 
     if (!container && !containerSignUp) return;

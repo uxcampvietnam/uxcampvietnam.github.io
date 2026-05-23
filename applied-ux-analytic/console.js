@@ -153,7 +153,7 @@
     }
 
     function renderEventStream() {
-        const container = document.getElementById('demo-event-stream');
+        const container = document.getElementById('appliedUxAnalytic_console_eventStream');
         if (!container) return;
 
         const MAX_VISIBLE = 12;
@@ -180,8 +180,13 @@
     // ─────────────────────────────────────────────────────────────
 
     const SECTION_MAP = {
-        intro: 'intro', goal: 'goal', register: 'register',
-        syllabus: 'syllabus', general: 'general', footer: 'footer', console: 'demo',
+        appliedUxAnalytic_intro_section: 'intro',
+        appliedUxAnalytic_goal_section: 'goal',
+        appliedUxAnalytic_register_section: 'register',
+        appliedUxAnalytic_syllabus_section: 'syllabus',
+        appliedUxAnalytic_general_section: 'general',
+        appliedUxAnalytic_footer_section: 'footer',
+        appliedUxAnalytic_console_section: 'demo',
     };
 
     const scrollMilestones = { 25: false, 50: false, 75: false, 90: false };
@@ -204,13 +209,13 @@
             renderFunnel();
         }
 
-        const fillEl = document.getElementById('demo-scroll-fill');
-        const pctEl = document.getElementById('demo-scroll-pct');
+        const fillEl = document.getElementById('appliedUxAnalytic_console_scrollFill');
+        const pctEl = document.getElementById('appliedUxAnalytic_console_scrollPct');
         if (fillEl) fillEl.style.width = globalPct + '%';
         if (pctEl) pctEl.textContent = globalPct + '%';
 
         const viewed = Object.values(state.sectionTime).filter(v => v >= 3).length;
-        const sectionsEl = document.getElementById('demo-sections');
+        const sectionsEl = document.getElementById('appliedUxAnalytic_console_sections');
         if (sectionsEl) sectionsEl.textContent = `${viewed} / ${Object.keys(state.sectionTime).length}`;
     }
 
@@ -234,7 +239,7 @@
                     seenSections.add(id);
                     pushEvent(`view_section: ${id}`);
                 }
-                if (id === 'register' && !state.funnelDone.view_register) {
+                if (id === 'appliedUxAnalytic_register_section' && !state.funnelDone.view_register) {
                     state.funnelDone.view_register = true;
                     saveState();
                     renderFunnel();
@@ -335,13 +340,13 @@
             pushEvent(`rage_click detected (x${recentClicks.length})`, true);
             recentClicks = [];
         }
-        const tag = e.target.tagName.toLowerCase();
-        const id = e.target.id ? `#${e.target.id}` : '';
-        const cls = typeof e.target.className === 'string' && e.target.className.trim() ? '.' + e.target.className.trim().split(/\s+/)[0] : '';
-        const clickLabel = `click_${tag}${id || cls}`;
-        const lastActionEl = document.getElementById('demo-last-action');
-        if (lastActionEl) lastActionEl.textContent = clickLabel;
-        pushEvent(clickLabel);
+        if (e.target.id) {
+            const tag = e.target.tagName.toLowerCase();
+            const clickLabel = `click_${e.target.id}`;
+            const lastActionEl = document.getElementById('appliedUxAnalytic_console_lastAction');
+            if (lastActionEl) lastActionEl.textContent = clickLabel;
+            pushEvent(clickLabel);
+        }
     });
 
     // ─────────────────────────────────────────────────────────────
@@ -505,28 +510,28 @@
             saveState();
         }
 
-        const pvEl = document.getElementById('demo-total-pv');
+        const pvEl = document.getElementById('appliedUxAnalytic_console_totalPv');
         if (pvEl) pvEl.textContent = `${state.totalPageViews} lần`;
 
-        const fpEl = document.getElementById('demo-first-pv');
+        const fpEl = document.getElementById('appliedUxAnalytic_console_firstPv');
         if (fpEl) fpEl.textContent = fmtDate(state.firstVisit);
 
-        const totalDurEl = document.getElementById('demo-total-dur');
+        const totalDurEl = document.getElementById('appliedUxAnalytic_console_totalDur');
         if (totalDurEl) totalDurEl.textContent = fmtDuration(totalElapsedMs());
 
-        const curDurEl = document.getElementById('demo-cur-dur');
+        const curDurEl = document.getElementById('appliedUxAnalytic_console_curDur');
         if (curDurEl) curDurEl.textContent = fmtDuration(sessionElapsedMs());
 
-        const regClickEl = document.getElementById('demo-reg-click');
+        const regClickEl = document.getElementById('appliedUxAnalytic_console_regClick');
         if (regClickEl) regClickEl.textContent = `${state.registerClicks} lần`;
 
-        const isRegEl = document.getElementById('demo-is-reg');
+        const isRegEl = document.getElementById('appliedUxAnalytic_console_isReg');
         if (isRegEl) isRegEl.textContent = state.isRegistered ? 'true' : 'false';
 
-        const regDateEl = document.getElementById('demo-reg-date');
+        const regDateEl = document.getElementById('appliedUxAnalytic_console_regDate');
         if (regDateEl) regDateEl.textContent = fmtDate(state.registeredDate);
 
-        const timeEl = document.getElementById('demo-time-on-page');
+        const timeEl = document.getElementById('appliedUxAnalytic_console_timeOnPage');
         if (timeEl) timeEl.textContent = fmtDuration(sessionElapsedMs());
 
         const nowTs = Date.now();
@@ -534,7 +539,7 @@
             isIdle = true;
             pushEvent(`idle: ${Math.round((nowTs - lastActivity) / 1000)}s`);
         }
-        const attentionEl = document.getElementById('demo-attention');
+        const attentionEl = document.getElementById('appliedUxAnalytic_console_attention');
         if (attentionEl) attentionEl.textContent = isIdle ? 'IDLE' : 'ACTIVE';
 
         const cells = document.querySelectorAll('.ux-state-cell');

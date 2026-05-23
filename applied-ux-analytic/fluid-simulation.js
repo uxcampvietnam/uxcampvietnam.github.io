@@ -21,7 +21,14 @@ var isDarkMode = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
 // Simulation section
 
-const fluid_canvas = document.getElementById('fluidCanvas');
+var fluid_canvas;
+
+if (document.getElementById('appliedUxAnalytic_hero_fluidCanvas')) {
+    fluid_canvas = document.getElementById('appliedUxAnalytic_hero_fluidCanvas');
+} else {
+    fluid_canvas = document.getElementById('fluidCanvas');
+}
+
 resizeCanvas();
 
 var defaultConfig = {

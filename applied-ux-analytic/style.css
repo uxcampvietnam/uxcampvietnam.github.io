@@ -1,6 +1,6 @@
 /* Applied UX Analytic =========================== */
 
-#footer .eye-logo {
+#appliedUxAnalytic_footer_section .eye-logo {
     /* width: 398px;
 	height: auto; */
     width: 84px;
@@ -9,7 +9,7 @@
 }
 
 /* 
-#footer span {
+#appliedUxAnalytic_footer_section span {
     color: var(--main-colors-foreground-f800);
 } */
 
@@ -18,7 +18,7 @@
     min-height: 50vh;
 }
 
-#footer .asciiIllus {
+#appliedUxAnalytic_footer_section .asciiIllus {
     width: 100%;
     max-width: 100%;
     overflow: visible;
@@ -72,7 +72,7 @@
     }
 }
 
-#fluidCanvas {
+#appliedUxAnalytic_hero_fluidCanvas {
     width: 100vw;
     height: 100%;
     position: absolute;
@@ -206,7 +206,7 @@
     opacity: 0;
 }
 
-#goal .bootcamp-section-content {
+#appliedUxAnalytic_goal_section .bootcamp-section-content {
     border: 0.5px solid var(--applied-analytic-secondary);
     padding: 0px;
 }

@@ -1441,9 +1441,17 @@
 
 	<!-- Feedback Detail Container ===================== -->
 	<div id="feedbackDetailContainer" class="container-fluid align-item-center">
-		<img onclick="closeFeedback()" id="close-feedback" src="asset/icon/close.svg" onload="SVGInject(this)">
+		<img class="iconButton" onclick="closeFeedback()" id="close-feedback" src="asset/icon/close.svg"
+			onload="SVGInject(this)">
 		<div class="row col-12 justify-content-center align-item-center">
 			<div id="feedback-content" class="col-12 col-md-10 col-lg-8"></div>
+		</div>
+		<div class="feedback-nav">
+			<img class="iconButton" id="feedback-prev" onclick="showPrevFeedback()" aria-label="Previous feedback"
+				src="asset/icon/previous.svg" onload="SVGInject(this)">
+			<span id="feedback-nav-indicator" class="caption"></span>
+			<img class="iconButton" id="feedback-next" onclick="showNextFeedback()" aria-label="Next feedback"
+				src="asset/icon/next.svg" onload="SVGInject(this)">
 		</div>
 	</div>
 

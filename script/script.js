@@ -424,19 +424,13 @@ function hideFeedbackImg(element, event) {
 var feedbackContentEl = document.getElementById('feedback-content');
 var closeFeedbackIcon = document.getElementById('close-feedback');
 
+var currentFeedbackIndex = -1;
+
 function closeFeedback() {
     feedbackDetailContainer.classList.remove('show-feedback');
 }
 
-function showFeedback(feedbackId) {
-
-    if (clickableFeedback == null || clickableFeedback == false) { return };
-
-    // console.log('clicked feedback');
-    var feedback = getFeedbackById(feedbackId);
-    var feedbackDetailContainer = document.getElementById('feedbackDetailContainer');
-    feedbackDetailContainer.classList.add('show-feedback');
-
+function renderFeedbackContent(feedback) {
     feedbackContentEl.innerHTML = ``;
     feedbackContentEl.innerHTML +=
         `<div class ="feedback-header caption">
@@ -446,9 +440,8 @@ function showFeedback(feedbackId) {
                 </i></span>
                 </div>
         <img src = '${getAssetPrefix()}image/participant/${feedback.img}'>
-    </div>`
+    </div>`;
     feedbackContentEl.innerHTML += `<br><div class = "paragraph"> ${feedback.feedback.replace(/\n/g, '<br>')} </div>`;
-
     feedbackContentEl.innerHTML += `<br>
         <div class="feedback-item-content">
             <span class="h2 participant-name"><i>${feedback.name} </i></span>
@@ -458,9 +451,62 @@ function showFeedback(feedbackId) {
             </div>
         </div>
 `;
+}
 
+function updateFeedbackNav() {
+    var indicator = document.getElementById('feedback-nav-indicator');
+    if (indicator && feedback_list) {
+        indicator.textContent = (currentFeedbackIndex + 1) + ' / ' + feedback_list.length;
+    }
+}
 
-    // console.log(feedback.name);
+function showPrevFeedback() {
+    if (!feedback_list || feedback_list.length === 0) { return; }
+    currentFeedbackIndex = (currentFeedbackIndex - 1 + feedback_list.length) % feedback_list.length;
+    var feedback = feedback_list[currentFeedbackIndex];
+    renderFeedbackContent(feedback);
+    updateFeedbackNav();
+    mixpanel.track('view_feedback', {
+        participant_name: feedback.name,
+        participant_title: feedback.title,
+        participant_company: feedback.company,
+        bootcamp_name: feedback.bootcamp_name,
+        feedback_id: feedback.feedback_id,
+        navigation: 'prev',
+    });
+}
+
+function showNextFeedback() {
+    if (!feedback_list || feedback_list.length === 0) { return; }
+    currentFeedbackIndex = (currentFeedbackIndex + 1) % feedback_list.length;
+    var feedback = feedback_list[currentFeedbackIndex];
+    renderFeedbackContent(feedback);
+    updateFeedbackNav();
+    mixpanel.track('view_feedback', {
+        participant_name: feedback.name,
+        participant_title: feedback.title,
+        participant_company: feedback.company,
+        bootcamp_name: feedback.bootcamp_name,
+        feedback_id: feedback.feedback_id,
+        navigation: 'next',
+    });
+}
+
+function showFeedback(feedbackId) {
+
+    if (clickableFeedback == null || clickableFeedback == false) { return };
+
+    var index = feedback_list ? feedback_list.findIndex(function(f) { return f.feedback_id == String(feedbackId); }) : -1;
+    if (index === -1) { return; }
+    currentFeedbackIndex = index;
+
+    var feedback = feedback_list[currentFeedbackIndex];
+    var feedbackDetailContainer = document.getElementById('feedbackDetailContainer');
+    feedbackDetailContainer.classList.add('show-feedback');
+
+    renderFeedbackContent(feedback);
+    updateFeedbackNav();
+
     mixpanel.track('view_feedback', {
         participant_name: feedback.name,
         participant_title: feedback.title,
@@ -470,6 +516,21 @@ function showFeedback(feedbackId) {
     });
 
 }
+
+// Keyboard arrow-key navigation for feedback modal
+document.addEventListener('keydown', function(e) {
+    var container = document.getElementById('feedbackDetailContainer');
+    if (!container || !container.classList.contains('show-feedback')) { return; }
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+        e.preventDefault();
+        showNextFeedback();
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+        e.preventDefault();
+        showPrevFeedback();
+    } else if (e.key === 'Escape') {
+        closeFeedback();
+    }
+});
 
 window.onload = function () {
     //   console.log('test window.onload');

@@ -46,10 +46,9 @@ function updateCourseStatus(statusEl, items) {
 
 
 // dữ liệu bootcamp từ google sheet
-fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82XWQqXdKR6e1pXvTUtCATu95jnd0QouBwyD/exec")
+fetch("https://script.google.com/macros/s/AKfycbwRskmhSuZ8EzTDhBzXIE38Luv9Z7vO247n_NGkU5GECDTTvS5oWndMIdRG-sXi7m9_/exec")
     .then(res => res.json())
     .then(data => {
-
 
         // lấy dữ liệu bootcamp_list
         {
@@ -496,7 +495,7 @@ function showFeedback(feedbackId) {
 
     if (clickableFeedback == null || clickableFeedback == false) { return };
 
-    var index = feedback_list ? feedback_list.findIndex(function(f) { return f.feedback_id == String(feedbackId); }) : -1;
+    var index = feedback_list ? feedback_list.findIndex(function (f) { return f.feedback_id == String(feedbackId); }) : -1;
     if (index === -1) { return; }
     currentFeedbackIndex = index;
 
@@ -518,7 +517,7 @@ function showFeedback(feedbackId) {
 }
 
 // Keyboard arrow-key navigation for feedback modal
-document.addEventListener('keydown', function(e) {
+document.addEventListener('keydown', function (e) {
     var container = document.getElementById('feedbackDetailContainer');
     if (!container || !container.classList.contains('show-feedback')) { return; }
     if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {

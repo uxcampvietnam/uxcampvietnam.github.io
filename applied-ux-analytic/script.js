@@ -495,7 +495,7 @@ window.onload = () => {
 }
 
 // dữ liệu bootcamp từ google sheet
-fetch("https://script.google.com/macros/s/AKfycbxPCuSjC8CPnc_jIuow8ZuVvi0e9Zhb82XWQqXdKR6e1pXvTUtCATu95jnd0QouBwyD/exec")
+fetch("https://script.google.com/macros/s/AKfycbwRskmhSuZ8EzTDhBzXIE38Luv9Z7vO247n_NGkU5GECDTTvS5oWndMIdRG-sXi7m9_/exec")
   .then(res => res.json())
   .then(data => {
 

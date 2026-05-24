@@ -50,8 +50,6 @@ fetch("https://script.google.com/macros/s/AKfycbwW79mfaIZX5DHGSV9jX2o95GDWxCK_Gq
     .then(res => res.json())
     .then(data => {
 
-        console.log(data);
-
         // lấy dữ liệu bootcamp_list
         {
             bootcamp_list = data.bootcamp_list.filter(item => item.listing == 1 && item.is_open == 1);

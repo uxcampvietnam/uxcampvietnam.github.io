@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Certificate — UXCamp Vietnam</title>
+  <link rel="icon" href="https://uxcamp.vn/asset/icon/favicon.ico">
+  <meta name="description" content="UXCamp Vietnam bootcamp certificate.">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="../style/definition.css">
+  <link rel="stylesheet" type="text/css" href="../style/style.css">
+  <link rel="stylesheet" type="text/css" href="style/certificate.css">
+
+  <script src="../script/libs/svg-inject.min.js"></script>
+  <script src="script/certificate-api.js" defer></script>
+  <script src="script/certificate-utils.js" defer></script>
+  <script src="script/bootcamp-content.js" defer></script>
+  <script src="script/individual-certificate.js" defer></script>
+
+</head>
+
+<body>
+  <main class="certificate-page certificate-individual-page container-fluid" id="certificate-individual-page">
+    <header class="certificate-page-header">
+      <a href="../index.html" aria-label="UXCamp Vietnam home">
+        <img class="eye-logo" src="../asset/image/Eye.svg" onload="SVGInject(this)">
+      </a>
+    </header>
+
+    <p class="paragraph italic certificate-page-loading" id="certificate-page-loading" role="status">
+      Loading your certificate…
+    </p>
+    <p class="paragraph italic certificate-page-error" id="certificate-page-error" role="alert" hidden></p>
+
+    <div class="certificate-main" id="certificate-main" hidden>
+      <div class="row g-0 g-md-5 justify-content-center">
+        <aside class="certificate-preview col-12 col-md-6 col-xl-5" aria-label="Certificate preview">
+          <img class="certificate-preview-image" id="certificate-image" src="" alt="" loading="eager">
+          <!-- <a class="call-to-action-button fit-width paragraph" id="certificate-pdf-download" download>
+            Download PDF version
+          </a> -->
+        </aside>
+
+        <article class="certificate-details col-12 col-md-6 col-xl-5" aria-label="Bootcamp and completion details">
+          <div id="bootcamp-content-root"></div>
+          <div id="social-link-container" hidden></div>
+        </article>
+      </div>
+    </div>
+
+    <section class="certificate-empty-state" id="certificate-empty-state" hidden aria-labelledby="empty-state-heading">
+      <h1 class="h2 medium certificate-find-title" id="empty-state-heading">Certificate not found</h1>
+      <p class="paragraph" id="certificate-empty-message">
+        We could not find a certificate matching this link. It may have been removed or the URL is incorrect.
+      </p>
+      <div class="certificate-empty-actions">
+        <a class="call-to-action-button strech paragraph" href="find-your-certificate.html">Find your certificate</a>
+        <a class="secondary-button paragraph" href="../index.html">Back to home</a>
+      </div>
+    </section>
+  </main>
+</body>
+
+</html>

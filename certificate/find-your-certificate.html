@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Find your certificate — UXCamp Vietnam</title>
+  <link rel="icon" href="https://uxcamp.vn/asset/icon/favicon.ico">
+  <meta name="description" content="Look up your UXCamp Vietnam bootcamp certificate by email.">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+  <link rel="stylesheet" type="text/css" href="../style/definition.css">
+  <link rel="stylesheet" type="text/css" href="../style/style.css">
+  <link rel="stylesheet" type="text/css" href="style/certificate.css">
+
+  <script src="../script/libs/svg-inject.min.js"></script>
+  <script src="script/certificate-utils.js" defer></script>
+  <script src="script/find-certificate.js" defer></script>
+</head>
+
+<body>
+  <main class="certificate-page container" id="certificate-find-page">
+    <header class="certificate-page-header">
+      <a href="../index.html" aria-label="UXCamp Vietnam home">
+        <img class="eye-logo" src="../asset/image/Eye.svg" onload="SVGInject(this)">
+      </a>
+    </header>
+
+    <section class="certificate-find-panel" aria-labelledby="certificate-find-heading">
+      <form class="certificate-lookup-form" id="certificate-lookup-form" novalidate>
+        <label class="h6 regular" for="certificate-email">Enter email to find your certificate</label>
+        <input class="single-input h6" type="email" id="certificate-email" name="email" autocomplete="email"
+          inputmode="email" spellcheck="false" required aria-describedby="certificate-field-error">
+        <p class="mono-caption certificate-field-error" id="certificate-field-error" role="alert" hidden></p>
+        <button type="submit" class="call-to-action-button strech h6" id="certificate-submit">
+          Find certificate
+        </button>
+      </form>
+    </section>
+  </main>
+</body>
+
+</html>

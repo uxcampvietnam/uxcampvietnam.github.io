@@ -30,6 +30,53 @@ hr {
 }
 
 
+.call-to-action-button {
+  display: flex;
+  height: 44px;
+  padding: 10px 20px 10px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  border-radius: 12px;
+  border: 1px solid var(--stroke-gradient);
+  background: var(--alternative-foreground-gold);
+  color: var(--main-colors-background-b100) !important;
+  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
+  backdrop-filter: blur(50px);
+}
+
+.secondary-button {
+  display: flex;
+  height: 44px;
+  padding: 10px 20px 10px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  align-self: stretch;
+  border-radius: 12px;
+  border: 1px solid var(--alternative-foreground-gold);
+  color: var(--main-colors-foreground-f-500-main) !important;
+  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
+  backdrop-filter: blur(50px);
+}
+
+.call-to-action-button * {
+  color: var(--main-colors-background-b100);
+  fill: var(--main-colors-background-b100);
+}
+
+
+.call-to-action-button.strech,
+.secondary-button.strech {
+  align-self: stretch;
+}
+
+.call-to-action-button.fit-width,
+.secondary-button.fit-width {
+  width: fit-content;
+}
+
+
 /* =====================================================
    SERIF
 ===================================================== */

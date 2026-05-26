@@ -131,8 +131,8 @@
     bootcampContentRoot.innerHTML = `
       <p class="paragraph">UXCAMP VIETNAM</p>
       <div class="bootcamp-title">
-        <h3 class="medium">${title}</h3>
-        ${tagline ? `<p class="h5 extralight sub-title"><i>${tagline}</i></p>` : ""}
+        <p class="font-serif-title medium">${title}</p>
+        ${tagline ? `<p class="h3 extralight sub-title"><i>${tagline}</i></p>` : ""}
       </div>
 
       <hr>

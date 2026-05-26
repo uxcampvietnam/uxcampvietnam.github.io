@@ -35,7 +35,7 @@ const BOOTCAMP_CONTENT = {
     tagline: "Behavioral decision making for product team",
     learningDurationHours: 36,
     cta: {
-      label: "Explore this bootcamp",
+      label: "Explore Applied UX Analytic",
       href: "../applied-ux-analytic/index.html",
     },
     whatYouWillLearn: [

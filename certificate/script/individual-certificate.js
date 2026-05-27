@@ -11,7 +11,6 @@
   const certificateImage = document.getElementById("certificate-image");
   const pdfButton = document.getElementById("certificate-pdf-download");
   const bootcampContentRoot = document.getElementById("bootcamp-content-root");
-  const socialLinkContainer = document.getElementById("social-link-container");
 
   const certificateId = getCertificateIdFromPage();
   const certificateEmail = getCertificateEmailFromPage();
@@ -83,14 +82,18 @@
       return;
     }
 
+    const socialLink = (certificate.individual_social_link || "").trim();
     const learnerName = certificate.individual_name || "Learner";
+    const displayName = socialLink
+      ? `<a class="certificate-learner-link" href="${socialLink}" target="_blank" rel="noopener noreferrer">${learnerName}</a>`
+      : learnerName;
     const endDate = formatCertificateDate(certificate.bootcamp_cohort_end_date);
     const hours = content?.learningDurationHours;
 
     const title = content?.title || certificate.bootcamp_name || "Bootcamp";
     const tagline = content?.tagline || "";
 
-    let completionLine = `UXCamp Vietnam certifies that ${learnerName} has successfully completed the bootcamp: ${title}`;
+    let completionLine = `UXCamp Vietnam certifies that ${displayName} has successfully completed the bootcamp: ${title}`;
     if (endDate) {
       completionLine += ` on ${endDate}`;
     }
@@ -194,17 +197,6 @@
         pdfButton.removeAttribute("href");
         pdfButton.setAttribute("aria-disabled", "true");
         pdfButton.classList.add("is-disabled");
-      }
-    }
-
-    const socialLink = (certificate.individual_social_link || "").trim();
-    if (socialLinkContainer) {
-      if (socialLink) {
-        socialLinkContainer.innerHTML = `<a class="font-sans-caption certificate-social-link" href="${socialLink}" target="_blank" rel="noopener noreferrer">View learner profile</a>`;
-        socialLinkContainer.hidden = false;
-      } else {
-        socialLinkContainer.innerHTML = "";
-        socialLinkContainer.hidden = true;
       }
     }
 

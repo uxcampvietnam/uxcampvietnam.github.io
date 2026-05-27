@@ -196,10 +196,22 @@
         pdfButton.rel = "noopener noreferrer";
         pdfButton.removeAttribute("aria-disabled");
         pdfButton.classList.remove("is-disabled");
+
+        // newly added event on 27/05/2026
+        pdfButton.onclick = () => {
+          if (typeof mixpanel !== 'undefined') {
+            mixpanel.track('click_download_pdf', {
+              email: certificate.individual_email || '',
+              certificate_id: certificate.certificate_id || '',
+              pdf_url: pdfUrl
+            });
+          }
+        };
       } else {
         pdfButton.removeAttribute("href");
         pdfButton.setAttribute("aria-disabled", "true");
         pdfButton.classList.add("is-disabled");
+        pdfButton.onclick = null;
       }
     }
 
@@ -207,6 +219,51 @@
     renderBootcampContent(certificate, content);
 
     document.title = `${certificate.individual_name || "Certificate"} — UXCamp Vietnam`;
+
+    // newly added event on 27/05/2026
+    if (typeof mixpanel !== 'undefined') {
+      mixpanel.track('view_certificate', {
+        ...certificate
+      });
+    }
+
+    // newly added event on 27/05/2026
+    if (bootcampContentRoot) {
+      bootcampContentRoot.onclick = (event) => {
+        const target = event.target.closest('a');
+        if (!target) return;
+
+        if (target.classList.contains('certificate-bootcamp-cta')) {
+          // newly added event on 27/05/2026
+          if (typeof mixpanel !== 'undefined') {
+            mixpanel.track('click_bootcamp_cta', {
+              email: certificate.individual_email || '',
+              certificate_id: certificate.certificate_id || '',
+              bootcamp_name: certificate.bootcamp_name || '',
+              cta_label: content?.cta?.label || '',
+              cta_href: content?.cta?.href || ''
+            });
+          }
+        } else if (target.classList.contains('certificate-alumni-cta')) {
+          // newly added event on 27/05/2026
+          if (typeof mixpanel !== 'undefined') {
+            mixpanel.track('click_alumni_cta', {
+              email: certificate.individual_email || '',
+              certificate_id: certificate.certificate_id || ''
+            });
+          }
+        } else if (target.classList.contains('certificate-learner-link')) {
+          // newly added event on 27/05/2026
+          if (typeof mixpanel !== 'undefined') {
+            mixpanel.track('click_learner_social_link', {
+              email: certificate.individual_email || '',
+              certificate_id: certificate.certificate_id || '',
+              social_link: target.href
+            });
+          }
+        }
+      };
+    }
   }
 
   if (!certificateId && !certificateEmail) {
@@ -233,6 +290,15 @@
       const notFoundMessage = certificateEmail
         ? "No certificate was found for this email. Please use the email you registered with."
         : "We could not find a certificate matching this link. It may have been removed or the URL is incorrect.";
+      
+      // newly added event on 27/05/2026
+      if (typeof mixpanel !== 'undefined') {
+        mixpanel.track('certificate_not_found', {
+          email: certificateEmail || '',
+          certificate_id: certificateId || ''
+        });
+      }
+
       showEmptyState(notFoundMessage);
       return;
     }
@@ -247,6 +313,16 @@
     showPageError(
       "We could not load your certificate. Please check your connection and refresh the page."
     );
+
+    // newly added event on 27/05/2026
+    if (typeof mixpanel !== 'undefined') {
+      mixpanel.track('certificate_load_error', {
+        email: certificateEmail || '',
+        certificate_id: certificateId || '',
+        error: error.message || String(error)
+      });
+    }
+
     showEmptyState();
   } finally {
     setPageLoading(false);

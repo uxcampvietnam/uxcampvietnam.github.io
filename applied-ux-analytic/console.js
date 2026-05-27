@@ -162,16 +162,16 @@
         container.innerHTML =
             visible.map(ev => `
         <div class="ux-event-row${ev.isAlert ? ' ux-event-alert' : ''}">
-          <span class="mono-body secondary-text ux-pipe">|</span>
-          <span class="mono-body secondary-text ux-event-time">${ev.time}</span>
-          <span class="mono-body secondary-text ux-event-sep">›</span>
-          <span class="mono-body primary-text">${ev.label}</span>
+          <span class="mono-caption secondary-text ux-pipe">|</span>
+          <span class="mono-caption secondary-text ux-event-time">${ev.time}</span>
+          <span class="mono-caption secondary-text ux-event-sep">›</span>
+          <span class="mono-caption primary-text">${ev.label}</span>
         </div>`).join('') +
             `<div class="ux-event-row">
-        <span class="mono-body secondary-text ux-pipe">|</span>
-        <span class="mono-body secondary-text ux-event-time"></span>
-        <span class="mono-body secondary-text ux-event-sep"></span>
-        <span class="mono-body secondary-text ux-cursor-blink">▋</span>
+        <span class="mono-caption secondary-text ux-pipe">|</span>
+        <span class="mono-caption secondary-text ux-event-time"></span>
+        <span class="mono-caption secondary-text ux-event-sep"></span>
+        <span class="mono-caption secondary-text ux-cursor-blink">▋</span>
       </div>`;
     }
 
@@ -423,7 +423,7 @@
             for (let t = tickCount; t >= 0; t--) {
                 const sec = t * step;
                 const label = sec >= 60 ? `${Math.round(sec / 60)}m` : `${sec}s`;
-                tickLabels.push(`<span class="mono-body secondary-text">${label}</span>`);
+                tickLabels.push(`<span class="mono-caption secondary-text">${label}</span>`);
             }
             yAxis.innerHTML = tickLabels.join('');
         }
@@ -437,7 +437,7 @@
           <div class="ux-bar-wrap">
             ${barPx > 0 ? `<div class="ux-bar" style="height:${barPx}px" title="${sec.toFixed(1)}s"></div>` : ''}
           </div>
-          <span class="mono-body secondary-text">${HEATMAP_LABELS[i]}</span>
+          <span class="mono-caption secondary-text">${HEATMAP_LABELS[i]}</span>
         </div>`;
         }).join('');
     }
@@ -478,9 +478,9 @@
 
             return `
         <div class="ux-event-row">
-          <span class="mono-body secondary-text ux-pipe">|</span>
-          <span class="mono-body ${done ? 'primary-text ux-funnel-check done' : 'secondary-text ux-funnel-check'}">[${done ? '√' : ' '}]</span>
-          <span class="mono-body ${done ? 'primary-text' : 'secondary-text'}">${displayLabel}</span>
+          <span class="mono-caption secondary-text ux-pipe">|</span>
+          <span class="mono-caption ${done ? 'primary-text ux-funnel-check done' : 'secondary-text ux-funnel-check'}">[${done ? '√' : ' '}]</span>
+          <span class="mono-caption ${done ? 'primary-text' : 'secondary-text'}">${displayLabel}</span>
         </div>`;
         }).join('');
     }
@@ -575,20 +575,20 @@
         }
         const stats = state.registrationStats;
         container.innerHTML = `
-            <div class="ux-block-title mono-body primary-text" style="color: var(--applied-analytic-primary)">[ FROM FIRST PAGE VIEW TO REGISTER ]<span class="ux-dash"></span></div>
+            <div class="ux-block-title mono-caption primary-text" style="color: var(--applied-analytic-primary)">[ FROM FIRST PAGE VIEW TO REGISTER ]<span class="ux-dash"></span></div>
             <div class="ux-kv-grid">
-                <span class="mono-body secondary-text">total_page_view_to_register</span>
-                <span class="mono-body secondary-text">:</span>
-                <span class="mono-body primary-text">${stats.totalPageViewToRegister}</span>
-                <span class="mono-body secondary-text">first_page_view</span>
-                <span class="mono-body secondary-text">:</span>
-                <span class="mono-body primary-text">${fmtDate(stats.firstPageView)}</span>
-                <span class="mono-body secondary-text">day_since_first_page_view_to_register</span>
-                <span class="mono-body secondary-text">:</span>
-                <span class="mono-body primary-text">${stats.daySinceFirstPageViewToRegister} days</span>
-                <span class="mono-body secondary-text">register_click_count_to_register</span>
-                <span class="mono-body secondary-text">:</span>
-                <span class="mono-body primary-text">${stats.registerClickCountToRegister}</span>
+                <span class="mono-caption secondary-text">total_page_view_to_register</span>
+                <span class="mono-caption secondary-text">:</span>
+                <span class="mono-caption primary-text">${stats.totalPageViewToRegister}</span>
+                <span class="mono-caption secondary-text">first_page_view</span>
+                <span class="mono-caption secondary-text">:</span>
+                <span class="mono-caption primary-text">${fmtDate(stats.firstPageView)}</span>
+                <span class="mono-caption secondary-text">day_since_first_page_view_to_register</span>
+                <span class="mono-caption secondary-text">:</span>
+                <span class="mono-caption primary-text">${stats.daySinceFirstPageViewToRegister} days</span>
+                <span class="mono-caption secondary-text">register_click_count_to_register</span>
+                <span class="mono-caption secondary-text">:</span>
+                <span class="mono-caption primary-text">${stats.registerClickCountToRegister}</span>
             </div>`;
     }
 

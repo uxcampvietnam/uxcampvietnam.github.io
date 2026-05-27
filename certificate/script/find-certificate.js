@@ -11,6 +11,11 @@
     return;
   }
 
+  // newly added event on 27/05/2026
+  if (typeof mixpanel !== 'undefined') {
+    mixpanel.track('view_find_certificate_page');
+  }
+
   function clearFieldError() {
     if (fieldError) {
       fieldError.hidden = true;
@@ -41,17 +46,38 @@
     const email = emailInput.value.trim();
 
     if (!email) {
+      // newly added event on 27/05/2026
+      if (typeof mixpanel !== 'undefined') {
+        mixpanel.track('find_certificate_validation_failed', {
+          reason: 'empty_email'
+        });
+      }
       showFieldError("Con vợ nhập email vào đã.");
       return;
     }
 
     if (!isValidEmail(email)) {
+      // newly added event on 27/05/2026
+      if (typeof mixpanel !== 'undefined') {
+        mixpanel.track('find_certificate_validation_failed', {
+          email: email,
+          reason: 'invalid_format'
+        });
+      }
       showFieldError("Con vợ bịp à!. Đây có phải là format email đâu??");
       return;
     }
 
     setSubmitting(true);
     persistCertificateEmail(email);
+
+    // newly added event on 27/05/2026
+    if (typeof mixpanel !== 'undefined') {
+      mixpanel.track('find_certificate_submit', {
+        email: email
+      });
+    }
+
     window.location.assign(buildIndividualCertificateUrlByEmail(email));
   });
 

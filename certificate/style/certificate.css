@@ -76,7 +76,7 @@
 
 .certificate-individual-page {
   padding-top: var(--spacing-l);
-  padding-bottom: var(--spacing-xl);
+  padding-bottom: 128px;
 }
 
 .bootcamp-title {

@@ -521,11 +521,11 @@ fetch("https://script.google.com/macros/s/AKfycbwW79mfaIZX5DHGSV9jX2o95GDWxCK_Gq
         item.is_open == 1 ? col.classList.add("open-bootcamp") : col.classList.add("closed-bootcamp");
         col.classList.add('col-12', 'col-md-6', 'col-lg-4');
         col.innerHTML = `
-                <span class="mono-body reverse-color">${item.bootcamp_name}</span><br>
-                <span class="mono-body reverse-color">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
-                <span class="mono-body reverse-color">${item.pricing}</span>
-                <span class="mono-body reverse-color">${item.is_open == 1 ? "Đang mở đăng ký" : "Form closed"}</span>
-                ${item.is_open == 1 ? `<a href="bootcamp-register.html?bootcamp_id=${item.bootcamp_id}" class="mono-body register-link button-reverse">Đăng ký ›</a>` : ''}
+                <span class="mono-caption reverse-color">${item.bootcamp_name}</span><br>
+                <span class="mono-caption reverse-color">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
+                <span class="mono-caption reverse-color">${item.pricing}</span>
+                <span class="mono-caption reverse-color">${item.is_open == 1 ? "Đang mở đăng ký" : "Form closed"}</span>
+                ${item.is_open == 1 ? `<a href="bootcamp-register.html?bootcamp_id=${item.bootcamp_id}" class="mono-caption register-link button-reverse">Đăng ký ›</a>` : ''}
             `;
 
         container.appendChild(col);
@@ -544,11 +544,11 @@ fetch("https://script.google.com/macros/s/AKfycbwW79mfaIZX5DHGSV9jX2o95GDWxCK_Gq
                 <label for="bootcamp_${item.bootcamp_id}">
                     <input required type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${item.bootcamp_id == selectedBootcamp ? "checked" : ""} />
                     <div class="bootcamp-item-content">
-                      <span class="mono-body reverse-color">[<span class="is_selected">•</span>]
+                      <span class="mono-caption reverse-color">[<span class="is_selected">•</span>]
                           ${item.bootcamp_name}
                       </span>
-                      <span class="mono-body reverse-color">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
-                      <span class="mono-body reverse-color">${item.pricing}</span>
+                      <span class="mono-caption reverse-color">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
+                      <span class="mono-caption reverse-color">${item.pricing}</span>
                     </div>
                 </label>
             `;

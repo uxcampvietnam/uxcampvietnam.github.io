@@ -5,7 +5,7 @@
 const BOOTCAMP_CONTENT = {
   "Designing Digital Product per Stage and Metric": {
     title: "Designing Digital Product per Stage and Metric",
-    tagline: "Fact based, move fast, measure what matter",
+    tagline: "Fact based, move fast, measure what matters",
     learningDurationHours: 97,
     cta: {
       label: "Explore this bootcamp",

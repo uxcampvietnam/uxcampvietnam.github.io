@@ -131,6 +131,8 @@
       ? `<a class="font-sans-caption certificate-bootcamp-cta" href="${content.cta.href}">${content.cta.label}  ›</a>`
       : "";
 
+    const alumniCtaHtml = `<a class="font-sans-caption certificate-alumni-cta" href="find-your-certificate.html">For Alumni: Find your certificate here  ›</a>`;
+
     bootcampContentRoot.innerHTML = `
       <p class="paragraph">UXCAMP VIETNAM</p>
       <div class="bootcamp-title">
@@ -169,7 +171,8 @@
         : ""
       }
 
-      ${ctaHtml}`;
+      ${ctaHtml}
+      ${alumniCtaHtml}`;
   }
 
   /**

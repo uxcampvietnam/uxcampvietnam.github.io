@@ -151,7 +151,7 @@
       
       ${whatYouWillLearnHtml
         ? `<div class="certificate-learn-section">
-              <h5 class="certificate-learn-heading extralight italic">What you will learn</h5>
+              <h5 class="certificate-learn-heading extralight italic">Included in this bootcamp</h5>
               <div class="certificate-learn-list">
                 ${whatYouWillLearnHtml}
               </div>
@@ -163,7 +163,7 @@
 
       ${skillsHtml
         ? `<div class="certificate-skills-section">
-              <h5 class="certificate-skills-heading extralight italic">Skills you will gain</h5>
+              <h5 class="certificate-skills-heading extralight italic">Skills</h5>
               <div class="certificate-skills-list">
                 ${skillsHtml}
               </div>
@@ -290,7 +290,7 @@
       const notFoundMessage = certificateEmail
         ? "No certificate was found for this email. Please use the email you registered with."
         : "We could not find a certificate matching this link. It may have been removed or the URL is incorrect.";
-      
+
       // newly added event on 27/05/2026
       if (typeof mixpanel !== 'undefined') {
         mixpanel.track('certificate_not_found', {

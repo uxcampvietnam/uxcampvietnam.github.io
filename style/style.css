@@ -878,14 +878,6 @@ ol>* {
 	padding-top: 4px;
 }
 
-.bootcamp-section-content ul {
-	padding-left: 20px;
-	padding-top: 0px;
-	padding-bottom: 8px;
-	margin: 0px;
-}
-
-
 .organizer-member {
 	mix-blend-mode: luminosity;
 	padding-bottom: 16px;
@@ -972,12 +964,12 @@ ol>* {
 	cursor: pointer;
 }
 
-svg path[fill="0000FF"] {
-	fill: var(--main-colors-foreground-f300);
+svg *[fill="0000FF"] {
+	fill: var(--main-colors-foreground-f300) !important;
 }
 
-svg path[fill="FF0000"] {
-	fill: var(--main-colors-background-b100);
+svg *[fill="FF0000"] {
+	fill: var(--main-colors-background-b100) !important;
 }
 
 #feedbackDetailContainer.show-feedback {

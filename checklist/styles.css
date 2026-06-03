@@ -2337,7 +2337,6 @@ input:checked+.slider:before {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 48px;
   background: var(--key-bg);
   border: 1px solid var(--alternative-background-light-gold);
   border-radius: 10px;
@@ -2346,14 +2345,20 @@ input:checked+.slider:before {
   position: relative;
 }
 
+
+.keyboard-key:not(.key-enter) {
+  width: 48px;
+}
+
+
 .keyboard-key .key-cap {
-  font-size: 1.1rem;
+  font-size: 0.6rem;
   font-weight: 500;
   color: var(--key-color);
 }
 
 .keyboard-key.key-enter {
-  width: 100%;
+  width: 100% !important;
   border-radius: 8px;
   flex-direction: row;
   gap: 8px;

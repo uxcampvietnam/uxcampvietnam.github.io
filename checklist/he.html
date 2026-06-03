@@ -80,11 +80,11 @@
         <div class="stats-grid">
           <div class="stat-item" style="border-bottom: 3px solid var(--success);">
             <span class="stat-val" id="stat-done" style="color: var(--success);">0</span>
-            <span class="stat-label">Đạt chuẩn</span>
+            <span class="stat-label">Pass</span>
           </div>
           <div class="stat-item" style="border-bottom: 3px solid var(--danger);">
             <span class="stat-val" id="stat-todo" style="color: var(--danger);">0</span>
-            <span class="stat-label">Chưa đạt</span>
+            <span class="stat-label">Fail</span>
           </div>
           <div class="stat-item" style="border-bottom: 3px solid var(--text-muted);">
             <span class="stat-val" id="stat-na" style="color: var(--text-muted);">0</span>
@@ -182,8 +182,8 @@
               <span class="filter-label">Đánh giá:</span>
               <select id="status-filter" class="filter-select" aria-label="Lọc theo trạng thái đánh giá">
                 <option value="all">Tất cả</option>
-                <option value="todo">Chưa đạt</option>
-                <option value="done">Đã đạt</option>
+                <option value="todo">Fail</option>
+                <option value="done">Pass</option>
                 <option value="na">Không áp dụng (N/A)</option>
               </select>
             </div>

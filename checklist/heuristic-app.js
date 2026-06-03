@@ -562,8 +562,8 @@ function renderChecklist() {
         
         <div class="status-selector">
           <button class="status-btn btn-na ${item.status === 'na' ? 'active' : ''}" data-status="na" title="Không áp dụng cho luồng này">N/A</button>
-          <button class="status-btn btn-todo ${item.status === 'todo' ? 'active' : ''}" data-status="todo" title="Chưa đạt / Cần kiểm tra">Chưa đạt</button>
-          <button class="status-btn btn-done ${item.status === 'done' ? 'active' : ''}" data-status="done" title="Đã đáp ứng thiết kế">Đã đạt</button>
+          <button class="status-btn btn-todo ${item.status === 'todo' ? 'active' : ''}" data-status="todo" title="Fail">Fail</button>
+          <button class="status-btn btn-done ${item.status === 'done' ? 'active' : ''}" data-status="done" title="Pass">Pass</button>
         </div>
       </div>
       ${detailsHtml}

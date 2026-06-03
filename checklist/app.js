@@ -765,6 +765,7 @@ document.addEventListener('keydown', (e) => {
   const key = e.key;
 
   if (key === 'Enter') {
+    highlightVirtualKey(key, true);
     if (activeCardId) {
       const activeCardEl = document.getElementById(`card-${activeCardId}`);
       if (activeCardEl && document.activeElement === activeCardEl) {
@@ -868,7 +869,7 @@ document.addEventListener('keydown', (e) => {
 // Tắt hiệu ứng nhấn phím khi thả tay khỏi phím mũi tên
 document.addEventListener('keyup', (e) => {
   const key = e.key;
-  if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight'].includes(key)) {
+  if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(key)) {
     highlightVirtualKey(key, false);
   }
 });
@@ -880,6 +881,7 @@ function highlightVirtualKey(key, isActive) {
   else if (key === 'ArrowDown') elementId = 'key-down';
   else if (key === 'ArrowLeft') elementId = 'key-left';
   else if (key === 'ArrowRight') elementId = 'key-right';
+  else if (key === 'Enter') elementId = 'key-enter';
 
   const el = document.getElementById(elementId);
   if (el) {

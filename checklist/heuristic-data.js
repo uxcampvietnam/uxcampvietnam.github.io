@@ -5,2371 +5,2206 @@ const HEURISTIC_DATA = {
     "categories": [
       {
         "id": 1,
-        "name": "Trạng thái hệ thống hiển thị rõ ràng",
+        "name": "Hiển thị rõ trạng thái hệ thống (Visibility of system status)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "If the system processes a request for more than 3 seconds, is the loader displayed & is there a hint of how much time the processing will take?",
-            "text": "Nếu hệ thống xử lý yêu cầu trong hơn 3 giây, trình tải có được hiển thị không và có gợi ý về thời gian xử lý sẽ mất không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Nếu hệ thống load lâu (trên 3s), cần hiển thị loader để user biết"
           },
           {
             "id": 2,
-            "text_en": "If there are observable delays (greater than fifteen seconds) in the system’s response time, is the user kept informed of the system's progress?",
-            "text": "Nếu có độ trễ có thể quan sát được (lớn hơn mười lăm giây) trong thời gian phản hồi của hệ thống, người dùng có được thông báo về tiến trình của hệ thống không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Nếu loading dài (trên 15s) thì hệ thống phải báo tiến độ load, thời gian còn lại cho user."
           },
           {
             "id": 3,
-            "text_en": "The user is aware of their current position within the user journey. Progress and response notifications (progress icon, transparent dialogues)?",
-            "text": "Người dùng biết vị trí hiện tại của họ trong hành trình của người dùng. Thông báo tiến trình và phản hồi (biểu tượng tiến trình, hộp thoại minh bạch)?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "User cần biết mình đang ở đâu trên toàn hệ thống (ở đâu trên màn hình, màn nào, sitemap...)."
           },
           {
             "id": 4,
-            "text_en": "If users must navigate between multiple screens, does the system use context labels, menu maps, and place markers as navigational aids?",
-            "text": "Nếu người dùng phải điều hướng giữa nhiều màn hình, hệ thống có sử dụng nhãn ngữ cảnh, bản đồ menu và điểm đánh dấu địa điểm làm công cụ hỗ trợ điều hướng không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Khi di chuyển qua lại giữa nhiều màn hình, dùng label ngữ cảnh, menu map hoặc marker/breadcrumbs để user định hướng."
           },
           {
             "id": 5,
-            "text_en": "The user is notified about changes in their user journey (e.g. the user is not redirected through screens and the seamless flow is being preserved)?",
-            "text": "Người dùng có được thông báo về những thay đổi trong hành trình người dùng của họ (ví dụ: người dùng không được chuyển hướng qua các màn hình và luồng liền mạch vẫn được giữ nguyên)?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Thông báo rõ cho user khi chuyển hướng màn hình hoặc thay đổi luồng đi (journey) để giữ mạch liền mạch."
           },
           {
             "id": 6,
-            "text_en": "There is a clear feedback when a task has been completed successfully?",
-            "text": "Có phản hồi rõ ràng khi một nhiệm vụ đã được hoàn thành thành công?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Hiển thị thông báo rõ ràng khi hoàn thành task thành công."
           },
           {
             "id": 7,
-            "text_en": "After the user completes an action (or group of actions), does the feedback indicate that the next group of actions can be started?",
-            "text": "Sau khi người dùng hoàn thành một hành động (hoặc nhóm hành động), phản hồi có cho biết rằng nhóm hành động tiếp theo có thể được bắt đầu không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Sau khi user xong một task, báo rõ họ có thể làm gì tiếp theo."
           },
           {
             "id": 8,
-            "text_en": "Every screen start with a title that describes the page's content?",
-            "text": "Mọi màn hình đều bắt đầu bằng tiêu đề mô tả nội dung của trang?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Mọi màn hình cần có tiêu đề rõ ràng, mô tả đúng nội dung trang."
           },
           {
             "id": 9,
-            "text_en": "System elements such as Buttons, search, inputs, and items have affordance for (different) states or traits (like active, focus, disable, unavailable)?",
-            "text": "Các thành phần hệ thống như Nút, tìm kiếm, đầu vào và mục có đủ khả năng cho các trạng thái hoặc đặc điểm (khác nhau) (như hoạt động, tập trung, tắt, không khả dụng) không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Các UI element (button, input, search...) cần có style phân biệt rõ các trạng thái (hover, active, focus, disabled...)."
           },
           {
             "id": 10,
-            "text_en": "Animations are purposeful, consistent, they feed back about consequences, connect action with its result, don't distract user; and happen swiftly, not delaying or slowing product down?",
-            "text": "Hoạt ảnh có mục đích, nhất quán, phản hồi về hậu quả, kết nối hành động với kết quả của nó, không làm người dùng mất tập trung; và diễn ra nhanh chóng, không làm trì hoãn hoặc làm chậm sản phẩm?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Animation cần mượt mà, có mục đích rõ ràng, không làm chậm app hay gây phân tâm."
           },
           {
             "id": 11,
-            "text_en": "Do GUI menus make obvious which item has been selected?",
-            "text": "Các menu GUI có hiển thị rõ ràng mục nào đã được chọn không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Menu cần highlight rõ item đang được chọn."
           },
           {
             "id": 12,
-            "text_en": "Is the menu-naming terminology consistent with the user's task domain?",
-            "text": "Thuật ngữ đặt tên menu có phù hợp với miền nhiệm vụ của người dùng không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Thuật ngữ trên menu cần dễ hiểu và gần gũi với nghiệp vụ của user."
           },
           {
             "id": 13,
-            "text_en": "Is there a consistent icon design scheme and stylistic treatment across the system?",
-            "text": "Có sơ đồ thiết kế biểu tượng nhất quán và phong cách xử lý trên toàn hệ thống không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Dùng chung một bộ icon nhất quán về style trên toàn hệ thống."
           },
           {
             "id": 14,
-            "text_en": "Is the current status of an icon clearly indicated?",
-            "text": "Trạng thái hiện tại của biểu tượng có được chỉ rõ rõ ràng không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Hiển thị rõ trạng thái của icon (ví dụ: đã chọn, chưa chọn, bị khóa...)."
           },
           {
             "id": 15,
-            "text_en": "Do menu instructions, prompts, and error messages all appear in the same place(s) and have the same stylistic appearance?",
-            "text": "Các hướng dẫn menu, lời nhắc và thông báo lỗi có xuất hiện ở cùng một nơi và có cùng kiểu dáng không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Menu, thông báo, error message cần đặt ở vị trí cố định và có style nhất quán."
           },
           {
             "id": 16,
-            "text_en": "If pop-up windows are used to display error messages, do they allow the user to see the field in error?",
-            "text": "Nếu cửa sổ bật lên được sử dụng để hiển thị thông báo lỗi, chúng có cho phép người dùng xem trường bị lỗi không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Popup báo lỗi phải hiển thị vị trí lỗi để user dễ tìm."
           },
           {
             "id": 17,
-            "text_en": "If a user can select multiple options, Is there visual feedback in menus or dialog boxes about which choices are selectable?",
-            "text": "Nếu người dùng có thể chọn nhiều tùy chọn, Có phản hồi trực quan nào trong menu hoặc hộp thoại về những lựa chọn có thể chọn không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Khi được chọn nhiều tùy chọn, menu hoặc modal cần hiển thị rõ item nào có thể click chọn."
           },
           {
             "id": 18,
-            "text_en": "If multiple options can be selected in a menu or dialog box, is there visual feedback about which options are already selected?",
-            "text": "Nếu có thể chọn nhiều tùy chọn trong menu hoặc hộp thoại, liệu có phản hồi trực quan về những tùy chọn đã được chọn không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Hiển thị rõ những tùy chọn đã được chọn trong menu hoặc modal."
           },
           {
             "id": 19,
-            "text_en": "Is a single, selected icon clearly visible when surrounded by unselected icons?",
-            "text": "Một biểu tượng đã chọn có hiển thị rõ ràng khi được bao quanh bởi các biểu tượng không được chọn không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Icon đang chọn cần hiển thị nổi bật so với các icon chưa chọn xung quanh."
           },
           {
             "id": 20,
-            "text_en": "Do GUI menus make obvious whether deselection is possible?",
-            "text": "Các menu GUI có làm rõ liệu có thể bỏ chọn không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Hiển thị rõ cách để user bỏ chọn (deselect)."
           }
         ]
       },
       {
         "id": 2,
-        "name": "Tương thích giữa hệ thống và thế giới thực",
+        "name": "Tương thích giữa hệ thống và thực tế (Match between system and real world)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "The System matches the user's expectations and prior experiences with real-world systems (e.g.there are no incomprehensible, unnatural actions driven by technical constraints, like assigning person to user, filling all organization data before sending the order).",
-            "text": "Hệ thống phù hợp với kỳ vọng và trải nghiệm trước đây của người dùng với các hệ thống trong thế giới thực (ví dụ: không có hành động khó hiểu, không tự nhiên nào do các ràng buộc kỹ thuật, như chỉ định người cho người dùng, điền tất cả dữ liệu của tổ chức trước khi gửi đơn đặt hàng).",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Thiết kế hệ thống phù hợp với thói quen và trải nghiệm thực tế ngoài đời của user."
           },
           {
             "id": 2,
-            "text_en": "The navigation is in a familiar location for users.",
-            "text": "Điều hướng nằm ở vị trí quen thuộc với người dùng.",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Đặt thanh điều hướng (navigation) ở vị trí quen thuộc với user."
           },
           {
             "id": 3,
-            "text_en": "All system elements (UI elements and interaction prompts) matches user experience and expectations and clearly represent their meaning (e.g. the search icon represented by a magnifying glass).",
-            "text": "Tất cả các thành phần hệ thống (thành phần giao diện người dùng và lời nhắc tương tác) đều phù hợp với trải nghiệm và mong đợi của người dùng, đồng thời thể hiện rõ ràng ý nghĩa của chúng (ví dụ: biểu tượng tìm kiếm được biểu thị bằng kính lúp).",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Các thành phần UI và chỉ dẫn tương tác phải dễ hiểu, đúng ý nghĩa (ví dụ: kính lúp cho tìm kiếm)."
           },
           {
             "id": 4,
-            "text_en": "The system speak users' language with familiar words, phrases, and concepts rather than system-oriented terms (e.g. Metaphors unambiguously reveal their meaning).",
-            "text": "Hệ thống nói ngôn ngữ của người dùng bằng các từ, cụm từ và khái niệm quen thuộc thay vì các thuật ngữ hướng đến hệ thống (ví dụ: Phép ẩn dụ bộc lộ rõ ​​ràng ý nghĩa của chúng).",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Dùng ngôn ngữ tự nhiên, từ ngữ quen thuộc với user thay vì thuật ngữ kỹ thuật khó hiểu."
           },
           {
             "id": 5,
-            "text_en": "System matches real World actions meaning and behavior (e.g. delete is not the same as remove. Create is different from add or permit)?",
-            "text": "Hệ thống khớp với ý nghĩa và hành vi của các hành động trong Thế giới thực (ví dụ: xóa không giống với xóa. Tạo khác với thêm hoặc cho phép)?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Hành vi của hệ thống phải tương đồng với thế giới thực (phân biệt rõ: xóa vĩnh viễn và ẩn/loại bỏ)."
           },
           {
             "id": 6,
-            "text_en": "Obvious actions are performed automatically, without user prior confirmation?",
-            "text": "Các hành động rõ ràng được thực hiện tự động mà không cần xác nhận trước của người dùng?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Tự động thực hiện các thao tác hiển nhiên mà không bắt user phải confirm."
           },
           {
             "id": 7,
-            "text_en": "The system do essential part of the work for users (e.g. offers ready currency signs, country mobile codes, division of numbers into threes (9,999,999))?",
-            "text": "Hệ thống thực hiện một phần công việc thiết yếu cho người dùng (ví dụ: cung cấp các ký hiệu tiền tệ sẵn sàng, mã di động quốc gia, chia số thành ba (9,999,999))?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Tự động làm các phần việc cơ bản (tự điền ký hiệu tiền tệ, mã quốc gia, định dạng phân tách phần nghìn 9,999,999)."
           },
           {
             "id": 8,
-            "text_en": "Does the system automatically enter a dollar sign and decimal for monetary entries?",
-            "text": "Hệ thống có tự động nhập ký hiệu đô la và số thập phân để nhập tiền không?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Tự động thêm ký hiệu tiền tệ và số thập phân khi nhập số tiền."
           },
           {
             "id": 9,
-            "text_en": "Details or the software’s internal workings (that user has no control over) are not exposed to the user (both by system errors or nomenclature)?",
-            "text": "Thông tin chi tiết hoặc hoạt động nội bộ của phần mềm (người dùng đó không có quyền kiểm soát) không được hiển thị cho người dùng (cả do lỗi hệ thống hoặc danh pháp)?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Ẩn các chi tiết vận hành kỹ thuật bên trong hệ thống để tránh làm user hoang mang."
           },
           {
             "id": 10,
-            "text_en": "Features and actions are context related (e. g, disabled action for locked layer or saving disabled for already saved changes)?",
-            "text": "Các tính năng và hành động có liên quan đến ngữ cảnh (ví dụ: hành động bị vô hiệu hóa đối với lớp bị khóa hoặc việc lưu bị vô hiệu hóa đối với các thay đổi đã lưu)?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Các tính năng và hành động cần hiển thị phù hợp theo ngữ cảnh (ví dụ: nút Save bị disable nếu không có thay đổi)."
           },
           {
             "id": 11,
-            "text_en": "Copywriting is appropriate (level of formality and understandable (level of argon) to end users (e.g. All abbreviations, acronyms, technical terms, or jargon, are clearly explained)?",
-            "text": "Viết quảng cáo có phù hợp không (mức độ trang trọng và dễ hiểu (mức độ argon) đối với người dùng cuối (ví dụ: Tất cả các từ viết tắt, từ viết tắt, thuật ngữ kỹ thuật hoặc biệt ngữ đều được giải thích rõ ràng)?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Nội dung (copywriting) dễ hiểu, lịch sự, tránh dùng từ viết tắt, từ lóng kỹ thuật nếu không giải thích."
           },
           {
             "id": 12,
-            "text_en": "Are menu choices ordered in the most logical way, given the user, the item names, and the task variables?",
-            "text": "Các lựa chọn menu có được sắp xếp theo cách hợp lý nhất cho người dùng, tên mục và các biến tác vụ không?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Sắp xếp thứ tự các mục trong menu logic nhất đối với user."
           },
           {
             "id": 13,
-            "text_en": "Do related and interdependent fields appear on the same screen?",
-            "text": "Các trường liên quan và phụ thuộc lẫn nhau có xuất hiện trên cùng một màn hình không?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Các trường nhập liệu liên quan hoặc phụ thuộc nhau cần được hiển thị trên cùng một màn hình."
           },
           {
             "id": 14,
-            "text_en": "Do the selected colors correspond to common expectations about color codes?",
-            "text": "Các màu được chọn có tương ứng với những mong đợi chung về mã màu không?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Sử dụng màu sắc đúng theo quy ước chung của user (ví dụ: xanh lá là OK, đỏ là nguy hiểm)."
           },
           {
             "id": 15,
-            "text_en": "When prompts imply a necessary action, are the words in the message consistent with that action?",
-            "text": "Khi lời nhắc ám chỉ một hành động cần thiết, các từ trong thông báo có nhất quán với hành động đó không?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Từ ngữ trong thông báo hành động phải khớp chính xác với hành động thực tế cần làm."
           },
           {
             "id": 16,
-            "text_en": "On data entry screens, are tasks described in terminology familiar to users?",
-            "text": "Trên màn hình nhập dữ liệu, các tác vụ được mô tả bằng thuật ngữ có quen thuộc với người dùng không?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Trong form nhập liệu, dùng các từ ngữ nghiệp vụ quen thuộc với user."
           },
           {
             "id": 17,
-            "text_en": "For question and answer interfaces, are questions stated in clear, simple language?",
-            "text": "Đối với giao diện hỏi đáp, các câu hỏi có được trình bày bằng ngôn ngữ đơn giản, rõ ràng không?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Các câu hỏi trong luồng tương tác hỏi-đáp phải ngắn gọn, dễ hiểu."
           },
           {
             "id": 18,
-            "text_en": "Do menu choices fit logically into categories that have readily understood meanings?",
-            "text": "Các lựa chọn thực đơn có phù hợp một cách hợp lý với các danh mục có ý nghĩa dễ hiểu không?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Nhóm các mục menu vào các category logic, dễ đoán."
           },
           {
             "id": 19,
-            "text_en": "Does the command language employ user jargon and avoid computer jargon?",
-            "text": "Ngôn ngữ lệnh có sử dụng biệt ngữ của người dùng và tránh biệt ngữ máy tính không?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Ngôn ngữ lệnh (command) cần dùng từ ngữ của user, tránh biệt ngữ lập trình."
           },
           {
             "id": 20,
-            "text_en": "Are command names specific rather than general?",
-            "text": "Tên lệnh có cụ thể hơn là chung chung không?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Tên lệnh phải cụ thể, trực quan, không chung chung."
           },
           {
             "id": 21,
-            "text_en": "Does the system automatically enter leading or trailing spaces to align decimal points6",
-            "text": "Hệ thống có tự động nhập dấu cách đầu hoặc cuối để căn chỉnh dấu thập phân6",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Tự động căn chỉnh khoảng trắng đầu/cuối khi nhập số thập phân."
           },
           {
             "id": 22,
-            "text_en": "Do GUI menus offer activation: that is, make obvious how to say now do it?",
-            "text": "Các menu GUI có cung cấp kích hoạt không: nghĩa là nói rõ ràng cách nói bây giờ làm điều đó?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Menu GUI cần chỉ rõ cho user biết cách kích hoạt hoặc chạy lệnh."
           }
         ]
       },
       {
         "id": 3,
-        "name": "Quyền kiểm soát và tự do của người dùng",
+        "name": "Quyền tự do và kiểm soát của user (User control and freedom)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "The user has access to their personal information?",
-            "text": "Người dùng có quyền truy cập vào thông tin cá nhân của họ?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép user dễ dàng truy cập và xem thông tin cá nhân của họ."
           },
           {
             "id": 2,
-            "text_en": "The consequences of actions is reflected by the UI appearance (e.g. Ok button is green not red)?",
-            "text": "Hậu quả của hành động được phản ánh qua giao diện người dùng (ví dụ: nút Ok có màu xanh lá cây chứ không phải màu đỏ)?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Màu sắc nút bấm thể hiện đúng hậu quả hành động (ví dụ: nút OK màu xanh, nút hủy/xóa màu đỏ)."
           },
           {
             "id": 3,
-            "text_en": "The system provides proper feedback (e.g. progress indicators or messages) when needed (e.g. during checkout)?",
-            "text": "Hệ thống có cung cấp phản hồi thích hợp (ví dụ: chỉ báo tiến trình hoặc thông báo) khi cần (ví dụ: trong quá trình thanh toán)?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cung cấp phản hồi kịp thời (thanh tiến trình, thông báo trạng thái) khi user thực hiện thanh toán."
           },
           {
             "id": 4,
-            "text_en": "It is obvious to users how to undo, change options, or cancel actions; or they are at least given the opportunity to confirm irreversible actions before committing?",
-            "text": "Người dùng có thể thấy rõ cách hoàn tác, thay đổi tùy chọn hoặc hủy hành động; hoặc ít nhất họ cũng có cơ hội xác nhận những hành động không thể thay đổi trước khi cam kết?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cung cấp nút Undo, Cancel hoặc yêu cầu confirm trước khi thực hiện hành động không thể hoàn tác."
           },
           {
             "id": 5,
-            "text_en": "If the system allows users to reverse their actions, is there a retracing mechanism to allow for multiple undos?",
-            "text": "Nếu hệ thống cho phép người dùng đảo ngược hành động của họ, liệu có cơ chế truy nguyên nào cho phép thực hiện nhiều thao tác hoàn tác không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép undo nhiều bước nếu hệ thống hỗ trợ quay lại lịch sử."
           },
           {
             "id": 6,
-            "text_en": "Can users cancel out of operations in progress?",
-            "text": "Người dùng có thể hủy các hoạt động đang diễn ra không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép user dừng/hủy các tác vụ đang chạy giữa chừng."
           },
           {
             "id": 7,
-            "text_en": "Pop-ups message is clear and user knows what each action means (e.g. he knows he is cancelling or 'OKing')?",
-            "text": "Thông báo bật lên rõ ràng và người dùng biết từng hành động có ý nghĩa gì (ví dụ: anh ấy biết mình đang hủy hoặc 'OK')?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Popup confirm cần rõ nghĩa, nút bấm thể hiện đúng hành động (ví dụ: nút 'Xóa tài khoản' thay vì chỉ 'OK')."
           },
           {
             "id": 8,
-            "text_en": "When a user's task is complete, does the system wait for a signal from the user before processing?",
-            "text": "Khi tác vụ của người dùng hoàn thành, hệ thống có chờ tín hiệu từ người dùng trước khi xử lý không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Khi task hoàn thành, hệ thống cần đợi user confirm trước khi chuyển tiếp hoặc xử lý tiếp."
           },
           {
             "id": 9,
-            "text_en": "Can users type-ahead in a system with many nested menus?",
-            "text": "Người dùng có thể gõ trước trong một hệ thống có nhiều menu lồng nhau không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép user gõ nhanh phím tắt để di chuyển qua các menu lồng nhau."
           },
           {
             "id": 10,
-            "text_en": "Is there an undo function at the level of a single action, a data entry, and a complete group of actions?",
-            "text": "Có chức năng hoàn tác ở cấp độ một hành động, một mục nhập dữ liệu và một nhóm hành động hoàn chỉnh không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Hỗ trợ Undo ở nhiều cấp độ: từng ký tự, từng trường nhập, và toàn bộ form."
           },
           {
             "id": 11,
-            "text_en": "Can users reduce data entry time by copying and modifying existing data?",
-            "text": "Người dùng có thể giảm thời gian nhập dữ liệu bằng cách sao chép và sửa đổi dữ liệu hiện có không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép user nhân bản (copy) và chỉnh sửa dữ liệu cũ để tiết kiệm thời gian nhập liệu."
           },
           {
             "id": 12,
-            "text_en": "If the system uses a pointing device, do users have the option of either clicking on menu items or using a keyboard shortcut?",
-            "text": "Nếu hệ thống sử dụng thiết bị trỏ, người dùng có tùy chọn nhấp vào các mục menu hoặc sử dụng phím tắt không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cung cấp phím tắt (shortcut) song song với việc click chuột trên menu."
           },
           {
             "id": 13,
-            "text_en": "Are menus broad (many items on a menu) rather than deep (many menu levels)?",
-            "text": "Các menu có rộng (nhiều mục trên một menu) thay vì sâu (nhiều cấp độ menu) không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Thiết kế menu nông và rộng (nhiều mục) tốt hơn là menu sâu nhiều cấp."
           },
           {
             "id": 14,
-            "text_en": "Can users move forward and backward between fields or dialog box options?",
-            "text": "Người dùng có thể di chuyển tiến và lùi giữa các trường hoặc tùy chọn hộp thoại không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép dùng phím tab/mũi tên để di chuyển qua lại giữa các trường trong popup hoặc modal."
           },
           {
             "id": 15,
-            "text_en": "If the system has multipage data entry screens, can users move backward and forward among all the pages in the set?",
-            "text": "Nếu hệ thống có màn hình nhập dữ liệu nhiều trang, người dùng có thể di chuyển lùi và tiến giữa tất cả các trang trong bộ không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Trong form nhiều trang, cho phép user tự do quay lại trang trước để sửa thông tin."
           },
           {
             "id": 16,
-            "text_en": "If the system uses a question and answer interface, can users go back to previous questions or skip forward to later questions?",
-            "text": "Nếu hệ thống sử dụng giao diện hỏi đáp, người dùng có thể quay lại câu hỏi trước hoặc chuyển sang câu hỏi sau không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Trong luồng hỏi-đáp, cho phép user quay lại câu hỏi trước hoặc nhảy sang câu tiếp theo."
           },
           {
             "id": 17,
-            "text_en": "The system ensures that work is not lost (either by the user or system error)?",
-            "text": "Hệ thống có đảm bảo rằng công việc không bị mất (do lỗi của người dùng hoặc hệ thống)?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Đảm bảo không mất dữ liệu của user kể cả khi gặp lỗi hệ thống hoặc do user thao tác sai."
           }
         ]
       },
       {
         "id": 4,
-        "name": "Nhất quán và tuân thủ tiêu chuẩn",
+        "name": "Nhất quán và tuân thủ tiêu chuẩn (Consistency and standards)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "The current user's location within the system and the path they are taking are clearly displayed (e.g. breadcrumb, highlighted menu item). The user understands how to return, where he will be driven in the next screen, and how to exit?",
-            "text": "Vị trí của người dùng hiện tại trong hệ thống và đường dẫn họ đang đi được hiển thị rõ ràng (ví dụ: đường dẫn, mục menu được đánh dấu). Người dùng hiểu cách quay lại, nơi anh ta sẽ được đưa đến trong màn hình tiếp theo và cách thoát ra?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Hiển thị rõ đường dẫn (breadcrumbs) hoặc highlight menu để user biết mình đang ở đâu và làm sao quay lại."
           },
           {
             "id": 2,
-            "text_en": "The navigation scheme (e.g. menu) is easy to find, intuitive and consistent. The navigation system is broad and shallow (many items on a menu) rather than deep (many menu levels, nested items)?",
-            "text": "Sơ đồ điều hướng (ví dụ: menu) rất dễ tìm, trực quan và nhất quán. Hệ thống điều hướng rộng và nông (nhiều mục trên một menu) chứ không sâu (nhiều cấp độ menu, các mục lồng nhau)?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Hệ thống điều hướng (navigation) phải nhất quán, trực quan, ưu tiên cấu trúc menu rộng và nông."
           },
           {
             "id": 3,
-            "text_en": "Navigation choices are ordered in the most logical task-oriented manner. Important actions are close at hand?",
-            "text": "Các lựa chọn điều hướng được sắp xếp theo cách định hướng nhiệm vụ hợp lý nhất. Những hành động quan trọng đã gần kề?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Sắp xếp luồng đi hợp lý, đưa các action quan trọng lên vị trí dễ tương tác nhất."
           },
           {
             "id": 4,
-            "text_en": "Complex actions are broken down into well-defined and logical steps. The user is aware of how long it will take to complete a procedure and how much data he must enter?",
-            "text": "Các hành động phức tạp được chia thành các bước hợp lý và được xác định rõ ràng. Người dùng biết sẽ mất bao lâu để hoàn thành một quy trình và mình phải nhập bao nhiêu dữ liệu?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Chia nhỏ quy trình phức tạp thành các bước rõ ràng; báo trước cho user số bước và thời gian ước tính."
           },
           {
             "id": 5,
-            "text_en": "Does the menu structure match the task structure?",
-            "text": "Cấu trúc menu có phù hợp với cấu trúc nhiệm vụ không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Cấu trúc menu phải tương thích hoàn toàn với quy trình thực hiện task của user."
           },
           {
             "id": 6,
-            "text_en": "The system employs consistent feature placement and interface element design across views (e.g. for headings, the system employs a consistent design standard)?",
-            "text": "Hệ thống sử dụng vị trí tính năng nhất quán và thiết kế thành phần giao diện trên các chế độ xem (ví dụ: đối với tiêu đề, hệ thống sử dụng tiêu chuẩn thiết kế nhất quán)?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Bố cục và các component UI (tiêu đề, chân trang, nút bấm) phải đồng nhất trên mọi màn hình."
           },
           {
             "id": 7,
-            "text_en": "Are menu titles either centered or left-justified?",
-            "text": "Tiêu đề menu có được căn giữa hay căn trái không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Căn lề tiêu đề menu nhất quán (luôn căn trái hoặc căn giữa)."
           },
           {
             "id": 8,
-            "text_en": "The user can quickly return to the main screen or a specific start point as navigation is persistent and always at hand?",
-            "text": "Người dùng có thể nhanh chóng quay lại màn hình chính hoặc một điểm bắt đầu cụ thể vì điều hướng liên tục và luôn trong tầm tay?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Cung cấp nút Home hoặc lối tắt quay lại trang bắt đầu luôn cố định trên UI."
           },
           {
             "id": 9,
-            "text_en": "The system contains elements or features that are common, externally standard, and domain-specific (shopping cart, log-out, history of instalments)?",
-            "text": "Hệ thống có chứa các thành phần hoặc tính năng phổ biến, tiêu chuẩn bên ngoài và dành riêng cho từng miền (giỏ hàng, đăng xuất, lịch sử trả góp)?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Dùng các component tiêu chuẩn phổ biến (giỏ hàng, nút logout, lịch sử giao dịch) đúng vị trí quen thuộc."
           },
           {
             "id": 10,
-            "text_en": "There are no redundant or similar features or components (e.g., Submit, Save, Send), nor do different words, symbols, or actions mean the same thing?",
-            "text": "Không có tính năng hoặc thành phần dư thừa hoặc tương tự (ví dụ: Gửi, Lưu, Gửi), cũng như các từ, ký hiệu hoặc hành động khác nhau có nghĩa giống nhau không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Tránh dùng các từ khác nhau cho cùng một chức năng (ví dụ: lúc dùng 'Gửi', lúc dùng 'Submit')."
           },
           {
             "id": 11,
-            "text_en": "The system employs a consistent design standard for all controls and call to actions (CTA) on the screen?",
-            "text": "Hệ thống có sử dụng tiêu chuẩn thiết kế nhất quán cho tất cả các điều khiển và lời kêu gọi hành động (CTA) trên màn hình không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Nhất quán về thiết kế và hiệu ứng hover/active của tất cả các nút CTA trên toàn hệ thống."
           },
           {
             "id": 12,
-            "text_en": "The user is led directly to the desired screen rather than having to navigate to it. Important information can be accessed via multiple links (multi-lateral access)?",
-            "text": "Người dùng được dẫn thẳng đến màn hình mong muốn thay vì phải điều hướng đến màn hình đó. Thông tin quan trọng có thể được truy cập thông qua nhiều liên kết (truy cập đa bên)?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Cho phép user truy cập nhanh thông tin quan trọng qua nhiều đường dẫn khác nhau thay vì bắt đi qua nhiều bước."
           },
           {
             "id": 13,
-            "text_en": "Has a heavy use of all uppercase letters on a screen been avoided?",
-            "text": "Đã tránh được việc sử dụng nhiều chữ in hoa trên màn hình chưa?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Tránh viết hoa toàn bộ chữ (ALL CAPS) trong các văn bản dài trên màn hình."
           },
           {
             "id": 14,
-            "text_en": "Do on-line instructions appear in a consistent location across screens?",
-            "text": "Các hướng dẫn trực tuyến có xuất hiện ở một vị trí nhất quán trên các màn hình không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Đặt hướng dẫn sử dụng (help text) ở một vị trí cố định, nhất quán trên các trang."
           },
           {
             "id": 15,
-            "text_en": "Are field labels consistent from one data entry screen to another?",
-            "text": "Nhãn trường có nhất quán từ màn hình nhập dữ liệu này sang màn hình nhập dữ liệu khác không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Dùng label trường nhập liệu thống nhất giữa các form (ví dụ: luôn dùng 'Họ và tên')."
           },
           {
             "id": 16,
-            "text_en": "Are fields and labels left-justified for alpha lists and right-justified for numeric lists?",
-            "text": "Các trường và nhãn có được căn trái cho danh sách alpha và căn phải cho danh sách số không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Căn trái cho danh sách chữ, căn phải cho danh sách số để dễ đọc."
           },
           {
             "id": 17,
-            "text_en": "Do field labels appear to the left of single fields and above list fields?",
-            "text": "Nhãn trường có xuất hiện ở bên trái của các trường đơn lẻ và các trường danh sách phía trên không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Đặt label ở bên trái của trường nhập đơn, hoặc phía trên đối với danh sách lựa chọn."
           },
           {
             "id": 18,
-            "text_en": "Are attention-getting techniques (sound, micro-interactions, etc) used only for exceptional conditions or for time-dependent information?",
-            "text": "Có phải các kỹ thuật thu hút sự chú ý (âm thanh, tương tác vi mô, v.v.) chỉ được sử dụng trong các điều kiện đặc biệt hoặc cho thông tin phụ thuộc vào thời gian?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Chỉ dùng các hiệu ứng gây chú ý mạnh (âm thanh, hiệu ứng nhấp nháy) cho cảnh báo cực kỳ quan trọng."
           },
           {
             "id": 19,
-            "text_en": "Sound: soft tones for regular positive feedback, harsh for rare critical conditions",
-            "text": "Âm thanh: âm thanh nhẹ nhàng cho phản hồi tích cực thường xuyên, gay gắt cho các điều kiện quan trọng hiếm gặp",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Quy ước âm thanh: âm nhẹ cho phản hồi thành công, âm sắc rõ/lớn cho cảnh báo lỗi nghiêm trọng."
           },
           {
             "id": 20,
-            "text_en": "Color: up to four (additional colors for occasional use only)",
-            "text": "Màu sắc: tối đa bốn (màu bổ sung chỉ thỉnh thoảng sử dụng)",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Giới hạn tối đa 4 màu chủ đạo trong thiết kế giao diện (chỉ dùng màu phụ khi thực sự cần thiết)."
           },
           {
             "id": 21,
-            "text_en": "Is a legend provided if color codes are numerous or not obvious in meaning?",
-            "text": "Chú giải có được cung cấp nếu mã màu có nhiều hoặc không có ý nghĩa rõ ràng không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Cung cấp bảng chú thích (legend) nếu biểu đồ dùng nhiều màu sắc khác nhau."
           },
           {
             "id": 22,
-            "text_en": "Is the structure of a data entry value consistent from screen to screen?",
-            "text": "Cấu trúc của giá trị nhập dữ liệu có nhất quán giữa các màn hình không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Quy định định dạng dữ liệu (date, số điện thoại) thống nhất trên toàn app."
           },
           {
             "id": 23,
-            "text_en": "If the system has multipage data entry screens, do all pages have the same title and sequential page number?",
-            "text": "Nếu hệ thống có màn hình nhập dữ liệu nhiều trang, tất cả các trang có cùng tiêu đề và số trang tuần tự không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Trong form nhiều trang, giữ nguyên tiêu đề và đánh số trang tuần tự (ví dụ: Trang 1/3)."
           },
           {
             "id": 24,
-            "text_en": "Do field-level help provide more information than a restatement of the field name?",
-            "text": "Trợ giúp cấp trường có cung cấp nhiều thông tin hơn việc trình bày lại tên trường không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Tooltip hoặc hướng dẫn nhập liệu phải chi tiết, bổ ích hơn là chỉ lặp lại label của trường."
           },
           {
             "id": 25,
-            "text_en": "Is the most important information placed at the beginning of the prompt?",
-            "text": "Thông tin quan trọng nhất có được đặt ở đầu lời nhắc không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Đưa thông tin quan trọng nhất lên đầu câu thông báo hoặc hướng dẫn."
           },
           {
             "id": 26,
-            "text_en": "Are user actions named consistently across all prompts in the system?",
-            "text": "Hành động của người dùng có được đặt tên nhất quán trên tất cả lời nhắc trong hệ thống không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Đặt tên hành động (action) nhất quán trên tất cả các nút gợi ý của hệ thống."
           },
           {
             "id": 27,
-            "text_en": "Does the structure of menu choice names match their corresponding menu titles?",
-            "text": "Cấu trúc của tên lựa chọn menu có khớp với tiêu đề menu tương ứng của chúng không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Tên của lựa chọn trong menu phải trùng khớp với tiêu đề của trang đích khi click vào."
           }
         ]
       },
       {
         "id": 5,
-        "name": "Chủ động phòng chống lỗi",
+        "name": "Chủ động phòng ngừa lỗi (Error prevention)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "The system uses constraints to prevent the user from making mistakes?",
-            "text": "Hệ thống sử dụng các ràng buộc để ngăn người dùng mắc lỗi?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Thiết lập các ràng buộc (constraints) để chủ động ngăn user nhập sai dữ liệu ngay từ đầu."
           },
           {
             "id": 2,
-            "text_en": "To avoid incorrect actions, the system guides the user with suggestions. Fields in data entry screens contain default values (or hints, examples, or model answers to demonstrate expected input) and display the data structure and field length when appropriate?",
-            "text": "Để tránh những hành động không chính xác, hệ thống sẽ hướng dẫn người dùng những gợi ý. Các trường trong màn hình nhập dữ liệu chứa các giá trị mặc định (hoặc gợi ý, ví dụ hoặc câu trả lời mẫu để thể hiện thông tin đầu vào dự kiến) và hiển thị cấu trúc dữ liệu cũng như độ dài trường khi thích hợp?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Điền sẵn các giá trị mặc định thông minh, hiển thị ví dụ mẫu trong placeholder và giới hạn độ dài ký tự."
           },
           {
             "id": 3,
-            "text_en": "If an error is detected in a data entry field, does the system place the cursor in that field or highlight the error?",
-            "text": "Nếu phát hiện lỗi trong trường nhập dữ liệu, hệ thống có đặt con trỏ vào trường đó hay đánh dấu lỗi không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Nếu phát hiện trường lỗi, tự động focus hoặc highlight trường đó để user biết sửa."
           },
           {
             "id": 4,
-            "text_en": "The labelling of form fields clearly explains what entries are desired and Inputs are validated prior to submitting?",
-            "text": "Việc gắn nhãn các trường biểu mẫu giải thích rõ ràng những mục nào được mong muốn và Thông tin đầu vào được xác thực trước khi gửi?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Giải thích rõ định dạng yêu cầu của từng trường và validate dữ liệu thời gian thực (real-time)."
           },
           {
             "id": 5,
-            "text_en": "If no search results are returned, the system offers ideas or options for improvement the query?",
-            "text": "Nếu không có kết quả tìm kiếm nào được trả về, hệ thống có đưa ra ý tưởng hay phương án nào để cải thiện truy vấn không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Nếu tìm kiếm không có kết quả, gợi ý từ khóa liên quan hoặc cách sửa truy vấn."
           },
           {
             "id": 6,
-            "text_en": "The system prompts the user with confirmation before destructive actions?",
-            "text": "Hệ thống nhắc nhở người dùng xác nhận trước hành động phá hoại?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Yêu cầu confirm bằng popup/modal trước khi user thực hiện hành động phá hủy dữ liệu (xóa, hủy...)."
           },
           {
             "id": 7,
-            "text_en": "Data formats follow appropriate cultural conventions (e.g. miles for UK, YYYY/MM/DD)?",
-            "text": "Định dạng dữ liệu tuân theo các quy ước văn hóa phù hợp (ví dụ: số dặm đối với Vương quốc Anh, YYYY/MM/DD)?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Sử dụng định dạng ngày tháng, tiền tệ... phù hợp với văn hóa của user mục tiêu."
           },
           {
             "id": 8,
-            "text_en": "Required and optional form field are clearly indicated?",
-            "text": "Trường biểu mẫu bắt buộc và tùy chọn được chỉ định rõ ràng?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Phân biệt rõ ràng giữa trường bắt buộc (required) và trường tùy chọn (optional)."
           },
           {
             "id": 9,
-            "text_en": "Have dots or underscores been used to indicate field length?",
-            "text": "Dấu chấm hoặc dấu gạch dưới có được sử dụng để biểu thị độ dài trường không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Dùng ký tự gợi ý trực quan (ví dụ: dấu gạch ngang) để biểu thị độ dài/cấu trúc chuỗi yêu cầu."
           },
           {
             "id": 10,
-            "text_en": "Are data inputs case-blind whenever possible?",
-            "text": "Dữ liệu đầu vào có phân biệt chữ hoa chữ thường bất cứ khi nào có thể không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Thiết lập hệ thống không phân biệt chữ hoa chữ thường (case-insensitive) khi nhập liệu nếu có thể."
           },
           {
             "id": 11,
-            "text_en": "The system displays appropriate buttons affordance for performing actions?",
-            "text": "Hệ thống hiển thị các nút thích hợp để thực hiện hành động?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Sử dụng đúng loại nút bấm đại diện cho đúng hành động tương ứng."
           },
           {
             "id": 12,
-            "text_en": "When a user must choose between multiple options (as in a dialogue box), the options are obvious?",
-            "text": "Khi người dùng phải chọn giữa nhiều tùy chọn (như trong hộp thoại), các tùy chọn có rõ ràng không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Cung cấp các lựa chọn rõ ràng, không mâu thuẫn trong các hộp thoại confirm."
           },
           {
             "id": 13,
-            "text_en": "Do fields in data entry screens and dialog boxes contain default values when appropriate?",
-            "text": "Các trường trong màn hình nhập dữ liệu và hộp thoại có chứa các giá trị mặc định khi thích hợp không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Sử dụng giá trị mặc định hợp lý trong form hoặc modal để giảm thao tác nhập liệu."
           },
           {
             "id": 14,
-            "text_en": "Is sound used to signal an error?",
-            "text": "Âm thanh có được dùng để báo hiệu lỗi không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Sử dụng âm thanh cảnh báo lỗi tinh tế, không chói tai."
           },
           {
             "id": 15,
-            "text_en": "Are prompts and error messages stated constructively and worded in such a way that the system bears responsibility rather than the user and suggests that the user is in control?",
-            "text": "Các lời nhắc và thông báo lỗi có được trình bày mang tính xây dựng và được diễn đạt theo cách mà hệ thống chịu trách nhiệm thay vì người dùng và gợi ý rằng người dùng có quyền kiểm soát không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Viết thông báo lỗi lịch sự, mang tính xây dựng, chỉ cách khắc phục thay vì đổ lỗi cho user."
           },
           {
             "id": 16,
-            "text_en": "Do error messages avoid the use of exclamation points?",
-            "text": "Các thông báo lỗi có tránh sử dụng dấu chấm than không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Tránh dùng dấu chấm than (!) trong thông báo lỗi để không tạo cảm giác đe dọa user."
           },
           {
             "id": 17,
-            "text_en": "Are prompts brief and unambiguous?",
-            "text": "Lời nhắc có ngắn gọn và rõ ràng không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Viết lời nhắc (prompt) ngắn gọn, rõ nghĩa, đi thẳng vào vấn đề."
           },
           {
             "id": 18,
-            "text_en": "Do error messages inform the user of the error's severity?",
-            "text": "Thông báo lỗi có thông báo cho người dùng về mức độ nghiêm trọng của lỗi không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Thông báo lỗi cần chỉ rõ mức độ nghiêm trọng của lỗi."
           },
           {
             "id": 19,
-            "text_en": "Do error messages suggest the cause of the problem?",
-            "text": "Các thông báo lỗi có gợi ý nguyên nhân của sự cố không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Chỉ ra nguyên nhân gây lỗi trong nội dung thông báo lỗi."
           },
           {
             "id": 20,
-            "text_en": "Do error messages indicate what action the user needs to take to correct the error?",
-            "text": "Các thông báo lỗi có cho biết người dùng cần thực hiện hành động nào để sửa lỗi không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Hướng dẫn cụ thể các bước user cần làm để sửa lỗi."
           },
           {
             "id": 21,
-            "text_en": "If the system supports both novice and expert users, are multiple levels of error-message detail available?",
-            "text": "Nếu hệ thống hỗ trợ cả người dùng mới và người dùng chuyên nghiệp thì có sẵn nhiều cấp độ chi tiết thông báo lỗi không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Cung cấp các mức độ chi tiết thông báo lỗi khác nhau cho user mới và user chuyên nghiệp."
           },
           {
             "id": 22,
-            "text_en": "Are the function keys that can cause the most serious consequences located far away from low consequence and high-use keys?",
-            "text": "Các phím chức năng có thể gây ra hậu quả nghiêm trọng nhất có nằm cách xa các phím có tác dụng thấp và có mức độ sử dụng cao không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Đặt các nút nguy hiểm (như Xóa hết) cách xa các nút dùng thường xuyên để tránh click nhầm."
           },
           {
             "id": 23,
-            "text_en": "Do data entry screens and dialog boxes indicate the number of character spaces available in a field?",
-            "text": "Màn hình và hộp thoại nhập dữ liệu có cho biết số khoảng trống ký tự có sẵn trong một trường không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Hiển thị số ký tự tối đa được phép nhập trực tiếp trên form."
           }
         ]
       },
       {
         "id": 6,
-        "name": "Nhận diện thay vì nhớ lại (Giảm tải trí nhớ)",
+        "name": "Nhận diện thay vì nhớ lại (Recognition rather than recall)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "The user presented with customized content based on previous actions (e.g. When adding a product to the cart, the suggested products listed below are related to the product in the cart or to previously viewed items)?",
-            "text": "Người dùng trình bày nội dung tùy chỉnh dựa trên các hành động trước đó (ví dụ: Khi thêm sản phẩm vào giỏ hàng, các sản phẩm được đề xuất liệt kê bên dưới có liên quan đến sản phẩm trong giỏ hàng hoặc với các mặt hàng đã xem trước đó)?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Hiển thị các đề xuất cá nhân hóa dựa trên lịch sử hoạt động trước đó của user."
           },
           {
             "id": 2,
-            "text_en": "For question and answer interfaces, are visual cues and white space used to distinguish questions, prompts, instructions, and user input?",
-            "text": "Đối với giao diện hỏi đáp, các dấu hiệu trực quan và khoảng trắng có được sử dụng để phân biệt các câu hỏi, lời nhắc, hướng dẫn và thông tin đầu vào của người dùng không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Dùng khoảng trắng và ký hiệu để phân biệt rõ câu hỏi, hướng dẫn và ô nhập liệu của user."
           },
           {
             "id": 3,
-            "text_en": "The user presented with navigational items that reduce cognitive load and aids recall (e.g. Based on users’ mental models certain items can be grouped in more than one category)?",
-            "text": "Người dùng đã trình bày các mục điều hướng giúp giảm tải nhận thức và hỗ trợ thu hồi (ví dụ: Dựa trên mô hình tinh thần của người dùng, một số mục nhất định có thể được nhóm thành nhiều danh mục)?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Sắp xếp menu điều hướng logic theo mô hình tinh thần của user để giảm tải ghi nhớ."
           },
           {
             "id": 4,
-            "text_en": "The system's data is modifiable where it is displayed or leads to a place where it can be modified?",
-            "text": "Dữ liệu của hệ thống có thể sửa đổi được ở nơi nó được hiển thị hay dẫn đến nơi có thể sửa đổi được?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Cho phép sửa đổi thông tin trực tiếp tại nơi hiển thị hoặc cung cấp link dẫn thẳng tới trang chỉnh sửa."
           },
           {
             "id": 5,
-            "text_en": "The system makes use of consistent between data entry and data display?",
-            "text": "Hệ thống sử dụng sự thống nhất giữa nhập liệu và hiển thị dữ liệu?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Đảm bảo định dạng hiển thị dữ liệu khớp hoàn toàn với định dạng lúc nhập liệu."
           },
           {
             "id": 6,
-            "text_en": "The system presents interrelated information derived from the computation of several dependencies in a clear and understandable manner (e.g. price of item if depends on format, size, delivery; booking if depends on number of guests; prediction if depends on price ad time span)?",
-            "text": "Hệ thống trình bày thông tin có liên quan với nhau bắt nguồn từ việc tính toán một số phụ thuộc một cách rõ ràng và dễ hiểu (ví dụ: giá của mặt hàng nếu phụ thuộc vào hình thức, kích thước, cách giao hàng; đặt phòng nếu phụ thuộc vào số lượng khách; dự đoán nếu phụ thuộc vào khoảng thời gian quảng cáo giá)?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Hiển thị cách tính toán giá trị/kết quả rõ ràng nếu nó phụ thuộc vào nhiều biến số."
           },
           {
             "id": 7,
-            "text_en": "The system supports history (of user file manipulations, operations, search queries, and last visit) or a type of temporary storage (favourites, wish-list)?",
-            "text": "Hệ thống hỗ trợ lịch sử (thao tác tệp người dùng, thao tác, truy vấn tìm kiếm và lần truy cập gần đây nhất) hoặc một loại lưu trữ tạm thời (yêu thích, danh sách mong muốn)?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Hỗ trợ lịch sử thao tác gần đây (lịch sử tìm kiếm, file đã mở) và lưu tạm thời (yêu thích, bookmark)."
           },
           {
             "id": 8,
-            "text_en": "The system's UI direct manipulation is simple. Tips progressive disclosure and good gestural affordances explain the UI. Tooltips describe features and assist users in understanding the purpose of a presented screen?",
-            "text": "Thao tác trực tiếp UI của hệ thống rất đơn giản. Mẹo tiết lộ lũy tiến và khả năng chi trả cử chỉ tốt sẽ giải thích về giao diện người dùng. Chú giải công cụ mô tả các tính năng và hỗ trợ người dùng hiểu mục đích của màn hình được trình bày?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Dùng tooltip, hướng dẫn nhanh từng bước (walkthrough) để giải thích các tính năng mới."
           },
           {
             "id": 9,
-            "text_en": "Have prompts been formatted using white space, justification, and visual cues for easy scanning?",
-            "text": "Lời nhắc có được định dạng bằng khoảng trắng, căn lề và dấu hiệu trực quan để dễ dàng quét không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Định dạng các thông tin gợi ý rõ ràng, có cấu trúc tốt để dễ quét bằng mắt."
           },
           {
             "id": 10,
-            "text_en": "Does the system gray out or delete labels of currently inactive soft function keys?",
-            "text": "Hệ thống có chuyển sang màu xám hoặc xóa nhãn của các phím chức năng mềm hiện không hoạt động không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Làm mờ (gray out) hoặc ẩn hoàn toàn các tính năng, phím chức năng không khả dụng ở trạng thái hiện tại."
           },
           {
             "id": 11,
-            "text_en": "Have items been grouped into logical zones, and have headings been used to distinguish between zones?",
-            "text": "Các mục đã được nhóm thành các vùng hợp lý chưa và các tiêu đề đã được sử dụng để phân biệt giữa các vùng chưa?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Nhóm các mục liên quan vào từng khu vực riêng biệt có tiêu đề phân biệt rõ ràng."
           },
           {
             "id": 12,
-            "text_en": "Do GUI menus offer affordance: that is, make obvious where selection is possible?",
-            "text": "Các menu GUI có cung cấp đủ khả năng chi trả không: nghĩa là làm rõ nơi nào có thể lựa chọn?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Menu GUI phải thể hiện trực quan những mục nào có thể click chọn."
           }
         ]
       },
       {
         "id": 7,
-        "name": "Linh hoạt và hiệu quả sử dụng",
+        "name": "Linh hoạt và hiệu quả sử dụng (Flexibility and efficiency of use)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "The system anticipates and prompts the user's likely next action (recently performed actions memory)?",
-            "text": "Hệ thống dự đoán và nhắc nhở hành động tiếp theo của người dùng (bộ nhớ hành động được thực hiện gần đây)?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Dự đoán hành động tiếp theo của user dựa trên lịch sử thao tác gần nhất."
           },
           {
             "id": 2,
-            "text_en": "Is the user presented with shortcuts to end goals?",
-            "text": "Người dùng có được cung cấp các phím tắt để đạt được mục tiêu cuối cùng không?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Cung cấp các phím tắt (shortcut), macro hoặc tính năng thiết lập nhanh cho user chuyên nghiệp."
           },
           {
             "id": 3,
-            "text_en": "The system remembers user's setting, last location, previously opened documents?",
-            "text": "Hệ thống ghi nhớ cài đặt của người dùng, vị trí cuối cùng, tài liệu đã mở trước đó?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Tự động ghi nhớ trạng thái cuối cùng của user (cài đặt, vị trí cuộn, file mở gần nhất)."
           },
           {
             "id": 4,
-            "text_en": "For data entry screens with many fields or in which source documents may be incomplete, can users save a partially filled screen?",
-            "text": "Đối với màn hình nhập liệu có nhiều trường hoặc trong đó tài liệu nguồn có thể chưa đầy đủ, người dùng có thể lưu màn hình chỉ lấp đầy một phần không?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Cho phép lưu bản nháp form để nhập tiếp sau nếu form quá dài."
           },
           {
             "id": 5,
-            "text_en": "The system allows for restricted access, account creation and verification ease - yet not compromising on security?",
-            "text": "Hệ thống cho phép truy cập hạn chế, dễ dàng tạo và xác minh tài khoản - nhưng vẫn không ảnh hưởng đến bảo mật?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Thiết kế luồng tạo và xác minh tài khoản nhanh gọn, không đòi hỏi quá nhiều thông tin bảo mật không cần thiết."
           },
           {
             "id": 6,
-            "text_en": "The system clearly communicates to the user the completion of the goal, divides it into steps, allows for reversibility, and does not have any lateral break-paths?",
-            "text": "Hệ thống thông báo rõ ràng cho người dùng về việc hoàn thành mục tiêu, chia thành các bước, cho phép đảo ngược và không có bất kỳ đường dẫn đột phá nào?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Thông báo rõ khi user hoàn thành mục tiêu, hỗ trợ quay lại các bước trước đó dễ dàng."
           },
           {
             "id": 7,
-            "text_en": "The system disposed of tooltips that explain features and help user understand purpose of the view?",
-            "text": "Hệ thống loại bỏ các chú giải công cụ giải thích các tính năng và giúp người dùng hiểu mục đích của chế độ xem?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Cho phép tắt các tooltip hoặc hướng dẫn làm quen (tutorial) sau khi user đã hiểu tính năng."
           },
           {
             "id": 8,
-            "text_en": "The task complexity of the system correlates with the outcome (common and obvious tasks are easy to perform, complex results may require more sophisticated actions but users effort is awarded by valuable outcome)?",
-            "text": "Độ phức tạp của nhiệm vụ của hệ thống tương quan với kết quả (nhiệm vụ phổ biến và rõ ràng thì dễ thực hiện, kết quả phức tạp có thể yêu cầu những hành động phức tạp hơn nhưng nỗ lực của người dùng sẽ được đền đáp bằng kết quả có giá trị)?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Thiết kế các tác vụ phổ biến cực kỳ đơn giản; chỉ yêu cầu thao tác phức tạp cho kết quả chuyên sâu."
           },
           {
             "id": 9,
-            "text_en": "The system gives attention to probable rather than possible. Options are arranged by the frequency and probability of use?",
-            "text": "Hệ thống chú ý đến khả năng xảy ra hơn là khả năng. Các lựa chọn được sắp xếp theo tần suất và xác suất sử dụng?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Sắp xếp các tùy chọn theo tần suất sử dụng (đưa các mục dùng nhiều lên đầu)."
           },
           {
             "id": 10,
-            "text_en": "Does the system automatically enter leading zeros?",
-            "text": "Hệ thống có tự động nhập số 0 đứng đầu không?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Tự động điền số 0 ở đầu nếu định dạng yêu cầu nhập số có số 0."
           }
         ]
       },
       {
         "id": 8,
-        "name": "Thẩm mỹ và tối giản thiết kế",
+        "name": "Thiết kế tối giản và thẩm mỹ (Aesthetic and minimalist design)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "The system clusters related information and functions?",
-            "text": "Các cụm hệ thống liên quan đến thông tin và chức năng?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Nhóm thông tin và chức năng liên quan lại với nhau để tránh làm rối mắt."
           },
           {
             "id": 2,
-            "text_en": "The text and content of the system are legible, thanks to good typography and visual contrast (e.g. context uses intuitive headlines structure such as H1-H6, body)?",
-            "text": "Văn bản và nội dung của hệ thống có dễ đọc nhờ kiểu chữ tốt và độ tương phản hình ảnh tốt (ví dụ: ngữ cảnh sử dụng cấu trúc tiêu đề trực quan như H1-H6, nội dung)?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Đảm bảo độ tương phản màu tốt và dùng kiểu chữ (typography) phân cấp rõ ràng (H1-H6) để dễ đọc."
           },
           {
             "id": 3,
-            "text_en": "The system's layout aids in concentrating attention on work flow. Concise information structure designed for scanning (content includes highlighted hyperlinks, meaningful subheadings, bulleted lists, and a summary/call to action)?",
-            "text": "Cách bố trí của hệ thống hỗ trợ tập trung sự chú ý vào quy trình làm việc. Cấu trúc thông tin ngắn gọn được thiết kế để quét (nội dung bao gồm các siêu liên kết được đánh dấu, các tiêu đề phụ có ý nghĩa, danh sách có dấu đầu dòng và phần tóm tắt/kêu gọi hành động)?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Thiết kế layout tập trung vào luồng công việc chính, thông tin trình bày ngắn gọn, dễ quét (dùng gạch đầu dòng, highlight link)."
           },
           {
             "id": 4,
-            "text_en": "The system provides relevant information that is not excessive in quantity or layout?",
-            "text": "Hệ thống cung cấp thông tin liên quan nhưng không thừa về số lượng hay bố cục?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Chỉ hiển thị thông tin thực sự cần thiết, loại bỏ các chi tiết thừa thãi."
           },
           {
             "id": 5,
-            "text_en": "The system displays all forms in an easy-to-understand and fill-in format?",
-            "text": "Hệ thống hiển thị tất cả các biểu mẫu theo dạng thức dễ hiểu và dễ điền?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Thiết kế form tinh gọn, bố cục hợp lý để user hoàn thành nhanh chóng."
           },
           {
             "id": 6,
-            "text_en": "The system's user interface is designed in such a way that the user understands what all of the icons mean and why they are included in the design?",
-            "text": "Giao diện người dùng của hệ thống được thiết kế sao cho người dùng hiểu được ý nghĩa của tất cả các biểu tượng và tại sao chúng lại được đưa vào thiết kế?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Dùng icon quen thuộc, dễ hiểu và có mục đích rõ ràng."
           },
           {
             "id": 7,
-            "text_en": "The system's abbreviations are limited (in labels or tables). Tables fitt into screens and remain legible?",
-            "text": "Chữ viết tắt của hệ thống bị hạn chế (trong nhãn hoặc bảng). Bảng vừa với màn hình và vẫn dễ đọc?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Hạn chế viết tắt; thiết kế bảng biểu vừa vặn với chiều ngang màn hình."
           },
           {
             "id": 8,
-            "text_en": "The copywriting for the system is concise, with no unnecessary instructions, welcome notes, or aggressive advertisement boasting?",
-            "text": "Bản sao chép cho hệ thống ngắn gọn, không có hướng dẫn không cần thiết, ghi chú chào mừng hoặc quảng cáo rầm rộ?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Nội dung ngắn gọn, súc tích, tránh các văn bản chào mừng dài dòng hoặc quảng cáo rườm rà."
           },
           {
             "id": 9,
-            "text_en": "The system's pop-ups and dialogue boxes with settings appear in prominent locations, fit to the page, and are not cropped (regardless of viewport)?",
-            "text": "Cửa sổ bật lên và hộp thoại của hệ thống có cài đặt xuất hiện ở vị trí nổi bật, vừa với trang và không bị cắt (bất kể chế độ xem)?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Popup, modal xuất hiện ở vị trí nổi bật, không bị che khuất hoặc cắt nội dung trên mọi thiết bị."
           },
           {
             "id": 10,
-            "text_en": "The visuals of the system (graphics or photos) support the primary goals of users or the company (the message is conveyed by consistent images look and feel, there are no redundant and meaningless graphics)?",
-            "text": "Hình ảnh của hệ thống (đồ họa hoặc hình ảnh) hỗ trợ các mục tiêu chính của người dùng hoặc công ty (thông điệp được truyền tải bằng giao diện hình ảnh nhất quán, không có đồ họa thừa và vô nghĩa)?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Hình ảnh và đồ họa phải phục vụ trực tiếp cho mục tiêu nội dung, tránh dùng ảnh trang trí vô nghĩa."
           },
           {
             "id": 11,
-            "text_en": "Is only (and all) information essential to decision making displayed on the screen?",
-            "text": "Có phải chỉ (và tất cả) thông tin cần thiết cho việc ra quyết định được hiển thị trên màn hình?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Chỉ hiển thị những thông tin trực tiếp quyết định hành động tiếp theo của user trên màn hình."
           },
           {
             "id": 12,
-            "text_en": "Are all icons in a set visually and conceptually distinct?",
-            "text": "Tất cả các biểu tượng trong một bộ có khác biệt về mặt hình ảnh và khái niệm không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Các icon trong cùng một nhóm phải khác biệt rõ ràng về mặt hình ảnh và khái niệm."
           },
           {
             "id": 13,
-            "text_en": "Have large objects, bold lines, and simple areas been used to distinguish icons?",
-            "text": "Các vật thể lớn, đường nét đậm và các vùng đơn giản có được sử dụng để phân biệt các biểu tượng không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Sử dụng nét vẽ rõ ràng, hình khối đơn giản để thiết kế icon dễ nhận diện."
           },
           {
             "id": 14,
-            "text_en": "Does each icon stand out from its background?",
-            "text": "Mỗi biểu tượng có nổi bật so với nền của nó không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Thiết kế icon có độ tương phản tốt so với màu nền xung quanh."
           },
           {
             "id": 15,
-            "text_en": "Does each data entry screen have a short, simple, clear, distinctive title?",
-            "text": "Mỗi màn hình nhập liệu có tiêu đề ngắn gọn, đơn giản, rõ ràng, dễ phân biệt không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Tiêu đề của màn hình nhập liệu ngắn gọn, dễ hiểu, phân biệt rõ với các phần khác."
           },
           {
             "id": 16,
-            "text_en": "Are prompts expressed in the affirmative, and do they use the active voice?",
-            "text": "Những lời nhắc nhở có được thể hiện dưới dạng khẳng định và chúng có sử dụng thể chủ động không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Lời nhắc nhở nên viết dưới dạng khẳng định chủ động để khuyến khích hành động."
           },
           {
             "id": 17,
-            "text_en": "Are there pop-up or pull-down menus within data entry fields that have many, but well-defined, entry options?",
-            "text": "Có các menu bật lên hoặc kéo xuống trong các trường nhập dữ liệu có nhiều tùy chọn nhập nhưng được xác định rõ ràng không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Dùng dropdown menu cho các trường nhập có danh sách tùy chọn giới hạn rõ ràng."
           }
         ]
       },
       {
         "id": 9,
-        "name": "Hỗ trợ nhận biết, chẩn đoán và khắc phục lỗi",
+        "name": "Hỗ trợ nhận biết, chẩn đoán và sửa lỗi (Help users recognize, diagnose, and recover from errors)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "The system's allows for error correction (e.g. when a form is incomplete, focusing on the location where correction is required) by focusing on, proposing solutions, or linking to where to modify error causes?",
-            "text": "Hệ thống cho phép sửa lỗi (ví dụ: khi biểu mẫu chưa đầy đủ, tập trung vào vị trí cần sửa) bằng cách tập trung, đề xuất giải pháp hoặc liên kết đến đâu để sửa lỗi?",
-            "desc": "Hỗ trợ người dùng nhận biết, chẩn đoán và khắc phục lỗi một cách dễ dàng và lịch sự.",
-            "why": "Khi lỗi xảy ra, người dùng cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
+            "desc": "",
+            "why": "Khi lỗi xảy ra, user cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
             "how": [
               "Viết thông báo lỗi bằng ngôn ngữ tự nhiên, giải thích rõ nguyên nhân và cách sửa.",
               "Đánh dấu đỏ trực quan vùng bị lỗi kèm theo văn bản hướng dẫn cụ thể ngay bên dưới trường đó.",
-              "Cung cấp liên kết trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
+              "Cung cấp link trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
             ],
             "do": "Thông báo lỗi: \"Mật khẩu phải chứa ít nhất 8 ký tự. Vui lòng thêm ký tự và thử lại.\"",
-            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến người dùng không biết sửa thế nào."
+            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến user không biết sửa thế nào.",
+            "title": "Khi có lỗi, tự động focus vào trường lỗi và gợi ý cách khắc phục cụ thể."
           },
           {
             "id": 2,
-            "text_en": "The system's error messages are clear, written in simple language with a neutral tone, and do not blame the user for the error?",
-            "text": "Các thông báo lỗi của hệ thống rõ ràng, được viết bằng ngôn ngữ đơn giản với giọng điệu trung tính và không đổ lỗi cho người dùng về lỗi?",
-            "desc": "Hỗ trợ người dùng nhận biết, chẩn đoán và khắc phục lỗi một cách dễ dàng và lịch sự.",
-            "why": "Khi lỗi xảy ra, người dùng cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
+            "desc": "",
+            "why": "Khi lỗi xảy ra, user cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
             "how": [
               "Viết thông báo lỗi bằng ngôn ngữ tự nhiên, giải thích rõ nguyên nhân và cách sửa.",
               "Đánh dấu đỏ trực quan vùng bị lỗi kèm theo văn bản hướng dẫn cụ thể ngay bên dưới trường đó.",
-              "Cung cấp liên kết trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
+              "Cung cấp link trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
             ],
             "do": "Thông báo lỗi: \"Mật khẩu phải chứa ít nhất 8 ký tự. Vui lòng thêm ký tự và thử lại.\"",
-            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến người dùng không biết sửa thế nào."
+            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến user không biết sửa thế nào.",
+            "title": "Thông báo lỗi viết bằng ngôn ngữ đơn giản, lịch sự, không đổ lỗi cho user."
           },
           {
             "id": 3,
-            "text_en": "The systems are clear, easy to identify, and appear in the proper location (e.g. adjacent to data entry field, adjacent to form, etc.) Not erasing previously entered correct values?",
-            "text": "Hệ thống rõ ràng, dễ nhận biết và xuất hiện ở vị trí thích hợp (ví dụ: liền kề trường nhập dữ liệu, liền kề biểu mẫu, v.v.) Không xóa các giá trị đúng đã nhập trước đó?",
-            "desc": "Hỗ trợ người dùng nhận biết, chẩn đoán và khắc phục lỗi một cách dễ dàng và lịch sự.",
-            "why": "Khi lỗi xảy ra, người dùng cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
+            "desc": "",
+            "why": "Khi lỗi xảy ra, user cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
             "how": [
               "Viết thông báo lỗi bằng ngôn ngữ tự nhiên, giải thích rõ nguyên nhân và cách sửa.",
               "Đánh dấu đỏ trực quan vùng bị lỗi kèm theo văn bản hướng dẫn cụ thể ngay bên dưới trường đó.",
-              "Cung cấp liên kết trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
+              "Cung cấp link trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
             ],
             "do": "Thông báo lỗi: \"Mật khẩu phải chứa ít nhất 8 ký tự. Vui lòng thêm ký tự và thử lại.\"",
-            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến người dùng không biết sửa thế nào."
+            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến user không biết sửa thế nào.",
+            "title": "Đặt thông báo lỗi ngay cạnh trường bị lỗi và giữ nguyên các giá trị đúng đã nhập trước đó."
           },
           {
             "id": 4,
-            "text_en": "When necessary, the system displays important information on the screen, and there are no abrupt time-outs that force the user to act quickly?",
-            "text": "Khi cần thiết, hệ thống có hiển thị các thông tin quan trọng trên màn hình và không có hiện tượng time-out đột ngột buộc người dùng phải hành động nhanh chóng?",
-            "desc": "Hỗ trợ người dùng nhận biết, chẩn đoán và khắc phục lỗi một cách dễ dàng và lịch sự.",
-            "why": "Khi lỗi xảy ra, người dùng cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
+            "desc": "",
+            "why": "Khi lỗi xảy ra, user cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
             "how": [
               "Viết thông báo lỗi bằng ngôn ngữ tự nhiên, giải thích rõ nguyên nhân và cách sửa.",
               "Đánh dấu đỏ trực quan vùng bị lỗi kèm theo văn bản hướng dẫn cụ thể ngay bên dưới trường đó.",
-              "Cung cấp liên kết trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
+              "Cung cấp link trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
             ],
             "do": "Thông báo lỗi: \"Mật khẩu phải chứa ít nhất 8 ký tự. Vui lòng thêm ký tự và thử lại.\"",
-            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến người dùng không biết sửa thế nào."
+            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến user không biết sửa thế nào.",
+            "title": "Tránh timeout đột ngột làm mất dữ liệu của user; cảnh báo trước khi hết phiên làm việc."
           },
           {
             "id": 5,
-            "text_en": "When necessary, the system provides the user with access to details about error messages. Error messages explain what happened and what action the user must take?",
-            "text": "Khi cần thiết, hệ thống sẽ cung cấp cho người dùng quyền truy cập vào thông tin chi tiết về các thông báo lỗi. Thông báo lỗi giải thích điều gì đã xảy ra và người dùng phải thực hiện hành động gì?",
-            "desc": "Hỗ trợ người dùng nhận biết, chẩn đoán và khắc phục lỗi một cách dễ dàng và lịch sự.",
-            "why": "Khi lỗi xảy ra, người dùng cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
+            "desc": "",
+            "why": "Khi lỗi xảy ra, user cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
             "how": [
               "Viết thông báo lỗi bằng ngôn ngữ tự nhiên, giải thích rõ nguyên nhân và cách sửa.",
               "Đánh dấu đỏ trực quan vùng bị lỗi kèm theo văn bản hướng dẫn cụ thể ngay bên dưới trường đó.",
-              "Cung cấp liên kết trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
+              "Cung cấp link trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
             ],
             "do": "Thông báo lỗi: \"Mật khẩu phải chứa ít nhất 8 ký tự. Vui lòng thêm ký tự và thử lại.\"",
-            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến người dùng không biết sửa thế nào."
+            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến user không biết sửa thế nào.",
+            "title": "Cung cấp nút xem chi tiết lỗi kỹ thuật khi cần, nhưng thông điệp chính vẫn phải dễ hiểu."
           },
           {
             "id": 6,
-            "text_en": "The system allows the user to undo/reverse destructive actions?",
-            "text": "Hệ thống cho phép người dùng hoàn tác/đảo ngược các hành động phá hoại?",
-            "desc": "Hỗ trợ người dùng nhận biết, chẩn đoán và khắc phục lỗi một cách dễ dàng và lịch sự.",
-            "why": "Khi lỗi xảy ra, người dùng cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
+            "desc": "",
+            "why": "Khi lỗi xảy ra, user cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
             "how": [
               "Viết thông báo lỗi bằng ngôn ngữ tự nhiên, giải thích rõ nguyên nhân và cách sửa.",
               "Đánh dấu đỏ trực quan vùng bị lỗi kèm theo văn bản hướng dẫn cụ thể ngay bên dưới trường đó.",
-              "Cung cấp liên kết trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
+              "Cung cấp link trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
             ],
             "do": "Thông báo lỗi: \"Mật khẩu phải chứa ít nhất 8 ký tự. Vui lòng thêm ký tự và thử lại.\"",
-            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến người dùng không biết sửa thế nào."
+            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến user không biết sửa thế nào.",
+            "title": "Hỗ trợ Undo/hoàn tác cho các thao tác lỡ tay xóa hoặc sửa dữ liệu quan trọng."
           }
         ]
       },
       {
         "id": 10,
-        "name": "Trợ giúp và tài liệu hướng dẫn",
+        "name": "Trợ giúp và tài liệu hướng dẫn (Help and documentation)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "The system provides contextual assistance to assist the user in learning more about a feature in his task flow?",
-            "text": "Hệ thống cung cấp hỗ trợ theo ngữ cảnh để hỗ trợ người dùng tìm hiểu thêm về một tính năng trong luồng nhiệm vụ của mình?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Cung cấp trợ giúp theo ngữ cảnh (contextual help) ngay tại vị trí tính năng để user không phải rời luồng làm việc."
           },
           {
             "id": 2,
-            "text_en": "The system provides help in an easy-to-find format and organises it into cases (user tasks), allowing the user to easily sift through threads?",
-            "text": "Hệ thống cung cấp trợ giúp ở dạng dễ tìm và sắp xếp thành từng trường hợp (tác vụ của người dùng), cho phép người dùng dễ dàng sàng lọc các chủ đề?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Tài liệu hướng dẫn dễ tìm, phân loại theo tác vụ của user và hỗ trợ tìm kiếm từ khóa nhanh chóng."
           },
           {
             "id": 3,
-            "text_en": "The system provides online assistance in a way that does not impede users (i.e. they can resume work where they left off after accessing help)?",
-            "text": "Hệ thống cung cấp hỗ trợ trực tuyến theo cách không cản trở người dùng (tức là họ có thể tiếp tục công việc ở nơi họ đã dừng lại sau khi truy cập trợ giúp)?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Hiển thị trợ giúp dạng slide-out panel hoặc overlay để user vừa đọc vừa thao tác tiếp được."
           },
           {
             "id": 4,
-            "text_en": "The system presents the user with other channels of communication to enquire assistance to reach their goal (e.g. telephone or email address for assistance)?",
-            "text": "Hệ thống cung cấp cho người dùng các kênh liên lạc khác để yêu cầu hỗ trợ nhằm đạt được mục tiêu của họ (ví dụ: điện thoại hoặc địa chỉ email để được hỗ trợ)?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Cung cấp thông tin liên hệ hỗ trợ trực tiếp (hotline, email, chat) rõ ràng."
           },
           {
             "id": 5,
-            "text_en": "The system provides step-by-step instructions (in the form of FAQs) to assist users in completing the most critical tasks?",
-            "text": "Hệ thống cung cấp hướng dẫn từng bước (dưới dạng Câu hỏi thường gặp) để hỗ trợ người dùng hoàn thành các nhiệm vụ quan trọng nhất?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Cung cấp hướng dẫn từng bước (FAQ) cho các tác vụ quan trọng và phổ biến nhất."
           },
           {
             "id": 6,
-            "text_en": "If menu items are ambiguous, does the system provide additional explanatory information when an item is selected?",
-            "text": "Nếu các mục menu không rõ ràng, hệ thống có cung cấp thêm thông tin giải thích khi chọn một mục không?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Giải thích thêm về chức năng của menu item nếu tên gọi chưa thực sự rõ nghĩa."
           },
           {
             "id": 7,
-            "text_en": "Is the help function visible; for example, a key labeled HELP or a special menu?",
-            "text": "Chức năng trợ giúp có hiển thị không; ví dụ: phím có nhãn TRỢ GIÚP hoặc menu đặc biệt?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Đặt nút Trợ giúp ở vị trí dễ thấy trên giao diện."
           },
           {
             "id": 8,
-            "text_en": "Is the help system interface (navigation, presentation, and conversation) consistent with the navigation, presentation, and conversation interfaces of the application it supports?",
-            "text": "Giao diện hệ thống trợ giúp (điều hướng, trình bày và hội thoại) có nhất quán với giao diện điều hướng, trình bày và hội thoại của ứng dụng mà nó hỗ trợ không?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Thiết kế giao diện trang Trợ giúp nhất quán về UI/UX với ứng dụng chính."
           },
           {
             "id": 9,
-            "text_en": "Can users easily switch between help and their work?",
-            "text": "Người dùng có thể dễ dàng chuyển đổi giữa trợ giúp và công việc của họ không?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Cho phép chuyển đổi dễ dàng giữa nội dung trợ giúp và màn hình làm việc."
           },
           {
             "id": 10,
-            "text_en": "Is it easy to access and return from the help system?",
-            "text": "Có dễ dàng truy cập và quay lại từ hệ thống trợ giúp không?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Có lối ra rõ ràng để quay lại màn hình làm việc từ trang Trợ giúp."
           },
           {
             "id": 11,
-            "text_en": "Can users resume work where they left off after accessing help?",
-            "text": "Người dùng có thể tiếp tục công việc ở nơi họ đã dừng lại sau khi truy cập trợ giúp không?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Giữ nguyên trạng thái làm việc dang dở của user sau khi họ mở xem tài liệu trợ giúp."
           }
         ]
       },
@@ -2379,353 +2214,328 @@ const HEURISTIC_DATA = {
         "criteria": [
           {
             "id": 1,
-            "text_en": "The amount of content displayed at a time is reasonable?",
-            "text": "Lượng nội dung hiển thị tại một thời điểm có hợp lý không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Giới hạn lượng thông tin hiển thị vừa phải tại một thời điểm để tránh quá tải."
           },
           {
             "id": 2,
-            "text_en": "Buttons and controls are large enough to view and select by touch (26 - 37 px in the smallest dimension and margins of at least 10px around each button)?",
-            "text": "Các nút và điều khiển có đủ lớn để xem và chọn bằng cách chạm (26 - 37 px ở kích thước nhỏ nhất và lề ít nhất 10px xung quanh mỗi nút)?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Kích thước các nút bấm/điều khiển cảm ứng đủ lớn (tối thiểu 26-37px) và có khoảng cách đệm (padding) tối thiểu 10px."
           },
           {
             "id": 3,
-            "text_en": "Form fields are positioned bellow their labels?",
-            "text": "Các trường biểu mẫu được định vị bên dưới nhãn của chúng?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Đặt label phía trên trường nhập liệu tương ứng để dễ quét thông tin."
           },
           {
             "id": 4,
-            "text_en": "Touchscreen gestures are simple to perform?",
-            "text": "Cử chỉ trên màn hình cảm ứng có đơn giản để thực hiện?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Cử chỉ cảm ứng (swipe, pinch...) đơn giản, dễ thực hiện bằng một tay."
           },
           {
             "id": 5,
-            "text_en": "Multiple or alternate forms f gestures are available?",
-            "text": "Có sẵn nhiều hình thức hoặc hình thức cử chỉ thay thế?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Cung cấp cách thao tác thay thế cho các cử chỉ phức tạp."
           },
           {
             "id": 6,
-            "text_en": "Touch control activate upon release (up event, not initial touch (down event)?",
-            "text": "Kích hoạt điều khiển cảm ứng khi thả ra (sự kiện lên, không phải lần chạm ban đầu (sự kiện xuống)?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Kích hoạt hành động khi user nhả ngón tay ra (sự kiện touchup) chứ không phải lúc vừa chạm xuống."
           },
           {
             "id": 7,
-            "text_en": "Functionality triggered by shaking, tilting, or moving the device can be disabled?",
-            "text": "Chức năng được kích hoạt bằng cách lắc, nghiêng hoặc di chuyển thiết bị có thể bị vô hiệu hóa không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Cho phép tắt các tính năng kích hoạt bằng cách lắc hoặc nghiêng thiết bị để tránh vô tình thao tác."
           },
           {
             "id": 8,
-            "text_en": "On-screen indicators and accessible text shows how to use gestures?",
-            "text": "Các chỉ báo trên màn hình và văn bản có thể truy cập hiển thị cách sử dụng cử chỉ?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Hiển thị hướng dẫn trực quan hoặc văn bản mô tả cách thực hiện các cử chỉ cảm ứng."
           },
           {
             "id": 9,
-            "text_en": "On-screen indicators and accessible text shows that elements are actionable?",
-            "text": "Các chỉ báo trên màn hình và văn bản có thể truy cập cho thấy các phần tử có thể thực hiện được?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Đánh dấu trực quan rõ ràng các phần tử có thể tương tác được."
           },
           {
             "id": 10,
-            "text_en": "Actionable elements are grouped intuitively?",
-            "text": "Các yếu tố có thể hành động được nhóm lại một cách trực quan?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Nhóm các phần tử tương tác liên quan lại với nhau về mặt trực quan."
           },
           {
             "id": 11,
-            "text_en": "Clear, text-based instructions are provided for complex interaction?",
-            "text": "Hướng dẫn rõ ràng, dựa trên văn bản được cung cấp cho các tương tác phức tạp?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Cung cấp hướng dẫn bằng chữ rõ ràng cho các thao tác phức tạp."
           },
           {
             "id": 12,
-            "text_en": "Is the virtual keyboard set to the required data entry type?",
-            "text": "Bàn phím ảo có được đặt ở kiểu nhập dữ liệu được yêu cầu không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Tự động hiển thị đúng loại bàn phím ảo tương ứng (bàn phím số cho trường nhập số)."
           },
           {
             "id": 13,
-            "text_en": "Methods for data entry are simple and predictable?",
-            "text": "Phương pháp nhập dữ liệu đơn giản và có thể dự đoán được?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Phương thức nhập liệu đơn giản, dễ dự đoán."
           },
           {
             "id": 14,
-            "text_en": "Is touchscreen content compatible with keyboards and other input devices?",
-            "text": "Nội dung trên màn hình cảm ứng có tương thích với bàn phím và các thiết bị đầu vào khác không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Đảm bảo mọi tính năng trên màn hình cảm ứng có thể thao tác bằng bàn phím hoặc thiết bị hỗ trợ khác."
           },
           {
             "id": 15,
-            "text_en": "Is it possible to resize text by at least 200 percent without using assistive technology?",
-            "text": "Có thể thay đổi kích thước văn bản ít nhất 200 phần trăm mà không cần sử dụng công nghệ hỗ trợ không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Cho phép phóng to cỡ chữ lên ít nhất 200% mà giao diện không bị vỡ bố cục."
           },
           {
             "id": 16,
-            "text_en": "Is it possible to switch between portrait and landscape screen orientations?",
-            "text": "Có thể chuyển đổi giữa hướng màn hình dọc và ngang không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Hỗ trợ xoay ngang/dọc màn hình mượt mà không làm mất trạng thái dữ liệu."
           },
           {
             "id": 17,
-            "text_en": "Page layout is consistent and predictable?",
-            "text": "Bố cục trang có nhất quán và có thể dự đoán được không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Layout trang nhất quán và dễ dự đoán trên toàn hệ thống."
           },
           {
             "id": 18,
-            "text_en": "Headings and subsequent content are logical and hierarchical?",
-            "text": "Các tiêu đề và nội dung tiếp theo có hợp lý và có thứ bậc không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Cấu trúc tiêu đề (H1-H6) phân cấp rõ ràng theo logic nội dung."
           },
           {
             "id": 19,
-            "text_en": "Menus, controls, and links work with touch and keyboard?",
-            "text": "Menu, điều khiển và liên kết hoạt động với cảm ứng và bàn phím?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Mọi menu, điều khiển, link phải tương thích với cả chuột, cảm ứng và phím tab."
           },
           {
             "id": 20,
-            "text_en": "Graphical content has an accessible text alternative?",
-            "text": "Nội dung đồ họa có văn bản thay thế có thể truy cập được không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Cung cấp alt text đầy đủ cho tất cả hình ảnh/đồ họa mang tính thông tin."
           },
           {
             "id": 21,
-            "text_en": "Most text has a contrast ratio of at least 4.5:1 for normal text (less than 18 point or 14 point bold)?",
-            "text": "Hầu hết văn bản có tỷ lệ tương phản ít nhất là 4,5:1 đối với văn bản thông thường (dưới 18 điểm hoặc in đậm 14 điểm)?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Văn bản thường phải đạt tỷ lệ tương phản tối thiểu 4.5:1 so với nền."
           },
           {
             "id": 22,
-            "text_en": "Most text has a contrast ratio of at least 3:1 for large text (at least 18 point or 14 point bold)?",
-            "text": "Hầu hết văn bản có tỷ lệ tương phản ít nhất là 3:1 đối với văn bản lớn (ít nhất 18 điểm hoặc in đậm 14 điểm)?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Văn bản lớn (từ 18px trở lên) phải đạt tỷ lệ tương phản tối thiểu 3:1 so với nền."
           },
           {
             "id": 23,
-            "text_en": "Information and meaning (like an error) is not conveyed only by color?",
-            "text": "Thông tin và ý nghĩa (như một lỗi) không chỉ được truyền tải bằng màu sắc?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Không truyền tải thông tin chỉ bằng màu sắc (ví dụ: cần thêm icon hoặc text lỗi kèm theo màu đỏ)."
           },
           {
             "id": 24,
-            "text_en": "Images of text are avoided?",
-            "text": "Hình ảnh của văn bản được tránh?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Tránh dùng hình ảnh chứa chữ (image of text) trừ khi thực sự cần thiết."
           },
           {
             "id": 25,
-            "text_en": "Background images are not used to convey information (as background images are not available to assistive technology)?",
-            "text": "Hình nền không được sử dụng để truyền tải thông tin (vì hình nền không có sẵn cho công nghệ hỗ trợ)?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Không dùng hình nền để truyền tải thông tin quan trọng vì screen reader không đọc được."
           }
         ]
       }
@@ -2736,1349 +2546,1257 @@ const HEURISTIC_DATA = {
     "categories": [
       {
         "id": 1,
-        "name": "Tự động hóa các công việc lặp lại",
+        "name": "Tự động hóa các công việc lặp lại (Automate unwanted workload)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Does the system automate repetitive tasks to save users time?",
-            "text": "Hệ thống có tự động hóa các tác vụ lặp đi lặp lại để tiết kiệm thời gian cho người dùng không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Tự động hóa các tác vụ lặp đi lặp lại để tiết kiệm thời gian cho user."
           },
           {
             "id": 2,
-            "text_en": "Are frequently used actions accessible with fewer clicks/taps?",
-            "text": "Các hành động được sử dụng thường xuyên có thể truy cập được với ít lần nhấp/chạm hơn không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Đưa các chức năng dùng nhiều ra ngoài để truy cập nhanh với ít lượt click nhất."
           },
           {
             "id": 3,
-            "text_en": "Is autofill used effectively (e.g., name, email, address, past searches)?",
-            "text": "Tính năng tự động điền có được sử dụng hiệu quả không (ví dụ: tên, email, địa chỉ, tìm kiếm trước đây)?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Dùng autocomplete/autofill hiệu quả cho các trường thông tin cơ bản (email, địa chỉ, lịch sử tìm kiếm)."
           },
           {
             "id": 4,
-            "text_en": "Are smart defaults provided (e.g., select the most common options by default)?",
-            "text": "Các giá trị mặc định thông minh có được cung cấp không (ví dụ: chọn các tùy chọn phổ biến nhất theo mặc định)?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Thiết lập mặc định thông minh cho các tùy chọn phổ biến nhất."
           },
           {
             "id": 5,
-            "text_en": "Does the system learn user behavior and personalize accordingly?",
-            "text": "Hệ thống có tìm hiểu hành vi của người dùng và cá nhân hóa cho phù hợp không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Cá nhân hóa giao diện dựa trên hành vi và tùy chọn của user."
           },
           {
             "id": 6,
-            "text_en": "Are complex calculations done automatically (e.g., tax, discounts, currency conversion)?",
-            "text": "Các phép tính phức tạp có được thực hiện tự động (ví dụ: thuế, chiết khấu, chuyển đổi tiền tệ) không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Tự động tính toán các con số phức tạp (thuế, phí giao hàng, mã giảm giá)."
           },
           {
             "id": 7,
-            "text_en": "Are form fields dynamically adjusted based on user inputs (e.g., hide irrelevant fields)?",
-            "text": "Các trường biểu mẫu có được điều chỉnh linh hoạt dựa trên thông tin đầu vào của người dùng không (ví dụ: ẩn các trường không liên quan)?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Tự động ẩn/hiển thị các trường form linh hoạt dựa trên dữ liệu user vừa nhập."
           },
           {
             "id": 8,
-            "text_en": "Does the system remember user preferences for future interactions?",
-            "text": "Hệ thống có ghi nhớ tùy chọn của người dùng cho các tương tác trong tương lai không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Ghi nhớ các tùy chọn cá nhân của user cho lần sử dụng sau."
           },
           {
             "id": 9,
-            "text_en": "Are confirmation emails or push notifications automated where necessary?",
-            "text": "Email xác nhận hoặc thông báo đẩy có được tự động hóa khi cần thiết không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Tự động gửi email/thông báo đẩy ngay khi có cập nhật quan trọng hoặc hoàn tất giao dịch."
           },
           {
             "id": 10,
-            "text_en": "Are AI-powered suggestions provided (e.g., recommended products, auto-correct search queries)?",
-            "text": "Các đề xuất do AI cung cấp có được cung cấp không (ví dụ: các sản phẩm được đề xuất, truy vấn tìm kiếm tự động sửa)?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Gợi ý thông minh (sản phẩm liên quan, tự động sửa từ khóa tìm kiếm sai)."
           }
         ]
       },
       {
         "id": 2,
-        "name": "Tạo điều kiện quét thông tin trực quan",
+        "name": "Tạo điều kiện quét thông tin nhanh (Reduce primary memory load)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are important elements (buttons, key info) visually distinct?",
-            "text": "Các yếu tố quan trọng (nút, thông tin chính) có khác biệt về mặt trực quan không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Thiết kế các nút bấm và thông tin cốt lõi nổi bật, dễ phân biệt bằng mắt."
           },
           {
             "id": 2,
-            "text_en": "Is content structured with clear hierarchy (H1, H2, bullet points, etc.)?",
-            "text": "Nội dung có được cấu trúc với hệ thống phân cấp rõ ràng (H1, H2, dấu đầu dòng, v.v.) không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Cấu trúc nội dung phân cấp rõ ràng (dùng tiêu đề, danh sách dạng bullet)."
           },
           {
             "id": 3,
-            "text_en": "Are scan-friendly techniques used (bold, color, icons, whitespace)?",
-            "text": "Các kỹ thuật thân thiện với việc quét có được sử dụng (đậm, màu sắc, biểu tượng, khoảng trắng) không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Dùng chữ đậm, màu sắc tương phản và biểu tượng giúp quét nhanh nội dung."
           },
           {
             "id": 4,
-            "text_en": "Are long paragraphs split into smaller sections for readability?",
-            "text": "Các đoạn văn dài có được chia thành các phần nhỏ hơn để dễ đọc không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Tránh viết các đoạn văn dài; chia nhỏ thông tin thành các khối nội dung ngắn."
           },
           {
             "id": 5,
-            "text_en": "Are related items grouped together for quick recognition?",
-            "text": "Các mục liên quan có được nhóm lại với nhau để nhận biết nhanh không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Nhóm các mục liên quan trực quan để user dễ nhận biết."
           },
           {
             "id": 6,
-            "text_en": "Are CTA (Call-to-Action) buttons prominent and easily identifiable?",
-            "text": "Các nút CTA (Kêu gọi hành động) có nổi bật và dễ nhận biết không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Thiết kế nút CTA (Kêu gọi hành động) nổi bật nhất trên trang."
           },
           {
             "id": 7,
-            "text_en": "Is F-pattern or Z-pattern layout used to match natural reading flow?",
-            "text": "Bố cục kiểu F hoặc kiểu Z có được sử dụng để phù hợp với luồng đọc tự nhiên không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Bố trí layout theo quy luật đọc hình chữ F hoặc chữ Z của mắt."
           },
           {
             "id": 8,
-            "text_en": "Are icons and labels placed where users expect them to be?",
-            "text": "Các biểu tượng và nhãn có được đặt ở nơi người dùng mong đợi không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Đặt menu và icon điều hướng ở các vị trí tiêu chuẩn quen thuộc."
           },
           {
             "id": 9,
-            "text_en": "Is search functionality prominent and accessible?",
-            "text": "Chức năng tìm kiếm có nổi bật và dễ tiếp cận không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Đặt thanh tìm kiếm ở vị trí dễ thấy và dễ truy cập nhất."
           },
           {
             "id": 10,
-            "text_en": "Are hover effects, shadows, or color changes used to indicate interactivity?",
-            "text": "Các hiệu ứng di chuột, bóng hoặc thay đổi màu sắc có được sử dụng để biểu thị tính tương tác không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Sử dụng hiệu ứng hover, shadow hoặc chuyển màu tinh tế để biểu thị phần tử có thể click."
           }
         ]
       },
       {
         "id": 3,
-        "name": "Giảm thiểu sự mơ hồ cho người dùng",
+        "name": "Giảm thiểu sự mơ hồ cho user (Minimize cognitive load)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Is immediate feedback provided for user actions (e.g., button press, form submission)?",
-            "text": "Phản hồi ngay lập tức có được cung cấp cho hành động của người dùng (ví dụ: nhấn nút, gửi biểu mẫu) không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Phản hồi trực quan tức thì ngay khi user click nút hoặc submit form."
           },
           {
             "id": 2,
-            "text_en": "Are error messages specific, helpful, and action-oriented? (e.g., “Password must be at least 8 characters” instead of “Invalid password”)",
-            "text": "Thông báo lỗi có cụ thể, hữu ích và hướng tới hành động không? (ví dụ: “Mật khẩu phải có ít nhất 8 ký tự” thay vì “Mật khẩu không hợp lệ”)",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Viết thông báo lỗi cụ thể, dễ hiểu và hướng dẫn cách sửa lỗi chi tiết."
           },
           {
             "id": 3,
-            "text_en": "Are success messages shown after completing important actions?",
-            "text": "Thông báo thành công có được hiển thị sau khi hoàn thành các hành động quan trọng không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Hiển thị thông báo thành công rõ ràng sau khi user hoàn thành task quan trọng."
           },
           {
             "id": 4,
-            "text_en": "Are tooltips or inline hints provided for complex fields?",
-            "text": "Chú giải công cụ hoặc gợi ý nội tuyến có được cung cấp cho các trường phức tạp không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Cung cấp tooltip hoặc help text nội tuyến cho các trường nhập liệu phức tạp."
           },
           {
             "id": 5,
-            "text_en": "Are form validation errors shown as the user types rather than after submission?",
-            "text": "Lỗi xác thực biểu mẫu có được hiển thị dưới dạng loại người dùng thay vì sau khi gửi không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Validate thông tin và báo lỗi ngay khi user đang gõ thay vì đợi submit form."
           },
           {
             "id": 6,
-            "text_en": "Are potential irreversible actions confirmed? (e.g., “Are you sure you want to delete this?”)",
-            "text": "Các hành động tiềm ẩn không thể thay đổi được đã được xác nhận chưa? (ví dụ: “Bạn có chắc chắn muốn xóa mục này không?”)",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Hiển thị popup confirm trước khi thực hiện hành động nguy hiểm không thể hoàn tác."
           },
           {
             "id": 7,
-            "text_en": "Do system notifications (success, error, warning) follow a consistent color scheme?",
-            "text": "Các thông báo hệ thống (thành công, lỗi, cảnh báo) có tuân theo bảng màu nhất quán không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Nhất quán hệ thống màu sắc cho thông báo trạng thái (xanh lá = thành công, đỏ = lỗi)."
           },
           {
             "id": 8,
-            "text_en": "Are placeholders in input fields used only when necessary and not replacing labels?",
-            "text": "Phần giữ chỗ trong trường nhập liệu chỉ được sử dụng khi cần thiết và không thay thế nhãn phải không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Chỉ dùng placeholder làm ví dụ minh họa, không dùng thay thế cho label của trường."
           },
           {
             "id": 9,
-            "text_en": "Are interactive elements clearly clickable (buttons, links, cards, etc.)?",
-            "text": "Các yếu tố tương tác có thể nhấp vào được rõ ràng không (nút, liên kết, thẻ, v.v.)?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Đảm bảo mọi phần tử click được (button, link, card) hiển thị rõ tính năng click."
           },
           {
             "id": 10,
-            "text_en": "Are skeleton loaders or progress indicators displayed for slow-loading content?",
-            "text": "Trình tải khung hoặc chỉ báo tiến trình có được hiển thị khi nội dung tải chậm không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Hiển thị skeleton loader hoặc thanh tiến trình nếu trang tải nội dung chậm."
           }
         ]
       },
       {
         "id": 4,
-        "name": "Tổng hợp dữ liệu thông minh",
+        "name": "Tổng hợp dữ liệu thông minh (Integrate information)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are related data points displayed together for easy comparison?",
-            "text": "Các điểm dữ liệu liên quan có được hiển thị cùng nhau để dễ so sánh không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Đặt các thông tin liên quan cạnh nhau để user dễ dàng so sánh."
           },
           {
             "id": 2,
-            "text_en": "Are tooltips, graphs, or charts used to summarize large datasets?",
-            "text": "Chú giải công cụ, đồ thị hoặc biểu đồ có được sử dụng để tóm tắt các tập dữ liệu lớn không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Dùng biểu đồ hoặc đồ thị trực quan để tóm tắt các tập dữ liệu lớn."
           },
           {
             "id": 3,
-            "text_en": "Are important metrics highlighted or color-coded for quick insights?",
-            "text": "Các số liệu quan trọng có được đánh dấu hoặc mã màu để có thông tin chi tiết nhanh chóng không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Highlight hoặc dùng mã màu cho các chỉ số quan trọng cần lưu ý."
           },
           {
             "id": 4,
-            "text_en": "Are dashboards designed to provide key insights at a glance?",
-            "text": "Trang tổng quan có được thiết kế để cung cấp thông tin chi tiết quan trọng trong nháy mắt không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Thiết kế Dashboard hiển thị toàn bộ chỉ số cốt lõi ngay khi truy cập."
           },
           {
             "id": 5,
-            "text_en": "Is data grouped logically instead of being scattered across multiple screens?",
-            "text": "Dữ liệu có được nhóm một cách hợp lý thay vì bị phân tán trên nhiều màn hình không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Nhóm dữ liệu logic trên cùng một màn hình thay vì chia nhỏ sang nhiều trang."
           },
           {
             "id": 6,
-            "text_en": "Can users drill down into more details from summarized data?",
-            "text": "Người dùng có thể đi sâu vào chi tiết hơn từ dữ liệu tóm tắt không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Cho phép click vào số liệu tóm tắt để xem chi tiết bên trong."
           },
           {
             "id": 7,
-            "text_en": "Are numerical values contextualized (e.g., “+12% from last month” instead of just a number)?",
-            "text": "Các giá trị số có được ngữ cảnh hóa không (ví dụ: “+12% so với tháng trước” thay vì chỉ là một con số)?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Cung cấp ngữ cảnh so sánh cho các con số (ví dụ: '+10% so với tuần trước')."
           },
           {
             "id": 8,
-            "text_en": "Are lengthy tables paginated or collapsible for easier navigation?",
-            "text": "Các bảng dài có được phân trang hoặc thu gọn để điều hướng dễ dàng hơn không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Hỗ trợ phân trang (pagination) hoặc thu gọn bảng dài để dễ điều hướng."
           },
           {
             "id": 9,
-            "text_en": "Are large datasets optimized for mobile viewing?",
-            "text": "Các tập dữ liệu lớn có được tối ưu hóa để xem trên thiết bị di động không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Tối ưu hiển thị bảng biểu và dữ liệu lớn trên màn hình di động."
           },
           {
             "id": 10,
-            "text_en": "Are data comparisons (e.g., last year vs. this year) shown side by side instead of separate screens?",
-            "text": "Các so sánh dữ liệu (ví dụ: năm ngoái so với năm nay) có được hiển thị cạnh nhau thay vì các màn hình riêng biệt không?",
-            "desc": "Tự động hóa các tác vụ lặp lại và tích hợp dữ liệu thông minh để giảm tải cho người dùng.",
-            "why": "Giúp người dùng hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
+            "desc": "",
+            "why": "Giúp user hoàn thành nhiệm vụ nhanh hơn bằng cách để hệ thống thực hiện các công việc tính toán hoặc nhập liệu tự động.",
             "how": [
-              "Cung cấp tính năng tự động điền (autofill) các thông tin cơ bản từ hồ sơ người dùng.",
+              "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
               "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
-              "Gộp các nguồn dữ liệu có liên quan vào cùng một giao diện thay vì bắt người dùng mở nhiều tab."
+              "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
             ],
-            "do": "Tự động điền tỉnh/thành phố và quận/huyện tương ứng ngay khi người dùng nhập mã bưu chính.",
-            "dont": "Bắt người dùng tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+            "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán.",
+            "title": "Đặt thông tin đối chiếu (như giá trước và sau giảm) song song thay vì ở hai trang khác nhau."
           }
         ]
       },
       {
         "id": 5,
-        "name": "Dùng ngữ cảnh để tối giản giao diện",
+        "name": "Dùng ngữ cảnh để tối giản UI (Context-sensitive display)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Is unnecessary information hidden when it's not relevant?",
-            "text": "Thông tin không cần thiết có bị ẩn đi khi nó không liên quan không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Chủ động ẩn các thông tin chưa cần thiết để giữ giao diện sạch sẽ."
           },
           {
             "id": 2,
-            "text_en": "Is content personalized based on user behavior, location, or preferences?",
-            "text": "Nội dung có được cá nhân hóa dựa trên hành vi, vị trí hoặc sở thích của người dùng không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Cá nhân hóa nội dung hiển thị theo vị trí, sở thích hoặc trạng thái của user."
           },
           {
             "id": 3,
-            "text_en": "Are irrelevant options disabled or removed from UI dynamically?",
-            "text": "Các tùy chọn không liên quan có bị vô hiệu hóa hoặc bị xóa khỏi giao diện người dùng một cách linh hoạt không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Ẩn hoặc disable các tính năng không khả dụng ở ngữ cảnh hiện tại."
           },
           {
             "id": 4,
-            "text_en": "Are contextual tooltips provided only when needed?",
-            "text": "Chú giải công cụ theo ngữ cảnh chỉ được cung cấp khi cần thiết phải không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Chỉ hiển thị tooltip khi thực sự cần giải thích, tránh lạm dụng gây rối mắt."
           },
           {
             "id": 5,
-            "text_en": "Are onboarding tips or guided tours offered for first-time users?",
-            "text": "Các mẹo giới thiệu hoặc chuyến tham quan có hướng dẫn có được cung cấp cho người dùng lần đầu không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Cung cấp hướng dẫn nhanh (tour hướng dẫn) cho user mới truy cập lần đầu."
           },
           {
             "id": 6,
-            "text_en": "Does the system adjust based on previous user actions?",
-            "text": "Hệ thống có điều chỉnh dựa trên hành động của người dùng trước đó không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Thay đổi giao diện hoặc gợi ý dựa trên các hành động trước đó của user."
           },
           {
             "id": 7,
-            "text_en": "Are progressive disclosures used (show more info only when needed)?",
-            "text": "Các tiết lộ lũy tiến có được sử dụng không (chỉ hiển thị thêm thông tin khi cần thiết)?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Sử dụng progressive disclosure (chỉ hiển thị chi tiết khi user click xem thêm)."
           },
           {
             "id": 8,
-            "text_en": "Are distractions minimized during focused tasks (e.g., checkout process, form filling)?",
-            "text": "Những phiền nhiễu có được giảm thiểu trong các nhiệm vụ tập trung (ví dụ: quy trình thanh toán, điền biểu mẫu) không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Loại bỏ hoàn toàn quảng cáo hoặc menu gây xao nhãng trong các luồng quan trọng (như thanh toán)."
           },
           {
             "id": 9,
-            "text_en": "Are search results prioritized based on relevance to user queries?",
-            "text": "Kết quả tìm kiếm có được ưu tiên dựa trên mức độ liên quan đến truy vấn của người dùng không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Ưu tiên xếp hạng kết quả tìm kiếm theo mức độ liên quan tốt nhất."
           },
           {
             "id": 10,
-            "text_en": "Are unnecessary choices hidden (e.g., don’t show shipping options for digital products)?",
-            "text": "Các lựa chọn không cần thiết có bị ẩn không (ví dụ: không hiển thị tùy chọn giao hàng cho các sản phẩm kỹ thuật số)?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Ẩn các lựa chọn không liên quan (ví dụ: không hiển thị chọn đơn vị vận chuyển đối với sản phẩm số)."
           }
         ]
       },
       {
         "id": 6,
-        "name": "Tạo luồng chuyển động trực quan liên tục",
+        "name": "Tạo luồng chuyển động trực quan liên tục (Visual clarity and flow)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are users guided step by step in multi-step workflows?",
-            "text": "Người dùng có được hướng dẫn từng bước trong quy trình làm việc nhiều bước không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Hướng dẫn user rõ ràng qua từng bước của quy trình làm việc nhiều bước."
           },
           {
             "id": 2,
-            "text_en": "Are numbered steps provided for long processes?",
-            "text": "Các bước được đánh số có được cung cấp cho các quy trình dài không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Đánh số thứ tự các bước trong quy trình dài để user biết mình đang ở đâu."
           },
           {
             "id": 3,
-            "text_en": "Are visual cues (arrows, highlights, animations) used to guide attention?",
-            "text": "Các tín hiệu trực quan (mũi tên, điểm nổi bật, hình ảnh động) có được sử dụng để hướng dẫn sự chú ý không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Dùng tín hiệu trực quan (mũi tên, highlight) để định hướng sự chú ý của mắt."
           },
           {
             "id": 4,
-            "text_en": "Is a progress indicator displayed for long actions (e.g., file uploads, checkout process)?",
-            "text": "Chỉ báo tiến trình có được hiển thị cho các hành động dài (ví dụ: tải tệp lên, quy trình thanh toán) không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Hiển thị chỉ báo tiến trình (progress bar) khi thực hiện các tác vụ mất thời gian (upload file)."
           },
           {
             "id": 5,
-            "text_en": "Is next-step guidance provided after completing a task? (e.g., “Now upload your profile picture”)",
-            "text": "Hướng dẫn bước tiếp theo có được cung cấp sau khi hoàn thành nhiệm vụ không? (ví dụ: “Bây giờ hãy tải ảnh hồ sơ của bạn lên”)",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Gợi ý rõ ràng bước tiếp theo cần làm sau khi user hoàn thành task hiện tại."
           },
           {
             "id": 6,
-            "text_en": "Are page transitions smooth (not abrupt or confusing)?",
-            "text": "Quá trình chuyển đổi trang có suôn sẻ không (không đột ngột hoặc khó hiểu)?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Thiết kế hiệu ứng chuyển trang mượt mà, tránh chuyển đổi đột ngột gây mất định hướng."
           },
           {
             "id": 7,
-            "text_en": "Are tooltips or instructional overlays used to onboard new users?",
-            "text": "Chú giải công cụ hoặc lớp phủ hướng dẫn có được sử dụng để giới thiệu người dùng mới không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Sử dụng walkthrough hướng dẫn nhanh giao diện cho user mới."
           },
           {
             "id": 8,
-            "text_en": "Are navigation paths clearly marked (so users don’t feel lost)?",
-            "text": "Đường dẫn điều hướng có được đánh dấu rõ ràng không (để người dùng không cảm thấy lạc lõng)?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Highlight rõ thanh điều hướng hiện tại để user luôn biết vị trí của mình."
           },
           {
             "id": 9,
-            "text_en": "Do buttons clearly indicate their function (e.g., “Next” instead of “Continue”)?",
-            "text": "Các nút có chỉ rõ chức năng của chúng không (ví dụ: “Tiếp theo” thay vì “Tiếp tục”)?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Đặt tên nút hành động rõ ràng về chức năng tiếp theo (ví dụ: 'Đi đến thanh toán')."
           },
           {
             "id": 10,
-            "text_en": "Are breadcrumbs used in multi-page processes?",
-            "text": "Breadcrumbs có được sử dụng trong quy trình nhiều trang không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Sử dụng breadcrumbs trong các quy trình duyệt web nhiều cấp."
           }
         ]
       },
       {
         "id": 7,
-        "name": "Giảm thiểu tải nhận thức trí não",
+        "name": "Giảm thiểu tải nhận thức (Reduce workload)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are icons and interface elements designed to be intuitive?",
-            "text": "Các biểu tượng và thành phần giao diện có được thiết kế trực quan không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Thiết kế các icon và UI element quen thuộc, dễ hiểu ngay lập tức."
           },
           {
             "id": 2,
-            "text_en": "Are unnecessary features or distractions removed?",
-            "text": "Các tính năng không cần thiết hoặc phiền nhiễu có bị loại bỏ không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Loại bỏ hoàn toàn các tính năng dư thừa làm loãng giao diện."
           },
           {
             "id": 3,
-            "text_en": "Is frequently used information kept visible (instead of requiring memory recall)?",
-            "text": "Thông tin được sử dụng thường xuyên có được hiển thị (thay vì yêu cầu thu hồi bộ nhớ) không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Hiển thị trực quan thông tin cần dùng thay vì bắt user nhớ lại thông tin từ trang trước."
           },
           {
             "id": 4,
-            "text_en": "Are users presented with fewer, clearer choices instead of overwhelming them?",
-            "text": "Người dùng có được đưa ra ít lựa chọn hơn, rõ ràng hơn thay vì khiến họ choáng ngợp không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Giới hạn số lượng lựa chọn hiển thị cùng lúc để user dễ đưa ra quyết định nhanh."
           },
           {
             "id": 5,
-            "text_en": "Are clear explanations provided for uncommon features?",
-            "text": "Có giải thích rõ ràng cho những đặc điểm không phổ biến không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Giải thích ngắn gọn cho các tính năng lạ hoặc thuật ngữ chuyên sâu."
           },
           {
             "id": 6,
-            "text_en": "Are complex workflows broken into smaller, manageable tasks?",
-            "text": "Quy trình làm việc phức tạp có được chia thành các nhiệm vụ nhỏ hơn và dễ quản lý hơn không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Chia các luồng công việc phức tạp thành các nhiệm vụ nhỏ dễ xử lý."
           },
           {
             "id": 7,
-            "text_en": "Are users not required to memorize things between screens?",
-            "text": "Người dùng không bắt buộc phải ghi nhớ mọi thứ giữa các màn hình?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Thiết kế giao diện sao cho user không cần ghi nhớ thông tin giữa các màn hình."
           },
           {
             "id": 8,
-            "text_en": "Is AI or automation used to reduce manual effort?",
-            "text": "AI hoặc tự động hóa có được sử dụng để giảm nỗ lực thủ công không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Ứng dụng AI hoặc tự động điền để giảm tối đa công sức nhập tay của user."
           },
           {
             "id": 9,
-            "text_en": "Are users guided through rare or complex tasks using helper UI?",
-            "text": "Người dùng có được hướng dẫn thực hiện các tác vụ hiếm hoặc phức tạp bằng giao diện người dùng trợ giúp không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Cung cấp cổng trợ giúp nhanh ngay cạnh các tác vụ phức tạp."
           },
           {
             "id": 10,
-            "text_en": "Are form fields pre-populated whenever possible?",
-            "text": "Các trường biểu mẫu có được điền trước bất cứ khi nào có thể không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Tự động điền trước các thông tin đã biết (tên, email, địa chỉ đăng ký) vào form."
           }
         ]
       },
       {
         "id": 8,
-        "name": "Đảm bảo tính dễ đọc và rõ nét",
+        "name": "Đảm bảo tính dễ đọc và rõ nét (Readability and clarity)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Is the font size large enough for easy reading (16px+ for mobile)?",
-            "text": "Kích thước phông chữ có đủ lớn để dễ đọc không (16px+ cho thiết bị di động)?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Đảm bảo cỡ chữ đủ lớn để đọc rõ ràng (tối thiểu 16px trên mobile)."
           },
           {
             "id": 2,
-            "text_en": "Is line spacing sufficient (at least 1.5x line height)?",
-            "text": "Khoảng cách dòng có đủ không (chiều cao dòng ít nhất là 1,5 lần)?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Thiết lập khoảng cách dòng (line-height) hợp lý (tối thiểu 1.5 lần cỡ chữ)."
           },
           {
             "id": 3,
-            "text_en": "Are colors chosen for high contrast (avoid light gray text on white background)?",
-            "text": "Màu sắc có được chọn để có độ tương phản cao không (tránh văn bản màu xám nhạt trên nền trắng)?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Sử dụng màu chữ có độ tương phản cao với nền (tránh chữ xám nhạt trên nền trắng)."
           },
           {
             "id": 4,
-            "text_en": "Are fonts consistent across all screens?",
-            "text": "Phông chữ có nhất quán trên tất cả các màn hình không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Sử dụng thống nhất một bộ phông chữ (font family) trên toàn bộ các trang."
           },
           {
             "id": 5,
-            "text_en": "Is essential information not hidden in long paragraphs?",
-            "text": "Thông tin cần thiết không bị ẩn giấu trong những đoạn văn dài sao?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Không giấu thông tin quan trọng bên trong các khối văn bản dài."
           },
           {
             "id": 6,
-            "text_en": "Are text-heavy sections broken into bullet points or short sentences?",
-            "text": "Các phần có nhiều văn bản có được chia thành các dấu đầu dòng hoặc các câu ngắn không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Chia các đoạn văn dài thành các câu ngắn hoặc gạch đầu dòng dễ đọc."
           },
           {
             "id": 7,
-            "text_en": "Are headings, subheadings, and body text clearly distinct?",
-            "text": "Các tiêu đề, tiêu đề phụ và văn bản nội dung có khác biệt rõ ràng không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Phân biệt rõ ràng tiêu đề (heading), tiêu đề phụ (subheading) và nội dung."
           },
           {
             "id": 8,
-            "text_en": "Are hyperlink styles visually distinct from normal text?",
-            "text": "Các kiểu siêu liên kết có khác biệt về mặt trực quan với văn bản thông thường không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Thiết kế style của link khác biệt hoàn toàn so với văn bản thông thường (ví dụ: đổi màu, gạch chân)."
           },
           {
             "id": 9,
-            "text_en": "Is text readable on all screen sizes (mobile, tablet, desktop)?",
-            "text": "Văn bản có thể đọc được trên mọi kích thước màn hình (di động, máy tính bảng, máy tính để bàn) không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Đảm bảo text hiển thị tốt và tự co giãn chuẩn trên mọi kích thước màn hình."
           },
           {
             "id": 10,
-            "text_en": "Is content written in simple, plain language?",
-            "text": "Nội dung có được viết bằng ngôn ngữ đơn giản, dễ hiểu không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Viết nội dung đơn giản, ngắn gọn, dễ hiểu đối với đại đa số user."
           }
         ]
       },
       {
         "id": 9,
-        "name": "Nhất quán thiết kế",
+        "name": "Nhất quán thiết kế (Consistency)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are navigation elements placed in the same locations across all pages?",
-            "text": "Các thành phần điều hướng có được đặt ở cùng một vị trí trên tất cả các trang không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Đặt thanh điều hướng ở cùng một vị trí cố định trên tất cả các trang."
           },
           {
             "id": 2,
-            "text_en": "Are buttons, icons, and fonts consistent in style?",
-            "text": "Các nút, biểu tượng và phông chữ có nhất quán về kiểu dáng không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Nhất quán về kiểu dáng của nút bấm, icon và phông chữ trên toàn app."
           },
           {
             "id": 3,
-            "text_en": "Are success, error, and warning messages styled consistently?",
-            "text": "Các thông báo thành công, lỗi và cảnh báo có được tạo kiểu nhất quán không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Đồng nhất thiết kế cho các thông báo trạng thái (thành công, lỗi, cảnh báo)."
           },
           {
             "id": 4,
-            "text_en": "Are action buttons always in the same position (e.g., Submit on right, Cancel on left)?",
-            "text": "Các nút hành động có luôn ở cùng một vị trí không (ví dụ: Gửi ở bên phải, Hủy ở bên trái)?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Đặt các nút hành động ở vị trí cố định quen thuộc (ví dụ: nút chính bên phải, nút phụ bên trái)."
           }
         ]
       },
       {
         "id": 10,
-        "name": "Hỗ trợ quyền kiểm soát của người dùng",
+        "name": "Hỗ trợ quyền tự do kiểm soát của user (User control)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Can users undo accidental actions? (e.g., undo delete)",
-            "text": "Người dùng có thể hoàn tác các hành động vô tình không? (ví dụ: hoàn tác xóa)",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Hỗ trợ Undo nhanh cho các thao tác lỡ tay xóa hoặc sửa dữ liệu."
           },
           {
             "id": 2,
-            "text_en": "Can users customize their settings easily?",
-            "text": "Người dùng có thể tùy chỉnh cài đặt của họ một cách dễ dàng không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép user tự do tùy chỉnh cài đặt tài khoản và giao diện dễ dàng."
           },
           {
             "id": 3,
-            "text_en": "Are users allowed to manually override automation if needed?",
-            "text": "Người dùng có được phép ghi đè tự động hóa theo cách thủ công nếu cần không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép user tắt tính năng tự động và chuyển sang thao tác thủ công khi muốn."
           },
           {
             "id": 4,
-            "text_en": "Is auto-save enabled for forms and important inputs?",
-            "text": "Tính năng tự động lưu có được bật cho các biểu mẫu và thông tin đầu vào quan trọng không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Tự động lưu (autosave) dữ liệu biểu mẫu quan trọng để tránh mất bài khi mất kết nối."
           },
           {
             "id": 5,
-            "text_en": "Can users recover lost data or reset settings?",
-            "text": "Người dùng có thể khôi phục dữ liệu bị mất hoặc đặt lại cài đặt không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép user khôi phục dữ liệu đã xóa hoặc reset cài đặt về mặc định."
           },
           {
             "id": 6,
-            "text_en": "Are users given control over permissions and data privacy?",
-            "text": "Người dùng có được cấp quyền kiểm soát quyền và quyền riêng tư dữ liệu không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cung cấp cho user quyền quản lý bảo mật và chia sẻ dữ liệu cá nhân rõ ràng."
           },
           {
             "id": 7,
-            "text_en": "Is there a way to exit or cancel actions easily?",
-            "text": "Có cách nào để thoát hoặc hủy hành động một cách dễ dàng không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Luôn có nút Hủy (Cancel) hoặc Thoát (Exit) rõ ràng để thoát luồng làm việc bất cứ lúc nào."
           },
           {
             "id": 8,
-            "text_en": "Can users preview changes before finalizing them?",
-            "text": "Người dùng có thể xem trước các thay đổi trước khi hoàn thiện chúng không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép user xem trước (preview) kết quả trước khi nhấn nút xác nhận cuối cùng."
           }
         ]
       }
@@ -4089,545 +3807,510 @@ const HEURISTIC_DATA = {
     "categories": [
       {
         "id": 1,
-        "name": "Khả năng hiển thị trực quan",
+        "name": "Khả năng hiển thị trực quan (Visibility)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are key elements (buttons, forms, menus) immediately visible without extra clicks?",
-            "text": "Các thành phần chính (nút, biểu mẫu, menu) có hiển thị ngay lập tức mà không cần nhấp chuột thêm không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Hiển thị sẵn các component chính (button, form, menu) mà không bắt user click thêm."
           },
           {
             "id": 2,
-            "text_en": "Is important information placed in a logical and noticeable position?",
-            "text": "Thông tin quan trọng có được đặt ở vị trí hợp lý và dễ nhận thấy không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Đặt thông tin quan trọng ở vị trí trung tâm, dễ đập vào mắt user."
           },
           {
             "id": 3,
-            "text_en": "Are buttons and links clearly differentiated from plain text?",
-            "text": "Các nút và liên kết có được phân biệt rõ ràng với văn bản thuần túy không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Phân biệt rõ nút bấm, link liên kết với văn bản thường bằng màu sắc và viền."
           },
           {
             "id": 4,
-            "text_en": "Are primary actions more visually prominent than secondary actions?",
-            "text": "Các hành động chính có nổi bật hơn các hành động phụ không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Dùng kích thước và màu sắc để phân cấp rõ nút hành động chính và nút phụ."
           },
           {
             "id": 5,
-            "text_en": "Are animations or hover effects used to highlight interactive elements?",
-            "text": "Hoạt ảnh hoặc hiệu ứng di chuột có được sử dụng để làm nổi bật các yếu tố tương tác không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Sử dụng hiệu ứng hover hoặc animation nhẹ để báo hiệu phần tử có thể tương tác."
           }
         ]
       },
       {
         "id": 2,
-        "name": "Phản hồi thông tin tức thời",
+        "name": "Phản hồi thông tin tức thời (Informative feedback)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Does every user action produce instant and clear feedback?",
-            "text": "Mọi hành động của người dùng có tạo ra phản hồi ngay lập tức và rõ ràng không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Mọi tương tác của user phải nhận được phản hồi trực quan tức thì từ hệ thống."
           },
           {
             "id": 2,
-            "text_en": "Do buttons and interactive elements visually respond to clicks or taps?",
-            "text": "Các nút và thành phần tương tác có phản hồi trực quan khi nhấp chuột hoặc nhấn không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Các nút bấm và icon phải thay đổi trạng thái trực quan (như chìm xuống) khi click."
           },
           {
             "id": 3,
-            "text_en": "Are errors and success messages clear and positioned near the relevant UI elements?",
-            "text": "Các lỗi và thông báo thành công có rõ ràng và được đặt gần các thành phần giao diện người dùng có liên quan không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Hiển thị thông báo trạng thái (lỗi, thành công) ngay tại vị trí vừa xảy ra tương tác."
           },
           {
             "id": 4,
-            "text_en": "Are system processing states (loading, saving, submitting) indicated?",
-            "text": "Các trạng thái xử lý hệ thống (tải, lưu, gửi) có được chỉ định không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Hiển thị rõ các trạng thái xử lý hệ thống (đang tải, đang lưu, đang gửi)."
           },
           {
             "id": 5,
-            "text_en": "Are form validation errors displayed in real-time instead of after submission?",
-            "text": "Lỗi xác thực biểu mẫu có hiển thị trong thời gian thực thay vì sau khi gửi không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Validate dữ liệu form trực tiếp trong thời gian thực thay vì đợi nhấn nút gửi."
           }
         ]
       },
       {
         "id": 3,
-        "name": "Cấu trúc thông tin logic",
+        "name": "Cấu trúc thông tin logic (Logical hierarchy)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Is the layout consistent and logically organized?",
-            "text": "Bố cục có nhất quán và được tổ chức hợp lý không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Sắp xếp bố cục trang thống nhất, gọn gàng và có tổ chức logic."
           },
           {
             "id": 2,
-            "text_en": "Are related elements grouped together? (e.g., labels close to input fields)",
-            "text": "Các yếu tố liên quan có được nhóm lại với nhau không? (ví dụ: nhãn gần trường nhập)",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Đặt label sát cạnh trường nhập tương ứng để tránh nhầm lẫn."
           },
           {
             "id": 3,
-            "text_en": "Is information hierarchically structured using headings, sections, and whitespace?",
-            "text": "Thông tin có được cấu trúc theo thứ bậc bằng cách sử dụng các tiêu đề, phần và khoảng trắng không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Cấu trúc thông tin phân cấp rõ ràng bằng heading, thẻ div và khoảng trắng."
           },
           {
             "id": 4,
-            "text_en": "Are different sections clearly distinguishable?",
-            "text": "Các phần khác nhau có được phân biệt rõ ràng không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Phân chia rõ ranh giới các phần nội dung khác nhau trên trang bằng đường kẻ hoặc màu nền."
           }
         ]
       },
       {
         "id": 4,
-        "name": "Nhất quán thiết kế",
+        "name": "Nhất quán thiết kế (Consistency)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are UI components (buttons, typography, colors, icons) consistent across all screens?",
-            "text": "Các thành phần giao diện người dùng (nút, kiểu chữ, màu sắc, biểu tượng) có nhất quán trên tất cả các màn hình không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Nhất quán về thiết kế (nút, phông chữ, màu sắc, icon) trên tất cả các trang."
           },
           {
             "id": 2,
-            "text_en": "Are naming conventions for features, actions, and buttons uniform throughout the system?",
-            "text": "Quy ước đặt tên cho các tính năng, hành động và nút có thống nhất trong toàn hệ thống không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Đặt tên chức năng, hành động trên nút đồng nhất trong toàn bộ hệ thống."
           },
           {
             "id": 3,
-            "text_en": "Are error messages displayed in a consistent format across different pages?",
-            "text": "Thông báo lỗi có được hiển thị ở định dạng nhất quán trên các trang khác nhau không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Sử dụng một định dạng và vị trí nhất quán để hiển thị các thông báo lỗi."
           }
         ]
       },
       {
         "id": 5,
-        "name": "Dung hòa sai sót của người dùng",
+        "name": "Dung hòa sai sót của user (Error tolerance)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are minor user errors automatically corrected when possible? (e.g., missing “www” in URLs)",
-            "text": "Các lỗi nhỏ của người dùng có được tự động sửa chữa khi có thể không? (ví dụ: thiếu “www” trong URL)",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Tự động sửa các lỗi chính tả nhỏ của user khi có thể (ví dụ: tự thêm http hoặc www vào URL)."
           },
           {
             "id": 2,
-            "text_en": "Is there an Undo option for critical actions?",
-            "text": "Có tùy chọn Hoàn tác cho các hành động quan trọng không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Luôn có tính năng Undo cho các thao tác quan trọng."
           },
           {
             "id": 3,
-            "text_en": "Are users given a second chance before performing irreversible actions?",
-            "text": "Người dùng có được trao cơ hội thứ hai trước khi thực hiện các hành động không thể thay đổi được không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Yêu cầu xác nhận lần hai trước khi user thực hiện hành động không thể hoàn tác."
           }
         ]
       },
       {
         "id": 6,
-        "name": "Tái sử dụng mẫu thiết kế quen thuộc",
+        "name": "Tái sử dụng các pattern quen thuộc (Reusability)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are commonly used patterns reused to reduce learning time?",
-            "text": "Các mẫu thường được sử dụng có được sử dụng lại để giảm thời gian học không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Sử dụng lại các layout, UI pattern quen thuộc để giảm thời gian làm quen cho user."
           },
           {
             "id": 2,
-            "text_en": "Are recognizable UI conventions followed? (e.g., hamburger menus, pagination, back button)",
-            "text": "Các quy ước giao diện người dùng dễ nhận biết có được tuân theo không? (ví dụ: menu hamburger, phân trang, nút quay lại)",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Tuân thủ các quy chuẩn thiết kế phổ biến (menu hamburger ở góc, giỏ hàng ở góc phải)."
           },
           {
             "id": 3,
-            "text_en": "Is previous user input stored where applicable (e.g., autofill, recent searches)?",
-            "text": "Dữ liệu nhập của người dùng trước đó có được lưu trữ ở nơi thích hợp không (ví dụ: tự động điền, tìm kiếm gần đây)?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Lưu trữ lịch sử nhập liệu gần đây để hỗ trợ autocomplete cho user."
           }
         ]
       },
       {
         "id": 7,
-        "name": "Giảm thiểu tải nhận thức",
+        "name": "Giảm thiểu tải nhận thức (Minimize cognitive load)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are complex workflows broken into smaller steps?",
-            "text": "Quy trình công việc phức tạp có được chia thành các bước nhỏ hơn không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Chia nhỏ quy trình làm việc phức tạp thành các bước nhỏ, dễ quản lý."
           },
           {
             "id": 2,
-            "text_en": "Are unnecessary elements removed to declutter the interface?",
-            "text": "Các yếu tố không cần thiết có bị loại bỏ để làm gọn gàng giao diện không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Loại bỏ các thông tin, hình ảnh không cần thiết để giữ giao diện sạch sẽ."
           },
           {
             "id": 3,
-            "text_en": "Is critical information highlighted so users don’t have to search for it?",
-            "text": "Thông tin quan trọng có được đánh dấu để người dùng không phải tìm kiếm nó không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Đánh dấu nổi bật thông tin cốt lõi để user không phải mất công tìm kiếm."
           },
           {
             "id": 4,
-            "text_en": "Are shortcuts provided to reduce repetitive tasks?",
-            "text": "Các phím tắt có được cung cấp để giảm bớt các tác vụ lặp đi lặp lại không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Cung cấp phím tắt (shortcut) cho các thao tác lặp đi lặp lại."
           }
         ]
       },
       {
         "id": 8,
-        "name": "Độ dễ đọc và quét chữ",
+        "name": "Độ dễ đọc và quét chữ (Readability)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Is text size, spacing, and contrast optimized for easy reading?",
-            "text": "Kích thước văn bản, khoảng cách và độ tương phản có được tối ưu hóa để dễ đọc không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Tối ưu hóa kích thước chữ, khoảng cách dòng và độ tương phản màu để tối đa hóa độ dễ đọc."
           },
           {
             "id": 2,
-            "text_en": "Is jargon avoided in favor of plain and understandable language?",
-            "text": "Có tránh sử dụng biệt ngữ để sử dụng ngôn ngữ đơn giản và dễ hiểu không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Dùng ngôn ngữ đơn giản, tránh các thuật ngữ chuyên môn sâu nếu không cần thiết."
           },
           {
             "id": 3,
-            "text_en": "Are long paragraphs broken into smaller, digestible chunks?",
-            "text": "Các đoạn văn dài có được chia thành các đoạn nhỏ hơn để dễ tiêu hóa không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Tách các khối văn bản dài thành các đoạn văn ngắn."
           },
           {
             "id": 4,
-            "text_en": "Are font styles and weights used effectively to differentiate key information?",
-            "text": "Kiểu và độ đậm của phông chữ có được sử dụng hiệu quả để phân biệt thông tin chính không?",
-            "desc": "Tối ưu hóa khả năng quét thông tin trực quan, đảm bảo tính dễ đọc và cấu trúc thông tin rõ ràng.",
-            "why": "Người dùng thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; giao diện có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
+            "desc": "",
+            "why": "user thường có thói quen quét lướt qua màn hình thay vì đọc từng từ; UI có cấu trúc tốt sẽ giúp họ tìm thông tin nhanh hơn.",
             "how": [
               "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
               "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
               "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
             ],
             "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
-            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ.",
+            "title": "Dùng độ đậm nhạt của chữ (font-weight) để phân cấp thông tin chính phụ."
           }
         ]
       },
       {
         "id": 9,
-        "name": "Khả năng dễ dàng học cách dùng",
+        "name": "Khả năng dễ dàng học cách dùng (Learnability)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Is the interface easy for new users to understand?",
-            "text": "Giao diện có dễ hiểu đối với người dùng mới không?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Thiết kế giao diện trực quan, dễ hiểu ngay cả đối với user truy cập lần đầu."
           },
           {
             "id": 2,
-            "text_en": "Are tooltips, hints, or onboarding tutorials available for new users?",
-            "text": "Chú giải công cụ, gợi ý hoặc hướng dẫn làm quen có sẵn cho người dùng mới không?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Cung cấp tooltip, hướng dẫn nhanh ( onboarding) cho các tính năng mới."
           },
           {
             "id": 3,
-            "text_en": "Are commonly used actions placed in intuitive locations?",
-            "text": "Các hành động thường được sử dụng có được đặt ở vị trí trực quan không?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Đặt các action hay dùng ở các vị trí dễ đoán nhất trên màn hình."
           },
           {
             "id": 4,
-            "text_en": "Are gestures and shortcuts easy to discover and remember?",
-            "text": "Các cử chỉ và phím tắt có dễ dàng khám phá và ghi nhớ không?",
-            "desc": "Cung cấp trợ giúp và tài liệu hướng dẫn sử dụng rõ ràng, dễ tìm kiếm khi cần.",
-            "why": "Dù giao diện có trực quan đến đâu, người dùng vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
+            "desc": "",
+            "why": "Dù UI có trực quan đến đâu, user vẫn cần tài liệu tham khảo khi thực hiện các tác vụ phức tạp hoặc gặp sự cố.",
             "how": [
-              "Đặt liên kết đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
+              "Đặt link đến trang trợ giúp hoặc trung tâm hỗ trợ (Help Center) ở vị trí dễ thấy như Header hoặc Footer.",
               "Sử dụng các tooltip hoặc biểu tượng dấu hỏi nhỏ giải thích trực tiếp tại các thuật ngữ phức tạp.",
               "Thiết kế tài liệu dạng câu hỏi thường gặp (FAQ) ngắn gọn, có chức năng tìm kiếm từ khóa."
             ],
-            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh nhãn \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
-            "dont": "Bắt người dùng tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản."
+            "do": "Đặt biểu tượng dấu hỏi chấm nhỏ bên cạnh label \"Mã CVV\" giải thích rõ: \"3 chữ số ở mặt sau thẻ tín dụng\".",
+            "dont": "Bắt user tải xuống tệp hướng dẫn sử dụng PDF dài 50 trang để tự tìm hiểu cách thiết lập tài khoản.",
+            "title": "Thiết kế cử chỉ vuốt chạm và phím tắt đơn giản, dễ học và dễ nhớ."
           }
         ]
       },
@@ -4637,73 +4320,68 @@ const HEURISTIC_DATA = {
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are UI elements large enough for easy clicking/tapping?",
-            "text": "Các thành phần trên giao diện người dùng có đủ lớn để dễ dàng nhấp/chạm không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Thiết kế các nút bấm đủ to để dễ dàng click/chạm chính xác."
           },
           {
             "id": 2,
-            "text_en": "Can all text be read by screen readers?",
-            "text": "Trình đọc màn hình có thể đọc được tất cả văn bản không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Đảm bảo mọi văn bản đều có thể được đọc bởi screen reader."
           },
           {
             "id": 3,
-            "text_en": "Is color contrast high enough for colorblind users?",
-            "text": "Độ tương phản màu có đủ cao cho người dùng mù màu không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Độ tương phản màu chữ đạt chuẩn để hỗ trợ user bị mù màu."
           },
           {
             "id": 4,
-            "text_en": "Can users navigate via keyboard shortcuts instead of a mouse?",
-            "text": "Người dùng có thể điều hướng bằng phím tắt thay vì chuột không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Hỗ trợ điều hướng hoàn toàn bằng bàn phím (phím tab) thay vì bắt buộc dùng chuột."
           },
           {
             "id": 5,
-            "text_en": "Are touch-friendly controls provided for mobile users?",
-            "text": "Các điều khiển thân thiện với cảm ứng có được cung cấp cho người dùng di động không?",
-            "desc": "Đảm bảo thiết kế công bằng, dễ tiếp cận cho mọi người dùng, kể cả người khuyết tật.",
-            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa giao diện giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
+            "desc": "",
+            "why": "Khả năng tiếp cận là quyền cơ bản; tối ưu hóa UI giúp tất cả mọi người có thể sử dụng sản phẩm bình thường.",
             "how": [
-              "Đảm bảo độ tương phản màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
+              "Đảm bảo độ tương phản (contrast) màu sắc giữa văn bản và nền đạt tiêu chuẩn tối thiểu 4.5:1.",
               "Thiết kế vùng bấm (touch target) đủ rộng, tối thiểu 24x24px (khuyến nghị 44x44px) để tránh bấm nhầm.",
-              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với trình đọc màn hình."
+              "Cấu trúc trang web theo chuẩn Semantic HTML để tương thích tốt với Screen Reader."
             ],
-            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản cao, và các nút bấm có kích thước vùng bấm 44x44px.",
-            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến người dùng có thị lực kém không thể đọc được."
+            "do": "Sử dụng chữ màu đen trên nền trắng có độ tương phản (contrast) cao, và các nút bấm có kích thước vùng bấm 44x44px.",
+            "dont": "Đặt chữ màu xám nhạt trên nền trắng sữa khiến user có thị lực kém không thể đọc được.",
+            "title": "Cung cấp các điều khiển chạm lớn thân thiện với người dùng mobile."
           }
         ]
       },
@@ -4713,463 +4391,434 @@ const HEURISTIC_DATA = {
         "criteria": [
           {
             "id": 1,
-            "text_en": "Do interactive elements look clickable or tappable? (e.g., buttons with shadows, links underlined)",
-            "text": "Các phần tử tương tác trông có thể nhấp vào hoặc chạm được không? (ví dụ: các nút có bóng, liên kết được gạch chân)",
-            "desc": "Thiết kế các chỉ thị công năng trực quan và ràng buộc hợp lý để định hướng hành vi người dùng.",
-            "why": "Gợi ý rõ ràng cách sử dụng phần tử thiết kế (nút thì phải trông như bấm được, liên kết thì phải có gạch chân hoặc đổi màu).",
+            "desc": "",
+            "why": "Gợi ý rõ ràng cách sử dụng phần tử thiết kế (nút thì phải trông như bấm được, link thì phải có gạch chân hoặc đổi màu).",
             "how": [
               "Sử dụng hiệu ứng bóng đổ nhẹ hoặc bo góc để làm nổi bật các thành phần bấm được.",
               "Giới hạn hoặc khóa các thao tác không được phép (ví dụ: không cho nhập chữ vào ô số điện thoại).",
-              "Hiển thị con trỏ chuột dạng bàn tay (pointer) khi di chuột qua các liên kết hoặc nút."
+              "Hiển thị con trỏ chuột dạng bàn tay (pointer) khi hover qua các link hoặc nút."
             ],
-            "do": "Thiết kế nút bấm nổi hẳn lên so với mặt nền nhờ hiệu ứng đổ bóng mờ và thay đổi màu khi di chuột.",
-            "dont": "Đặt liên kết văn bản có màu đen giống hệt chữ thường và không có gạch chân, khiến người dùng không biết đó là link bấm được."
+            "do": "Thiết kế nút bấm nổi hẳn lên so với mặt nền nhờ hiệu ứng đổ bóng mờ và thay đổi màu khi hover.",
+            "dont": "Đặt link văn bản có màu đen giống hệt chữ thường và không có gạch chân, khiến user không biết đó là link bấm được.",
+            "title": "Các nút bấm cần có hiệu ứng nổi (shadow, hover) để thể hiện rõ có thể click được."
           },
           {
             "id": 2,
-            "text_en": "Are draggable elements visually distinct from static content?",
-            "text": "Các phần tử có thể kéo có khác biệt về mặt trực quan với nội dung tĩnh không?",
-            "desc": "Thiết kế các chỉ thị công năng trực quan và ràng buộc hợp lý để định hướng hành vi người dùng.",
-            "why": "Gợi ý rõ ràng cách sử dụng phần tử thiết kế (nút thì phải trông như bấm được, liên kết thì phải có gạch chân hoặc đổi màu).",
+            "desc": "",
+            "why": "Gợi ý rõ ràng cách sử dụng phần tử thiết kế (nút thì phải trông như bấm được, link thì phải có gạch chân hoặc đổi màu).",
             "how": [
               "Sử dụng hiệu ứng bóng đổ nhẹ hoặc bo góc để làm nổi bật các thành phần bấm được.",
               "Giới hạn hoặc khóa các thao tác không được phép (ví dụ: không cho nhập chữ vào ô số điện thoại).",
-              "Hiển thị con trỏ chuột dạng bàn tay (pointer) khi di chuột qua các liên kết hoặc nút."
+              "Hiển thị con trỏ chuột dạng bàn tay (pointer) khi hover qua các link hoặc nút."
             ],
-            "do": "Thiết kế nút bấm nổi hẳn lên so với mặt nền nhờ hiệu ứng đổ bóng mờ và thay đổi màu khi di chuột.",
-            "dont": "Đặt liên kết văn bản có màu đen giống hệt chữ thường và không có gạch chân, khiến người dùng không biết đó là link bấm được."
+            "do": "Thiết kế nút bấm nổi hẳn lên so với mặt nền nhờ hiệu ứng đổ bóng mờ và thay đổi màu khi hover.",
+            "dont": "Đặt link văn bản có màu đen giống hệt chữ thường và không có gạch chân, khiến user không biết đó là link bấm được.",
+            "title": "Đánh dấu trực quan các phần tử có thể kéo thả (drag and drop) so với nội dung tĩnh."
           },
           {
             "id": 3,
-            "text_en": "Do form fields have clear boundaries and input hints?",
-            "text": "Các trường biểu mẫu có ranh giới và gợi ý đầu vào rõ ràng không?",
-            "desc": "Thiết kế các chỉ thị công năng trực quan và ràng buộc hợp lý để định hướng hành vi người dùng.",
-            "why": "Gợi ý rõ ràng cách sử dụng phần tử thiết kế (nút thì phải trông như bấm được, liên kết thì phải có gạch chân hoặc đổi màu).",
+            "desc": "",
+            "why": "Gợi ý rõ ràng cách sử dụng phần tử thiết kế (nút thì phải trông như bấm được, link thì phải có gạch chân hoặc đổi màu).",
             "how": [
               "Sử dụng hiệu ứng bóng đổ nhẹ hoặc bo góc để làm nổi bật các thành phần bấm được.",
               "Giới hạn hoặc khóa các thao tác không được phép (ví dụ: không cho nhập chữ vào ô số điện thoại).",
-              "Hiển thị con trỏ chuột dạng bàn tay (pointer) khi di chuột qua các liên kết hoặc nút."
+              "Hiển thị con trỏ chuột dạng bàn tay (pointer) khi hover qua các link hoặc nút."
             ],
-            "do": "Thiết kế nút bấm nổi hẳn lên so với mặt nền nhờ hiệu ứng đổ bóng mờ và thay đổi màu khi di chuột.",
-            "dont": "Đặt liên kết văn bản có màu đen giống hệt chữ thường và không có gạch chân, khiến người dùng không biết đó là link bấm được."
+            "do": "Thiết kế nút bấm nổi hẳn lên so với mặt nền nhờ hiệu ứng đổ bóng mờ và thay đổi màu khi hover.",
+            "dont": "Đặt link văn bản có màu đen giống hệt chữ thường và không có gạch chân, khiến user không biết đó là link bấm được.",
+            "title": "Thiết kế các ô nhập liệu (input) có đường viền rõ ràng và ví dụ gợi ý bên trong."
           }
         ]
       },
       {
         "id": 12,
-        "name": "Ánh xạ logic (Sự tương ứng tự nhiên)",
+        "name": "Ánh xạ logic (Logical mapping)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Do UI controls behave in an expected manner?",
-            "text": "Các điều khiển giao diện người dùng có hoạt động theo cách mong đợi không?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Các nút điều khiển phải vận hành đúng theo logic suy nghĩ tự nhiên của user."
           },
           {
             "id": 2,
-            "text_en": "Are UI animations and transitions intuitive and aligned with real-world physics?",
-            "text": "Hoạt ảnh và chuyển tiếp giao diện người dùng có trực quan và phù hợp với vật lý trong thế giới thực không?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Hiệu ứng chuyển động (animation) phải mượt mà và tuân theo quy luật vật lý thực tế."
           },
           {
             "id": 3,
-            "text_en": "Does scrolling behave naturally across devices?",
-            "text": "Tính năng cuộn có hoạt động tự nhiên trên các thiết bị không?",
-            "desc": "Sử dụng ngôn ngữ, ký hiệu và mô hình tinh thần gần gũi với thế giới thực của người dùng.",
-            "why": "Giúp người dùng dễ dàng hiểu giao diện dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
+            "desc": "",
+            "why": "Giúp user dễ dàng hiểu UI dựa trên những kinh nghiệm và thói quen thực tế ngoài đời của họ.",
             "how": [
               "Tránh sử dụng thuật ngữ kỹ thuật chuyên ngành hoặc mã lỗi hệ thống khó hiểu.",
               "Sắp xếp thông tin theo trình tự logic tự nhiên (ví dụ: ngày/tháng/năm hoặc quy trình mua hàng chuẩn).",
               "Sử dụng các biểu tượng có ý nghĩa trực quan quen thuộc (như hình ngôi nhà cho trang chủ, giỏ hàng cho mua sắm)."
             ],
             "do": "Dùng từ \"Thanh toán\" và biểu tượng thẻ tín dụng cho bước trả tiền của đơn hàng.",
-            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho người dùng cuối."
+            "dont": "Hiển thị thông báo lỗi lập trình dạng \"SQL Exception: Constraint integrity check failed (0x004F)\" cho user cuối.",
+            "title": "Tính năng cuộn trang (scroll) hoạt động tự nhiên, không bị giật lag trên mọi thiết bị."
           }
         ]
       },
       {
         "id": 13,
-        "name": "Ràng buộc hành vi thao tác",
+        "name": "Ràng buộc hành vi thao tác (Constraints)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are unnecessary options disabled or hidden to prevent confusion?",
-            "text": "Các tùy chọn không cần thiết có bị tắt hoặc ẩn đi để tránh nhầm lẫn không?",
-            "desc": "Thiết kế các chỉ thị công năng trực quan và ràng buộc hợp lý để định hướng hành vi người dùng.",
-            "why": "Gợi ý rõ ràng cách sử dụng phần tử thiết kế (nút thì phải trông như bấm được, liên kết thì phải có gạch chân hoặc đổi màu).",
+            "desc": "",
+            "why": "Gợi ý rõ ràng cách sử dụng phần tử thiết kế (nút thì phải trông như bấm được, link thì phải có gạch chân hoặc đổi màu).",
             "how": [
               "Sử dụng hiệu ứng bóng đổ nhẹ hoặc bo góc để làm nổi bật các thành phần bấm được.",
               "Giới hạn hoặc khóa các thao tác không được phép (ví dụ: không cho nhập chữ vào ô số điện thoại).",
-              "Hiển thị con trỏ chuột dạng bàn tay (pointer) khi di chuột qua các liên kết hoặc nút."
+              "Hiển thị con trỏ chuột dạng bàn tay (pointer) khi hover qua các link hoặc nút."
             ],
-            "do": "Thiết kế nút bấm nổi hẳn lên so với mặt nền nhờ hiệu ứng đổ bóng mờ và thay đổi màu khi di chuột.",
-            "dont": "Đặt liên kết văn bản có màu đen giống hệt chữ thường và không có gạch chân, khiến người dùng không biết đó là link bấm được."
+            "do": "Thiết kế nút bấm nổi hẳn lên so với mặt nền nhờ hiệu ứng đổ bóng mờ và thay đổi màu khi hover.",
+            "dont": "Đặt link văn bản có màu đen giống hệt chữ thường và không có gạch chân, khiến user không biết đó là link bấm được.",
+            "title": "Disable hoặc ẩn đi các tính năng chưa khả dụng để tránh user click nhầm."
           },
           {
             "id": 2,
-            "text_en": "Are users guided through logical steps instead of being overwhelmed with choices?",
-            "text": "Người dùng có được hướng dẫn qua các bước hợp lý thay vì bị choáng ngợp bởi các lựa chọn không?",
-            "desc": "Thiết kế các chỉ thị công năng trực quan và ràng buộc hợp lý để định hướng hành vi người dùng.",
-            "why": "Gợi ý rõ ràng cách sử dụng phần tử thiết kế (nút thì phải trông như bấm được, liên kết thì phải có gạch chân hoặc đổi màu).",
+            "desc": "",
+            "why": "Gợi ý rõ ràng cách sử dụng phần tử thiết kế (nút thì phải trông như bấm được, link thì phải có gạch chân hoặc đổi màu).",
             "how": [
               "Sử dụng hiệu ứng bóng đổ nhẹ hoặc bo góc để làm nổi bật các thành phần bấm được.",
               "Giới hạn hoặc khóa các thao tác không được phép (ví dụ: không cho nhập chữ vào ô số điện thoại).",
-              "Hiển thị con trỏ chuột dạng bàn tay (pointer) khi di chuột qua các liên kết hoặc nút."
+              "Hiển thị con trỏ chuột dạng bàn tay (pointer) khi hover qua các link hoặc nút."
             ],
-            "do": "Thiết kế nút bấm nổi hẳn lên so với mặt nền nhờ hiệu ứng đổ bóng mờ và thay đổi màu khi di chuột.",
-            "dont": "Đặt liên kết văn bản có màu đen giống hệt chữ thường và không có gạch chân, khiến người dùng không biết đó là link bấm được."
+            "do": "Thiết kế nút bấm nổi hẳn lên so với mặt nền nhờ hiệu ứng đổ bóng mờ và thay đổi màu khi hover.",
+            "dont": "Đặt link văn bản có màu đen giống hệt chữ thường và không có gạch chân, khiến user không biết đó là link bấm được.",
+            "title": "Dẫn dắt user đi qua các bước logic thay vì hiển thị tất cả tùy chọn cùng lúc gây ngợp."
           },
           {
             "id": 3,
-            "text_en": "Are actions limited based on context (e.g., disable the “Submit” button until all fields are completed)?",
-            "text": "Các hành động có bị giới hạn dựa trên ngữ cảnh không (ví dụ: tắt nút “Gửi” cho đến khi tất cả các trường được hoàn thành)?",
-            "desc": "Thiết kế các chỉ thị công năng trực quan và ràng buộc hợp lý để định hướng hành vi người dùng.",
-            "why": "Gợi ý rõ ràng cách sử dụng phần tử thiết kế (nút thì phải trông như bấm được, liên kết thì phải có gạch chân hoặc đổi màu).",
+            "desc": "",
+            "why": "Gợi ý rõ ràng cách sử dụng phần tử thiết kế (nút thì phải trông như bấm được, link thì phải có gạch chân hoặc đổi màu).",
             "how": [
               "Sử dụng hiệu ứng bóng đổ nhẹ hoặc bo góc để làm nổi bật các thành phần bấm được.",
               "Giới hạn hoặc khóa các thao tác không được phép (ví dụ: không cho nhập chữ vào ô số điện thoại).",
-              "Hiển thị con trỏ chuột dạng bàn tay (pointer) khi di chuột qua các liên kết hoặc nút."
+              "Hiển thị con trỏ chuột dạng bàn tay (pointer) khi hover qua các link hoặc nút."
             ],
-            "do": "Thiết kế nút bấm nổi hẳn lên so với mặt nền nhờ hiệu ứng đổ bóng mờ và thay đổi màu khi di chuột.",
-            "dont": "Đặt liên kết văn bản có màu đen giống hệt chữ thường và không có gạch chân, khiến người dùng không biết đó là link bấm được."
+            "do": "Thiết kế nút bấm nổi hẳn lên so với mặt nền nhờ hiệu ứng đổ bóng mờ và thay đổi màu khi hover.",
+            "dont": "Đặt link văn bản có màu đen giống hệt chữ thường và không có gạch chân, khiến user không biết đó là link bấm được.",
+            "title": "Chỉ kích hoạt nút Gửi khi user đã hoàn thành việc điền các trường bắt buộc."
           }
         ]
       },
       {
         "id": 14,
-        "name": "Tính linh hoạt thích ứng",
+        "name": "Tính linh hoạt thích ứng (Flexibility)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Can users customize their interface preferences?",
-            "text": "Người dùng có thể tùy chỉnh tùy chọn giao diện của họ không?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Cho phép user tùy chỉnh giao diện (chế độ tối/sáng, thay đổi cỡ chữ)."
           },
           {
             "id": 2,
-            "text_en": "Are different interaction modes available? (e.g., keyboard vs. touchscreen)",
-            "text": "Các chế độ tương tác khác nhau có sẵn không? (ví dụ: bàn phím so với màn hình cảm ứng)",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Hỗ trợ nhiều phương thức tương tác song song (bàn phím, chuột, cảm ứng)."
           },
           {
             "id": 3,
-            "text_en": "Does the interface support both novice and expert users?",
-            "text": "Giao diện có hỗ trợ cả người dùng mới và người dùng chuyên nghiệp không?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Thiết kế giao diện hỗ trợ tốt cho cả người dùng mới và chuyên gia sử dụng lâu năm."
           }
         ]
       },
       {
         "id": 15,
-        "name": "Khôi phục trạng thái nhanh chóng",
+        "name": "Khôi phục trạng thái nhanh chóng (Reversibility)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Is there a way to undo mistakes easily?",
-            "text": "Có cách nào để hoàn tác những sai lầm một cách dễ dàng?",
-            "desc": "Hỗ trợ người dùng nhận biết, chẩn đoán và khắc phục lỗi một cách dễ dàng và lịch sự.",
-            "why": "Khi lỗi xảy ra, người dùng cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
+            "desc": "",
+            "why": "Khi lỗi xảy ra, user cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
             "how": [
               "Viết thông báo lỗi bằng ngôn ngữ tự nhiên, giải thích rõ nguyên nhân và cách sửa.",
               "Đánh dấu đỏ trực quan vùng bị lỗi kèm theo văn bản hướng dẫn cụ thể ngay bên dưới trường đó.",
-              "Cung cấp liên kết trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
+              "Cung cấp link trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
             ],
             "do": "Thông báo lỗi: \"Mật khẩu phải chứa ít nhất 8 ký tự. Vui lòng thêm ký tự và thử lại.\"",
-            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến người dùng không biết sửa thế nào."
+            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến user không biết sửa thế nào.",
+            "title": "Cung cấp nút Undo để dễ dàng sửa chữa các sai sót thao tác."
           },
           {
             "id": 2,
-            "text_en": "Are users provided with error recovery solutions instead of just error messages?",
-            "text": "Người dùng có được cung cấp giải pháp khắc phục lỗi thay vì chỉ thông báo lỗi không?",
-            "desc": "Hỗ trợ người dùng nhận biết, chẩn đoán và khắc phục lỗi một cách dễ dàng và lịch sự.",
-            "why": "Khi lỗi xảy ra, người dùng cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
+            "desc": "",
+            "why": "Khi lỗi xảy ra, user cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
             "how": [
               "Viết thông báo lỗi bằng ngôn ngữ tự nhiên, giải thích rõ nguyên nhân và cách sửa.",
               "Đánh dấu đỏ trực quan vùng bị lỗi kèm theo văn bản hướng dẫn cụ thể ngay bên dưới trường đó.",
-              "Cung cấp liên kết trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
+              "Cung cấp link trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
             ],
             "do": "Thông báo lỗi: \"Mật khẩu phải chứa ít nhất 8 ký tự. Vui lòng thêm ký tự và thử lại.\"",
-            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến người dùng không biết sửa thế nào."
+            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến user không biết sửa thế nào.",
+            "title": "Khi có lỗi xảy ra, chỉ rõ cách tự sửa lỗi thay vì chỉ thông báo lỗi chung chung."
           },
           {
             "id": 3,
-            "text_en": "Are autosave features implemented to prevent data loss?",
-            "text": "Các tính năng tự động lưu có được triển khai để ngăn ngừa mất dữ liệu không?",
-            "desc": "Hỗ trợ người dùng nhận biết, chẩn đoán và khắc phục lỗi một cách dễ dàng và lịch sự.",
-            "why": "Khi lỗi xảy ra, người dùng cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
+            "desc": "",
+            "why": "Khi lỗi xảy ra, user cần giải pháp khắc phục nhanh chóng và dễ hiểu thay vì cảm thấy bối rối hoặc bị đổ lỗi.",
             "how": [
               "Viết thông báo lỗi bằng ngôn ngữ tự nhiên, giải thích rõ nguyên nhân và cách sửa.",
               "Đánh dấu đỏ trực quan vùng bị lỗi kèm theo văn bản hướng dẫn cụ thể ngay bên dưới trường đó.",
-              "Cung cấp liên kết trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
+              "Cung cấp link trực tiếp để khắc phục (ví dụ: nút \"Đặt lại mật khẩu\" khi nhập sai mật khẩu)."
             ],
             "do": "Thông báo lỗi: \"Mật khẩu phải chứa ít nhất 8 ký tự. Vui lòng thêm ký tự và thử lại.\"",
-            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến người dùng không biết sửa thế nào."
+            "dont": "Hiển thị thông báo lỗi lập trình chung chung: \"Lỗi 0x80070057: Tham số không hợp lệ\" khiến user không biết sửa thế nào.",
+            "title": "Tích hợp tính năng tự động lưu (autosave) để ngăn ngừa mất mát dữ liệu."
           }
         ]
       },
       {
         "id": 16,
-        "name": "Khả năng dễ ghi nhớ thao tác",
+        "name": "Khả năng dễ ghi nhớ thao tác (Memorability)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are important actions and workflows intuitive to recall after a long absence?",
-            "text": "Các hành động và quy trình làm việc quan trọng có trực quan để bạn có thể nhớ lại sau một thời gian dài vắng bóng không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Quy trình làm việc trực quan, dễ nhớ kể cả khi user không sử dụng app trong thời gian dài."
           },
           {
             "id": 2,
-            "text_en": "Are common icons and layouts used to reinforce familiarity?",
-            "text": "Các biểu tượng và bố cục phổ biến có được sử dụng để củng cố sự quen thuộc không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Dùng các biểu tượng tiêu chuẩn để tăng độ quen thuộc và khả năng ghi nhớ giao diện."
           },
           {
             "id": 3,
-            "text_en": "Are previously viewed pages or recent actions easily accessible?",
-            "text": "Các trang đã xem trước đây hoặc các hành động gần đây có dễ dàng truy cập được không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Cung cấp danh sách các mục đã xem gần đây để truy cập nhanh lại."
           }
         ]
       },
       {
         "id": 17,
-        "name": "Tính linh hoạt khi sử dụng",
+        "name": "Tính linh hoạt khi sử dụng (Efficiency)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Can both first-time and expert users navigate the interface comfortably?",
-            "text": "Cả người dùng lần đầu và người dùng chuyên nghiệp có thể điều hướng giao diện một cách thoải mái không?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Đảm bảo cả user mới và user lâu năm đều có thể tìm đường và thao tác thoải mái."
           },
           {
             "id": 2,
-            "text_en": "Are power-user features (e.g., shortcuts, automation) available for frequent users?",
-            "text": "Các tính năng dành cho người dùng thành thạo (ví dụ: phím tắt, tự động hóa) có sẵn cho người dùng thường xuyên không?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Cung cấp phím tắt và tự động hóa thao tác cho user thường xuyên sử dụng hệ thống."
           }
         ]
       },
       {
         "id": 18,
-        "name": "Quyền kiểm soát của người dùng",
+        "name": "Quyền kiểm soát của user (User control)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Can users navigate back and forth without getting stuck?",
-            "text": "Người dùng có thể điều hướng qua lại mà không bị kẹt không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Thiết kế luồng điều hướng thông suốt, đảm bảo user di chuyển tự do và không bị kẹt."
           },
           {
             "id": 2,
-            "text_en": "Are users able to skip non-essential steps?",
-            "text": "Người dùng có thể bỏ qua các bước không cần thiết không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép user bỏ qua (skip) các bước không thực sự cần thiết trong quy trình."
           },
           {
             "id": 3,
-            "text_en": "Is there a clear way to exit a process at any time?",
-            "text": "Có cách nào rõ ràng để thoát khỏi một quá trình bất cứ lúc nào không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Luôn có nút Thoát (Exit) rõ ràng để dừng quy trình bất cứ lúc nào."
           }
         ]
       },
       {
         "id": 19,
-        "name": "Sự tối giản và tinh gọn",
+        "name": "Sự tối giản và tinh gọn (Minimalism)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are only essential elements displayed at first, with advanced options hidden?",
-            "text": "Có phải lúc đầu chỉ những phần tử thiết yếu được hiển thị còn các tùy chọn nâng cao bị ẩn đi không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Ưu tiên hiển thị các phần tử cốt lõi trước, các tùy chọn nâng cao nên được ẩn đi."
           },
           {
             "id": 2,
-            "text_en": "Is text concise and to the point?",
-            "text": "Văn bản có ngắn gọn và đi thẳng vào vấn đề không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Nội dung văn bản ngắn gọn, súc tích, đi thẳng vào vấn đề."
           },
           {
             "id": 3,
-            "text_en": "Are unnecessary elements removed to avoid distraction?",
-            "text": "Các yếu tố không cần thiết có bị loại bỏ để tránh bị phân tâm không?",
-            "desc": "Tập trung thiết kế tối giản, loại bỏ thông tin thừa và tối ưu hóa khoảng trắng.",
-            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của người dùng.",
+            "desc": "",
+            "why": "Mỗi chi tiết thừa thãi sẽ cạnh tranh sự chú ý với nội dung quan trọng, làm chậm tốc độ tiếp thu thông tin của user.",
             "how": [
               "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
               "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
-              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc giao diện."
+              "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
             ],
             "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
-            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính.",
+            "title": "Loại bỏ hoàn toàn các yếu tố gây xao nhãng để giữ giao diện gọn gàng."
           }
         ]
       },
       {
         "id": 20,
-        "name": "Xác nhận hành động quan trọng",
+        "name": "Xác nhận hành động quan trọng (Confirmation)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Do destructive actions require confirmation before execution?",
-            "text": "Các hành động phá hoại có cần xác nhận trước khi thực hiện không?",
-            "desc": "Thiết kế các bước kết thúc rõ ràng cho một chuỗi hành động và xác nhận kết quả.",
-            "why": "Người dùng cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
+            "desc": "",
+            "why": "user cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
             "how": [
-              "Hiển thị màn hình hoặc hộp thoại xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+              "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
               "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
               "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
             ],
             "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
-            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào.",
+            "title": "Yêu cầu confirm rõ ràng trước khi thực hiện các hành động không thể hoàn tác (như xóa tài khoản)."
           },
           {
             "id": 2,
-            "text_en": "Are successful actions confirmed with a clear message?",
-            "text": "Các hành động thành công có được xác nhận bằng một thông điệp rõ ràng không?",
-            "desc": "Thiết kế các bước kết thúc rõ ràng cho một chuỗi hành động và xác nhận kết quả.",
-            "why": "Người dùng cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
+            "desc": "",
+            "why": "user cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
             "how": [
-              "Hiển thị màn hình hoặc hộp thoại xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+              "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
               "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
               "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
             ],
             "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
-            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào.",
+            "title": "Hiển thị thông báo thành công rõ ràng sau khi hoàn tất các giao dịch quan trọng."
           },
           {
             "id": 3,
-            "text_en": "Are users asked to review important decisions before finalizing them?",
-            "text": "Người dùng có được yêu cầu xem xét các quyết định quan trọng trước khi hoàn tất chúng không?",
-            "desc": "Thiết kế các bước kết thúc rõ ràng cho một chuỗi hành động và xác nhận kết quả.",
-            "why": "Người dùng cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
+            "desc": "",
+            "why": "user cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
             "how": [
-              "Hiển thị màn hình hoặc hộp thoại xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+              "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
               "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
               "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
             ],
             "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
-            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào.",
+            "title": "Cho phép user review (xem lại) toàn bộ thông tin đăng ký/đặt hàng trước khi gửi."
           }
         ]
       }
@@ -5180,973 +4829,907 @@ const HEURISTIC_DATA = {
     "categories": [
       {
         "id": 1,
-        "name": "Nỗ lực duy trì sự nhất quán",
+        "name": "Nỗ lực duy trì sự nhất quán (Consistency)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are buttons, icons, and layouts consistent across all pages/screens?",
-            "text": "Các nút, biểu tượng và bố cục có nhất quán trên tất cả các trang/màn hình không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Đảm bảo các nút bấm, biểu tượng và bố cục nhất quán trên toàn bộ các trang."
           },
           {
             "id": 2,
-            "text_en": "Is navigation structure uniform across different sections?",
-            "text": "Cấu trúc điều hướng có thống nhất giữa các phần khác nhau không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Nhất quán cấu trúc thanh điều hướng ở tất cả các mục."
           },
           {
             "id": 3,
-            "text_en": "Do color schemes and typography remain the same throughout the app/website?",
-            "text": "Cách phối màu và kiểu chữ có giống nhau trong toàn bộ ứng dụng/trang web không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Sử dụng đồng nhất màu sắc và kiểu chữ trên toàn bộ website/app."
           },
           {
             "id": 4,
-            "text_en": "Are labels and terminology consistent? (e.g., if you call it “Cart” on one page, don’t call it “Basket” on another)",
-            "text": "Các nhãn và thuật ngữ có nhất quán không? (ví dụ: nếu bạn gọi nó là “Giỏ hàng” trên một trang, đừng gọi nó là “Giỏ” trên trang khác)",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Sử dụng thuật ngữ thống nhất trên toàn app (ví dụ: dùng 'Giỏ hàng' thay vì đổi thành 'Giỏ mua sắm' ở trang khác)."
           },
           {
             "id": 5,
-            "text_en": "Are interactive elements (links, buttons) styled consistently?",
-            "text": "Các yếu tố tương tác (liên kết, nút) có được tạo kiểu nhất quán không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Thiết kế phong cách nút bấm và link liên kết đồng bộ."
           },
           {
             "id": 6,
-            "text_en": "Are error messages displayed in the same format and position across different forms?",
-            "text": "Các thông báo lỗi có được hiển thị ở cùng định dạng và vị trí trên các hình thức khác nhau không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Hiển thị thông báo lỗi ở định dạng và vị trí nhất quán trên toàn bộ giao diện."
           },
           {
             "id": 7,
-            "text_en": "Is spacing and alignment uniform across UI elements?",
-            "text": "Khoảng cách và căn chỉnh có thống nhất giữa các thành phần giao diện người dùng không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Nhất quán khoảng cách căn lề giữa các thành phần UI."
           },
           {
             "id": 8,
-            "text_en": "Are confirmation dialogs and notifications formatted in a consistent manner?",
-            "text": "Các hộp thoại xác nhận và thông báo có được định dạng nhất quán không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Popup confirm và thông báo hệ thống phải sử dụng chung một layout mẫu."
           },
           {
             "id": 9,
-            "text_en": "Are touch targets (buttons, links) the same size across mobile and desktop versions?",
-            "text": "Các mục tiêu cảm ứng (nút, liên kết) có cùng kích thước trên phiên bản dành cho thiết bị di động và máy tính để bàn không?",
-            "desc": "Duy trì sự nhất quán về phong cách thiết kế, thuật ngữ và tuân thủ các quy chuẩn chung.",
-            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi người dùng di chuyển giữa các trang hoặc các tính năng khác nhau.",
+            "desc": "",
+            "why": "Sự nhất quán giúp giảm thiểu việc học lại từ đầu khi user di chuyển giữa các trang hoặc các tính năng khác nhau.",
             "how": [
               "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
               "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
               "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
             ],
             "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
-            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\".",
+            "title": "Kích thước vùng bấm chạm (touch target) của nút nhất quán trên cả bản mobile và desktop."
           }
         ]
       },
       {
         "id": 2,
-        "name": "Cung cấp phím tắt cho người dùng thường xuyên",
+        "name": "Cung cấp shortcut/shortcut cho user thường xuyên (Shortcuts)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are keyboard shortcuts provided for power users? (e.g., Ctrl + S for saving)",
-            "text": "Các phím tắt có được cung cấp cho người dùng thành thạo không? (ví dụ: Ctrl + S để lưu)",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Cung cấp các tổ hợp phím tắt (shortcut) cho user thành thạo (ví dụ: Ctrl + S để lưu nhanh)."
           },
           {
             "id": 2,
-            "text_en": "Are swipe gestures implemented for mobile users where applicable?",
-            "text": "Cử chỉ vuốt có được triển khai cho người dùng di động nếu có không?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Hỗ trợ các cử chỉ vuốt chạm (swipe) tiện lợi trên thiết bị di động."
           },
           {
             "id": 3,
-            "text_en": "Can users quickly access frequently used features (e.g., Recent files in a document editor)?",
-            "text": "Người dùng có thể truy cập nhanh các tính năng được sử dụng thường xuyên không (ví dụ: Tệp gần đây trong trình chỉnh sửa tài liệu)?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Cung cấp danh mục các tính năng hay dùng hoặc file mở gần đây để truy cập nhanh."
           },
           {
             "id": 4,
-            "text_en": "Are predictive text or autocomplete features available in search and forms?",
-            "text": "Văn bản dự đoán hoặc tính năng tự động hoàn thành có sẵn trong tìm kiếm và biểu mẫu không?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Tích hợp tính năng tự động hoàn thành (autocomplete) trong thanh tìm kiếm và form nhập liệu."
           },
           {
             "id": 5,
-            "text_en": "Can users customize their shortcuts or frequently used commands?",
-            "text": "Người dùng có thể tùy chỉnh các phím tắt hoặc các lệnh thường dùng không?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Cho phép user tự thiết lập phím tắt cá nhân cho các lệnh thường dùng."
           },
           {
             "id": 6,
-            "text_en": "Are tooltips or hints provided for shortcut keys?",
-            "text": "Chú giải công cụ hoặc gợi ý có được cung cấp cho các phím tắt không?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Hiển thị gợi ý phím tắt tương ứng khi user hover chuột vào nút bấm."
           },
           {
             "id": 7,
-            "text_en": "Are voice commands or macros available for power users?",
-            "text": "Lệnh thoại hoặc macro có sẵn cho người dùng thành thạo không?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Hỗ trợ ra lệnh bằng giọng nói hoặc phím tắt nâng cao cho chuyên gia."
           },
           {
             "id": 8,
-            "text_en": "Are default actions smartly prioritized based on past user behavior?",
-            "text": "Các hành động mặc định có được ưu tiên một cách thông minh dựa trên hành vi của người dùng trong quá khứ không?",
-            "desc": "Cung cấp các tính năng linh hoạt và phím tắt để phục vụ cả người dùng mới lẫn chuyên gia.",
-            "why": "Cho phép người dùng tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
+            "desc": "",
+            "why": "Cho phép user tùy biến và tăng tốc độ thao tác khi họ đã quen thuộc với sản phẩm, nâng cao hiệu suất làm việc.",
             "how": [
-              "Hỗ trợ các phím tắt bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
-              "Cung cấp tính năng tự động điền (autofill) và lưu thông tin biểu mẫu cho lần sau.",
-              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên thiết bị di động."
+              "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+              "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+              "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
             ],
-            "do": "Cho phép người dùng thành thạo nhấn phím tắt \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
-            "dont": "Bắt buộc người dùng phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+            "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến.",
+            "title": "Ưu tiên hiển thị mặc định các lựa chọn dựa trên lịch sử thói quen của user."
           }
         ]
       },
       {
         "id": 3,
-        "name": "Cung cấp phản hồi đầy đủ thông tin",
+        "name": "Cung cấp phản hồi đầy đủ thông tin (Feedback)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Is immediate visual or auditory feedback given for every action?",
-            "text": "Phản hồi trực quan hoặc thính giác có được đưa ra ngay lập tức cho mọi hành động không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Phản hồi trực quan hoặc âm thanh tức thì ngay khi user thực hiện thao tác."
           },
           {
             "id": 2,
-            "text_en": "Are buttons showing a loading indicator when an action takes time?",
-            "text": "Các nút có hiển thị chỉ báo tải khi một hành động mất thời gian không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Hiển thị chỉ báo loading trực tiếp trên nút bấm nếu tác vụ mất thời gian xử lý."
           },
           {
             "id": 3,
-            "text_en": "Are success messages clear and reassuring (e.g., “File uploaded successfully”)?",
-            "text": "Thông báo thành công có rõ ràng và yên tâm không (ví dụ: “Tệp được tải lên thành công”)?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Viết thông báo thành công rõ ràng để user yên tâm (ví dụ: 'Tải file lên thành công')."
           },
           {
             "id": 4,
-            "text_en": "Do error messages explain what went wrong and suggest solutions?",
-            "text": "Các thông báo lỗi có giải thích được sự cố và đề xuất giải pháp không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Thông báo lỗi phải chỉ rõ nguyên nhân và gợi ý giải pháp xử lý cụ thể."
           },
           {
             "id": 5,
-            "text_en": "Are animations or microinteractions used to indicate state changes?",
-            "text": "Hoạt ảnh hoặc tương tác vi mô có được sử dụng để biểu thị các thay đổi trạng thái không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Dùng animation hoặc tương tác vi mô để thông báo thay đổi trạng thái của hệ thống."
           },
           {
             "id": 6,
-            "text_en": "Are input fields showing validation feedback in real time (e.g., ✅/❌ for password strength)?",
-            "text": "Các trường đầu vào có hiển thị phản hồi xác thực theo thời gian thực không (ví dụ: ✅/❌ về độ mạnh mật khẩu)?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Hiển thị tích xanh/đỏ validate trực tiếp trên ô nhập liệu ngay khi user đang gõ."
           },
           {
             "id": 7,
-            "text_en": "Is hover feedback provided for interactive elements like buttons and links?",
-            "text": "Phản hồi khi di chuột có được cung cấp cho các phần tử tương tác như nút và liên kết không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Hiển thị hiệu ứng hover rõ nét khi di chuột qua các nút bấm và link liên kết."
           },
           {
             "id": 8,
-            "text_en": "Are confirmation messages shown after completing important actions (e.g., order placed, email sent)?",
-            "text": "Thông báo xác nhận có hiển thị sau khi hoàn thành các hành động quan trọng (ví dụ: đặt hàng, gửi email) không?",
-            "desc": "Cung cấp phản hồi kịp thời và hiển thị rõ ràng trạng thái hoạt động của hệ thống.",
-            "why": "Người dùng cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
+            "desc": "",
+            "why": "user cần biết chuyện gì đang xảy ra để cảm thấy an tâm và không thực hiện thao tác lặp lại vô ích.",
             "how": [
-              "Hiển thị thông báo trạng thái hoặc vòng xoay tải (loader) ngay khi hệ thống xử lý tác vụ.",
+              "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
               "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
               "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
             ],
-            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi người dùng bấm xuất báo cáo nặng.",
-            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+            "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính.",
+            "title": "Hiển thị màn hình/popup xác nhận sau khi user hoàn thành task quan trọng (như đặt hàng thành công)."
           }
         ]
       },
       {
         "id": 4,
-        "name": "Thiết kế các hội thoại có điểm kết thúc rõ ràng",
+        "name": "Hội thoại có điểm kết thúc rõ ràng (Closure)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are users clearly informed when they have completed a task?",
-            "text": "Người dùng có được thông báo rõ ràng khi họ đã hoàn thành một nhiệm vụ không?",
-            "desc": "Thiết kế các bước kết thúc rõ ràng cho một chuỗi hành động và xác nhận kết quả.",
-            "why": "Người dùng cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
+            "desc": "",
+            "why": "user cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
             "how": [
-              "Hiển thị màn hình hoặc hộp thoại xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+              "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
               "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
               "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
             ],
             "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
-            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào.",
+            "title": "Thông báo rõ ràng cho user khi họ đã hoàn thành xong một task."
           },
           {
             "id": 2,
-            "text_en": "Do checkout or form submission processes end with a confirmation message?",
-            "text": "Quá trình thanh toán hoặc gửi biểu mẫu có kết thúc bằng thông báo xác nhận không?",
-            "desc": "Thiết kế các bước kết thúc rõ ràng cho một chuỗi hành động và xác nhận kết quả.",
-            "why": "Người dùng cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
+            "desc": "",
+            "why": "user cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
             "how": [
-              "Hiển thị màn hình hoặc hộp thoại xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+              "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
               "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
               "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
             ],
             "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
-            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào.",
+            "title": "Kết thúc quy trình thanh toán hoặc gửi form bằng một trang xác nhận trực quan."
           },
           {
             "id": 3,
-            "text_en": "Are emails or push notifications sent after major actions (e.g., booking confirmation, password change)?",
-            "text": "Email hoặc thông báo đẩy có được gửi sau các hành động quan trọng (ví dụ: xác nhận đặt chỗ, thay đổi mật khẩu) không?",
-            "desc": "Thiết kế các bước kết thúc rõ ràng cho một chuỗi hành động và xác nhận kết quả.",
-            "why": "Người dùng cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
+            "desc": "",
+            "why": "user cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
             "how": [
-              "Hiển thị màn hình hoặc hộp thoại xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+              "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
               "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
               "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
             ],
             "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
-            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào.",
+            "title": "Gửi email hoặc thông báo đẩy xác nhận tự động ngay sau các giao dịch quan trọng."
           },
           {
             "id": 4,
-            "text_en": "Are progress indicators shown for multi-step processes?",
-            "text": "Các chỉ báo tiến trình có được hiển thị cho các quy trình nhiều bước không?",
-            "desc": "Thiết kế các bước kết thúc rõ ràng cho một chuỗi hành động và xác nhận kết quả.",
-            "why": "Người dùng cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
+            "desc": "",
+            "why": "user cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
             "how": [
-              "Hiển thị màn hình hoặc hộp thoại xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+              "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
               "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
               "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
             ],
             "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
-            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào.",
+            "title": "Hiển thị thanh tiến trình (progress bar) cho các quy trình nhiều bước."
           },
           {
             "id": 5,
-            "text_en": "Are end-of-task summaries provided (e.g., “Your report is ready” with a download link)?",
-            "text": "Các bản tóm tắt cuối nhiệm vụ có được cung cấp không (ví dụ: “Báo cáo của bạn đã sẵn sàng” kèm theo liên kết tải xuống)?",
-            "desc": "Thiết kế các bước kết thúc rõ ràng cho một chuỗi hành động và xác nhận kết quả.",
-            "why": "Người dùng cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
+            "desc": "",
+            "why": "user cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
             "how": [
-              "Hiển thị màn hình hoặc hộp thoại xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+              "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
               "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
               "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
             ],
             "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
-            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào.",
+            "title": "Cung cấp trang tóm tắt kết quả kèm nút tải xuống khi hoàn tất xuất báo cáo."
           },
           {
             "id": 6,
-            "text_en": "Are users guided to the next logical step after completing a task?",
-            "text": "Người dùng có được hướng dẫn đến bước hợp lý tiếp theo sau khi hoàn thành nhiệm vụ không?",
-            "desc": "Thiết kế các bước kết thúc rõ ràng cho một chuỗi hành động và xác nhận kết quả.",
-            "why": "Người dùng cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
+            "desc": "",
+            "why": "user cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
             "how": [
-              "Hiển thị màn hình hoặc hộp thoại xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+              "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
               "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
               "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
             ],
             "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
-            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào.",
+            "title": "Gợi ý hành động logic tiếp theo cho user sau khi họ kết thúc quy trình hiện tại."
           },
           {
             "id": 7,
-            "text_en": "Are action buttons labeled clearly (e.g., “Finish” instead of “Continue” at the final step)?",
-            "text": "Các nút hành động có được dán nhãn rõ ràng không (ví dụ: “Hoàn tất” thay vì “Tiếp tục” ở bước cuối cùng)?",
-            "desc": "Thiết kế các bước kết thúc rõ ràng cho một chuỗi hành động và xác nhận kết quả.",
-            "why": "Người dùng cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
+            "desc": "",
+            "why": "user cần biết khi nào một nhiệm vụ đã hoàn thành xuất sắc để họ có thể yên tâm chuyển sang công việc tiếp theo.",
             "how": [
-              "Hiển thị màn hình hoặc hộp thoại xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+              "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
               "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
               "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
             ],
             "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
-            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào.",
+            "title": "Đặt tên nút ở bước cuối quy trình rõ nghĩa (ví dụ: 'Hoàn tất' thay vì nút 'Tiếp tục')."
           }
         ]
       },
       {
         "id": 5,
-        "name": "Chủ động phòng ngừa lỗi xảy ra",
+        "name": "Chủ động phòng ngừa lỗi xảy ra (Error prevention)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are users prevented from entering invalid data? (e.g., no letters in a phone number field)",
-            "text": "Người dùng có bị ngăn nhập dữ liệu không hợp lệ không? (ví dụ: không có chữ cái trong trường số điện thoại)",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Validate định dạng dữ liệu trực tiếp để ngăn user nhập ký tự không hợp lệ (ví dụ: chặn nhập chữ vào ô số điện thoại)."
           },
           {
             "id": 2,
-            "text_en": "Are required fields clearly marked?",
-            "text": "Các trường bắt buộc có được đánh dấu rõ ràng không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Đánh dấu rõ ràng các trường bắt buộc phải điền."
           },
           {
             "id": 3,
-            "text_en": "Are destructive actions (delete, cancel) accompanied by a confirmation step?",
-            "text": "Các hành động phá hoại (xóa, hủy) có kèm theo bước xác nhận không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Yêu cầu confirm bằng hộp thoại trước khi thực hiện hành động xóa hoặc hủy."
           },
           {
             "id": 4,
-            "text_en": "Are undo or rollback options available?",
-            "text": "Các tùy chọn hoàn tác hoặc khôi phục có sẵn không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Cung cấp tính năng Undo hoặc khôi phục dữ liệu nhanh."
           },
           {
             "id": 5,
-            "text_en": "Are tooltips or hints provided for complex fields?",
-            "text": "Chú giải công cụ hoặc gợi ý có được cung cấp cho các trường phức tạp không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Cung cấp tooltip giải thích cho các trường thông tin phức tạp."
           },
           {
             "id": 6,
-            "text_en": "Is real-time validation applied to forms (e.g., email format checked before submission)?",
-            "text": "Việc xác thực theo thời gian thực có được áp dụng cho các biểu mẫu không (ví dụ: định dạng email được kiểm tra trước khi gửi)?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Validate định dạng email/mật khẩu trực tiếp ngay khi đang nhập form."
           },
           {
             "id": 7,
-            "text_en": "Are clear constraints set (e.g., min/max character limits for usernames, password requirements)?",
-            "text": "Có đặt các ràng buộc rõ ràng không (ví dụ: giới hạn ký tự tối thiểu/tối đa cho tên người dùng, yêu cầu mật khẩu)?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Đặt ra các ràng buộc mật khẩu rõ ràng (độ dài tối thiểu, ký tự đặc biệt)."
           },
           {
             "id": 8,
-            "text_en": "Are errors explained in plain language instead of technical jargon?",
-            "text": "Các lỗi có được giải thích bằng ngôn ngữ đơn giản thay vì thuật ngữ kỹ thuật không?",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Dùng ngôn ngữ dễ hiểu cho thông báo lỗi, tránh dùng mã lỗi lập trình."
           },
           {
             "id": 9,
-            "text_en": "Are users guided through error recovery? (e.g., “Try resetting your password” for failed logins)",
-            "text": "Người dùng có được hướng dẫn cách khắc phục lỗi không? (ví dụ: “Thử đặt lại mật khẩu của bạn” nếu đăng nhập không thành công)",
-            "desc": "Thiết kế giao diện chủ động ngăn ngừa lỗi xảy ra thay vì chỉ hiển thị thông báo lỗi.",
-            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của người dùng.",
+            "desc": "",
+            "why": "Phòng bệnh hơn chữa bệnh; loại bỏ các điều kiện dễ gây lỗi giúp tối ưu hóa thời gian và trải nghiệm của user.",
             "how": [
               "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
               "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
               "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
             ],
-            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi người dùng đặt vé máy bay.",
-            "dont": "Cho phép người dùng nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+            "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\".",
+            "title": "Chỉ dẫn chi tiết cách sửa lỗi ngay trong câu thông báo lỗi."
           }
         ]
       },
       {
         "id": 6,
-        "name": "Cho phép đảo ngược hành động dễ dàng",
+        "name": "Cho phép undo/đảo ngược hành động dễ dàng (Reversibility)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Can users undo or redo actions easily? (e.g., Undo for text editing, “Reopen closed tab” in browsers)",
-            "text": "Người dùng có thể hoàn tác hoặc làm lại hành động một cách dễ dàng không? (ví dụ: Hoàn tác để chỉnh sửa văn bản, “Mở lại tab đã đóng” trong trình duyệt)",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép dễ dàng Undo (hoàn tác) hoặc Redo hành động vừa thực hiện."
           },
           {
             "id": 2,
-            "text_en": "Are delete actions reversible for a period (e.g., Trash folder before permanent deletion)?",
-            "text": "Các hành động xóa có thể hoàn nguyên trong một khoảng thời gian không (ví dụ: thư mục Thùng rác trước khi xóa vĩnh viễn)?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Lưu trữ dữ liệu đã xóa vào thùng rác tạm thời để user có thể khôi phục khi cần."
           },
           {
             "id": 3,
-            "text_en": "Are confirmation dialogs provided before performing irreversible actions?",
-            "text": "Các hộp thoại xác nhận có được cung cấp trước khi thực hiện các hành động không thể đảo ngược không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Hiển thị popup confirm trước khi chạy các lệnh không thể đảo ngược."
           },
           {
             "id": 4,
-            "text_en": "Can users restore previous settings if they make changes?",
-            "text": "Người dùng có thể khôi phục cài đặt trước đó nếu họ thực hiện thay đổi không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép khôi phục cài đặt cũ nếu user thay đổi cài đặt giao diện."
           },
           {
             "id": 5,
-            "text_en": "Are session states saved so users don’t lose work accidentally?",
-            "text": "Trạng thái phiên có được lưu để người dùng không vô tình bị mất công việc không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Lưu trạng thái phiên làm việc (session state) để tránh mất dữ liệu khi mất kết nối mạng đột ngột."
           },
           {
             "id": 6,
-            "text_en": "Are drafts auto-saved in case of accidental closure?",
-            "text": "Bản nháp có được tự động lưu trong trường hợp vô tình đóng không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Tự động lưu bản nháp form để tránh mất bài viết khi vô tình đóng tab."
           },
           {
             "id": 7,
-            "text_en": "Is there a “Cancel” button available at every step in a process?",
-            "text": "Có nút “Hủy” ở mỗi bước trong quy trình không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Luôn hiển thị nút Hủy (Cancel) ở tất cả các bước trong quy trình nhập liệu."
           },
           {
             "id": 8,
-            "text_en": "Are users allowed to edit or modify submitted data if needed?",
-            "text": "Người dùng có được phép chỉnh sửa hoặc sửa đổi dữ liệu đã gửi nếu cần không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép chỉnh sửa dữ liệu đã gửi nếu phát hiện sai sót."
           }
         ]
       },
       {
         "id": 7,
-        "name": "Hỗ trợ quyền kiểm soát chủ động của người dùng",
+        "name": "Hỗ trợ quyền kiểm soát chủ động của user (Control)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Do users feel in control of the interface rather than the system controlling them?",
-            "text": "Người dùng có cảm thấy mình đang kiểm soát giao diện hơn là hệ thống đang kiểm soát họ không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Thiết kế để user cảm thấy làm chủ giao diện thay vì bị hệ thống ép buộc luồng đi."
           },
           {
             "id": 2,
-            "text_en": "Are unexpected pop-ups or forced actions minimized?",
-            "text": "Các cửa sổ bật lên bất ngờ hoặc các hành động bắt buộc có được giảm thiểu không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Hạn chế tối đa các popup bất ngờ gây xao nhãng hoặc cản trở thao tác."
           },
           {
             "id": 3,
-            "text_en": "Do users have clear exit points in all tasks?",
-            "text": "Người dùng có điểm thoát rõ ràng trong tất cả các nhiệm vụ không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Luôn cung cấp lối thoát (nút Exit/Cancel) rõ ràng ở mọi tác vụ."
           },
           {
             "id": 4,
-            "text_en": "Can users customize the interface based on their preferences? (e.g., dark mode, font size)",
-            "text": "Người dùng có thể tùy chỉnh giao diện dựa trên sở thích của mình không? (ví dụ: chế độ tối, cỡ chữ)",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cho phép cá nhân hóa giao diện (đổi theme tối/sáng, chỉnh size chữ)."
           },
           {
             "id": 5,
-            "text_en": "Are there no irreversible actions without prior warning?",
-            "text": "Có hành động nào không thể đảo ngược mà không có cảnh báo trước không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Không bao giờ thực hiện hành động không thể đảo ngược mà không cảnh báo trước."
           },
           {
             "id": 6,
-            "text_en": "Are navigation paths predictable and free from unexpected redirects?",
-            "text": "Các đường dẫn điều hướng có thể dự đoán được và không bị chuyển hướng không mong muốn không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Đảm bảo luồng điều hướng đi đúng kỳ vọng của user, không tự động chuyển hướng màn hình đột ngột."
           },
           {
             "id": 7,
-            "text_en": "Do users feel like they are guiding the experience rather than being forced into certain flows?",
-            "text": "Người dùng có cảm thấy như họ đang hướng dẫn trải nghiệm thay vì bị ép buộc vào một số luồng nhất định không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Dẫn dắt trải nghiệm một cách tự nhiên, tránh ép buộc user theo một kịch bản cứng nhắc."
           },
           {
             "id": 8,
-            "text_en": "Are AI-based suggestions optional, allowing users to make their own decisions?",
-            "text": "Các đề xuất dựa trên AI có phải là tùy chọn, cho phép người dùng tự đưa ra quyết định không?",
-            "desc": "Trao quyền kiểm soát cho người dùng, cho phép sửa sai và tự do điều hướng.",
-            "why": "Người dùng thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
+            "desc": "",
+            "why": "user thường vô tình bấm nhầm hoặc thay đổi ý định và họ cần một lối thoát khẩn cấp nhanh chóng mà không gây ức chế.",
             "how": [
               "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
-              "Hỗ trợ tính năng \"Hoàn tác\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
-              "Cho phép người dùng thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+              "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+              "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
             ],
-            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"Hoàn tác\" ở góc dưới màn hình.",
-            "dont": "Bắt người dùng hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+            "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1.",
+            "title": "Cung cấp quyền tắt/bật các đề xuất tự động từ hệ thống."
           }
         ]
       },
       {
         "id": 8,
-        "name": "Giảm tải bộ nhớ ngắn hạn cho người dùng",
+        "name": "Giảm tải bộ nhớ ngắn hạn cho user (Reduce memory load)",
         "criteria": [
           {
             "id": 1,
-            "text_en": "Are important actions and options visible rather than hidden in menus?",
-            "text": "Các hành động và tùy chọn quan trọng có hiển thị thay vì ẩn trong menu không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Hiển thị sẵn các tính năng cốt lõi trên thanh menu thay vì giấu sâu bên trong."
           },
           {
             "id": 2,
-            "text_en": "Are tooltips or helper texts available when users hover over options?",
-            "text": "Chú giải công cụ hoặc văn bản trợ giúp có sẵn khi người dùng di chuột qua các tùy chọn không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Hiển thị tooltip giải thích nhanh khi hover qua các nút chức năng."
           },
           {
             "id": 3,
-            "text_en": "Are users not required to memorize data between screens? (e.g., address copied automatically from shipping to billing)",
-            "text": "Người dùng không bắt buộc phải ghi nhớ dữ liệu giữa các màn hình? (ví dụ: địa chỉ được sao chép tự động từ khâu vận chuyển sang khâu thanh toán)",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Không bắt user ghi nhớ thông tin giữa các màn hình (ví dụ: tự động copy địa chỉ giao hàng sang địa chỉ thanh toán)."
           },
           {
             "id": 4,
-            "text_en": "Are breadcrumbs or navigation aids present for complex workflows?",
-            "text": "Các đường dẫn hoặc công cụ hỗ trợ điều hướng có sẵn cho các quy trình làm việc phức tạp không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Cung cấp breadcrumbs hoặc sơ đồ hướng dẫn cho các quy trình nghiệp vụ phức tạp."
           },
           {
             "id": 5,
-            "text_en": "Are field labels always visible (rather than disappearing when users start typing)?",
-            "text": "Nhãn trường có luôn hiển thị (thay vì biến mất khi người dùng bắt đầu nhập) không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Giữ label trường nhập luôn hiển thị (tránh dùng placeholder thay thế cho label)."
           },
           {
             "id": 6,
-            "text_en": "Are past user inputs saved for easy reference? (e.g., recent searches, saved addresses)",
-            "text": "Thông tin đầu vào của người dùng trước đây có được lưu lại để dễ dàng tham khảo không? (ví dụ: tìm kiếm gần đây, địa chỉ đã lưu)",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Lưu lịch sử tìm kiếm và thông tin nhập liệu cũ để user truy cập nhanh khi cần."
           },
           {
             "id": 7,
-            "text_en": "Are step-by-step guides provided for complex workflows?",
-            "text": "Hướng dẫn từng bước có được cung cấp cho quy trình công việc phức tạp không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Cung cấp hướng dẫn từng bước rõ ràng cho các luồng nghiệp vụ khó."
           },
           {
             "id": 8,
-            "text_en": "Are recent actions easily accessible in history or logs?",
-            "text": "Các hành động gần đây có dễ dàng truy cập được trong lịch sử hoặc nhật ký không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Cho phép dễ dàng truy cập lịch sử hoạt động gần đây của user."
           },
           {
             "id": 9,
-            "text_en": "Are recent actions easily accessible in history or logs?",
-            "text": "Các hành động gần đây có dễ dàng truy cập được trong lịch sử hoặc nhật ký không?",
-            "desc": "Giảm thiểu tải nhớ cho người dùng bằng cách hiển thị rõ ràng thông tin và hướng dẫn trực quan.",
-            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; người dùng dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
+            "desc": "",
+            "why": "Trí nhớ ngắn hạn của con người rất hạn chế; user dễ dàng thao tác hơn khi họ có thể nhận diện thông tin trực tiếp thay vì cố nhớ lại.",
             "how": [
               "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
-              "Giữ cho các nhãn (labels) và hướng dẫn luôn hiển thị rõ ràng khi người dùng đang điền biểu mẫu.",
+              "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
               "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
             ],
-            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để người dùng không cần quay lại tìm kiếm.",
-            "dont": "Bắt người dùng phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+            "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau.",
+            "title": "Cung cấp nhật ký hoạt động (activity log) trực quan để user dễ tra cứu lại."
           }
         ]
       }

@@ -443,14 +443,13 @@ function renderChecklist() {
 
       // 3. Lọc theo từ khóa tìm kiếm (searchQuery)
       if (searchQuery) {
-        const matchTextVi = crit.text.toLowerCase().includes(searchQuery);
-        const matchTextEn = (crit.text_en || '').toLowerCase().includes(searchQuery);
+        const matchTitle = (crit.title || '').toLowerCase().includes(searchQuery);
         const matchDesc = (crit.desc || '').toLowerCase().includes(searchQuery);
         const matchWhy = (crit.why || '').toLowerCase().includes(searchQuery);
         const matchCat = cat.name.toLowerCase().includes(searchQuery);
         const matchId = `${prefix.toLowerCase()}${cat.id}.${crit.id}`.includes(searchQuery) || itemId.includes(searchQuery);
 
-        if (!matchTextVi && !matchTextEn && !matchDesc && !matchWhy && !matchCat && !matchId) {
+        if (!matchTitle && !matchDesc && !matchWhy && !matchCat && !matchId) {
           return;
         }
       }
@@ -460,8 +459,7 @@ function renderChecklist() {
         catName: cat.name,
         id: crit.id,
         itemId: itemId,
-        text: crit.text,
-        text_en: crit.text_en,
+        title: crit.title,
         desc: crit.desc,
         why: crit.why,
         how: crit.how,
@@ -513,8 +511,7 @@ function renderChecklist() {
         <div class="details-content">
           <div class="details-section">
             <h4>
-              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-              Tại sao điều này quan trọng?
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>              Tại sao điều này quan trọng?
             </h4>
             <p style="color:var(--text-muted); padding-left: 20px;">${item.why}</p>
           </div>
@@ -549,15 +546,26 @@ function renderChecklist() {
       </details>
     `;
 
+    // Tạo icon indicator dựa trên trạng thái
+    let indicatorHtml = '';
+    if (item.status === 'done') {
+      indicatorHtml = `<span class="status-indicator indicator-done" aria-label="Pass"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>`;
+    } else if (item.status === 'todo') {
+      indicatorHtml = `<span class="status-indicator indicator-todo" aria-label="Fail"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></span>`;
+    } else {
+      indicatorHtml = `<span class="status-indicator indicator-hidden" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg></span>`;
+    }
+
     card.innerHTML = `
       <div class="card-header-main">
         <div class="card-title-group">
           <div class="card-badges">
+            ${indicatorHtml}
             <span class="badge badge-id">${code}</span>
             <span class="badge" style="background:var(--bg-secondary); color:var(--text-muted); border:1px solid var(--border-color); font-weight:500;">${item.catName}</span>
           </div>
-          <h6 style="font-size: 1.05rem; line-height: 1.5; font-weight: 500; margin-top: 8px; color: var(--text-color);">${item.text}</h6>
-          <p class="font-sans-caption">${item.desc}</p>
+          <h6 style="font-size: 1.05rem; line-height: 1.5; font-weight: 500; margin-top: 8px; color: var(--text-color);">${item.title}</h6>
+          ${item.desc ? `<p class="font-sans-caption">${item.desc}</p>` : ''}
         </div>
         
         <div class="status-selector">
@@ -591,6 +599,9 @@ function renderChecklist() {
         if (newStatus === 'todo') card.classList.add('card-todo');
         if (newStatus === 'na') card.classList.add('card-na');
 
+        // Cập nhật icon indicator
+        updateIndicatorIcon(card, newStatus);
+
         // Cập nhật thanh tiến trình và tổng số lượng
         updateProgressAndStats();
       });
@@ -616,6 +627,29 @@ function renderChecklist() {
     } else {
       activeCardId = null;
     }
+  }
+}
+
+// Hàm cập nhật icon indicator trên card
+function updateIndicatorIcon(card, newStatus) {
+  const indicator = card.querySelector('.status-indicator');
+  if (!indicator) return;
+
+  indicator.className = 'status-indicator';
+  if (newStatus === 'done') {
+    indicator.classList.add('indicator-done');
+    indicator.setAttribute('aria-label', 'Pass');
+    indicator.removeAttribute('aria-hidden');
+    indicator.innerHTML = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+  } else if (newStatus === 'todo') {
+    indicator.classList.add('indicator-todo');
+    indicator.setAttribute('aria-label', 'Fail');
+    indicator.removeAttribute('aria-hidden');
+    indicator.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`;
+  } else {
+    indicator.classList.add('indicator-hidden');
+    indicator.setAttribute('aria-hidden', 'true');
+    indicator.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>`;
   }
 }
 
@@ -645,7 +679,8 @@ function exportToMarkdown() {
       const itemId = `${cat.id}_${crit.id}`;
       const status = state[itemId] || 'unselected';
       const code = `${prefix}${cat.id}.${crit.id}`;
-      const itemText = `**[${code}] ${cat.name}**: ${crit.text}\n   - *Chi tiết*: ${crit.desc}\n   - *Lý do*: ${crit.why}`;
+      const detailPart = crit.desc ? `\n   - *Chi tiết*: ${crit.desc}` : '';
+      const itemText = `**[${code}] ${cat.name}**: ${crit.title}${detailPart}\n   - *Lý do*: ${crit.why}`;
 
       if (status === 'done') {
         doneList.push(itemText);
@@ -759,6 +794,7 @@ function cycleStatus(cardEl, direction) {
     saveToStorage();
     btns.forEach(b => b.classList.remove('active'));
     cardEl.classList.remove('card-done', 'card-todo', 'card-na');
+    updateIndicatorIcon(cardEl, 'unselected');
     updateProgressAndStats();
   } else {
     const targetBtn = cardEl.querySelector(`.status-btn[data-status="${nextStatus}"]`);
@@ -783,6 +819,7 @@ document.addEventListener('keydown', (e) => {
 
   // Xử lý phím Enter để đóng/mở chi tiết thẻ đang focus
   if (key === 'Enter') {
+    highlightDpadKey('key-enter');
     if (activeCardId) {
       const activeCardEl = document.getElementById(`card-${activeCardId}`);
       if (activeCardEl && document.activeElement === activeCardEl) {

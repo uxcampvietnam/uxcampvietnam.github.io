@@ -252,20 +252,20 @@ const WCAG_DATA = [
     "dont": "Dùng các hình ảnh trang trí làm nút điều hướng mà không có bất kỳ cấu trúc siêu dữ liệu nào."
   },
   {
-    "id": "wcag-1-4-1",
+    "id": "use-of-color",
     "wcag": "1.4.1",
-    "title": "Tiêu chí WCAG 1.4.1",
+    "title": "Không chỉ dùng màu sắc để truyền tải thông tin (Use of Color)",
     "level": "A",
     "category": "visual",
     "isNew22": false,
-    "desc": "Đảm bảo tuân thủ tiêu chí thành công WCAG 1.4.1 dành cho thiết kế giao diện.",
-    "why": "Đảm bảo người dùng khuyết tật có thể tương tác bình thường và giảm thiểu các rủi ro hoặc rào cản tiếp cận thông tin đối với tiêu chuẩn 1.4.1.",
+    "desc": "Đảm bảo màu sắc không phải là phương tiện trực quan duy nhất để truyền tải thông tin, chỉ báo hành động, gợi ý phản hồi hoặc phân biệt các phần tử trên giao diện.",
+    "why": "Người mù màu hoặc suy giảm thị lực không thể phân biệt được các trạng thái hoặc thông tin chỉ được truyền đạt qua sự khác biệt về màu sắc.",
     "how": [
-      "Kiểm tra tiêu chí 1.4.1 trong tài liệu đặc tả WCAG 2.2 chính thức của W3C.",
-      "Đảm bảo phối hợp với lập trình viên để chuyển đổi các yêu cầu thiết kế thành mã nguồn semantic tương ứng."
+      "Luôn kết hợp màu sắc với các yếu tố trực quan khác như biểu tượng, hoa văn, nhãn chữ hoặc gạch chân để phân biệt thông tin.",
+      "Trong biểu đồ, sử dụng thêm hoa văn (pattern) hoặc nhãn trực tiếp bên cạnh màu sắc."
     ],
-    "do": "Thiết kế rõ ràng, tương phản tốt và có nhãn chữ đi kèm.",
-    "dont": "Ẩn các chỉ báo trạng thái hoặc sử dụng thiết kế gây khó khăn cho việc tương tác bằng bàn phím/trình đọc màn hình."
+    "do": "Liên kết trong đoạn văn vừa có màu xanh vừa được gạch chân, trường lỗi vừa viền đỏ vừa có biểu tượng cảnh báo và dòng chữ mô tả lỗi.",
+    "dont": "Chỉ dùng màu đỏ để đánh dấu trường nhập liệu bị lỗi mà không có biểu tượng hay chữ giải thích đi kèm."
   },
   {
     "id": "audio-control",
@@ -284,36 +284,36 @@ const WCAG_DATA = [
     "dont": "Phát nhạc nền ầm ĩ ngay khi mở trang web mà không có nút tạm dừng."
   },
   {
-    "id": "wcag-1-4-3",
+    "id": "contrast-minimum",
     "wcag": "1.4.3",
-    "title": "Tiêu chí WCAG 1.4.3",
+    "title": "Độ tương phản văn bản tối thiểu (Contrast - Minimum)",
     "level": "AA",
     "category": "visual",
     "isNew22": false,
-    "desc": "Đảm bảo tuân thủ tiêu chí thành công WCAG 1.4.3 dành cho thiết kế giao diện.",
-    "why": "Đảm bảo người dùng khuyết tật có thể tương tác bình thường và giảm thiểu các rủi ro hoặc rào cản tiếp cận thông tin đối với tiêu chuẩn 1.4.3.",
+    "desc": "Đảm bảo độ tương phản tối thiểu giữa màu chữ và màu nền đạt tỷ lệ 4.5:1 đối với văn bản cỡ thường, và 3:1 đối với văn bản lớn (từ 18pt hoặc 14pt in đậm trở lên).",
+    "why": "Người suy giảm thị lực hoặc người dùng trong môi trường ánh sáng mạnh cần độ tương phản đủ cao để đọc được nội dung trên màn hình.",
     "how": [
-      "Kiểm tra tiêu chí 1.4.3 trong tài liệu đặc tả WCAG 2.2 chính thức của W3C.",
-      "Đảm bảo phối hợp với lập trình viên để chuyển đổi các yêu cầu thiết kế thành mã nguồn semantic tương ứng."
+      "Sử dụng các công cụ kiểm tra tương phản (như Stark, Contrast Checker trong Figma) để đo tỷ lệ tương phản của tất cả cặp màu chữ/nền trong bảng màu thiết kế.",
+      "Tránh đặt chữ có màu nhạt trên nền sáng hoặc chữ tối trên nền tối."
     ],
-    "do": "Thiết kế rõ ràng, tương phản tốt và có nhãn chữ đi kèm.",
-    "dont": "Ẩn các chỉ báo trạng thái hoặc sử dụng thiết kế gây khó khăn cho việc tương tác bằng bàn phím/trình đọc màn hình."
+    "do": "Chữ xám đậm (#333333) trên nền trắng (#FFFFFF) đạt tỷ lệ tương phản 12.6:1 (vượt chuẩn AA).",
+    "dont": "Chữ xám nhạt (#999999) trên nền trắng chỉ đạt tương phản 2.8:1, không đủ tiêu chuẩn."
   },
   {
-    "id": "wcag-1-4-4",
+    "id": "resize-text",
     "wcag": "1.4.4",
-    "title": "Tiêu chí WCAG 1.4.4",
+    "title": "Phóng to cỡ chữ (Resize Text)",
     "level": "AA",
     "category": "visual",
     "isNew22": false,
-    "desc": "Đảm bảo tuân thủ tiêu chí thành công WCAG 1.4.4 dành cho thiết kế giao diện.",
-    "why": "Đảm bảo người dùng khuyết tật có thể tương tác bình thường và giảm thiểu các rủi ro hoặc rào cản tiếp cận thông tin đối với tiêu chuẩn 1.4.4.",
+    "desc": "Đảm bảo văn bản có thể được phóng to lên đến 200% mà không bị mất nội dung hoặc chức năng, không cần sử dụng các công nghệ hỗ trợ.",
+    "why": "Người suy giảm thị lực thường sử dụng tính năng phóng to chữ của trình duyệt để đọc nội dung, và giao diện cần hoạt động bình thường khi chữ lớn hơn.",
     "how": [
-      "Kiểm tra tiêu chí 1.4.4 trong tài liệu đặc tả WCAG 2.2 chính thức của W3C.",
-      "Đảm bảo phối hợp với lập trình viên để chuyển đổi các yêu cầu thiết kế thành mã nguồn semantic tương ứng."
+      "Sử dụng đơn vị kích thước tương đối (rem, em, %) thay vì đơn vị tuyệt đối (px) cho cỡ chữ.",
+      "Thiết kế bố cục linh hoạt tự co giãn khi người dùng phóng to chữ bằng trình duyệt (Ctrl/Cmd + Plus)."
     ],
-    "do": "Thiết kế rõ ràng, tương phản tốt và có nhãn chữ đi kèm.",
-    "dont": "Ẩn các chỉ báo trạng thái hoặc sử dụng thiết kế gây khó khăn cho việc tương tác bằng bàn phím/trình đọc màn hình."
+    "do": "Trang web hiển thị bình thường, văn bản xuống dòng tự nhiên khi người dùng phóng to trình duyệt lên 200%.",
+    "dont": "Văn bản bị cắt cụt, đè chồng lên nhau hoặc tràn ra ngoài khung chứa khi người dùng phóng to cỡ chữ."
   },
   {
     "id": "images-of-text",
@@ -393,36 +393,36 @@ const WCAG_DATA = [
     "dont": "Tạo banner quảng cáo chứa thông tin khuyến mãi dạng ảnh JPG đính kèm."
   },
   {
-    "id": "wcag-1-4-10",
+    "id": "reflow",
     "wcag": "1.4.10",
-    "title": "Tiêu chí WCAG 1.4.10",
+    "title": "Bố cục co giãn không cuộn ngang (Reflow)",
     "level": "AA",
     "category": "visual",
     "isNew22": false,
-    "desc": "Đảm bảo tuân thủ tiêu chí thành công WCAG 1.4.10 dành cho thiết kế giao diện.",
-    "why": "Đảm bảo người dùng khuyết tật có thể tương tác bình thường và giảm thiểu các rủi ro hoặc rào cản tiếp cận thông tin đối với tiêu chuẩn 1.4.10.",
+    "desc": "Đảm bảo nội dung có thể hiển thị ở chiều rộng tương đương 320 CSS pixels (thu phóng 400%) mà không cần cuộn ngang (trừ các nội dung đặc thù như bảng dữ liệu lớn, bản đồ, sơ đồ).",
+    "why": "Người suy giảm thị lực thường phóng to màn hình rất lớn; nếu bố cục không co giãn theo, họ phải cuộn ngang liên tục gây mất phương hướng và mệt mỏi.",
     "how": [
-      "Kiểm tra tiêu chí 1.4.10 trong tài liệu đặc tả WCAG 2.2 chính thức của W3C.",
-      "Đảm bảo phối hợp với lập trình viên để chuyển đổi các yêu cầu thiết kế thành mã nguồn semantic tương ứng."
+      "Thiết kế responsive thích ứng tốt ở chiều rộng 320px (tương đương thu phóng 400% trên màn hình 1280px).",
+      "Tránh dùng bố cục nhiều cột cố định; sử dụng CSS Flexbox hoặc Grid để các cột tự động xếp chồng thành một cột khi thu hẹp."
     ],
-    "do": "Thiết kế rõ ràng, tương phản tốt và có nhãn chữ đi kèm.",
-    "dont": "Ẩn các chỉ báo trạng thái hoặc sử dụng thiết kế gây khó khăn cho việc tương tác bằng bàn phím/trình đọc màn hình."
+    "do": "Trang bài viết tự động chuyển từ bố cục 2 cột sang 1 cột khi thu hẹp xuống 320px, nội dung chỉ cuộn dọc.",
+    "dont": "Trang web xuất hiện thanh cuộn ngang bắt buộc khi phóng to 400%, người dùng phải cuộn qua lại để đọc hết mỗi dòng chữ."
   },
   {
-    "id": "wcag-1-4-11",
+    "id": "non-text-contrast",
     "wcag": "1.4.11",
-    "title": "Tiêu chí WCAG 1.4.11",
+    "title": "Độ tương phản phi văn bản (Non-text Contrast)",
     "level": "AA",
     "category": "visual",
     "isNew22": false,
-    "desc": "Đảm bảo tuân thủ tiêu chí thành công WCAG 1.4.11 dành cho thiết kế giao diện.",
-    "why": "Đảm bảo người dùng khuyết tật có thể tương tác bình thường và giảm thiểu các rủi ro hoặc rào cản tiếp cận thông tin đối với tiêu chuẩn 1.4.11.",
+    "desc": "Đảm bảo các thành phần giao diện (nút bấm, ô nhập liệu, biểu tượng) và các đồ họa thông tin quan trọng (biểu đồ, sơ đồ) có độ tương phản tối thiểu 3:1 so với màu nền liền kề.",
+    "why": "Người suy giảm thị lực cần nhìn rõ viền nút bấm, viền ô nhập liệu và biểu đồ để phân biệt các thành phần tương tác và hiểu dữ liệu trực quan.",
     "how": [
-      "Kiểm tra tiêu chí 1.4.11 trong tài liệu đặc tả WCAG 2.2 chính thức của W3C.",
-      "Đảm bảo phối hợp với lập trình viên để chuyển đổi các yêu cầu thiết kế thành mã nguồn semantic tương ứng."
+      "Kiểm tra tỷ lệ tương phản của viền nút bấm, viền ô nhập, biểu tượng hành động và các phần tử đồ họa so với nền xung quanh đạt tối thiểu 3:1.",
+      "Đảm bảo trạng thái focus, hover và active của các phần tử tương tác cũng đạt tỷ lệ tương phản 3:1."
     ],
-    "do": "Thiết kế rõ ràng, tương phản tốt và có nhãn chữ đi kèm.",
-    "dont": "Ẩn các chỉ báo trạng thái hoặc sử dụng thiết kế gây khó khăn cho việc tương tác bằng bàn phím/trình đọc màn hình."
+    "do": "Ô nhập liệu có viền xám đậm (#767676) trên nền trắng đạt tương phản 4.5:1, biểu tượng tìm kiếm màu đậm rõ ràng.",
+    "dont": "Ô nhập liệu chỉ có viền xám nhạt (#E0E0E0) gần như hòa lẫn với nền trắng, người dùng khó nhận diện vị trí nhập."
   },
   {
     "id": "text-spacing",
@@ -1168,36 +1168,36 @@ const WCAG_DATA = [
     "dont": "Trang này chatbot nằm ở góc phải, trang khác lại di chuyển lên thanh menu chính."
   },
   {
-    "id": "wcag-3-3-1",
+    "id": "error-identification",
     "wcag": "3.3.1",
-    "title": "Tiêu chí WCAG 3.3.1",
+    "title": "Nhận diện lỗi nhập liệu (Error Identification)",
     "level": "A",
     "category": "form",
     "isNew22": false,
-    "desc": "Đảm bảo tuân thủ tiêu chí thành công WCAG 3.3.1 dành cho thiết kế giao diện.",
-    "why": "Đảm bảo người dùng khuyết tật có thể tương tác bình thường và giảm thiểu các rủi ro hoặc rào cản tiếp cận thông tin đối với tiêu chuẩn 3.3.1.",
+    "desc": "Khi phát hiện lỗi nhập liệu tự động, phần tử bị lỗi phải được chỉ rõ bằng trực quan và thông báo lỗi phải được mô tả bằng văn bản cho người dùng.",
+    "why": "Người khiếm thị hoặc người khuyết tật nhận thức cần biết chính xác trường nào bị lỗi và lỗi đó là gì để sửa đúng chỗ.",
     "how": [
-      "Kiểm tra tiêu chí 3.3.1 trong tài liệu đặc tả WCAG 2.2 chính thức của W3C.",
-      "Đảm bảo phối hợp với lập trình viên để chuyển đổi các yêu cầu thiết kế thành mã nguồn semantic tương ứng."
+      "Thiết kế trạng thái lỗi rõ ràng cho ô nhập liệu: viền đổi màu đỏ, biểu tượng cảnh báo và dòng chữ mô tả lỗi cụ thể hiển thị ngay bên dưới ô.",
+      "Đảm bảo thông báo lỗi có thể được trình đọc màn hình đọc lên (sử dụng thuộc tính `aria-describedby` hoặc `aria-live`)."
     ],
-    "do": "Thiết kế rõ ràng, tương phản tốt và có nhãn chữ đi kèm.",
-    "dont": "Ẩn các chỉ báo trạng thái hoặc sử dụng thiết kế gây khó khăn cho việc tương tác bằng bàn phím/trình đọc màn hình."
+    "do": "Ô nhập Email đổi viền đỏ kèm thông báo rõ ràng: 'Vui lòng nhập địa chỉ email hợp lệ (ví dụ: ten@email.com)'.",
+    "dont": "Chỉ đổi viền ô nhập sang màu đỏ mà không hiển thị bất kỳ dòng chữ nào giải thích lỗi."
   },
   {
-    "id": "wcag-3-3-2",
+    "id": "labels-or-instructions",
     "wcag": "3.3.2",
-    "title": "Tiêu chí WCAG 3.3.2",
+    "title": "Nhãn hoặc hướng dẫn cho ô nhập liệu (Labels or Instructions)",
     "level": "A",
     "category": "form",
     "isNew22": false,
-    "desc": "Đảm bảo tuân thủ tiêu chí thành công WCAG 3.3.2 dành cho thiết kế giao diện.",
-    "why": "Đảm bảo người dùng khuyết tật có thể tương tác bình thường và giảm thiểu các rủi ro hoặc rào cản tiếp cận thông tin đối với tiêu chuẩn 3.3.2.",
+    "desc": "Cung cấp nhãn (labels) hoặc hướng dẫn rõ ràng cho các ô nhập liệu yêu cầu người dùng nhập dữ liệu.",
+    "why": "Người khiếm thị sử dụng trình đọc màn hình cần nghe nhãn để hiểu ô nhập liệu yêu cầu thông tin gì; người khuyết tật nhận thức cần hướng dẫn rõ ràng để điền đúng.",
     "how": [
-      "Kiểm tra tiêu chí 3.3.2 trong tài liệu đặc tả WCAG 2.2 chính thức của W3C.",
-      "Đảm bảo phối hợp với lập trình viên để chuyển đổi các yêu cầu thiết kế thành mã nguồn semantic tương ứng."
+      "Thiết kế nhãn hiển thị rõ ràng, cố định bên ngoài ô nhập (không chỉ dùng placeholder biến mất khi gõ).",
+      "Cung cấp hướng dẫn bổ sung về định dạng dữ liệu bắt buộc (ví dụ: 'Định dạng: DD/MM/YYYY') và đánh dấu rõ ràng các trường bắt buộc (*)."
     ],
-    "do": "Thiết kế rõ ràng, tương phản tốt và có nhãn chữ đi kèm.",
-    "dont": "Ẩn các chỉ báo trạng thái hoặc sử dụng thiết kế gây khó khăn cho việc tương tác bằng bàn phím/trình đọc màn hình."
+    "do": "Ô nhập ngày sinh có nhãn cố định 'Ngày sinh *' phía trên và gợi ý định dạng 'DD/MM/YYYY' hiển thị bên dưới.",
+    "dont": "Ô nhập chỉ có placeholder 'Nhập thông tin...' biến mất khi người dùng bắt đầu gõ, khiến họ quên mình đang điền gì."
   },
   {
     "id": "error-suggestions",

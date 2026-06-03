@@ -574,7 +574,7 @@ function renderChecklist() {
     btns.forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation(); // Ngăn sự kiện click lan ra ngoài thẻ card làm thay đổi focus
-        
+
         const newStatus = btn.getAttribute('data-status');
 
         // Cập nhật dữ liệu
@@ -666,7 +666,7 @@ function exportToMarkdown() {
   md += `## Tóm tắt tiến độ đánh giá\n`;
   md += `- **Tổng số tiêu chí**: ${total}\n`;
   md += `- **Đã đánh giá**: ${evaluated} / ${total}\n`;
-  md += `- **Đạt thiết kế**: ${doneList.length}\n`;
+  md += `- **Đạt chuẩn**: ${doneList.length}\n`;
   md += `- **Chưa đạt**: ${todoList.length}\n`;
   md += `- **Không áp dụng**: ${naList.length}\n`;
   md += `- **Chưa đánh giá**: ${unselectedList.length}\n`;
@@ -740,7 +740,7 @@ function cycleStatus(cardEl, direction) {
   const btns = Array.from(cardEl.querySelectorAll('.status-btn'));
   const currentProject = projects.find(p => p.id === currentProjectId);
   if (!currentProject) return;
-  
+
   const state = currentProject.state[activeChecklist] || {};
   const currentStatus = state[itemId] || 'unselected';
 
@@ -753,7 +753,7 @@ function cycleStatus(cardEl, direction) {
   if (nextIdx >= statuses.length) nextIdx = 0;
 
   const nextStatus = statuses[nextIdx];
-  
+
   if (nextStatus === 'unselected') {
     state[itemId] = 'unselected';
     saveToStorage();

@@ -460,6 +460,16 @@ function renderChecklist() {
       activeCardId = item.id;
     });
 
+    // Tạo icon indicator dựa trên trạng thái
+    let indicatorHtml = '';
+    if (itemStatus === 'done') {
+      indicatorHtml = `<span class="status-indicator indicator-done" aria-label="Đã đạt"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>`;
+    } else if (itemStatus === 'todo') {
+      indicatorHtml = `<span class="status-indicator indicator-todo" aria-label="Chưa đạt"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></span>`;
+    } else {
+      indicatorHtml = `<span class="status-indicator indicator-hidden" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg></span>`;
+    }
+
     // Danh sách thẻ badges hiển thị bên trên tiêu đề
     let badgeHtml = `
       <span class="badge badge-id">WCAG ${item.wcag}</span>
@@ -479,6 +489,7 @@ function renderChecklist() {
       <div class="card-header-main">
         <div class="card-title-group">
           <div class="card-badges">
+            ${indicatorHtml}
             ${badgeHtml}
           </div>
           <h6>${item.title}</h6>
@@ -552,6 +563,9 @@ function renderChecklist() {
         if (newStatus === 'done') card.classList.add('card-done');
         if (newStatus === 'todo') card.classList.add('card-todo');
         if (newStatus === 'na') card.classList.add('card-na');
+
+        // Cập nhật icon indicator
+        updateIndicatorIcon(card, newStatus);
 
         // Cập nhật thanh tiến trình và tổng số lượng
         updateProgressAndStats();
@@ -708,6 +722,32 @@ function updateCardStatusUI(cardId, newStatus) {
       btn.classList.remove('active');
     }
   });
+
+  // 3. Cập nhật icon indicator
+  updateIndicatorIcon(card, newStatus);
+}
+
+// Hàm cập nhật icon indicator trên card
+function updateIndicatorIcon(card, newStatus) {
+  const indicator = card.querySelector('.status-indicator');
+  if (!indicator) return;
+
+  indicator.className = 'status-indicator';
+  if (newStatus === 'done') {
+    indicator.classList.add('indicator-done');
+    indicator.setAttribute('aria-label', 'Đã đạt');
+    indicator.removeAttribute('aria-hidden');
+    indicator.innerHTML = `<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>`;
+  } else if (newStatus === 'todo') {
+    indicator.classList.add('indicator-todo');
+    indicator.setAttribute('aria-label', 'Chưa đạt');
+    indicator.removeAttribute('aria-hidden');
+    indicator.innerHTML = `<svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>`;
+  } else {
+    indicator.classList.add('indicator-hidden');
+    indicator.setAttribute('aria-hidden', 'true');
+    indicator.innerHTML = `<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg>`;
+  }
 }
 
 // Lắng nghe sự kiện bàn phím toàn cục để điều hướng nhanh

@@ -4,9 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>WCAG 2.2 Checklist cho UI/UX Designer | Tự đánh giá Khả năng Tiếp cận</title>
-  <meta name="description"
-    content="Công cụ checklist tiếng Việt trực quan dựa trên tiêu chuẩn WCAG 2.2 giúp UI/UX Designer tự đánh giá và tối ưu khả năng tiếp cận (Accessibility) cho thiết kế.">
+  <title>WCAG 2.2 - UXCamp Vietnam</title>
+  <meta name="description" content="Công cụ WCAG 2.2 Checklist tiếng Việt giúp Product Team tự đánh giá trải nghiệm.">
   <link rel="stylesheet" href="styles.css">
 </head>
 
@@ -81,7 +80,7 @@
         <div class="stats-grid">
           <div class="stat-item" style="border-bottom: 3px solid var(--success);">
             <span class="stat-val" id="stat-done" style="color: var(--success);">0</span>
-            <span class="stat-label">Đạt thiết kế</span>
+            <span class="stat-label">Đạt chuẩn</span>
           </div>
           <div class="stat-item" style="border-bottom: 3px solid var(--danger);">
             <span class="stat-val" id="stat-todo" style="color: var(--danger);">0</span>
@@ -111,7 +110,7 @@
               <path
                 d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
             </svg>
-            Đặt Lại Tiến Độ
+            Reset
           </button>
         </div>
       </div>
@@ -172,17 +171,17 @@
             <div class="filter-group">
               <span class="filter-label">Cấp Độ:</span>
               <select id="level-filter" class="filter-select">
-                <option value="all">Tất cả cấp độ</option>
-                <option value="A">Cấp độ A (Tối thiểu)</option>
-                <option value="AA">Cấp độ AA (Khuyến nghị)</option>
-                <option value="AAA">Cấp độ AAA (Cao nhất)</option>
+                <option value="all">Tất cả</option>
+                <option value="A">A (Tối thiểu)</option>
+                <option value="AA">AA (Khuyến nghị)</option>
+                <option value="AAA">AAA (Cao nhất)</option>
               </select>
             </div>
 
             <div class="filter-group">
               <span class="filter-label">Đánh Giá:</span>
               <select id="status-filter" class="filter-select">
-                <option value="all">Tất cả trạng thái</option>
+                <option value="all">Tất cả</option>
                 <option value="todo">Chưa đạt</option>
                 <option value="done">Đã đạt</option>
                 <option value="na">Không áp dụng (N/A)</option>
@@ -278,36 +277,25 @@
     <div class="dpad-row">
       <div class="keyboard-key key-up" id="key-up" title="Chọn tiêu chí trước (Phím mũi tên Lên)">
         <span class="key-cap">▲</span>
-        <span class="key-desc">Trước</span>
       </div>
     </div>
     <div class="dpad-row">
       <div class="keyboard-key key-left" id="key-left" title="Giảm trạng thái (Phím mũi tên Trái)">
         <span class="key-cap">◀</span>
-        <span class="key-desc">Lùi</span>
       </div>
       <div class="keyboard-key key-down" id="key-down" title="Chọn tiêu chí sau (Phím mũi tên Xuống)">
         <span class="key-cap">▼</span>
-        <span class="key-desc">Sau</span>
       </div>
       <div class="keyboard-key key-right" id="key-right" title="Tăng trạng thái (Phím mũi tên Phải)">
         <span class="key-cap">▶</span>
-        <span class="key-desc">Tiến</span>
       </div>
-    </div>
-    <div class="keyboard-guide-title">
-      <svg style="width:12px;height:12px;fill:currentColor;vertical-align:middle;margin-right:4px;" viewBox="0 0 24 24">
-        <path
-          d="M20 5H4c-1.1 0-1.99.9-1.99 2L2 17c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm-9 3h2v2h-2V8zm0 3h2v2h-2v-2zM8 8h2v2H8V8zm0 3h2v2H8v-2zm-3 0h2v2H5v-2zm0-3h2v2H5V8zm11 8H8v-2h8v2zm0-3h-2v-2h2v2zm0-3h-2V8h2v2zm3 3h-2v-2h2v2zm0-3h-2V8h2v2z" />
-      </svg>
-      Điều hướng nhanh
     </div>
   </div>
 
   <!-- Toast Notification Area -->
   <div class="toast-container" id="toast-container"></div>
 
-  <script src="data.js"></script>
+  <script src="wcag-data.js"></script>
   <script src="app.js"></script>
 </body>
 

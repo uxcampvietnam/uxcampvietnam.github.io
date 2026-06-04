@@ -6,6 +6,7 @@ let activeCategoryFilter = 'all';
 let activeStatusFilter = 'all';
 let searchQuery = '';
 let activeCardId = null;
+let activeView = 'checklist'; // 'checklist' hoặc 'report'
 
 // Khởi tạo ứng dụng
 document.addEventListener('DOMContentLoaded', () => {
@@ -14,8 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderProjectDropdown();
   renderCategoryPills();
   bindEvents();
-  renderChecklist();
-  updateProgressAndStats();
+  switchTab(activeView);
 });
 
 // Khởi tạo bộ nhớ LocalStorage
@@ -210,7 +210,7 @@ function bindEvents() {
     if (currentProject) {
       document.getElementById('current-project-title').innerText = currentProject.name;
     }
-    renderChecklist();
+    switchTab(activeView);
     updateProgressAndStats();
   });
 
@@ -221,7 +221,7 @@ function bindEvents() {
     activeCardId = null;
     saveToStorage();
     renderCategoryPills();
-    renderChecklist();
+    switchTab(activeView);
     updateProgressAndStats();
   });
 
@@ -262,7 +262,7 @@ function bindEvents() {
     nameInput.value = '';
     closeModal('new-project-modal');
     renderProjectDropdown();
-    renderChecklist();
+    switchTab(activeView);
     updateProgressAndStats();
     showToast(`Đã tạo dự án mới: "${name}"`);
   });
@@ -281,6 +281,7 @@ function bindEvents() {
       saveToStorage();
       closeModal('rename-project-modal');
       renderProjectDropdown();
+      switchTab(activeView);
       showToast(`Đã đổi tên dự án từ "${oldName}" thành "${name}"`);
     }
   });
@@ -297,7 +298,7 @@ function bindEvents() {
       currentProjectId = projects[0].id;
       saveToStorage();
       renderProjectDropdown();
-      renderChecklist();
+      switchTab(activeView);
       updateProgressAndStats();
       showToast('Đã xóa dự án thành công.');
     }
@@ -344,7 +345,7 @@ function bindEvents() {
       if (project) {
         project.state[activeChecklist] = {};
         saveToStorage();
-        renderChecklist();
+        switchTab(activeView);
         updateProgressAndStats();
         showToast('Đã thiết lập lại bộ checklist hiện tại.');
       }
@@ -392,6 +393,32 @@ function bindEvents() {
         closeAllModals();
       }
     });
+  });
+
+  // Tab Navigation clicks
+  document.getElementById('tab-checklist').addEventListener('click', () => {
+    switchTab('checklist');
+  });
+
+  document.getElementById('tab-report').addEventListener('click', () => {
+    switchTab('report');
+  });
+
+  // Report filters and selectors
+  document.getElementById('report-category-select').addEventListener('change', () => {
+    renderReportDetails();
+  });
+
+  document.getElementById('rep-filter-pass').addEventListener('change', () => {
+    renderReportDetails();
+  });
+
+  document.getElementById('rep-filter-fail').addEventListener('change', () => {
+    renderReportDetails();
+  });
+
+  document.getElementById('rep-filter-na').addEventListener('change', () => {
+    renderReportDetails();
   });
 }
 
@@ -894,3 +921,300 @@ document.addEventListener('keydown', (e) => {
     }
   }
 });
+
+// --- BÁO CÁO DASHBOARD ---
+function switchTab(tabId) {
+  const checklistFilter = document.querySelector('.filter-panel');
+  const checklistContainer = document.getElementById('checklist-container');
+  const reportContainer = document.getElementById('report-container');
+  
+  const tabChecklist = document.getElementById('tab-checklist');
+  const tabReport = document.getElementById('tab-report');
+
+  const titleEl = document.getElementById('current-project-title');
+  const descEl = document.getElementById('current-project-desc');
+  const currentProject = projects.find(p => p.id === currentProjectId);
+  const checklistData = HEURISTIC_DATA[activeChecklist];
+
+  if (tabId === 'report') {
+    activeView = 'report';
+    checklistFilter.style.display = 'none';
+    checklistContainer.style.display = 'none';
+    reportContainer.style.display = 'flex';
+
+    tabChecklist.classList.remove('active');
+    tabReport.classList.add('active');
+
+    // Cập nhật text tiêu đề và desc
+    if (currentProject) {
+      titleEl.innerText = `Báo cáo Heuristic luồng: ${currentProject.name}`;
+    }
+    if (descEl && checklistData) {
+      descEl.innerText = `Báo cáo đánh giá Trải nghiệm Người dùng dựa trên bộ quy chuẩn ${checklistData.title}`;
+    }
+
+    populateReportCategorySelect();
+    renderReport();
+  } else {
+    activeView = 'checklist';
+    checklistFilter.style.display = '';
+    checklistContainer.style.display = '';
+    reportContainer.style.display = 'none';
+
+    tabReport.classList.remove('active');
+    tabChecklist.classList.add('active');
+
+    // Cập nhật text tiêu đề và desc
+    if (currentProject) {
+      titleEl.innerText = currentProject.name;
+    }
+    if (descEl) {
+      descEl.innerText = 'Đánh giá Heuristics sản phẩm dựa trên 4 bộ quy chuẩn thiết kế phổ biến';
+    }
+    
+    renderChecklist();
+    updateProgressAndStats();
+  }
+
+  // Cuộn lên đầu trang
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function populateReportCategorySelect() {
+  const select = document.getElementById('report-category-select');
+  if (!select) return;
+  
+  const savedValue = select.value || 'all';
+  select.innerHTML = '';
+  
+  const optionAll = document.createElement('option');
+  optionAll.value = 'all';
+  optionAll.textContent = 'Tất cả nhóm';
+  select.appendChild(optionAll);
+  
+  const checklistData = HEURISTIC_DATA[activeChecklist];
+  if (!checklistData) return;
+  
+  const prefix = activeChecklist === 'nielsen' ? 'H' : activeChecklist === 'gerhardt' ? 'P' : activeChecklist === 'shneiderman' ? 'R' : 'C';
+  
+  checklistData.categories.forEach(cat => {
+    const option = document.createElement('option');
+    option.value = cat.id.toString();
+    option.textContent = `${prefix}${cat.id}: ${cat.name}`;
+    select.appendChild(option);
+  });
+  
+  // Bảo toàn giá trị nếu hợp lệ
+  if (Array.from(select.options).some(opt => opt.value === savedValue)) {
+    select.value = savedValue;
+  } else {
+    select.value = 'all';
+  }
+}
+
+function calculateStatsForCategory(catId) {
+  const currentProject = projects.find(p => p.id === currentProjectId);
+  const state = (currentProject && currentProject.state) ? (currentProject.state[activeChecklist] || {}) : {};
+  const checklistData = HEURISTIC_DATA[activeChecklist];
+
+  let doneCount = 0;
+  let todoCount = 0;
+  let naCount = 0;
+  let unselectedCount = 0;
+  let totalItems = 0;
+
+  if (checklistData) {
+    checklistData.categories.forEach(cat => {
+      if (catId !== 'all' && cat.id.toString() !== catId.toString()) return;
+      
+      cat.criteria.forEach(crit => {
+        totalItems++;
+        const itemId = `${cat.id}_${crit.id}`;
+        const status = state[itemId] || 'unselected';
+        
+        if (status === 'done') {
+          doneCount++;
+        } else if (status === 'todo') {
+          todoCount++;
+        } else if (status === 'na') {
+          naCount++;
+        } else {
+          unselectedCount++;
+        }
+      });
+    });
+  }
+
+  const totalApplicable = doneCount + todoCount + unselectedCount;
+  const percentage = totalApplicable > 0 ? Math.round((doneCount / totalApplicable) * 100) : 0;
+
+  return {
+    done: doneCount,
+    todo: todoCount,
+    na: naCount,
+    unselected: unselectedCount,
+    total: totalItems,
+    percentage: percentage
+  };
+}
+
+function getColorForPercentage(pct) {
+  if (pct < 50) {
+    return 'var(--danger)';
+  } else if (pct < 80) {
+    return 'var(--highlight-yellow)';
+  } else {
+    return 'var(--success)';
+  }
+}
+
+function renderReport() {
+  const currentProject = projects.find(p => p.id === currentProjectId);
+  if (!currentProject) return;
+
+  const checklistData = HEURISTIC_DATA[activeChecklist];
+  if (!checklistData) return;
+
+  // 1. Thống kê tổng quan
+  const overall = calculateStatsForCategory('all');
+  document.getElementById('report-pass-count').innerText = overall.done;
+  document.getElementById('report-fail-count').innerText = overall.todo;
+  document.getElementById('report-na-count').innerText = overall.na;
+  document.getElementById('report-unselected-count').innerText = overall.unselected;
+  
+  // Vòng tròn SVG
+  document.getElementById('gauge-text-val').textContent = `${overall.percentage}%`;
+  
+  // Cập nhật màu text % trong gauge
+  const overallColor = getColorForPercentage(overall.percentage);
+  document.getElementById('gauge-text-val').style.fill = overallColor;
+
+  const circle = document.getElementById('gauge-fill-circle');
+  if (circle) {
+    const circumference = 251.2; // 2 * PI * r (r=40)
+    const offset = circumference - (overall.percentage / 100) * circumference;
+    circle.style.strokeDashoffset = offset;
+    circle.style.stroke = overallColor;
+  }
+
+  // 2. Tiến độ đạt chuẩn của từng nhóm tiêu chí
+  const categoryBarsList = document.getElementById('category-bars-list');
+  categoryBarsList.innerHTML = '';
+  
+  const prefix = activeChecklist === 'nielsen' ? 'H' : activeChecklist === 'gerhardt' ? 'P' : activeChecklist === 'shneiderman' ? 'R' : 'C';
+
+  checklistData.categories.forEach(cat => {
+    const stats = calculateStatsForCategory(cat.id);
+    const barColor = getColorForPercentage(stats.percentage);
+    const item = document.createElement('div');
+    item.className = 'category-bar-item';
+    item.innerHTML = `
+      <div class="category-bar-header">
+        <span class="category-bar-label">${prefix}${cat.id}: ${cat.name}</span>
+        <span class="category-bar-pct" style="color: ${barColor};">${stats.percentage}% đạt chuẩn</span>
+      </div>
+      <div class="category-bar-track">
+        <div class="category-bar-fill" style="width: ${stats.percentage}%; background-color: ${barColor};"></div>
+      </div>
+      <span class="category-bar-subtext">
+        Đã đạt ${stats.done}/${stats.total - stats.na} tiêu chí áp dụng (${stats.na} N/A, ${stats.todo} Fail, ${stats.unselected} Chưa đánh giá)
+      </span>
+    `;
+    categoryBarsList.appendChild(item);
+  });
+
+  // 3. Render danh sách chi tiết các tiêu chí (rút gọn)
+  renderReportDetails();
+}
+
+function renderReportDetails() {
+  const currentProject = projects.find(p => p.id === currentProjectId);
+  const state = (currentProject && currentProject.state) ? (currentProject.state[activeChecklist] || {}) : {};
+  const selectedCat = document.getElementById('report-category-select').value;
+  const grid = document.getElementById('report-details-grid');
+  grid.innerHTML = '';
+
+  const checklistData = HEURISTIC_DATA[activeChecklist];
+  if (!checklistData) return;
+
+  const showPass = document.getElementById('rep-filter-pass').checked;
+  const showFail = document.getElementById('rep-filter-fail').checked;
+  const showNA = document.getElementById('rep-filter-na').checked;
+  const isAnyFilterActive = showPass || showFail || showNA;
+
+  const categoriesToRender = selectedCat === 'all'
+    ? checklistData.categories.map(c => c.id)
+    : [parseInt(selectedCat)];
+
+  const statusOrder = { 'done': 1, 'todo': 2, 'unselected': 3, 'na': 4 };
+  const prefix = activeChecklist === 'nielsen' ? 'H' : activeChecklist === 'gerhardt' ? 'P' : activeChecklist === 'shneiderman' ? 'R' : 'C';
+
+  categoriesToRender.forEach(catId => {
+    const cat = checklistData.categories.find(c => c.id === catId);
+    if (!cat) return;
+
+    let items = cat.criteria.map(crit => ({
+      ...crit,
+      itemId: `${cat.id}_${crit.id}`,
+      code: `${prefix}${cat.id}.${crit.id}`
+    }));
+
+    // Lọc theo trạng thái Pass / Fail / NA
+    items = items.filter(item => {
+      const status = state[item.itemId] || 'unselected';
+      if (!isAnyFilterActive) return true; // Hiển thị tất cả nếu không chọn gì
+
+      if (showPass && status === 'done') return true;
+      if (showFail && (status === 'todo' || status === 'unselected')) return true;
+      if (showNA && status === 'na') return true;
+
+      return false;
+    });
+
+    if (items.length === 0) return;
+
+    // Sắp xếp: Pass -> Fail -> Chưa đánh giá -> N/A
+    items.sort((a, b) => {
+      const statusA = state[a.itemId] || 'unselected';
+      const statusB = state[b.itemId] || 'unselected';
+      return statusOrder[statusA] - statusOrder[statusB];
+    });
+
+    const stats = calculateStatsForCategory(cat.id);
+    const groupContainer = document.createElement('div');
+    groupContainer.className = 'report-group-container';
+    
+    let itemsHtml = items.map(item => {
+      const status = state[item.itemId] || 'unselected';
+      let indicatorHtml = '';
+
+      if (status === 'done') {
+        indicatorHtml = `<span class="status-indicator indicator-done" title="Pass"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>`;
+      } else if (status === 'todo') {
+        indicatorHtml = `<span class="status-indicator indicator-todo" title="Fail"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></span>`;
+      } else { // 'unselected' or 'na'
+        const titleText = status === 'na' ? 'N/A' : 'Chưa đánh giá';
+        indicatorHtml = `<span class="status-indicator indicator-hidden" title="${titleText}"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg></span>`;
+      }
+
+      return `
+        <div class="report-item-row">
+          ${indicatorHtml}
+          <span class="badge badge-id">${item.code}</span>
+          <span class="report-item-title">${item.title}</span>
+        </div>
+      `;
+    }).join('');
+
+    groupContainer.innerHTML = `
+      <div class="report-group-title">
+        <span>${prefix}${cat.id}: ${cat.name}</span>
+        <span class="report-group-badge">Đạt ${stats.percentage}% (${stats.done} Pass, ${stats.todo} Fail, ${stats.na} N/A)</span>
+      </div>
+      <div class="report-items-list">
+        ${itemsHtml}
+      </div>
+    `;
+    grid.appendChild(groupContainer);
+  });
+}

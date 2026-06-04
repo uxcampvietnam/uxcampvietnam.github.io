@@ -236,19 +236,22 @@
             </div>
 
             <div class="filter-group">
+              <span class="filter-label">Nhóm:</span>
+              <select id="category-filter" class="filter-select" aria-label="Lọc theo nhóm tiêu chí">
+                <!-- Tải động qua JS -->
+              </select>
+            </div>
+
+            <div class="filter-group">
               <span class="filter-label">Đánh giá:</span>
               <select id="status-filter" class="filter-select" aria-label="Lọc theo trạng thái đánh giá">
                 <option value="all">Tất cả</option>
                 <option value="todo">Fail</option>
                 <option value="done">Pass</option>
                 <option value="na">(N/A)</option>
+                <option value="unselected">Chưa đánh giá</option>
               </select>
             </div>
-          </div>
-
-          <!-- Pills for filtering by heuristics categories -->
-          <div class="category-pills" id="category-pills-container">
-            <!-- Load động các Pills qua JS -->
           </div>
         </section>
 

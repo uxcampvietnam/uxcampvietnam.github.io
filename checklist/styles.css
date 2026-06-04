@@ -1057,7 +1057,8 @@ hr {
 }
 
 .sidebar-collapsed .sidebar-toggle-btn {
-  right: -48px; /* Slightly more offset to look fully circular on the edge when collapsed */
+  right: -48px;
+  /* Slightly more offset to look fully circular on the edge when collapsed */
 }
 
 .sidebar-collapsed .sidebar-toggle-btn .toggle-icon {
@@ -1518,6 +1519,8 @@ hr {
 
 .filter-select {
   padding: 8px 12px;
+  max-width: 200px;
+  text-overflow: ellipsis;
   border-radius: var(--radius-sm);
   border: 0.5px solid var(--border-color);
   background-color: var(--saved-tab-item-background-hover);
@@ -1853,6 +1856,10 @@ input:checked+.slider:before {
 .card-details {
   border-top: 0.5px solid var(--border-color);
   background-color: var(--main-colors-background-elevate-1);
+}
+
+.card-details summary:hover {
+  background-color: var(--main-colors-background-elevate-2);
 }
 
 .card-details summary {
@@ -2367,7 +2374,7 @@ input:checked+.slider:before {
   align-items: center;
   gap: 8px;
   user-select: none;
-  pointer-events: none;
+  pointer-events: auto;
   transition: opacity var(--transition-normal), transform var(--transition-normal);
 }
 
@@ -2395,6 +2402,7 @@ input:checked+.slider:before {
   box-shadow: var(--key-shadow), 0px 4px 16px 0px rgba(255, 255, 255, 0.05) inset;
   transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.15s ease;
   position: relative;
+  cursor: pointer;
 }
 
 
@@ -2937,26 +2945,26 @@ input:checked+.slider:before {
   color: var(--text-main);
 }
 
-.chip-filter input[type="checkbox"]:checked + .chip-btn {
+.chip-filter input[type="checkbox"]:checked+.chip-btn {
   color: #ffffff !important;
   border-color: transparent;
 }
 
-[data-theme="dark"] .chip-filter input[type="checkbox"]:checked + .chip-btn {
+[data-theme="dark"] .chip-filter input[type="checkbox"]:checked+.chip-btn {
   color: #000000 !important;
 }
 
-.chip-filter input[type="checkbox"]:checked + .chip-btn.pass {
+.chip-filter input[type="checkbox"]:checked+.chip-btn.pass {
   background-color: var(--success);
   box-shadow: 0 0 8px var(--success);
 }
 
-.chip-filter input[type="checkbox"]:checked + .chip-btn.fail {
+.chip-filter input[type="checkbox"]:checked+.chip-btn.fail {
   background-color: var(--danger);
   box-shadow: 0 0 8px var(--danger);
 }
 
-.chip-filter input[type="checkbox"]:checked + .chip-btn.na {
+.chip-filter input[type="checkbox"]:checked+.chip-btn.na {
   background-color: var(--text-muted);
   box-shadow: 0 0 8px var(--text-muted);
 }

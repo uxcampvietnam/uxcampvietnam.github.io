@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLocalStorage();
   initSidebarCollapse();
   renderProjectDropdown();
-  renderCategoryPills();
+  renderCategoryDropdown();
   bindEvents();
   switchTab(activeView);
   updateProgressAndStats();
@@ -149,10 +149,12 @@ function renderProjectDropdown() {
   }
 }
 
-// Render các nút chọn nhanh danh mục (Pill buttons)
-function renderCategoryPills() {
-  const container = document.getElementById('category-pills-container');
-  container.innerHTML = '';
+// Render dropdown danh mục (select)
+function renderCategoryDropdown() {
+  const select = document.getElementById('category-filter');
+  if (!select) return;
+  
+  select.innerHTML = '';
 
   const categories = [
     { id: 'all', label: 'Tất cả nhóm' },
@@ -164,17 +166,13 @@ function renderCategoryPills() {
   ];
 
   categories.forEach(cat => {
-    const btn = document.createElement('button');
-    btn.className = `pill-btn ${activeCategoryFilter === cat.id ? 'active' : ''}`;
-    btn.textContent = cat.label;
-    btn.setAttribute('data-category', cat.id);
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeCategoryFilter = cat.id;
-      renderChecklist();
-    });
-    container.appendChild(btn);
+    const opt = document.createElement('option');
+    opt.value = cat.id;
+    opt.textContent = cat.label;
+    if (activeCategoryFilter === cat.id) {
+      opt.selected = true;
+    }
+    select.appendChild(opt);
   });
 }
 
@@ -269,6 +267,12 @@ function bindEvents() {
   // Tìm kiếm thời gian thực
   document.getElementById('search-input').addEventListener('input', (e) => {
     searchQuery = e.target.value.toLowerCase().trim();
+    renderChecklist();
+  });
+
+  // Lọc theo nhóm danh mục
+  document.getElementById('category-filter').addEventListener('change', (e) => {
+    activeCategoryFilter = e.target.value;
     renderChecklist();
   });
 
@@ -394,6 +398,41 @@ function bindEvents() {
       }
     });
   });
+
+  // Đăng ký sự kiện click chuột cho D-Pad ảo
+  const keyMappings = {
+    'key-up': 'ArrowUp',
+    'key-down': 'ArrowDown',
+    'key-left': 'ArrowLeft',
+    'key-right': 'ArrowRight',
+    'key-enter': 'Enter'
+  };
+
+  Object.keys(keyMappings).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      // Ngăn mousedown làm mất focus (blur) của thẻ card đang được chọn
+      el.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+      });
+
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const keyName = keyMappings[id];
+        // Gửi sự kiện keydown
+        const downEvent = new KeyboardEvent('keydown', { key: keyName, bubbles: true });
+        document.dispatchEvent(downEvent);
+        
+        // Gửi sự kiện keyup sau một khoảng trễ ngắn để tạo hiệu ứng active
+        setTimeout(() => {
+          const upEvent = new KeyboardEvent('keyup', { key: keyName, bubbles: true });
+          document.dispatchEvent(upEvent);
+        }, 150);
+      });
+    }
+  });
 }
 
 // Hiển thị modal
@@ -456,11 +495,7 @@ function renderChecklist() {
     // 3. Lọc theo trạng thái hoàn thành (state)
     const itemStatus = state[item.id] || 'unselected';
     if (activeStatusFilter !== 'all') {
-      if (activeStatusFilter === 'todo') {
-        if (itemStatus !== 'todo' && itemStatus !== 'unselected') {
-          return false;
-        }
-      } else if (itemStatus !== activeStatusFilter) {
+      if (itemStatus !== activeStatusFilter) {
         return false;
       }
     }

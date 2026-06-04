@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initLocalStorage();
   initSidebarCollapse();
   renderProjectDropdown();
-  renderCategoryPills();
+  renderCategoryDropdown();
   bindEvents();
   switchTab(activeView);
 });
@@ -164,39 +164,34 @@ function renderProjectDropdown() {
   }
 }
 
-// Render các nút chọn nhanh danh mục (Pill buttons) động dựa trên bộ checklist
-function renderCategoryPills() {
-  const container = document.getElementById('category-pills-container');
-  container.innerHTML = '';
+// Render các tùy chọn nhóm danh mục (dropdown select) động dựa trên bộ checklist
+function renderCategoryDropdown() {
+  const select = document.getElementById('category-filter');
+  if (!select) return;
+  
+  select.innerHTML = '';
 
   const checklistData = HEURISTIC_DATA[activeChecklist];
   if (!checklistData) return;
 
-  const pills = [
-    { id: 'all', label: 'Tất cả nhóm' }
-  ];
-
   const prefix = activeChecklist === 'nielsen' ? 'H' : activeChecklist === 'gerhardt' ? 'P' : activeChecklist === 'shneiderman' ? 'R' : 'C';
 
-  checklistData.categories.forEach(cat => {
-    pills.push({
-      id: cat.id.toString(),
-      label: `${prefix}${cat.id}: ${cat.name}`
-    });
-  });
+  const optionAll = document.createElement('option');
+  optionAll.value = 'all';
+  optionAll.textContent = 'Tất cả nhóm';
+  if (activeCategoryFilter === 'all') {
+    optionAll.selected = true;
+  }
+  select.appendChild(optionAll);
 
-  pills.forEach(pill => {
-    const btn = document.createElement('button');
-    btn.className = `pill-btn ${activeCategoryFilter === pill.id ? 'active' : ''}`;
-    btn.textContent = pill.label;
-    btn.setAttribute('data-category', pill.id);
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.pill-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      activeCategoryFilter = pill.id;
-      renderChecklist();
-    });
-    container.appendChild(btn);
+  checklistData.categories.forEach(cat => {
+    const opt = document.createElement('option');
+    opt.value = cat.id.toString();
+    opt.textContent = `${prefix}${cat.id}: ${cat.name}`;
+    if (activeCategoryFilter === cat.id.toString()) {
+      opt.selected = true;
+    }
+    select.appendChild(opt);
   });
 }
 
@@ -220,7 +215,7 @@ function bindEvents() {
     activeCategoryFilter = 'all';
     activeCardId = null;
     saveToStorage();
-    renderCategoryPills();
+    renderCategoryDropdown();
     switchTab(activeView);
     updateProgressAndStats();
   });
@@ -307,6 +302,12 @@ function bindEvents() {
   // Tìm kiếm thời gian thực
   document.getElementById('search-input').addEventListener('input', (e) => {
     searchQuery = e.target.value.toLowerCase().trim();
+    renderChecklist();
+  });
+
+  // Lọc theo nhóm danh mục
+  document.getElementById('category-filter').addEventListener('change', (e) => {
+    activeCategoryFilter = e.target.value;
     renderChecklist();
   });
 
@@ -420,6 +421,41 @@ function bindEvents() {
   document.getElementById('rep-filter-na').addEventListener('change', () => {
     renderReportDetails();
   });
+
+  // Đăng ký sự kiện click chuột cho D-Pad ảo
+  const keyMappings = {
+    'key-up': 'ArrowUp',
+    'key-down': 'ArrowDown',
+    'key-left': 'ArrowLeft',
+    'key-right': 'ArrowRight',
+    'key-enter': 'Enter'
+  };
+
+  Object.keys(keyMappings).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      // Ngăn mousedown làm mất focus (blur) của thẻ card đang được chọn
+      el.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+      });
+
+      el.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const keyName = keyMappings[id];
+        // Gửi sự kiện keydown
+        const downEvent = new KeyboardEvent('keydown', { key: keyName, bubbles: true });
+        document.dispatchEvent(downEvent);
+        
+        // Gửi sự kiện keyup sau một khoảng trễ ngắn để tạo hiệu ứng active
+        setTimeout(() => {
+          const upEvent = new KeyboardEvent('keyup', { key: keyName, bubbles: true });
+          document.dispatchEvent(upEvent);
+        }, 150);
+      });
+    }
+  });
 }
 
 // Hiển thị modal
@@ -486,11 +522,7 @@ function renderChecklist() {
 
       // 2. Lọc theo trạng thái hoàn thành (status)
       if (activeStatusFilter !== 'all') {
-        if (activeStatusFilter === 'todo') {
-          if (status !== 'todo' && status !== 'unselected') {
-            return;
-          }
-        } else if (status !== activeStatusFilter) {
+        if (status !== activeStatusFilter) {
           return;
         }
       }

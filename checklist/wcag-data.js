@@ -222,11 +222,11 @@ const WCAG_DATA = [
   {
     "id": "identify-input-purpose",
     "wcag": "1.3.5",
-    "title": "autocomplete (Autocomplete) cho ô nhập liệu cá nhân",
+    "title": "Autocomplete cho ô nhập liệu",
     "level": "AA",
     "category": "form",
     "isNew22": false,
-    "desc": "Đảm bảo các ô nhập dữ liệu cá nhân thông dụng (Tên, Email, Điện thoại, Địa chỉ) được gắn label chuẩn để browser autocomplete (Autocomplete).",
+    "desc": "Đảm bảo các ô nhập dữ liệu cá nhân thông dụng (Tên, Email, Điện thoại, Địa chỉ) được gắn label chuẩn để browser autocomplete.",
     "why": "user gặp khó khăn trong việc gõ chữ hoặc suy giảm nhận thức có thể điền thông tin nhanh chóng mà không gặp lỗi.",
     "how": [
       "Thiết kế các trường nhập liệu chuẩn hóa, tương thích với thuộc tính `autocomplete` của HTML.",
@@ -286,7 +286,7 @@ const WCAG_DATA = [
   {
     "id": "contrast-minimum",
     "wcag": "1.4.3",
-    "title": "độ tương phản (contrast) chữ tối thiểu 4.5:1 (Contrast - Minimum)",
+    "title": "Contrast màu chữ tối thiểu 4.5:1",
     "level": "AA",
     "category": "visual",
     "isNew22": false,
@@ -333,7 +333,7 @@ const WCAG_DATA = [
   {
     "id": "contrast-enhanced",
     "wcag": "1.4.6",
-    "title": "độ tương phản (contrast) chữ nâng cao 7:1 (Contrast - Enhanced)",
+    "title": "Độ tương phản (contrast) chữ nâng cao 7:1 (Contrast - Enhanced)",
     "level": "AAA",
     "category": "visual",
     "isNew22": false,
@@ -411,7 +411,7 @@ const WCAG_DATA = [
   {
     "id": "non-text-contrast",
     "wcag": "1.4.11",
-    "title": "độ tương phản (contrast) cho nút, viền, icon tối thiểu 3:1 (Non-text Contrast)",
+    "title": "Tương phản màu cho nút, viền, icon tối thiểu 3:1",
     "level": "AA",
     "category": "visual",
     "isNew22": false,
@@ -427,7 +427,7 @@ const WCAG_DATA = [
   {
     "id": "text-spacing",
     "wcag": "1.4.12",
-    "title": "Không lỗi khi user tự tăng giãn cách chữ (Text Spacing)",
+    "title": "Không lỗi khi user tự tăng khoảng cách chữ (Text Spacing)",
     "level": "AA",
     "category": "visual",
     "isNew22": false,
@@ -459,7 +459,7 @@ const WCAG_DATA = [
   {
     "id": "keyboard-operable",
     "wcag": "2.1.1",
-    "title": "Điều hành mọi tính năng bằng bàn phím (Keyboard Only)",
+    "title": "Thao tác mọi tính năng bằng bàn phím (Keyboard Only)",
     "level": "A",
     "category": "interaction",
     "isNew22": false,
@@ -814,7 +814,7 @@ const WCAG_DATA = [
   {
     "id": "focus-not-obscured-minimum",
     "wcag": "2.4.11",
-    "title": "focus ring không bị che khuất hoàn toàn bởi Sticky Header/Popup (AA)",
+    "title": "Focus ring không bị che khuất hoàn toàn bởi Sticky Header/Popup (AA)",
     "level": "AA",
     "category": "visual",
     "isNew22": true,
@@ -829,7 +829,7 @@ const WCAG_DATA = [
   {
     "id": "focus-not-obscured-enhanced",
     "wcag": "2.4.12",
-    "title": "focus ring không bị che khuất dù chỉ một phần (AAA)",
+    "title": "Focus ring không bị che khuất dù chỉ một phần (AAA)",
     "level": "AAA",
     "category": "visual",
     "isNew22": true,
@@ -890,7 +890,7 @@ const WCAG_DATA = [
   {
     "id": "label-in-name",
     "wcag": "2.5.3",
-    "title": "label hiển thị trùng với tên ẩn lập trình (Label in Name)",
+    "title": "Label hiển thị trùng với tên ẩn lập trình (Label in Name)",
     "level": "A",
     "category": "form",
     "isNew22": false,
@@ -1278,7 +1278,7 @@ const WCAG_DATA = [
   {
     "id": "accessible-auth-minimum",
     "wcag": "3.3.8",
-    "title": "Đăng nhập không bắt giải đố/CAPTCHA nhận thức (Accessible Auth - AA)",
+    "title": "Đăng nhập không bắt giải đố/CAPTCHA (Accessible Auth - AA)",
     "level": "AA",
     "category": "form",
     "isNew22": true,

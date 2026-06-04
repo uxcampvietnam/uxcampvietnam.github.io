@@ -5,7 +5,7 @@ const HEURISTIC_DATA = {
     "categories": [
       {
         "id": 1,
-        "name": "Hiển thị rõ trạng thái hệ thống (Visibility of system status)",
+        "name": "Visibility of system status",
         "criteria": [
           {
             "id": 1,
@@ -271,7 +271,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 2,
-        "name": "Tương thích giữa hệ thống và thực tế (Match between system and real world)",
+        "name": "Match between system and real world",
         "criteria": [
           {
             "id": 1,
@@ -563,7 +563,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 3,
-        "name": "Quyền tự do và kiểm soát của user (User control and freedom)",
+        "name": "User control and freedom",
         "criteria": [
           {
             "id": 1,
@@ -790,7 +790,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 4,
-        "name": "Nhất quán và tuân thủ tiêu chuẩn (Consistency and standards)",
+        "name": "Consistency and standards",
         "criteria": [
           {
             "id": 1,
@@ -1147,7 +1147,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 5,
-        "name": "Chủ động phòng ngừa lỗi (Error prevention)",
+        "name": "Error prevention",
         "criteria": [
           {
             "id": 1,
@@ -1452,7 +1452,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 6,
-        "name": "Nhận diện thay vì nhớ lại (Recognition rather than recall)",
+        "name": "Recognition rather than recall",
         "criteria": [
           {
             "id": 1,
@@ -1614,7 +1614,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 7,
-        "name": "Linh hoạt và hiệu quả sử dụng (Flexibility and efficiency of use)",
+        "name": "Flexibility and efficiency of use",
         "criteria": [
           {
             "id": 1,
@@ -1750,7 +1750,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 8,
-        "name": "Thiết kế tối giản và thẩm mỹ (Aesthetic and minimalist design)",
+        "name": "Aesthetic and minimalist design",
         "criteria": [
           {
             "id": 1,
@@ -1977,7 +1977,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 9,
-        "name": "Hỗ trợ nhận biết, chẩn đoán và sửa lỗi (Help users recognize, diagnose, and recover from errors)",
+        "name": "Help users recognize, diagnose, and recover from errors",
         "criteria": [
           {
             "id": 1,
@@ -2061,7 +2061,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 10,
-        "name": "Trợ giúp và tài liệu hướng dẫn (Help and documentation)",
+        "name": "Help and documentation",
         "criteria": [
           {
             "id": 1,
@@ -2210,7 +2210,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 11,
-        "name": "Khả năng tiếp cận bình đẳng (Accessibility)",
+        "name": "Accessibility",
         "criteria": [
           {
             "id": 1,
@@ -2546,7 +2546,7 @@ const HEURISTIC_DATA = {
     "categories": [
       {
         "id": 1,
-        "name": "Tự động hóa các công việc lặp lại (Automate unwanted workload)",
+        "name": "Automate unwanted workload",
         "criteria": [
           {
             "id": 1,
@@ -2682,7 +2682,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 2,
-        "name": "Tạo điều kiện quét thông tin nhanh (Reduce primary memory load)",
+        "name": "Reduce primary memory load",
         "criteria": [
           {
             "id": 1,
@@ -2818,7 +2818,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 3,
-        "name": "Giảm thiểu sự mơ hồ cho user (Minimize cognitive load)",
+        "name": "Minimize cognitive load",
         "criteria": [
           {
             "id": 1,
@@ -2954,7 +2954,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 4,
-        "name": "Tổng hợp dữ liệu thông minh (Integrate information)",
+        "name": "Integrate information",
         "criteria": [
           {
             "id": 1,
@@ -3090,7 +3090,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 5,
-        "name": "Dùng ngữ cảnh để tối giản UI (Context-sensitive display)",
+        "name": "Context-sensitive display",
         "criteria": [
           {
             "id": 1,
@@ -3226,7 +3226,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 6,
-        "name": "Tạo luồng chuyển động trực quan liên tục (Visual clarity and flow)",
+        "name": "Visual clarity and flow",
         "criteria": [
           {
             "id": 1,
@@ -3362,7 +3362,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 7,
-        "name": "Giảm thiểu tải nhận thức (Reduce workload)",
+        "name": "Reduce workload",
         "criteria": [
           {
             "id": 1,
@@ -3498,7 +3498,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 8,
-        "name": "Đảm bảo tính dễ đọc và rõ nét (Readability and clarity)",
+        "name": "Readability and clarity",
         "criteria": [
           {
             "id": 1,
@@ -3634,7 +3634,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 9,
-        "name": "Nhất quán thiết kế (Consistency)",
+        "name": "Consistency",
         "criteria": [
           {
             "id": 1,
@@ -3692,7 +3692,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 10,
-        "name": "Hỗ trợ quyền tự do kiểm soát của user (User control)",
+        "name": "User control",
         "criteria": [
           {
             "id": 1,
@@ -3807,7 +3807,7 @@ const HEURISTIC_DATA = {
     "categories": [
       {
         "id": 1,
-        "name": "Khả năng hiển thị trực quan (Visibility)",
+        "name": "Visibility",
         "criteria": [
           {
             "id": 1,
@@ -3878,7 +3878,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 2,
-        "name": "Phản hồi thông tin tức thời (Informative feedback)",
+        "name": "Informative feedback",
         "criteria": [
           {
             "id": 1,
@@ -3949,7 +3949,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 3,
-        "name": "Cấu trúc thông tin logic (Logical hierarchy)",
+        "name": "Logical hierarchy",
         "criteria": [
           {
             "id": 1,
@@ -4007,7 +4007,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 4,
-        "name": "Nhất quán thiết kế (Consistency)",
+        "name": "Consistency",
         "criteria": [
           {
             "id": 1,
@@ -4052,7 +4052,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 5,
-        "name": "Dung hòa sai sót của user (Error tolerance)",
+        "name": "Error tolerance",
         "criteria": [
           {
             "id": 1,
@@ -4097,7 +4097,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 6,
-        "name": "Tái sử dụng các pattern quen thuộc (Reusability)",
+        "name": "Reusability",
         "criteria": [
           {
             "id": 1,
@@ -4142,7 +4142,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 7,
-        "name": "Giảm thiểu tải nhận thức (Minimize cognitive load)",
+        "name": "Minimize cognitive load",
         "criteria": [
           {
             "id": 1,
@@ -4200,7 +4200,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 8,
-        "name": "Độ dễ đọc và quét chữ (Readability)",
+        "name": "Readability",
         "criteria": [
           {
             "id": 1,
@@ -4258,7 +4258,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 9,
-        "name": "Khả năng dễ dàng học cách dùng (Learnability)",
+        "name": "Learnability",
         "criteria": [
           {
             "id": 1,
@@ -4316,7 +4316,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 10,
-        "name": "Khả năng tiếp cận bình đẳng (Accessibility)",
+        "name": "Accessibility",
         "criteria": [
           {
             "id": 1,
@@ -4387,7 +4387,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 11,
-        "name": "Chỉ dẫn công năng trực quan (Affordance)",
+        "name": "Affordance",
         "criteria": [
           {
             "id": 1,
@@ -4432,7 +4432,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 12,
-        "name": "Ánh xạ logic (Logical mapping)",
+        "name": "Logical mapping",
         "criteria": [
           {
             "id": 1,
@@ -4477,7 +4477,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 13,
-        "name": "Ràng buộc hành vi thao tác (Constraints)",
+        "name": "Constraints",
         "criteria": [
           {
             "id": 1,
@@ -4522,7 +4522,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 14,
-        "name": "Tính linh hoạt thích ứng (Flexibility)",
+        "name": "Flexibility",
         "criteria": [
           {
             "id": 1,
@@ -4567,7 +4567,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 15,
-        "name": "Khôi phục trạng thái nhanh chóng (Reversibility)",
+        "name": "Reversibility",
         "criteria": [
           {
             "id": 1,
@@ -4612,7 +4612,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 16,
-        "name": "Khả năng dễ ghi nhớ thao tác (Memorability)",
+        "name": "Memorability",
         "criteria": [
           {
             "id": 1,
@@ -4657,7 +4657,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 17,
-        "name": "Tính linh hoạt khi sử dụng (Efficiency)",
+        "name": "Efficiency",
         "criteria": [
           {
             "id": 1,
@@ -4689,7 +4689,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 18,
-        "name": "Quyền kiểm soát của user (User control)",
+        "name": "User control",
         "criteria": [
           {
             "id": 1,
@@ -4734,7 +4734,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 19,
-        "name": "Sự tối giản và tinh gọn (Minimalism)",
+        "name": "Minimalism",
         "criteria": [
           {
             "id": 1,
@@ -4779,7 +4779,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 20,
-        "name": "Xác nhận hành động quan trọng (Confirmation)",
+        "name": "Confirmation",
         "criteria": [
           {
             "id": 1,
@@ -4829,7 +4829,7 @@ const HEURISTIC_DATA = {
     "categories": [
       {
         "id": 1,
-        "name": "Nỗ lực duy trì sự nhất quán (Consistency)",
+        "name": "Consistency",
         "criteria": [
           {
             "id": 1,
@@ -4952,7 +4952,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 2,
-        "name": "Cung cấp shortcut/shortcut cho user thường xuyên (Shortcuts)",
+        "name": "Shortcuts",
         "criteria": [
           {
             "id": 1,
@@ -5062,7 +5062,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 3,
-        "name": "Cung cấp phản hồi đầy đủ thông tin (Feedback)",
+        "name": "Feedback",
         "criteria": [
           {
             "id": 1,
@@ -5172,7 +5172,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 4,
-        "name": "Hội thoại có điểm kết thúc rõ ràng (Closure)",
+        "name": "Closure",
         "criteria": [
           {
             "id": 1,
@@ -5269,7 +5269,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 5,
-        "name": "Chủ động phòng ngừa lỗi xảy ra (Error prevention)",
+        "name": "Error prevention",
         "criteria": [
           {
             "id": 1,
@@ -5392,7 +5392,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 6,
-        "name": "Cho phép undo/đảo ngược hành động dễ dàng (Reversibility)",
+        "name": "Reversibility",
         "criteria": [
           {
             "id": 1,
@@ -5502,7 +5502,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 7,
-        "name": "Hỗ trợ quyền kiểm soát chủ động của user (Control)",
+        "name": "Control",
         "criteria": [
           {
             "id": 1,
@@ -5612,7 +5612,7 @@ const HEURISTIC_DATA = {
       },
       {
         "id": 8,
-        "name": "Giảm tải bộ nhớ ngắn hạn cho user (Reduce memory load)",
+        "name": "Reduce memory load",
         "criteria": [
           {
             "id": 1,

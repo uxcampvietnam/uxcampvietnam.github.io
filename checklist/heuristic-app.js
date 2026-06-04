@@ -10,6 +10,7 @@ let activeCardId = null;
 // Khởi tạo ứng dụng
 document.addEventListener('DOMContentLoaded', () => {
   initLocalStorage();
+  initSidebarCollapse();
   renderProjectDropdown();
   renderCategoryPills();
   bindEvents();
@@ -78,6 +79,20 @@ function saveToStorage() {
   localStorage.setItem('heuristic_designer_projects', JSON.stringify(projects));
   localStorage.setItem('heuristic_designer_current_project', currentProjectId);
   localStorage.setItem('heuristic_designer_active_checklist', activeChecklist);
+}
+
+// Khởi tạo trạng thái thu nhỏ sidebar từ LocalStorage
+function initSidebarCollapse() {
+  const isCollapsed = localStorage.getItem('heuristic_designer_sidebar_collapsed') === 'true';
+  const container = document.querySelector('.app-container');
+  const toggleBtn = document.getElementById('sidebar-toggle-btn');
+  
+  if (container && isCollapsed) {
+    container.classList.add('sidebar-collapsed');
+  }
+  if (toggleBtn) {
+    toggleBtn.setAttribute('aria-label', isCollapsed ? 'Mở rộng menu' : 'Thu nhỏ menu');
+  }
 }
 
 // Cập nhật thống kê và thanh tiến trình
@@ -351,6 +366,18 @@ function bindEvents() {
       sidebar.classList.remove('active');
     }
   });
+
+  // Toggle thu nhỏ sidebar trên desktop
+  const sidebarToggle = document.getElementById('sidebar-toggle-btn');
+  const container = document.querySelector('.app-container');
+  if (sidebarToggle && container) {
+    sidebarToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isCollapsed = container.classList.toggle('sidebar-collapsed');
+      localStorage.setItem('heuristic_designer_sidebar_collapsed', isCollapsed);
+      sidebarToggle.setAttribute('aria-label', isCollapsed ? 'Mở rộng menu' : 'Thu nhỏ menu');
+    });
+  }
 
   // Sự kiện đóng modal khi nhấn nút Close hoặc click overlay
   document.querySelectorAll('.modal-close-btn').forEach(btn => {

@@ -19,11 +19,11 @@ const WCAG_DATA = [
   {
     "id": "audio-video-only-prerecorded",
     "wcag": "1.2.1",
-    "title": "Bản dịch/Transcript cho tệp chỉ có âm thanh hoặc video ghi sẵn",
+    "title": "Phụ đề (Transcript) cho file chỉ có âm thanh hoặc video ghi sẵn",
     "level": "A",
     "category": "media",
     "isNew22": false,
-    "desc": "Cung cấp transcript cho tệp chỉ có âm thanh (podcasts) hoặc mô tả hình ảnh cho tệp chỉ có video.",
+    "desc": "Cung cấp transcript cho file audio / mô tả hình ảnh cho file video không tiếng.",
     "why": "Người điếc hoặc người mù có thể tiếp cận được thông tin trong các tệp đơn phương tiện ghi sẵn.",
     "how": [
       "Thiết kế nút tải bản gạch đầu dòng/văn bản ghi âm (transcript) đặt ngay dưới trình phát podcast.",
@@ -35,7 +35,7 @@ const WCAG_DATA = [
   {
     "id": "captions-prerecorded",
     "wcag": "1.2.2",
-    "title": "captions cho video ghi sẵn",
+    "title": "Captions cho video ghi sẵn",
     "level": "A",
     "category": "media",
     "isNew22": false,
@@ -67,7 +67,7 @@ const WCAG_DATA = [
   {
     "id": "captions-live",
     "wcag": "1.2.4",
-    "title": "captions trực tiếp (Live Captions) cho livestream",
+    "title": "Captions trực tiếp (Live Captions) cho livestream",
     "level": "AA",
     "category": "media",
     "isNew22": false,
@@ -987,7 +987,7 @@ const WCAG_DATA = [
     "level": "A",
     "category": "navigation",
     "isNew22": false,
-    "desc": "Đảm bảo ngôn ngữ chính của trang web được khai báo đúng trong mã nguồn (ví dụ: thuộc tính `<html lang=\"vi\">`).",
+    "desc": "Đảm bảo ngôn ngữ chính của trang web được khai báo đúng trong source code.",
     "why": "Screen Reader dựa vào khai báo này để phát âm đúng ngữ điệu và ngôn ngữ của văn bản.",
     "how": [
       "Đưa yêu cầu khai báo thuộc tính `lang` tương ứng vào tài liệu thiết kế hệ thống (Design System)."

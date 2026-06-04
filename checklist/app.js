@@ -11,10 +11,11 @@ let activeCardId = null;
 // Khởi tạo ứng dụng
 document.addEventListener('DOMContentLoaded', () => {
   initLocalStorage();
+  initSidebarCollapse();
   renderProjectDropdown();
   renderCategoryPills();
   bindEvents();
-  renderChecklist();
+  switchTab(activeView);
   updateProgressAndStats();
 });
 
@@ -71,6 +72,20 @@ function initLocalStorage() {
 function saveToStorage() {
   localStorage.setItem('wcag_designer_projects', JSON.stringify(projects));
   localStorage.setItem('wcag_designer_current_project', currentProjectId);
+}
+
+// Khởi tạo trạng thái thu nhỏ sidebar từ LocalStorage
+function initSidebarCollapse() {
+  const isCollapsed = localStorage.getItem('wcag_designer_sidebar_collapsed') === 'true';
+  const container = document.querySelector('.app-container');
+  const toggleBtn = document.getElementById('sidebar-toggle-btn');
+  
+  if (container && isCollapsed) {
+    container.classList.add('sidebar-collapsed');
+  }
+  if (toggleBtn) {
+    toggleBtn.setAttribute('aria-label', isCollapsed ? 'Mở rộng menu' : 'Thu nhỏ menu');
+  }
 }
 
 // Cập nhật thống kê và thanh tiến trình
@@ -173,7 +188,7 @@ function bindEvents() {
     if (currentProject) {
       document.getElementById('current-project-title').innerText = currentProject.name;
     }
-    renderChecklist();
+    switchTab(activeView);
     updateProgressAndStats();
   });
 
@@ -209,7 +224,7 @@ function bindEvents() {
     nameInput.value = '';
     closeModal('new-project-modal');
     renderProjectDropdown();
-    renderChecklist();
+    switchTab(activeView);
     updateProgressAndStats();
     showToast(`Đã tạo dự án mới: "${name}"`);
   });
@@ -228,6 +243,7 @@ function bindEvents() {
       saveToStorage();
       closeModal('rename-project-modal');
       renderProjectDropdown();
+      switchTab(activeView);
       showToast(`Đã đổi tên dự án từ "${oldName}" thành "${name}"`);
     }
   });
@@ -244,7 +260,7 @@ function bindEvents() {
       currentProjectId = projects[0].id;
       saveToStorage();
       renderProjectDropdown();
-      renderChecklist();
+      switchTab(activeView);
       updateProgressAndStats();
       showToast('Đã xóa dự án thành công.');
     }
@@ -296,6 +312,32 @@ function bindEvents() {
     exportToMarkdown();
   });
 
+  // Tab điều hướng Checklist
+  document.getElementById('tab-checklist').addEventListener('click', () => {
+    switchTab('checklist');
+  });
+
+  // Tab điều hướng Báo Cáo
+  document.getElementById('tab-report').addEventListener('click', () => {
+    switchTab('report');
+  });
+
+  // Bộ chọn nhóm tiêu chí trên báo cáo
+  document.getElementById('report-category-select').addEventListener('change', () => {
+    renderReportDetails();
+  });
+
+  // Lọc chi tiết báo cáo theo trạng thái (checkboxes)
+  document.getElementById('rep-filter-pass').addEventListener('change', () => {
+    renderReportDetails();
+  });
+  document.getElementById('rep-filter-fail').addEventListener('change', () => {
+    renderReportDetails();
+  });
+  document.getElementById('rep-filter-na').addEventListener('change', () => {
+    renderReportDetails();
+  });
+
   // Nút Reset dự án hiện tại
   document.getElementById('btn-reset-project').addEventListener('click', () => {
     if (confirm('Bạn có chắc chắn muốn đặt lại tất cả các tiêu chí trong dự án này về trạng thái "Chưa đạt"?')) {
@@ -303,7 +345,7 @@ function bindEvents() {
       if (project) {
         project.state = {};
         saveToStorage();
-        renderChecklist();
+        switchTab(activeView);
         updateProgressAndStats();
         showToast('Đã thiết lập lại dự án hiện tại.');
       }
@@ -325,6 +367,18 @@ function bindEvents() {
       sidebar.classList.remove('active');
     }
   });
+
+  // Toggle thu nhỏ sidebar trên desktop
+  const sidebarToggle = document.getElementById('sidebar-toggle-btn');
+  const container = document.querySelector('.app-container');
+  if (sidebarToggle && container) {
+    sidebarToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isCollapsed = container.classList.toggle('sidebar-collapsed');
+      localStorage.setItem('wcag_designer_sidebar_collapsed', isCollapsed);
+      sidebarToggle.setAttribute('aria-label', isCollapsed ? 'Mở rộng menu' : 'Thu nhỏ menu');
+    });
+  }
 
   // Sự kiện đóng modal khi nhấn nút Close hoặc click overlay
   document.querySelectorAll('.modal-close-btn').forEach(btn => {
@@ -891,4 +945,254 @@ function highlightVirtualKey(key, isActive) {
       el.classList.remove('active');
     }
   }
+}
+
+// --- BÁO CÁO DASHBOARD ---
+let activeView = 'checklist'; // 'checklist' hoặc 'report'
+
+function switchTab(tabId) {
+  const checklistFilter = document.querySelector('.filter-panel');
+  const checklistContainer = document.getElementById('checklist-container');
+  const reportContainer = document.getElementById('report-container');
+  
+  const tabChecklist = document.getElementById('tab-checklist');
+  const tabReport = document.getElementById('tab-report');
+
+  const titleEl = document.getElementById('current-project-title');
+  const descEl = document.getElementById('current-project-desc');
+  const currentProject = projects.find(p => p.id === currentProjectId);
+
+  if (tabId === 'report') {
+    activeView = 'report';
+    checklistFilter.style.display = 'none';
+    checklistContainer.style.display = 'none';
+    reportContainer.style.display = 'flex';
+
+    tabChecklist.classList.remove('active');
+    tabReport.classList.add('active');
+
+    // Cập nhật text tiêu đề và desc
+    if (currentProject) {
+      titleEl.innerText = `Báo cáo WCAG luồng: ${currentProject.name}`;
+    }
+    if (descEl) {
+      descEl.innerText = 'Báo cáo đánh giá mức độ tuân thủ tiêu chuẩn khả năng tiếp cận WCAG 2.2';
+    }
+
+    renderReport();
+  } else {
+    activeView = 'checklist';
+    checklistFilter.style.display = '';
+    checklistContainer.style.display = '';
+    reportContainer.style.display = 'none';
+
+    tabReport.classList.remove('active');
+    tabChecklist.classList.add('active');
+
+    // Cập nhật text tiêu đề và desc
+    if (currentProject) {
+      titleEl.innerText = currentProject.name;
+    }
+    if (descEl) {
+      descEl.innerText = 'Tự đánh giá khả năng tiếp cận dựa trên tiêu chí thiết kế WCAG 2.2';
+    }
+    
+    renderChecklist();
+  }
+
+  // Cuộn lên đầu trang
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function calculateStatsForCategory(catId) {
+  const currentProject = projects.find(p => p.id === currentProjectId);
+  const state = currentProject ? currentProject.state : {};
+
+  let doneCount = 0;
+  let todoCount = 0;
+  let naCount = 0;
+  let unselectedCount = 0;
+  let totalItems = 0;
+
+  WCAG_DATA.forEach(item => {
+    if (catId !== 'all' && item.category !== catId) return;
+    totalItems++;
+    const status = state[item.id] || 'unselected';
+    if (status === 'done') {
+      doneCount++;
+    } else if (status === 'todo') {
+      todoCount++;
+    } else if (status === 'na') {
+      naCount++;
+    } else {
+      unselectedCount++;
+    }
+  });
+
+  const totalApplicable = doneCount + todoCount + unselectedCount;
+  const percentage = totalApplicable > 0 ? Math.round((doneCount / totalApplicable) * 100) : 0;
+
+  return {
+    done: doneCount,
+    todo: todoCount,
+    na: naCount,
+    unselected: unselectedCount,
+    total: totalItems,
+    percentage: percentage
+  };
+}
+
+const categoryNames = {
+  visual: 'Bố cục & Thị giác',
+  interaction: 'Tương tác & Cử chỉ',
+  form: 'Biểu mẫu & Nhập liệu',
+  navigation: 'Điều hướng',
+  media: 'Hình ảnh & Video'
+};
+
+function getColorForPercentage(pct) {
+  if (pct < 50) {
+    return 'var(--danger)';
+  } else if (pct < 80) {
+    return 'var(--highlight-yellow)';
+  } else {
+    return 'var(--success)';
+  }
+}
+
+function renderReport() {
+  const currentProject = projects.find(p => p.id === currentProjectId);
+  if (!currentProject) return;
+
+  // 1. Thống kê tổng quan
+  const overall = calculateStatsForCategory('all');
+  document.getElementById('report-pass-count').innerText = overall.done;
+  document.getElementById('report-fail-count').innerText = overall.todo;
+  document.getElementById('report-na-count').innerText = overall.na;
+  document.getElementById('report-unselected-count').innerText = overall.unselected;
+  
+  // Vòng tròn SVG
+  document.getElementById('gauge-text-val').textContent = `${overall.percentage}%`;
+  
+  // Cập nhật màu text % trong gauge
+  const overallColor = getColorForPercentage(overall.percentage);
+  document.getElementById('gauge-text-val').style.fill = overallColor;
+
+  const circle = document.getElementById('gauge-fill-circle');
+  if (circle) {
+    const circumference = 251.2; // 2 * PI * r (r=40)
+    const offset = circumference - (overall.percentage / 100) * circumference;
+    circle.style.strokeDashoffset = offset;
+    circle.style.stroke = overallColor;
+  }
+
+  // 2. Tiến độ đạt chuẩn của từng nhóm tiêu chí
+  const categoryBarsList = document.getElementById('category-bars-list');
+  categoryBarsList.innerHTML = '';
+  
+  Object.keys(categoryNames).forEach(catId => {
+    const stats = calculateStatsForCategory(catId);
+    const barColor = getColorForPercentage(stats.percentage);
+    const item = document.createElement('div');
+    item.className = 'category-bar-item';
+    item.innerHTML = `
+      <div class="category-bar-header">
+        <span class="category-bar-label">${categoryNames[catId]}</span>
+        <span class="category-bar-pct" style="color: ${barColor};">${stats.percentage}% đạt chuẩn</span>
+      </div>
+      <div class="category-bar-track">
+        <div class="category-bar-fill" style="width: ${stats.percentage}%; background-color: ${barColor};"></div>
+      </div>
+      <span class="category-bar-subtext">
+        Đã đạt ${stats.done}/${stats.total - stats.na} tiêu chí áp dụng (${stats.na} N/A, ${stats.todo} Fail, ${stats.unselected} Chưa đánh giá)
+      </span>
+    `;
+    categoryBarsList.appendChild(item);
+  });
+
+  // 3. Render danh sách chi tiết các tiêu chí (rút gọn)
+  renderReportDetails();
+}
+
+function renderReportDetails() {
+  const currentProject = projects.find(p => p.id === currentProjectId);
+  const state = currentProject ? currentProject.state : {};
+  const selectedCat = document.getElementById('report-category-select').value;
+  const grid = document.getElementById('report-details-grid');
+  grid.innerHTML = '';
+
+  const showPass = document.getElementById('rep-filter-pass').checked;
+  const showFail = document.getElementById('rep-filter-fail').checked;
+  const showNA = document.getElementById('rep-filter-na').checked;
+  const isAnyFilterActive = showPass || showFail || showNA;
+
+  const categoriesToRender = selectedCat === 'all'
+    ? ['visual', 'interaction', 'form', 'navigation', 'media']
+    : [selectedCat];
+
+  const statusOrder = { 'done': 1, 'todo': 2, 'unselected': 3, 'na': 4 };
+
+  categoriesToRender.forEach(catId => {
+    let items = WCAG_DATA.filter(item => item.category === catId);
+    if (items.length === 0) return;
+
+    // Lọc theo trạng thái Pass / Fail / NA
+    items = items.filter(item => {
+      const status = state[item.id] || 'unselected';
+      if (!isAnyFilterActive) return true; // Hiển thị tất cả nếu không chọn gì
+
+      if (showPass && status === 'done') return true;
+      if (showFail && (status === 'todo' || status === 'unselected')) return true;
+      if (showNA && status === 'na') return true;
+
+      return false;
+    });
+
+    if (items.length === 0) return;
+
+    // Sắp xếp: Pass -> Fail -> Chưa đánh giá -> N/A
+    items.sort((a, b) => {
+      const statusA = state[a.id] || 'unselected';
+      const statusB = state[b.id] || 'unselected';
+      return statusOrder[statusA] - statusOrder[statusB];
+    });
+
+    const stats = calculateStatsForCategory(catId);
+    const groupContainer = document.createElement('div');
+    groupContainer.className = 'report-group-container';
+    
+    let itemsHtml = items.map(item => {
+      const status = state[item.id] || 'unselected';
+      let indicatorHtml = '';
+
+      if (status === 'done') {
+        indicatorHtml = `<span class="status-indicator indicator-done" title="Pass"><svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg></span>`;
+      } else if (status === 'todo') {
+        indicatorHtml = `<span class="status-indicator indicator-todo" title="Fail"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></span>`;
+      } else { // 'unselected' or 'na'
+        const titleText = status === 'na' ? 'N/A' : 'Chưa đánh giá';
+        indicatorHtml = `<span class="status-indicator indicator-hidden" title="${titleText}"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg></span>`;
+      }
+
+      return `
+        <div class="report-item-row">
+          ${indicatorHtml}
+          <span class="badge badge-id">WCAG ${item.wcag}</span>
+          <span class="badge badge-level-${item.level.toLowerCase()}">Cấp độ ${item.level}</span>
+          <span class="report-item-title">${item.title}</span>
+        </div>
+      `;
+    }).join('');
+
+    groupContainer.innerHTML = `
+      <div class="report-group-title">
+        <span>${categoryNames[catId]}</span>
+        <span class="report-group-badge">Đạt ${stats.percentage}% (${stats.done} Pass, ${stats.todo} Fail, ${stats.na} N/A)</span>
+      </div>
+      <div class="report-items-list">
+        ${itemsHtml}
+      </div>
+    `;
+    grid.appendChild(groupContainer);
+  });
 }

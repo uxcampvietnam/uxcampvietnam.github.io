@@ -40,12 +40,21 @@ function initLocalStorage() {
       }
       return true;
     });
+
+    // Ensure failReasons is initialized for each loaded project
+    projects.forEach(p => {
+      if (!p.failReasons) {
+        p.failReasons = {};
+      }
+    });
+
     // Ensure we have at least one project
     if (projects.length === 0) {
       projects.push({
         id: 'default',
         name: 'Default Flow',
-        state: {}
+        state: {},
+        failReasons: {}
       });
     }
   } else {
@@ -54,7 +63,8 @@ function initLocalStorage() {
       {
         id: 'default',
         name: 'Default Flow',
-        state: {} // Lưu trạng thái dạng { itemId: 'todo' | 'done' | 'na' }
+        state: {}, // Lưu trạng thái dạng { itemId: 'todo' | 'done' | 'na' }
+        failReasons: {}
       }
     ];
     saveToStorage();
@@ -215,7 +225,8 @@ function bindEvents() {
     projects.push({
       id: newId,
       name: name,
-      state: {}
+      state: {},
+      failReasons: {}
     });
     currentProjectId = newId;
     saveToStorage();
@@ -573,6 +584,10 @@ function renderChecklist() {
       activeCardId = item.id;
     });
 
+    // Lấy lý do fail đã lưu (nếu có)
+    const failReasons = currentProject.failReasons || {};
+    const failReasonText = failReasons[item.id] || '';
+
     // Tạo icon indicator dựa trên trạng thái
     let indicatorHtml = '';
     if (itemStatus === 'done') {
@@ -614,6 +629,11 @@ function renderChecklist() {
           <button class="status-btn btn-todo ${itemStatus === 'todo' ? 'active' : ''}" data-status="todo" title="Fail">Fail</button>
           <button class="status-btn btn-done ${itemStatus === 'done' ? 'active' : ''}" data-status="done" title="Pass">Pass</button>
         </div>
+      </div>
+      <div class="fail-reason-container" style="display: ${itemStatus === 'todo' ? 'flex' : 'none'};">
+        <label class="fail-reason-label">Lý do đánh fail luồng.</label>
+        <input type="text" class="fail-reason-input" placeholder="Ấn Enter để bắt đầu nhập" value="${failReasonText.replace(/"/g, '&quot;')}" />
+        <div class="fail-reason-hint">Bấm Enter để hoàn thành</div>
       </div>
       
       <details class="card-details">
@@ -677,6 +697,12 @@ function renderChecklist() {
         if (newStatus === 'todo') card.classList.add('card-todo');
         if (newStatus === 'na') card.classList.add('card-na');
 
+        // Cập nhật hiển thị ô nhập lý do fail
+        const failContainer = card.querySelector('.fail-reason-container');
+        if (failContainer) {
+          failContainer.style.display = newStatus === 'todo' ? 'flex' : 'none';
+        }
+
         // Cập nhật icon indicator
         updateIndicatorIcon(card, newStatus);
 
@@ -684,6 +710,26 @@ function renderChecklist() {
         updateProgressAndStats();
       });
     });
+
+    // Lắng nghe sự kiện nhập lý do fail
+    const reasonInput = card.querySelector('.fail-reason-input');
+    if (reasonInput) {
+      reasonInput.addEventListener('input', (e) => {
+        if (!currentProject.failReasons) {
+          currentProject.failReasons = {};
+        }
+        currentProject.failReasons[item.id] = e.target.value;
+        saveToStorage();
+      });
+      reasonInput.addEventListener('keydown', (e) => {
+        e.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          reasonInput.blur();
+          card.focus();
+        }
+      });
+    }
 
     // Nếu có tìm kiếm và từ khóa khớp với nội dung chi tiết ẩn, hãy mở rộng details
     if (searchQuery) {
@@ -725,16 +771,20 @@ function exportToMarkdown() {
   let naList = [];
   let unselectedList = [];
 
+  const itemFailReasons = currentProject.failReasons || {};
+
   WCAG_DATA.forEach(item => {
     const status = state[item.id] || 'unselected';
     const statusText = status === 'done' ? '✅ Đã đạt' : (status === 'na' ? '⚪ Không áp dụng' : (status === 'todo' ? '❌ Chưa đạt' : '❓ Chưa đánh giá'));
+    const failReasonText = itemFailReasons[item.id] || '';
 
     const row = {
       wcag: item.wcag,
       title: item.title,
       level: item.level,
       status: statusText,
-      isNew: item.isNew22 ? 'Mới' : 'Thường'
+      isNew: item.isNew22 ? 'Mới' : 'Thường',
+      failReason: failReasonText
     };
 
     if (status === 'done') doneList.push(row);
@@ -759,10 +809,10 @@ function exportToMarkdown() {
     md += `🎉 Không có hạng mục nào bị đánh giá "Chưa đạt".\n\n`;
   } else {
     md += `Các hạng mục này cần được kiểm tra lại trên Figma/Prototype để bổ sung chỉ dẫn hoặc sửa giao diện:\n\n`;
-    md += `| WCAG | Tiêu chí đánh giá | Cấp độ | Trạng thái |\n`;
-    md += `| :--- | :--- | :--- | :--- |\n`;
+    md += `| WCAG | Tiêu chí đánh giá | Cấp độ | Trạng thái | Lý do fail |\n`;
+    md += `| :--- | :--- | :--- | :--- | :--- |\n`;
     todoList.forEach(item => {
-      md += `| ${item.wcag} | ${item.title} | **${item.level}** | ${item.status} |\n`;
+      md += `| ${item.wcag} | ${item.title} | **${item.level}** | ${item.status} | ${item.failReason || '-'} |\n`;
     });
     md += `\n`;
   }
@@ -779,13 +829,14 @@ function exportToMarkdown() {
   }
 
   md += `## Chi tiết bảng đánh giá đầy đủ\n\n`;
-  md += `| WCAG | Tiêu chí đánh giá | Cấp độ | WCAG 2.2 | Trạng thái |\n`;
-  md += `| :--- | :--- | :---: | :---: | :--- |\n`;
+  md += `| WCAG | Tiêu chí đánh giá | Cấp độ | WCAG 2.2 | Trạng thái | Lý do fail |\n`;
+  md += `| :--- | :--- | :---: | :---: | :--- | :--- |\n`;
 
   WCAG_DATA.forEach(item => {
     const status = state[item.id] || 'unselected';
     const statusText = status === 'done' ? '✅ Đã đạt' : (status === 'na' ? '⚪ N/A' : (status === 'todo' ? '❌ Chưa đạt' : '❓ Chưa đánh giá'));
-    md += `| ${item.wcag} | ${item.title} | ${item.level} | ${item.isNew22 ? 'Mới 🆕' : '-'} | ${statusText} |\n`;
+    const failReason = itemFailReasons[item.id] || '';
+    md += `| ${item.wcag} | ${item.title} | ${item.level} | ${item.isNew22 ? 'Mới 🆕' : '-'} | ${statusText} | ${status === 'todo' && failReason ? failReason : '-'} |\n`;
   });
 
   md += `\n---
@@ -836,7 +887,13 @@ function updateCardStatusUI(cardId, newStatus) {
     }
   });
 
-  // 3. Cập nhật icon indicator
+  // 3. Cập nhật hiển thị ô nhập lý do fail
+  const failContainer = card.querySelector('.fail-reason-container');
+  if (failContainer) {
+    failContainer.style.display = newStatus === 'todo' ? 'flex' : 'none';
+  }
+
+  // 4. Cập nhật icon indicator
   updateIndicatorIcon(card, newStatus);
 }
 
@@ -882,6 +939,19 @@ document.addEventListener('keydown', (e) => {
     if (activeCardId) {
       const activeCardEl = document.getElementById(`card-${activeCardId}`);
       if (activeCardEl && document.activeElement === activeCardEl) {
+        const currentProject = projects.find(p => p.id === currentProjectId);
+        const state = (currentProject && currentProject.state) || {};
+        const isFailed = state[activeCardId] === 'todo';
+
+        if (isFailed) {
+          const reasonInput = activeCardEl.querySelector('.fail-reason-input');
+          if (reasonInput) {
+            e.preventDefault();
+            reasonInput.focus();
+            return;
+          }
+        }
+
         const detailsEl = activeCardEl.querySelector('.card-details');
         if (detailsEl) {
           e.preventDefault();
@@ -1228,12 +1298,21 @@ function renderReportDetails() {
         indicatorHtml = `<span class="status-indicator indicator-hidden" title="${titleText}"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg></span>`;
       }
 
+      const itemFailReasons = currentProject.failReasons || {};
+      const failReasonText = itemFailReasons[item.id] || '';
+      const reasonHtml = (status === 'todo' && failReasonText)
+        ? `<div class="report-item-fail-reason">Lý do fail: ${failReasonText}</div>`
+        : '';
+
       return `
-        <div class="report-item-row">
-          ${indicatorHtml}
-          <span class="badge badge-item badge-id">${item.wcag}</span>
-          <span class="badge badge-level badge-level-${item.level.toLowerCase()}">${item.level}</span>
-          <span class="report-item-title">${item.title}</span>
+        <div class="report-item-wrapper">
+          <div class="report-item-row">
+            ${indicatorHtml}
+            <span class="badge badge-item badge-id">${item.wcag}</span>
+            <span class="badge badge-level badge-level-${item.level.toLowerCase()}">${item.level}</span>
+            <span class="report-item-title">${item.title}</span>
+          </div>
+          ${reasonHtml}
         </div>
       `;
     }).join('');

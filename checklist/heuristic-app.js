@@ -41,6 +41,20 @@ function initLocalStorage() {
         if (!p.state.shneiderman) p.state.shneiderman = {};
         if (!p.state.weinschenk) p.state.weinschenk = {};
       }
+
+      if (!p.failReasons) {
+        p.failReasons = {
+          nielsen: {},
+          gerhardt: {},
+          shneiderman: {},
+          weinschenk: {}
+        };
+      } else {
+        if (!p.failReasons.nielsen) p.failReasons.nielsen = {};
+        if (!p.failReasons.gerhardt) p.failReasons.gerhardt = {};
+        if (!p.failReasons.shneiderman) p.failReasons.shneiderman = {};
+        if (!p.failReasons.weinschenk) p.failReasons.weinschenk = {};
+      }
     });
   } else {
     // Dự án mặc định ban đầu
@@ -49,6 +63,12 @@ function initLocalStorage() {
         id: 'default',
         name: 'Default Flow',
         state: {
+          nielsen: {},
+          gerhardt: {},
+          shneiderman: {},
+          weinschenk: {}
+        },
+        failReasons: {
           nielsen: {},
           gerhardt: {},
           shneiderman: {},
@@ -246,6 +266,12 @@ function bindEvents() {
       id: newId,
       name: name,
       state: {
+        nielsen: {},
+        gerhardt: {},
+        shneiderman: {},
+        weinschenk: {}
+      },
+      failReasons: {
         nielsen: {},
         gerhardt: {},
         shneiderman: {},
@@ -703,6 +729,10 @@ function renderChecklist() {
       `;
     }
 
+    // Lấy lý do fail đã lưu (nếu có)
+    const failReasons = (currentProject.failReasons && currentProject.failReasons[activeChecklist]) || {};
+    const failReasonText = failReasons[item.itemId] || '';
+
     // Tạo icon indicator dựa trên trạng thái
     let indicatorHtml = '';
     if (item.status === 'done') {
@@ -731,6 +761,11 @@ function renderChecklist() {
           <button class="status-btn btn-done ${item.status === 'done' ? 'active' : ''}" data-status="done" title="Pass">Pass</button>
         </div>
       </div>
+      <div class="fail-reason-container" style="display: ${item.status === 'todo' ? 'flex' : 'none'};">
+        <label class="fail-reason-label">Lý do đánh fail luồng.</label>
+        <input type="text" class="fail-reason-input" placeholder="Ấn Enter để bắt đầu nhập" value="${failReasonText.replace(/"/g, '&quot;')}" />
+        <div class="fail-reason-hint">Bấm Enter để hoàn thành</div>
+      </div>
       ${detailsHtml}
     `;
 
@@ -756,6 +791,12 @@ function renderChecklist() {
         if (newStatus === 'todo') card.classList.add('card-todo');
         if (newStatus === 'na') card.classList.add('card-na');
 
+        // Cập nhật hiển thị ô nhập lý do fail
+        const failContainer = card.querySelector('.fail-reason-container');
+        if (failContainer) {
+          failContainer.style.display = newStatus === 'todo' ? 'flex' : 'none';
+        }
+
         // Cập nhật icon indicator
         updateIndicatorIcon(card, newStatus);
 
@@ -763,6 +804,29 @@ function renderChecklist() {
         updateProgressAndStats();
       });
     });
+
+    // Lắng nghe sự kiện nhập lý do fail
+    const reasonInput = card.querySelector('.fail-reason-input');
+    if (reasonInput) {
+      reasonInput.addEventListener('input', (e) => {
+        if (!currentProject.failReasons) {
+          currentProject.failReasons = { nielsen: {}, gerhardt: {}, shneiderman: {}, weinschenk: {} };
+        }
+        if (!currentProject.failReasons[activeChecklist]) {
+          currentProject.failReasons[activeChecklist] = {};
+        }
+        currentProject.failReasons[activeChecklist][item.itemId] = e.target.value;
+        saveToStorage();
+      });
+      reasonInput.addEventListener('keydown', (e) => {
+        e.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          reasonInput.blur();
+          card.focus();
+        }
+      });
+    }
 
     // Nếu có tìm kiếm và từ khóa khớp với nội dung chi tiết ẩn, hãy mở rộng details
     if (searchQuery) {
@@ -831,13 +895,21 @@ function exportToMarkdown() {
 
   const prefix = activeChecklist === 'nielsen' ? 'H' : activeChecklist === 'gerhardt' ? 'P' : activeChecklist === 'shneiderman' ? 'R' : 'C';
 
+  const failReasons = (currentProject.failReasons && currentProject.failReasons[activeChecklist]) || {};
+
   checklistData.categories.forEach(cat => {
     cat.criteria.forEach(crit => {
       const itemId = `${cat.id}_${crit.id}`;
       const status = state[itemId] || 'unselected';
       const code = `${prefix}${cat.id}.${crit.id}`;
       const detailPart = crit.desc ? `\n   - *Chi tiết*: ${crit.desc}` : '';
-      const itemText = `**[${code}] ${cat.name}**: ${crit.title}${detailPart}\n   - *Lý do*: ${crit.why}`;
+      
+      let itemText = `**[${code}] ${cat.name}**: ${crit.title}${detailPart}\n   - *Lý do*: ${crit.why}`;
+      
+      const failReasonText = failReasons[itemId] || '';
+      if (status === 'todo' && failReasonText) {
+        itemText += `\n   - **Lý do chưa đạt**: ${failReasonText}`;
+      }
 
       if (status === 'done') {
         doneList.push(itemText);
@@ -951,6 +1023,13 @@ function cycleStatus(cardEl, direction) {
     saveToStorage();
     btns.forEach(b => b.classList.remove('active'));
     cardEl.classList.remove('card-done', 'card-todo', 'card-na');
+    
+    // Hide the fail reason container
+    const failContainer = cardEl.querySelector('.fail-reason-container');
+    if (failContainer) {
+      failContainer.style.display = 'none';
+    }
+
     updateIndicatorIcon(cardEl, 'unselected');
     updateProgressAndStats();
   } else {
@@ -974,12 +1053,25 @@ document.addEventListener('keydown', (e) => {
   const currentFocusedIndex = visibleCards.findIndex(c => c.classList.contains('focused-card'));
   const key = e.key;
 
-  // Xử lý phím Enter để đóng/mở chi tiết thẻ đang focus
+  // Xử lý phím Enter để đóng/mở chi tiết thẻ đang focus hoặc focus vào input lý do fail
   if (key === 'Enter') {
     highlightDpadKey('key-enter');
     if (activeCardId) {
       const activeCardEl = document.getElementById(`card-${activeCardId}`);
       if (activeCardEl && document.activeElement === activeCardEl) {
+        const currentProject = projects.find(p => p.id === currentProjectId);
+        const state = (currentProject && currentProject.state[activeChecklist]) || {};
+        const isFailed = state[activeCardId] === 'todo';
+
+        if (isFailed) {
+          const reasonInput = activeCardEl.querySelector('.fail-reason-input');
+          if (reasonInput) {
+            e.preventDefault();
+            reasonInput.focus();
+            return;
+          }
+        }
+
         const detailsEl = activeCardEl.querySelector('.card-details');
         if (detailsEl) {
           e.preventDefault();
@@ -1300,11 +1392,20 @@ function renderReportDetails() {
         indicatorHtml = `<span class="status-indicator indicator-hidden" title="${titleText}"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg></span>`;
       }
 
+      const itemFailReasons = (currentProject.failReasons && currentProject.failReasons[activeChecklist]) || {};
+      const failReasonText = itemFailReasons[item.itemId] || '';
+      const reasonHtml = (status === 'todo' && failReasonText)
+        ? `<div class="report-item-fail-reason">Lý do fail: ${failReasonText}</div>`
+        : '';
+
       return `
-        <div class="report-item-row">
-          ${indicatorHtml}
-          <span class="badge badge-id">${item.code}</span>
-          <span class="report-item-title">${item.title}</span>
+        <div class="report-item-wrapper">
+          <div class="report-item-row">
+            ${indicatorHtml}
+            <span class="badge badge-id">${item.code}</span>
+            <span class="report-item-title">${item.title}</span>
+          </div>
+          ${reasonHtml}
         </div>
       `;
     }).join('');

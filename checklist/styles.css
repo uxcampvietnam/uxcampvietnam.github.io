@@ -2740,6 +2740,7 @@ input:checked+.slider:before {
   gap: 8px;
 }
 
+.report-item-wrapper:has(.indicator-hidden),
 .report-item-row:has(.indicator-hidden) {
   display: none;
 }
@@ -2926,4 +2927,60 @@ input:checked+.slider:before {
 
 .switcher-btn.active svg {
   color: var(--fix-white---white-100);
+}
+
+/* --- FAILURE REASON STYLE FOR CHECKLIST CARD --- */
+.fail-reason-container {
+  padding: 16px 20px;
+  border-top: 0.5px solid var(--border-color);
+  background-color: var(--main-colors-background-elevate-1);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fail-reason-label {
+  font-family: var(--font-sans-family);
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--alternative-foreground-red);
+  text-transform: uppercase;
+}
+
+.fail-reason-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  background-color: var(--saved-tab-item-background-hover);
+  color: var(--text-main);
+  font-size: 0.9rem;
+  font-family: var(--font-sans-family);
+  transition: border-color var(--transition-fast), background-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.fail-reason-input:focus {
+  outline: none;
+  border: 2px solid var(--alternative-foreground-red) !important; /* Thể hiện focus rõ ràng, dày hơn và có viền đỏ nổi bật */
+  background-color: var(--bg-surface);
+  box-shadow: 0 0 0 3px rgba(185, 28, 28, 0.15);
+}
+
+.fail-reason-hint {
+  font-family: var(--font-sans-family);
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+/* Style lý do fail hiển thị trên báo cáo */
+.report-item-fail-reason {
+  margin-top: 6px;
+  margin-left: 28px;
+  font-size: 0.825rem;
+  color: var(--danger);
+  font-style: italic;
+  padding: 4px 8px;
+  background-color: rgba(185, 28, 28, 0.05);
+  border-left: 3px solid var(--danger);
+  border-radius: 0 4px 4px 0;
 }

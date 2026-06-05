@@ -327,7 +327,7 @@ const HEURISTIC_DATA = {
           },
           {
             "id": 5,
-            "title": "Hành vi của hệ thống phải tương đồng với thế giới thực (phân biệt rõ: xóa vĩnh viễn và ẩn/loại bỏ).",
+            "title": "phân biệt rõ: xóa vĩnh viễn và ẩn/loại bỏ",
             "desc": "",
             "why": "",
             "how": [

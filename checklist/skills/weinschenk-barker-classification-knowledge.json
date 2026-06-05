@@ -1,0 +1,908 @@
+[
+    {
+        "id": 1,
+        "name": "Consistency",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Đảm bảo các nút bấm, biểu tượng và bố cục nhất quán trên toàn bộ các trang.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
+                    "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
+                    "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
+                ],
+                "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
+                "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            },
+            {
+                "id": 2,
+                "title": "Nhất quán cấu trúc thanh điều hướng ở tất cả các mục.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
+                    "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
+                    "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
+                ],
+                "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
+                "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            },
+            {
+                "id": 3,
+                "title": "Sử dụng đồng nhất màu sắc và kiểu chữ trên toàn bộ website/app.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
+                    "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
+                    "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
+                ],
+                "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
+                "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            },
+            {
+                "id": 4,
+                "title": "Sử dụng thuật ngữ thống nhất trên toàn app (ví dụ: dùng 'Giỏ hàng' thay vì đổi thành 'Giỏ mua sắm' ở trang khác).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
+                    "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
+                    "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
+                ],
+                "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
+                "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            },
+            {
+                "id": 5,
+                "title": "Thiết kế phong cách nút bấm và link liên kết đồng bộ.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
+                    "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
+                    "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
+                ],
+                "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
+                "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            },
+            {
+                "id": 6,
+                "title": "Hiển thị thông báo lỗi ở định dạng và vị trí nhất quán trên toàn bộ giao diện.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
+                    "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
+                    "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
+                ],
+                "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
+                "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            },
+            {
+                "id": 7,
+                "title": "Nhất quán khoảng cách căn lề giữa các thành phần UI.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
+                    "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
+                    "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
+                ],
+                "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
+                "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            },
+            {
+                "id": 8,
+                "title": "Popup confirm và thông báo hệ thống phải sử dụng chung một layout mẫu.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
+                    "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
+                    "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
+                ],
+                "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
+                "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            },
+            {
+                "id": 9,
+                "title": "Kích thước vùng bấm chạm (touch target) của nút nhất quán trên cả bản mobile và desktop.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
+                    "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
+                    "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
+                ],
+                "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
+                "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Shortcuts",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Cung cấp các tổ hợp phím tắt (shortcut) cho user thành thạo (ví dụ: Ctrl + S để lưu nhanh).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+                    "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+                    "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
+                ],
+                "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+                "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            },
+            {
+                "id": 2,
+                "title": "Hỗ trợ các cử chỉ vuốt chạm (swipe) tiện lợi trên thiết bị di động.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+                    "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+                    "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
+                ],
+                "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+                "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            },
+            {
+                "id": 3,
+                "title": "Cung cấp danh mục các tính năng hay dùng hoặc file mở gần đây để truy cập nhanh.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+                    "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+                    "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
+                ],
+                "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+                "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            },
+            {
+                "id": 4,
+                "title": "Tích hợp tính năng tự động hoàn thành (autocomplete) trong thanh tìm kiếm và form nhập liệu.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+                    "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+                    "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
+                ],
+                "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+                "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            },
+            {
+                "id": 5,
+                "title": "Cho phép user tự thiết lập phím tắt cá nhân cho các lệnh thường dùng.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+                    "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+                    "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
+                ],
+                "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+                "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            },
+            {
+                "id": 6,
+                "title": "Hiển thị gợi ý phím tắt tương ứng khi user hover chuột vào nút bấm.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+                    "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+                    "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
+                ],
+                "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+                "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            },
+            {
+                "id": 7,
+                "title": "Hỗ trợ ra lệnh bằng giọng nói hoặc phím tắt nâng cao cho chuyên gia.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+                    "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+                    "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
+                ],
+                "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+                "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            },
+            {
+                "id": 8,
+                "title": "Ưu tiên hiển thị mặc định các lựa chọn dựa trên lịch sử thói quen của user.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hỗ trợ các shortcut bàn phím thông dụng (ví dụ: Ctrl/Cmd + Enter để gửi, ESC để đóng).",
+                    "Cung cấp tính năng autocomplete (autofill) và lưu thông tin biểu mẫu cho lần sau.",
+                    "Cho phép kéo thả (drag and drop) hoặc thao tác vuốt nhanh trên mobile."
+                ],
+                "do": "Cho phép user thành thạo nhấn shortcut \"N\" để tạo nhanh một ghi chú mới từ bất kỳ đâu trên ứng dụng.",
+                "dont": "Bắt buộc user phải rê chuột qua 3 lớp menu khác nhau để thực hiện một tác vụ cực kỳ phổ biến."
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Feedback",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Phản hồi trực quan hoặc âm thanh tức thì ngay khi user thực hiện thao tác.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 2,
+                "title": "Hiển thị chỉ báo loading trực tiếp trên nút bấm nếu tác vụ mất thời gian xử lý.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 3,
+                "title": "Viết thông báo thành công rõ ràng để user yên tâm (ví dụ: 'Tải file lên thành công').",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 4,
+                "title": "Thông báo lỗi phải chỉ rõ nguyên nhân và gợi ý giải pháp xử lý cụ thể.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 5,
+                "title": "Dùng animation hoặc tương tác vi mô để thông báo thay đổi trạng thái của hệ thống.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 6,
+                "title": "Hiển thị tích xanh/đỏ validate trực tiếp trên ô nhập liệu ngay khi user đang gõ.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 7,
+                "title": "Hiển thị hiệu ứng hover rõ nét khi di chuột qua các nút bấm và link liên kết.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 8,
+                "title": "Hiển thị màn hình/popup xác nhận sau khi user hoàn thành task quan trọng (như đặt hàng thành công).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Closure",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Thông báo rõ ràng cho user khi họ đã hoàn thành xong một task.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+                    "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
+                    "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
+                ],
+                "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
+                "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            },
+            {
+                "id": 2,
+                "title": "Kết thúc quy trình thanh toán hoặc gửi form bằng một trang xác nhận trực quan.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+                    "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
+                    "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
+                ],
+                "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
+                "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            },
+            {
+                "id": 3,
+                "title": "Gửi email hoặc thông báo đẩy xác nhận tự động ngay sau các giao dịch quan trọng.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+                    "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
+                    "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
+                ],
+                "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
+                "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            },
+            {
+                "id": 4,
+                "title": "Hiển thị thanh tiến trình (progress bar) cho các quy trình nhiều bước.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+                    "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
+                    "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
+                ],
+                "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
+                "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            },
+            {
+                "id": 5,
+                "title": "Cung cấp trang tóm tắt kết quả kèm nút tải xuống khi hoàn tất xuất báo cáo.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+                    "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
+                    "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
+                ],
+                "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
+                "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            },
+            {
+                "id": 6,
+                "title": "Gợi ý hành động logic tiếp theo cho user sau khi họ kết thúc quy trình hiện tại.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+                    "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
+                    "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
+                ],
+                "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
+                "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            },
+            {
+                "id": 7,
+                "title": "Đặt tên nút ở bước cuối quy trình rõ nghĩa (ví dụ: 'Hoàn tất' thay vì nút 'Tiếp tục').",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị màn hình hoặc popup/modal xác nhận thành công (Success state) kèm theo tóm tắt giao dịch.",
+                    "Cung cấp thông tin hướng dẫn về các bước tiếp theo cần thực hiện sau khi hoàn thành tác vụ.",
+                    "Đưa ra phản hồi rõ ràng bằng âm thanh hoặc hiệu ứng hình ảnh nhẹ nhàng khi kết thúc quy trình."
+                ],
+                "do": "Hiển thị trang chúc mừng \"Đặt hàng thành công!\" kèm mã đơn hàng và nút \"Quay lại cửa hàng\".",
+                "dont": "Sau khi bấm nút thanh toán, hệ thống chỉ tải lại trang chủ mà không đưa ra bất kỳ thông báo hay biên lai nào."
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Error prevention",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Validate định dạng dữ liệu trực tiếp để ngăn user nhập ký tự không hợp lệ (ví dụ: chặn nhập chữ vào ô số điện thoại).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
+                    "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
+                    "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
+                ],
+                "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+                "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            },
+            {
+                "id": 2,
+                "title": "Đánh dấu rõ ràng các trường bắt buộc phải điền.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
+                    "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
+                    "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
+                ],
+                "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+                "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            },
+            {
+                "id": 3,
+                "title": "Yêu cầu confirm bằng hộp thoại trước khi thực hiện hành động xóa hoặc hủy.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
+                    "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
+                    "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
+                ],
+                "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+                "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            },
+            {
+                "id": 4,
+                "title": "Cung cấp tính năng Undo hoặc khôi phục dữ liệu nhanh.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
+                    "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
+                    "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
+                ],
+                "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+                "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            },
+            {
+                "id": 5,
+                "title": "Cung cấp tooltip giải thích cho các trường thông tin phức tạp.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
+                    "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
+                    "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
+                ],
+                "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+                "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            },
+            {
+                "id": 6,
+                "title": "Validate định dạng email/mật khẩu trực tiếp ngay khi đang nhập form.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
+                    "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
+                    "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
+                ],
+                "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+                "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            },
+            {
+                "id": 7,
+                "title": "Đặt ra các ràng buộc mật khẩu rõ ràng (độ dài tối thiểu, ký tự đặc biệt).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
+                    "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
+                    "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
+                ],
+                "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+                "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            },
+            {
+                "id": 8,
+                "title": "Dùng ngôn ngữ dễ hiểu cho thông báo lỗi, tránh dùng mã lỗi lập trình.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
+                    "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
+                    "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
+                ],
+                "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+                "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            },
+            {
+                "id": 9,
+                "title": "Chỉ dẫn chi tiết cách sửa lỗi ngay trong câu thông báo lỗi.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Vô hiệu hóa (disable) các nút gửi biểu mẫu cho đến khi tất cả các trường bắt buộc đã được điền đúng định dạng.",
+                    "Cung cấp gợi ý định dạng (như lịch chọn ngày, định dạng số điện thoại tự động phân tách) để tránh nhập sai.",
+                    "Yêu cầu xác nhận (Confirmation) hai lần đối với các hành động có tính hủy hoại cao (như xóa tài khoản, hủy dự án)."
+                ],
+                "do": "Hiển thị lịch chọn ngày thông minh chỉ cho phép chọn ngày trong tương lai khi user đặt vé máy bay.",
+                "dont": "Cho phép user nhập tự do ngày tháng rồi sau khi bấm nút gửi mới báo lỗi \"Sai định dạng YYYY-MM-DD\"."
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Reversibility",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Cho phép dễ dàng Undo (hoàn tác) hoặc Redo hành động vừa thực hiện.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 2,
+                "title": "Lưu trữ dữ liệu đã xóa vào thùng rác tạm thời để user có thể khôi phục khi cần.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 3,
+                "title": "Hiển thị popup confirm trước khi chạy các lệnh không thể đảo ngược.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 4,
+                "title": "Cho phép khôi phục cài đặt cũ nếu user thay đổi cài đặt giao diện.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 5,
+                "title": "Lưu trạng thái phiên làm việc (session state) để tránh mất dữ liệu khi mất kết nối mạng đột ngột.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 6,
+                "title": "Tự động lưu bản nháp form để tránh mất bài viết khi vô tình đóng tab.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 7,
+                "title": "Luôn hiển thị nút Hủy (Cancel) ở tất cả các bước trong quy trình nhập liệu.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 8,
+                "title": "Cho phép chỉnh sửa dữ liệu đã gửi nếu phát hiện sai sót.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Control",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Thiết kế để user cảm thấy làm chủ giao diện thay vì bị hệ thống ép buộc luồng đi.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 2,
+                "title": "Hạn chế tối đa các popup bất ngờ gây xao nhãng hoặc cản trở thao tác.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 3,
+                "title": "Luôn cung cấp lối thoát (nút Exit/Cancel) rõ ràng ở mọi tác vụ.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 4,
+                "title": "Cho phép cá nhân hóa giao diện (đổi theme tối/sáng, chỉnh size chữ).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 5,
+                "title": "Không bao giờ thực hiện hành động không thể đảo ngược mà không cảnh báo trước.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 6,
+                "title": "Đảm bảo luồng điều hướng đi đúng kỳ vọng của user, không tự động chuyển hướng màn hình đột ngột.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 7,
+                "title": "Dẫn dắt trải nghiệm một cách tự nhiên, tránh ép buộc user theo một kịch bản cứng nhắc.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 8,
+                "title": "Cung cấp quyền tắt/bật các đề xuất tự động từ hệ thống.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Reduce memory load",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Hiển thị sẵn các tính năng cốt lõi trên thanh menu thay vì giấu sâu bên trong.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 2,
+                "title": "Hiển thị tooltip giải thích nhanh khi hover qua các nút chức năng.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 3,
+                "title": "Không bắt user ghi nhớ thông tin giữa các màn hình (ví dụ: tự động copy địa chỉ giao hàng sang địa chỉ thanh toán).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 4,
+                "title": "Cung cấp breadcrumbs hoặc sơ đồ hướng dẫn cho các quy trình nghiệp vụ phức tạp.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 5,
+                "title": "Giữ label trường nhập luôn hiển thị (tránh dùng placeholder thay thế cho label).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 6,
+                "title": "Lưu lịch sử tìm kiếm và thông tin nhập liệu cũ để user truy cập nhanh khi cần.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 7,
+                "title": "Cung cấp hướng dẫn từng bước rõ ràng cho các luồng nghiệp vụ khó.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 8,
+                "title": "Cho phép dễ dàng truy cập lịch sử hoạt động gần đây của user.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 9,
+                "title": "Cung cấp nhật ký hoạt động (activity log) trực quan để user dễ tra cứu lại.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            }
+        ]
+    }
+]

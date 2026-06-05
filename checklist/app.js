@@ -79,7 +79,7 @@ function initSidebarCollapse() {
   const isCollapsed = localStorage.getItem('wcag_designer_sidebar_collapsed') === 'true';
   const container = document.querySelector('.app-container');
   const toggleBtn = document.getElementById('sidebar-toggle-btn');
-  
+
   if (container && isCollapsed) {
     container.classList.add('sidebar-collapsed');
   }
@@ -153,7 +153,7 @@ function renderProjectDropdown() {
 function renderCategoryDropdown() {
   const select = document.getElementById('category-filter');
   if (!select) return;
-  
+
   select.innerHTML = '';
 
   const categories = [
@@ -342,6 +342,14 @@ function bindEvents() {
     renderReportDetails();
   });
 
+  // Nút Tải Agent Skills
+  document.getElementById('btn-download-skills').addEventListener('click', () => {
+    downloadAgentSkills([
+      { url: 'skills/wcag-skill.md', name: 'wcag-skill.md' },
+      { url: 'skills/wcag-knowledge.json', name: 'wcag-knowledge.json' }
+    ], 'WCAG 2.2');
+  });
+
   // Nút Reset dự án hiện tại
   document.getElementById('btn-reset-project').addEventListener('click', () => {
     if (confirm('Bạn có chắc chắn muốn đặt lại tất cả các tiêu chí trong dự án này về trạng thái "Chưa đạt"?')) {
@@ -419,12 +427,12 @@ function bindEvents() {
       el.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        
+
         const keyName = keyMappings[id];
         // Gửi sự kiện keydown
         const downEvent = new KeyboardEvent('keydown', { key: keyName, bubbles: true });
         document.dispatchEvent(downEvent);
-        
+
         // Gửi sự kiện keyup sau một khoảng trễ ngắn để tạo hiệu ứng active
         setTimeout(() => {
           const upEvent = new KeyboardEvent('keyup', { key: keyName, bubbles: true });
@@ -470,6 +478,22 @@ function showToast(message) {
       toast.remove();
     }, 300);
   }, 3000);
+}
+
+// Tải xuống Agent Skills & Knowledge
+function downloadAgentSkills(files, flowName) {
+  files.forEach((file, index) => {
+    setTimeout(() => {
+      const link = document.createElement('a');
+      link.href = file.url;
+      link.download = file.name;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }, index * 200);
+  });
+  showToast(`Đã tải xuống Agent Skills & Knowledge cho ${flowName}!`);
 }
 
 // --- RENDER DỰ ÁN CHECKLIST ---
@@ -556,13 +580,13 @@ function renderChecklist() {
     } else if (itemStatus === 'todo') {
       indicatorHtml = `<span class="status-indicator indicator-todo" aria-label="Fail"><svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></span>`;
     } else {
-      indicatorHtml = `<span class="status-indicator indicator-hidden" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/></svg></span>`;
+      indicatorHtml = `<span class="status-indicator indicator-hidden" aria-hidden="true"><?xml version="1.0"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g data-name="Layer 2"><g data-name="menu-arrow-circle"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"></rect><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 16a1 1 0 1 1 1-1 1 1 0 0 1-1 1zm1-5.16V14a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1 1.5 1.5 0 1 0-1.5-1.5 1 1 0 0 1-2 0 3.5 3.5 0 1 1 4.5 3.34z"></path></g></g></svg></span>`;
     }
 
     // Danh sách thẻ badges hiển thị bên trên tiêu đề
     let badgeHtml = `
-      <span class="badge badge-id">WCAG ${item.wcag}</span>
-      <span class="badge badge-level-${item.level.toLowerCase()}">Cấp độ ${item.level}</span>
+      <span class="badge badge-item badge-id">${item.wcag}</span>
+      <span class="badge badge-level badge-level-${item.level.toLowerCase()}">${item.level}</span>
     `;
     if (item.isNew22) {
       badgeHtml += `<span class="badge badge-new">Mới (WCAG 2.2)</span>`;
@@ -593,7 +617,7 @@ function renderChecklist() {
       </div>
       
       <details class="card-details">
-        <summary>Hướng dẫn chi tiết & ví dụ thiết kế</summary>
+        <summary>Chi tiết & ví dụ</summary>
         <div class="details-content">
           <div class="details-section">
             <h4>
@@ -765,7 +789,7 @@ function exportToMarkdown() {
   });
 
   md += `\n---
-*Báo cáo được tạo tự động bởi ứng dụng WCAG 2.2 Designer Checklist.*`;
+*Báo cáo được tạo tự động bởi ứng dụng WCAG 2.2 Checklist @UXCamp.vn.*`;
 
   // Sao chép vào Clipboard
   navigator.clipboard.writeText(md).then(() => {
@@ -935,16 +959,11 @@ document.addEventListener('keydown', (e) => {
     let statusIndex = STATUS_SEQUENCE.indexOf(currentStatus);
     if (statusIndex === -1) statusIndex = 0;
 
-    let newStatus = currentStatus;
-    if (key === 'ArrowRight') {
-      if (statusIndex < STATUS_SEQUENCE.length - 1) {
-        newStatus = STATUS_SEQUENCE[statusIndex + 1];
-      }
-    } else {
-      if (statusIndex > 0) {
-        newStatus = STATUS_SEQUENCE[statusIndex - 1];
-      }
-    }
+    let nextIdx = statusIndex + (key === 'ArrowRight' ? 1 : -1);
+    if (nextIdx < 0) nextIdx = STATUS_SEQUENCE.length - 1;
+    if (nextIdx >= STATUS_SEQUENCE.length) nextIdx = 0;
+
+    const newStatus = STATUS_SEQUENCE[nextIdx];
 
     if (newStatus !== currentStatus) {
       state[activeCardId] = newStatus;
@@ -989,7 +1008,7 @@ function switchTab(tabId) {
   const checklistFilter = document.querySelector('.filter-panel');
   const checklistContainer = document.getElementById('checklist-container');
   const reportContainer = document.getElementById('report-container');
-  
+
   const tabChecklist = document.getElementById('tab-checklist');
   const tabReport = document.getElementById('tab-report');
 
@@ -1008,10 +1027,10 @@ function switchTab(tabId) {
 
     // Cập nhật text tiêu đề và desc
     if (currentProject) {
-      titleEl.innerText = `Báo cáo WCAG luồng: ${currentProject.name}`;
+      titleEl.innerText = `Báo cáo WCAG: ${currentProject.name}`;
     }
     if (descEl) {
-      descEl.innerText = 'Báo cáo đánh giá mức độ tuân thủ tiêu chuẩn khả năng tiếp cận WCAG 2.2';
+      descEl.innerText = 'Báo cáo mức độ tuân thủ tiêu chuẩn WCAG 2.2';
     }
 
     renderReport();
@@ -1026,12 +1045,12 @@ function switchTab(tabId) {
 
     // Cập nhật text tiêu đề và desc
     if (currentProject) {
-      titleEl.innerText = currentProject.name;
+      titleEl.innerText = `Checklist WCAG: ${currentProject.name}`; //currentProject.name;
     }
     if (descEl) {
       descEl.innerText = 'Tự đánh giá khả năng tiếp cận dựa trên tiêu chí thiết kế WCAG 2.2';
     }
-    
+
     renderChecklist();
   }
 
@@ -1089,7 +1108,7 @@ function getColorForPercentage(pct) {
   if (pct < 50) {
     return 'var(--danger)';
   } else if (pct < 80) {
-    return 'var(--highlight-yellow)';
+    return 'var(--yellow)';
   } else {
     return 'var(--success)';
   }
@@ -1105,10 +1124,10 @@ function renderReport() {
   document.getElementById('report-fail-count').innerText = overall.todo;
   document.getElementById('report-na-count').innerText = overall.na;
   document.getElementById('report-unselected-count').innerText = overall.unselected;
-  
+
   // Vòng tròn SVG
   document.getElementById('gauge-text-val').textContent = `${overall.percentage}%`;
-  
+
   // Cập nhật màu text % trong gauge
   const overallColor = getColorForPercentage(overall.percentage);
   document.getElementById('gauge-text-val').style.fill = overallColor;
@@ -1124,7 +1143,7 @@ function renderReport() {
   // 2. Tiến độ đạt chuẩn của từng nhóm tiêu chí
   const categoryBarsList = document.getElementById('category-bars-list');
   categoryBarsList.innerHTML = '';
-  
+
   Object.keys(categoryNames).forEach(catId => {
     const stats = calculateStatsForCategory(catId);
     const barColor = getColorForPercentage(stats.percentage);
@@ -1133,7 +1152,7 @@ function renderReport() {
     item.innerHTML = `
       <div class="category-bar-header">
         <span class="category-bar-label">${categoryNames[catId]}</span>
-        <span class="category-bar-pct" style="color: ${barColor};">${stats.percentage}% đạt chuẩn</span>
+        <span class="category-bar-pct" style="color: ${barColor};">${stats.percentage}%</span>
       </div>
       <div class="category-bar-track">
         <div class="category-bar-fill" style="width: ${stats.percentage}%; background-color: ${barColor};"></div>
@@ -1195,7 +1214,7 @@ function renderReportDetails() {
     const stats = calculateStatsForCategory(catId);
     const groupContainer = document.createElement('div');
     groupContainer.className = 'report-group-container';
-    
+
     let itemsHtml = items.map(item => {
       const status = state[item.id] || 'unselected';
       let indicatorHtml = '';
@@ -1212,8 +1231,8 @@ function renderReportDetails() {
       return `
         <div class="report-item-row">
           ${indicatorHtml}
-          <span class="badge badge-id">WCAG ${item.wcag}</span>
-          <span class="badge badge-level-${item.level.toLowerCase()}">Cấp độ ${item.level}</span>
+          <span class="badge badge-item badge-id">${item.wcag}</span>
+          <span class="badge badge-level badge-level-${item.level.toLowerCase()}">${item.level}</span>
           <span class="report-item-title">${item.title}</span>
         </div>
       `;

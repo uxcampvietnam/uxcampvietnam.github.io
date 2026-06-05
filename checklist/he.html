@@ -19,9 +19,19 @@
       <!-- Desktop Sidebar Toggle Button -->
       <button id="sidebar-toggle-btn" class="sidebar-toggle-btn" aria-label="Thu nhỏ menu">
         <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
-          <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+          <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
         </svg>
       </button>
+
+      <!-- Checklist Switcher -->
+      <div class="checklist-switcher">
+        <a href="wcag.html" class="switcher-btn" title="Tiêu chuẩn tiếp cận WCAG 2.2">
+          <span>WCAG 2.2</span>
+        </a>
+        <a href="he.html" class="switcher-btn active" title="Đánh giá Heuristic">
+          <span>Heuristic</span>
+        </a>
+      </div>
 
       <!-- Brand Logo -->
       <div class="brand">
@@ -140,6 +150,12 @@
 
         <!-- Actions -->
         <div class="action-section">
+          <button id="btn-download-skills" class="btn-outline" title="Tải xuống tài liệu Agent Skills và Knowledge tương ứng">
+            <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24">
+              <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
+            </svg>
+            Tải Agent Skills
+          </button>
           <button id="btn-reset-project" class="btn-outline" title="Reset tất cả tiêu chí về trạng thái chưa đánh giá">
             <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24">
               <path
@@ -185,18 +201,19 @@
           <div style="flex: 1; min-width: 250px;">
             <h4 id="current-project-title">Default Flow</h4>
             <p id="current-project-desc">Đánh giá Heuristics sản phẩm dựa trên 4 bộ quy chuẩn thiết kế phổ biến</p>
-            
+
             <!-- Tabs Navigation -->
             <div class="tabs-navigation">
               <button class="tab-btn active" id="tab-checklist" title="Xem danh sách checklist tiêu chí đánh giá">
                 <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24">
-                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                  <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                 </svg>
                 Checklist
               </button>
               <button class="tab-btn" id="tab-report" title="Xem báo cáo dashboard của luồng">
                 <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24">
-                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+                  <path
+                    d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z" />
                 </svg>
                 Báo Cáo
               </button>
@@ -204,7 +221,8 @@
           </div>
 
           <!-- Toggle button on tablet/mobile -->
-          <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Mở menu quản lý dự án" style="align-self: flex-start; margin-top: 8px;">
+          <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Mở menu quản lý dự án"
+            style="align-self: flex-start; margin-top: 8px;">
             <svg style="width:24px;height:24px;fill:currentColor" viewBox="0 0 24 24">
               <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
             </svg>
@@ -261,12 +279,16 @@
         </section>
 
         <!-- Report Dashboard container -->
-        <section class="report-container" id="report-container" style="display: none; flex-direction: column; gap: 16px;">
+        <section class="report-container" id="report-container"
+          style="display: none; flex-direction: column; gap: 16px;">
           <!-- Report Header Toolbar with Export Button -->
           <div class="report-toolbar" style="display: flex; justify-content: flex-end; margin-bottom: 8px;">
-            <button id="btn-export-markdown" class="btn-primary" style="width: fit-content; height: 38px; padding: 6px 16px; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 6px;" title="Tải báo cáo đánh giá và copy vào clipboard">
+            <button id="btn-export-markdown" class="btn-primary"
+              style="width: fit-content; height: 38px; padding: 6px 16px; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 6px;"
+              title="Tải báo cáo đánh giá và copy vào clipboard">
               <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24">
-                <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
+                <path
+                  d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
               </svg>
               Xuất Báo Cáo (.md)
             </button>
@@ -280,37 +302,34 @@
               <div class="gauge-wrapper">
                 <svg class="gauge-svg" viewBox="0 0 100 100">
                   <circle cx="50" cy="50" r="40" class="gauge-bg" />
-                  <circle cx="50" cy="50" r="40" class="gauge-fill" id="gauge-fill-circle" stroke-dasharray="251.2" stroke-dashoffset="251.2" />
+                  <circle cx="50" cy="50" r="40" class="gauge-fill" id="gauge-fill-circle" stroke-dasharray="251.2"
+                    stroke-dashoffset="251.2" />
                   <text x="50" y="55" class="gauge-text" id="gauge-text-val">0%</text>
                 </svg>
               </div>
               <div class="gauge-stats">
                 <div class="gauge-stat-item">
-                  <span class="bullet pass"></span>
                   <div>
                     <span class="stat-num" id="report-pass-count">0</span>
                     <span class="stat-lbl">Pass</span>
                   </div>
                 </div>
                 <div class="gauge-stat-item">
-                  <span class="bullet fail"></span>
                   <div>
                     <span class="stat-num" id="report-fail-count">0</span>
                     <span class="stat-lbl">Fail</span>
                   </div>
                 </div>
                 <div class="gauge-stat-item">
-                  <span class="bullet na"></span>
                   <div>
                     <span class="stat-num" id="report-na-count">0</span>
                     <span class="stat-lbl">N/A</span>
                   </div>
                 </div>
                 <div class="gauge-stat-item">
-                  <span class="bullet unselected" style="background-color: var(--transparent-foreground-main-color-30);"></span>
                   <div>
                     <span class="stat-num" id="report-unselected-count">0</span>
-                    <span class="stat-lbl">Chưa ĐG</span>
+                    <span class="stat-lbl">Còn lại</span>
                   </div>
                 </div>
               </div>
@@ -332,12 +351,15 @@
               <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
                 <div class="details-category-selector">
                   <label for="report-category-select" class="filter-label">Nhóm:</label>
-                  <select id="report-category-select" class="filter-select" aria-label="Lọc chi tiết báo cáo theo nhóm tiêu chí">
+                  <select id="report-category-select" class="filter-select"
+                    aria-label="Lọc chi tiết báo cáo theo nhóm tiêu chí">
                     <option value="all">Tất cả nhóm</option>
                   </select>
                 </div>
                 <div class="details-status-filter" style="display: flex; gap: 8px; align-items: center;">
-                  <span class="filter-label" style="font-family: var(--font-sans-family); font-size: 0.85rem; color: var(--text-muted);">Trạng thái:</span>
+                  <span class="filter-label"
+                    style="font-family: var(--font-sans-family); font-size: 0.85rem; color: var(--text-muted);">Trạng
+                    thái:</span>
                   <label class="chip-filter">
                     <input type="checkbox" id="rep-filter-pass">
                     <span class="chip-btn pass">Pass</span>

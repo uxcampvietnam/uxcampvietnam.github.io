@@ -1,0 +1,1258 @@
+[
+    {
+        "id": 1,
+        "name": "Automate unwanted workload",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Tự động hóa các tác vụ lặp đi lặp lại để tiết kiệm thời gian cho user.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 2,
+                "title": "Đưa các chức năng dùng nhiều ra ngoài để truy cập nhanh với ít lượt click nhất.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 3,
+                "title": "Dùng autocomplete/autofill hiệu quả cho các trường thông tin cơ bản (email, địa chỉ, lịch sử tìm kiếm).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 4,
+                "title": "Thiết lập mặc định thông minh cho các tùy chọn phổ biến nhất.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 5,
+                "title": "Cá nhân hóa giao diện dựa trên hành vi và tùy chọn của user.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 6,
+                "title": "Tự động tính toán các con số phức tạp (thuế, phí giao hàng, mã giảm giá).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 7,
+                "title": "Tự động ẩn/hiển thị các trường form linh hoạt dựa trên dữ liệu user vừa nhập.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 8,
+                "title": "Ghi nhớ các tùy chọn cá nhân của user cho lần sử dụng sau.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 9,
+                "title": "Tự động gửi email/thông báo đẩy ngay khi có cập nhật quan trọng hoặc hoàn tất giao dịch.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 10,
+                "title": "Gợi ý thông minh (sản phẩm liên quan, tự động sửa từ khóa tìm kiếm sai).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "name": "Reduce primary memory load",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Thiết kế các nút bấm và thông tin cốt lõi nổi bật, dễ phân biệt bằng mắt.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 2,
+                "title": "Cấu trúc nội dung phân cấp rõ ràng (dùng tiêu đề, danh sách dạng bullet).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 3,
+                "title": "Dùng chữ đậm, màu sắc tương phản và biểu tượng giúp quét nhanh nội dung.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 4,
+                "title": "Tránh viết các đoạn văn dài; chia nhỏ thông tin thành các khối nội dung ngắn.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 5,
+                "title": "Nhóm các mục liên quan trực quan để user dễ nhận biết.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 6,
+                "title": "Thiết kế nút CTA (Kêu gọi hành động) nổi bật nhất trên trang.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 7,
+                "title": "Bố trí layout theo quy luật đọc hình chữ F hoặc chữ Z của mắt.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 8,
+                "title": "Đặt menu và icon điều hướng ở các vị trí tiêu chuẩn quen thuộc.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 9,
+                "title": "Đặt thanh tìm kiếm ở vị trí dễ thấy và dễ truy cập nhất.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 10,
+                "title": "Sử dụng hiệu ứng hover, shadow hoặc chuyển màu tinh tế để biểu thị phần tử có thể click.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "name": "Minimize cognitive load",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Phản hồi trực quan tức thì ngay khi user click nút hoặc submit form.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 2,
+                "title": "Viết thông báo lỗi cụ thể, dễ hiểu và hướng dẫn cách sửa lỗi chi tiết.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 3,
+                "title": "Hiển thị thông báo thành công rõ ràng sau khi user hoàn thành task quan trọng.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 4,
+                "title": "Cung cấp tooltip hoặc help text nội tuyến cho các trường nhập liệu phức tạp.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 5,
+                "title": "Validate thông tin và báo lỗi ngay khi user đang gõ thay vì đợi submit form.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 6,
+                "title": "Hiển thị popup confirm trước khi thực hiện hành động nguy hiểm không thể hoàn tác.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 7,
+                "title": "Nhất quán hệ thống màu sắc cho thông báo trạng thái (xanh lá = thành công, đỏ = lỗi).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 8,
+                "title": "Chỉ dùng placeholder làm ví dụ minh họa, không dùng thay thế cho label của trường.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 9,
+                "title": "Đảm bảo mọi phần tử click được (button, link, card) hiển thị rõ tính năng click.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 10,
+                "title": "Hiển thị skeleton loader hoặc thanh tiến trình nếu trang tải nội dung chậm.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "name": "Integrate information",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Đặt các thông tin liên quan cạnh nhau để user dễ dàng so sánh.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 2,
+                "title": "Dùng biểu đồ hoặc đồ thị trực quan để tóm tắt các tập dữ liệu lớn.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 3,
+                "title": "Highlight hoặc dùng mã màu cho các chỉ số quan trọng cần lưu ý.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 4,
+                "title": "Thiết kế Dashboard hiển thị toàn bộ chỉ số cốt lõi ngay khi truy cập.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 5,
+                "title": "Nhóm dữ liệu logic trên cùng một màn hình thay vì chia nhỏ sang nhiều trang.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 6,
+                "title": "Cho phép click vào số liệu tóm tắt để xem chi tiết bên trong.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 7,
+                "title": "Cung cấp ngữ cảnh so sánh cho các con số (ví dụ: '+10% so với tuần trước').",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 8,
+                "title": "Hỗ trợ phân trang (pagination) hoặc thu gọn bảng dài để dễ điều hướng.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 9,
+                "title": "Tối ưu hiển thị bảng biểu và dữ liệu lớn trên màn hình di động.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            },
+            {
+                "id": 10,
+                "title": "Đặt thông tin đối chiếu (như giá trước và sau giảm) song song thay vì ở hai trang khác nhau.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp tính năng autocomplete (autofill) các thông tin cơ bản từ hồ sơ user.",
+                    "Tự động tính toán các giá trị tổng, thuế, hoặc chuyển đổi đơn vị tiền tệ thời gian thực.",
+                    "Gộp các nguồn dữ liệu có liên quan vào cùng một UI thay vì bắt user mở nhiều tab."
+                ],
+                "do": "autocomplete tỉnh/thành phố và quận/huyện tương ứng ngay khi user nhập mã bưu chính.",
+                "dont": "Bắt user tự tính nhẩm số tiền được giảm giá dựa trên mã code rồi gõ tay kết quả vào ô thanh toán."
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "name": "Context-sensitive display",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Chủ động ẩn các thông tin chưa cần thiết để giữ giao diện sạch sẽ.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
+                    "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
+                    "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
+                ],
+                "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
+                "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            },
+            {
+                "id": 2,
+                "title": "Cá nhân hóa nội dung hiển thị theo vị trí, sở thích hoặc trạng thái của user.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
+                    "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
+                    "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
+                ],
+                "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
+                "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            },
+            {
+                "id": 3,
+                "title": "Ẩn hoặc disable các tính năng không khả dụng ở ngữ cảnh hiện tại.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
+                    "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
+                    "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
+                ],
+                "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
+                "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            },
+            {
+                "id": 4,
+                "title": "Chỉ hiển thị tooltip khi thực sự cần giải thích, tránh lạm dụng gây rối mắt.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
+                    "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
+                    "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
+                ],
+                "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
+                "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            },
+            {
+                "id": 5,
+                "title": "Cung cấp hướng dẫn nhanh (tour hướng dẫn) cho user mới truy cập lần đầu.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
+                    "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
+                    "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
+                ],
+                "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
+                "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            },
+            {
+                "id": 6,
+                "title": "Thay đổi giao diện hoặc gợi ý dựa trên các hành động trước đó của user.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
+                    "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
+                    "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
+                ],
+                "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
+                "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            },
+            {
+                "id": 7,
+                "title": "Sử dụng progressive disclosure (chỉ hiển thị chi tiết khi user click xem thêm).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
+                    "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
+                    "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
+                ],
+                "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
+                "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            },
+            {
+                "id": 8,
+                "title": "Loại bỏ hoàn toàn quảng cáo hoặc menu gây xao nhãng trong các luồng quan trọng (như thanh toán).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
+                    "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
+                    "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
+                ],
+                "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
+                "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            },
+            {
+                "id": 9,
+                "title": "Ưu tiên xếp hạng kết quả tìm kiếm theo mức độ liên quan tốt nhất.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
+                    "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
+                    "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
+                ],
+                "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
+                "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            },
+            {
+                "id": 10,
+                "title": "Ẩn các lựa chọn không liên quan (ví dụ: không hiển thị chọn đơn vị vận chuyển đối với sản phẩm số).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng khoảng trắng (whitespace) rộng rãi để phân tách các khối nội dung và tạo nhịp thở thị giác.",
+                    "Ứng dụng nguyên lý hiển thị lũy tiến (progressive disclosure) để ẩn bớt chức năng nâng cao khi chưa cần.",
+                    "Sử dụng hệ thống lưới (grid layout) gọn gàng để căn chỉnh cấu trúc UI."
+                ],
+                "do": "Trang chủ tìm kiếm của Google chỉ có duy nhất ô tìm kiếm và hai nút bấm chính giữa màn hình trắng sạch.",
+                "dont": "Nhồi nhét đầy các banner quảng cáo nhấp nháy, tin tức chạy chữ và popup khuyến mãi đè lên bài viết chính."
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "name": "Visual clarity and flow",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Hướng dẫn user rõ ràng qua từng bước của quy trình làm việc nhiều bước.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 2,
+                "title": "Đánh số thứ tự các bước trong quy trình dài để user biết mình đang ở đâu.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 3,
+                "title": "Dùng tín hiệu trực quan (mũi tên, highlight) để định hướng sự chú ý của mắt.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 4,
+                "title": "Hiển thị chỉ báo tiến trình (progress bar) khi thực hiện các tác vụ mất thời gian (upload file).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 5,
+                "title": "Gợi ý rõ ràng bước tiếp theo cần làm sau khi user hoàn thành task hiện tại.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 6,
+                "title": "Thiết kế hiệu ứng chuyển trang mượt mà, tránh chuyển đổi đột ngột gây mất định hướng.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 7,
+                "title": "Sử dụng walkthrough hướng dẫn nhanh giao diện cho user mới.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 8,
+                "title": "Highlight rõ thanh điều hướng hiện tại để user luôn biết vị trí của mình.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 9,
+                "title": "Đặt tên nút hành động rõ ràng về chức năng tiếp theo (ví dụ: 'Đi đến thanh toán').",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            },
+            {
+                "id": 10,
+                "title": "Sử dụng breadcrumbs trong các quy trình duyệt web nhiều cấp.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị thông báo trạng thái hoặc loader ngay khi hệ thống xử lý tác vụ.",
+                    "Cung cấp thông tin tiến trình cụ thể đối với các tác vụ mất nhiều thời gian (trên 3 giây).",
+                    "Thay đổi trạng thái trực quan của các phần tử tương tác (active, disabled, hover) rõ ràng."
+                ],
+                "do": "Hiển thị thanh tiến trình \"Đang xuất tệp... 60% (còn khoảng 15 giây)\" khi user bấm xuất báo cáo nặng.",
+                "dont": "Màn hình đứng yên không phản hồi hoặc chỉ xoay vòng vô tận mà không đưa ra chỉ số thời gian ước tính."
+            }
+        ]
+    },
+    {
+        "id": 7,
+        "name": "Reduce workload",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Thiết kế các icon và UI element quen thuộc, dễ hiểu ngay lập tức.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 2,
+                "title": "Loại bỏ hoàn toàn các tính năng dư thừa làm loãng giao diện.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 3,
+                "title": "Hiển thị trực quan thông tin cần dùng thay vì bắt user nhớ lại thông tin từ trang trước.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 4,
+                "title": "Giới hạn số lượng lựa chọn hiển thị cùng lúc để user dễ đưa ra quyết định nhanh.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 5,
+                "title": "Giải thích ngắn gọn cho các tính năng lạ hoặc thuật ngữ chuyên sâu.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 6,
+                "title": "Chia các luồng công việc phức tạp thành các nhiệm vụ nhỏ dễ xử lý.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 7,
+                "title": "Thiết kế giao diện sao cho user không cần ghi nhớ thông tin giữa các màn hình.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 8,
+                "title": "Ứng dụng AI hoặc tự động điền để giảm tối đa công sức nhập tay của user.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 9,
+                "title": "Cung cấp cổng trợ giúp nhanh ngay cạnh các tác vụ phức tạp.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            },
+            {
+                "id": 10,
+                "title": "Tự động điền trước các thông tin đã biết (tên, email, địa chỉ đăng ký) vào form.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Hiển thị các thông tin gợi ý hoặc lịch sử tìm kiếm gần đây ngay trong ô nhập liệu.",
+                    "Giữ cho các label (labels) và hướng dẫn luôn hiển thị rõ ràng khi user đang điền biểu mẫu.",
+                    "Sử dụng biểu tượng minh họa đi kèm với văn bản để giúp nhận diện nhanh chóng chức năng."
+                ],
+                "do": "Hiển thị danh sách sản phẩm đã xem gần đây ở trang giỏ hàng để user không cần quay lại tìm kiếm.",
+                "dont": "Bắt user phải ghi nhớ mã giảm giá từ trang trước và gõ lại chính xác vào ô nhập liệu ở trang sau."
+            }
+        ]
+    },
+    {
+        "id": 8,
+        "name": "Readability and clarity",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Đảm bảo cỡ chữ đủ lớn để đọc rõ ràng (tối thiểu 16px trên mobile).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 2,
+                "title": "Thiết lập khoảng cách dòng (line-height) hợp lý (tối thiểu 1.5 lần cỡ chữ).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 3,
+                "title": "Sử dụng màu chữ có độ tương phản cao với nền (tránh chữ xám nhạt trên nền trắng).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 4,
+                "title": "Sử dụng thống nhất một bộ phông chữ (font family) trên toàn bộ các trang.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 5,
+                "title": "Không giấu thông tin quan trọng bên trong các khối văn bản dài.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 6,
+                "title": "Chia các đoạn văn dài thành các câu ngắn hoặc gạch đầu dòng dễ đọc.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 7,
+                "title": "Phân biệt rõ ràng tiêu đề (heading), tiêu đề phụ (subheading) và nội dung.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 8,
+                "title": "Thiết kế style của link khác biệt hoàn toàn so với văn bản thông thường (ví dụ: đổi màu, gạch chân).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 9,
+                "title": "Đảm bảo text hiển thị tốt và tự co giãn chuẩn trên mọi kích thước màn hình.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            },
+            {
+                "id": 10,
+                "title": "Viết nội dung đơn giản, ngắn gọn, dễ hiểu đối với đại đa số user.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng cỡ chữ và độ đậm nhạt (font-weight) khác nhau để phân biệt rõ tiêu đề và nội dung thường.",
+                    "Căn chỉnh văn bản gọn gàng, sử dụng danh sách dạng gạch đầu dòng để chia nhỏ các ý chính.",
+                    "Đảm bảo khoảng cách dòng (line-height) rộng rãi, dễ đọc, không bị dính chữ."
+                ],
+                "do": "Sử dụng tiêu đề cỡ chữ 24px in đậm, kết hợp với các đoạn văn ngắn 14px có khoảng cách dòng 1.5.",
+                "dont": "Trình bày một khối văn bản dài dằng dặc không có tiêu đề phụ, không có khoảng cách đoạn và cỡ chữ quá nhỏ."
+            }
+        ]
+    },
+    {
+        "id": 9,
+        "name": "Consistency",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Đặt thanh điều hướng ở cùng một vị trí cố định trên tất cả các trang.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
+                    "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
+                    "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
+                ],
+                "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
+                "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            },
+            {
+                "id": 2,
+                "title": "Nhất quán về kiểu dáng của nút bấm, icon và phông chữ trên toàn app.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
+                    "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
+                    "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
+                ],
+                "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
+                "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            },
+            {
+                "id": 3,
+                "title": "Đồng nhất thiết kế cho các thông báo trạng thái (thành công, lỗi, cảnh báo).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
+                    "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
+                    "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
+                ],
+                "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
+                "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            },
+            {
+                "id": 4,
+                "title": "Đặt các nút hành động ở vị trí cố định quen thuộc (ví dụ: nút chính bên phải, nút phụ bên trái).",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Sử dụng một hệ thống thiết kế (Design System) đồng bộ cho nút bấm, font chữ, màu sắc và icon.",
+                    "Đặt các thành phần điều hướng (Header, Sidebar, Search) ở vị trí cố định xuyên suốt hệ thống.",
+                    "Sử dụng thuật ngữ thống nhất trong toàn bộ ứng dụng (ví dụ: dùng duy nhất từ \"Giỏ hàng\" thay vì đổi thành \"Túi đồ\")."
+                ],
+                "do": "Tất cả các nút hành động chính (Primary Button) đều có màu xanh thương hiệu và góc bo 8px trên toàn app.",
+                "dont": "Trang chủ dùng nút \"Mua ngay\", trang chi tiết dùng \"Thêm vào giỏ\", trang thanh toán lại dùng \"Đặt hàng\"."
+            }
+        ]
+    },
+    {
+        "id": 10,
+        "name": "User control",
+        "criteria": [
+            {
+                "id": 1,
+                "title": "Hỗ trợ Undo nhanh cho các thao tác lỡ tay xóa hoặc sửa dữ liệu.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 2,
+                "title": "Cho phép user tự do tùy chỉnh cài đặt tài khoản và giao diện dễ dàng.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 3,
+                "title": "Cho phép user tắt tính năng tự động và chuyển sang thao tác thủ công khi muốn.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 4,
+                "title": "Tự động lưu (autosave) dữ liệu biểu mẫu quan trọng để tránh mất bài khi mất kết nối.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 5,
+                "title": "Cho phép user khôi phục dữ liệu đã xóa hoặc reset cài đặt về mặc định.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 6,
+                "title": "Cung cấp cho user quyền quản lý bảo mật và chia sẻ dữ liệu cá nhân rõ ràng.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 7,
+                "title": "Luôn có nút Hủy (Cancel) hoặc Thoát (Exit) rõ ràng để thoát luồng làm việc bất cứ lúc nào.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            },
+            {
+                "id": 8,
+                "title": "Cho phép user xem trước (preview) kết quả trước khi nhấn nút xác nhận cuối cùng.",
+                "desc": "",
+                "why": "",
+                "how": [
+                    "Cung cấp nút \"Hủy bỏ\" (Cancel) hoặc \"Quay lại\" (Back) dễ thấy trên mọi biểu mẫu hoặc luồng công việc.",
+                    "Hỗ trợ tính năng \"undo\" (Undo) đối với các hành động quan trọng như xóa dữ liệu.",
+                    "Cho phép user thoát khỏi các màn hình popup, modal hoặc overlay bằng cách bấm phím ESC hoặc bấm ra ngoài."
+                ],
+                "do": "Hiển thị banner \"Đã chuyển email vào Thùng rác\" kèm nút \"undo\" ở góc dưới màn hình.",
+                "dont": "Bắt user hoàn thành toàn bộ luồng đăng ký 5 bước mà không cho phép quay lại chỉnh sửa thông tin ở bước 1."
+            }
+        ]
+    }
+]

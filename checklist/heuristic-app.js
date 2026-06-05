@@ -86,7 +86,7 @@ function initSidebarCollapse() {
   const isCollapsed = localStorage.getItem('heuristic_designer_sidebar_collapsed') === 'true';
   const container = document.querySelector('.app-container');
   const toggleBtn = document.getElementById('sidebar-toggle-btn');
-  
+
   if (container && isCollapsed) {
     container.classList.add('sidebar-collapsed');
   }
@@ -168,7 +168,7 @@ function renderProjectDropdown() {
 function renderCategoryDropdown() {
   const select = document.getElementById('category-filter');
   if (!select) return;
-  
+
   select.innerHTML = '';
 
   const checklistData = HEURISTIC_DATA[activeChecklist];
@@ -339,6 +339,23 @@ function bindEvents() {
     exportToMarkdown();
   });
 
+  // Nút Tải Agent Skills
+  document.getElementById('btn-download-skills').addEventListener('click', () => {
+    const knowledgeFiles = {
+      nielsen: { path: 'skills/nielsens-heuristics-knowledge.json', name: 'nielsens-heuristics-knowledge.json', label: "Nielsen's Heuristics" },
+      gerhardt: { path: 'skills/cognitive-engineering-gerhardt-powals-knowledge.json', name: 'cognitive-engineering-gerhardt-powals-knowledge.json', label: 'Gerhardt-Powals' },
+      shneiderman: { path: 'skills/shneidermans-eight-golden-rules-knowledge.json', name: 'shneidermans-eight-golden-rules-knowledge.json', label: 'Shneiderman' },
+      weinschenk: { path: 'skills/weinschenk-barker-classification-knowledge.json', name: 'weinschenk-barker-classification-knowledge.json', label: 'Weinschenk' }
+    };
+    const selectedKnowledge = knowledgeFiles[activeChecklist];
+    if (selectedKnowledge) {
+      downloadAgentSkills([
+        { url: 'skills/heuristics-skill.md', name: 'heuristics-skill.md' },
+        { url: selectedKnowledge.path, name: selectedKnowledge.name }
+      ], `Heuristics (${selectedKnowledge.label})`);
+    }
+  });
+
   // Nút Reset dự án hiện tại
   document.getElementById('btn-reset-project').addEventListener('click', () => {
     if (confirm('Bạn có chắc chắn muốn đặt lại tất cả các tiêu chí của bộ quy chuẩn hiện tại trong dự án này về trạng thái chưa đánh giá?')) {
@@ -442,12 +459,12 @@ function bindEvents() {
       el.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
-        
+
         const keyName = keyMappings[id];
         // Gửi sự kiện keydown
         const downEvent = new KeyboardEvent('keydown', { key: keyName, bubbles: true });
         document.dispatchEvent(downEvent);
-        
+
         // Gửi sự kiện keyup sau một khoảng trễ ngắn để tạo hiệu ứng active
         setTimeout(() => {
           const upEvent = new KeyboardEvent('keyup', { key: keyName, bubbles: true });
@@ -493,6 +510,22 @@ function showToast(message) {
       toast.remove();
     }, 300);
   }, 3000);
+}
+
+// Tải xuống Agent Skills & Knowledge
+function downloadAgentSkills(files, flowName) {
+  files.forEach((file, index) => {
+    setTimeout(() => {
+      const link = document.createElement('a');
+      link.href = file.url;
+      link.download = file.name;
+      link.style.display = 'none';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }, index * 200);
+  });
+  showToast(`Đã tải xuống Agent Skills & Knowledge cho ${flowName}!`);
 }
 
 // --- RENDER DỰ ÁN CHECKLIST ---
@@ -587,21 +620,27 @@ function renderChecklist() {
     let howListHtml = '';
     if (item.how && Array.isArray(item.how)) {
       item.how.forEach(step => {
-        howListHtml += `<li>${step}</li>`;
+        if (step && step.trim() !== '') {
+          howListHtml += `<li>${step}</li>`;
+        }
       });
     }
 
-    const detailsHtml = `
-      <details class="card-details">
-        <summary>Hướng dẫn chi tiết & ví dụ thiết kế</summary>
-        <div class="details-content">
+    let whySectionHtml = '';
+    if (item.why && item.why.trim() !== '') {
+      whySectionHtml = `
           <div class="details-section">
             <h4>
               <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"></path></svg>              Tại sao điều này quan trọng?
             </h4>
             <p style="color:var(--text-muted); padding-left: 20px;">${item.why}</p>
           </div>
-          
+      `;
+    }
+
+    let howSectionHtml = '';
+    if (howListHtml !== '') {
+      howSectionHtml = `
           <div class="details-section">
             <h4>
               <svg viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
@@ -611,8 +650,12 @@ function renderChecklist() {
               ${howListHtml}
             </ul>
           </div>
-          
-          <div class="compare-container">
+      `;
+    }
+
+    let doBoxHtml = '';
+    if (item.do && item.do.trim() !== '') {
+      doBoxHtml = `
             <div class="compare-box do-box">
               <h5>
                 <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
@@ -620,6 +663,12 @@ function renderChecklist() {
               </h5>
               <p>${item.do}</p>
             </div>
+      `;
+    }
+
+    let dontBoxHtml = '';
+    if (item.dont && item.dont.trim() !== '') {
+      dontBoxHtml = `
             <div class="compare-box dont-box">
               <h5>
                 <svg viewBox="0 0 24 24" style="width:16px;height:16px;fill:currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
@@ -627,10 +676,32 @@ function renderChecklist() {
               </h5>
               <p>${item.dont}</p>
             </div>
+      `;
+    }
+
+    let compareContainerHtml = '';
+    if (doBoxHtml !== '' || dontBoxHtml !== '') {
+      compareContainerHtml = `
+          <div class="compare-container">
+            ${doBoxHtml}
+            ${dontBoxHtml}
           </div>
+      `;
+    }
+
+    let detailsHtml = '';
+    if (whySectionHtml !== '' || howSectionHtml !== '' || compareContainerHtml !== '') {
+      detailsHtml = `
+      <details class="card-details">
+        <summary>Chi tiết & ví dụ</summary>
+        <div class="details-content">
+          ${whySectionHtml}
+          ${howSectionHtml}
+          ${compareContainerHtml}
         </div>
       </details>
-    `;
+      `;
+    }
 
     // Tạo icon indicator dựa trên trạng thái
     let indicatorHtml = '';
@@ -651,7 +722,7 @@ function renderChecklist() {
             <span class="badge" style="background:var(--bg-secondary); color:var(--text-muted); border:1px solid var(--border-color); font-weight:500;">${item.catName}</span>
           </div>
           <h6 style="font-size: 1.05rem; line-height: 1.5; font-weight: 500; margin-top: 8px; color: var(--text-color);">${item.title}</h6>
-          ${item.desc ? `<p class="font-sans-caption">${item.desc}</p>` : ''}
+          ${item.desc && item.desc.trim() !== '' ? `<p class="font-sans-caption">${item.desc}</p>` : ''}
         </div>
         
         <div class="status-selector">
@@ -959,7 +1030,7 @@ function switchTab(tabId) {
   const checklistFilter = document.querySelector('.filter-panel');
   const checklistContainer = document.getElementById('checklist-container');
   const reportContainer = document.getElementById('report-container');
-  
+
   const tabChecklist = document.getElementById('tab-checklist');
   const tabReport = document.getElementById('tab-report');
 
@@ -1003,7 +1074,7 @@ function switchTab(tabId) {
     if (descEl) {
       descEl.innerText = 'Đánh giá Heuristics sản phẩm dựa trên 4 bộ quy chuẩn thiết kế phổ biến';
     }
-    
+
     renderChecklist();
     updateProgressAndStats();
   }
@@ -1015,27 +1086,27 @@ function switchTab(tabId) {
 function populateReportCategorySelect() {
   const select = document.getElementById('report-category-select');
   if (!select) return;
-  
+
   const savedValue = select.value || 'all';
   select.innerHTML = '';
-  
+
   const optionAll = document.createElement('option');
   optionAll.value = 'all';
   optionAll.textContent = 'Tất cả nhóm';
   select.appendChild(optionAll);
-  
+
   const checklistData = HEURISTIC_DATA[activeChecklist];
   if (!checklistData) return;
-  
+
   const prefix = activeChecklist === 'nielsen' ? 'H' : activeChecklist === 'gerhardt' ? 'P' : activeChecklist === 'shneiderman' ? 'R' : 'C';
-  
+
   checklistData.categories.forEach(cat => {
     const option = document.createElement('option');
     option.value = cat.id.toString();
     option.textContent = `${prefix}${cat.id}: ${cat.name}`;
     select.appendChild(option);
   });
-  
+
   // Bảo toàn giá trị nếu hợp lệ
   if (Array.from(select.options).some(opt => opt.value === savedValue)) {
     select.value = savedValue;
@@ -1058,12 +1129,12 @@ function calculateStatsForCategory(catId) {
   if (checklistData) {
     checklistData.categories.forEach(cat => {
       if (catId !== 'all' && cat.id.toString() !== catId.toString()) return;
-      
+
       cat.criteria.forEach(crit => {
         totalItems++;
         const itemId = `${cat.id}_${crit.id}`;
         const status = state[itemId] || 'unselected';
-        
+
         if (status === 'done') {
           doneCount++;
         } else if (status === 'todo') {
@@ -1094,7 +1165,7 @@ function getColorForPercentage(pct) {
   if (pct < 50) {
     return 'var(--danger)';
   } else if (pct < 80) {
-    return 'var(--highlight-yellow)';
+    return 'var(--yellow)';
   } else {
     return 'var(--success)';
   }
@@ -1113,10 +1184,10 @@ function renderReport() {
   document.getElementById('report-fail-count').innerText = overall.todo;
   document.getElementById('report-na-count').innerText = overall.na;
   document.getElementById('report-unselected-count').innerText = overall.unselected;
-  
+
   // Vòng tròn SVG
   document.getElementById('gauge-text-val').textContent = `${overall.percentage}%`;
-  
+
   // Cập nhật màu text % trong gauge
   const overallColor = getColorForPercentage(overall.percentage);
   document.getElementById('gauge-text-val').style.fill = overallColor;
@@ -1132,7 +1203,7 @@ function renderReport() {
   // 2. Tiến độ đạt chuẩn của từng nhóm tiêu chí
   const categoryBarsList = document.getElementById('category-bars-list');
   categoryBarsList.innerHTML = '';
-  
+
   const prefix = activeChecklist === 'nielsen' ? 'H' : activeChecklist === 'gerhardt' ? 'P' : activeChecklist === 'shneiderman' ? 'R' : 'C';
 
   checklistData.categories.forEach(cat => {
@@ -1215,7 +1286,7 @@ function renderReportDetails() {
     const stats = calculateStatsForCategory(cat.id);
     const groupContainer = document.createElement('div');
     groupContainer.className = 'report-group-container';
-    
+
     let itemsHtml = items.map(item => {
       const status = state[item.itemId] || 'unselected';
       let indicatorHtml = '';

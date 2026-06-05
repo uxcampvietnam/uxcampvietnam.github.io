@@ -5,9 +5,9 @@
 :root {
   /* Fonts */
   --font-serif-family: "Work Sans", sans-serif;
-  --success: #0f591c;
-  --danger: #a21111;
-  --secondary: #555455;
+  --success: #047857;
+  --yellow: #d5b413;
+  --danger: #B91C1C;
   --font-sans-family: "Work Sans", sans-serif;
   --font-mono: 'Chivo Mono', monospace;
 
@@ -102,105 +102,48 @@
   --ls: 0.012em;
 
   /* Light Theme Colors (Từ File CSS Chỉnh Sửa) */
-  --body-background: #EBE1D4;
-  --collection-background: #F4EDE4;
-  --saved-tab-item-background: #F8F5F0;
-  --saved-tab-item-background-hover: #FCFCFB;
+  --mbbank-brand: #141ed2;
+  --body-background: #F8FAFC;
+  --collection-background: #F1F5F9;
+  --saved-tab-item-background: #FFFFFF;
+  --saved-tab-item-background-hover: #F8FAFC;
 
   --fix-white---white-100: #ffffff;
-  --fix-white---white-90: rgba(255, 255, 255, 0.9);
-  --fix-white---white-80: rgba(255, 255, 255, 0.8);
-  --fix-white---white-70: rgba(255, 255, 255, 0.7);
-  --fix-white---white-60: rgba(255, 255, 255, 0.6);
-  --fix-white---white-50: rgba(255, 255, 255, 0.5);
-  --fix-white---white-40: rgba(255, 255, 255, 0.4);
-  --fix-white---white-30: rgba(255, 255, 255, 0.3);
-  --fix-white---white-20: rgba(255, 255, 255, 0.2);
-  --fix-white---white-10: rgba(255, 255, 255, 0.1);
   --fix-white---white-05: rgba(255, 255, 255, 0.05);
 
-  --fix-black---black-100: #000000;
-  --fix-black---black-90: rgba(0, 0, 0, 0.9);
-  --fix-black---black-80: rgba(0, 0, 0, 0.8);
-  --fix-black---black-70: rgba(0, 0, 0, 0.7);
-  --fix-black---black-60: rgba(0, 0, 0, 0.6);
-  --fix-black---black-50: rgba(0, 0, 0, 0.5);
-  --fix-black---black-40: rgba(0, 0, 0, 0.4);
-  --fix-black---black-30: rgba(0, 0, 0, 0.3);
-  --fix-black---black-20: rgba(0, 0, 0, 0.2);
-  --fix-black---black-10: rgba(0, 0, 0, 0.1);
-  --fix-black---black-05: rgba(0, 0, 0, 0.05);
+  --button-background: #141ed2;
+  --button-background-hover: #4338CA;
 
-  --button-background: rgba(60, 37, 9, 0.50);
-  --button-background-hover: rgba(115, 69, 13, 0.50);
-
-  --main-colors-foreground-f100: #000000;
-  --main-colors-foreground-f200: #010710;
-  --main-colors-foreground-f300: #02112c;
-  --main-colors-foreground-f400: #1c2535;
-  --main-colors-foreground-f-500-main: #373d48;
-  --main-colors-foreground-f600: #53545b;
-  --main-colors-foreground-f700: #706e6f;
-  --main-colors-foreground-f800: #8f8985;
-  --main-colors-foreground-f900: #aea69d;
+  --main-colors-foreground-f100: #0F172A;
+  --main-colors-foreground-f-500-main: #1E293B;
 
   --main-colors-background-b100: #ffffff;
-  --main-colors-background-b-200-slide-bg: rgb(244, 237, 228);
-  --main-colors-background-b-300-main: #F5EADB;
-  --main-colors-background-b400: #f1d7b7;
-  --main-colors-background-b500: #cabdb0;
-  --main-colors-background-b600: #aea69d;
-  --main-colors-background-b700: #8f8985;
-  --main-colors-background-elevate-1: #F8F1E8;
-  --main-colors-background-elevate-2: #FAF5EF;
-  --transparent-background-elevate-blur: rgba(244, 237, 228, 0.6);
+  --main-colors-background-b-300-main: #F1F5F9;
+  --main-colors-background-elevate-1: #FFFFFF;
+  --main-colors-background-elevate-2: #F8FAFC;
+  --transparent-background-elevate-blur: rgba(241, 245, 249, 0.6);
 
-  --transparent-foreground-main-color-100: #373d48;
-  --transparent-foreground-main-color-90: rgba(55, 61, 72, 0.9);
-  --transparent-foreground-main-color-80: rgba(55, 61, 72, 0.8);
-  --transparent-foreground-main-color-70: rgba(55, 61, 72, 0.7);
-  --transparent-foreground-main-color-60: rgba(55, 61, 72, 0.6);
-  --transparent-foreground-main-color-50: rgba(55, 61, 72, 0.5);
-  --transparent-foreground-main-color-40: rgba(55, 61, 72, 0.4);
-  --transparent-foreground-main-color-30: rgba(55, 61, 72, 0.3);
-  --transparent-foreground-main-color-20: rgba(55, 61, 72, 0.2);
-  --transparent-foreground-main-color-10: rgba(55, 61, 72, 0.1);
-  --transparent-foreground-main-color-05: rgba(55, 61, 72, 0.05);
+  --transparent-foreground-main-color-80: rgba(30, 41, 59, 0.8);
+  --transparent-foreground-main-color-50: rgba(30, 41, 59, 0.5);
+  --transparent-foreground-main-color-40: rgba(30, 41, 59, 0.4);
+  --transparent-foreground-main-color-20: rgba(30, 41, 59, 0.2);
+  --transparent-foreground-main-color-10: rgba(30, 41, 59, 0.1);
+  --transparent-foreground-main-color-05: rgba(30, 41, 59, 0.05);
 
-  --transparent-background-bg-color-100: #fbead5;
-  --transparent-background-bg-color-90: rgba(251, 234, 213, 0.9);
-  --transparent-background-bg-color-80: rgba(251, 234, 213, 0.8);
-  --transparent-background-bg-color-70: rgba(251, 234, 213, 0.7);
-  --transparent-background-bg-color-60: rgba(251, 234, 213, 0.6);
-  --transparent-background-bg-color-50: rgba(251, 234, 213, 0.5);
-  --transparent-background-bg-color-40: rgba(251, 234, 213, 0.4);
-  --transparent-background-bg-color-30: rgba(251, 234, 213, 0.3);
-  --transparent-background-bg-color-20: rgba(251, 234, 213, 0.2);
-  --transparent-background-bg-color-10: rgba(251, 234, 213, 0.1);
-  --transparent-background-bg-color-05: rgba(251, 234, 213, 0.05);
+  --alternative-foreground-blue: #1D4ED8;
+  --alternative-foreground-green: #047857;
+  --alternative-foreground-red: #B91C1C;
+  --alternative-foreground-yellow: #B45309;
+  --alternative-foreground-gold: #475569;
 
-  --alternative-foreground-blue: #3229be;
-  --alternative-foreground-green: #0f591c;
-  --alternative-foreground-red: #a21111;
-  --alternative-foreground-yellow: #493f0e;
-  --alternative-foreground-magenta: #891057;
-  --alternative-foreground-gold: #878377;
-  --alternative-foreground-light-gold: rgba(135, 131, 119, 0.5);
+  --alternative-background-blue-case-study: #EFF6FF;
+  --alternative-background-green-further-reading: #ECFDF5;
+  --alternative-background-red-to-do: #FEF2F2;
+  --alternative-background-yellow-quiz: #FFFBEB;
+  --alternative-background-light-gold: rgba(148, 163, 184, 0.1);
 
-  --alternative-background-blue-case-study: #eae9ff;
-  --alternative-background-green-further-reading: #c6fecf;
-  --alternative-background-red-to-do: #fdd;
-  --alternative-background-yellow-quiz: #ffeea6;
-  --alternative-background-magenta: #fedcf2;
-  --alternative-background-cyan: #dff3ff;
-  --alternative-background-gold: #D4D1C5;
-  --alternative-background-light-gold: rgba(212, 209, 197, 0.5);
-
-  --highlight-blue: #1c70ee;
-  --highlight-green: #01b313;
-  --highlight-red: #e62e2e;
-  --highlight-yellow: #dca015;
-  --highlight-magenta: #e523de;
+  --highlight-red: #DC2626;
+  --highlight-magenta: #DB2777;
 
   --stroke-gradient: rgba(255, 255, 255, 0.40);
 
@@ -210,22 +153,19 @@
   --bg-sidebar: var(--collection-background);
   --border-color: var(--transparent-foreground-main-color-20);
 
-  --primary: #59350b;
-  --primary-hover: var(--button-background-hover);
-  --primary-glow: var(--transparent-background-bg-color-20);
+  --primary: #141ed2;
 
   --text-main: var(--main-colors-foreground-f-500-main);
-  --text-muted: #555455;
+  --text-muted: #475569;
   --text-inverse: var(--fix-white---white-100);
 
   /* Keyboard Keys (Opposite of Background) */
-  --key-bg: #1c2535;
-  --key-color: #ffffff;
-  --key-border: #0f172a;
-  --key-shadow: 0 4px 0 #0f172a;
-  --key-active-bg: #dca015;
-  --key-active-color: #000000;
-  --key-active-border: #dca015;
+  --key-bg: #E2E8F0;
+  --key-color: #0F172A;
+  --key-shadow: 0 4px 0 #CBD5E1;
+  --key-active-bg: #141ed2;
+  --key-active-color: #ffffff;
+  --key-active-border: #a8abe2;
 
   --radius: 16px;
   --radius-sm: 8px;
@@ -235,113 +175,76 @@
   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.03);
   --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.04);
   --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.05);
+  --transparent-background-bg-color-20: rgba(79, 70, 229, 0.2);
 }
 
 /* Dark Theme Variables (Prefers Color Scheme) */
 [data-theme="dark"] {
-  --body-background: #000000;
-  --collection-background: #141414;
-  --saved-tab-item-background: #1A1A1A;
-  --saved-tab-item-background-hover: #292929;
+  --body-background: #090D16;
+  --collection-background: #0F172A;
+  --saved-tab-item-background: #1E293B;
+  --saved-tab-item-background-hover: #26354A;
 
-  --button-background: rgba(80, 124, 175, 0.25);
-  --button-background-hover: rgba(92, 133, 182, 0.35);
+  --button-background: #6366F1;
+  --button-background-hover: #4F46E5;
 
-  --main-colors-foreground-f100: #ffffff;
-  --main-colors-foreground-f200: #faf9fa;
-  --main-colors-foreground-f300: #f1eef1;
-  --main-colors-foreground-f400: #e0dbe0;
-  --main-colors-foreground-f-500-main: #c9c4ca;
-  --main-colors-foreground-f600: #a8a4ad;
-  --main-colors-foreground-f700: #85808e;
-  --main-colors-foreground-f800: #636270;
-  --main-colors-foreground-f900: #454654;
+  --main-colors-foreground-f100: #F8FAFC;
+  --main-colors-foreground-f-500-main: #E2E8F0;
 
-  --main-colors-background-b100: #000000;
-  --main-colors-background-b-200-slide-bg: #010409;
-  --main-colors-background-b-300-main: #020a18;
-  --main-colors-background-b400: #121721;
-  --main-colors-background-b500: #262a35;
-  --main-colors-background-b600: #454654;
-  --main-colors-background-b700: #636270;
-  --main-colors-background-elevate-1: #0F141C;
-  --main-colors-background-elevate-2: #121821;
-  --transparent-background-elevate-blur: rgba(1, 4, 9, 0.2);
+  --main-colors-background-b100: #090D16;
+  --main-colors-background-b-300-main: #1E293B;
+  --main-colors-background-elevate-1: #262930;
+  --main-colors-background-elevate-2: #2b2f34;
+  --transparent-background-elevate-blur: rgba(9, 13, 22, 0.6);
 
-  --transparent-foreground-main-color-100: #c9c4ca;
-  --transparent-foreground-main-color-90: rgba(201, 196, 202, 0.9);
-  --transparent-foreground-main-color-80: rgba(201, 196, 202, 0.8);
-  --transparent-foreground-main-color-70: rgba(201, 196, 202, 0.7);
-  --transparent-foreground-main-color-60: rgba(201, 196, 202, 0.6);
-  --transparent-foreground-main-color-50: rgba(201, 196, 202, 0.5);
-  --transparent-foreground-main-color-40: rgba(201, 196, 202, 0.4);
-  --transparent-foreground-main-color-30: rgba(201, 196, 202, 0.3);
-  --transparent-foreground-main-color-20: rgba(201, 196, 202, 0.2);
-  --transparent-foreground-main-color-10: rgba(201, 196, 202, 0.1);
-  --transparent-foreground-main-color-05: rgba(201, 196, 202, 0.05);
+  --transparent-foreground-main-color-80: rgba(226, 232, 240, 0.8);
+  --transparent-foreground-main-color-50: rgba(226, 232, 240, 0.5);
+  --transparent-foreground-main-color-40: rgba(226, 232, 240, 0.4);
+  --transparent-foreground-main-color-20: rgba(226, 232, 240, 0.2);
+  --transparent-foreground-main-color-10: rgba(226, 232, 240, 0.1);
+  --transparent-foreground-main-color-05: rgba(226, 232, 240, 0.05);
 
-  --transparent-background-bg-color-100: #020a18;
-  --transparent-background-bg-color-90: rgba(2, 10, 24, 0.9);
-  --transparent-background-bg-color-80: rgba(2, 10, 24, 0.8);
-  --transparent-background-bg-color-70: rgba(2, 10, 24, 0.7);
-  --transparent-background-bg-color-60: rgba(2, 10, 24, 0.6);
-  --transparent-background-bg-color-50: rgba(2, 10, 24, 0.5);
-  --transparent-background-bg-color-40: rgba(2, 10, 24, 0.4);
-  --transparent-background-bg-color-30: rgba(2, 10, 24, 0.3);
-  --transparent-background-bg-color-20: rgba(2, 10, 24, 0.2);
-  --transparent-background-bg-color-10: rgba(2, 10, 24, 0.1);
-  --transparent-background-bg-color-05: rgba(2, 10, 24, 0.05);
+  --alternative-foreground-blue: #93C5FD;
+  --alternative-foreground-green: #6EE7B7;
+  --alternative-foreground-red: #ff8a8a;
+  --alternative-foreground-yellow: #FDE047;
+  --alternative-foreground-gold: #94A3B8;
 
-  --alternative-foreground-blue: #b0ace4;
-  --alternative-foreground-green: #9fe1ab;
-  --alternative-foreground-red: #e49da0;
-  --alternative-foreground-yellow: #e4d1a1;
-  --alternative-foreground-magenta: #e4b0d0;
-  --alternative-foreground-gold: #D4D1C5;
+  --alternative-background-blue-case-study: #1E3A8A;
+  --alternative-background-green-further-reading: #064E3B;
+  --alternative-background-red-to-do: #4f3f3f;
+  --alternative-background-yellow-quiz: #78350F;
+  --alternative-background-light-gold: rgba(148, 163, 184, 0.15);
 
-  --alternative-background-blue-case-study: #0C0B31;
-  --alternative-background-green-further-reading: #142617;
-  --alternative-background-red-to-do: #320D0D;
-  --alternative-background-yellow-quiz: #2E2814;
-  --alternative-background-magenta: #52183E;
-  --alternative-background-cyan: #143849;
-  --alternative-background-gold: #878377;
-  --alternative-background-light-gold: rgba(135, 131, 119, 0.5);
-
-  --highlight-blue: #2e7aed;
-  --highlight-green: #68ee47;
-  --highlight-red: #ff6464;
-  --highlight-yellow: #ffcc54;
-  --highlight-magenta: #ff64f9;
+  --highlight-red: #F87171;
+  --highlight-magenta: #F472B6;
 
   --stroke-gradient: rgba(255, 255, 255, 0.10);
 
   /* Mapping Variables Dark */
-  --bg-app: var(--body-background);
+  --bg-app: #000000;
   --bg-surface: var(--saved-tab-item-background);
-  --bg-sidebar: var(--collection-background);
+  --bg-sidebar: #1a1a23;
   --border-color: var(--transparent-foreground-main-color-20);
 
-  --success: #9fe1ab;
-  --danger: #e49da0;
-  --secondary: #9a95a4;
+  --success: #6EE7B7;
+  --yellow: #FDE047;
+  --danger: #FCA5A5;
 
-  --primary: #5c85b6;
-  --primary-hover: var(--button-background-hover);
-  --primary-glow: var(--transparent-background-bg-color-20);
+  --primary: #818CF8;
 
   --text-main: var(--main-colors-foreground-f-500-main);
-  --text-muted: #9a95a4;
+  --text-muted: #94A3B8;
   --text-inverse: var(--main-colors-foreground-f100);
 
   /* Keyboard Keys (Opposite of Background) */
-  --key-bg: #ffffff;
-  --key-color: #000000;
-  --key-border: #cbd5e1;
-  --key-shadow: 0 4px 0 #cbd5e1;
-  --key-active-bg: #2563eb;
+  --key-bg: #1E293B;
+  --key-color: #F8FAFC;
+  --key-shadow: 0 4px 0 #090D16;
+  --key-active-bg: #6366F1;
   --key-active-color: #ffffff;
-  --key-active-border: #2563eb;
+  --key-active-border: #6366F1;
+  --transparent-background-bg-color-20: rgba(99, 102, 241, 0.2);
 }
 
 /* --- RESET & BASIC STYLES --- */
@@ -1078,7 +981,7 @@ hr {
 .main-content {
   width: 100%;
   max-width: 1200px;
-  padding: 40px 40px 400px 40px;
+  padding: 28px 40px 400px 40px;
 }
 
 /* --- LOGO & BRAND --- */
@@ -1092,7 +995,7 @@ hr {
 .brand-icon {
   width: 40px;
   height: 40px;
-  background: var(--button-background);
+  background: var(--mbbank-brand);
   border: 0.5px solid var(--stroke-gradient);
   border-radius: 200px;
   display: flex;
@@ -1627,7 +1530,7 @@ input:checked+.slider:before {
 }
 
 .checklist-card {
-  background-color: var(--bg-surface);
+  background-color: var(--main-colors-background-elevate-2);
   border: 0.5px solid var(--border-color);
   border-radius: var(--radius);
   box-shadow: var(--shadow-sm);
@@ -1649,8 +1552,15 @@ input:checked+.slider:before {
 }
 
 .checklist-card.card-na {
-  opacity: 0.65;
+  opacity: 0.5;
 }
+
+.checklist-card.card-na .badge,
+.checklist-card.card-na h6 {
+  background-color: transparent;
+  color: var(--transparent-foreground-main-color-50);
+}
+
 
 .checklist-card.card-done:hover {
   background-color: var(--alternative-background-green-further-reading);
@@ -1698,7 +1608,7 @@ input:checked+.slider:before {
 }
 
 .status-btn {
-  padding: 6px 12px;
+  padding: 8px 12px;
   border-radius: 6px;
   font-size: 0.7rem;
   font-weight: 500;
@@ -1772,6 +1682,7 @@ input:checked+.slider:before {
 .status-indicator.indicator-hidden {
   background-color: transparent;
   opacity: 0.25;
+  display: none !important;
 }
 
 .status-indicator.indicator-hidden svg {
@@ -1803,26 +1714,31 @@ input:checked+.slider:before {
   text-transform: uppercase;
 }
 
+.badge-level {
+  width: 40px;
+  text-align: center;
+  background-color: var(--main-colors-background-elevate-2);
+}
+
 .badge-level-a {
-  background-color: var(--alternative-background-red-to-do);
-  color: var(--alternative-foreground-red);
+  border: 1px solid #c4c1b5;
 }
 
 .badge-level-aa {
-  background-color: var(--alternative-background-yellow-quiz);
-  color: var(--alternative-foreground-yellow);
+  border: 1px solid #c4c1b5;
 }
 
 .badge-level-aaa {
-  background-color: var(--alternative-background-blue-case-study);
-  color: var(--alternative-foreground-blue);
+  border: 1px solid #c4c1b5;
 }
 
 .badge-id {
-  background-color: #e5e2da;
+  width: 60px;
+  background-color: var(--main-colors-background-elevate-2);
   color: #434036;
   border: 1px solid #c4c1b5;
   font-family: var(--font-mono);
+  text-align: center;
 }
 
 [data-theme="dark"] .badge-id {
@@ -1929,8 +1845,7 @@ input:checked+.slider:before {
 
 /* Compare Do & Don't visual layout */
 .compare-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+  display: flex;
   gap: 16px;
   margin-top: 4px;
 }
@@ -2335,7 +2250,8 @@ input:checked+.slider:before {
   }
 
   .compare-container {
-    grid-template-columns: 1fr;
+    display: flex;
+    flex-direction: column;
   }
 
   .card-header-main {
@@ -2466,7 +2382,7 @@ input:checked+.slider:before {
   outline: 3px solid var(--alternative-foreground-gold) !important;
   outline-offset: -2px;
   box-shadow: var(--shadow-lg), 0 0 15px var(--transparent-background-bg-color-20) !important;
-  background-color: var(--saved-tab-item-background-hover) !important;
+  background-color: var(--main-colors-background-elevate-1) !important;
 }
 
 /* --- SIDEBAR NAVIGATION SWITCHER --- */
@@ -2652,11 +2568,14 @@ input:checked+.slider:before {
 
 .gauge-stats {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin-top: 16px;
   border-top: 0.5px solid var(--border-color);
   padding-top: 16px;
   gap: 8px;
+  flex-wrap: nowrap;
+  align-content: center;
+  align-items: center;
 }
 
 .gauge-stat-item {
@@ -2664,48 +2583,29 @@ input:checked+.slider:before {
   align-items: center;
   gap: 8px;
   font-family: var(--font-sans-family);
-}
-
-.gauge-stat-item .bullet {
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-
-.gauge-stat-item .bullet.pass {
-  background-color: var(--success);
-  box-shadow: 0 0 8px var(--success);
-}
-
-.gauge-stat-item .bullet.fail {
-  background-color: var(--danger);
-  box-shadow: 0 0 8px var(--danger);
-}
-
-.gauge-stat-item .bullet.na {
-  background-color: var(--text-muted);
+  flex-direction: column;
+  justify-content: center;
+  flex-grow: 1;
 }
 
 .gauge-stat-item div {
   display: flex;
-  flex-direction: row;
-  align-content: center;
-  align-items: center;
-  gap: 8px;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
 }
 
 .gauge-stat-item .stat-num {
-  font-size: 1rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-main);
-  line-height: 1.2;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  text-align: center;
 }
 
 .gauge-stat-item .stat-lbl {
   font-size: 0.7rem;
-  color: var(--text-muted);
+  color: var(--text-main);
   text-transform: uppercase;
 }
 
@@ -2736,7 +2636,6 @@ input:checked+.slider:before {
 }
 
 .category-bar-pct {
-  font-weight: 600;
   color: var(--success);
 }
 
@@ -2841,10 +2740,14 @@ input:checked+.slider:before {
   gap: 8px;
 }
 
+.report-item-row:has(.indicator-hidden) {
+  display: none;
+}
+
 .report-item-row {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
   padding: 10px 14px;
   border-radius: var(--radius-sm);
   background-color: var(--main-colors-background-elevate-1);
@@ -2859,6 +2762,7 @@ input:checked+.slider:before {
 }
 
 .report-item-title {
+  width: 100%;
   font-weight: 400;
   flex-grow: 1;
   line-height: 1.4;
@@ -2967,4 +2871,59 @@ input:checked+.slider:before {
 .chip-filter input[type="checkbox"]:checked+.chip-btn.na {
   background-color: var(--text-muted);
   box-shadow: 0 0 8px var(--text-muted);
+}
+
+/* --- CHECKLIST SWITCHER (NAV BETWEEN WCAG & HEURISTIC) --- */
+.checklist-switcher {
+  display: flex;
+  background-color: var(--main-colors-background-elevate-2);
+  border-radius: var(--radius-sm);
+  padding: 4px;
+  gap: 4px;
+  margin-bottom: 24px;
+  border: 0.5px solid var(--border-color);
+  width: 100%;
+}
+
+.switcher-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 12px;
+  font-family: var(--font-sans-family);
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--text-muted);
+  border-radius: calc(var(--radius-sm) - 2px);
+  transition: all var(--transition-fast);
+}
+
+.switcher-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+  flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.switcher-btn:hover {
+  color: var(--text-main);
+  background-color: var(--main-colors-background-elevate-1);
+}
+
+.switcher-btn:hover svg {
+  transform: translateY(-1px);
+}
+
+.switcher-btn.active {
+  background-color: var(--button-background);
+  color: var(--fix-white---white-100) !important;
+  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
+}
+
+.switcher-btn.active svg {
+  color: var(--fix-white---white-100);
 }

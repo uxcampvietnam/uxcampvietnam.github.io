@@ -1,5 +1,4 @@
-// --- TỆP DỮ LIỆU ĐẦY ĐỦ 86 TIÊU CHÍ WCAG 2.2 ---
-const WCAG_DATA = [
+[
   {
     "id": "alt-text",
     "wcag": "1.1.1",
@@ -1338,4 +1337,4 @@ const WCAG_DATA = [
     "do": "Thông báo 'Đã thêm sản phẩm vào giỏ hàng' hiển thị ở góc màn hình và được Screen Reader tự động đọc lên.",
     "dont": "Hiển thị thông báo trạng thái cập nhật thành công một cách im lặng khiến người mù không biết thao tác của họ đã hoàn tất chưa."
   }
-];
+]

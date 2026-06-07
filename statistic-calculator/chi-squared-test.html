@@ -38,22 +38,23 @@
     </div>
   </div>
 
-  
+
   <div class="statistic-calculator-container container">
     <div class="row">
       <div class="d-none d-md-block col-md-3 col-xl-2">
         <div class="statistical-test-menu">
-          <span class="caption medium" style="color:var(--main-colors-foreground-f800)">Statistic Calculator</span>
+          <span class="caption medium font-sans-small" style="color:var(--main-colors-foreground-f800)">Statistic
+            Calculator</span>
           <div class="links caption">
-            <a href="index.html">Introduction</a>
-            <a href="sample-size-calculator.html">Sample Size Calculator</a>
-            <a href="one-sample-t-test.html">One Sample t-Test</a>
-            <a href="two-sample-t-test.html">Two Sample t-Test</a>
-            <a href="paired-sample-t-test.html">Paired Sample t-Test</a>
-            <a class="highlighted" href="chi-squared-test.html">Chi-squared Test</a>
-            <a href="kruskal-wallis-test.html">Kruskal-Wallis Test</a>
-            <a href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
-            <a href="bootstrap.html">Bootstrap for Quantiles</a>
+            <a class="font-sans-small" href="index.html">Introduction</a>
+            <a class="font-sans-small" href="sample-size-calculator.html">Sample Size Calculator</a>
+            <a class="font-sans-small" href="one-sample-t-test.html">One Sample t-Test</a>
+            <a class="font-sans-small" href="two-sample-t-test.html">Two Sample t-Test</a>
+            <a class="font-sans-small" href="paired-sample-t-test.html">Paired Sample t-Test</a>
+            <a class="font-sans-small highlighted" href="chi-squared-test.html">Chi-squared Test</a>
+            <a class="font-sans-small" href="kruskal-wallis-test.html">Kruskal-Wallis Test</a>
+            <a class="font-sans-small" href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
+            <a class="font-sans-small" href="bootstrap.html">Bootstrap for Quantiles</a>
 
           </div>
         </div>
@@ -63,17 +64,17 @@
         <div class="row">
           <div class="col-12 col-lg-8">
             <div class="chi-squared-test-container statistical-test-container-body">
-              <h2 class="h2">Chi-squared Test</h2>
+              <h2 class="h2 font-sans-h2">Chi-squared Test</h2>
               <div class="dataset paragraph">
                 <div class="caption table-size-input-container">
-                  <span>
-                    <label>Số hàng:</label>
+                  <span class="font-sans-small">
+                    <label class="font-sans-small">Số hàng:</label>
                     <input style="width: 60px;" type="number" id="rows" value="2" min="2" class="single-input">
                   </span>
-                  <span>
-                    <label>Số cột:</label>
+                  <span class="font-sans-small">
+                    <label class="font-sans-small">Số cột:</label>
                     <input style="width: 60px;" type="number" id="cols" value="2" min="2" class="single-input">
-                    <button onclick="createTable()" class="cta-small ">Tạo bảng</button>
+                    <button onclick="createTable()" class="cta-small font-sans-small">Tạo bảng</button>
                   </span>
                 </div>
                 <div id="tableContainer" class="paragraph">
@@ -82,22 +83,23 @@
                 </div>
 
                 <div class="paragraph" id="alpha">
-                  <label class="paragraph">Mức ý nghĩa - α</label>
-                  <span>
+                  <label class="paragraph font-sans-small">Mức ý nghĩa - α</label>
+                  <span class="font-sans-small">
                     <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
-                    <label for="alpha010">0.10</label>
+                    <label class="font-sans-small" for="alpha010">0.10</label>
                   </span>
-                  <span>
+                  <span class="font-sans-small">
                     <input type="radio" id="alpha005" name="alpha-selection" value="0.05" checked>
-                    <label for="alpha005">0.05</label>
+                    <label class="font-sans-small" for="alpha005">0.05</label>
                   </span>
-                  <span>
+                  <span class="font-sans-small">
                     <input type="radio" id="alpha001" name="alpha-selection" value="0.01">
-                    <label for="alpha001">0.01</label>
+                    <label class="font-sans-small" for="alpha001">0.01</label>
                   </span>
                 </div>
               </div>
-              <button class="perform-statistic-test cta-large paragraph medium" onclick="calculateChiSquared()">Perform
+              <button class="perform-statistic-test cta-large paragraph medium font-sans-small"
+                onclick="calculateChiSquared()">Perform
                 Chi-squared Test</button>
             </div>
           </div>

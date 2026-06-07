@@ -18,7 +18,7 @@
 </head>
 
 <body>
-  
+
   <div class="navigation">
     <div class="navigation-row1">
       <!-- <a class="paragraph" href="../index.html">Bootcamp</a> -->
@@ -37,17 +37,18 @@
     <div class="row">
       <div class="d-none d-md-block col-md-3 col-xl-2">
         <div class="statistical-test-menu">
-          <span class="caption medium" style="color:var(--main-colors-foreground-f800)">Statistic Calculator</span>
+          <span class="caption medium font-sans-small" style="color:var(--main-colors-foreground-f800)">Statistic
+            Calculator</span>
           <div class="links caption">
-            <a href="index.html">Introduction</a>
-            <a href="sample-size-calculator.html">Sample Size Calculator</a>
-            <a href="one-sample-t-test.html">One Sample t-Test</a>
-            <a href="two-sample-t-test.html">Two Sample t-Test</a>
-            <a href="paired-sample-t-test.html">Paired Sample t-Test</a>
-            <a href="chi-squared-test.html">Chi-squared Test</a>
-            <a class="highlighted" href="kruskal-wallis-test.html">Kruskal-Wallis Test</a>
-            <a href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
-            <a href="bootstrap.html">Bootstrap for Quantiles</a>
+            <a class="font-sans-small" href="index.html">Introduction</a>
+            <a class="font-sans-small" href="sample-size-calculator.html">Sample Size Calculator</a>
+            <a class="font-sans-small" href="one-sample-t-test.html">One Sample t-Test</a>
+            <a class="font-sans-small" href="two-sample-t-test.html">Two Sample t-Test</a>
+            <a class="font-sans-small" href="paired-sample-t-test.html">Paired Sample t-Test</a>
+            <a class="font-sans-small" href="chi-squared-test.html">Chi-squared Test</a>
+            <a class="highlighted font-sans-small" href="kruskal-wallis-test.html">Kruskal-Wallis Test</a>
+            <a class="font-sans-small" href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
+            <a class="font-sans-small" href="bootstrap.html">Bootstrap for Quantiles</a>
 
           </div>
         </div>
@@ -56,48 +57,50 @@
         <div class="row">
           <div class="col-12 col-lg-8">
             <div class="kruskal-wallis-test-container statistical-test-container-body">
-              <h2>Kruskal-Wallis Test</h2>
+              <h2 class="font-sans-h2">Kruskal-Wallis Test</h2>
 
               <div class="dataset paragraph">
 
                 <div id="groups" class="paragraph">
                   <div class="kruskal-wallis-group-block">
                     <input type="text" placeholder="Tên nhóm" value="Nhóm 1" class="single-input group-label" />
-                    <textarea placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+                    <textarea class="font-sans-small" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
                   </div>
                   <div class="kruskal-wallis-group-block">
                     <input type="text" placeholder="Tên nhóm" value="Nhóm 2" class="single-input group-label" />
-                    <textarea placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+                    <textarea class="font-sans-small" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
                   </div>
                   <div class="kruskal-wallis-group-block">
                     <input type="text" placeholder="Tên nhóm" value="Nhóm 3" class="single-input group-label" />
-                    <textarea placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+                    <textarea class="font-sans-small" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
                   </div>
                 </div>
                 <div class="kruskal-wallis-add-remove-group">
-                  <button class="secondary-button-small caption medium" onclick="addKruskalWallisGroup()">+ Thêm
+                  <button class="secondary-button-small caption medium font-sans-small"
+                    onclick="addKruskalWallisGroup()">+ Thêm
                     nhóm</button>
-                  <button class="secondary-button-small caption medium" onclick="removeKruskalWallisGroup()">- Xóa
+                  <button class="secondary-button-small caption medium font-sans-small"
+                    onclick="removeKruskalWallisGroup()">- Xóa
                     nhóm
                     cuối</button>
                 </div>
                 <div class="paragraph" id="alpha">
-                  <label class="paragraph">Mức ý nghĩa - α</label>
-                  <span>
+                  <label class="paragraph font-sans-small">Mức ý nghĩa - α</label>
+                  <span class="font-sans-small">
                     <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
-                    <label for="alpha010">0.10</label>
+                    <label class="font-sans-small" for="alpha010">0.10</label>
                   </span>
-                  <span>
+                  <span class="font-sans-small">
                     <input type="radio" id="alpha005" name="alpha-selection" value="0.05" checked>
-                    <label for="alpha005">0.05</label>
+                    <label class="font-sans-small" for="alpha005">0.05</label>
                   </span>
-                  <span>
+                  <span class="font-sans-small">
                     <input type="radio" id="alpha001" name="alpha-selection" value="0.01">
-                    <label for="alpha001">0.01</label>
+                    <label class="font-sans-small" for="alpha001">0.01</label>
                   </span>
                 </div>
               </div>
-              <button class="perform-statistic-test cta-large paragraph medium"
+              <button class="perform-statistic-test cta-large paragraph medium font-sans-small"
                 onclick="calculateKruskalWallis()">Perform
                 Kruskal-Wallis Test</button>
             </div>

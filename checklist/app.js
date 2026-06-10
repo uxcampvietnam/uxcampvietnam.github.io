@@ -10,6 +10,7 @@ let activeCardId = null;
 
 // Khởi tạo ứng dụng
 document.addEventListener('DOMContentLoaded', () => {
+  window.trackEvent('view_page', { page_name: 'wcag_accessibility' });
   initLocalStorage();
   initSidebarCollapse();
   renderProjectDropdown();
@@ -196,6 +197,10 @@ function bindEvents() {
     if (currentProject) {
       document.getElementById('current-project-title').innerText = currentProject.name;
     }
+    window.trackEvent('switch_project', {
+      project_id: currentProjectId,
+      project_name: currentProject ? currentProject.name : ''
+    });
     switchTab(activeView);
     updateProgressAndStats();
   });
@@ -230,6 +235,10 @@ function bindEvents() {
     });
     currentProjectId = newId;
     saveToStorage();
+    window.trackEvent('create_project', {
+      project_id: newId,
+      project_name: name
+    });
     nameInput.value = '';
     closeModal('new-project-modal');
     renderProjectDropdown();
@@ -250,6 +259,11 @@ function bindEvents() {
       const oldName = project.name;
       project.name = name;
       saveToStorage();
+      window.trackEvent('rename_project', {
+        project_id: currentProjectId,
+        old_name: oldName,
+        new_name: name
+      });
       closeModal('rename-project-modal');
       renderProjectDropdown();
       switchTab(activeView);
@@ -265,9 +279,15 @@ function bindEvents() {
     }
     const currentProject = projects.find(p => p.id === currentProjectId);
     if (confirm(`Bạn có chắc chắn muốn xóa luồng "${currentProject.name}"? Nếu xóa, toàn bộ dữ liệu đánh giá của luồng này sẽ bị mất hoàn toàn và không thể khôi phục.`)) {
+      const deletedId = currentProjectId;
+      const deletedName = currentProject.name;
       projects = projects.filter(p => p.id !== currentProjectId);
       currentProjectId = projects[0].id;
       saveToStorage();
+      window.trackEvent('delete_project', {
+        project_id: deletedId,
+        project_name: deletedName
+      });
       renderProjectDropdown();
       switchTab(activeView);
       updateProgressAndStats();
@@ -278,30 +298,45 @@ function bindEvents() {
   // Tìm kiếm thời gian thực
   document.getElementById('search-input').addEventListener('input', (e) => {
     searchQuery = e.target.value.toLowerCase().trim();
+    window.trackSearchDebounced(searchQuery);
     renderChecklist();
   });
 
   // Lọc theo nhóm danh mục
   document.getElementById('category-filter').addEventListener('change', (e) => {
     activeCategoryFilter = e.target.value;
+    const selectedOption = e.target.options[e.target.selectedIndex];
+    window.trackEvent('change_filter_category', {
+      category_id: activeCategoryFilter,
+      category_name: selectedOption ? selectedOption.textContent : ''
+    });
     renderChecklist();
   });
 
   // Lọc theo cấp độ (Level A/AA/AAA)
   document.getElementById('level-filter').addEventListener('change', (e) => {
     activeLevelFilter = e.target.value;
+    window.trackEvent('change_filter_level', {
+      level: activeLevelFilter
+    });
     renderChecklist();
   });
 
   // Lọc theo trạng thái checkbox (Done, Todo, NA)
   document.getElementById('status-filter').addEventListener('change', (e) => {
     activeStatusFilter = e.target.value;
+    window.trackEvent('change_filter_status', {
+      status: activeStatusFilter
+    });
     renderChecklist();
   });
 
   // Toggle chỉ hiện các tiêu chí mới của WCAG 2.2
   document.getElementById('wcag22-toggle').addEventListener('change', (e) => {
     showOnlyNew22 = e.target.checked;
+    window.trackEvent('toggle_wcag22_only', {
+      show_only_22: showOnlyNew22
+    });
     renderChecklist();
   });
 
@@ -312,6 +347,9 @@ function bindEvents() {
     const newTheme = currentTheme === 'light' ? 'dark' : 'light';
     html.setAttribute('data-theme', newTheme);
     localStorage.setItem('wcag_designer_theme', newTheme);
+    window.trackEvent('change_theme', {
+      theme: newTheme
+    });
   });
 
   // Đọc theme đã lưu
@@ -324,6 +362,12 @@ function bindEvents() {
 
   // Nút Xuất báo cáo Markdown
   document.getElementById('btn-export-markdown').addEventListener('click', () => {
+    const currentProject = projects.find(p => p.id === currentProjectId);
+    window.trackEvent('export_report', {
+      project_name: currentProject ? currentProject.name : '',
+      checklist_type: 'WCAG 2.2',
+      format: 'markdown'
+    });
     exportToMarkdown();
   });
 
@@ -338,23 +382,44 @@ function bindEvents() {
   });
 
   // Bộ chọn nhóm tiêu chí trên báo cáo
-  document.getElementById('report-category-select').addEventListener('change', () => {
+  document.getElementById('report-category-select').addEventListener('change', (e) => {
+    window.trackEvent('report_filter_category', {
+      category_id: e.target.value
+    });
     renderReportDetails();
   });
 
   // Lọc chi tiết báo cáo theo trạng thái (checkboxes)
   document.getElementById('rep-filter-pass').addEventListener('change', () => {
+    window.trackEvent('report_filter_status', {
+      show_pass: document.getElementById('rep-filter-pass').checked,
+      show_fail: document.getElementById('rep-filter-fail').checked,
+      show_na: document.getElementById('rep-filter-na').checked
+    });
     renderReportDetails();
   });
   document.getElementById('rep-filter-fail').addEventListener('change', () => {
+    window.trackEvent('report_filter_status', {
+      show_pass: document.getElementById('rep-filter-pass').checked,
+      show_fail: document.getElementById('rep-filter-fail').checked,
+      show_na: document.getElementById('rep-filter-na').checked
+    });
     renderReportDetails();
   });
   document.getElementById('rep-filter-na').addEventListener('change', () => {
+    window.trackEvent('report_filter_status', {
+      show_pass: document.getElementById('rep-filter-pass').checked,
+      show_fail: document.getElementById('rep-filter-fail').checked,
+      show_na: document.getElementById('rep-filter-na').checked
+    });
     renderReportDetails();
   });
 
   // Nút Tải Agent Skills
   document.getElementById('btn-download-skills').addEventListener('click', () => {
+    window.trackEvent('download_agent_skills', {
+      checklist_type: 'WCAG 2.2'
+    });
     downloadAgentSkills([
       { url: 'skills/wcag-skill.md', name: 'wcag-skill.md' },
       { url: 'skills/wcag-knowledge.json', name: 'wcag-knowledge.json' }
@@ -368,6 +433,11 @@ function bindEvents() {
       if (project) {
         project.state = {};
         saveToStorage();
+        window.trackEvent('reset_project', {
+          project_id: currentProjectId,
+          project_name: project.name,
+          checklist_type: 'WCAG 2.2'
+        });
         switchTab(activeView);
         updateProgressAndStats();
         showToast('Đã thiết lập lại dự án hiện tại.');
@@ -440,6 +510,9 @@ function bindEvents() {
         e.stopPropagation();
 
         const keyName = keyMappings[id];
+        window.trackEvent('click_virtual_dpad', {
+          key: keyName
+        });
         // Gửi sự kiện keydown
         const downEvent = new KeyboardEvent('keydown', { key: keyName, bubbles: true });
         document.dispatchEvent(downEvent);
@@ -687,6 +760,14 @@ function renderChecklist() {
         state[item.id] = newStatus;
         saveToStorage();
 
+        window.trackEvent('change_criterion_status', {
+          criterion_id: item.id,
+          criterion_title: item.title,
+          status: newStatus,
+          checklist_type: 'WCAG 2.2',
+          project_id: currentProjectId
+        });
+
         // Cập nhật trạng thái active trên các nút
         btns.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
@@ -721,6 +802,14 @@ function renderChecklist() {
         currentProject.failReasons[item.id] = e.target.value;
         saveToStorage();
       });
+      reasonInput.addEventListener('change', (e) => {
+        window.trackEvent('input_fail_reason', {
+          criterion_id: item.id,
+          reason_length: e.target.value.trim().length,
+          checklist_type: 'WCAG 2.2',
+          project_id: currentProjectId
+        });
+      });
       reasonInput.addEventListener('keydown', (e) => {
         e.stopPropagation(); // Ngăn chặn sự kiện lan ra ngoài
         if (e.key === 'Enter') {
@@ -738,6 +827,17 @@ function renderChecklist() {
       if (matchWhy || matchHow) {
         card.querySelector('.card-details').setAttribute('open', '');
       }
+    }
+
+    const detailsEl = card.querySelector('.card-details');
+    if (detailsEl) {
+      detailsEl.addEventListener('toggle', (e) => {
+        window.trackEvent('toggle_criterion_details', {
+          criterion_id: item.id,
+          is_open: detailsEl.hasAttribute('open'),
+          checklist_type: 'WCAG 2.2'
+        });
+      });
     }
 
     container.appendChild(card);
@@ -934,6 +1034,12 @@ document.addEventListener('keydown', (e) => {
 
   const key = e.key;
 
+  if (['ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'Enter'].includes(key)) {
+    window.trackEvent('press_keyboard_shortcut', {
+      key: key
+    });
+  }
+
   if (key === 'Enter') {
     highlightVirtualKey(key, true);
     if (activeCardId) {
@@ -1075,6 +1181,10 @@ function highlightVirtualKey(key, isActive) {
 let activeView = 'checklist'; // 'checklist' hoặc 'report'
 
 function switchTab(tabId) {
+  window.trackEvent('switch_tab', {
+    tab_name: tabId
+  });
+
   const checklistFilter = document.querySelector('.filter-panel');
   const checklistContainer = document.getElementById('checklist-container');
   const reportContainer = document.getElementById('report-container');

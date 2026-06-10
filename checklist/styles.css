@@ -910,13 +910,39 @@ hr {
   border-right: 0.5px solid var(--border-color);
   display: flex;
   flex-direction: column;
-  padding: 24px;
+  padding: 0;
   position: fixed;
   top: 0;
   bottom: 0;
   left: 0;
   z-index: 10;
   transition: transform var(--transition-normal), background-color var(--transition-normal), border-color var(--transition-normal);
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 24px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.sidebar-content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+  background: var(--transparent-foreground-main-color-20);
+  border-radius: 100px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+  background: var(--transparent-foreground-main-color-50);
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+  background: transparent;
 }
 
 /* Sidebar Toggle Button for Desktop */

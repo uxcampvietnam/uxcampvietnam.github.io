@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhà Thuốc Hay - Tra cứu & Tìm kiếm</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .lookup-tabs {
+      display: flex;
+      border-bottom: 2px solid var(--border-color);
+      margin-bottom: 20px;
+      margin-top: 16px;
+    }
+    .lookup-tab-btn {
+      padding: 12px 24px;
+      border: none;
+      background: none;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-muted);
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -2px;
+    }
+    .lookup-tab-btn.active {
+      color: var(--text-primary);
+      border-bottom-color: var(--text-primary);
+    }
+    .lookup-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      min-height: 350px;
+    }
+    .lookup-panel {
+      display: none;
+    }
+    .lookup-panel.active {
+      display: block;
+    }
+    /* Timeline styles */
+    .timeline {
+      position: relative;
+      padding-left: 30px;
+      margin-top: 24px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 5px;
+      bottom: 5px;
+      width: 2px;
+      background: var(--border-color);
+    }
+    .timeline-node {
+      position: relative;
+      margin-bottom: 24px;
+    }
+    .timeline-node::before {
+      content: "";
+      position: absolute;
+      left: -25px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--border-dashed);
+      border: 2px solid var(--bg-card);
+    }
+    .timeline-node.active::before {
+      background: green;
+      box-shadow: 0 0 0 3px rgba(0,255,0,0.2);
+    }
+    .timeline-node h4 {
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+    .timeline-node p {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <header></header>
+
+  <main class="container">
+    <div class="breadcrumbs">
+      <a href="index.html">Trang chủ</a> &gt; <span>Cổng tra cứu</span>
+    </div>
+
+    <!-- Tab switcher -->
+    <div class="lookup-tabs">
+      <button class="lookup-tab-btn active" data-panel="panel-search" id="tab-search-btn">🔍 Kết quả tìm kiếm</button>
+      <button class="lookup-tab-btn" data-panel="panel-verify">🛡️ Tra thuốc chính hãng</button>
+      <button class="lookup-tab-btn" data-panel="panel-track" id="tab-track-btn">📦 Tra cứu đơn hàng</button>
+      <button class="lookup-tab-btn" data-panel="panel-active-ingredient" id="tab-ingredient-btn">🧪 Tra cứu dược chất</button>
+    </div>
+
+    <!-- Tab Content Panels -->
+    <div class="lookup-content">
+      
+      <!-- Panel 1: General search results -->
+      <div class="lookup-panel active" id="panel-search">
+        <h3 style="margin-bottom:16px;">Kết quả tìm kiếm cho từ khóa: "<span id="search-keyword-display" style="text-decoration:underline;">...</span>"</h3>
+        
+        <h4 style="margin: 20px 0 10px 0; border-bottom:1px solid var(--wireframe-gray); padding-bottom:6px;">SẢN PHẨM KHỚP TỪ KHÓA (<span id="search-prod-count">0</span>)</h4>
+        <div class="product-grid" id="search-products-grid">
+          <!-- Loaded dynamically -->
+        </div>
+
+        <h4 style="margin: 32px 0 10px 0; border-bottom:1px solid var(--wireframe-gray); padding-bottom:6px;">BÀI VIẾT GÓC SỨC KHỎE KHỚP TỪ KHÓA (<span id="search-art-count">0</span>)</h4>
+        <div id="search-articles-container" style="display:grid; grid-template-columns:1fr; gap:12px;">
+          <!-- Loaded dynamically -->
+        </div>
+      </div>
+
+      <!-- Panel 2: Brand/Authenticity check -->
+      <div class="lookup-panel" id="panel-verify">
+        <h3 style="margin-bottom:8px;">Xác thực nguồn gốc thuốc chính hãng</h3>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">Nhập Số Đăng Ký (SĐK) in trên hộp thuốc để đối chiếu thông tin pháp lý từ cơ sở dữ liệu Nhà Thuốc Hay.</p>
+        
+        <div style="display:flex; gap:12px; max-width:500px; margin-bottom:24px;">
+          <input type="text" id="reg-verify-input" class="form-control" placeholder="Ví dụ: VN-19225-15, VD-22851-15...">
+          <button class="header-btn primary" onclick="verifyRegistrationNumber()">Xác thực</button>
+        </div>
+        
+        <div id="verify-result-box" style="display:none;">
+          <!-- Displays authenticity result -->
+        </div>
+      </div>
+
+      <!-- Panel 3: Order tracking timeline -->
+      <div class="lookup-panel" id="panel-track">
+        <h3 style="margin-bottom:8px;">Kiểm tra tiến trình giao vận đơn hàng</h3>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">Nhập mã đơn hàng (ví dụ: NT-582914) để theo dõi lịch trình giao nhận trực tiếp từ dược sĩ giao hàng.</p>
+        
+        <div style="display:flex; gap:12px; max-width:500px; margin-bottom:24px;">
+          <input type="text" id="order-track-input" class="form-control" placeholder="Mã đơn hàng NT-XXXXXX">
+          <button class="header-btn primary" onclick="trackOrderCode()">Kiểm tra trạng thái</button>
+        </div>
+
+        <div id="track-result-box" style="display:none;">
+          <!-- Timeline goes here -->
+        </div>
+      </div>
+
+      <!-- Panel 4: Active Ingredient lookup -->
+      <div class="lookup-panel" id="panel-active-ingredient">
+        <h3 style="margin-bottom:8px;">Tra cứu danh mục dược chất y khoa</h3>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">Nhấp chọn dược chất để xem công dụng, liều dùng đề xuất và danh sách sản phẩm chứa thành phần này.</p>
+        
+        <div style="display:grid; grid-template-columns: 220px 1fr; gap:20px; border-top: 1px solid var(--border-color); padding-top:16px;">
+          <!-- List of active ingredients -->
+          <div style="display:flex; flex-direction:column; gap:8px; border-right: 1px solid var(--border-color); padding-right:16px;" id="ingredient-list-btns">
+            <!-- Loaded dynamically -->
+          </div>
+          
+          <!-- Ingredient detail display -->
+          <div id="ingredient-detail-box" style="padding:16px; background:var(--bg-secondary); border-radius:var(--border-radius); min-height:280px; border:1px solid var(--border-color);">
+            <p style="color:var(--text-muted); text-align:center; margin-top:80px;">Vui lòng chọn một dược chất ở cột bên trái để bắt đầu tra cứu.</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer></footer>
+
+  <script src="products_data.js"></script>
+  <script src="common.js"></script>
+  <script>
+    // Articles simple listing for search mapping
+    const ARTICLES_DB = [
+      { id: 1, title: "Làm thế nào để phòng ngừa viêm họng và cúm mùa khi thời tiết thay đổi đột ngột?", desc: "Thời tiết chuyển mùa là điều kiện thuận lợi cho các loại vi-rút đường hô hấp phát triển mạnh...", cat: "Tin bệnh học" },
+      { id: 2, title: "Bổ sung Vitamin K2 & D3 thế nào là đúng cách giúp trẻ phát triển chiều cao tối ưu?", desc: "Nhiều phụ huynh bổ sung canxi rất nhiều cho trẻ nhưng lại quên đi vai trò định hướng của K2 & D3...", cat: "Tin dinh dưỡng" },
+      { id: 3, title: "Các bài tập đơn giản hỗ trợ giảm đau vai gáy cho người làm việc văn phòng", desc: "Ngồi làm việc sai tư thế trước máy tính trong nhiều giờ liên tục là nguyên nhân hàng đầu gây mỏi cơ...", cat: "Mẹo sống khỏe" }
+    ];
+
+    document.addEventListener("DOMContentLoaded", () => {
+      setupTabSwitching();
+      handleQuerySearch();
+      loadIngredients();
+
+      // Check tab query parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get("tab") === "don-hang") {
+        document.getElementById("tab-track-btn").click();
+      } else if (urlParams.get("tab") === "duoc-chat") {
+        document.getElementById("tab-ingredient-btn").click();
+      }
+    });
+
+    function setupTabSwitching() {
+      const tabBtns = document.querySelectorAll(".lookup-tab-btn");
+      tabBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          tabBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          
+          const target = btn.getAttribute("data-panel");
+          document.querySelectorAll(".lookup-panel").forEach(panel => {
+            if (panel.id === target) {
+              panel.classList.add("active");
+            } else {
+              panel.classList.remove("active");
+            }
+          });
+        });
+      });
+    }
+
+    function handleQuerySearch() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const q = urlParams.get("q") ? urlParams.get("q").trim() : "";
+      
+      document.getElementById("search-keyword-display").innerText = q || "Tất cả sản phẩm";
+      
+      let matchedProds = MOCK_PRODUCTS;
+      let matchedArticles = ARTICLES_DB;
+      
+      if (q) {
+        const queryLower = q.toLowerCase();
+        matchedProds = MOCK_PRODUCTS.filter(p => 
+          p.name.toLowerCase().includes(queryLower) || 
+          p.category1.toLowerCase().includes(queryLower) ||
+          p.category2.toLowerCase().includes(queryLower) ||
+          p.description.toLowerCase().includes(queryLower)
+        );
+        
+        matchedArticles = ARTICLES_DB.filter(a => 
+          a.title.toLowerCase().includes(queryLower) || 
+          a.desc.toLowerCase().includes(queryLower)
+        );
+      } else {
+        // limit default search page to first 12 items
+        matchedProds = MOCK_PRODUCTS.slice(0, 12);
+      }
+      
+      // Render counts
+      document.getElementById("search-prod-count").innerText = matchedProds.length;
+      document.getElementById("search-art-count").innerText = matchedArticles.length;
+      
+      // Render Prods
+      const prodGrid = document.getElementById("search-products-grid");
+      if (matchedProds.length === 0) {
+        prodGrid.innerHTML = `<div style="grid-column:1/-1; padding:20px; text-align:center; color:var(--text-muted);">Không tìm thấy sản phẩm nào khớp từ khóa.</div>`;
+      } else {
+        prodGrid.innerHTML = matchedProds.map(p => {
+          const isPrescription = p.is_prescription ? '<span class="product-tag prescription">Kê đơn</span>' : '';
+          const oldPrice = p.original_price > p.price ? `<span class="product-old-price">${p.original_price.toLocaleString()} đ</span>` : '';
+          
+          return `
+            <div class="product-card">
+              ${isPrescription}
+              <div class="wf-image-placeholder" style="height:140px; margin-bottom:8px; cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">
+                <span class="wf-image-text">SP ID: ${p.id}</span>
+              </div>
+              <div class="product-title" title="${p.name}" style="cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">${p.name}</div>
+              <div class="product-spec">${p.specification}</div>
+              <div class="product-rating">⭐ ${p.rating} | Đã bán ${p.sold_count}</div>
+              <div class="product-price-row">
+                <span class="product-price">${p.price.toLocaleString()} đ</span>
+                ${oldPrice}
+              </div>
+              <div class="product-actions">
+                <button class="btn-card" onclick="CartManager.addToCart(MOCK_PRODUCTS[${p.id-1}], 1)">Thêm</button>
+                <button class="btn-card primary" onclick="buyNow(${p.id})">Mua ngay</button>
+              </div>
+            </div>
+          `;
+        }).join("");
+      }
+      
+      // Render Articles
+      const artContainer = document.getElementById("search-articles-container");
+      if (matchedArticles.length === 0) {
+        artContainer.innerHTML = `<div style="padding:20px; text-align:center; color:var(--text-muted);">Không tìm thấy bài viết kiến thức nào.</div>`;
+      } else {
+        artContainer.innerHTML = matchedArticles.map(a => `
+          <div style="border:1px solid var(--border-color); padding:16px; border-radius:6px;">
+            <span style="font-size:11px; font-weight:bold; color:var(--text-muted);">${a.cat}</span>
+            <h4 style="margin:4px 0;"><a href="goc-suc-khoe-detail.html?id=${a.id}" style="color:var(--text-primary); text-decoration:underline;">${a.title}</a></h4>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:2px;">${a.desc}</p>
+          </div>
+        `).join("");
+      }
+    }
+
+    window.buyNow = function(id) {
+      CartManager.addToCart(MOCK_PRODUCTS[id-1], 1);
+      location.href = "gio-hang.html";
+    };
+
+    // Verify Drug Registration Code
+    window.verifyRegistrationNumber = function() {
+      const regInput = document.getElementById("reg-verify-input").value.trim().toUpperCase();
+      const resultBox = document.getElementById("verify-result-box");
+      
+      if (!regInput) {
+        alert("Vui lòng nhập Số đăng ký cần tra cứu.");
+        return;
+      }
+      
+      // Search database for this registration number
+      const match = MOCK_PRODUCTS.find(p => p.registration_num && p.registration_num.toUpperCase().includes(regInput));
+      
+      resultBox.style.display = "block";
+      if (match) {
+        resultBox.innerHTML = `
+          <div style="border: 2px solid green; padding: 20px; border-radius: 6px; background:#f0fdf4;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px; color:green; font-weight:bold; font-size:16px;">
+              <span>🛡️ XÁC THỰC THÀNH CÔNG: SẢN PHẨM CHÍNH HÃNG</span>
+            </div>
+            <p><strong>Tên sản phẩm:</strong> ${match.name}</p>
+            <p><strong>Quy cách đóng gói:</strong> ${match.specification}</p>
+            <p><strong>Nhóm phân loại:</strong> ${match.category1} (${match.category2})</p>
+            <p><strong>Số Đăng Ký / Số công bố:</strong> <span style="background:yellow; padding:2px 4px; font-weight:bold;">${match.registration_num}</span></p>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:12px; border-top:1px dashed var(--border-color); padding-top:8px;">Hệ thống xác nhận sản phẩm này đã được kiểm định chất lượng, lưu kho tại Nhà Thuốc Hay theo đúng các quy định pháp lý Dược phẩm Việt Nam.</p>
+            <button class="header-btn" style="margin-top:12px;" onclick="location.href='chi-tiet-san-pham.html?id=${match.id}'">Xem sản phẩm và Mua ngay</button>
+          </div>
+        `;
+      } else {
+        resultBox.innerHTML = `
+          <div style="border: 2px solid #ef4444; padding: 20px; border-radius: 6px; background:#fef2f2;">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:12px; color:#ef4444; font-weight:bold; font-size:16px;">
+              <span>❌ KHÔNG TÌM THẤY KẾT QUẢ ĐỐI CHIẾU</span>
+            </div>
+            <p>Số đăng ký <strong>"${regInput}"</strong> hiện không nằm trong danh mục đối chiếu chính hãng trực ban hoặc đang được cập nhật.</p>
+            <p style="font-size:12px; color:var(--text-muted); margin-top:8px;">Vui lòng kiểm tra lại tính chính xác của ký tự nhập (Ví dụ mẫu chuẩn: <em>VN-19225-15</em>, <em>VD-22851-15</em>) hoặc liên hệ Hotline miễn phí để hỗ trợ.</p>
+          </div>
+        `;
+      }
+    };
+
+    // Track order timeline
+    window.trackOrderCode = function() {
+      const codeInput = document.getElementById("order-track-input").value.trim().toUpperCase();
+      const resultBox = document.getElementById("track-result-box");
+      
+      if (!codeInput) {
+        alert("Vui lòng nhập Mã đơn hàng cần theo dõi.");
+        return;
+      }
+      
+      // Check if it exists in local storage
+      let orders = localStorage.getItem("nth_orders");
+      orders = orders ? JSON.parse(orders) : [];
+      
+      // Default placeholder if none exists or not found in storage
+      let ord = orders.find(o => o.code === codeInput);
+      
+      resultBox.style.display = "block";
+      
+      if (ord) {
+        // Real active order details
+        resultBox.innerHTML = `
+          <div style="border:1px solid var(--border-color); padding:20px; border-radius:6px; background:var(--bg-secondary);">
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+              <strong>ĐƠN HÀNG: ${ord.code}</strong>
+              <span>Khách hàng: <strong>${ord.name}</strong></span>
+            </div>
+            <p><strong>Ngày khởi tạo:</strong> ${ord.date}</p>
+            <p><strong>Trị giá đơn hàng:</strong> ${ord.total.toLocaleString()} đ</p>
+            
+            <div class="timeline">
+              <div class="timeline-node active">
+                <h4>Đơn hàng đã được ghi nhận</h4>
+                <p>Khởi tạo thành công trên hệ thống Nhà Thuốc Hay</p>
+              </div>
+              <div class="timeline-node active">
+                <h4>Đã duyệt đơn và Đóng gói</h4>
+                <p>Dược sĩ trực ban tại cửa hàng kiểm tra chất lượng sản phẩm</p>
+              </div>
+              <div class="timeline-node active">
+                <h4>Đang vận chuyển giao hàng</h4>
+                <p>Dược sĩ giao hàng đang di chuyển (Khu vực: ${ord.address})</p>
+              </div>
+              <div class="timeline-node">
+                <h4>Giao hàng thành công</h4>
+                <p>Khách hàng nhận thuốc và ký biên bản kiểm kê</p>
+              </div>
+            </div>
+          </div>
+        `;
+      } else if (codeInput === "NT-582914") {
+        // Historical default order
+        resultBox.innerHTML = `
+          <div style="border:1px solid var(--border-color); padding:20px; border-radius:6px; background:var(--bg-secondary);">
+            <div style="display:flex; justify-content:space-between; margin-bottom:12px;">
+              <strong>ĐƠN HÀNG: NT-582914</strong>
+              <span>Khách hàng: <strong>Nguyễn Văn A</strong></span>
+            </div>
+            <p><strong>Ngày khởi tạo:</strong> 10/06/2026 14:23</p>
+            <p><strong>Trị giá đơn hàng:</strong> 185.000 đ</p>
+            
+            <div class="timeline">
+              <div class="timeline-node active">
+                <h4>Khởi tạo đơn hàng</h4>
+                <p>10/06/2026 14:23</p>
+              </div>
+              <div class="timeline-node active">
+                <h4>Đóng gói soạn thuốc hoàn tất</h4>
+                <p>10/06/2026 14:40</p>
+              </div>
+              <div class="timeline-node active">
+                <h4>Dược sĩ bàn giao thành công</h4>
+                <p>10/06/2026 15:30 - Khách hàng đã nhận và kiểm kê xong</p>
+              </div>
+            </div>
+          </div>
+        `;
+      } else {
+        // Not found
+        resultBox.innerHTML = `
+          <div style="border: 1px solid var(--border-color); padding: 16px; border-radius: 6px; text-align:center; color:var(--text-muted);">
+            Không tìm thấy thông tin vận đơn khớp với mã <strong>"${codeInput}"</strong>. Vui lòng kiểm tra lại mã đơn hàng trên email hoặc SMS của bạn.
+          </div>
+        `;
+      }
+    };
+
+    // --- ACTIVE INGREDIENTS DIRECTORY DATABASE & LOGIC ---
+    const INGREDIENTS_DB = [
+      {
+        id: "paracetamol",
+        name: "Paracetamol (Acetaminophen)",
+        class: "Giảm đau, hạ sốt",
+        indication: "Hạ sốt, giảm đau từ nhẹ đến trung bình như đau đầu, đau răng, đau cơ, sốt do cảm cúm.",
+        dosage: "Người lớn: 500mg - 1000mg mỗi 4-6 giờ. Trẻ em: 10-15mg/kg mỗi 4-6 giờ. Không quá 4g/ngày.",
+        products: [15, 26] // Glotadol and Brufen
+      },
+      {
+        id: "ibuprofen",
+        name: "Ibuprofen",
+        class: "Kháng viêm không steroid (NSAID)",
+        indication: "Giảm đau, kháng viêm trong các trường hợp viêm khớp, đau cơ, đau răng, đau bụng kinh, hạ sốt.",
+        dosage: "Người lớn: 200mg - 400mg mỗi 4-6 giờ. Không uống lúc đói. Tối đa 1.2g/ngày.",
+        products: [26] // Brufen
+      },
+      {
+        id: "rabeprazole",
+        name: "Rabeprazole sodium",
+        class: "Ức chế bơm proton (PPI)",
+        indication: "Điều trị trào ngược dạ dày - thực quản (GERD), loét dạ dày tá tràng, hội chứng Zollinger-Ellison.",
+        dosage: "Người lớn: 20mg một lần mỗi ngày vào buổi sáng trước khi ăn.",
+        products: [4] // Rabe-G
+      },
+      {
+        id: "cefuroxime",
+        name: "Cefuroxime axetil",
+        class: "Kháng sinh nhóm Cephalosporin thế hệ 2",
+        indication: "Điều trị nhiễm khuẩn tai mũi họng, đường hô hấp dưới, đường tiết niệu, da và mô mềm.",
+        dosage: "Uống theo chỉ định nghiêm ngặt của bác sĩ. Thông thường 250mg - 500mg mỗi 12 giờ.",
+        products: []
+      },
+      {
+        id: "omeprazole",
+        name: "Omeprazole",
+        class: "Ức chế bơm proton (PPI)",
+        indication: "Hỗ trợ giảm tiết acid dạ dày, phòng ngừa loét dạ dày tá tràng do dùng thuốc giảm đau kéo dài.",
+        dosage: "Người lớn: 20mg - 40mg mỗi ngày trước bữa ăn sáng.",
+        products: []
+      }
+    ];
+
+    function loadIngredients() {
+      const listContainer = document.getElementById("ingredient-list-btns");
+      if (!listContainer) return;
+      
+      listContainer.innerHTML = INGREDIENTS_DB.map(ing => `
+        <button class="header-btn" style="text-align:left; width:100%; font-size:13px; padding:10px;" onclick="selectIngredient('${ing.id}')">
+          🧪 ${ing.name}
+        </button>
+      `).join("");
+    }
+
+    window.selectIngredient = function(id) {
+      const ing = INGREDIENTS_DB.find(i => i.id === id);
+      const detailBox = document.getElementById("ingredient-detail-box");
+      if (!ing || !detailBox) return;
+      
+      // Load matched products markup
+      let productsHTML = `<p style="font-size:12px; color:var(--text-muted); margin-top:8px;">Không tìm thấy sản phẩm mẫu nào chứa dược chất này.</p>`;
+      if (ing.products.length > 0) {
+        const matched = MOCK_PRODUCTS.filter(p => ing.products.includes(p.id));
+        productsHTML = `
+          <div class="product-grid" style="grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 12px; margin-top: 12px;">
+            ${matched.map(p => {
+              const isPrescription = p.is_prescription ? '<span class="product-tag prescription" style="font-size:8px; padding:1px 4px;">Kê đơn</span>' : '';
+              return `
+                <div class="product-card" style="padding:8px; font-size:12px; height:auto;">
+                  ${isPrescription}
+                  <div class="wf-image-placeholder" style="height:90px; margin-bottom:6px; cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">
+                    <span class="wf-image-text" style="font-size:8px;">SP: ${p.id}</span>
+                  </div>
+                  <div class="product-title" title="${p.name}" style="font-size:11px; height:30px; margin:4px 0; cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">${p.name}</div>
+                  <div style="font-weight:bold; margin-bottom:6px;">${p.price.toLocaleString()} đ</div>
+                  <button class="btn-submit" style="padding:4px; font-size:11px;" onclick="CartManager.addToCart(MOCK_PRODUCTS[${p.id-1}], 1)">Thêm nhanh</button>
+                </div>
+              `;
+            }).join("")}
+          </div>
+        `;
+      }
+      
+      detailBox.innerHTML = `
+        <h4 style="font-size:16px; margin-bottom:4px;">🧪 Hoạt chất: ${ing.name}</h4>
+        <span style="display:inline-block; font-size:11px; font-weight:bold; background:#e2e8f0; padding:2px 8px; border-radius:12px; margin-bottom:12px;">Nhóm: ${ing.class}</span>
+        
+        <p style="margin-bottom:8px; font-size:13px;"><strong>Chỉ định / Công dụng:</strong><br>${ing.indication}</p>
+        <p style="margin-bottom:16px; font-size:13px;"><strong>Liều dùng đề xuất:</strong><br>${ing.dosage}</p>
+        
+        <h5 style="border-top:1px dashed var(--border-color); padding-top:12px; margin-bottom:8px; font-size:13px;">SẢN PHẨM GỢI Ý CÓ CHỨA DƯỢC CHẤT NÀY:</h5>
+        ${productsHTML}
+      `;
+    };
+    
+    // Set first item active on tab open if clicked
+    document.getElementById("tab-ingredient-btn").addEventListener("click", () => {
+      // Small timeout to let panel render
+      setTimeout(() => {
+        const firstBtn = document.querySelector("#ingredient-list-btns button");
+        if (firstBtn) firstBtn.click();
+      }, 50);
+    });
+  </script>
+</body>
+</html>

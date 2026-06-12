@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhà Thuốc Hay - Giỏ hàng</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .cart-layout {
+      display: grid;
+      grid-template-columns: 1fr 380px;
+      gap: 24px;
+      margin-top: 20px;
+    }
+    @media (max-width: 768px) {
+      .cart-layout { grid-template-columns: 1fr; }
+    }
+    .empty-cart-box {
+      text-align: center;
+      padding: 60px 20px;
+      background: var(--bg-card);
+      border: 1px dashed var(--border-dashed);
+      border-radius: var(--border-radius);
+    }
+  </style>
+</head>
+<body>
+
+  <header></header>
+
+  <main class="container">
+    <div class="breadcrumbs">
+      <a href="index.html">Trang chủ</a> &gt; <span>Giỏ hàng</span>
+    </div>
+
+    <div class="section-title">
+      <span>GIỎ HÀNG CỦA BẠN (<span id="cart-total-items">0</span> sản phẩm)</span>
+    </div>
+
+    <!-- Empty Cart State -->
+    <div class="empty-cart-box" id="empty-cart-view" style="display:none;">
+      <div style="font-size: 48px; margin-bottom: 16px;">🛒</div>
+      <h3>Giỏ hàng đang trống</h3>
+      <p style="color:var(--text-muted); margin-bottom:24px; font-size:14px;">Bạn chưa chọn sản phẩm nào cho vào giỏ hàng.</p>
+      <button class="header-btn primary" onclick="location.href='thuoc.html'" style="margin: 0 auto;">Quay lại mua sắm</button>
+    </div>
+
+    <!-- Active Cart State -->
+    <div class="cart-layout" id="active-cart-view">
+      
+      <!-- Cart Items List -->
+      <section style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--border-radius); padding:20px;">
+        <div id="cart-items-container">
+          <!-- Loaded dynamically -->
+        </div>
+        
+        <div style="display:flex; justify-content:space-between; margin-top:20px; border-top:1px solid var(--wireframe-gray); padding-top:16px;">
+          <button class="header-btn" onclick="location.href='thuoc.html'">⬅ Tiếp tục mua sắm</button>
+          <button class="header-btn" style="color:#ef4444; border-color:#ef4444;" id="btn-clear-cart">Xóa sạch giỏ hàng</button>
+        </div>
+      </section>
+
+      <!-- Order Summary -->
+      <aside class="cart-summary-box">
+        <h3 style="margin-bottom:16px; border-bottom:1px solid var(--border-color); padding-bottom:8px;">Tóm tắt đơn hàng</h3>
+        
+        <div class="summary-row">
+          <span>Tạm tính</span>
+          <span id="summary-subtotal">0 đ</span>
+        </div>
+        
+        <div class="summary-row" id="discount-row" style="display:none; color:green; font-weight:600;">
+          <span>Giảm giá (15%)</span>
+          <span id="summary-discount">-0 đ</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Thuế VAT (10%)</span>
+          <span id="summary-vat">0 đ</span>
+        </div>
+
+        <div class="summary-row">
+          <span>Phí giao hàng</span>
+          <span style="color:green; font-weight:600;">Miễn phí</span>
+        </div>
+
+        <div class="summary-row total">
+          <span>Tổng thanh toán</span>
+          <span id="summary-total">0 đ</span>
+        </div>
+
+        <!-- Promocode Box -->
+        <div style="margin-top:24px; padding-top:16px; border-top: 1px dashed var(--border-color);">
+          <div class="form-group" style="margin-bottom:8px;">
+            <label class="form-label">Mã giảm giá / Voucher</label>
+            <div style="display:flex; gap:8px;">
+              <input type="text" id="promo-input" class="form-control" placeholder="Mã giảm giá..." style="padding:6px 10px;">
+              <button class="header-btn" id="promo-apply-btn" style="padding:6px 12px; white-space:nowrap;">Áp dụng</button>
+            </div>
+          </div>
+          <p style="font-size:11px; color:var(--text-muted); line-height:1.4;">
+            Mẹo thử: <br>
+            - <strong>NHATHUOCHAY</strong> (Giảm 15%)<br>
+            - <strong>GIAMTIEN</strong> (Giảm trực tiếp 50k)<br>
+            - <strong>VCHSTORE</strong> (Voucher áp dụng tại quầy)
+          </p>
+          <div id="store-voucher-box" style="display:none;"></div>
+        </div>
+
+        <button class="btn-submit" style="margin-top:24px;" id="btn-checkout">Tiến hành thanh toán ➡</button>
+      </aside>
+    </div>
+  </main>
+
+  <footer></footer>
+
+  <script src="products_data.js"></script>
+  <script src="common.js"></script>
+  <script>
+    let appliedDiscountVal = 0;
+    let appliedDiscountType = "";
+    
+    document.addEventListener("DOMContentLoaded", () => {
+      renderCartPage();
+      
+      // Clear Cart
+      document.getElementById("btn-clear-cart").addEventListener("click", () => {
+        if (confirm("Bạn có chắc chắn muốn xóa toàn bộ sản phẩm khỏi giỏ hàng?")) {
+          CartManager.clearCart();
+          localStorage.removeItem("nth_promo_code");
+          localStorage.removeItem("nth_promo_type");
+          localStorage.removeItem("nth_promo_val");
+          renderCartPage();
+        }
+      });
+      
+      // Promo Code Apply
+      document.getElementById("promo-apply-btn").addEventListener("click", () => {
+        const promoVal = document.getElementById("promo-input").value.trim().toUpperCase();
+        if (promoVal === "NHATHUOCHAY") {
+          localStorage.setItem("nth_promo_code", "NHATHUOCHAY");
+          localStorage.setItem("nth_promo_type", "percentage");
+          localStorage.setItem("nth_promo_val", "0.15");
+          showToast("Áp dụng mã giảm giá 15% thành công!");
+          renderCartPage();
+        } else if (promoVal === "GIAMTIEN") {
+          localStorage.setItem("nth_promo_code", "GIAMTIEN");
+          localStorage.setItem("nth_promo_type", "fixed");
+          localStorage.setItem("nth_promo_val", "50000");
+          showToast("Áp dụng giảm trực tiếp 50.000đ thành công!");
+          renderCartPage();
+        } else if (promoVal === "VCHSTORE") {
+          localStorage.setItem("nth_promo_code", "VCHSTORE");
+          localStorage.setItem("nth_promo_type", "store_voucher");
+          localStorage.setItem("nth_promo_val", "30000");
+          showToast("Đăng ký mã voucher điểm bán quầy thành công!");
+          renderCartPage();
+        } else {
+          showToast("Mã giảm giá không hợp lệ.");
+        }
+      });
+      
+      // Recover discount if saved
+      const savedCode = localStorage.getItem("nth_promo_code");
+      if (savedCode) {
+        document.getElementById("promo-input").value = savedCode;
+      }
+
+      // Checkout Redirect
+      document.getElementById("btn-checkout").addEventListener("click", () => {
+        location.href = "thanh-toan.html";
+      });
+    });
+
+    function renderCartPage() {
+      const cart = CartManager.getCart();
+      
+      // Update badge totals
+      document.getElementById("cart-total-items").innerText = CartManager.getCartCount();
+      
+      if (cart.length === 0) {
+        document.getElementById("empty-cart-view").style.display = "block";
+        document.getElementById("active-cart-view").style.display = "none";
+        return;
+      }
+      
+      document.getElementById("empty-cart-view").style.display = "none";
+      document.getElementById("active-cart-view").style.display = "grid";
+      
+      // Render item rows
+      let itemsHTML = cart.map(item => {
+        const linePrice = item.price * item.quantity;
+        const warningIcon = item.is_prescription ? '<span style="color:#ef4444; font-size:12px; font-weight:bold; display:block; margin-top:4px;">⚠️ Thuốc kê đơn (Cần mang đơn thuốc)</span>' : '';
+        
+        return `
+          <div class="cart-item-row">
+            <div class="wf-image-placeholder" style="width:70px; height:70px; min-height:70px; flex-shrink:0;">
+              <span class="wf-image-text" style="font-size:9px;">SP: ${item.id}</span>
+            </div>
+            
+            <div class="cart-item-info">
+              <a href="chi-tiet-san-pham.html?id=${item.id}" style="font-weight:600; font-size:14px;">${item.name}</a>
+              <span style="font-size:12px; color:var(--text-muted); display:block; margin-top:2px;">Quy cách: ${item.specification}</span>
+              ${warningIcon}
+            </div>
+            
+            <div style="font-size:14px; text-align:right; width:90px; flex-shrink:0;">
+              <div style="font-weight:bold;">${item.price.toLocaleString()} đ</div>
+            </div>
+            
+            <div class="cart-qty-ctrl" style="flex-shrink:0;">
+              <button class="cart-qty-btn" onclick="changeQty(${item.id}, ${item.quantity - 1})">-</button>
+              <span class="cart-qty-val">${item.quantity}</span>
+              <button class="cart-qty-btn" onclick="changeQty(${item.id}, ${item.quantity + 1})">+</button>
+            </div>
+            
+            <div style="font-size:15px; font-weight:bold; text-align:right; width:100px; flex-shrink:0;">
+              ${linePrice.toLocaleString()} đ
+            </div>
+            
+            <button class="header-btn" style="padding:6px; font-size:11px; color:#ef4444; border-color:#cbd5e1; flex-shrink:0;" onclick="CartManager.removeFromCart(${item.id}); renderCartPage();">
+              Xóa
+            </button>
+          </div>
+        `;
+      }).join("");
+      
+      // Auto-Gift Promotion (Tặng hàng): Tặng khẩu trang y tế khi mua bất kỳ đơn hàng nào
+      itemsHTML += `
+        <div class="cart-item-row" style="background-color: #f8fafc; border: 1px dashed var(--border-dashed); padding: 12px; margin-top: 10px;">
+          <div class="wf-image-placeholder" style="width:70px; height:70px; min-height:70px; flex-shrink:0;">
+            <span class="wf-image-text" style="font-size:9px;">🎁 QUÀ TẶNG</span>
+          </div>
+          
+          <div class="cart-item-info">
+            <span style="font-weight:bold; color:green; font-size:14px;">[QUÀ TẶNG] Khẩu trang y tế kháng khuẩn 4D (Hộp 5 cái)</span>
+            <span style="font-size:12px; color:var(--text-muted); display:block; margin-top:2px;">Quy cách: Hộp 5 cái</span>
+            <span style="font-size:11px; background:green; color:white; padding:2px 6px; border-radius:4px; display:inline-block; margin-top:4px;">Chương trình: Tặng hàng tri ân khách hàng online</span>
+          </div>
+          
+          <div style="font-size:14px; text-align:right; width:90px; flex-shrink:0;">
+            <div style="font-weight:bold; text-decoration:line-through; color:var(--text-muted);">15.000 đ</div>
+          </div>
+          
+          <div style="flex-shrink:0; font-size:14px; font-weight:600; padding:0 20px;">
+            x 1
+          </div>
+          
+          <div style="font-size:15px; font-weight:bold; text-align:right; width:100px; color:green; flex-shrink:0;">
+            Miễn phí
+          </div>
+          
+          <div style="width:40px; flex-shrink:0;"></div>
+        </div>
+      `;
+      
+      const container = document.getElementById("cart-items-container");
+      container.innerHTML = itemsHTML;
+      
+      // Calculate summary
+      const subtotal = CartManager.getCartTotal();
+      
+      const promoType = localStorage.getItem("nth_promo_type") || "";
+      const promoVal = parseFloat(localStorage.getItem("nth_promo_val") || "0");
+      
+      let discount = 0;
+      let isStoreVoucher = false;
+      
+      if (promoType === "percentage") {
+        discount = Math.round(subtotal * promoVal);
+      } else if (promoType === "fixed") {
+        discount = Math.min(subtotal, promoVal);
+      } else if (promoType === "store_voucher") {
+        isStoreVoucher = true;
+      }
+      
+      const vat = Math.round((subtotal - discount) * 0.1); // 10% VAT
+      const total = subtotal - discount + vat;
+      
+      document.getElementById("summary-subtotal").innerText = subtotal.toLocaleString() + " đ";
+      if (discount > 0) {
+        document.getElementById("discount-row").style.display = "flex";
+        document.getElementById("discount-row").querySelector("span:first-child").innerText = `Giảm giá (${promoType === "percentage" ? "15%" : "tiền mặt"})`;
+        document.getElementById("summary-discount").innerText = "-" + discount.toLocaleString() + " đ";
+      } else {
+        document.getElementById("discount-row").style.display = "none";
+      }
+      
+      // Render store voucher banner if active
+      const storeVoucherBox = document.getElementById("store-voucher-box");
+      if (storeVoucherBox) {
+        if (isStoreVoucher) {
+          storeVoucherBox.innerHTML = `
+            <div style="margin-top:16px; border:2px dashed var(--text-primary); padding:12px; border-radius:6px; background:#fffbeb; font-size:12px;">
+              <strong style="color:#b45309; display:block; margin-bottom:4px;">🎫 VOUCHER ĐIỂM BÁN (VCHSTORE)</strong>
+              <p>Mã voucher này giảm <strong>30.000đ</strong> khi thanh toán trực tiếp tại quầy 4 nhà thuốc Hà Nội:</p>
+              <ul style="margin-left:16px; margin-top:4px; font-weight:600;">
+                <li>Nhà thuốc Tường Vy</li>
+                <li>Nhà thuốc Lam Hồng I</li>
+                <li>Nhà thuốc Tâm Anh</li>
+                <li>Nhà thuốc Đăng Dương</li>
+              </ul>
+              <div style="margin-top:8px; border:1px solid #d97706; padding:6px; text-align:center; font-family:monospace; background:white; font-size:14px; letter-spacing:4px; font-weight:bold;">
+                |||| ||| |||| || 30K
+              </div>
+              <p style="text-align:center; font-size:10px; color:var(--text-muted); margin-top:4px;">Xuất trình mã này cho Dược sĩ tại quầy</p>
+            </div>
+          `;
+          storeVoucherBox.style.display = "block";
+        } else {
+          storeVoucherBox.style.display = "none";
+        }
+      }
+      
+      document.getElementById("summary-vat").innerText = vat.toLocaleString() + " đ";
+      document.getElementById("summary-total").innerText = total.toLocaleString() + " đ";
+    }
+    
+    // Global helper called from buttons
+    window.changeQty = function(id, val) {
+      CartManager.updateQty(id, val);
+      renderCartPage();
+    };
+  </script>
+</body>
+</html>

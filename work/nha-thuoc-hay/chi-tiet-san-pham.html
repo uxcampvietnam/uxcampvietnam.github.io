@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhà Thuốc Hay - Chi tiết sản phẩm</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .details-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 20px;
+    }
+    @media (max-width: 768px) {
+      .details-grid { grid-template-columns: 1fr; }
+    }
+    .thumb-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+    .thumb-box {
+      border: 1px solid var(--border-color);
+      height: 60px;
+      cursor: pointer;
+      background: var(--bg-card);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+    .qty-selector {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+    .tabs-row {
+      display: flex;
+      border-bottom: 1px solid var(--border-color);
+      margin-top: 32px;
+      margin-bottom: 16px;
+    }
+    .tab-btn {
+      padding: 10px 20px;
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+    .tab-btn.active {
+      color: var(--text-primary);
+      border-bottom-color: var(--text-primary);
+    }
+    .tab-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      padding: 20px;
+      border-radius: var(--border-radius);
+      font-size: 14px;
+      display: none;
+    }
+    .tab-content.active {
+      display: block;
+    }
+    .warning-box {
+      background: #fef2f2;
+      border: 1px solid #fee2e2;
+      color: #991b1b;
+      padding: 12px;
+      border-radius: 6px;
+      font-size: 13px;
+      margin-bottom: 16px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+<body>
+
+  <header></header>
+
+  <main class="container">
+    <div class="breadcrumbs" id="detail-breadcrumbs">
+      <a href="index.html">Trang chủ</a> &gt; <span id="bread-cat">Danh mục</span> &gt; <span id="bread-name">Tên sản phẩm</span>
+    </div>
+
+    <!-- Product Main Info -->
+    <div class="details-grid" id="product-detail-area">
+      <!-- Image Column -->
+      <div>
+        <div class="wf-image-placeholder" style="min-height: 300px;">
+          <span class="wf-image-text" id="main-image-placeholder-text">ẢNH SẢN PHẨM KHUNG</span>
+        </div>
+        <div class="thumb-grid">
+          <div class="thumb-box">ẢNH 1</div>
+          <div class="thumb-box">ẢNH 2</div>
+          <div class="thumb-box">ẢNH 3</div>
+          <div class="thumb-box">ẢNH 4</div>
+        </div>
+      </div>
+      
+      <!-- Info Column -->
+      <div>
+        <h1 id="prod-title" style="font-size: 24px; margin-bottom: 8px;">Tên sản phẩm</h1>
+        
+        <div class="product-rating" id="prod-rating-meta" style="margin-bottom: 16px;">
+          <!-- Star ratings & Sales count -->
+        </div>
+
+        <div id="prescription-warning" class="warning-box" style="display: none;">
+          ⚠️ THUỐC KÊ ĐƠN: Chỉ bán khi có đơn thuốc hợp lệ của Bác sĩ. Vui lòng tải đơn ở mục "Cần mua thuốc".
+        </div>
+
+        <div style="background: var(--bg-card); border: 1px solid var(--border-color); padding: 16px; border-radius: var(--border-radius); margin-bottom: 20px;">
+          <div style="font-size: 13px; color: var(--text-muted); text-decoration: line-through;" id="prod-old-price">Giá gốc: 0 đ</div>
+          <div style="font-size: 28px; font-weight: bold; color: var(--text-primary);" id="prod-price">0 đ</div>
+          <p style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Đã bao gồm thuế VAT (nếu có)</p>
+        </div>
+
+        <div style="margin-bottom: 20px; font-size:14px; line-height:1.6;">
+          <p><strong>Quy cách:</strong> <span id="prod-spec">--</span></p>
+          <p><strong>Số Đăng Ký / Số công bố:</strong> <span id="prod-reg">--</span></p>
+          <p><strong>Trạng thái:</strong> <span id="prod-stock" style="font-weight:bold;">Còn hàng</span></p>
+        </div>
+
+        <div class="qty-selector">
+          <span style="font-weight: 700;">Số lượng:</span>
+          <div class="cart-qty-ctrl">
+            <button class="cart-qty-btn" id="qty-dec">-</button>
+            <span class="cart-qty-val" id="qty-val">1</span>
+            <button class="cart-qty-btn" id="qty-inc">+</button>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+          <button class="btn-submit" style="background:var(--bg-secondary); color:var(--text-primary); border:1px solid var(--text-primary);" id="btn-add-cart">Thêm vào giỏ hàng</button>
+          <button class="btn-submit" id="btn-buy-now">Mua ngay</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Product Tabs -->
+    <section>
+      <div class="tabs-row">
+        <button class="tab-btn active" data-tab="tab-desc">Mô tả sản phẩm</button>
+        <button class="tab-btn" data-tab="tab-use">Công dụng & Liều dùng</button>
+        <button class="tab-btn" data-tab="tab-review">Đánh giá (5/5)</button>
+      </div>
+      
+      <div class="tab-content active" id="tab-desc">
+        <p id="prod-desc">Thông tin mô tả sản phẩm đang được tải...</p>
+      </div>
+      
+      <div class="tab-content" id="tab-use">
+        <p><strong>Chỉ định:</strong> Điều trị và hỗ trợ cải thiện các triệu chứng bệnh lý theo sự hướng dẫn của bác sĩ chuyên khoa.</p>
+        <p style="margin-top:8px;"><strong>Liều dùng đề xuất:</strong></p>
+        <ul>
+          <li>Người lớn: 1-2 lần mỗi ngày, dùng sau khi ăn.</li>
+          <li>Trẻ em: Tham khảo ý kiến bác sĩ nhi khoa trước khi sử dụng.</li>
+        </ul>
+        <p style="margin-top:8px;"><strong>Bảo quản:</strong> Để nơi khô ráo, tránh ánh sáng trực tiếp, nhiệt độ dưới 30°C.</p>
+      </div>
+      
+      <div class="tab-content" id="tab-review">
+        <div style="border-bottom:1px solid var(--bg-secondary); padding-bottom:12px; margin-bottom:12px;">
+          <strong>Nguyễn Văn A</strong> <span style="color:var(--text-muted); font-size:12px;">- 10 ngày trước</span>
+          <p style="color:gold;">⭐⭐⭐⭐⭐</p>
+          <p style="font-size:13px; margin-top:4px;">Sản phẩm rất tốt, đóng gói cẩn thận. Giao hàng siêu nhanh chỉ trong 1 tiếng.</p>
+        </div>
+        <div>
+          <strong>Trần Thị B</strong> <span style="color:var(--text-muted); font-size:12px;">- 20 ngày trước</span>
+          <p style="color:gold;">⭐⭐⭐⭐⭐</p>
+          <p style="font-size:13px; margin-top:4px;">Hạn sử dụng còn rất dài. Bác sĩ và Dược sĩ tư vấn rất tận tình.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Recommended Products -->
+    <section style="margin-top: 40px;">
+      <div class="section-title">
+        <span>📦 SẢN PHẨM TƯƠNG TỰ ĐỀ XUẤT</span>
+      </div>
+      <div class="product-grid" id="recommended-products-grid">
+        <!-- Loaded dynamically -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer></footer>
+
+  <script src="products_data.js"></script>
+  <script src="common.js"></script>
+  <script>
+    let currentProd = null;
+    let selectedQty = 1;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadProductDetails();
+      setupTabs();
+      setupQtyButtons();
+    });
+
+    function loadProductDetails() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const prodId = parseInt(urlParams.get("id")) || 1;
+      
+      currentProd = MOCK_PRODUCTS.find(p => p.id === prodId);
+      if (!currentProd) {
+        document.getElementById("product-detail-area").innerHTML = `<div style="grid-column:1/-1; text-align:center; padding: 40px; color:var(--text-muted);">Sản phẩm không tồn tại.</div>`;
+        return;
+      }
+      
+      // Update DOM
+      document.getElementById("bread-cat").innerText = currentProd.category1;
+      document.getElementById("bread-cat").href = getCategoryUrl(currentProd.category1);
+      document.getElementById("bread-name").innerText = currentProd.name;
+      
+      document.getElementById("prod-title").innerText = currentProd.name;
+      document.getElementById("prod-spec").innerText = currentProd.specification;
+      document.getElementById("prod-reg").innerText = currentProd.registration_num || "Đang cập nhật";
+      document.getElementById("prod-desc").innerText = currentProd.description;
+      document.getElementById("main-image-placeholder-text").innerText = `ẢNH SẢN PHẨM ID: ${currentProd.id}`;
+      
+      document.getElementById("prod-price").innerText = currentProd.price.toLocaleString() + " đ";
+      if (currentProd.original_price > currentProd.price) {
+        document.getElementById("prod-old-price").innerText = "Giá gốc: " + currentProd.original_price.toLocaleString() + " đ";
+        document.getElementById("prod-old-price").style.display = "block";
+      } else {
+        document.getElementById("prod-old-price").style.display = "none";
+      }
+      
+      const ratingMeta = document.getElementById("prod-rating-meta");
+      ratingMeta.innerHTML = `⭐ ${currentProd.rating} / 5 | ${currentProd.sold_count} đã bán`;
+      
+      const stockEl = document.getElementById("prod-stock");
+      if (currentProd.in_stock) {
+        stockEl.innerText = "Còn hàng tại hệ thống";
+        stockEl.style.color = "green";
+      } else {
+        stockEl.innerText = "Tạm hết hàng";
+        stockEl.style.color = "red";
+        document.getElementById("btn-buy-now").disabled = true;
+        document.getElementById("btn-add-cart").disabled = true;
+      }
+      
+      if (currentProd.is_prescription) {
+        document.getElementById("prescription-warning").style.display = "block";
+      }
+      
+      // Action Buttons
+      document.getElementById("btn-add-cart").onclick = () => {
+        CartManager.addToCart(currentProd, selectedQty);
+      };
+      
+      document.getElementById("btn-buy-now").onclick = () => {
+        CartManager.addToCart(currentProd, selectedQty);
+        location.href = "gio-hang.html";
+      };
+      
+      loadRecommended();
+    }
+
+    function getCategoryUrl(catName) {
+      if (catName === "Thuốc") return "thuoc.html";
+      if (catName === "Thực phẩm chức năng") return "thuc-pham-chuc-nang.html";
+      if (catName === "Dược mỹ phẩm") return "duoc-my-pham.html";
+      return "cham-soc-ca-nhan-thiet-bi-y-te.html";
+    }
+
+    function setupTabs() {
+      const tabBtns = document.querySelectorAll(".tab-btn");
+      tabBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          tabBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          
+          const targetTab = btn.getAttribute("data-tab");
+          document.querySelectorAll(".tab-content").forEach(content => {
+            if (content.id === targetTab) {
+              content.classList.add("active");
+            } else {
+              content.classList.remove("active");
+            }
+          });
+        });
+      });
+    }
+
+    function setupQtyButtons() {
+      const decBtn = document.getElementById("qty-dec");
+      const incBtn = document.getElementById("qty-inc");
+      const valEl = document.getElementById("qty-val");
+      
+      decBtn.addEventListener("click", () => {
+        if (selectedQty > 1) {
+          selectedQty--;
+          valEl.innerText = selectedQty;
+        }
+      });
+      
+      incBtn.addEventListener("click", () => {
+        selectedQty++;
+        valEl.innerText = selectedQty;
+      });
+    }
+
+    function loadRecommended() {
+      const grid = document.getElementById("recommended-products-grid");
+      if (!grid || !currentProd) return;
+      
+      const list = MOCK_PRODUCTS
+        .filter(p => p.category1 === currentProd.category1 && p.id !== currentProd.id)
+        .slice(0, 4);
+      
+      grid.innerHTML = list.map(p => {
+        const isPrescription = p.is_prescription ? '<span class="product-tag prescription">Kê đơn</span>' : '';
+        const oldPrice = p.original_price > p.price ? `<span class="product-old-price">${p.original_price.toLocaleString()} đ</span>` : '';
+        
+        return `
+          <div class="product-card">
+            ${isPrescription}
+            <div class="wf-image-placeholder" style="height:140px; margin-bottom:8px; cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">
+              <span class="wf-image-text">SP ID: ${p.id}</span>
+            </div>
+            <div class="product-title" title="${p.name}" style="cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">${p.name}</div>
+            <div class="product-spec">${p.specification}</div>
+            <div class="product-rating">⭐ ${p.rating} | Đã bán ${p.sold_count}</div>
+            <div class="product-price-row">
+              <span class="product-price">${p.price.toLocaleString()} đ</span>
+              ${oldPrice}
+            </div>
+            <div class="product-actions">
+              <button class="btn-card" onclick="CartManager.addToCart(MOCK_PRODUCTS[${p.id-1}], 1)">Thêm</button>
+              <button class="btn-card primary" onclick="buyNow(${p.id})">Mua ngay</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    window.buyNow = function(id) {
+      CartManager.addToCart(MOCK_PRODUCTS[id-1], 1);
+      location.href = "gio-hang.html";
+    };
+  </script>
+</body>
+</html>

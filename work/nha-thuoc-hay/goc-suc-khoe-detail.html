@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhà Thuốc Hay - Chi tiết bài viết</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .article-container {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 32px;
+      margin-top: 20px;
+    }
+    .author-badge {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid var(--wireframe-gray);
+      border-bottom: 1px solid var(--wireframe-gray);
+      padding: 12px 0;
+      margin: 20px 0;
+    }
+    .author-img {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+    .article-body {
+      font-size: 15px;
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+    .article-body p {
+      margin-bottom: 16px;
+    }
+    .article-body h3 {
+      font-size: 18px;
+      margin-top: 28px;
+      margin-bottom: 12px;
+      border-left: 3px solid var(--text-primary);
+      padding-left: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <header></header>
+
+  <main class="container">
+    <div class="breadcrumbs">
+      <a href="index.html">Trang chủ</a> &gt; <a href="goc-suc-khoe.html">Góc sức khỏe</a> &gt; <span id="bread-title">Chi tiết bài viết</span>
+    </div>
+
+    <!-- Article Detail Layout -->
+    <article class="article-container">
+      <span style="font-weight:bold; color:var(--text-muted); font-size:12px; text-transform:uppercase;" id="article-cat-label">TIN Y KHOA</span>
+      <h1 id="article-title" style="font-size:28px; margin-top:8px; line-height:1.3;">Tiêu đề bài viết</h1>
+      
+      <!-- Author info -->
+      <div class="author-badge">
+        <div class="author-img">🩺</div>
+        <div>
+          <div style="font-weight:bold;" id="article-author">Bác sĩ phụ trách</div>
+          <div style="font-size:12px; color:var(--text-muted);" id="article-meta">Đăng ngày 10/06/2026 • 5 phút đọc</div>
+        </div>
+      </div>
+
+      <!-- Main Image -->
+      <div class="wf-image-placeholder" style="min-height:300px; margin-bottom:24px;">
+        <span class="wf-image-text">HÌNH ẢNH MINH HỌA CHI TIẾT BÀI VIẾT</span>
+      </div>
+
+      <!-- Article Body -->
+      <div class="article-body" id="article-body-content">
+        <!-- Loaded dynamically -->
+      </div>
+    </article>
+
+    <!-- Contextual Product Recommendations -->
+    <section style="margin-top:40px;">
+      <div class="section-title">
+        <span>🛒 SẢN PHẨM KHUYẾN NGHỊ LIÊN QUAN ĐẾN BỆNH HỌC</span>
+      </div>
+      <div class="product-grid" id="article-products-grid">
+        <!-- Loaded dynamically based on article category -->
+      </div>
+    </section>
+  </main>
+
+  <footer></footer>
+
+  <script src="products_data.js"></script>
+  <script src="common.js"></script>
+  <script>
+    // Articles contents database
+    const ARTICLES_CONTENT = {
+      1: {
+        cat: "Bệnh hô hấp & Cúm mùa",
+        title: "Làm thế nào để phòng ngừa viêm họng và cúm mùa khi thời tiết thay đổi đột ngột?",
+        author: "Bác sĩ Hoàng Nam - Khoa Hô Hấp Bệnh Viện Bạch Mai",
+        date: "10/06/2026",
+        body: `
+          <p>Thời tiết chuyển mùa từ thu sang đông hoặc những ngày mưa ẩm kéo dài là điều kiện khí hậu lý tưởng cho các loại virus, vi khuẩn phát triển, đặc biệt là các chủng lây lan qua đường hô hấp như Rhinovirus, Coronavirus, Influenza (virus cúm).</p>
+          <h3>1. Nguyên nhân gây bệnh hô hấp mùa lạnh</h3>
+          <p>Khi nhiệt độ và độ ẩm không khí giảm mạnh, niêm mạc mũi họng dễ bị khô, nứt nẻ, từ đó làm giảm khả năng lọc bụi và ngăn chặn vi sinh vật của lớp nhung mao đường thở. Cơ thể cũng cần tiêu tốn nhiều năng lượng để giữ ấm, làm suy giảm tạm thời hệ thống miễn dịch.</p>
+          <h3>2. Các biện pháp phòng bệnh hiệu quả</h3>
+          <p>Để bảo vệ gia đình, bác sĩ khuyến cáo thực hiện các thói quen sau:</p>
+          <ul>
+            <li>Giữ ấm cơ thể, đặc biệt là vùng cổ, ngực và bàn chân khi ra ngoài lúc sáng sớm hoặc đêm muộn.</li>
+            <li>Súc họng bằng nước muối sinh lý hoặc dung dịch sát khuẩn họng chuyên dụng 2-3 lần/ngày.</li>
+            <li>Đeo khẩu trang khi đi ra nơi công cộng và rửa tay sát khuẩn ngay khi về nhà.</li>
+            <li>Uống đủ nước ấm, bổ sung đầy đủ vitamin và khoáng chất để củng cố hệ miễn dịch tự nhiên.</li>
+          </ul>
+          <h3>3. Khi nào cần sử dụng thuốc?</h3>
+          <p>Khi có các biểu hiện chớm ho, ngứa họng, sốt nhẹ dưới 38.5°C, người bệnh có thể sử dụng các thuốc thảo dược giảm ho, viên ngậm sát khuẩn hoặc siro ho thảo dược an toàn như Prospan Cough Lozengen Hộp 2 vỉ x 10 viên ngậm Engelhard. Nếu sốt cao kéo dài hoặc có hiện tượng đờm đặc, khó thở, người bệnh cần đi khám để bác sĩ kê đơn thuốc kháng sinh hoặc kháng virus thích hợp, tuyệt đối không tự ý mua kháng sinh uống.</p>
+        `
+      },
+      2: {
+        cat: "Dinh dưỡng & Phát triển",
+        title: "Bổ sung Vitamin K2 & D3 thế nào là đúng cách giúp trẻ phát triển chiều cao tối ưu?",
+        author: "Dương Thị Mai Anh - Dược sĩ chuyên khoa Dinh dưỡng",
+        date: "08/06/2026",
+        body: `
+          <p>Chiều cao của trẻ phụ thuộc vào nhiều yếu tố: Di truyền (23%), dinh dưỡng (32%), rèn luyện thể lực (20%), và môi trường ngủ nghỉ. Trong đó, dinh dưỡng là yếu tố có tác động lớn nhất và dễ can thiệp nhất bằng cách bổ sung hợp lý bộ đôi Vitamin D3 và K2.</p>
+          <h3>1. Tại sao cần kết hợp cả D3 và K2?</h3>
+          <p>Canxi khi nạp vào cơ thể cần có Vitamin D3 làm "xe vận chuyển" để hấp thu từ ruột vào máu. Tuy nhiên, nếu không có Vitamin K2 (đặc biệt là dạng MK7), canxi trong máu sẽ không thể di chuyển trúng đích vào xương và răng mà dễ bị lắng đọng ở thành mạch máu hoặc thận, gây xơ vữa động mạch hoặc sỏi thận.</p>
+          <h3>2. Liều lượng bổ sung Vitamin D3 - K2 tiêu chuẩn</h3>
+          <p>Theo khuyến cáo y khoa:</p>
+          <ul>
+            <li>Trẻ sơ sinh đến 12 tháng tuổi: Cần bổ sung 400 IU Vitamin D3 mỗi ngày kèm liều lượng K2 nhỏ giọt thích hợp.</li>
+            <li>Trẻ trên 1 tuổi và thanh thiếu niên: Cần 600 - 800 IU Vitamin D3 mỗi ngày kết hợp chế độ ăn giàu canxi.</li>
+          </ul>
+          <h3>3. Lựa chọn nguồn bổ sung an toàn</h3>
+          <p>Bên cạnh các thực phẩm tự nhiên như lòng đỏ trứng, phô mai, cá hồi, cha mẹ có thể bổ sung qua các sản phẩm nhỏ giọt chứa D3-K2 tinh khiết, giúp định lượng chính xác liều dùng hàng ngày cho trẻ nhỏ.</p>
+        `
+      },
+      3: {
+        cat: "Mẹo sống khỏe",
+        title: "Các bài tập đơn giản hỗ trợ giảm đau vai gáy cho người làm việc văn phòng",
+        author: "Bác sĩ Đỗ Quyên - Viện Châm cứu Trung Ương",
+        date: "05/06/2026",
+        body: `
+          <p>Hội chứng đau mỏi vai gáy là căn bệnh nghề nghiệp phổ biến nhất ở giới văn phòng. Việc ngồi im một tư thế nhìn màn hình máy tính liên tục trong nhiều giờ khiến các cơ vùng cổ, vai bị co cứng, làm giảm lưu thông máu lên não.</p>
+          <h3>1. Dấu hiệu nhận biết mỏi vai gáy mãn tính</h3>
+          <p>Người bệnh thường cảm thấy đau âm ỉ vùng sau gáy, lan sang hai bên bả vai. Đôi khi đau kèm cảm giác chóng mặt, hoa mắt do máu tuần hoàn kém. Lâu ngày có thể dẫn tới thoái hóa đốt sống cổ.</p>
+          <h3>2. 3 Động tác giãn cơ tại chỗ chỉ mất 5 phút</h3>
+          <p>Hãy thực hiện các bài tập sau ngay tại bàn làm việc mỗi 2 tiếng một lần:</p>
+          <ul>
+            <li><strong>Động tác gập nghiêng cổ:</strong> Ngồi thẳng lưng, từ từ nghiêng đầu sang vai phải, dùng tay phải giữ nhẹ kéo căng cơ cổ bên trái trong 15 giây. Đổi bên và lặp lại 3 lần.</li>
+            <li><strong>Động tác xoay khớp vai:</strong> Đặt các đầu ngón tay lên hai vai, thực hiện xoay tròn khuỷu tay từ trước ra sau 10 vòng và ngược lại.</li>
+            <li><strong>Động tác kéo giãn lưng:</strong> Đan hai tay ra sau lưng, ưỡn ngực ra phía trước và nâng hai cánh tay lên cao nhất có thể, giữ trong 10-15 giây để giải tỏa áp lực lồng ngực.</li>
+          </ul>
+          <h3>3. Hỗ trợ phục hồi bằng thuốc xịt lạnh hoặc viên uống thảo dược</h3>
+          <p>Khi các cơn đau tăng lên, người bệnh có thể thoa bóp nhẹ bằng dầu nóng, cồn xoa bóp thảo dược hoặc sử dụng viên uống hỗ trợ lưu thông khí huyết, bổ sung dưỡng chất cho sụn khớp để giảm thiểu triệu chứng.</p>
+        `
+      }
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+      loadArticleDetail();
+    });
+
+    function loadArticleDetail() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const articleId = parseInt(urlParams.get("id")) || 1;
+      
+      const art = ARTICLES_CONTENT[articleId] || ARTICLES_CONTENT[1]; // Fallback to article 1
+      
+      // Update DOM
+      document.getElementById("bread-title").innerText = art.title;
+      document.getElementById("article-cat-label").innerText = art.cat;
+      document.getElementById("article-title").innerText = art.title;
+      document.getElementById("article-author").innerText = art.author;
+      document.getElementById("article-meta").innerText = `Đăng ngày ${art.date} • 5 phút đọc`;
+      document.getElementById("article-body-content").innerHTML = art.body;
+      
+      loadContextualProducts(articleId);
+    }
+
+    function loadContextualProducts(articleId) {
+      const grid = document.getElementById("article-products-grid");
+      if (!grid) return;
+      
+      let list = [];
+      if (articleId === 1) {
+        // Respiratory products
+        list = MOCK_PRODUCTS.filter(p => p.category2.toLowerCase().includes("hô hấp") || p.name.toLowerCase().includes("siro") || p.name.toLowerCase().includes("xịt"));
+      } else if (articleId === 2) {
+        // Nutrition / Vitamins
+        list = MOCK_PRODUCTS.filter(p => p.category2.toLowerCase().includes("vitamin") || p.name.toLowerCase().includes("sữa"));
+      } else if (articleId === 3) {
+        // Joint pain / Blood circulation
+        list = MOCK_PRODUCTS.filter(p => p.category2.toLowerCase().includes("xương") || p.category2.toLowerCase().includes("máu") || p.category2.toLowerCase().includes("tim"));
+      }
+      
+      // Fallback
+      if (list.length === 0) {
+        list = MOCK_PRODUCTS.slice(0, 4);
+      }
+      
+      grid.innerHTML = list.slice(0, 4).map(p => {
+        const isPrescription = p.is_prescription ? '<span class="product-tag prescription">Kê đơn</span>' : '';
+        const oldPrice = p.original_price > p.price ? `<span class="product-old-price">${p.original_price.toLocaleString()} đ</span>` : '';
+        
+        return `
+          <div class="product-card">
+            ${isPrescription}
+            <div class="wf-image-placeholder" style="height:140px; margin-bottom:8px; cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">
+              <span class="wf-image-text">SP ID: ${p.id}</span>
+            </div>
+            <div class="product-title" title="${p.name}" style="cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">${p.name}</div>
+            <div class="product-spec">${p.specification}</div>
+            <div class="product-rating">⭐ ${p.rating} | Đã bán ${p.sold_count}</div>
+            <div class="product-price-row">
+              <span class="product-price">${p.price.toLocaleString()} đ</span>
+              ${oldPrice}
+            </div>
+            <div class="product-actions">
+              <button class="btn-card" onclick="CartManager.addToCart(MOCK_PRODUCTS[${p.id-1}], 1)">Thêm</button>
+              <button class="btn-card primary" onclick="buyNow(${p.id})">Mua ngay</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    window.buyNow = function(id) {
+      CartManager.addToCart(MOCK_PRODUCTS[id-1], 1);
+      location.href = "gio-hang.html";
+    };
+  </script>
+</body>
+</html>

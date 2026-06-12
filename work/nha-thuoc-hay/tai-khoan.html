@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhà Thuốc Hay - Trang cá nhân</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .account-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 24px;
+      margin-top: 20px;
+    }
+    @media (max-width: 768px) {
+      .account-layout { grid-template-columns: 1fr; }
+    }
+    .menu-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 12px 0;
+    }
+    .menu-item {
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+      border-left: 3px solid transparent;
+    }
+    .menu-item:hover, .menu-item.active {
+      color: var(--text-primary);
+      background-color: var(--bg-secondary);
+      border-left-color: var(--text-primary);
+    }
+    .content-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      min-height: 400px;
+    }
+    .tab-panel-box {
+      display: none;
+    }
+    .tab-panel-box.active {
+      display: block;
+    }
+    .order-history-card {
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+    .order-history-header {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--wireframe-gray);
+      padding-bottom: 8px;
+      margin-bottom: 12px;
+      font-size: 13px;
+    }
+  </style>
+</head>
+<body>
+
+  <header></header>
+
+  <main class="container">
+    <div class="breadcrumbs">
+      <a href="index.html">Trang chủ</a> &gt; <span>Cá nhân</span>
+    </div>
+
+    <div class="account-layout">
+      
+      <!-- Left Sidebar Navigation -->
+      <aside class="menu-panel">
+        <div class="menu-item active" data-target="panel-info">👤 Thông tin tài khoản</div>
+        <div class="menu-item" data-target="panel-password">🔑 Đổi mật khẩu</div>
+        <div class="menu-item" data-target="panel-addresses">📍 Địa chỉ nhận hàng</div>
+        <div class="menu-item" data-target="panel-bank">💳 Tài khoản ngân hàng</div>
+        <div class="menu-item" data-target="panel-invoices">🧾 Thông tin hóa đơn (VAT)</div>
+        <div class="menu-item" data-target="panel-orders">📦 Quản lý đơn hàng</div>
+        <div class="menu-item" data-target="panel-points">✨ Điểm tích lũy</div>
+        <div class="menu-item" data-target="panel-stats">📈 Thống kê chi tiêu</div>
+        <div class="menu-item" data-target="panel-favorites">❤️ Sản phẩm yêu thích</div>
+      </aside>
+
+      <!-- Right Content Panels -->
+      <section class="content-panel">
+        
+        <!-- Tab 1: Profile Info -->
+        <div class="tab-panel-box active" id="panel-info">
+          <h3 style="margin-bottom:16px;">Thông tin tài khoản chung</h3>
+          <form onsubmit="event.preventDefault(); showToast('Đã lưu thông tin hồ sơ.');">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div class="form-group">
+                <label class="form-label">Họ và tên *</label>
+                <input type="text" class="form-control" value="Nguyễn Văn A" required>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Số điện thoại *</label>
+                <input type="tel" class="form-control" value="0987654321" readonly>
+              </div>
+            </div>
+            
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+              <div class="form-group">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" value="nguyenvana@gmail.com">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Ngày sinh</label>
+                <input type="date" class="form-control" value="1995-10-15">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Giới tính</label>
+              <label><input type="radio" name="gender" value="nam" checked> Nam</label>
+              <label style="margin-left:16px;"><input type="radio" name="gender" value="nu"> Nữ</label>
+            </div>
+
+            <button type="submit" class="btn-submit" style="width:auto; padding:10px 24px;">Lưu thay đổi</button>
+          </form>
+        </div>
+
+        <!-- Tab 2: Change Password -->
+        <div class="tab-panel-box" id="panel-password">
+          <h3 style="margin-bottom:16px;">Đổi mật khẩu</h3>
+          <form onsubmit="event.preventDefault(); document.getElementById('pw-form').reset(); showToast('Đổi mật khẩu thành công!');" id="pw-form">
+            <div class="form-group" style="max-width:400px;">
+              <label class="form-label">Mật khẩu hiện tại *</label>
+              <input type="password" class="form-control" required>
+            </div>
+            <div class="form-group" style="max-width:400px;">
+              <label class="form-label">Mật khẩu mới *</label>
+              <input type="password" class="form-control" required>
+            </div>
+            <div class="form-group" style="max-width:400px;">
+              <label class="form-label">Xác nhận mật khẩu mới *</label>
+              <input type="password" class="form-control" required>
+            </div>
+            <button type="submit" class="btn-submit" style="width:auto; padding:10px 24px;">Đổi mật khẩu</button>
+          </form>
+        </div>
+
+        <!-- Tab 3: Delivery Addresses -->
+        <div class="tab-panel-box" id="panel-addresses">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h3>Danh sách địa chỉ giao hàng</h3>
+            <button class="header-btn" onclick="showToast('Hệ thống mở khung thêm địa chỉ mới.')">+ Thêm địa chỉ mới</button>
+          </div>
+          <div style="border:1px solid var(--border-color); border-radius:var(--border-radius); padding:16px; margin-bottom:12px; background:var(--bg-secondary);">
+            <div style="display:flex; justify-content:space-between;">
+              <strong>Nguyễn Văn A (Mặc định)</strong>
+              <span style="font-size:12px; color:green; font-weight:bold;">Nhà riêng</span>
+            </div>
+            <p style="font-size:13px; color:var(--text-muted); margin-top:6px;">Số 12, ngõ 34, Phố Cầu Giấy, Phường Quan Hoa, Quận Cầu Giấy, Hà Nội</p>
+            <p style="font-size:12px; margin-top:4px;">Điện thoại: 0987654321</p>
+          </div>
+        </div>
+
+        <!-- Tab 4: Bank Accounts -->
+        <div class="tab-panel-box" id="panel-bank">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h3>Tài khoản ngân hàng của tôi</h3>
+            <button class="header-btn" onclick="showToast('Liên kết ngân hàng mới.')">+ Liên kết ngân hàng</button>
+          </div>
+          <div style="border:1px solid var(--border-color); border-radius:var(--border-radius); padding:16px; background:var(--bg-secondary); max-width:400px;">
+            <strong>💳 BIDV - Chi nhánh Cầu Giấy</strong>
+            <p style="font-size:13px; margin-top:6px;">Số tài khoản: **** **** 5678</p>
+            <p style="font-size:12px; color:var(--text-muted);">Tên tài khoản: NGUYEN VAN A</p>
+          </div>
+        </div>
+
+        <!-- Tab 5: Invoice Info -->
+        <div class="tab-panel-box" id="panel-invoices">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <h3>Thông tin xuất hóa đơn đỏ (VAT)</h3>
+            <button class="header-btn" onclick="showToast('Thêm mã số thuế mới.')">+ Thêm MST doanh nghiệp</button>
+          </div>
+          <div style="border:1px solid var(--border-color); border-radius:var(--border-radius); padding:16px; background:var(--bg-secondary);">
+            <strong>CÔNG TY CỔ PHẦN CÔNG NGHỆ Á CHÂU</strong>
+            <p style="font-size:13px; margin-top:6px;">Mã số thuế: 0109283745</p>
+            <p style="font-size:12px; color:var(--text-muted);">Địa chỉ: Số 88 Láng Hạ, Đống Đa, Hà Nội</p>
+          </div>
+        </div>
+
+        <!-- Tab 6: Orders Management -->
+        <div class="tab-panel-box" id="panel-orders">
+          <h3 style="margin-bottom:16px;">Lịch sử quản lý đơn hàng</h3>
+          <div id="orders-list-placeholder">
+            <!-- Loaded dynamically from localStorage -->
+          </div>
+        </div>
+
+        <!-- Tab 7: Point Accumulator -->
+        <div class="tab-panel-box" id="panel-points">
+          <h3 style="margin-bottom:16px;">Thông tin điểm tích lũy</h3>
+          <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:24px;">
+            <div style="border:1px solid var(--border-color); padding:20px; border-radius:6px; text-align:center; background:var(--bg-secondary);">
+              <span style="font-size:14px; color:var(--text-muted);">Hạng thành viên</span>
+              <h2 style="font-size:24px; color:var(--text-primary); margin-top:4px;">🏆 BẠC (SILVER)</h2>
+            </div>
+            <div style="border:1px solid var(--border-color); padding:20px; border-radius:6px; text-align:center; background:var(--bg-secondary);">
+              <span style="font-size:14px; color:var(--text-muted);">Điểm tích lũy hiện tại</span>
+              <h2 style="font-size:24px; color:green; margin-top:4px;">350 điểm</h2>
+              <p style="font-size:11px; color:var(--text-muted); margin-top:2px;">(Tương đương 35.000 đ giảm trừ trực tiếp)</p>
+            </div>
+          </div>
+          
+          <h4 style="margin-bottom:10px;">Lịch sử giao dịch điểm</h4>
+          <table style="width:100%; border-collapse:collapse; font-size:13px;">
+            <thead>
+              <tr style="background:var(--bg-secondary); border-bottom:1px solid var(--border-color); text-align:left;">
+                <th style="padding:8px;">Ngày</th>
+                <th style="padding:8px;">Mã đơn</th>
+                <th style="padding:8px;">Hành động</th>
+                <th style="padding:8px; text-align:right;">Điểm</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--wireframe-gray);">
+                <td style="padding:8px;">10/06/2026</td>
+                <td style="padding:8px;">NT-582914</td>
+                <td style="padding:8px;">Tích lũy đơn hàng mua thuốc ho</td>
+                <td style="padding:8px; text-align:right; color:green; font-weight:bold;">+25</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--wireframe-gray);">
+                <td style="padding:8px;">24/05/2026</td>
+                <td style="padding:8px;">NT-104938</td>
+                <td style="padding:8px;">Tích lũy đơn hàng mua TPCN bổ khớp</td>
+                <td style="padding:8px; text-align:right; color:green; font-weight:bold;">+150</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tab 8: Expenditures Stats -->
+        <div class="tab-panel-box" id="panel-stats">
+          <h3 style="margin-bottom:16px;">Thống kê chi tiêu chăm sóc sức khỏe</h3>
+          <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">Dưới đây là thống kê chi tiêu y tế cá nhân của bạn trong các tháng vừa qua giúp theo dõi ngân sách thuốc tốt hơn.</p>
+          
+          <div style="border:1px solid var(--border-color); border-radius:6px; padding:16px; background:var(--bg-secondary); margin-bottom:20px;">
+            <p><strong>Tổng chi tiêu từ đầu năm 2026:</strong> <span style="font-size:18px; font-weight:bold; color:var(--text-primary);">1.850.000 đ</span></p>
+          </div>
+
+          <table style="width:100%; border-collapse:collapse; font-size:13px; text-align:left;">
+            <thead>
+              <tr style="background:var(--bg-secondary); border-bottom:1px solid var(--border-color);">
+                <th style="padding:8px;">Tháng</th>
+                <th style="padding:8px;">Số lượng đơn</th>
+                <th style="padding:8px;">Phân nhóm mua nhiều nhất</th>
+                <th style="padding:8px; text-align:right;">Tổng chi tiêu</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom:1px solid var(--wireframe-gray);">
+                <td style="padding:8px;">Tháng 5/2026</td>
+                <td style="padding:8px;">2 đơn</td>
+                <td style="padding:8px;">Thực phẩm chức năng</td>
+                <td style="padding:8px; text-align:right; font-weight:bold;">1.250.000 đ</td>
+              </tr>
+              <tr style="border-bottom:1px solid var(--wireframe-gray);">
+                <td style="padding:8px;">Tháng 6/2026 (Hiện tại)</td>
+                <td style="padding:8px;">1 đơn</td>
+                <td style="padding:8px;">Thuốc kê đơn</td>
+                <td style="padding:8px; text-align:right; font-weight:bold;">600.000 đ</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Tab 9: Favorite Products -->
+        <div class="tab-panel-box" id="panel-favorites">
+          <h3 style="margin-bottom:16px;">Sản phẩm yêu thích</h3>
+          <div class="product-grid" id="favorites-grid">
+            <!-- Loaded dynamically from products_data.js -->
+          </div>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+  <footer></footer>
+
+  <!-- Order Detail Modal -->
+  <div class="modal-overlay" id="order-detail-modal">
+    <div class="modal-box" style="max-width: 600px;">
+      <button class="modal-close" onclick="closeOrderDetails()">×</button>
+      <h3 class="modal-title">📦 Chi tiết đơn hàng <span id="dtl-order-code">NT-XXXXXX</span></h3>
+      
+      <div class="modal-body" style="font-size:13px; line-height:1.6;">
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; border-bottom:1px solid var(--wireframe-gray); padding-bottom:12px; margin-bottom:12px;">
+          <div>
+            <p><strong>Ngày đặt hàng:</strong> <span id="dtl-date">--</span></p>
+            <p><strong>Trạng thái:</strong> <span id="dtl-status" style="font-weight:bold; color:green;">--</span></p>
+            <p><strong>Thanh toán:</strong> <span id="dtl-payment">--</span></p>
+          </div>
+          <div>
+            <p><strong>Người nhận:</strong> <span id="dtl-name">--</span></p>
+            <p><strong>Điện thoại:</strong> <span id="dtl-phone">--</span></p>
+            <p><strong>Địa chỉ:</strong> <span id="dtl-addr">--</span></p>
+          </div>
+        </div>
+        
+        <h4 style="margin-bottom:8px;">Sản phẩm đã mua:</h4>
+        <div id="dtl-items-list" style="border-bottom:1px solid var(--wireframe-gray); padding-bottom:12px; margin-bottom:12px;">
+          <!-- Items lines -->
+        </div>
+        
+        <div style="text-align:right; font-size:15px; font-weight:bold;">
+          Tổng số tiền thanh toán: <span id="dtl-total" style="color:var(--text-primary); font-size:18px;">0 đ</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="products_data.js"></script>
+  <script src="common.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      setupTabSwitching();
+      loadOrdersList();
+      loadFavorites();
+      
+      // Select tab based on URL param
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has("tab")) {
+        const tabTarget = "panel-" + urlParams.get("q") || "panel-orders"; // matching shortcut tab names
+        const tabBtn = document.querySelector(`.menu-item[data-target="${tabTarget}"]`);
+        if (tabBtn) tabBtn.click();
+      }
+    });
+
+    function setupTabSwitching() {
+      const menuItems = document.querySelectorAll(".menu-item");
+      menuItems.forEach(item => {
+        item.addEventListener("click", () => {
+          menuItems.forEach(i => i.classList.remove("active"));
+          item.classList.add("active");
+          
+          const target = item.getAttribute("data-target");
+          document.querySelectorAll(".tab-panel-box").forEach(panel => {
+            if (panel.id === target) {
+              panel.classList.add("active");
+            } else {
+              panel.classList.remove("active");
+            }
+          });
+        });
+      });
+    }
+
+    function loadOrdersList() {
+      const container = document.getElementById("orders-list-placeholder");
+      if (!container) return;
+
+      let orders = localStorage.getItem("nth_orders");
+      orders = orders ? JSON.parse(orders) : [];
+
+      // Prepopulate default historical order if none exists
+      if (orders.length === 0) {
+        const defaultOrder = {
+          code: "NT-582914",
+          date: "10/06/2026 14:23",
+          name: "Nguyễn Văn A",
+          phone: "0987654321",
+          address: "Số 12, ngõ 34, Cầu Giấy, Hà Nội",
+          payment: "COD",
+          total: 185000,
+          status: "Đã giao hàng thành công",
+          items: [
+            { id: 15, name: "Glotadol 500 Hộp 10 vỉ x 10 viên nén dài bao phim Abbott", price: 35000, quantity: 1, specification: "Hộp 10 vỉ x 10 viên" },
+            { id: 26, name: "Brufen 100mg/5ml hương cam Hộp 1 lọ x 60ml Abbott", price: 150000, quantity: 1, specification: "hộp 1 lọ x 60ml" }
+          ]
+        };
+        orders.push(defaultOrder);
+        localStorage.setItem("nth_orders", JSON.stringify(orders));
+      }
+
+      container.innerHTML = orders.map(ord => `
+        <div class="order-history-card">
+          <div class="order-history-header">
+            <div>
+              <strong>Mã đơn: <span style="text-decoration:underline;">${ord.code}</span></strong>
+              <span style="margin-left:12px; color:var(--text-muted);">${ord.date}</span>
+            </div>
+            <div>Trạng thái: <strong style="color:green;">${ord.status}</strong></div>
+          </div>
+          
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div style="font-size:13px;">
+              <span>Sản phẩm chính: <strong>${ord.items[0].name}</strong> ${ord.items.length > 1 ? `và ${ord.items.length - 1} sản phẩm khác` : ''}</span>
+              <p style="margin-top:4px; color:var(--text-muted);">Tổng thanh toán: <strong>${ord.total.toLocaleString()} đ</strong></p>
+            </div>
+            <button class="header-btn" style="padding:6px 12px; font-size:12px;" onclick="viewOrderDetails('${ord.code}')">Xem chi tiết</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    window.viewOrderDetails = function(code) {
+      let orders = localStorage.getItem("nth_orders");
+      orders = orders ? JSON.parse(orders) : [];
+      const ord = orders.find(o => o.code === code);
+      if (!ord) return;
+
+      document.getElementById("dtl-order-code").innerText = ord.code;
+      document.getElementById("dtl-date").innerText = ord.date;
+      document.getElementById("dtl-status").innerText = ord.status;
+      document.getElementById("dtl-payment").innerText = ord.payment === "COD" ? "Tiền mặt (COD)" : (ord.payment === "BANK" ? "Chuyển khoản" : "Cổng QR/Ví");
+      
+      document.getElementById("dtl-name").innerText = ord.name;
+      document.getElementById("dtl-phone").innerText = ord.phone;
+      document.getElementById("dtl-addr").innerText = ord.address;
+      
+      const listContainer = document.getElementById("dtl-items-list");
+      listContainer.innerHTML = ord.items.map(item => `
+        <div style="display:flex; justify-content:space-between; padding:8px 0; border-bottom:1px dashed var(--bg-secondary);">
+          <span>${item.name} (${item.specification}) <strong style="color:var(--text-muted);">x ${item.quantity}</strong></span>
+          <strong>${(item.price * item.quantity).toLocaleString()} đ</strong>
+        </div>
+      `).join("");
+
+      document.getElementById("dtl-total").innerText = ord.total.toLocaleString() + " đ";
+      document.getElementById("order-detail-modal").classList.add("active");
+    };
+
+    window.closeOrderDetails = function() {
+      document.getElementById("order-detail-modal").classList.remove("active");
+    };
+
+    function loadFavorites() {
+      const grid = document.getElementById("favorites-grid");
+      if (!grid) return;
+      
+      // Let's mock the favorites with product IDs: 5, 10, 44, 60
+      const list = [MOCK_PRODUCTS[4], MOCK_PRODUCTS[9], MOCK_PRODUCTS[43], MOCK_PRODUCTS[59]];
+      
+      grid.innerHTML = list.map(p => {
+        const isPrescription = p.is_prescription ? '<span class="product-tag prescription">Kê đơn</span>' : '';
+        const oldPrice = p.original_price > p.price ? `<span class="product-old-price">${p.original_price.toLocaleString()} đ</span>` : '';
+        
+        return `
+          <div class="product-card">
+            ${isPrescription}
+            <div class="wf-image-placeholder" style="height:140px; margin-bottom:8px; cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">
+              <span class="wf-image-text">SP ID: ${p.id}</span>
+            </div>
+            <div class="product-title" title="${p.name}" style="cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">${p.name}</div>
+            <div class="product-spec">${p.specification}</div>
+            <div class="product-rating">⭐ ${p.rating} | Đã bán ${p.sold_count}</div>
+            <div class="product-price-row">
+              <span class="product-price">${p.price.toLocaleString()} đ</span>
+              ${oldPrice}
+            </div>
+            <div class="product-actions">
+              <button class="btn-card" onclick="CartManager.addToCart(MOCK_PRODUCTS[${p.id-1}], 1)">Thêm</button>
+              <button class="btn-card primary" onclick="buyNow(${p.id})">Mua ngay</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    window.buyNow = function(id) {
+      CartManager.addToCart(MOCK_PRODUCTS[id-1], 1);
+      location.href = "gio-hang.html";
+    };
+  </script>
+</body>
+</html>

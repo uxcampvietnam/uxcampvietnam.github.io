@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhà Thuốc Hay - Tư vấn chuyên gia y tế</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .consultation-layout {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: 24px;
+      margin-top: 20px;
+    }
+    @media (max-width: 768px) {
+      .consultation-layout { grid-template-columns: 1fr; }
+    }
+    .doctor-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
+      transition: var(--transition);
+    }
+    .doctor-card:hover {
+      border-color: var(--text-primary);
+    }
+    .doc-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+    }
+    .doc-info {
+      flex: 1;
+    }
+    .full-chat-box {
+      border: 2px solid var(--text-primary);
+      border-radius: var(--border-radius);
+      background: var(--bg-card);
+      height: 500px;
+      display: flex;
+      flex-direction: column;
+    }
+    .full-chat-messages {
+      flex: 1;
+      padding: 16px;
+      background: var(--bg-secondary);
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .slot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .slot-btn {
+      padding: 6px;
+      font-size: 12px;
+      border: 1px dashed var(--border-dashed);
+      background: var(--bg-card);
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+    }
+    .slot-btn.selected {
+      background: var(--text-primary);
+      color: white;
+      border-style: solid;
+    }
+  </style>
+</head>
+<body>
+
+  <header></header>
+
+  <main class="container">
+    <div class="breadcrumbs">
+      <a href="index.html">Trang chủ</a> &gt; <span>Tư vấn chuyên gia</span>
+    </div>
+
+    <div class="section-title">
+      <span>TƯ VẤN SỨC KHỎE CÙNG DƯỢC SĨ & BÁC SĨ CHUYÊN KHOA</span>
+    </div>
+
+    <div class="consultation-layout">
+      
+      <!-- Doctor Booking Column -->
+      <section>
+        <h3 style="margin-bottom:16px;">1. Đặt lịch tư vấn trực tuyến</h3>
+        
+        <div class="doctor-card">
+          <div class="doc-avatar">👨‍⚕️</div>
+          <div class="doc-info">
+            <h4 style="font-size:16px;">ThS. Bác sĩ Lê Văn Hoàng</h4>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:4px;">Chuyên khoa: NHI KHOA • Bệnh viện Nhi TW</p>
+            <p style="font-size:13px; margin-bottom:8px;">Hơn 12 năm kinh nghiệm chuẩn trị bệnh hô hấp, dinh dưỡng cho trẻ nhỏ dưới 15 tuổi.</p>
+            <button class="header-btn" onclick="openBookingModal('ThS. Bác sĩ Lê Văn Hoàng', 'Nhi khoa')">Đặt lịch khám từ xa</button>
+          </div>
+        </div>
+        
+        <div class="doctor-card">
+          <div class="doc-avatar">👩‍⚕️</div>
+          <div class="doc-info">
+            <h4 style="font-size:16px;">Bác sĩ CKI. Nguyễn Mai Anh</h4>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:4px;">Chuyên khoa: DA LIỄU • Bệnh viện Da liễu</p>
+            <p style="font-size:13px; margin-bottom:8px;">Chuyên sâu mụn nội tiết, viêm da cơ địa, dị ứng thời tiết và các phác đồ dược mỹ phẩm.</p>
+            <button class="header-btn" onclick="openBookingModal('Bác sĩ CKI. Nguyễn Mai Anh', 'Da liễu')">Đặt lịch khám từ xa</button>
+          </div>
+        </div>
+
+        <div class="doctor-card">
+          <div class="doc-avatar">👩‍⚕️</div>
+          <div class="doc-info">
+            <h4 style="font-size:16px;">Bác sĩ Đỗ Quyên</h4>
+            <p style="font-size:12px; color:var(--text-muted); margin-bottom:4px;">Chuyên khoa: TIM MẠCH - NÃO • Viện Tim Hà Nội</p>
+            <p style="font-size:13px; margin-bottom:8px;">Chẩn đoán huyết áp cao, thiếu máu não, rối loạn tiền đình và phục hồi chức năng.</p>
+            <button class="header-btn" onclick="openBookingModal('Bác sĩ Đỗ Quyên', 'Tim mạch - Não')">Đặt lịch khám từ xa</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chat Simulator Column -->
+      <aside>
+        <h3 style="margin-bottom:16px;">2. Tư vấn chat nhanh với Dược Sĩ</h3>
+        
+        <div class="full-chat-box">
+          <div class="chat-header" style="border-radius: 4px 4px 0 0;">
+            <span>🟢 Dược sĩ trực ban Nhà Thuốc Hay</span>
+          </div>
+          
+          <div class="full-chat-messages" id="full-chat-messages-container">
+            <div class="chat-msg bot">
+              Xin chào! Tôi là Dược sĩ trực ban của Nhà Thuốc Hay. Bạn đang cần hỏi về bệnh lý hay cách sử dụng sản phẩm nào không ạ?
+              <div style="font-size: 11px; color:var(--text-muted); margin-top:8px; font-weight:bold;">Nhấp câu hỏi mẫu nhanh:</div>
+              <div class="chat-options-list">
+                <button class="chat-opt-btn" onclick="sendFullChatMsg('Cách sử dụng Berocca performance orange Hộp 1 túyp x 10 viên sủi Bayer?')">Cách dùng Berocca?</button>
+                <button class="chat-opt-btn" onclick="sendFullChatMsg('Thuốc kê đơn mua thế nào?')">Mua thuốc kê đơn?</button>
+                <button class="chat-opt-btn" onclick="sendFullChatMsg('Tôi bị đau dạ dày, uống Bột muối dạ dày Nabicar-AC gói 100g Á Châu khi nào?')">Đau dạ dày uống Nabicar?</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="chat-input-row" style="border-radius: 0 0 4px 4px;">
+            <input type="text" id="full-chat-input" class="chat-input" placeholder="Nhập câu hỏi tại đây...">
+            <button id="full-chat-send" class="chat-send-btn">Gửi</button>
+          </div>
+        </div>
+      </aside>
+
+    </div>
+  </main>
+
+  <footer></footer>
+
+  <!-- Booking Modal -->
+  <div class="modal-overlay" id="booking-modal">
+    <div class="modal-box" style="max-width: 450px;">
+      <button class="modal-close" onclick="closeBookingModal()">×</button>
+      <h3 class="modal-title">🏥 Đăng ký tư vấn trực tuyến</h3>
+      
+      <div class="modal-body">
+        <p style="margin-bottom:12px; font-size:14px;">Bạn đang đặt lịch hẹn với: <strong id="booking-doc-name">Bác sĩ</strong> (<span id="booking-doc-dept">Khoa</span>)</p>
+        
+        <div class="form-group">
+          <label class="form-label">Họ tên người khám *</label>
+          <input type="text" id="book-patient-name" class="form-control" placeholder="Nguyễn Văn A" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Số điện thoại liên lạc *</label>
+          <input type="tel" id="book-patient-phone" class="form-control" placeholder="0987654321" required>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Chọn ngày khám *</label>
+          <input type="date" id="book-date" class="form-control" value="2026-06-12">
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Khung giờ rảnh đề xuất *</label>
+          <div class="slot-grid" id="slots-container">
+            <div class="slot-btn selected" onclick="selectSlot(this, '08:00 - 09:00')">08:00 - 09:00</div>
+            <div class="slot-btn" onclick="selectSlot(this, '09:30 - 10:30')">09:30 - 10:30</div>
+            <div class="slot-btn" onclick="selectSlot(this, '14:00 - 15:00')">14:00 - 15:00</div>
+            <div class="slot-btn" onclick="selectSlot(this, '15:30 - 16:30')">15:30 - 16:30</div>
+            <div class="slot-btn" onclick="selectSlot(this, '19:00 - 20:00')">19:00 - 20:00</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Triệu chứng lâm sàng sơ bộ</label>
+          <textarea id="book-desc" class="form-control" rows="2" placeholder="Ví dụ: Bé ho khò khè kéo dài 3 ngày..."></textarea>
+        </div>
+      </div>
+      
+      <div class="modal-footer">
+        <button class="header-btn" onclick="closeBookingModal()">Hủy bỏ</button>
+        <button class="btn-submit" style="width:auto; padding:8px 24px;" onclick="confirmBooking()">Xác nhận lịch hẹn</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="products_data.js"></script>
+  <script src="common.js"></script>
+  <script>
+    let activeDoc = "";
+    let activeDept = "";
+    let selectedSlotVal = "08:00 - 09:00";
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Setup Standalone Chat UI
+      const sendBtn = document.getElementById("full-chat-send");
+      const inputEl = document.getElementById("full-chat-input");
+      
+      if (sendBtn && inputEl) {
+        const handleSend = () => {
+          const msg = inputEl.value.trim();
+          if (msg) {
+            sendFullChatMsg(msg);
+            inputEl.value = "";
+          }
+        };
+        sendBtn.addEventListener("click", handleSend);
+        inputEl.addEventListener("keypress", (e) => {
+          if (e.key === "Enter") handleSend();
+        });
+      }
+    });
+
+    window.sendFullChatMsg = function(msg) {
+      const msgsContainer = document.getElementById("full-chat-messages-container");
+      if (!msgsContainer) return;
+      
+      // User msg
+      const uMsg = document.createElement("div");
+      uMsg.className = "chat-msg user";
+      uMsg.innerText = msg;
+      msgsContainer.appendChild(uMsg);
+      msgsContainer.scrollTop = msgsContainer.scrollHeight;
+      
+      // Bot reply simulator
+      setTimeout(() => {
+        let reply = "Dạ, vấn đề của bạn đang được chuyển đến Dược sĩ trực tuyến phụ trách. Vui lòng đợi trong giây lát ạ.";
+        const low = msg.toLowerCase();
+        
+        if (low.includes("berocca") || low.includes("sủi")) {
+          reply = "Chào bạn, Berocca performance orange Hộp 1 túyp x 10 viên sủi Bayer chứa hàm lượng lớn Vitamin nhóm B, C, Canxi và Kẽm. Liều lượng tốt nhất là uống 1 viên sủi hòa tan trong 200ml nước lọc mỗi ngày, nên uống vào buổi sáng sau ăn để tránh mất ngủ và hấp thu tốt nhất nhé.";
+        } else if (low.includes("kê đơn") || low.includes("bác sĩ")) {
+          reply = "Dạ chào bạn, đối với các loại thuốc nằm trong danh mục 'Kê đơn (ETC)' (ví dụ: Nexium 10mg Hộp 28 gói x 3043mg AstraZeneca, Crestor 5mg Hộp 2 vỉ x 14 viên nén bao phim AstraZeneca, Utrogestan 200mg Hộp 15 viên nang mềm Besins...), theo quy định Bộ Y Tế, bạn cần cung cấp đơn thuốc của bác sĩ chỉ định. Bạn vui lòng sử dụng trang 'Cần mua thuốc' tải ảnh chụp đơn lên để dược sĩ hỗ trợ soạn đơn giao hàng nhé.";
+        } else if (low.includes("nabicar") || low.includes("dạ dày")) {
+          reply = "Dạ chào bạn, Bột muối dạ dày Nabicar-AC gói 100g Á Châu chứa muối Natri Bicarbonate giúp trung hòa axit dịch vị dạ dày hiệu quả. Đối với chứng đau dạ dày, đầy bụng, bạn có thể uống 1 gói pha với nước lọc ấm khi có cơn đau hoặc sau ăn 1-2 tiếng. Lưu ý không dùng liên tục quá lâu nếu không có chỉ định từ bác sĩ.";
+        }
+        
+        const bMsg = document.createElement("div");
+        bMsg.className = "chat-msg bot";
+        bMsg.innerText = reply;
+        msgsContainer.appendChild(bMsg);
+        msgsContainer.scrollTop = msgsContainer.scrollHeight;
+      }, 700);
+    };
+
+    // Booking actions
+    window.openBookingModal = function(docName, deptName) {
+      activeDoc = docName;
+      activeDept = deptName;
+      document.getElementById("booking-doc-name").innerText = docName;
+      document.getElementById("booking-doc-dept").innerText = deptName;
+      document.getElementById("booking-modal").classList.add("active");
+    };
+
+    window.closeBookingModal = function() {
+      document.getElementById("booking-modal").classList.remove("active");
+    };
+
+    window.selectSlot = function(el, slot) {
+      const container = document.getElementById("slots-container");
+      container.querySelectorAll(".slot-btn").forEach(btn => btn.classList.remove("selected"));
+      el.classList.add("selected");
+      selectedSlotVal = slot;
+    };
+
+    window.confirmBooking = function() {
+      const patient = document.getElementById("book-patient-name").value.trim();
+      const phone = document.getElementById("book-patient-phone").value.trim();
+      const date = document.getElementById("book-date").value;
+      
+      if (!patient || !phone) {
+        alert("Vui lòng điền Họ tên và Số điện thoại liên hệ khám bệnh.");
+        return;
+      }
+
+      closeBookingModal();
+      
+      // Save appointment to local storage simulated list
+      const appt = {
+        doctor: activeDoc,
+        specialty: activeDept,
+        patient: patient,
+        phone: phone,
+        date: date,
+        time: selectedSlotVal,
+        status: "Đã xác nhận"
+      };
+      
+      let appts = localStorage.getItem("nth_appointments");
+      appts = appts ? JSON.parse(appts) : [];
+      appts.push(appt);
+      localStorage.setItem("nth_appointments", JSON.stringify(appts));
+
+      showToast(`Đăng ký tư vấn trực tuyến thành công với ${activeDoc} vào ngày ${date} lúc ${selectedSlotVal}!`);
+    };
+  </script>
+</body>
+</html>

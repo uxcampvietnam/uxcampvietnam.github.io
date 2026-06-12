@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhà Thuốc Hay - Chăm sóc cá nhân & Thiết bị y tế</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <header></header>
+
+  <main class="container">
+    <div class="breadcrumbs">
+      <a href="index.html">Trang chủ</a> &gt; <span>Chăm sóc cá nhân & Thiết bị y tế</span>
+    </div>
+
+    <div class="page-layout-sidebar">
+      
+      <!-- Filter Sidebar -->
+      <aside class="sidebar-panel">
+        <div class="filter-group">
+          <div class="filter-title" style="margin-bottom:12px;">Phân loại sản phẩm</div>
+          <ul class="category-tree-menu" id="category-tree-container">
+            <!-- Loaded dynamically from CATEGORIES_TREE -->
+          </ul>
+        </div>
+
+        <div class="filter-group" style="margin-top:24px;">
+          <div class="filter-title">Trạng thái kho</div>
+          <div class="filter-options">
+            <label class="filter-option">
+              <input type="checkbox" id="chk-instock"> Còn hàng
+            </label>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Products Listing Area -->
+      <section>
+        <div class="section-title">
+          <span>CHĂM SÓC CÁ NHÂN & THIẾT BỊ Y TẾ (<span id="results-count">0</span> sản phẩm)</span>
+          <select id="sort-select" style="font-size:12px; padding:4px; border:1px solid var(--border-color); border-radius:4px;">
+            <option value="default">Mặc định</option>
+            <option value="price-asc">Giá từ thấp đến cao</option>
+            <option value="price-desc">Giá từ cao đến thấp</option>
+            <option value="rating">Đánh giá tốt nhất</option>
+          </select>
+        </div>
+
+        <div class="product-grid" id="category-products-grid">
+          <!-- Loaded dynamically from products_data.js -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer></footer>
+
+  <script src="products_data.js"></script>
+  <script src="common.js"></script>
+  <script>
+    const PAGE_CATEGORY = "Chăm sóc cá nhân & Thiết bị y tế";
+    let selectedCat1 = null;
+    let selectedCat2 = null;
+    
+    document.addEventListener("DOMContentLoaded", () => {
+      buildCategoryTree();
+      renderProductsList();
+      
+      document.getElementById("chk-instock").addEventListener("change", renderProductsList);
+      document.getElementById("sort-select").addEventListener("change", renderProductsList);
+    });
+
+    function buildCategoryTree() {
+      const container = document.getElementById("category-tree-container");
+      if (!container) return;
+      
+      const pageCats = CATEGORIES_TREE[PAGE_CATEGORY] || {};
+      
+      container.innerHTML = Object.keys(pageCats).map(c1 => {
+        const c2List = pageCats[c1] || [];
+        const c2HTML = c2List.map(c2 => `
+          <li class="category-tree-item" data-c1="${c1}" data-c2="${c2}">
+            <span>${c2}</span>
+          </li>
+        `).join("");
+        
+        return `
+          <li class="category-tree-node" id="node-${encodeURIComponent(c1)}">
+            <div class="category-tree-header" data-c1="${c1}">
+              <span>${c1}</span>
+            </div>
+            <ul class="category-tree-children">
+              ${c2HTML}
+            </ul>
+          </li>
+        `;
+      }).join("");
+      
+      // Hook events for Level 1 headers
+      container.querySelectorAll(".category-tree-header").forEach(header => {
+        header.addEventListener("click", () => {
+          const c1 = header.getAttribute("data-c1");
+          const node = header.parentElement;
+          
+          if (selectedCat1 === c1) {
+            // Deselect
+            selectedCat1 = null;
+            selectedCat2 = null;
+            header.classList.remove("active");
+            node.classList.remove("expanded");
+          } else {
+            // Collapse all others
+            container.querySelectorAll(".category-tree-node").forEach(n => {
+              n.classList.remove("expanded");
+              n.querySelector(".category-tree-header").classList.remove("active");
+            });
+            // Clear active Cấp 2 markers
+            container.querySelectorAll(".category-tree-item").forEach(item => {
+              item.classList.remove("active");
+            });
+            
+            selectedCat1 = c1;
+            selectedCat2 = null;
+            header.classList.add("active");
+            node.classList.add("expanded");
+          }
+          renderProductsList();
+        });
+      });
+      
+      // Hook events for Level 2 items
+      container.querySelectorAll(".category-tree-item").forEach(item => {
+        item.addEventListener("click", (e) => {
+          e.stopPropagation(); // Prevent Cấp 1 header click trigger
+          const c1 = item.getAttribute("data-c1");
+          const c2 = item.getAttribute("data-c2");
+          
+          container.querySelectorAll(".category-tree-item").forEach(i => {
+            if (i !== item) i.classList.remove("active");
+          });
+          
+          if (selectedCat2 === c2) {
+            selectedCat2 = null;
+            item.classList.remove("active");
+          } else {
+            selectedCat2 = c2;
+            selectedCat1 = c1;
+            item.classList.add("active");
+          }
+          renderProductsList();
+        });
+      });
+    }
+
+    function renderProductsList() {
+      const grid = document.getElementById("category-products-grid");
+      if (!grid) return;
+      
+      const showInstockOnly = document.getElementById("chk-instock").checked;
+      const sortBy = document.getElementById("sort-select").value;
+      
+      let list = MOCK_PRODUCTS.filter(p => p.page_category === PAGE_CATEGORY);
+      
+      if (selectedCat1) {
+        list = list.filter(p => p.category1 === selectedCat1);
+      }
+      
+      if (selectedCat2) {
+        list = list.filter(p => p.category2 === selectedCat2);
+      }
+      
+      if (showInstockOnly) {
+        list = list.filter(p => p.in_stock);
+      }
+      
+      if (sortBy === "price-asc") {
+        list.sort((a, b) => a.price - b.price);
+      } else if (sortBy === "price-desc") {
+        list.sort((a, b) => b.price - a.price);
+      } else if (sortBy === "rating") {
+        list.sort((a, b) => b.rating - a.rating);
+      }
+      
+      document.getElementById("results-count").innerText = list.length;
+      
+      if (list.length === 0) {
+        grid.innerHTML = `<div style="grid-column: 1/-1; padding: 40px; text-align:center; color: var(--text-muted);">Không tìm thấy sản phẩm nào khớp với bộ lọc.</div>`;
+        return;
+      }
+      
+      grid.innerHTML = list.map(p => {
+        const isPrescription = p.is_prescription ? '<span class="product-tag prescription">Kê đơn</span>' : '';
+        const oldPrice = p.original_price > p.price ? `<span class="product-old-price">${p.original_price.toLocaleString()} đ</span>` : '';
+        
+        return `
+          <div class="product-card">
+            ${isPrescription}
+            <div class="wf-image-placeholder" style="height:140px; margin-bottom:8px; cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">
+              <span class="wf-image-text">SP ID: ${p.id}</span>
+            </div>
+            <div class="product-title" title="${p.name}" style="cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">${p.name}</div>
+            <div class="product-spec">${p.specification}</div>
+            <div class="product-rating">⭐ ${p.rating} | Đã bán ${p.sold_count}</div>
+            <div class="product-price-row">
+              <span class="product-price">${p.price.toLocaleString()} đ</span>
+              ${oldPrice}
+            </div>
+            <div class="product-actions">
+              <button class="btn-card" onclick="CartManager.addToCart(MOCK_PRODUCTS[${p.id-1}], 1)">Thêm</button>
+              <button class="btn-card primary" onclick="buyNow(${p.id})">Mua ngay</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    window.buyNow = function(id) {
+      CartManager.addToCart(MOCK_PRODUCTS[id-1], 1);
+      location.href = "gio-hang.html";
+    };
+  </script>
+</body>
+</html>

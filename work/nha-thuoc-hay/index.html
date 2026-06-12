@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nhà Thuốc Hay - Trang chủ</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Unique inline styles for homepage dashboard details */
+    .hero-slider {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      margin-top: 16px;
+    }
+    @media (max-width: 768px) {
+      .hero-slider { grid-template-columns: 1fr; }
+    }
+    .quick-shortcuts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+    .shortcut-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      padding: 16px;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .shortcut-card:hover {
+      border-color: var(--text-primary);
+      background-color: var(--bg-secondary);
+    }
+    .shortcut-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+    }
+    .shortcut-title {
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .disease-filters, .target-filters {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+    }
+    .filter-btn {
+      background: var(--bg-card);
+      border: 1px dashed var(--border-dashed);
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      cursor: pointer;
+      white-space: nowrap;
+      font-weight: 600;
+    }
+    .filter-btn.active {
+      background: var(--text-primary);
+      color: white;
+      border-style: solid;
+      border-color: var(--text-primary);
+    }
+    .brand-list {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+    @media (max-width: 768px) {
+      .brand-list { grid-template-columns: repeat(3, 1fr); }
+    }
+    .brand-card {
+      border: 1px solid var(--border-color);
+      background: var(--bg-card);
+      padding: 16px;
+      text-align: center;
+      font-weight: bold;
+      border-radius: var(--border-radius);
+    }
+    /* Health Quiz Styles */
+    .quiz-container {
+      background: var(--bg-card);
+      border: 2px dashed var(--border-dashed);
+      border-radius: var(--border-radius);
+      padding: 24px;
+      margin: 24px 0;
+      text-align: center;
+    }
+    .quiz-question {
+      font-size: 16px;
+      font-weight: bold;
+      margin-bottom: 16px;
+    }
+    .quiz-answers {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+    }
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
+    .news-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .news-content {
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .news-title {
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
+    .news-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+      flex: 1;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Header rendered by common.js -->
+  <header></header>
+
+  <main class="container">
+    
+    <!-- Hero Sliders (Wireframe style) -->
+    <section class="hero-slider">
+      <div class="wf-image-placeholder" style="min-height: 240px;">
+        <span class="wf-image-text">BANNER CHIẾN DỊCH KHUYẾN MÃI LỚN (SLIDE KHUNG)</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="wf-image-placeholder" style="min-height: 112px;">
+          <span class="wf-image-text">BANNER PHỤ 1</span>
+        </div>
+        <div class="wf-image-placeholder" style="min-height: 112px;">
+          <span class="wf-image-text">BANNER PHỤ 2</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quick Shortcuts Panel -->
+    <section class="quick-shortcuts">
+      <div class="shortcut-card" onclick="location.href='tai-don-thuoc.html'">
+        <div class="shortcut-icon">📄</div>
+        <div class="shortcut-title">Cần mua thuốc</div>
+        <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Chụp ảnh đơn thuốc gửi ngay</p>
+      </div>
+      <div class="shortcut-card" onclick="location.href='tu-van-bac-si.html'">
+        <div class="shortcut-icon">💬</div>
+        <div class="shortcut-title">Tư vấn Dược Sĩ</div>
+        <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Chat trực tuyến miễn phí</p>
+      </div>
+      <div class="shortcut-card" onclick="location.href='tai-khoan.html?tab=don-hang'">
+        <div class="shortcut-icon">📦</div>
+        <div class="shortcut-title">Đơn của tôi</div>
+        <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Tra lịch sử và tiến độ đơn</p>
+      </div>
+      <div class="shortcut-card" onclick="location.href='he-thong-nha-thuoc.html'">
+        <div class="shortcut-icon">📍</div>
+        <div class="shortcut-title">Tìm nhà thuốc</div>
+        <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Tìm vị trí cửa hàng gần nhất</p>
+      </div>
+      <div class="shortcut-card" onclick="location.href='tra-cuu.html'">
+        <div class="shortcut-icon">🔍</div>
+        <div class="shortcut-title">Tra thuốc chính hãng</div>
+        <p style="font-size:11px; color:var(--text-muted); margin-top:4px;">Xác thực xuất xứ sản phẩm</p>
+      </div>
+    </section>
+
+    <!-- Featured Categories (Danh mục nổi bật) -->
+    <section style="margin-top: 24px;">
+      <div class="section-title">
+        <span>📦 DANH MỤC NỔI BẬT</span>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 16px;">
+        <div class="shortcut-card" onclick="location.href='thuoc.html'" style="padding: 20px 10px;">
+          <div class="shortcut-icon" style="font-size: 28px; margin-bottom: 6px;">💊</div>
+          <div class="shortcut-title" style="font-size: 13px;">Thuốc kê đơn & OTC</div>
+        </div>
+        <div class="shortcut-card" onclick="location.href='thuc-pham-chuc-nang.html'" style="padding: 20px 10px;">
+          <div class="shortcut-icon" style="font-size: 28px; margin-bottom: 6px;">🥗</div>
+          <div class="shortcut-title" style="font-size: 13px;">Thực phẩm chức năng</div>
+        </div>
+        <div class="shortcut-card" onclick="location.href='duoc-my-pham.html'" style="padding: 20px 10px;">
+          <div class="shortcut-icon" style="font-size: 28px; margin-bottom: 6px;">🧴</div>
+          <div class="shortcut-title" style="font-size: 13px;">Dược mỹ phẩm</div>
+        </div>
+        <div class="shortcut-card" onclick="location.href='cham-soc-ca-nhan-thiet-bi-y-te.html'" style="padding: 20px 10px;">
+          <div class="shortcut-icon" style="font-size: 28px; margin-bottom: 6px;">🩺</div>
+          <div class="shortcut-title" style="font-size: 13px;">Thiết bị y tế & Cá nhân</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deal Hot Section -->
+    <section>
+      <div class="section-title">
+        <span>🔥 DEAL CHỚP NHOÁNG / ƯU ĐÃI LỚN</span>
+        <a href="thuoc.html" class="section-link">Xem tất cả ></a>
+      </div>
+      <div class="product-grid" id="hot-deals-grid">
+        <!-- Loaded dynamically from products_data.js -->
+      </div>
+    </section>
+
+    <!-- Bệnh theo mùa (Seasonal Illnesses) Section -->
+    <section style="margin-top: 24px;">
+      <div class="section-title">
+        <span>🌦️ PHÒNG & ĐIỀU TRỊ BỆNH THEO MÙA</span>
+      </div>
+      <div class="disease-filters" id="season-filters">
+        <button class="filter-btn active" data-disease="ho-hap">Hô hấp / Cúm mùa</button>
+        <button class="filter-btn" data-disease="tieu-hoa">Tiêu hóa / Ngộ độc</button>
+        <button class="filter-btn" data-disease="di-ung">Dị ứng thời tiết</button>
+        <button class="filter-btn" data-disease="mat">Đau mắt đỏ</button>
+      </div>
+      <div class="product-grid" id="seasonal-products-grid">
+        <!-- Loaded dynamically -->
+      </div>
+    </section>
+
+    <!-- Interactive Health Quiz Simulator -->
+    <section class="quiz-container">
+      <div class="shortcut-icon" style="font-size: 36px; margin-bottom: 8px;">🩺</div>
+      <h3>KIỂM TRA SỨC KHỎE NHANH</h3>
+      <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Trả lời vài câu hỏi để nhận đề xuất chăm sóc từ chuyên gia</p>
+      
+      <div id="quiz-content">
+        <div class="quiz-question" id="quiz-question-text">Bạn hoặc người thân đang gặp phải triệu chứng nào nổi bật nhất?</div>
+        <div class="quiz-answers" id="quiz-answers-btns">
+          <button class="header-btn" onclick="answerQuiz(1)">Ho, Sốt, Sổ mũi</button>
+          <button class="header-btn" onclick="answerQuiz(2)">Đầy hơi, Khó tiêu</button>
+          <button class="header-btn" onclick="answerQuiz(3)">Khô mắt, Mỏi mắt</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Bệnh theo đối tượng (Targeted Groups) -->
+    <section>
+      <div class="section-title">
+        <span>👪 SẢN PHẨM CHUYÊN BIỆT THEO ĐỐI TƯỢNG</span>
+      </div>
+      <div class="target-filters" id="target-filters">
+        <button class="filter-btn active" data-target="meca">Mẹ và bé</button>
+        <button class="filter-btn" data-target="gia">Người cao tuổi</button>
+        <button class="filter-btn" data-target="nam">Chăm sóc nam giới</button>
+      </div>
+      <div class="product-grid" id="target-products-grid">
+        <!-- Loaded dynamically -->
+      </div>
+    </section>
+
+    <!-- Favorite Brands -->
+    <section style="margin-top: 32px;">
+      <div class="section-title">
+        <span>⭐ THƯƠNG HIỆU YÊU THÍCH</span>
+      </div>
+      <div class="brand-list">
+        <div class="brand-card">Abbott</div>
+        <div class="brand-card">Bayer</div>
+        <div class="brand-card">Traphaco</div>
+        <div class="brand-card">AstraZeneca</div>
+        <div class="brand-card">Thái Dương</div>
+        <div class="brand-card">Novartis</div>
+      </div>
+    </section>
+
+    <!-- News Section (Góc sức khỏe) -->
+    <section style="margin-top: 32px;">
+      <div class="section-title">
+        <span>📰 GÓC SỨC KHỎE (TIN TỨC & BÀI VIẾT)</span>
+        <a href="goc-suc-khoe.html" class="section-link">Đến Góc sức khỏe ></a>
+      </div>
+      <div class="news-grid">
+        <div class="news-card">
+          <div class="wf-image-placeholder" style="min-height: 140px; border-bottom: 1px solid var(--border-color); border-radius: 6px 6px 0 0;">
+            <span class="wf-image-text">ẢNH BÀI VIẾT 1</span>
+          </div>
+          <div class="news-content">
+            <span style="font-size:11px; font-weight:bold; color:var(--text-muted);">TIN BỆNH HỌC • BÁC SĨ HOÀNG NAM</span>
+            <a href="goc-suc-khoe-detail.html?id=1" class="news-title">Làm thế nào để phòng ngừa viêm họng và cúm mùa khi thời tiết thay đổi đột ngột?</a>
+            <p class="news-desc">Thời tiết chuyển mùa là điều kiện thuận lợi cho các loại vi-rút đường hô hấp phát triển mạnh...</p>
+            <a href="goc-suc-khoe-detail.html?id=1" class="section-link">Đọc tiếp -></a>
+          </div>
+        </div>
+        
+        <div class="news-card">
+          <div class="wf-image-placeholder" style="min-height: 140px; border-bottom: 1px solid var(--border-color); border-radius: 6px 6px 0 0;">
+            <span class="wf-image-text">ẢNH BÀI VIẾT 2</span>
+          </div>
+          <div class="news-content">
+            <span style="font-size:11px; font-weight:bold; color:var(--text-muted);">TIN DINH DƯỠNG • DƯỢC SĨ MAI ANH</span>
+            <a href="goc-suc-khoe-detail.html?id=2" class="news-title">Bổ sung Vitamin K2 & D3 thế nào là đúng cách giúp trẻ phát triển chiều cao tối ưu?</a>
+            <p class="news-desc">Nhiều phụ huynh bổ sung canxi rất nhiều cho trẻ nhưng lại quên đi vai trò định hướng của K2 & D3...</p>
+            <a href="goc-suc-khoe-detail.html?id=2" class="section-link">Đọc tiếp -></a>
+          </div>
+        </div>
+
+        <div class="news-card">
+          <div class="wf-image-placeholder" style="min-height: 140px; border-bottom: 1px solid var(--border-color); border-radius: 6px 6px 0 0;">
+            <span class="wf-image-text">ẢNH BÀI VIẾT 3</span>
+          </div>
+          <div class="news-content">
+            <span style="font-size:11px; font-weight:bold; color:var(--text-muted);">MẸO KHỎE • BÁC SĨ ĐỖ QUYÊN</span>
+            <a href="goc-suc-khoe-detail.html?id=3" class="news-title">Các bài tập đơn giản hỗ trợ giảm đau vai gáy cho người làm việc văn phòng</a>
+            <p class="news-desc">Ngồi làm việc sai tư thế trước máy tính trong nhiều giờ liên tục là nguyên nhân hàng đầu gây mỏi cơ...</p>
+            <a href="goc-suc-khoe-detail.html?id=3" class="section-link">Đọc tiếp -></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Dynamic Footer rendered by common.js -->
+  <footer></footer>
+
+  <!-- Scripts -->
+  <script src="products_data.js"></script>
+  <script src="common.js"></script>
+  <script>
+    // Page Dynamic Logic
+    document.addEventListener("DOMContentLoaded", () => {
+      loadHotDeals();
+      loadSeasonalProducts("ho-hap");
+      loadTargetProducts("meca");
+      
+      // Hook filter events
+      setupFilters("season-filters", loadSeasonalProducts);
+      setupFilters("target-filters", loadTargetProducts);
+    });
+
+    function setupFilters(containerId, loadFunc) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+      const btns = container.querySelectorAll(".filter-btn");
+      btns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          btns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const filterVal = btn.getAttribute("data-disease") || btn.getAttribute("data-target");
+          loadFunc(filterVal);
+        });
+      });
+    }
+
+    // Helper to generate a single product card markup
+    function getProductCardHTML(p) {
+      const isPrescription = p.is_prescription ? '<span class="product-tag prescription">Kê đơn</span>' : '';
+      const oldPrice = p.original_price > p.price ? `<span class="product-old-price">${p.original_price.toLocaleString()} đ</span>` : '';
+      
+      return `
+        <div class="product-card">
+          ${isPrescription}
+          <div class="wf-image-placeholder" style="height:140px; margin-bottom:8px; cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">
+            <span class="wf-image-text">SP ID: ${p.id}</span>
+          </div>
+          <div class="product-title" title="${p.name}" style="cursor:pointer;" onclick="location.href='chi-tiet-san-pham.html?id=${p.id}'">${p.name}</div>
+          <div class="product-spec">${p.specification}</div>
+          <div class="product-rating">⭐ ${p.rating} | Đã bán ${p.sold_count}</div>
+          <div class="product-price-row">
+            <span class="product-price">${p.price.toLocaleString()} đ</span>
+            ${oldPrice}
+          </div>
+          <div class="product-actions">
+            <button class="btn-card" onclick="CartManager.addToCart(MOCK_PRODUCTS[${p.id-1}], 1)">Thêm</button>
+            <button class="btn-card primary" onclick="buyNow(${p.id})">Mua ngay</button>
+          </div>
+        </div>
+      `;
+    }
+
+    window.buyNow = function(id) {
+      CartManager.addToCart(MOCK_PRODUCTS[id-1], 1);
+      location.href = "gio-hang.html";
+    };
+
+    function loadHotDeals() {
+      // Pick products that have original_price > price
+      const deals = MOCK_PRODUCTS.filter(p => p.original_price > p.price).slice(0, 4);
+      const grid = document.getElementById("hot-deals-grid");
+      if (grid) {
+        grid.innerHTML = deals.map(p => getProductCardHTML(p)).join("");
+      }
+    }
+
+    function loadSeasonalProducts(categoryKey) {
+      const grid = document.getElementById("seasonal-products-grid");
+      if (!grid) return;
+      
+      let filtered = [];
+      if (categoryKey === "ho-hap") {
+        filtered = MOCK_PRODUCTS.filter(p => p.category2.toLowerCase().includes("hô hấp") || p.category2.toLowerCase().includes("họng") || p.category2.toLowerCase().includes("phổi"));
+      } else if (categoryKey === "tieu-hoa") {
+        filtered = MOCK_PRODUCTS.filter(p => p.category2.toLowerCase().includes("tiêu hóa") || p.category2.toLowerCase().includes("dạ dày"));
+      } else if (categoryKey === "di-ung") {
+        filtered = MOCK_PRODUCTS.filter(p => p.category2.toLowerCase().includes("dị ứng") || p.category2.toLowerCase().includes("da liễu"));
+      } else if (categoryKey === "mat") {
+        filtered = MOCK_PRODUCTS.filter(p => p.category2.toLowerCase().includes("mắt"));
+      }
+      
+      // Fallback if empty
+      if (filtered.length === 0) {
+        filtered = MOCK_PRODUCTS.slice(4, 8);
+      }
+      
+      grid.innerHTML = filtered.slice(0, 4).map(p => getProductCardHTML(p)).join("");
+    }
+
+    function loadTargetProducts(targetKey) {
+      const grid = document.getElementById("target-products-grid");
+      if (!grid) return;
+      
+      let filtered = [];
+      if (targetKey === "meca") {
+        filtered = MOCK_PRODUCTS.filter(p => p.category2.toLowerCase().includes("mẹ") || p.category2.toLowerCase().includes("bé") || p.name.toLowerCase().includes("sữa") || p.name.toLowerCase().includes("em bé"));
+      } else if (targetKey === "gia") {
+        filtered = MOCK_PRODUCTS.filter(p => p.category2.toLowerCase().includes("tim mạch") || p.category2.toLowerCase().includes("xương khớp") || p.category2.toLowerCase().includes("não") || p.category2.toLowerCase().includes("khớp"));
+      } else if (targetKey === "nam") {
+        filtered = MOCK_PRODUCTS.filter(p => p.category2.toLowerCase().includes("sinh lý") || p.category2.toLowerCase().includes("sinh dục") || p.name.toLowerCase().includes("rocket"));
+      }
+      
+      if (filtered.length === 0) {
+        filtered = MOCK_PRODUCTS.slice(8, 12);
+      }
+      
+      grid.innerHTML = filtered.slice(0, 4).map(p => getProductCardHTML(p)).join("");
+    }
+
+    // Interactive Quiz Actions
+    window.answerQuiz = function(answerId) {
+      const container = document.getElementById("quiz-content");
+      if (!container) return;
+      
+      let recommendationHTML = "";
+      if (answerId === 1) {
+        const prod = MOCK_PRODUCTS.find(p => p.name.includes("Brufen") || p.name.includes("Glotadol") || p.name.includes("Prospan")) || MOCK_PRODUCTS[0];
+        recommendationHTML = `
+          <div style="padding:12px; background:var(--bg-secondary); border-radius: var(--border-radius); border: 1px solid var(--border-color); text-align:center;">
+            <p style="font-weight:bold; color:red; margin-bottom:8px;">💡 GỢI Ý PHÒNG BỆNH HÔ HẤP / CÚM MÙA:</p>
+            <p style="font-size:13px; margin-bottom:12px;">Đề xuất sử dụng sản phẩm thảo dược giữ ấm họng, bù điện giải và hạ sốt nhẹ khi cần thiết.</p>
+            <div style="max-width:260px; margin: 0 auto;">
+              ${getProductCardHTML(prod)}
+            </div>
+            <button class="header-btn" style="margin-top:16px; width:100%; justify-content:center;" onclick="resetQuiz()">Làm lại khảo sát</button>
+          </div>
+        `;
+      } else if (answerId === 2) {
+        const prod = MOCK_PRODUCTS.find(p => p.category2.toLowerCase().includes("tiêu hóa") || p.name.includes("Boganic") || p.name.includes("Bioflora")) || MOCK_PRODUCTS[1];
+        recommendationHTML = `
+          <div style="padding:12px; background:var(--bg-secondary); border-radius: var(--border-radius); border: 1px solid var(--border-color); text-align:center;">
+            <p style="font-weight:bold; color:red; margin-bottom:8px;">💡 GỢI Ý CHĂM SÓC TIÊU HÓA:</p>
+            <p style="font-size:13px; margin-bottom:12px;">Đề xuất bổ sung men vi sinh, lợi khuẩn hỗ trợ đường ruột và các thảo dược phục hồi dạ dày.</p>
+            <div style="max-width:260px; margin: 0 auto;">
+              ${getProductCardHTML(prod)}
+            </div>
+            <button class="header-btn" style="margin-top:16px; width:100%; justify-content:center;" onclick="resetQuiz()">Làm lại khảo sát</button>
+          </div>
+        `;
+      } else if (answerId === 3) {
+        const prod = MOCK_PRODUCTS.find(p => p.category2.toLowerCase().includes("mắt") || p.name.includes("Systane") || p.name.includes("Refresh")) || MOCK_PRODUCTS[2];
+        recommendationHTML = `
+          <div style="padding:12px; background:var(--bg-secondary); border-radius: var(--border-radius); border: 1px solid var(--border-color); text-align:center;">
+            <p style="font-weight:bold; color:red; margin-bottom:8px;">💡 GỢI Ý CHĂM SÓC MẮT:</p>
+            <p style="font-size:13px; margin-bottom:12px;">Nên sử dụng nước nhỏ mắt nhân tạo để cấp ẩm, giảm mỏi mắt khi làm việc với thiết bị điện tử.</p>
+            <div style="max-width:260px; margin: 0 auto;">
+              ${getProductCardHTML(prod)}
+            </div>
+            <button class="header-btn" style="margin-top:16px; width:100%; justify-content:center;" onclick="resetQuiz()">Làm lại khảo sát</button>
+          </div>
+        `;
+      }
+      
+      container.innerHTML = recommendationHTML;
+    };
+
+    window.resetQuiz = function() {
+      const container = document.getElementById("quiz-content");
+      if (!container) return;
+      container.innerHTML = `
+        <div class="quiz-question" id="quiz-question-text">Bạn hoặc người thân đang gặp phải triệu chứng nào nổi bật nhất?</div>
+        <div class="quiz-answers" id="quiz-answers-btns">
+          <button class="header-btn" onclick="answerQuiz(1)">Ho, Sốt, Sổ mũi</button>
+          <button class="header-btn" onclick="answerQuiz(2)">Đầy hơi, Khó tiêu</button>
+          <button class="header-btn" onclick="answerQuiz(3)">Khô mắt, Mỏi mắt</button>
+        </div>
+      `;
+    };
+  </script>
+</body>
+</html>

@@ -1127,3 +1127,23 @@ input:-webkit-autofill:focus {
   -webkit-box-shadow: 0 0 0px 1000px var(--main-colors-background-elevate-2, #FFF7EB) inset !important;
   -webkit-text-fill-color: var(--main-colors-foreground-f-500-main) !important;
 }
+
+
+
+
+.case-study-container {
+  /* background-color: crimson; */
+  margin-bottom: 16px;
+  padding-left: 0px;
+}
+
+.case-study-thumbnail {
+  width: 100%;
+  border: solid 1px rgba(86, 86, 86, 0.273);
+  border-radius: 8px;
+}
+
+
+.applied-ux-analytic-case-study-thumbnail {
+  filter: grayscale(100%);
+}

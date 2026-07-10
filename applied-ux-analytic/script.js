@@ -558,3 +558,15 @@ fetch("https://script.google.com/macros/s/AKfycbwW79mfaIZX5DHGSV9jX2o95GDWxCK_Gq
     };
 
   });
+
+gsap.to(".navigation-bar", {
+  backgroundColor: 'var(--applied-analytic-background)',
+  borderBottom: '1px solid var(--applied-analytic-main)',
+  duration: 0.5,
+  scrollTrigger: {
+    trigger: ".bootcamp-hero-container",
+    start: "bottom top",
+    end: "bottom top",
+    scrub: 1
+  }
+});

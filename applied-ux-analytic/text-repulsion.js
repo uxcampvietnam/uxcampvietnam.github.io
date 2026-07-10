@@ -51,9 +51,6 @@ export default class TextRepulsion {
             document.addEventListener('mouseover', this.handleMouseOver);
             document.addEventListener('mouseout', this.handleMouseOut);
             document.addEventListener('mousemove', this.handleMouseMove);
-        } else {
-            window.addEventListener('scroll', this.handleScroll);
-            setTimeout(() => this.checkViewportIntersection(), 100);
         }
         window.addEventListener('resize', this.handleResize);
     }
@@ -111,9 +108,6 @@ export default class TextRepulsion {
         this.resizeTimeout = setTimeout(() => {
             if (this.characters.length > 0) {
                 this.updateAnchors();
-            }
-            if (!this.hasMouse) {
-                this.checkViewportIntersection();
             }
         }, 200);
     }

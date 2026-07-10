@@ -58,10 +58,32 @@
         html {
             background-color: var(--applied-analytic-background) !important;
         }
+
+        .navigation-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 8px var(--spacing-m);
+            /* background-color: var(--applied-analytic-background); */
+            display: flex;
+            gap: 12px;
+            flex-wrap: nowrap;
+            justify-content: flex-start;
+            align-items: baseline;
+            flex-direction: row;
+        }
     </style>
 </head>
 
 <body>
+
+    <nav class="navigation-bar" id="navbar">
+        <a href="../index.html" class="nav-item active mono-caption primary-text">UXCamp Vietnam</a>
+        <span> > </span>
+        <a href="#" class="nav-item active mono-caption primary-text">Applied UX Analytic</a>
+    </nav>
 
     <div class="bootcamp-hero-container">
         <div class="bootcamp-name-hero">
@@ -272,7 +294,7 @@
             <div class="col-12 bootcamp-section-content">
 
                 <div class="syllabus-container">
-                    <div class="row g-0">
+                    <div class="row g-0 align-items-center">
                         <div class="col-12 col-lg-6">
                             <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true"
                                 data-img-src="confidence_icon"></p>
@@ -296,7 +318,7 @@
                 </div>
 
                 <div class="syllabus-container">
-                    <div class="row g-0">
+                    <div class="row g-0 align-items-center">
                         <div class="col-12 col-lg-6">
                             <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true"
                                 data-img-src="asciiIllus02"></p>
@@ -320,7 +342,7 @@
                 </div>
 
                 <div class="syllabus-container">
-                    <div class="row g-0">
+                    <div class="row g-0 align-items-center">
                         <div class="col-12 col-lg-6">
                             <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true"
                                 data-img-src="asciiIllus03"></p>
@@ -344,7 +366,7 @@
                 </div>
 
                 <div class="syllabus-container">
-                    <div class="row g-0">
+                    <div class="row g-0 align-items-center">
                         <div class="col-12 col-lg-6">
                             <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true"
                                 data-img-src="asciiIllus05"></p>
@@ -376,7 +398,7 @@
                 </div>
 
                 <div class="syllabus-container">
-                    <div class="row g-0">
+                    <div class="row g-0 align-items-center">
                         <div class="col-12 col-lg-6">
                             <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true"
                                 data-img-src="asciiIllus04"></p>
@@ -396,7 +418,7 @@
                                 → Designing a Experiment<br>
                                 → Sampling & Statistical significance<br>
                                 → Confidence interval<br>
-                                → Hypothesis testing basics<br>
+                                → Hypothesis testing basic<br>
                                 → Type I & Type II errors<br>
                                 → Reading statistical output<br>
                                 → Data Visualization<br>
@@ -406,7 +428,7 @@
                 </div>
 
                 <div class="syllabus-container">
-                    <div class="row g-0">
+                    <div class="row g-0 align-items-center">
                         <div class="col-12 col-lg-6">
                             <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true"
                                 data-img-src="asciiIllus09"></p>
@@ -419,6 +441,8 @@
                                 → Causation and Effect relationship<br>
                                 → Session replay & Heatmap analysis<br>
                                 → Identifying expectation breakdown<br>
+                                → Difference-in-difference<br>
+                                → Propensity Score Matching<br>
                                 → Identifying cognitive friction<br>
                                 → Heuristic evaluation<br>
                                 → Usability Testing<br>
@@ -431,7 +455,7 @@
                 </div>
 
                 <div class="syllabus-container">
-                    <div class="row g-0">
+                    <div class="row g-0 align-items-center">
                         <div class="col-12 col-lg-6">
                             <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true"
                                 data-img-src="asciiIllus06"></p>
@@ -455,7 +479,7 @@
                 </div>
 
                 <div class="syllabus-container">
-                    <div class="row g-0">
+                    <div class="row g-0 align-items-center">
                         <div class="col-12 col-lg-6">
                             <p class="asciiIllus syllabus-ascii avoid-mouse" data-avoid="true"
                                 data-img-src="asciiIllus01"></p>
@@ -538,8 +562,8 @@
             </div>
         </div>
 
-        <div class="bootcamp-section-full row footer justify-content-center " id="appliedUxAnalytic_footer_section">
-            <div class="col-12 col-lg-6 mt-5">
+        <div class="row footer justify-content-center align-items-center" id="appliedUxAnalytic_footer_section">
+            <div class="col-12 col-lg-6 mt-5 d-flex justify-content-center align-items-center">
                 <img class="bootcamp-name-image" src="../asset/icon/applied-ux-analytic-image.svg" alt=""
                     onload="SVGInject(this)">
             </div>
@@ -575,7 +599,9 @@
                 <br><br>
                 <div class="mono-caption primary-text">
                     <span class="mono-caption secondary-text">Links</span>
-                    <a href="https://blog.uxcamp.vn/" class="mono-caption primary-text">Blogs ›</a>
+                    <a href="https://uxcamp.vn/certificate/find-your-certificate" target="_blank"
+                        class="mono-caption primary-text">For Alumni: Find your certificate ›</a>
+                    <a href="https://blog.uxcamp.vn/" target="_blank" class="mono-caption primary-text">Blogs ›</a>
                 </div>
             </div>
         </div>

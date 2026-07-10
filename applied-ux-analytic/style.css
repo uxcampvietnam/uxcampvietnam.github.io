@@ -15,7 +15,6 @@
 
 .footer {
     padding: 32px var(--spacing-m);
-    min-height: 50vh;
 }
 
 #appliedUxAnalytic_footer_section .asciiIllus {
@@ -238,6 +237,7 @@
 .bootcamp-name-image {
     width: 100%;
     max-width: 500px;
+    height: auto;
 }
 
 .fluid-container {

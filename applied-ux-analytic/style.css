@@ -1066,12 +1066,13 @@ input:-webkit-autofill {
 }
 
 tr:has(.matrix-option.selected) {
-    background-color: var(--applied-analytic-background-light);
+    background-color: var(--applied-analytic-main);
+    color: var(--applied-analytic-background);
 }
 
 tr:has(.matrix-option.selected)>td:first-child {
     /* color: var(--applied-analytic-secondary); */
-    opacity: 0.6;
+    /* opacity: 0.6; */
 }
 
 tr:has(.matrix-option:hover) {
@@ -1087,7 +1088,7 @@ tr:has(.matrix-option:hover) {
     position: relative;
     font-family: inherit;
     color: var(--applied-analytic-secondary);
-    background-color: var(--applied-analytic-background);
+    /* background-color: var(--applied-analytic-background); */
 }
 
 .likert-matrix .matrix-option::before {
@@ -1118,7 +1119,8 @@ tr:has(.matrix-option:hover) {
 }
 
 .likert-matrix .matrix-section-header td {
-    background-color: var(--applied-analytic-background-light);
+    background-color: var(--applied-analytic-main);
+    color: var(--applied-analytic-background);
     border-bottom: 0.5px solid var(--console-stroke);
 }
 

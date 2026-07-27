@@ -184,6 +184,7 @@
         appliedUxAnalytic_goal_section: 'goal',
         appliedUxAnalytic_register_section: 'register',
         appliedUxAnalytic_syllabus_section: 'syllabus',
+        appliedUxAnalytic_case_study_section: 'case_study',
         appliedUxAnalytic_general_section: 'general',
         appliedUxAnalytic_footer_section: 'footer',
         appliedUxAnalytic_console_section: 'demo',

@@ -1,0 +1,483 @@
+/* --- STATISTIC CALCULATOR - MONOCHROME APPLIED UX ANALYTIC STYLE --- */
+
+/* 1. Global Monospace Typography (Body: mono-caption (14px), Headers: mono-h5 (20px)) */
+body,
+body * {
+  font-family: var(--font-mono, 'Chivo Mono', monospace) !important;
+  font-weight: 400 !important;
+  border-radius: 0 !important;
+  font-size: 14px !important;
+  line-height: var(--lh-normal, 150%) !important;
+  letter-spacing: var(--ls, 0.012em) !important;
+}
+
+/* Headers: mono-h5 (20px) */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.mono-h5,
+.brand-info h1,
+.brand-info p,
+.calculator-card h3,
+#result h5,
+.statisic-test-introduction-section h3 {
+  font-size: 20px !important;
+  line-height: var(--lh-normal, 150%) !important;
+  letter-spacing: var(--ls, 0.012em) !important;
+}
+
+body {
+  background-color: var(--applied-analytic-background) !important;
+  color: var(--applied-analytic-main) !important;
+}
+
+/* 2. Main content & Page Layout */
+.app-container {
+  background-color: var(--applied-analytic-background) !important;
+}
+
+.main-wrapper {
+  background-color: var(--applied-analytic-background) !important;
+}
+
+.main-content {
+  max-width: none !important;
+  padding: 32px 48px 400px 48px !important;
+}
+
+.introduction-section {
+  max-width: none !important;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* 3. Left Menu / Sidebar (Trắng đen hoàn toàn) */
+.sidebar {
+  background-color: var(--applied-analytic-background-light) !important;
+  border-right: 0.5px solid var(--applied-analytic-secondary) !important;
+}
+
+.sidebar-content {
+  background-color: var(--applied-analytic-background-light) !important;
+  color: var(--applied-analytic-main) !important;
+}
+
+.brand-icon {
+  background-color: var(--applied-analytic-main) !important;
+  color: var(--applied-analytic-reverse-main) !important;
+  border: 0.5px solid var(--applied-analytic-secondary) !important;
+}
+
+.brand-info h1,
+.brand-info p,
+.brand-info span {
+  color: var(--applied-analytic-main) !important;
+}
+
+.nav-section-title,
+.project-section-title {
+  color: var(--applied-analytic-secondary) !important;
+}
+
+.nav-link {
+  color: var(--applied-analytic-secondary) !important;
+  background-color: transparent !important;
+  border: 0.5px solid transparent !important;
+}
+
+.nav-link span {
+  color: var(--applied-analytic-secondary);
+}
+
+.nav-link:hover {
+  color: var(--applied-analytic-main) !important;
+  background-color: var(--applied-analytic-background) !important;
+  border-color: var(--applied-analytic-secondary) !important;
+}
+
+.nav-link:hover span {
+  color: var(--applied-analytic-main) !important;
+}
+
+.nav-link.active {
+  background-color: var(--applied-analytic-main) !important;
+  color: var(--applied-analytic-reverse-main) !important;
+  border-color: var(--applied-analytic-main) !important;
+  box-shadow: none !important;
+}
+
+.nav-link.active span {
+  color: var(--applied-analytic-reverse-main) !important;
+}
+
+.nav-link.active svg {
+  color: var(--applied-analytic-reverse-main) !important;
+  fill: var(--applied-analytic-reverse-main) !important;
+}
+
+.sidebar-toggle-btn {
+  background-color: var(--applied-analytic-background-light) !important;
+  color: var(--applied-analytic-main) !important;
+  border: 0.5px solid var(--applied-analytic-secondary) !important;
+  box-shadow: none !important;
+}
+
+.sidebar-toggle-btn:hover {
+  background-color: var(--applied-analytic-main) !important;
+  color: var(--applied-analytic-reverse-main) !important;
+  border-color: var(--applied-analytic-main) !important;
+}
+
+.sidebar-footer {
+  border-top: 0.5px solid var(--applied-analytic-secondary) !important;
+}
+
+.theme-btn,
+.mobile-menu-toggle {
+  background-color: var(--applied-analytic-background) !important;
+  color: var(--applied-analytic-main) !important;
+  border: 0.5px solid var(--applied-analytic-secondary) !important;
+}
+
+.theme-label {
+  color: var(--applied-analytic-secondary) !important;
+}
+
+/* 4. Cards & Containers with Generous Padding (Padding cho các Section) */
+.calculator-card,
+#result,
+.statisic-test-introduction-section,
+.project-section,
+.filter-panel,
+.kruskal-wallis-group-block,
+#chart-container {
+  background-color: var(--applied-analytic-background-light) !important;
+  border: 0.5px solid var(--applied-analytic-secondary) !important;
+  color: var(--applied-analytic-main) !important;
+  box-shadow: none !important;
+  padding: 16px !important;
+}
+
+/* 5. Form Controls & Input Sections Padding */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  padding: 8px 0 !important;
+}
+
+.input-row-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 4px 0 !important;
+}
+
+.calculator-card h3 {
+  margin-bottom: 16px;
+}
+
+
+.calculator-card input[type="text"],
+.calculator-card input[type="number"],
+.calculator-card textarea,
+.calculator-card select,
+.project-select,
+.search-input,
+.form-input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 0.5px solid var(--applied-analytic-secondary) !important;
+  background-color: var(--applied-analytic-background) !important;
+  color: var(--applied-analytic-main) !important;
+  box-sizing: border-box;
+  transition: border-color var(--transition-fast);
+}
+
+.calculator-card input[type="text"]:focus,
+.calculator-card input[type="number"]:focus,
+.calculator-card textarea:focus,
+.calculator-card select:focus,
+.project-select:focus,
+.search-input:focus,
+.form-input:focus {
+  border-color: var(--applied-analytic-main) !important;
+  background-color: var(--applied-analytic-background-light) !important;
+  outline: none !important;
+}
+
+/* 6. Buttons & Chips */
+.btn-primary,
+.cta-large {
+  background: var(--applied-analytic-main) !important;
+  color: var(--applied-analytic-reverse-main) !important;
+  border: 0.5px solid var(--applied-analytic-main) !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  padding: 12px 24px !important;
+  width: 100%;
+}
+
+.btn-primary:hover,
+.cta-large:hover {
+  background: var(--applied-analytic-main-hover) !important;
+  color: var(--applied-analytic-reverse-main) !important;
+}
+
+.btn-outline,
+.btn-secondary-sm,
+.secondary-button-large {
+  background: var(--applied-analytic-background) !important;
+  color: var(--applied-analytic-main) !important;
+  border: 0.5px solid var(--applied-analytic-secondary) !important;
+  box-shadow: none !important;
+  cursor: pointer;
+  padding: 10px 20px !important;
+}
+
+.btn-outline:hover,
+.btn-secondary-sm:hover,
+.secondary-button-large:hover {
+  background: var(--applied-analytic-background-light) !important;
+  border-color: var(--applied-analytic-main) !important;
+  color: var(--applied-analytic-main) !important;
+}
+
+/* Radio & Checkbox chips */
+span:has(input[type="radio"]),
+span:has(input[type="checkbox"]) {
+  background: var(--applied-analytic-background) !important;
+  border: 0.5px solid var(--applied-analytic-secondary) !important;
+  box-shadow: none !important;
+}
+
+span:has(input[type="radio"]:checked),
+span:has(input[type="checkbox"]:checked) {
+  background: var(--applied-analytic-main) !important;
+  border: 0.5px solid var(--applied-analytic-main) !important;
+}
+
+span:has(input[type="radio"]:checked) label,
+span:has(input[type="checkbox"]:checked) label {
+  color: var(--applied-analytic-reverse-main) !important;
+}
+
+.calculator-card span:has(input[type="radio"]) label,
+.calculator-card span:has(input[type="checkbox"]) label {
+  padding: 8px 16px;
+  display: inline-block;
+  cursor: pointer;
+}
+
+/* 7. Typography & Labels */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--applied-analytic-main) !important;
+}
+
+p,
+span,
+label,
+div {
+  color: var(--applied-analytic-main);
+}
+
+.text-muted,
+.input-row-container label.input-row-title,
+.section label,
+#alpha label.input-row-title,
+#testType label.input-row-title,
+#confidence label.input-row-title,
+.statisic-test-introduction-section p {
+  color: var(--applied-analytic-secondary) !important;
+}
+
+.statisic-test-introduction-section {
+  display: flex;
+  flex-direction: column;
+  gap: 16px !important;
+}
+
+.statisic-test-introduction-section h3 {
+  color: var(--applied-analytic-main) !important;
+  border-bottom: 0.5px solid var(--applied-analytic-secondary) !important;
+  padding-bottom: 12px;
+  margin-bottom: 0 !important;
+}
+
+.intro-block {
+  padding-top: 8px;
+}
+
+.intro-block h5 {
+  color: var(--applied-analytic-main) !important;
+  margin-bottom: 4px;
+}
+
+.intro-block p {
+  color: var(--applied-analytic-secondary) !important;
+  margin: 0;
+}
+
+/* 8. Grid Layout */
+.calculator-grid {
+  display: grid;
+  grid-template-columns: 1.8fr 1.2fr;
+  gap: 32px;
+  align-items: start;
+  margin-top: 24px;
+  width: 100%;
+}
+
+@media (max-width: 1024px) {
+  .calculator-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.input-row-container label.input-row-title {
+  width: 160px;
+  flex-shrink: 0;
+}
+
+.input-row-container input {
+  flex: 1;
+}
+
+.kruskal-wallis-add-remove-group {
+  display: flex;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+#alpha,
+#testType,
+#confidence {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  padding: 8px 0 !important;
+}
+
+/* 9. Table Matrix (#tableContainer) */
+#tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  border: 0.5px solid var(--applied-analytic-secondary) !important;
+}
+
+#tableContainer table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: var(--applied-analytic-background) !important;
+}
+
+#tableContainer th,
+#tableContainer td {
+  border: 0.5px solid var(--applied-analytic-secondary) !important;
+  padding: 0 !important;
+}
+
+#tableContainer th input,
+#tableContainer td input {
+  border: none !important;
+  padding: 12px 14px;
+  background-color: transparent !important;
+  width: 100%;
+  box-sizing: border-box;
+  text-align: center;
+  color: var(--applied-analytic-main) !important;
+}
+
+#tableContainer th input {
+  background-color: var(--applied-analytic-background-light) !important;
+}
+
+#tableContainer td input:focus,
+#tableContainer th input:focus {
+  background-color: var(--applied-analytic-background-light) !important;
+  outline: none;
+}
+
+/* 10. Result Card Monochrome Styling & Padding */
+#result {
+  background-color: var(--applied-analytic-background-light) !important;
+  border: 0.5px solid var(--applied-analytic-secondary) !important;
+  padding: 32px !important;
+  box-shadow: none !important;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  color: var(--applied-analytic-main) !important;
+  box-sizing: border-box;
+  margin-bottom: 32px;
+}
+
+#result:empty {
+  display: none !important;
+}
+
+#result h5 {
+  color: var(--applied-analytic-main) !important;
+  margin-bottom: 12px;
+}
+
+#result table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+#result table tr {
+  border-bottom: 0.5px solid var(--applied-analytic-secondary) !important;
+}
+
+#result table tr:last-child {
+  border-bottom: none;
+}
+
+#result table td {
+  padding: 12px 8px;
+  color: var(--applied-analytic-main) !important;
+}
+
+#result table td:first-child {
+  color: var(--applied-analytic-secondary) !important;
+}
+
+#result table td:not(:first-child) {
+  text-align: right;
+}
+
+#result .decoration {
+  display: none !important;
+}
+
+/* Monochrome result indicators */
+#result.reject {
+  border-left: 6px solid var(--highlight-green) !important;
+  background-color: var(--applied-analytic-background-light) !important;
+}
+
+#result.fail-to-reject {
+  border-left: 6px solid var(--highlight-red) !important;
+  background-color: var(--applied-analytic-background-light) !important;
+}
+
+#result.result-error {
+  border-left: 6px solid var(--highlight-yellow) !important;
+  background-color: var(--applied-analytic-background-light) !important;
+}

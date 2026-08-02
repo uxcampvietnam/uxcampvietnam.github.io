@@ -340,25 +340,6 @@ function bindEvents() {
     renderChecklist();
   });
 
-  // Chuyển đổi Dark Mode/Light Mode
-  document.getElementById('theme-toggle').addEventListener('click', () => {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme') || 'light';
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    html.setAttribute('data-theme', newTheme);
-    localStorage.setItem('wcag_designer_theme', newTheme);
-    window.trackEvent('change_theme', {
-      theme: newTheme
-    });
-  });
-
-  // Đọc theme đã lưu
-  const savedTheme = localStorage.getItem('wcag_designer_theme');
-  if (savedTheme) {
-    document.documentElement.setAttribute('data-theme', savedTheme);
-  } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-    document.documentElement.setAttribute('data-theme', 'dark');
-  }
 
   // Nút Xuất báo cáo Markdown
   document.getElementById('btn-export-markdown').addEventListener('click', () => {
@@ -717,7 +698,7 @@ function renderChecklist() {
               <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
               Tại sao điều này quan trọng?
             </h4>
-            <p style="color:var(--text-muted); padding-left: 20px;">${item.why}</p>
+            <p style="color:var(--main-colors-foreground-f700); padding-left: 20px;">${item.why}</p>
           </div>
           
           <div class="details-section">
@@ -1286,11 +1267,11 @@ const categoryNames = {
 
 function getColorForPercentage(pct) {
   if (pct < 50) {
-    return 'var(--danger)';
+    return 'var(--highlight-red)';
   } else if (pct < 80) {
-    return 'var(--yellow)';
+    return 'var(--highlight-yellow)';
   } else {
-    return 'var(--success)';
+    return 'var(--highlight-green)';
   }
 }
 

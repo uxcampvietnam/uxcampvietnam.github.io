@@ -325,7 +325,7 @@ body *,
 .bootcamp-section-full:not(:last-child) {
     min-height: 50vh;
     padding-bottom: 10vh;
-    border-bottom: 0.5px solid var(--applied-analytic-secondary);
+    border-bottom: 0.5px solid var(--console-stroke);
 }
 
 
@@ -468,6 +468,7 @@ svg path[fill="rgb(255, 0, 0)"] {
     flex-direction: column;
     align-items: flex-start;
     gap: 0px;
+    border: 0.5px solid var(--applied-analytic-main);
 }
 
 

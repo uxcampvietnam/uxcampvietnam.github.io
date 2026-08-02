@@ -591,6 +591,10 @@ function erf(x) {
 }
 
 function renderChart(p1, p2) {
+    const container = document.getElementById('chart-container');
+    if (container) {
+        container.style.display = 'block';
+    }
     const ctx = document.getElementById('barChart').getContext('2d');
     if (chart) chart.destroy();
 
@@ -623,7 +627,7 @@ function objectToTableHTML(tableName, dataObj, resultId, rejectH0) {
     const headers = Object.keys(entries[0]);
 
     // Bắt đầu tạo HTML
-    let html = "<h5><i>" + tableName + "</i></h5>" + "<table border='0' cellpadding='0' cellspacing='0'>";
+    let html = "<h5>" + tableName + "</h5>" + "<table border='0' cellpadding='0' cellspacing='0'>";
 
     // Tạo các hàng dữ liệu
     html += "<tbody>";
@@ -765,4 +769,116 @@ function calculateBootstrap() {
 
     objectToTableHTML("Bootstrap for Quantiles", result, "result", (pValue <= alpha));
 }
+
+// --- SIDEBAR & THEME MANAGEMENT FOR STYLES.CSS LAYOUT ---
+document.addEventListener('DOMContentLoaded', () => {
+    // Dynamic sidebar injection
+    const sidebarEl = document.getElementById('sidebar');
+    if (sidebarEl) {
+        const path = window.location.pathname;
+        let pageName = path.substring(path.lastIndexOf('/') + 1);
+        if (!pageName || pageName === '' || pageName === 'statistic-calculator') {
+            pageName = 'index.html';
+        }
+
+        const navLinks = [
+            { href: 'index.html', text: 'Giới thiệu' },
+            { href: 'sample-size-calculator.html', text: 'Sample Size Calculator' },
+            { href: 'one-sample-t-test.html', text: 'One Sample t-Test' },
+            { href: 'two-sample-t-test.html', text: 'Two Sample t-Test' },
+            { href: 'paired-sample-t-test.html', text: 'Paired Sample t-Test' },
+            { href: 'chi-squared-test.html', text: 'Chi-squared Test' },
+            { href: 'kruskal-wallis-test.html', text: 'Kruskal-Wallis Test' },
+            { href: 'z-test-two-proportions.html', text: 'Z-Test for Two Proportions' },
+            { href: 'bootstrap.html', text: 'Bootstrap for Quantiles' }
+        ];
+
+        const linksHtml = navLinks.map(link => {
+            const isActive = (pageName === link.href);
+            return `<a class="nav-link${isActive ? ' active' : ''}" href="${link.href}">
+                <span class='mono-caption'>${link.text}</span>
+            </a>`;
+        }).join('');
+
+        sidebarEl.innerHTML = `
+      <!-- Desktop Sidebar Toggle Button -->
+      <button id="sidebar-toggle-btn" class="sidebar-toggle-btn" aria-label="Thu nhỏ menu">
+        <svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
+          <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+        </svg>
+      </button>
+
+      <div class = "sidebar-content" >
+      <!-- Brand Logo -->
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 14H7v-2h10v2zm0-4H7v-2h10v2zm0-4H7V7h10v2z" fill="currentColor"/>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <p>Statistic Calculator</p>
+        </div>
+      </div>
+
+      <!-- Sidebar Navigation Link Menu -->
+      <div class="nav-section">
+        <div class="nav-section-title">Chọn phép kiểm định</div>
+        <nav class="nav-links">
+          ${linksHtml}
+        </nav>
+      </div>
+      </div>
+        `;
+    }
+
+    // Auto adapt theme based on system settings
+    const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const applySystemTheme = (e) => {
+        const isDark = e.matches;
+        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+    };
+    applySystemTheme(colorSchemeQuery);
+    if (colorSchemeQuery.addEventListener) {
+        colorSchemeQuery.addEventListener('change', applySystemTheme);
+    } else if (colorSchemeQuery.addListener) {
+        colorSchemeQuery.addListener(applySystemTheme);
+    }
+
+    // 2. Desktop sidebar collapse toggle
+    const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
+    const container = document.querySelector('.app-container');
+    if (sidebarToggleBtn && container) {
+        const isCollapsed = localStorage.getItem('wcag_designer_sidebar_collapsed') === 'true';
+        if (isCollapsed) {
+            container.classList.add('sidebar-collapsed');
+            sidebarToggleBtn.setAttribute('aria-label', 'Mở rộng menu');
+        }
+
+        sidebarToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const collapsed = container.classList.toggle('sidebar-collapsed');
+            localStorage.setItem('wcag_designer_sidebar_collapsed', collapsed);
+            sidebarToggleBtn.setAttribute('aria-label', collapsed ? 'Mở rộng menu' : 'Thu nhỏ menu');
+        });
+    }
+
+    // 3. Mobile sidebar drawer toggling
+    const mobileToggle = document.getElementById('mobile-menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    if (mobileToggle && sidebar) {
+        mobileToggle.addEventListener('click', (e) => {
+            e.stopPropagation();
+            sidebar.classList.toggle('active');
+        });
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 1024 && sidebar.classList.contains('active') && !sidebar.contains(e.target)) {
+                sidebar.classList.remove('active');
+            }
+        });
+    }
+});
+
 

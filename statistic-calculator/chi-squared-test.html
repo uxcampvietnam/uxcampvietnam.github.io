@@ -2,20 +2,20 @@
 <html lang="vi">
 
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Chi-squared Test</title>
-
   <meta property="og:image" content="https://i.ibb.co/93HLFLP4/04.png" />
   <meta property="og:description" content='UXCamp Vietnam' />
   <meta property="og:url" content='http://uxcamp.vn/' />
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.4/jstat.min.js"></script>
   <script src="script.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="../script/libs/svg-inject.min.js"></script>
 
   <link rel="stylesheet" type="text/css" href="../style/definition.css">
-  <link rel="stylesheet" type="text/css" href="../style/style.css">
-  <script src="../script/libs/svg-inject.min.js"></script>
+  <link rel="stylesheet" href="../checklist/styles.css">
+  <link rel="stylesheet" href="calculator.css">
 
   <script>
     window.onload = createTable;
@@ -24,93 +24,86 @@
 
 <body>
 
-  <div class="navigation">
-    <div class="navigation-row1">
-      <!-- <a class="paragraph" href="../index.html">Bootcamp</a> -->
-      <a href="../index.html"><img class="eye-logo justify-content-center" src="../asset/image/Eye.svg"
-          onload="SVGInject(this)"></a>
-      <!-- <a class="paragraph" href="../corporate-training.html">Corporate Training</a> -->
+  <div class="app-container">
 
-    </div>
-    <div class="navigation-row2">
-      <!-- <a class="paragraph" href="index.html">Calculator</a> -->
-      <!-- <a class="paragraph" href="../bigtextbox.html">BigTextBox</a> -->
-    </div>
-  </div>
+    <!-- --- SIDEBAR PANEL --- -->
+    <aside class="sidebar" id="sidebar"></aside>
 
+    <!-- --- MAIN CONTENT WORKSPACE --- -->
+    <div class="main-wrapper">
+      <main class="main-content">
 
-  <div class="statistic-calculator-container container">
-    <div class="row">
-      <div class="d-none d-md-block col-md-3 col-xl-2">
-        <div class="statistical-test-menu">
-          <span class="caption medium font-sans-small" style="color:var(--main-colors-foreground-f800)">Statistic
-            Calculator</span>
-          <div class="links caption">
-            <a class="font-sans-small" href="index.html">Introduction</a>
-            <a class="font-sans-small" href="sample-size-calculator.html">Sample Size Calculator</a>
-            <a class="font-sans-small" href="one-sample-t-test.html">One Sample t-Test</a>
-            <a class="font-sans-small" href="two-sample-t-test.html">Two Sample t-Test</a>
-            <a class="font-sans-small" href="paired-sample-t-test.html">Paired Sample t-Test</a>
-            <a class="font-sans-small highlighted" href="chi-squared-test.html">Chi-squared Test</a>
-            <a class="font-sans-small" href="kruskal-wallis-test.html">Kruskal-Wallis Test</a>
-            <a class="font-sans-small" href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
-            <a class="font-sans-small" href="bootstrap.html">Bootstrap for Quantiles</a>
-
+        <!-- Top Mobile Navigation/Toggle Bar -->
+        <header class="main-header" style="flex-wrap: wrap; gap: 16px;">
+          <div style="flex: 1; min-width: 250px;">
+            <h2>Chi-squared Test</h2>
+            <p>Kiểm định dùng để so sánh tần suất quan sát được với tần suất kỳ vọng.</p>
           </div>
-        </div>
-      </div>
 
-      <div class="introduction-statistic-test-container col-12 col-xs-12 col-md-9 col-xl-10">
-        <div class="row">
-          <div class="col-12 col-lg-8">
-            <div class="chi-squared-test-container statistical-test-container-body">
-              <h2 class="h2 font-sans-h2">Chi-squared Test</h2>
-              <div class="dataset paragraph">
-                <div class="caption table-size-input-container">
-                  <span class="font-sans-small">
-                    <label class="font-sans-small">Số hàng:</label>
-                    <input style="width: 60px;" type="number" id="rows" value="2" min="2" class="single-input">
-                  </span>
-                  <span class="font-sans-small">
-                    <label class="font-sans-small">Số cột:</label>
-                    <input style="width: 60px;" type="number" id="cols" value="2" min="2" class="single-input">
-                    <button onclick="createTable()" class="cta-small font-sans-small">Tạo bảng</button>
-                  </span>
-                </div>
-                <div id="tableContainer" class="paragraph">
-                  <table id="dataTable" onpaste="pasteDataToTable()" cellspacing="0" cellpadding="0">
-                  </table>
-                </div>
+          <!-- Toggle button on tablet/mobile -->
+          <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Mở menu quản lý dự án">
+            <svg style="width:24px;height:24px;fill:currentColor" viewBox="0 0 24 24">
+              <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+            </svg>
+          </button>
+        </header>
 
-                <div class="paragraph" id="alpha">
-                  <label class="paragraph font-sans-small">Mức ý nghĩa - α</label>
-                  <span class="font-sans-small">
-                    <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
-                    <label class="font-sans-small" for="alpha010">0.10</label>
-                  </span>
-                  <span class="font-sans-small">
-                    <input type="radio" id="alpha005" name="alpha-selection" value="0.05" checked>
-                    <label class="font-sans-small" for="alpha005">0.05</label>
-                  </span>
-                  <span class="font-sans-small">
-                    <input type="radio" id="alpha001" name="alpha-selection" value="0.01">
-                    <label class="font-sans-small" for="alpha001">0.01</label>
-                  </span>
-                </div>
-              </div>
-              <button class="perform-statistic-test cta-large paragraph medium font-sans-small"
-                onclick="calculateChiSquared()">Perform
-                Chi-squared Test</button>
+        <!-- Calculator Layout Grid -->
+        <div class="calculator-grid">
+
+          <!-- Inputs -->
+          <div class="calculator-card">
+            <h3>Tham số</h3>
+
+            <div class="table-size-input-container caption" style="margin-bottom: 16px;">
+              <span>
+                <label for="rows">Số hàng:</label>
+                <input style="width: 80px;" type="number" id="rows" value="2" min="2">
+              </span>
+              <span>
+                <label for="cols">Số cột:</label>
+                <input style="width: 80px;" type="number" id="cols" value="2" min="2">
+              </span>
+              <button onclick="createTable()" class="cta-small font-sans-caption"
+                style="display: inline-block; padding: 12px 16px ">Tạo
+                bảng</button>
             </div>
-          </div>
-          <div class="col-12 col-lg-4">
-            <div id="result" class="paragraph"></div>
-          </div>
-        </div>
-      </div>
 
+            <div id="tableContainer">
+              <table id="dataTable" onpaste="pasteDataToTable()">
+              </table>
+            </div>
+
+            <div class="input-row-container" id="alpha">
+              <label class="input-row-title font-sans-caption">Mức ý nghĩa - α:</label>
+              <span class="font-sans-caption">
+                <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
+                <label class="font-sans-caption" for="alpha010">0.10</label>
+              </span>
+              <span class="font-sans-caption">
+                <input type="radio" id="alpha005" name="alpha-selection" value="0.05" checked>
+                <label class="font-sans-caption" for="alpha005">0.05</label>
+              </span>
+              <span class="font-sans-caption">
+                <input type="radio" id="alpha001" name="alpha-selection" value="0.01">
+                <label class="font-sans-caption" for="alpha001">0.01</label>
+              </span>
+            </div>
+
+            <button class="cta-large paragraph medium font-sans-caption" onclick="calculateChiSquared()">Perform
+              Chi-squared Test</button>
+          </div>
+
+          <!-- Result Card -->
+          <div id="result"></div>
+
+        </div>
+
+      </main>
     </div>
+
   </div>
+
 </body>
 
 </html>

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WCAG 2.2 - UXCamp Vietnam</title>
   <meta name="description" content="Công cụ WCAG 2.2 Checklist tiếng Việt giúp Product Team tự đánh giá trải nghiệm.">
+  <link rel="stylesheet" type="text/css" href="../style/definition.css">
   <link rel="stylesheet" href="styles.css">
   <script src="tracking.js"></script>
 </head>
@@ -25,169 +26,145 @@
 
       <div class="sidebar-content">
 
-      <!-- Checklist Switcher -->
-      <div class="checklist-switcher">
-        <a href="he.html" class="switcher-btn" title="Đánh giá Heuristic">
-          <span>Heuristic</span>
-        </a>
-        <a href="wcag.html" class="switcher-btn active" title="Tiêu chuẩn tiếp cận WCAG 2.2">
-          <span>WCAG 2.2</span>
-        </a>
-      </div>
-
-      <!-- Brand Logo -->
-      <div class="brand">
-        <div class="brand-icon">
-          <!-- Custom SVG Compass / Accessibility logo -->
-          <svg width="39" height="48" viewBox="0 0 39 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g filter="url(#filter0_ii_5589_17386)">
-              <path
-                d="M19.4609 10.4795C18.4246 10.4795 17.4115 10.1723 16.5499 9.59644C15.6881 9.02072 15.0166 8.20238 14.62 7.24494C14.2234 6.2875 14.1197 5.23396 14.3218 4.21754C14.524 3.20113 15.0231 2.26749 15.7558 1.53469C16.4886 0.8019 17.4222 0.30286 18.4386 0.100683C19.4551 -0.101495 20.5086 0.00227022 21.4661 0.398856C22.4235 0.795442 23.2418 1.46704 23.8176 2.32871C24.3934 3.19039 24.7006 4.20344 24.7006 5.23977C24.6992 6.62898 24.1466 7.96087 23.1643 8.9432C22.182 9.92551 20.8501 10.478 19.4609 10.4795Z"
-                fill="#ffffff" />
-              <path
-                d="M35.9289 10.5545L35.8868 10.5657L35.8475 10.5779C35.7539 10.6041 35.6603 10.6321 35.5668 10.6611C33.8255 11.172 25.3745 13.5542 19.4208 13.5542C13.8882 13.5542 6.20163 11.4958 3.74269 10.7968C3.49797 10.7021 3.24806 10.6216 2.99415 10.5554C1.21637 10.0876 0 11.8934 0 13.5439C0 15.1786 1.46901 15.957 2.95205 16.5156V16.5418L11.8615 19.3245C12.7719 19.6735 13.0152 20.03 13.134 20.3388C13.5205 21.3297 13.2117 23.2918 13.1022 23.9767L12.5595 28.1872L9.54759 44.6728C9.53824 44.7177 9.52982 44.7636 9.52233 44.8104L9.50081 44.9292C9.28373 46.4403 10.3934 47.9065 12.495 47.9065C14.3289 47.9065 15.1382 46.6406 15.4891 44.918C15.4891 44.918 18.109 30.1746 19.4189 30.1746C20.7289 30.1746 23.4274 44.918 23.4274 44.918C23.7782 46.6406 24.5876 47.9065 26.4215 47.9065C28.5286 47.9065 29.6384 46.4338 29.4157 44.918C29.396 44.7889 29.3726 44.6616 29.3446 44.5381L26.2915 28.1891L25.7497 23.9786C25.3576 21.5262 25.673 20.7159 25.7796 20.5259C25.7825 20.5214 25.785 20.5168 25.7871 20.5119C25.8882 20.3248 26.3485 19.9056 27.4227 19.5023L35.7764 16.5821C35.8277 16.5684 35.8783 16.5521 35.9279 16.5334C37.425 15.972 38.9221 15.1954 38.9221 13.5458C38.9221 11.8962 37.7067 10.0876 35.9289 10.5545Z"
-                fill="#ffffff" />
-            </g>
-            <defs>
-              <filter id="filter0_ii_5589_17386" x="0" y="-3" width="38.9219" height="51.9062"
-                filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-                <feFlood flood-opacity="0" result="BackgroundImageFix" />
-                <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
-                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                  result="hardAlpha" />
-                <feOffset dy="-3" />
-                <feGaussianBlur stdDeviation="2" />
-                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-                <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
-                <feBlend mode="normal" in2="shape" result="effect1_innerShadow_5589_17386" />
-                <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                  result="hardAlpha" />
-                <feOffset dy="1" />
-                <feGaussianBlur stdDeviation="2" />
-                <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-                <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0" />
-                <feBlend mode="normal" in2="effect1_innerShadow_5589_17386" result="effect2_innerShadow_5589_17386" />
-              </filter>
-            </defs>
-          </svg>
-
-
-        </div>
-        <div class="brand-info">
-          <h1>WCAG 2.2 Checklist</h1>
-          <span></span>
-        </div>
-      </div>
-
-      <!-- Project Manager Component -->
-      <div class="project-section">
-        <div class="project-section-title">
-          <span>Luồng Thiết Kế</span>
-        </div>
-        <div class="project-select-wrapper">
-          <select id="project-select" class="project-select" aria-label="Chọn dự án hoặc luồng thiết kế để đánh giá">
-            <!-- Tải động qua JS -->
-          </select>
-        </div>
-        <div class="project-actions">
-          <button id="btn-new-project" class="btn-secondary-sm" title="Tạo luồng đánh giá mới">
-            <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24">
-              <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
-            </svg>
-            Thêm
-          </button>
-          <button id="btn-rename-project" class="btn-secondary-sm" title="Đổi tên luồng hiện tại">
-            <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24">
-              <path
-                d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
-            </svg>
-            Sửa
-          </button>
-          <button id="btn-delete-project" class="btn-secondary-sm" style="color:var(--danger);"
-            title="Xóa vĩnh viễn dự án này">
-            <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24">
-              <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
-            </svg>
-            Xóa
-          </button>
-        </div>
-      </div>
-
-      <!-- Progress Card Component -->
-      <div class="stats-section">
-        <div class="progress-card">
-          <div class="progress-header">
-            <span class="progress-title">Tiến Độ Đạt Chuẩn</span>
-            <span class="progress-percentage" id="progress-percent">0%</span>
-          </div>
-          <div class="progress-track">
-            <div class="progress-fill" id="progress-bar-fill"></div>
-          </div>
+        <!-- Checklist Switcher -->
+        <div class="checklist-switcher">
+          <a href="he.html" class="switcher-btn" title="Đánh giá Heuristic">
+            <span>Heuristic</span>
+          </a>
+          <a href="wcag.html" class="switcher-btn active" title="Tiêu chuẩn tiếp cận WCAG 2.2">
+            <span>WCAG 2.2</span>
+          </a>
         </div>
 
-        <!-- Detail Statistics Grid -->
-        <div class="stats-grid">
-          <div class="stat-item" style="border-bottom: 3px solid var(--success);">
-            <span class="stat-val" id="stat-done" style="color: var(--success);">0</span>
-            <span class="stat-label">Pass</span>
-          </div>
-          <div class="stat-item" style="border-bottom: 3px solid var(--danger);">
-            <span class="stat-val" id="stat-todo" style="color: var(--danger);">0</span>
-            <span class="stat-label">Fail</span>
-          </div>
-          <div class="stat-item" style="border-bottom: 3px solid var(--text-muted);">
-            <span class="stat-val" id="stat-na" style="color: var(--text-muted);">0</span>
-            <span class="stat-label">N/A</span>
-          </div>
-          <div class="stat-item" style="border-bottom: 3px solid var(--primary);">
-            <span class="stat-val" id="stat-total" style="color: var(--primary);">0</span>
-            <span class="stat-label">Tổng tiêu chí</span>
-          </div>
-        </div>
-
-        <!-- Actions -->
-        <div class="action-section">
-          <button id="btn-download-skills" class="btn-outline"
-            title="Tải xuống tài liệu Agent Skills và Knowledge tương ứng">
-            <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24">
-              <path
-                d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
-            </svg>
-            Tải Agent Skills
-          </button>
-          <button id="btn-reset-project" class="btn-outline" title="Reset tất cả tiêu chí về trạng thái chưa đánh giá">
-            <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24">
-              <path
-                d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
-            </svg>
-            Reset
-          </button>
-        </div>
-      </div>
-
-      <!-- Theme Switcher and Project Cleanup in Footer -->
-      <div class="sidebar-footer">
-        <div class="theme-toggle-wrapper">
-          <span class="theme-label">Giao diện</span>
-          <button id="theme-toggle" class="theme-btn" aria-label="Chuyển đổi giao diện Sáng / Tối">
-            <!-- Sun Icon (Light Mode) -->
-            <svg class="sun-icon" viewBox="0 0 24 24">
-              <path
-                d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37c-.39-.39-1.03-.39-1.41 0s-.39 1.03 0 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41l-1.06-1.06zm1.06-12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41zm-12.37 12.37c-.39-.39-1.03-.39-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06c.39-.39.39-1.03 0-1.41z" />
-            </svg>
-            <!-- Moon Icon (Dark Mode) -->
-            <svg class="moon-icon" viewBox="0 0 24 24">
-              <g>
-                <path opacity="0" d="M0 0h24v24H0Z" />
+        <!-- Brand Logo -->
+        <div class="brand">
+          <div class="brand-icon">
+            <!-- Custom SVG Compass / Accessibility logo -->
+            <svg width="39" height="48" viewBox="0 0 39 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_ii_5589_17386)">
                 <path
-                  d="M12.3 22h-.1v0c-2.78-.03-5.42-1.16-7.34-3.15v0c-3.66-3.92-3.78-9.96-.26-14l0-.001c1.09-1.23 2.46-2.17 4-2.74v0c.36-.15.78-.06 1.06.22v0c.25.26.35.64.24 1V3.32c-1.12 3.06-.37 6.49 1.94 8.81v0c2.32 2.29 5.75 3.04 8.83 1.94v0c.52-.19 1.09.09 1.27.61 .07.21.07.46-.01.67l0-.001c-.52 1.36-1.31 2.6-2.34 3.63v0c-1.94 1.93-4.57 3.01-7.3 3Z" />
+                  d="M19.4609 10.4795C18.4246 10.4795 17.4115 10.1723 16.5499 9.59644C15.6881 9.02072 15.0166 8.20238 14.62 7.24494C14.2234 6.2875 14.1197 5.23396 14.3218 4.21754C14.524 3.20113 15.0231 2.26749 15.7558 1.53469C16.4886 0.8019 17.4222 0.30286 18.4386 0.100683C19.4551 -0.101495 20.5086 0.00227022 21.4661 0.398856C22.4235 0.795442 23.2418 1.46704 23.8176 2.32871C24.3934 3.19039 24.7006 4.20344 24.7006 5.23977C24.6992 6.62898 24.1466 7.96087 23.1643 8.9432C22.182 9.92551 20.8501 10.478 19.4609 10.4795Z"
+                  fill="#ffffff" />
+                <path
+                  d="M35.9289 10.5545L35.8868 10.5657L35.8475 10.5779C35.7539 10.6041 35.6603 10.6321 35.5668 10.6611C33.8255 11.172 25.3745 13.5542 19.4208 13.5542C13.8882 13.5542 6.20163 11.4958 3.74269 10.7968C3.49797 10.7021 3.24806 10.6216 2.99415 10.5554C1.21637 10.0876 0 11.8934 0 13.5439C0 15.1786 1.46901 15.957 2.95205 16.5156V16.5418L11.8615 19.3245C12.7719 19.6735 13.0152 20.03 13.134 20.3388C13.5205 21.3297 13.2117 23.2918 13.1022 23.9767L12.5595 28.1872L9.54759 44.6728C9.53824 44.7177 9.52982 44.7636 9.52233 44.8104L9.50081 44.9292C9.28373 46.4403 10.3934 47.9065 12.495 47.9065C14.3289 47.9065 15.1382 46.6406 15.4891 44.918C15.4891 44.918 18.109 30.1746 19.4189 30.1746C20.7289 30.1746 23.4274 44.918 23.4274 44.918C23.7782 46.6406 24.5876 47.9065 26.4215 47.9065C28.5286 47.9065 29.6384 46.4338 29.4157 44.918C29.396 44.7889 29.3726 44.6616 29.3446 44.5381L26.2915 28.1891L25.7497 23.9786C25.3576 21.5262 25.673 20.7159 25.7796 20.5259C25.7825 20.5214 25.785 20.5168 25.7871 20.5119C25.8882 20.3248 26.3485 19.9056 27.4227 19.5023L35.7764 16.5821C35.8277 16.5684 35.8783 16.5521 35.9279 16.5334C37.425 15.972 38.9221 15.1954 38.9221 13.5458C38.9221 11.8962 37.7067 10.0876 35.9289 10.5545Z"
+                  fill="#ffffff" />
               </g>
-
+              <defs>
+                <filter id="filter0_ii_5589_17386" x="0" y="-3" width="38.9219" height="51.9062"
+                  filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                  <feFlood flood-opacity="0" result="BackgroundImageFix" />
+                  <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha" />
+                  <feOffset dy="-3" />
+                  <feGaussianBlur stdDeviation="2" />
+                  <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                  <feBlend mode="normal" in2="shape" result="effect1_innerShadow_5589_17386" />
+                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+                    result="hardAlpha" />
+                  <feOffset dy="1" />
+                  <feGaussianBlur stdDeviation="2" />
+                  <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0" />
+                  <feBlend mode="normal" in2="effect1_innerShadow_5589_17386" result="effect2_innerShadow_5589_17386" />
+                </filter>
+              </defs>
             </svg>
-          </button>
+
+
+          </div>
+          <div class="brand-info">
+            <h1>WCAG 2.2 Checklist</h1>
+            <span></span>
+          </div>
         </div>
-      </div>
-      </div>
+
+        <!-- Project Manager Component -->
+        <div class="project-section">
+          <div class="project-section-title">
+            <span>Luồng Thiết Kế</span>
+          </div>
+          <div class="project-select-wrapper">
+            <select id="project-select" class="project-select" aria-label="Chọn dự án hoặc luồng thiết kế để đánh giá">
+              <!-- Tải động qua JS -->
+            </select>
+          </div>
+          <div class="project-actions">
+            <button id="btn-new-project" class="btn-secondary-sm" title="Tạo luồng đánh giá mới">
+              <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24">
+                <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
+              </svg>
+              Thêm
+            </button>
+            <button id="btn-rename-project" class="btn-secondary-sm" title="Đổi tên luồng hiện tại">
+              <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
+              </svg>
+              Sửa
+            </button>
+            <button id="btn-delete-project" class="btn-secondary-sm" style="color:var(--highlight-red);"
+              title="Xóa vĩnh viễn dự án này">
+              <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24">
+                <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
+              </svg>
+              Xóa
+            </button>
+          </div>
+        </div>
+
+        <!-- Progress Card Component -->
+        <div class="stats-section">
+          <div class="progress-card">
+            <div class="progress-header">
+              <span class="progress-title">Tiến Độ Đạt Chuẩn</span>
+              <span class="progress-percentage" id="progress-percent">0%</span>
+            </div>
+            <div class="progress-track">
+              <div class="progress-fill" id="progress-bar-fill"></div>
+            </div>
+          </div>
+
+          <!-- Detail Statistics Grid -->
+          <div class="stats-grid">
+            <div class="stat-item" style="border-bottom: 3px solid var(--highlight-green);">
+              <span class="stat-val" id="stat-done" style="color: var(--highlight-green);">0</span>
+              <span class="stat-label">Pass</span>
+            </div>
+            <div class="stat-item" style="border-bottom: 3px solid var(--highlight-red);">
+              <span class="stat-val" id="stat-todo" style="color: var(--highlight-red);">0</span>
+              <span class="stat-label">Fail</span>
+            </div>
+            <div class="stat-item" style="border-bottom: 3px solid var(--main-colors-foreground-f700);">
+              <span class="stat-val" id="stat-na" style="color: var(--main-colors-foreground-f700);">0</span>
+              <span class="stat-label">N/A</span>
+            </div>
+            <div class="stat-item" style="border-bottom: 3px solid var(--main-colors-foreground-f700);">
+              <span class="stat-val" id="stat-total" style="color: var(--main-colors-foreground-f700);">0</span>
+              <span class="stat-label">Tổng tiêu chí</span>
+            </div>
+          </div>
+
+          <!-- Actions -->
+          <div class="action-section">
+            <button id="btn-download-skills" class="btn-outline"
+              title="Tải xuống tài liệu Agent Skills và Knowledge tương ứng">
+              <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z" />
+              </svg>
+              Tải Agent Skills
+            </button>
+            <button id="btn-reset-project" class="btn-outline"
+              title="Reset tất cả tiêu chí về trạng thái chưa đánh giá">
+              <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24">
+                <path
+                  d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+              </svg>
+              Reset
+          </div>
+        </div>
     </aside>
 
     <!-- --- MAIN CONTENT WORKSPACE --- -->
@@ -370,7 +347,7 @@
                 </div>
                 <div class="details-status-filter" style="display: flex; gap: 8px; align-items: center;">
                   <span class="filter-label"
-                    style="font-family: var(--font-sans-family); font-size: 0.85rem; color: var(--text-muted);">Trạng
+                    style="font-family: var(--font-sans-family); font-size: 0.85rem; color: var(--main-colors-foreground-f700);">Trạng
                     thái:</span>
                   <label class="chip-filter">
                     <input type="checkbox" id="rep-filter-pass">

@@ -1,141 +1,130 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Z-Test for Two Proportions</title>
   <meta property="og:image" content="https://i.ibb.co/WvWZWcbJ/02.png" />
   <meta property="og:description" content='UXCamp Vietnam' />
   <meta property="og:url" content='http://uxcamp.vn/' />
-  <script src="../script/libs/svg-inject.min.js"></script>
 
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="../script/libs/svg-inject.min.js"></script>
+
   <link rel="stylesheet" type="text/css" href="../style/definition.css">
-  <link rel="stylesheet" type="text/css" href="../style/style.css">
+  <link rel="stylesheet" href="../checklist/styles.css">
+  <link rel="stylesheet" href="calculator.css">
 </head>
 
 <body>
 
-  <div class="navigation">
-    <div class="navigation-row1">
-      <!-- <a class="paragraph" href="../index.html">Bootcamp</a> -->
-      <a href="../index.html"><img class="eye-logo justify-content-center" src="../asset/image/Eye.svg"
-          onload="SVGInject(this)"></a>
-      <!-- <a class="paragraph" href="../corporate-training.html">Corporate Training</a> -->
+  <div class="app-container">
 
-    </div>
-    <div class="navigation-row2">
-      <!-- <a class="paragraph" href="index.html">Calculator</a> -->
-      <!-- <a class="paragraph" href="../bigtextbox.html">BigTextBox</a> -->
-    </div>
-  </div>
+    <!-- --- SIDEBAR PANEL --- -->
+    <aside class="sidebar" id="sidebar"></aside>
 
+    <!-- --- MAIN CONTENT WORKSPACE --- -->
+    <div class="main-wrapper">
+      <main class="main-content">
 
-  <div class="statistic-calculator-container container">
-    <div class="row">
-      <div class="d-none d-md-block col-md-3 col-xl-2">
-        <div class="statistical-test-menu">
-          <span class="caption medium font-sans-small" style="color:var(--main-colors-foreground-f800)">Statistic
-            Calculator</span>
-          <div class="links caption">
-            <a class="font-sans-small" href="index.html">Introduction</a>
-            <a class="font-sans-small" href="sample-size-calculator.html">Sample Size Calculator</a>
-            <a class="font-sans-small" href="one-sample-t-test.html">One Sample t-Test</a>
-            <a class="font-sans-small" href="two-sample-t-test.html">Two Sample t-Test</a>
-            <a class="font-sans-small" href="paired-sample-t-test.html">Paired Sample t-Test</a>
-            <a class="font-sans-small" href="chi-squared-test.html">Chi-squared Test</a>
-            <a class="font-sans-small" href="kruskal-wallis-test.html">Kruskal-Wallis Test</a>
-            <a class="highlighted font-sans-small" href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
-            <a class="font-sans-small" href="bootstrap.html">Bootstrap for Quantiles</a>
+        <!-- Top Mobile Navigation/Toggle Bar -->
+        <header class="main-header" style="flex-wrap: wrap; gap: 16px;">
+          <div style="flex: 1; min-width: 250px;">
+            <h2>Z-Test for Two Proportions</h2>
+            <p>So sánh tỷ lệ (%) sự kiện xảy ra giữa hai nhóm độc lập.</p>
           </div>
-        </div>
-      </div>
 
-      <div class="introduction-statistic-test-container col-12 col-xs-12 col-md-9 col-xl-10">
-        <div class="row">
-          <div class="col-12 col-lg-8">
-            <div class="statistical-test-container-body z-test-two-proportions">
-              <h2 class="font-sans-h2">Z-Test for Two Proportions</h2>
-              <div class="caption dataset">
-                <div id="tableContainer" class="paragraph">
-                  <table cellspacing="0" cellpadding="0">
-                    <thead>
-                      <tr>
-                        <th class="font-sans-small"></th>
-                        <th class="font-sans-small"><input type="text" id="colTitle-0"
-                            placeholder="Số lượng thành công"></th>
-                        <th class="font-sans-small"><input type="text" id="colTitle-1" placeholder="Tổng số quan sát">
-                        </th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <th class="font-sans-small"><input type="text" id="rowTitle-0" placeholder="Group 1"></th>
-                        <td class="font-sans-small"><input type="number" id="x1" value="45"></td>
-                        <td class="font-sans-small"><input type="number" id="n1" value="100"></td>
-                      </tr>
-                      <tr>
-                        <th class="font-sans-small"><input type="text" id="rowTitle-1" placeholder="Group 2"></th>
-                        <td class="font-sans-small"><input type="number" id="x2" value="30"></td>
-                        <td class="font-sans-small"><input type="number" id="n2" value="80"></td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div class="caption input-row-container" id="alpha">
-                  <label class="caption input-row-title font-sans-small">Mức ý nghĩa - α</label>
-                  <span class="font-sans-small">
-                    <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
-                    <label class="font-sans-small" for="alpha010">0.10</label>
-                  </span>
-                  <span class="font-sans-small">
-                    <input type="radio" id="alpha005" name="alpha-selection" value="0.05" checked>
-                    <label class="font-sans-small" for="alpha005">0.05</label>
-                  </span>
-                  <span class="font-sans-small">
-                    <input type="radio" id="alpha001" name="alpha-selection" value="0.01">
-                    <label class="font-sans-small" for="alpha001">0.01</label>
-                  </span>
-                </div>
+          <!-- Toggle button on tablet/mobile -->
+          <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Mở menu quản lý dự án">
+            <svg style="width:24px;height:24px;fill:currentColor" viewBox="0 0 24 24">
+              <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+            </svg>
+          </button>
+        </header>
 
-                <div class="caption input-row-container" id="testType">
-                  <label class="caption input-row-title font-sans-small">Loại kiểm định:</label>
-                  <span class="font-sans-small">
-                    <input type="radio" id="two-tailed" name="testType-selection" value="two-tailed" checked>
-                    <label class="font-sans-small" for="two-tailed">Hai phía: ≠</label>
-                  </span>
-                  <span class="font-sans-small">
-                    <input type="radio" id="greater" name="testType-selection" value="greater">
-                    <label class="font-sans-small" for="greater">Một phía: ></label>
-                  </span>
-                  <span class="font-sans-small">
-                    <input type="radio" id="less" name="testType-selection" value="less">
-                    <label class="font-sans-small" for="less">Một phía: < </label>
-                  </span>
-                </div>
-              </div>
+        <!-- Calculator Layout Grid -->
+        <div class="calculator-grid">
 
+          <!-- Inputs -->
+          <div class="calculator-card">
+            <h3>Tham số</h3>
 
-
-              <button class="cta-large paragraph medium font-sans-small" onclick="performZTest()">Performce Z-Test
-                for Two
-                Proportions</button>
+            <div id="tableContainer">
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th><input type="text" id="colTitle-0" placeholder="Số lượng thành công"></th>
+                    <th><input type="text" id="colTitle-1" placeholder="Tổng số quan sát"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th><input type="text" id="rowTitle-0" placeholder="Group 1"></th>
+                    <td><input type="number" id="x1" value="45"></td>
+                    <td><input type="number" id="n1" value="100"></td>
+                  </tr>
+                  <tr>
+                    <th><input type="text" id="rowTitle-1" placeholder="Group 2"></th>
+                    <td><input type="number" id="x2" value="30"></td>
+                    <td><input type="number" id="n2" value="80"></td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
+
+            <div class="input-row-container" id="alpha">
+              <label class="input-row-title font-sans-caption">Mức ý nghĩa - α:</label>
+              <span class="font-sans-caption">
+                <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
+                <label class="font-sans-caption" for="alpha010">0.10</label>
+              </span>
+              <span class="font-sans-caption">
+                <input type="radio" id="alpha005" name="alpha-selection" value="0.05" checked>
+                <label class="font-sans-caption" for="alpha005">0.05</label>
+              </span>
+              <span class="font-sans-caption">
+                <input type="radio" id="alpha001" name="alpha-selection" value="0.01">
+                <label class="font-sans-caption" for="alpha001">0.01</label>
+              </span>
+            </div>
+
+            <div class="input-row-container" id="testType">
+              <label class="input-row-title font-sans-caption">Loại kiểm định:</label>
+              <span class="font-sans-caption">
+                <input type="radio" id="two-tailed" name="testType-selection" value="two-tailed" checked>
+                <label class="font-sans-caption" for="two-tailed">Hai phía: ≠</label>
+              </span>
+              <span class="font-sans-caption">
+                <input type="radio" id="greater" name="testType-selection" value="greater">
+                <label class="font-sans-caption" for="greater">Một phía: ></label>
+              </span>
+              <span class="font-sans-caption">
+                <input type="radio" id="less" name="testType-selection" value="less">
+                <label class="font-sans-caption" for="less">Một phía: < </label>
+              </span>
+            </div>
+
+            <button class="cta-large paragraph medium font-sans-caption" onclick="performZTest()">Perform Z-Test for Two
+              Proportions</button>
           </div>
-          <div class="col-12 col-lg-4">
-            <div id="result" class="result caption">
-            </div>
+
+          <!-- Result Card & Chart -->
+          <div>
+            <div id="result"></div>
             <div id="chart-container">
               <canvas id="barChart"></canvas>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div>
 
+        </div>
+
+      </main>
+    </div>
+
+  </div>
 
 </body>
 

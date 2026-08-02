@@ -1,236 +1,308 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
   <meta charset="UTF-8">
-  <title>UXCamp Vietnam - Statistic Calculator Introduction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pre-conditions & Assumptions - Statistic Calculator</title>
   <meta property="og:image" content="https://i.ibb.co/cKCWYTs6/07.png" />
   <meta property="og:description" content='UXCamp Vietnam' />
   <meta property="og:url" content='http://uxcamp.vn/' />
 
   <script src="script.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="../script/libs/svg-inject.min.js"></script>
 
   <link rel="stylesheet" type="text/css" href="../style/definition.css">
-  <link rel="stylesheet" type="text/css" href="../style/style.css">
+  <link rel="stylesheet" href="../checklist/styles.css">
+  <link rel="stylesheet" href="calculator.css">
 </head>
 
 <body>
 
-  <div class="navigation">
-    <div class="navigation-row1">
-      <!-- <a class="paragraph" href="../index.html">Bootcamp</a> -->
-      <a href="../index.html"><img class="eye-logo justify-content-center" src="../asset/image/Eye.svg"
-          onload="SVGInject(this)"></a>
-      <!-- <a class="paragraph" href="../corporate-training.html">Corporate Training</a> -->
+  <div class="app-container">
 
-    </div>
-    <div class="navigation-row2">
-      <!-- <a class="paragraph" href="index.html">Calculator</a> -->
-      <!-- <a class="paragraph" href="../bigtextbox.html">BigTextBox</a> -->
-    </div>
-  </div>
+    <!-- --- SIDEBAR PANEL --- -->
+    <aside class="sidebar" id="sidebar"></aside>
 
+    <!-- --- MAIN CONTENT WORKSPACE --- -->
+    <div class="main-wrapper">
+      <main class="main-content">
 
-
-  <div class="statistic-calculator-container container">
-    <div class="row">
-      <div class="d-none d-md-block col-md-3 col-xl-2" style="position: relative;">
-        <div class="statistical-test-menu">
-          <span class="caption medium font-sans-small" style="color:var(--main-colors-foreground-f800)">Statistic
-            Calculator</span>
-          <div class="links caption">
-            <a class="highlighted font-sans-small" href="index.html">Introduction</a>
-            <a class="font-sans-small" href="sample-size-calculator.html">Sample Size Calculator</a>
-            <a class="font-sans-small" href="one-sample-t-test.html">One Sample t-Test</a>
-            <a class="font-sans-small" href="two-sample-t-test.html">Two Sample t-Test</a>
-            <a class="font-sans-small" href="paired-sample-t-test.html">Paired Sample t-Test</a>
-            <a class="font-sans-small" href="chi-squared-test.html">Chi-squared Test</a>
-            <a class="font-sans-small" href="kruskal-wallis-test.html">Kruskal-Wallis Test</a>
-            <a class="font-sans-small" href="z-test-two-proportions.html">Z-Test for Two Proportions</a>
-            <a class="font-sans-small" href="bootstrap.html">Bootstrap for Quantiles</a>
-
+        <!-- Top Mobile Navigation/Toggle Bar -->
+        <header class="main-header" style="flex-wrap: wrap; gap: 16px;">
+          <div style="flex: 1; min-width: 250px;">
+            <h2>Giới thiệu & Điều kiện kiểm định</h2>
+            <p>Tổng hợp Pre-conditions, các giả định (Assumptions) và lưu ý quan trọng cho 8 loại kiểm định & công cụ
+              thống kê:</p>
           </div>
-        </div>
-      </div>
 
-      <div class="introduction-statistic-test-container col-12 col-xs-12 col-md-9 col-xl-10">
+          <!-- Toggle button on tablet/mobile -->
+          <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Mở menu quản lý dự án">
+            <svg style="width:24px;height:24px;fill:currentColor" viewBox="0 0 24 24">
+              <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+            </svg>
+          </button>
+        </header>
 
+        <!-- Main Workspace -->
+        <div class="introduction-section">
 
-        <div class="row">
-          <div class="col-12 col-lg-8">
-            <div class="statistical-test-container-body">
-              <div>
-                <h2 class="font-sans-h2">Introduction</h2>
-                <p class="caption font-sans-small">Thống kê suy luận và một số công cụ, phương pháp kiểm định giả
-                  thuyết
-                  thường dùng:</p>
-              </div>
+          <!-- 1. Sample Size Calculator -->
+          <div class="statisic-test-introduction-section">
+            <h3>1. Sample Size Calculator </h3>
+            <div class="intro-block">
+              <h5>Pre-conditions</h5>
+              <p>• Xác định rõ tổng quần thể (N) nếu là quần thể hữu hạn (hoặc mặc định quần thể lớn N > 10,000).<br>
+                • Chọn mức độ tin cậy mong muốn (Confidence Level: 90%, 95%, 99%).<br>
+                • Chọn sai số cho phép (Margin of Error, ví dụ: ±5%).<br>
+                • Ước tính tỷ lệ biến đổi giả định p (mặc định chọn p = 50% để bảo đảm cỡ mẫu tối ưu nhất).</p>
+            </div>
+            <div class="intro-block">
+              <h5>Assumptions</h5>
+              <p>• <b>Phương pháp lấy mẫu:</b> Giả định mẫu được chọn theo phương pháp lấy mẫu ngẫu nhiên đơn giản
+                (Simple Random Sampling) đại diện tốt cho quần thể.<br>
+                • <b>Tính độc lập:</b> Giả định các quan sát độc lập với nhau.<br>
+                • <b>Quần thể:</b> Sử dụng hiệu chỉnh quần thể hữu hạn (Finite Population Correction) khi N nhỏ.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ghi chú</h5>
+              <p>• Tỷ lệ p = 50% là mức tính toán bảo thủ nhất (cho kích thước mẫu lớn nhất). Nếu đã có dữ liệu lịch sử
+                (ví dụ p = 10%), cỡ mẫu cần thiết sẽ nhỏ hơn.<br>
+                • Kích thước mẫu tính ra là số lượng trả lời hoàn chỉnh (completed responses). Thực tế cần cộng thêm 10%
+                – 30% số lượng phát ra để bù đắp tỷ lệ hao hụt (drop-out rate / non-response).</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ví dụ</h5>
+              <p>Khảo sát ý kiến toàn bộ 5,000 nhân viên trong công ty với độ tin cậy 95% và sai số 5%, bạn cần thu thập
+                tối thiểu 357 mẫu khảo sát hoàn chỉnh.</p>
+            </div>
+          </div>
 
-              <div class="statisic-test-introduction-section">
-                <h3 class="font-sans-h3">1. Sample Size Calculator</h3>
-                <div>
-                  <h5 class="font-sans-h5">Là gì?</h5>
-                  <p class="font-sans-small">Là công cụ để ước lượng số lượng mẫu cần thiết nhằm đảm bảo kết quả
-                    khảo sát có ý nghĩa thống kê.
-                  </p>
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Dùng khi nào?</h5>
-                  <p class="font-sans-small">Trước khi thực hiện khảo sát hoặc thử nghiệm để đảm bảo đủ mẫu để phát
-                    hiện ra sự khác biệt có ý
-                    nghĩa.
-                  </p>
+          <!-- 2. One Sample t-Test -->
+          <div class="statisic-test-introduction-section">
+            <h3>2. One Sample t-Test</h3>
+            <div class="intro-block">
+              <h5>Pre-conditions</h5>
+              <p>• Biến phụ thuộc phải là biến định lượng liên tục (ví dụ: thời gian hoàn thành nhiệm vụ, điểm số hài
+                lòng, tuổi, doanh số).<br>
+                • Đã có một giá trị trung bình lý thuyết hoặc chuẩn đối chiếu cụ thể (μ₀).<br>
+                • Cỡ mẫu tối thiểu n ≥ 2.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Assumptions</h5>
+              <p>• <b>Tính độc lập:</b> Các quan sát được thu thập ngẫu nhiên và độc lập với nhau.<br>
+                • <b>Phân phối chuẩn:</b> Dữ liệu mẫu tuân theo phân phối chuẩn (Normal Distribution). Nếu n ≥ 30, kiểm
+                định t tương đối vững (robust) nhờ Định lý Giới hạn Trung tâm (CLT).<br>
+                • <b>Không có giá trị ngoại lệ cực đoan (Outliers):</b> Mẫu không chứa các giá trị dị biệt gây méo lệch
+                trung bình và độ lệch chuẩn.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ghi chú</h5>
+              <p>• Nếu cỡ mẫu nhỏ (n < 30) và dữ liệu lệch nặng hoặc có giá trị ngoại lệ, nên cân nhắc sử dụng kiểm định
+                  phi tham số thế thế (Wilcoxon Signed-Rank Test).<br>
+                  • Kiểm định t một mẫu chỉ so sánh trung bình mẫu với 1 hằng số μ₀, không so sánh giữa 2 nhóm dữ liệu.
+              </p>
+            </div>
+            <div class="intro-block">
+              <h5>Ví dụ</h5>
+              <p>Đo thời gian hoàn thành quy trình đăng ký của 25 người dùng mới để kiểm tra xem thời gian trung bình có
+                khác biệt có ý nghĩa so với KPI chuẩn là 60 giây hay không.</p>
+            </div>
+          </div>
 
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Ví dụ</h5>
-                  <p class="font-sans-small">Bạn muốn khảo sát ý kiến khách hàng với độ tin cậy 95% và sai số 5%.
-                    Dựa vào ước tính tỷ lệ phản
-                    hồi là
-                    50%, bạn sử dụng công cụ để biết cần tối thiểu 385 người trả lời.
-                  </p>
-                </div>
-              </div>
+          <!-- 3. Two Sample t-Test -->
+          <div class="statisic-test-introduction-section">
+            <h3>3. Two Sample t-Test</h3>
+            <div class="intro-block">
+              <h5>Pre-conditions</h5>
+              <p>• Hai nhóm dữ liệu độc lập hoàn toàn (ví dụ: Nhóm A sử dụng giao diện cũ, Nhóm B sử dụng giao diện
+                mới).<br>
+                • Biến đo lường là biến định lượng liên tục.<br>
+                • Mỗi nhóm có tối thiểu n₁ ≥ 2, n₂ ≥ 2.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Assumptions</h5>
+              <p>• <b>Tính độc lập:</b> Các quan sát trong từng nhóm và giữa hai nhóm phải độc lập tuyệt đối (không có
+                đối tượng nào xuất hiện ở cả 2 nhóm).<br>
+                • <b>Phân phối chuẩn:</b> Dữ liệu của cả hai nhóm tuân theo phân phối chuẩn (hoặc n₁, n₂ đủ lớn ≥
+                30).<br>
+                • <b>Không bắt buộc đồng nhất phương sai:</b> Công cụ sử dụng công thức <b>Welch's t-test</b>, do đó
+                KHÔNG cần giả định phương sai hai nhóm bằng nhau (σ₁² = σ₂²), giúp kết quả chính xác và an toàn hơn
+                Student's t-test truyền thống.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ghi chú</h5>
+              <p>• Welch's t-test xử lý rất tốt trường hợp kích thước mẫu 2 nhóm không bằng nhau (n₁ ≠ n₂).<br>
+                • Nếu dữ liệu bị lệch nặng, có nhiều ngoại lệ và cỡ mẫu nhỏ, hãy cân nhắc sử dụng Kruskal-Wallis Test
+                hoặc Mann-Whitney U Test.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ví dụ</h5>
+              <p>So sánh điểm đánh giá trải nghiệm (CSAT từ 1-100) giữa 50 người dùng iOS và 45 người dùng Android để
+                xem nhóm nào có mức độ hài lòng cao hơn.</p>
+            </div>
+          </div>
 
-              <div class="statisic-test-introduction-section">
-                <h3 class="font-sans-h3">2. One Sample t-Test</h3>
-                <div>
-                  <h5 class="font-sans-h5">Là gì?</h5>
-                  <p class="font-sans-small">Là kiểm định để so sánh trung bình của một mẫu với một giá trị trung
-                    bình giả định (μ).</p>
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Dùng khi nào?</h5>
-                  <p class="font-sans-small">Khi bạn có một mẫu và muốn kiểm tra xem trung bình của nó có khác biệt
-                    so với một giá trị chuẩn
-                    nào đó
-                    không.</p>
+          <!-- 4. Paired Sample t-Test -->
+          <div class="statisic-test-introduction-section">
+            <h3>4. Paired Sample t-Test</h3>
+            <div class="intro-block">
+              <h5>Pre-conditions</h5>
+              <p>• Dữ liệu thu thập theo cặp (Paired/Matched Data): hai lần đo trên cùng một đối tượng (Trước vs Sau khi
+                đổi UI), hoặc hai điều kiện thử nghiệm đối chứng trên cùng một người dùng.<br>
+                • Hai tập dữ liệu phải có số lượng quan sát <b>bằng nhau tuyệt đối (n₁ = n₂)</b> và được sắp xếp đúng
+                thứ tự tương ứng theo từng cặp đối tượng.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Assumptions</h5>
+              <p>• <b>Tính độc lập giữa các cặp:</b> Mỗi cặp quan sát (đối tượng) độc lập với các cặp khác.<br>
+                • <b>Phân phối chuẩn của hiệu số:</b> Hiệu số chênh lệch d = (X - Y) giữa các cặp dữ liệu tuân theo phân
+                phối chuẩn.<br>
+                • Dữ liệu đo lường là biến định lượng liên tục.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ghi chú</h5>
+              <p>• Kiểm định t mẫu cặp phân tích bản chất sự thay đổi (hiệu số d) trên từng cá thể, có sức mạnh thống kê
+                (statistical power) cao hơn hai mẫu độc lập khi thiết kế bài test phù hợp.<br>
+                • Nếu số lượng mẫu không bằng nhau hoặc thứ tự dữ liệu bị xáo trộn, kết quả sẽ bị sai lệch hoàn toàn.
+              </p>
+            </div>
+            <div class="intro-block">
+              <h5>Ví dụ</h5>
+              <p>Đo thời gian thực hiện thao tác thanh toán của 30 khách hàng trước và sau khi tối ưu hóa biểu mẫu để
+                đánh giá hiệu quả của thiết kế mới.</p>
+            </div>
+          </div>
 
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Ví dụ</h5>
-                  <p class="font-sans-small">Bạn đo chiều cao trung bình của 30 sinh viên và muốn biết nó có khác
-                    165 cm không.</p>
-                </div>
-              </div>
+          <!-- 5. Chi-squared Test -->
+          <div class="statisic-test-introduction-section">
+            <h3>5. Chi-squared Test</h3>
+            <div class="intro-block">
+              <h5>Pre-conditions</h5>
+              <p>• Cả biến hàng và biến cột đều thuộc dạng phân loại / định danh (Categorical Data, ví dụ: Giới tính,
+                Loại thiết bị, Gói dịch vụ đăng ký).<br>
+                • Dữ liệu đầu vào dưới dạng bảng tần số quan sát (Contingency Table) với các số nguyên không âm (≥ 0).
+              </p>
+            </div>
+            <div class="intro-block">
+              <h5>Assumptions</h5>
+              <p>• <b>Tính độc lập:</b> Mỗi đối tượng quan sát chỉ thuộc về đúng một ô (cell) duy nhất trong bảng
+                chéo.<br>
+                • <b>Tần số kỳ vọng đủ lớn (Expected Frequencies):</b> Tất cả các ô trong bảng kỳ vọng phải có giá trị >
+                1, và ít nhất 80% số ô phải có tần số kỳ vọng E<sub>ij</sub> ≥ 5.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ghi chú</h5>
+              <p>• KHÔNG dùng Chi-squared test cho dữ liệu đo lường lặp lại (ví dụ: 1 người dùng chọn nhiều phương án
+                hoặc được đo nhiều lần).<br>
+                • Trong bảng 2x2 nếu tần số kỳ vọng có ô < 5, nên sử dụng kiểm định chính xác Fisher (Fisher's Exact
+                  Test).</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ví dụ</h5>
+              <p>Kiểm tra xem sự lựa chọn phương thức thanh toán (MoMo, ZaloPay, Thẻ tín dụng) có độc lập với độ tuổi
+                người dùng (Dưới 25, 25-35, Trên 35) hay không.</p>
+            </div>
+          </div>
 
-              <div class="statisic-test-introduction-section">
-                <h3 class="font-sans-h3">3. Two Sample t-Test</h3>
-                <div>
-                  <h5 class="font-sans-h5">Là gì?</h5>
-                  <p class="font-sans-small">Là kiểm định để so sánh trung bình của hai nhóm độc lập.</p>
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Dùng khi nào?</h5>
-                  <p class="font-sans-small">Khi bạn muốn biết hai nhóm khác nhau có trung bình khác nhau không.</p>
+          <!-- 6. Kruskal-Wallis Test -->
+          <div class="statisic-test-introduction-section">
+            <h3>6. Kruskal-Wallis Test</h3>
+            <div class="intro-block">
+              <h5>Pre-conditions</h5>
+              <p>• So sánh k ≥ 2 nhóm độc lập với nhau.<br>
+                • Biến phụ thuộc là biến thứ tự (Ordinal, ví dụ: Thang đo Likert 1-5, thứ hạng) hoặc biến liên tục nhưng
+                <b>không tuân theo phân phối chuẩn</b>.
+              </p>
+            </div>
+            <div class="intro-block">
+              <h5>Assumptions</h5>
+              <p>• <b>Kiểm định Phi tham số (Non-parametric):</b> KHÔNG yêu cầu dữ liệu tuân theo phân phối chuẩn.<br>
+                • <b>Tính độc lập:</b> Các quan sát trong từng nhóm và giữa các nhóm phải độc lập ngẫu nhiên.<br>
+                • <b>Hình dạng phân phối tương đồng:</b> Nếu các nhóm có hình dạng phân phối (shape & scale) tương tự
+                nhau, kiểm định so sánh Trung vị (Medians). Nếu hình dạng khác nhau, kiểm định so sánh phân bố hạng
+                trung bình (Mean Ranks).</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ghi chú</h5>
+              <p>• Kruskal-Wallis là giải pháp thay thế phi tham số cho One-Way ANOVA.<br>
+                • Kiểm định chỉ cho biết "có ít nhất 1 nhóm khác biệt", nhưng không chỉ rõ cụ thể nhóm nào khác nhóm
+                nào. Cần làm thêm Post-hoc test (như Dunn's test) nếu p-value có ý nghĩa thống kê.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ví dụ</h5>
+              <p>So sánh điểm đánh giá mức độ dễ sử dụng (thang điểm Likert từ 1 đến 5) giữa 3 nhóm người dùng thuộc 3
+                độ tuổi khác nhau.</p>
+            </div>
+          </div>
 
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Ví dụ</h5>
-                  <p class="font-sans-small">So sánh điểm thi trung bình của nhóm học sinh học online và học
-                    offline.</p>
-                </div>
-              </div>
+          <!-- 7. Z-Test for Two Proportions -->
+          <div class="statisic-test-introduction-section">
+            <h3>7. Z-Test for Two Proportions</h3>
+            <div class="intro-block">
+              <h5>Pre-conditions</h5>
+              <p>• So sánh tỷ lệ phần trăm (Proportion / Conversion Rate) giữa 2 nhóm độc lập.<br>
+                • Nhập số sự kiện thành công (x₁, x₂) và tổng số mẫu thử nghiệm (n₁, n₂) cho từng nhóm (với x ≤ n).</p>
+            </div>
+            <div class="intro-block">
+              <h5>Assumptions</h5>
+              <p>• <b>Tính độc lập:</b> Hai mẫu độc lập ngẫu nhiên với nhau.<br>
+                • <b>Điều kiện cỡ mẫu đủ lớn (Success-Failure Condition):</b> Số lần thành công và thất bại ở mỗi nhóm
+                đều phải ≥ 5 (tức n₁p₁ ≥ 5, n₁(1-p₁) ≥ 5, n₂p₂ ≥ 5, n₂(1-p₂) ≥ 5) để đảm bảo phân phối tỷ lệ xấp xỉ phân
+                phối chuẩn Z.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ghi chú</h5>
+              <p>• Công cụ rất phù hợp cho bài toán A/B Testing so sánh tỷ lệ chuyển đổi (Click-through rate, Conversion
+                rate, Sign-up rate).<br>
+                • Nếu số lượng sự kiện quá ít (< 5), xấp xỉ chuẩn Z không còn chính xác, nên dùng Fisher's Exact
+                  Test.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ví dụ</h5>
+              <p>So sánh tỷ lệ nhấp nút "Mua ngay" của 1,000 người xem phiên bản nút màu xanh (Nhóm A) và 1,000 người
+                xem phiên bản nút màu đỏ (Nhóm B).</p>
+            </div>
+          </div>
 
-              <div class="statisic-test-introduction-section">
-                <h3 class="font-sans-h3">4. Paired Sample t-Test</h3>
-                <div>
-                  <h5 class="font-sans-h5">Là gì?</h5>
-                  <p class="font-sans-small">Là kiểm định để so sánh trung bình của hai nhóm dữ liệu có liên hệ
-                    (đôi).</p>
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Dùng khi nào?</h5>
-                  <p class="font-sans-small">Khi bạn có hai bộ dữ liệu từ cùng một nhóm (trước-sau, hoặc hai điều
-                    kiện). Lưu ý dữ liệu cần đi
-                    theo
-                    cặp, số lượng sample size của 1 cặp dữ liệu phải bằng nhau và sắp xếp theo đúng thứ tự.</p>
-
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Ví dụ</h5>
-                  <p class="font-sans-small">Đo thời gian hoàn thành bài kiểm tra trước và sau khi sử dụng tính năng
-                    ôn đề bao đỗ để xem có
-                    thay đổi
-                    hay không.</p>
-                </div>
-              </div>
-
-              <div class="statisic-test-introduction-section">
-                <h3 class="font-sans-h3">5. Chi-squared Test</h3>
-                <div>
-                  <h5 class="font-sans-h5">Là gì?</h5>
-                  <p class="font-sans-small">Kiểm định dùng để so sánh tần suất quan sát được với tần suất kỳ vọng.
-                  </p>
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Dùng khi nào?</h5>
-                  <p class="font-sans-small">Khi dữ liệu là dạng phân loại (categorical), để kiểm tra sự độc lập
-                    hoặc phù hợp.</p>
-
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Ví dụ</h5>
-                  <p class="font-sans-small">Kiểm tra xem giới tính (nam/nữ) có liên quan đến lựa chọn món ăn
-                    (chay/mặn) không.</p>
-                </div>
-              </div>
-
-              <div class="statisic-test-introduction-section">
-                <h3 class="font-sans-h3">6. Kruskal-Wallis Test</h3>
-                <div>
-                  <h5 class="font-sans-h5">Là gì?</h5>
-                  <p class="font-sans-small">Là kiểm định phi tham số để so sánh trung vị giữa nhiều hơn hai nhóm
-                    độc lập.</p>
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Dùng khi nào?</h5>
-                  <p class="font-sans-small">Khi dữ liệu không phân phối chuẩn, hoặc là dữ liệu thứ tự (ordinal).
-                  </p>
-
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Ví dụ</h5>
-                  <p class="font-sans-small">So sánh mức độ hài lòng (rất không hài lòng → rất hài lòng) của khách
-                    hàng giữa ba chi nhánh cửa
-                    hàng.
-                  </p>
-                </div>
-              </div>
-
-              <div class="statisic-test-introduction-section">
-                <h3 class="font-sans-h3">7. Z-Test for Two Proportions</h3>
-                <div>
-                  <h5 class="font-sans-h5">Là gì?</h5>
-                  <p class="font-sans-small">Là kiểm định so sánh tỷ lệ giữa hai nhóm độc lập.</p>
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Dùng khi nào?</h5>
-                  <p class="font-sans-small">Khi bạn muốn biết tỷ lệ sự kiện xảy ra trong hai nhóm có khác nhau
-                    không.</p>
-
-                </div>
-                <div>
-                  <h5 class="font-sans-h5">Ví dụ</h5>
-                  <p class="font-sans-small">So sánh tỷ lệ đăng ký gói premium giữa hai giao diện A/B test.</p>
-                </div>
-              </div>
-
-              <br> <br> <br> <br>
-
-
+          <!-- 8. Bootstrap for Quantiles -->
+          <div class="statisic-test-introduction-section">
+            <h3>8. Bootstrap for Quantiles</h3>
+            <div class="intro-block">
+              <h5>Pre-conditions</h5>
+              <p>• So sánh khác biệt phân vị (Quantile/Percentile, ví dụ: P50/Trung vị, P90, P95) giữa 2 nhóm độc
+                lập.<br>
+                • Nhập danh sách giá trị số liên tục cho cả 2 nhóm. Cỡ mẫu tối thiểu nên n ≥ 20 cho mỗi nhóm để phép lấy
+                mẫu lại (resampling) đạt độ tin cậy.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Assumptions</h5>
+              <p>• <b>Phương pháp lấy mẫu lại phi tham số (Non-parametric Resampling):</b> KHÔNG giả định bất kỳ phân
+                phối lý thuyết nào (không cần chuẩn).<br>
+                • <b>Mẫu đại diện tốt cho quần thể:</b> Giả định dữ liệu mẫu hiện tại phản ánh trung thực hình dạng phân
+                phối gốc của quần thể.<br>
+                • <b>Tính độc lập:</b> Các điểm dữ liệu trong mẫu ngẫu nhiên và độc lập với nhau.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ghi chú</h5>
+              <p>• Phương pháp này đặc biệt hữu ích khi phân tích các chỉ số hiệu năng UX có độ lệch lớn (skewed data)
+                như thời gian phản hồi ứng dụng P95/P99, latency, thời gian tương tác.<br>
+                • Kết quả sử dụng mô phỏng ngẫu nhiên (1,000 vòng lặp bootstrap), p-value có thể có dao động nhẹ giữa
+                các lần tính toán nếu cỡ mẫu nhỏ.</p>
+            </div>
+            <div class="intro-block">
+              <h5>Ví dụ</h5>
+              <p>So sánh thời gian phản hồi hệ thống ở mốc phân vị 95 (P95 latency) giữa máy chủ phiên bản v1 và máy chủ
+                phiên bản v2 để đảm bảo 95% người dùng không bị giật lag.</p>
             </div>
           </div>
 
         </div>
 
-
-      </div>
+      </main>
     </div>
-  </div>
 
+  </div>
 
 </body>
 

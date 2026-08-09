@@ -75,7 +75,6 @@ hr {
   border: 1px solid var(--transparent-foreground-main-color-40);
   background: var(--alternative-foreground-gold);
   color: var(--main-colors-background-b100) !important;
-  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
   backdrop-filter: blur(50px);
   text-decoration: none;
 }
@@ -91,7 +90,6 @@ hr {
   border-radius: 12px;
   border: 1px solid var(--alternative-foreground-gold);
   color: var(--main-colors-foreground-f-500-main) !important;
-  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
   backdrop-filter: blur(50px);
 }
 
@@ -804,7 +802,7 @@ hr {
   align-items: center;
   justify-content: center;
   color: var(--fix-white---white-100);
-  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
+
 }
 
 .brand-icon svg {
@@ -859,7 +857,7 @@ hr {
   padding: 10px 14px;
   border-radius: var(--radius-sm);
   border: 0.5px solid var(--console-stroke);
-  background-color: var(--saved-tab-item-background-hover);
+  background-color: var(--main-colors-background-b-200-slide-bg);
   color: var(--main-colors-foreground-f-500-main);
   appearance: none;
   font-weight: 500;
@@ -1003,7 +1001,6 @@ hr {
   border-radius: 8px;
   border: 0.5px solid var(--transparent-foreground-main-color-40);
   background: var(--button-background);
-  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
   backdrop-filter: blur(50px);
   cursor: pointer;
   font-weight: 500;
@@ -1029,7 +1026,6 @@ hr {
   border-radius: 8px;
   border: 0.5px solid var(--transparent-foreground-main-color-40);
   background: var(--main-colors-background-b-300-main);
-  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
   backdrop-filter: blur(50px);
   cursor: pointer;
   font-weight: 500;
@@ -1056,7 +1052,7 @@ hr {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
+
 }
 
 .btn-secondary-sm:hover {
@@ -1106,7 +1102,7 @@ hr {
   justify-content: center;
   cursor: pointer;
   color: var(--main-colors-foreground-f700);
-  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
+
 }
 
 .theme-btn svg {
@@ -1176,7 +1172,7 @@ hr {
   padding: 12px 16px 12px 42px;
   border-radius: var(--radius-sm);
   border: 0.5px solid var(--console-stroke);
-  background-color: var(--saved-tab-item-background-hover);
+  background-color: var(--main-colors-background-b-200-slide-bg);
   color: var(--main-colors-foreground-f-500-main);
   font-size: 0.9rem;
   transition: border-color var(--transition-fast), background-color var(--transition-fast);
@@ -1230,7 +1226,7 @@ hr {
   text-overflow: ellipsis;
   border-radius: var(--radius-sm);
   border: 0.5px solid var(--console-stroke);
-  background-color: var(--saved-tab-item-background-hover);
+  background-color: var(--main-colors-background-b-200-slide-bg);
   color: var(--main-colors-foreground-f-500-main);
   font-size: 0.8rem;
   font-weight: 500;
@@ -1257,7 +1253,7 @@ hr {
   font-size: 0.75rem;
   font-weight: 500;
   cursor: pointer;
-  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
+
   backdrop-filter: blur(50px);
   user-select: none;
   transition: opacity var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
@@ -1921,7 +1917,7 @@ input:checked+.slider:before {
     border-radius: 10px;
     cursor: pointer;
     color: var(--main-colors-foreground-f-500-main);
-    box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
+
   }
 
   .sidebar-toggle-btn {
@@ -2136,7 +2132,7 @@ input:checked+.slider:before {
 .nav-link.active {
   background-color: var(--button-background);
   color: var(--fix-white---white-100);
-  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
+
   border-color: var(--console-stroke);
 }
 
@@ -2510,7 +2506,7 @@ input:checked+.slider:before {
 .tab-btn.active {
   background-color: var(--button-background);
   color: var(--fix-white---white-100) !important;
-  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
+
 }
 
 .tab-btn.active svg {
@@ -2621,7 +2617,7 @@ input:checked+.slider:before {
 .switcher-btn.active {
   background-color: var(--button-background);
   color: var(--fix-white---white-100) !important;
-  box-shadow: 0px 4px 16px 0px var(--fix-white---white-05) inset;
+
 }
 
 .switcher-btn.active svg {

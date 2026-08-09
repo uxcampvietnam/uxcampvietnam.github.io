@@ -832,19 +832,6 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
     }
 
-    // Auto adapt theme based on system settings
-    const colorSchemeQuery = window.matchMedia('(prefers-color-scheme: dark)');
-    const applySystemTheme = (e) => {
-        const isDark = e.matches;
-        document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-    };
-    applySystemTheme(colorSchemeQuery);
-    if (colorSchemeQuery.addEventListener) {
-        colorSchemeQuery.addEventListener('change', applySystemTheme);
-    } else if (colorSchemeQuery.addListener) {
-        colorSchemeQuery.addListener(applySystemTheme);
-    }
-
     // 2. Desktop sidebar collapse toggle
     const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
     const container = document.querySelector('.app-container');

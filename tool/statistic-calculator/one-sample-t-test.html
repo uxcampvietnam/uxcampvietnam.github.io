@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Z-Test for Two Proportions</title>
-  <meta property="og:image" content="https://i.ibb.co/WvWZWcbJ/02.png" />
+  <title>One Sample t-Test</title>
+  <meta property="og:image" content="https://i.ibb.co/1pzZtrF/05.png" />
   <meta property="og:description" content='UXCamp Vietnam' />
   <meta property="og:url" content='http://uxcamp.vn/' />
 
+  <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.4/dist/jstat.min.js"></script>
   <script src="script.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="../script/libs/svg-inject.min.js"></script>
+  <script src="../../script/libs/svg-inject.min.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="../style/definition.css">
+  <link rel="stylesheet" type="text/css" href="../../style/definition.css">
   <link rel="stylesheet" href="../checklist/styles.css">
   <link rel="stylesheet" href="calculator.css">
 </head>
@@ -32,8 +32,8 @@
         <!-- Top Mobile Navigation/Toggle Bar -->
         <header class="main-header" style="flex-wrap: wrap; gap: 16px;">
           <div style="flex: 1; min-width: 250px;">
-            <h2>Z-Test for Two Proportions</h2>
-            <p>So sánh tỷ lệ (%) sự kiện xảy ra giữa hai nhóm độc lập.</p>
+            <h2>One Sample t-Test</h2>
+            <p>So sánh trung bình của một mẫu với một giá trị trung bình giả định.</p>
           </div>
 
           <!-- Toggle button on tablet/mobile -->
@@ -51,28 +51,14 @@
           <div class="calculator-card">
             <h3>Tham số</h3>
 
-            <div id="tableContainer">
-              <table>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th><input type="text" id="colTitle-0" placeholder="Số lượng thành công"></th>
-                    <th><input type="text" id="colTitle-1" placeholder="Tổng số quan sát"></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th><input type="text" id="rowTitle-0" placeholder="Group 1"></th>
-                    <td><input type="number" id="x1" value="45"></td>
-                    <td><input type="number" id="n1" value="100"></td>
-                  </tr>
-                  <tr>
-                    <th><input type="text" id="rowTitle-1" placeholder="Group 2"></th>
-                    <td><input type="number" id="x2" value="30"></td>
-                    <td><input type="number" id="n2" value="80"></td>
-                  </tr>
-                </tbody>
-              </table>
+            <div class="section">
+              <label for="sampleData">Dữ liệu mẫu:</label>
+              <textarea id="sampleData" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+            </div>
+
+            <div class="input-row-container">
+              <label class="input-row-title font-sans-caption" for="mu0">Giá trị kỳ vọng - μ₀:</label>
+              <input type="number" id="mu0" step="any">
             </div>
 
             <div class="input-row-container" id="alpha">
@@ -107,17 +93,12 @@
               </span>
             </div>
 
-            <button class="cta-large paragraph medium font-sans-caption" onclick="performZTest()">Perform Z-Test for Two
-              Proportions</button>
+            <button class="cta-large paragraph medium font-sans-caption" onclick="performOneSampleTTest()">Perform One
+              Sample t-Test</button>
           </div>
 
-          <!-- Result Card & Chart -->
-          <div>
-            <div id="result"></div>
-            <div id="chart-container">
-              <canvas id="barChart"></canvas>
-            </div>
-          </div>
+          <!-- Result Card -->
+          <div id="result"></div>
 
         </div>
 

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Update Mixpanel Profile - Applied UX Analytic</title>
+    <link rel="icon" href="https://uxcamp.vn/asset/icon/favicon.ico">
+
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+    <!-- External scripts -->
+    <script src="../script/libs/svg-inject.min.js"></script>
+
+    <!-- Custom CSS strictly from project style directory & statistic-calculator monochrome system -->
+    <link rel="stylesheet" type="text/css" href="../style/definition.css">
+    <link rel="stylesheet" type="text/css" href="../style/style.css">
+    <link rel="stylesheet" type="text/css" href="statistic-calculator/calculator.css">
+
+    <style>
+        /* Thicker, prominent custom scrollbars for tableContainer */
+        #tableContainer::-webkit-scrollbar {
+            height: 4px !important;
+            width: 4px !important;
+        }
+
+        #tableContainer::-webkit-scrollbar-track {
+            background: var(--applied-analytic-background) !important;
+            border-top: 0.5px solid var(--applied-analytic-secondary) !important;
+        }
+
+        #tableContainer::-webkit-scrollbar-thumb {
+            background: var(--applied-analytic-secondary) !important;
+            border-radius: 2px !important;
+        }
+
+        #tableContainer::-webkit-scrollbar-thumb:hover {
+            background: var(--applied-analytic-main) !important;
+        }
+
+        #tableContainer {
+            cursor: grab;
+            user-select: none;
+        }
+
+        #tableContainer input {
+            user-select: text;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header Navigation -->
+    <div class="navigation">
+        <div class="navigation-row1">
+            <a href="../index.html">
+                <img class="eye-logo justify-content-center" src="../asset/image/Eye.svg" onload="SVGInject(this)">
+            </a>
+        </div>
+        <div class="navigation-row2">
+        </div>
+    </div>
+
+    <div class="container" style="max-width: 920px; margin-top: 100px">
+        <!-- Title section -->
+        <header class="main-header mb-4">
+            <div>
+                <h2>Batch Update Mixpanel Profiles</h2>
+                <p>Cập nhật user property hàng loạt lên Mixpanel qua API. Hỗ trợ copy paste data từ Google Sheet /
+                    Excel.</p>
+            </div>
+        </header>
+
+        <!-- Main Workspace Grid -->
+        <div class="d-flex flex-column gap-4">
+
+            <!-- Inputs Card -->
+            <div class="calculator-card">
+                <h3>Input</h3>
+
+                <!-- Note / Warning info -->
+                <div class="section mb-3">
+                    <p style="color: var(--applied-analytic-secondary);">
+                        <b>Lưu ý:</b> Paste data từ GSheet với các cột:
+                        <code>$distinct_id</code>, <code>user_property_1</code>, <code>user_property_2</code>,...<br>
+                        Cột đầu tiên phải là <code>$distinct_id</code> <br>
+                        Ưu tiên sử dụng trình duyệt Safari hoặc Edge để không bị CORS/AdBlocker chặn API Mixpanel.
+                    </p>
+                </div>
+
+                <!-- 1. Mixpanel Token Input -->
+                <div class="section mb-3">
+                    <label for="mixpanelToken">1. Mixpanel Project Token *</label>
+                    <input type="text" id="mixpanelToken" class="form-input" value=""
+                        placeholder="Nhập Mixpanel Project Token..." required />
+                </div>
+
+                <!-- 2. Google Sheets Table Paste Input -->
+                <div class="section mb-3">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <label for="rawTsvInput" class="m-0">2. Bảng dữ liệu từ Google Sheet (Copy & Paste) *</label>
+                        <span style="color: var(--applied-analytic-secondary); font-size: 12px;">Tab-separated
+                            values</span>
+                    </div>
+                    <textarea id="rawTsvInput" class="form-input" rows="3"
+                        placeholder="Paste bảng từ Google Sheet với các cột tương ứng: $distinct_id, user_property_1, user_property_2, ... Cột đầu tiên phải là $distinct_id"></textarea>
+
+                    <div class="d-flex justify-content-between align-items-center mt-2">
+                        <div id="parseStatusInfo" style="color: var(--applied-analytic-secondary);">Chưa có dữ liệu
+                        </div>
+                        <button id="btnClear" class="btn-outline"
+                            style="padding: 6px 16px !important; width: auto;">Clear Dữ Liệu</button>
+                    </div>
+                </div>
+
+                <!-- Parsed Data Editable Preview Table -->
+                <div class="section mb-3" id="previewContainer" style="display: none;">
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <h5 class="m-0">Editable Preview</h5>
+                        <span id="recordCountBadge"
+                            style="padding: 2px 10px !important; cursor: default; width: auto;">0 profiles</span>
+                    </div>
+                    <p class="mb-2" style="color: var(--applied-analytic-secondary);">Nhấp trực tiếp vào bất kỳ ô nào
+                        bên dưới để sửa hoặc xóa nội dung:</p>
+
+                    <div id="tableContainer" style="max-height: 800px; overflow: auto;">
+                        <table id="previewTable">
+                            <thead id="previewThead"></thead>
+                            <tbody id="previewTbody"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- 3. Submit Button -->
+                <div class="mt-3">
+                    <button id="btnSubmit" class="cta-large">Submit Update Lên Mixpanel</button>
+                </div>
+            </div>
+
+            <!-- Response / Log Console Section -->
+            <div id="result" style="display: none;">
+                <h5>Mixpanel API Response</h5>
+                <div id="responseStatus"></div>
+                <pre id="responseOutput"
+                    style="background: var(--applied-analytic-background); color: var(--applied-analytic-main); padding: 16px; border: 0.5px solid var(--applied-analytic-secondary); overflow-x: auto; max-height: 250px; margin: 0;"></pre>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Confirm Popup / Modal -->
+    <div id="confirmModal" class="blur-background"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.7); z-index: 9999; justify-content: center; align-items: center;">
+        <div class="calculator-card shadow-lg" style="max-width: 580px; width: 90%;">
+            <h3 class="mb-3">Xác nhận Update Profile</h3>
+            <p class="mb-3" id="modalMessage">
+                Bạn có chắc chắn muốn update các user profile này lên Mixpanel?
+            </p>
+
+            <div class="mb-4">
+                <p class="mb-1" style="color: var(--applied-analytic-secondary);">Payload JSON gửi lên Mixpanel:</p>
+                <pre id="modalJsonPreview"
+                    style="background: var(--applied-analytic-background); color: var(--applied-analytic-main); padding: 12px; border: 0.5px solid var(--applied-analytic-secondary); max-height: 180px; overflow: auto; margin: 0; white-space: pre-wrap; font-size: 12px;"></pre>
+            </div>
+
+            <div class="d-flex justify-content-end gap-3">
+                <button id="btnModalCancel" class="btn-outline" style="width: auto;">Hủy bỏ</button>
+                <button id="btnModalConfirm" class="cta-large" style="width: auto;">Đồng ý Update</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const mixpanelTokenInput = document.getElementById('mixpanelToken');
+        const rawTsvInput = document.getElementById('rawTsvInput');
+        const parseStatusInfo = document.getElementById('parseStatusInfo');
+        const btnClear = document.getElementById('btnClear');
+        const previewContainer = document.getElementById('previewContainer');
+        const recordCountBadge = document.getElementById('recordCountBadge');
+        const previewThead = document.getElementById('previewThead');
+        const previewTbody = document.getElementById('previewTbody');
+        const btnSubmit = document.getElementById('btnSubmit');
+
+        const resultCard = document.getElementById('result');
+        const responseStatus = document.getElementById('responseStatus');
+        const responseOutput = document.getElementById('responseOutput');
+
+        const confirmModal = document.getElementById('confirmModal');
+        const modalMessage = document.getElementById('modalMessage');
+        const modalJsonPreview = document.getElementById('modalJsonPreview');
+        const btnModalCancel = document.getElementById('btnModalCancel');
+        const btnModalConfirm = document.getElementById('btnModalConfirm');
+
+        let currentUsersPayload = [];
+        let currentHeaders = [];
+
+        // Helper to parse TSV copied from Google Sheets / Excel
+        function parseTsvData() {
+            const token = mixpanelTokenInput.value.trim();
+            const text = rawTsvInput.value.trim();
+
+            if (!text) {
+                currentUsersPayload = [];
+                currentHeaders = [];
+                previewContainer.style.display = 'none';
+                parseStatusInfo.innerHTML = 'Chưa có dữ liệu được dán.';
+                return [];
+            }
+
+            const lines = text.split(/\r?\n/).filter(line => line.trim().length > 0);
+            if (lines.length === 0) {
+                currentUsersPayload = [];
+                currentHeaders = [];
+                previewContainer.style.display = 'none';
+                parseStatusInfo.innerHTML = 'Chưa có dữ liệu được dán.';
+                return [];
+            }
+
+            // Parse header line
+            const headerCells = lines[0].split('\t').map(c => c.trim().replace(/^"|"$/g, ''));
+
+            // Locate $distinct_id column index
+            let distinctIdIdx = headerCells.findIndex(h => h.toLowerCase() === '$distinct_id' || h.toLowerCase() === 'distinct_id');
+            if (distinctIdIdx === -1) {
+                distinctIdIdx = 0; // Default to first column if not explicitly named
+            }
+
+            // Extract property header names
+            const propertyHeaders = headerCells.map((h, idx) => {
+                if (idx === distinctIdIdx) return '$distinct_id';
+                return h;
+            });
+
+            currentHeaders = propertyHeaders;
+
+            const users = [];
+
+            for (let i = 1; i < lines.length; i++) {
+                const rowCells = lines[i].split('\t').map(c => c.trim().replace(/^"|"$/g, ''));
+                const distinctIdVal = rowCells[distinctIdIdx] || '';
+
+                const setObj = {};
+                propertyHeaders.forEach((propKey, idx) => {
+                    if (idx !== distinctIdIdx) {
+                        setObj[propKey] = rowCells[idx] !== undefined ? rowCells[idx] : '';
+                    }
+                });
+
+                users.push({
+                    $token: token,
+                    $distinct_id: distinctIdVal,
+                    $set: setObj
+                });
+            }
+
+            currentUsersPayload = users;
+
+            // Render status & preview table
+            if (users.length > 0) {
+                parseStatusInfo.innerHTML = `<span style="color: var(--highlight-green);">✓ Đã nhận dạng ${users.length} user profile (${propertyHeaders.length - 1} property columns).</span>`;
+                renderPreviewTable();
+                previewContainer.style.display = 'block';
+            } else {
+                parseStatusInfo.innerHTML = '<span style="color: var(--highlight-yellow);">Không tìm thấy dòng dữ liệu hợp lệ (cần ít nhất 1 dòng header và 1 dòng dữ liệu).</span>';
+                previewContainer.style.display = 'none';
+            }
+
+            return users;
+        }
+
+        // Render editable preview table
+        function renderPreviewTable() {
+            const headers = currentHeaders;
+            const users = currentUsersPayload;
+            recordCountBadge.textContent = `${users.length} profiles`;
+
+            // Table Header
+            let trHeadHTML = '<tr>';
+            trHeadHTML += '<th style="width: 40px; text-align: center;">#</th>';
+            trHeadHTML += '<th style="min-width: 140px;">$token</th>';
+            headers.forEach(h => {
+                if (h === '$distinct_id') {
+                    trHeadHTML += '<th style="min-width: 200px;">$distinct_id *</th>';
+                } else {
+                    trHeadHTML += `<th style="min-width: 130px;">${escapeHtml(h)}</th>`;
+                }
+            });
+            trHeadHTML += '<th style="width: 40px; text-align: center;">Xóa</th>';
+            trHeadHTML += '</tr>';
+            previewThead.innerHTML = trHeadHTML;
+
+            // Table Body with Input elements
+            let tbodyHTML = '';
+            users.forEach((u, rIdx) => {
+                tbodyHTML += `<tr>`;
+                tbodyHTML += `<td style="text-align: center; vertical-align: middle; opacity: 0.6; font-size: 12px;">${rIdx + 1}</td>`;
+                tbodyHTML += `<td class="p-0"><input type="text" value="${escapeHtml(u.$token)}" data-row="${rIdx}" data-field="$token" readonly style="opacity: 0.6; cursor: not-allowed;" /></td>`;
+
+                headers.forEach((h) => {
+                    if (h === '$distinct_id') {
+                        tbodyHTML += `<td class="p-0"><input type="text" value="${escapeHtml(u.$distinct_id)}" data-row="${rIdx}" data-field="$distinct_id" style="font-weight: 500;" placeholder="Nhập $distinct_id..." /></td>`;
+                    } else {
+                        const val = u.$set[h] !== undefined ? u.$set[h] : '';
+                        tbodyHTML += `<td class="p-0"><input type="text" value="${escapeHtml(val)}" data-row="${rIdx}" data-field="${escapeHtml(h)}" placeholder="..." /></td>`;
+                    }
+                });
+
+                tbodyHTML += `<td style="text-align: center; vertical-align: middle;" class="p-0"><button style="border:none; background:none; color: var(--highlight-red); font-size: 16px; cursor: pointer;" title="Xóa dòng này" onclick="deleteTableRow(${rIdx})">&times;</button></td>`;
+                tbodyHTML += `</tr>`;
+            });
+            previewTbody.innerHTML = tbodyHTML;
+        }
+
+        // Delete row handler
+        window.deleteTableRow = function (index) {
+            if (index >= 0 && index < currentUsersPayload.length) {
+                currentUsersPayload.splice(index, 1);
+                renderPreviewTable();
+                if (currentUsersPayload.length === 0) {
+                    previewContainer.style.display = 'none';
+                    parseStatusInfo.innerHTML = 'Bảng dữ liệu rỗng.';
+                } else {
+                    parseStatusInfo.innerHTML = `<span style="color: var(--highlight-green);">✓ Còn lại ${currentUsersPayload.length} user profile.</span>`;
+                }
+            }
+        };
+
+        // Listen for input changes in the editable table cells
+        previewTbody.addEventListener('input', (e) => {
+            const input = e.target;
+            const rIdx = parseInt(input.dataset.row);
+            const field = input.dataset.field;
+
+            if (isNaN(rIdx) || !field || !currentUsersPayload[rIdx]) return;
+
+            const newVal = input.value;
+
+            if (field === '$token') {
+                currentUsersPayload[rIdx].$token = newVal;
+            } else if (field === '$distinct_id') {
+                currentUsersPayload[rIdx].$distinct_id = newVal.trim();
+            } else {
+                currentUsersPayload[rIdx].$set[field] = newVal;
+            }
+        });
+
+        // Drag to scroll functionality for tableContainer
+        const container = document.getElementById('tableContainer');
+        let isMouseDown = false;
+        let startX, startY, scrollLeft, scrollTop;
+
+        container.addEventListener('mousedown', (e) => {
+            isMouseDown = true;
+            startX = e.pageX - container.offsetLeft;
+            startY = e.pageY - container.offsetTop;
+            scrollLeft = container.scrollLeft;
+            scrollTop = container.scrollTop;
+        });
+
+        container.addEventListener('mouseleave', () => {
+            isMouseDown = false;
+            container.style.cursor = 'grab';
+        });
+
+        container.addEventListener('mouseup', () => {
+            isMouseDown = false;
+            container.style.cursor = 'grab';
+        });
+
+        container.addEventListener('mousemove', (e) => {
+            if (!isMouseDown) return;
+            const x = e.pageX - container.offsetLeft;
+            const y = e.pageY - container.offsetTop;
+            const walkX = (x - startX);
+            const walkY = (y - startY);
+
+            if (Math.abs(walkX) > 3 || Math.abs(walkY) > 3) {
+                container.style.cursor = 'grabbing';
+                container.scrollLeft = scrollLeft - walkX;
+                container.scrollTop = scrollTop - walkY;
+            }
+        });
+
+        function escapeHtml(str) {
+            return String(str || '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+
+        // Event listeners
+        rawTsvInput.addEventListener('input', parseTsvData);
+        mixpanelTokenInput.addEventListener('input', () => {
+            const token = mixpanelTokenInput.value.trim();
+            currentUsersPayload.forEach(u => u.$token = token);
+            renderPreviewTable();
+        });
+
+        btnClear.addEventListener('click', () => {
+            rawTsvInput.value = '';
+            parseTsvData();
+            resultCard.style.display = 'none';
+        });
+
+        btnSubmit.addEventListener('click', () => {
+            const token = mixpanelTokenInput.value.trim();
+            if (!token) {
+                alert('Vui lòng nhập Mixpanel Token!');
+                mixpanelTokenInput.focus();
+                return;
+            }
+
+            // Sync current token to all payload items before submit
+            currentUsersPayload.forEach(u => u.$token = token);
+
+            // Filter valid users with non-empty distinct_id
+            const validUsers = currentUsersPayload.filter(u => u.$distinct_id && u.$distinct_id.trim().length > 0);
+
+            if (validUsers.length === 0) {
+                alert('Không có user profile hợp lệ nào (mỗi dòng phải có giá trị $distinct_id)!');
+                return;
+            }
+
+            // Show confirm popup modal
+            modalMessage.innerHTML = `Bạn có chắc chắn muốn cập nhật <b>${validUsers.length} user profile</b> lên Mixpanel (Token: <code>${escapeHtml(token)}</code>)?`;
+
+            // Format preview JSON (show max 3 sample items)
+            const samplePayload = validUsers.length > 3 ? validUsers.slice(0, 3) : validUsers;
+            let jsonString = JSON.stringify(samplePayload, null, 2);
+            if (validUsers.length > 3) {
+                jsonString += `\n\n... và ${validUsers.length - 3} user profile khác`;
+            }
+            modalJsonPreview.textContent = jsonString;
+
+            confirmModal.style.display = 'flex';
+        });
+
+        btnModalCancel.addEventListener('click', () => {
+            confirmModal.style.display = 'none';
+        });
+
+        // Click outside modal to close
+        confirmModal.addEventListener('click', (e) => {
+            if (e.target === confirmModal) {
+                confirmModal.style.display = 'none';
+            }
+        });
+
+        // Submit to Mixpanel API
+        btnModalConfirm.addEventListener('click', () => {
+            confirmModal.style.display = 'none';
+
+            const token = mixpanelTokenInput.value.trim();
+            currentUsersPayload.forEach(u => u.$token = token);
+            const validUsers = currentUsersPayload.filter(u => u.$distinct_id && u.$distinct_id.trim().length > 0);
+
+            if (validUsers.length === 0) return;
+
+            resultCard.style.display = 'flex';
+            resultCard.className = 'calculator-card';
+            responseStatus.innerHTML = '<p style="color: var(--highlight-yellow);">⏳ Đang gửi request lên Mixpanel API...</p>';
+            responseOutput.textContent = `Sending request for ${validUsers.length} profiles to https://api.mixpanel.com/engage?verbose=1 ...`;
+
+            // User provided code structure:
+            fetch('https://api.mixpanel.com/engage?verbose=1', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: 'data=' + encodeURIComponent(JSON.stringify(validUsers))
+            })
+                .then(r => r.text())
+                .then(responseText => {
+                    console.log(responseText);
+                    let isSuccess = false;
+                    let errorMsg = '';
+
+                    try {
+                        const parsed = JSON.parse(responseText);
+                        responseOutput.textContent = JSON.stringify(parsed, null, 2);
+
+                        if (parsed && parsed.status === 1 && (parsed.error === null || parsed.error === undefined)) {
+                            isSuccess = true;
+                        } else if (parsed === 1) {
+                            isSuccess = true;
+                        } else {
+                            isSuccess = false;
+                            errorMsg = parsed.error || 'Request bị từ chối';
+                        }
+                    } catch (e) {
+                        responseOutput.textContent = responseText;
+                        if (responseText.trim() === '1') {
+                            isSuccess = true;
+                        } else {
+                            isSuccess = false;
+                        }
+                    }
+
+                    if (isSuccess) {
+                        resultCard.className = 'calculator-card reject'; // Green left border indicator
+                        responseStatus.innerHTML = `<p style="color: var(--highlight-green); font-weight: 500;">✓ Thành công! Đã gửi ${validUsers.length} profile lên Mixpanel.</p>`;
+                    } else {
+                        resultCard.className = 'calculator-card fail-to-reject'; // Red left border indicator
+                        responseStatus.innerHTML = `<p style="color: var(--highlight-red); font-weight: 500;">✕ Gửi thất bại lên Mixpanel API${errorMsg ? ': ' + escapeHtml(errorMsg) : ''}</p>`;
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    resultCard.className = 'calculator-card fail-to-reject';
+                    responseStatus.innerHTML = `<p style="color: var(--highlight-red); font-weight: 500;">✕ Lỗi khi gửi request lên Mixpanel:</p>`;
+                    responseOutput.textContent = err.toString();
+                });
+        });
+    </script>
+</body>
+
+</html>

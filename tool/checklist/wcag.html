@@ -4,10 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Heuristic Evaluation - UXCamp Vietnam</title>
-  <meta name="description"
-    content="Công cụ checklist tiếng Việt trực quan giúp UX/UI Designer đánh giá heuristics sản phẩm dựa trên 4 bộ quy chuẩn Nielsen, Gerhardt-Powals, Shneiderman và Weinschenk.">
-  <link rel="stylesheet" type="text/css" href="../style/definition.css">
+  <title>WCAG 2.2 - UXCamp Vietnam</title>
+  <meta name="description" content="Công cụ WCAG 2.2 Checklist tiếng Việt giúp Product Team tự đánh giá trải nghiệm.">
+  <link rel="stylesheet" type="text/css" href="../../style/definition.css">
   <link rel="stylesheet" href="styles.css">
   <script src="tracking.js"></script>
 </head>
@@ -29,10 +28,10 @@
 
         <!-- Checklist Switcher -->
         <div class="checklist-switcher">
-          <a href="he.html" class="switcher-btn active" title="Đánh giá Heuristic">
+          <a href="he.html" class="switcher-btn" title="Đánh giá Heuristic">
             <span>Heuristic</span>
           </a>
-          <a href="wcag.html" class="switcher-btn" title="Tiêu chuẩn tiếp cận WCAG 2.2">
+          <a href="wcag.html" class="switcher-btn active" title="Tiêu chuẩn tiếp cận WCAG 2.2">
             <span>WCAG 2.2</span>
           </a>
         </div>
@@ -40,49 +39,44 @@
         <!-- Brand Logo -->
         <div class="brand">
           <div class="brand-icon">
-            <!-- Custom SVG Gear/Dashboard for Heuristic Evaluation -->
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <g filter="url(#filter0_iii_5589_17387)">
+            <!-- Custom SVG Compass / Accessibility logo -->
+            <svg width="39" height="48" viewBox="0 0 39 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <g filter="url(#filter0_ii_5589_17386)">
                 <path
-                  d="M13.8125 2.70964H11.4167C9.22917 2.70964 7.45833 4.48047 7.45833 6.66797C7.45833 6.95964 7.5 7.23047 7.5625 7.52214C5.41667 8.1888 3.9375 10.2096 3.9375 12.4805C3.9375 13.3346 4.14583 14.168 4.54167 14.918C3.66667 15.793 3.125 16.9805 3.125 18.3138C3.125 20.4805 4.5625 22.3138 6.54167 22.8971C6.47917 23.168 6.4375 23.4388 6.4375 23.7305C6.4375 25.5638 7.9375 27.0638 9.77083 27.0638C9.97917 27.0638 10.1875 27.043 10.3958 27.0013C10.4792 28.3138 11.5625 29.3555 12.8958 29.3555C14.2708 29.3555 15.3958 28.2513 15.3958 26.8763V4.27214C15.375 3.41797 14.6667 2.70964 13.8125 2.70964Z"
-                  fill="white" />
+                  d="M19.4609 10.4795C18.4246 10.4795 17.4115 10.1723 16.5499 9.59644C15.6881 9.02072 15.0166 8.20238 14.62 7.24494C14.2234 6.2875 14.1197 5.23396 14.3218 4.21754C14.524 3.20113 15.0231 2.26749 15.7558 1.53469C16.4886 0.8019 17.4222 0.30286 18.4386 0.100683C19.4551 -0.101495 20.5086 0.00227022 21.4661 0.398856C22.4235 0.795442 23.2418 1.46704 23.8176 2.32871C24.3934 3.19039 24.7006 4.20344 24.7006 5.23977C24.6992 6.62898 24.1466 7.96087 23.1643 8.9432C22.182 9.92551 20.8501 10.478 19.4609 10.4795Z"
+                  fill="#ffffff" />
                 <path
-                  d="M28.0625 12.4388C28.0625 10.168 26.5833 8.14714 24.4167 7.48047C24.4792 7.1888 24.5208 6.91797 24.5208 6.6263C24.5208 4.4388 22.75 2.66797 20.5625 2.66797H18.1875C17.3333 2.66797 16.625 3.3763 16.625 4.23047V22.3555C16.625 22.3763 16.6042 22.3971 16.6042 22.418C16.6042 22.5013 16.625 22.5846 16.625 22.6471V26.8138C16.6458 28.2721 17.75 29.2721 19.125 29.2721C20.4583 29.2721 21.5417 28.2305 21.625 26.9388C21.8333 26.9805 22.0417 27.0013 22.25 27.0013C24.0833 27.0013 25.5833 25.5013 25.5833 23.668C25.5833 23.3763 25.5417 23.1055 25.4792 22.8346C27.4583 22.2513 28.8958 20.418 28.8958 18.2513C28.8958 16.918 28.3542 15.7305 27.4792 14.8555C27.8542 14.1263 28.0625 13.293 28.0625 12.4388Z"
-                  fill="white" />
+                  d="M35.9289 10.5545L35.8868 10.5657L35.8475 10.5779C35.7539 10.6041 35.6603 10.6321 35.5668 10.6611C33.8255 11.172 25.3745 13.5542 19.4208 13.5542C13.8882 13.5542 6.20163 11.4958 3.74269 10.7968C3.49797 10.7021 3.24806 10.6216 2.99415 10.5554C1.21637 10.0876 0 11.8934 0 13.5439C0 15.1786 1.46901 15.957 2.95205 16.5156V16.5418L11.8615 19.3245C12.7719 19.6735 13.0152 20.03 13.134 20.3388C13.5205 21.3297 13.2117 23.2918 13.1022 23.9767L12.5595 28.1872L9.54759 44.6728C9.53824 44.7177 9.52982 44.7636 9.52233 44.8104L9.50081 44.9292C9.28373 46.4403 10.3934 47.9065 12.495 47.9065C14.3289 47.9065 15.1382 46.6406 15.4891 44.918C15.4891 44.918 18.109 30.1746 19.4189 30.1746C20.7289 30.1746 23.4274 44.918 23.4274 44.918C23.7782 46.6406 24.5876 47.9065 26.4215 47.9065C28.5286 47.9065 29.6384 46.4338 29.4157 44.918C29.396 44.7889 29.3726 44.6616 29.3446 44.5381L26.2915 28.1891L25.7497 23.9786C25.3576 21.5262 25.673 20.7159 25.7796 20.5259C25.7825 20.5214 25.785 20.5168 25.7871 20.5119C25.8882 20.3248 26.3485 19.9056 27.4227 19.5023L35.7764 16.5821C35.8277 16.5684 35.8783 16.5521 35.9279 16.5334C37.425 15.972 38.9221 15.1954 38.9221 13.5458C38.9221 11.8962 37.7067 10.0876 35.9289 10.5545Z"
+                  fill="#ffffff" />
               </g>
               <defs>
-                <filter id="filter0_iii_5589_17387" x="3.125" y="-4.33203" width="25.7715" height="36.6875"
+                <filter id="filter0_ii_5589_17386" x="0" y="-3" width="38.9219" height="51.9062"
                   filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
                   <feFlood flood-opacity="0" result="BackgroundImageFix" />
                   <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
                   <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
                     result="hardAlpha" />
-                  <feOffset dy="-7" />
-                  <feGaussianBlur stdDeviation="6" />
+                  <feOffset dy="-3" />
+                  <feGaussianBlur stdDeviation="2" />
                   <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.45 0" />
-                  <feBlend mode="normal" in2="shape" result="effect1_innerShadow_5589_17387" />
+                  <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+                  <feBlend mode="normal" in2="shape" result="effect1_innerShadow_5589_17386" />
                   <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
                     result="hardAlpha" />
-                  <feOffset dy="3" />
-                  <feGaussianBlur stdDeviation="4" />
+                  <feOffset dy="1" />
+                  <feGaussianBlur stdDeviation="2" />
                   <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
                   <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0" />
-                  <feBlend mode="normal" in2="effect1_innerShadow_5589_17387" result="effect2_innerShadow_5589_17387" />
-                  <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
-                    result="hardAlpha" />
-                  <feOffset />
-                  <feGaussianBlur stdDeviation="1" />
-                  <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1" />
-                  <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0" />
-                  <feBlend mode="normal" in2="effect2_innerShadow_5589_17387" result="effect3_innerShadow_5589_17387" />
+                  <feBlend mode="normal" in2="effect1_innerShadow_5589_17386" result="effect2_innerShadow_5589_17386" />
                 </filter>
               </defs>
             </svg>
 
+
           </div>
           <div class="brand-info">
-            <h1>Heuristic Checklist</h1>
+            <h1>WCAG 2.2 Checklist</h1>
+            <span></span>
           </div>
         </div>
 
@@ -134,20 +128,20 @@
 
           <!-- Detail Statistics Grid -->
           <div class="stats-grid">
-            <div class="stat-item">
+            <div class="stat-item" style="border-bottom: 3px solid var(--highlight-green);">
               <span class="stat-val" id="stat-done" style="color: var(--highlight-green);">0</span>
               <span class="stat-label">Pass</span>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" style="border-bottom: 3px solid var(--highlight-red);">
               <span class="stat-val" id="stat-todo" style="color: var(--highlight-red);">0</span>
               <span class="stat-label">Fail</span>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" style="border-bottom: 3px solid var(--main-colors-foreground-f700);">
               <span class="stat-val" id="stat-na" style="color: var(--main-colors-foreground-f700);">0</span>
               <span class="stat-label">N/A</span>
             </div>
-            <div class="stat-item">
-              <span class="stat-val" id="stat-total" style="color: var(--console-stroke);">0</span>
+            <div class="stat-item" style="border-bottom: 3px solid var(--main-colors-foreground-f700);">
+              <span class="stat-val" id="stat-total" style="color: var(--main-colors-foreground-f700);">0</span>
               <span class="stat-label">Tổng tiêu chí</span>
             </div>
           </div>
@@ -169,7 +163,6 @@
                   d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
               </svg>
               Reset
-            </button>
           </div>
         </div>
     </aside>
@@ -182,7 +175,7 @@
         <header class="main-header" style="flex-wrap: wrap; gap: 16px;">
           <div style="flex: 1; min-width: 250px;">
             <h4 id="current-project-title">Default Flow</h4>
-            <p id="current-project-desc">Đánh giá Heuristics sản phẩm dựa trên 4 bộ quy chuẩn thiết kế phổ biến</p>
+            <p id="current-project-desc">Tự đánh giá khả năng tiếp cận dựa trên tiêu chí thiết kế WCAG 2.2</p>
 
             <!-- Tabs Navigation -->
             <div class="tabs-navigation">
@@ -216,7 +209,7 @@
           <!-- Search bar -->
           <div class="search-wrapper">
             <input type="text" id="search-input" class="search-input"
-              placeholder="Tìm kiếm theo tiêu chí, nội dung đánh giá hoặc từ khóa...">
+              placeholder="Tìm kiếm theo tiêu chí, WCAG ID, hoặc từ khóa (ví dụ: tương phản, 24x24)...">
             <svg class="search-icon" viewBox="0 0 24 24">
               <path fill="currentColor"
                 d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
@@ -226,25 +219,25 @@
           <!-- Select drop-downs filters -->
           <div class="filters-row">
             <div class="filter-group">
-              <span class="filter-label">Quy chuẩn:</span>
-              <select id="checklist-select" class="filter-select" aria-label="Chọn bộ quy chuẩn Heuristic">
-                <option value="nielsen">Nielsen's Heuristics</option>
-                <option value="gerhardt">Cognitive Engineering (Gerhardt-Powals)</option>
-                <option value="shneiderman">Shneiderman's Eight Golden Rules</option>
-                <option value="weinschenk">Weinschenk & Barker Classification</option>
-              </select>
-            </div>
-
-            <div class="filter-group">
               <span class="filter-label">Nhóm:</span>
-              <select id="category-filter" class="filter-select" aria-label="Lọc theo nhóm tiêu chí">
+              <select id="category-filter" class="filter-select">
                 <!-- Tải động qua JS -->
               </select>
             </div>
 
             <div class="filter-group">
-              <span class="filter-label">Đánh giá:</span>
-              <select id="status-filter" class="filter-select" aria-label="Lọc theo trạng thái đánh giá">
+              <span class="filter-label">Cấp Độ:</span>
+              <select id="level-filter" class="filter-select">
+                <option value="all">Tất cả</option>
+                <option value="A">A (Tối thiểu)</option>
+                <option value="AA">AA (Khuyến nghị)</option>
+                <option value="AAA">AAA (Cao nhất)</option>
+              </select>
+            </div>
+
+            <div class="filter-group">
+              <span class="filter-label">Đánh Giá:</span>
+              <select id="status-filter" class="filter-select">
                 <option value="all">Tất cả</option>
                 <option value="todo">Fail</option>
                 <option value="done">Pass</option>
@@ -252,12 +245,21 @@
                 <option value="unselected">Chưa đánh giá</option>
               </select>
             </div>
+
+            <!-- Toggle switch for new WCAG 2.2 -->
+            <div class="wcag22-toggle-wrapper">
+              <span class="filter-label" style="color: var(--secondary)">Chỉ hiện bản 2.2</span>
+              <label class="switch">
+                <input type="checkbox" id="wcag22-toggle">
+                <span class="slider"></span>
+              </label>
+            </div>
           </div>
         </section>
 
         <!-- Checklist container -->
         <section class="checklist-container" id="checklist-container">
-          <!-- Load các thẻ tiêu chí động từ heuristic-app.js -->
+          <!-- Load các thẻ tiêu chí động từ app.js -->
         </section>
 
         <!-- Report Dashboard container -->
@@ -321,7 +323,7 @@
             <div class="dashboard-card category-progress-card">
               <h3>Đạt Chuẩn Theo Nhóm Tiêu Chí</h3>
               <div class="category-bars-list" id="category-bars-list">
-                <!-- Rendered dynamically via heuristic-app.js -->
+                <!-- Rendered dynamically via app.js -->
               </div>
             </div>
           </div>
@@ -336,6 +338,11 @@
                   <select id="report-category-select" class="filter-select"
                     aria-label="Lọc chi tiết báo cáo theo nhóm tiêu chí">
                     <option value="all">Tất cả nhóm</option>
+                    <option value="visual">Bố cục & Thị giác</option>
+                    <option value="interaction">Tương tác & Cử chỉ</option>
+                    <option value="form">Biểu mẫu & Nhập liệu</option>
+                    <option value="navigation">Điều hướng</option>
+                    <option value="media">Hình ảnh & Video</option>
                   </select>
                 </div>
                 <div class="details-status-filter" style="display: flex; gap: 8px; align-items: center;">
@@ -359,7 +366,7 @@
             </div>
 
             <div class="details-grid" id="report-details-grid">
-              <!-- Groups and criteria list rendered dynamically via heuristic-app.js -->
+              <!-- Groups and criteria list rendered dynamically via app.js -->
             </div>
           </div>
         </section>
@@ -387,8 +394,8 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="new-project-name">Tên luồng sản phẩm / Dự án</label>
-            <input type="text" id="new-project-name" class="form-input" placeholder="Ví dụ: Trang chủ thiết kế mới..."
-              required>
+            <input type="text" id="new-project-name" class="form-input"
+              placeholder="Ví dụ: Quy trình Đặt hàng & Thanh toán..." required>
           </div>
         </div>
         <div class="modal-footer">
@@ -415,8 +422,8 @@
         <div class="modal-body">
           <div class="form-group">
             <label for="rename-project-name">Tên mới cho luồng đánh giá</label>
-            <input type="text" id="rename-project-name" class="form-input"
-              placeholder="Ví dụ: Giao diện Trang chủ V2..." required>
+            <input type="text" id="rename-project-name" class="form-input" placeholder="Ví dụ: Giao diện Đặt hàng V2..."
+              required>
           </div>
         </div>
         <div class="modal-footer">
@@ -455,8 +462,8 @@
   <!-- Toast Notification Area -->
   <div class="toast-container" id="toast-container"></div>
 
-  <script src="heuristic-data.js"></script>
-  <script src="heuristic-app.js"></script>
+  <script src="wcag-data.js"></script>
+  <script src="app.js"></script>
 </body>
 
 </html>

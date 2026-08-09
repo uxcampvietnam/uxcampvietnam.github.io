@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Paired Sample t-Test</title>
-  <meta property="og:image" content="https://i.ibb.co/1pzZtrF/05.png" />
+  <title>Kruskal-Wallis Test</title>
+  <meta property="og:image" content="https://i.ibb.co/nND0fhRt/03.png" />
   <meta property="og:description" content='UXCamp Vietnam' />
   <meta property="og:url" content='http://uxcamp.vn/' />
 
   <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.6/dist/jstat.min.js"></script>
   <script src="script.js"></script>
-  <script src="../script/libs/svg-inject.min.js"></script>
+  <script src="../../script/libs/svg-inject.min.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="../style/definition.css">
+  <link rel="stylesheet" type="text/css" href="../../style/definition.css">
   <link rel="stylesheet" href="../checklist/styles.css">
   <link rel="stylesheet" href="calculator.css">
 </head>
@@ -32,8 +32,8 @@
         <!-- Top Mobile Navigation/Toggle Bar -->
         <header class="main-header" style="flex-wrap: wrap; gap: 16px;">
           <div style="flex: 1; min-width: 250px;">
-            <h2>Paired Sample t-Test</h2>
-            <p>So sánh trung bình của hai nhóm dữ liệu có liên hệ (đôi/phụ thuộc).</p>
+            <h2>Kruskal-Wallis Test</h2>
+            <p>Kiểm định phi tham số để so sánh trung vị giữa nhiều hơn hai nhóm độc lập.</p>
           </div>
 
           <!-- Toggle button on tablet/mobile -->
@@ -51,16 +51,30 @@
           <div class="calculator-card">
             <h3>Tham số</h3>
 
-            <div class="section">
-              <label for="group1">Biến số 1 (Ví dụ: Trước tác động):</label>
-              <input type="text" id="group1Name" placeholder="Before" value="Before">
-              <textarea id="group1" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+            <div id="groups" style="display: flex; flex-direction: column; gap: 16px;">
+              <div class="kruskal-wallis-group-block">
+                <input type="text" placeholder="Tên nhóm" value="Nhóm 1" class="group-label"
+                  style="margin-bottom: 8px;" />
+                <textarea placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+              </div>
+              <div class="kruskal-wallis-group-block">
+                <input type="text" placeholder="Tên nhóm" value="Nhóm 2" class="group-label"
+                  style="margin-bottom: 8px;" />
+                <textarea placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+              </div>
+              <div class="kruskal-wallis-group-block">
+                <input type="text" placeholder="Tên nhóm" value="Nhóm 3" class="group-label"
+                  style="margin-bottom: 8px;" />
+                <textarea placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+              </div>
             </div>
 
-            <div class="section">
-              <label for="group2">Biến số 2 (Ví dụ: Sau tác động):</label>
-              <input type="text" id="group2Name" placeholder="After" value="After">
-              <textarea id="group2" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+            <div class="kruskal-wallis-add-remove-group">
+              <button class="btn-outline" onclick="addKruskalWallisGroup()"
+                style="height: 38px; padding: 6px 16px; font-size: 0.8rem;">+ Thêm nhóm</button>
+              <button class="btn-outline" onclick="removeKruskalWallisGroup()"
+                style="height: 38px; padding: 6px 16px; font-size: 0.8rem; color: var(--highlight-red) !important; border-color: var(--highlight-red) !important;">-
+                Xóa nhóm cuối</button>
             </div>
 
             <div class="input-row-container" id="alpha">
@@ -79,24 +93,8 @@
               </span>
             </div>
 
-            <div class="input-row-container" id="testType">
-              <label class="input-row-title font-sans-caption">Loại kiểm định:</label>
-              <span class="font-sans-caption">
-                <input type="radio" id="two-tailed" name="testType-selection" value="two-tailed" checked>
-                <label class="font-sans-caption" for="two-tailed">Hai phía: ≠</label>
-              </span>
-              <span class="font-sans-caption">
-                <input type="radio" id="greater" name="testType-selection" value="greater">
-                <label class="font-sans-caption" for="greater">Một phía: ></label>
-              </span>
-              <span class="font-sans-caption">
-                <input type="radio" id="less" name="testType-selection" value="less">
-                <label class="font-sans-caption" for="less">Một phía: < </label>
-              </span>
-            </div>
-
-            <button class="cta-large paragraph medium font-sans-caption" onclick="calculatePairedTTest()">Perform Paired
-              Sample t-Test</button>
+            <button class="cta-large paragraph medium font-sans-caption" onclick="calculateKruskalWallis()">Perform
+              Kruskal-Wallis Test</button>
           </div>
 
           <!-- Result Card -->

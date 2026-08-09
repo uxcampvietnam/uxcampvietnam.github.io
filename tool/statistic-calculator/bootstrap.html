@@ -4,22 +4,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Chi-squared Test</title>
-  <meta property="og:image" content="https://i.ibb.co/93HLFLP4/04.png" />
+  <title>Bootstrap Hypothesis Testing for Quantiles</title>
+  <meta property="og:image" content="https://i.ibb.co/0pnPx2Pz/01.png" />
   <meta property="og:description" content='UXCamp Vietnam' />
   <meta property="og:url" content='http://uxcamp.vn/' />
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.4/jstat.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.4/dist/jstat.min.js"></script>
   <script src="script.js"></script>
-  <script src="../script/libs/svg-inject.min.js"></script>
+  <script src="../../script/libs/svg-inject.min.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="../style/definition.css">
+  <link rel="stylesheet" type="text/css" href="../../style/definition.css">
   <link rel="stylesheet" href="../checklist/styles.css">
   <link rel="stylesheet" href="calculator.css">
-
-  <script>
-    window.onload = createTable;
-  </script>
 </head>
 
 <body>
@@ -36,8 +32,8 @@
         <!-- Top Mobile Navigation/Toggle Bar -->
         <header class="main-header" style="flex-wrap: wrap; gap: 16px;">
           <div style="flex: 1; min-width: 250px;">
-            <h2>Chi-squared Test</h2>
-            <p>Kiểm định dùng để so sánh tần suất quan sát được với tần suất kỳ vọng.</p>
+            <h2>Bootstrap for Quantiles</h2>
+            <p>Kiểm định bootstrap cho phân vị để so sánh hai nhóm dữ liệu có kích thước mẫu tối thiểu là 20.</p>
           </div>
 
           <!-- Toggle button on tablet/mobile -->
@@ -55,23 +51,21 @@
           <div class="calculator-card">
             <h3>Tham số</h3>
 
-            <div class="table-size-input-container caption" style="margin-bottom: 16px;">
-              <span>
-                <label for="rows">Số hàng:</label>
-                <input style="width: 80px;" type="number" id="rows" value="2" min="2">
-              </span>
-              <span>
-                <label for="cols">Số cột:</label>
-                <input style="width: 80px;" type="number" id="cols" value="2" min="2">
-              </span>
-              <button onclick="createTable()" class="cta-small font-sans-caption"
-                style="display: inline-block; padding: 12px 16px ">Tạo
-                bảng</button>
+            <div class="section">
+              <label for="group1">Nhóm A:</label>
+              <input type="text" id="group1Name" value="Group A" style="margin-bottom: 8px;">
+              <textarea id="group1" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
             </div>
 
-            <div id="tableContainer">
-              <table id="dataTable" onpaste="pasteDataToTable()">
-              </table>
+            <div class="section">
+              <label for="group2">Nhóm B:</label>
+              <input type="text" id="group2Name" value="Group B" style="margin-bottom: 8px;">
+              <textarea id="group2" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+            </div>
+
+            <div class="input-row-container">
+              <label class="input-row-title font-sans-caption" for="quantile">Phân vị thứ (%):</label>
+              <input type="number" id="quantile" step="0.01" min="0" max="100" value="90">
             </div>
 
             <div class="input-row-container" id="alpha">
@@ -90,8 +84,24 @@
               </span>
             </div>
 
-            <button class="cta-large paragraph medium font-sans-caption" onclick="calculateChiSquared()">Perform
-              Chi-squared Test</button>
+            <div class="input-row-container" id="testType">
+              <label class="input-row-title font-sans-caption">Loại kiểm định:</label>
+              <span class="font-sans-caption">
+                <input type="radio" id="two-tailed" name="testType-selection" value="two-tailed" checked>
+                <label class="font-sans-caption" for="two-tailed">Hai phía: ≠</label>
+              </span>
+              <span class="font-sans-caption">
+                <input type="radio" id="greater" name="testType-selection" value="greater">
+                <label class="font-sans-caption" for="greater">Một phía: ></label>
+              </span>
+              <span class="font-sans-caption">
+                <input type="radio" id="less" name="testType-selection" value="less">
+                <label class="font-sans-caption" for="less">Một phía: < </label>
+              </span>
+            </div>
+
+            <button class="cta-large paragraph medium font-sans-caption" onclick="calculateBootstrap()">Perform
+              Bootstrap Hypothesis Testing</button>
           </div>
 
           <!-- Result Card -->

@@ -4,18 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kruskal-Wallis Test</title>
-  <meta property="og:image" content="https://i.ibb.co/nND0fhRt/03.png" />
+  <title>Chi-squared Test</title>
+  <meta property="og:image" content="https://i.ibb.co/93HLFLP4/04.png" />
   <meta property="og:description" content='UXCamp Vietnam' />
   <meta property="og:url" content='http://uxcamp.vn/' />
 
-  <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.6/dist/jstat.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.4/jstat.min.js"></script>
   <script src="script.js"></script>
-  <script src="../script/libs/svg-inject.min.js"></script>
+  <script src="../../script/libs/svg-inject.min.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="../style/definition.css">
+  <link rel="stylesheet" type="text/css" href="../../style/definition.css">
   <link rel="stylesheet" href="../checklist/styles.css">
   <link rel="stylesheet" href="calculator.css">
+
+  <script>
+    window.onload = createTable;
+  </script>
 </head>
 
 <body>
@@ -32,8 +36,8 @@
         <!-- Top Mobile Navigation/Toggle Bar -->
         <header class="main-header" style="flex-wrap: wrap; gap: 16px;">
           <div style="flex: 1; min-width: 250px;">
-            <h2>Kruskal-Wallis Test</h2>
-            <p>Kiểm định phi tham số để so sánh trung vị giữa nhiều hơn hai nhóm độc lập.</p>
+            <h2>Chi-squared Test</h2>
+            <p>Kiểm định dùng để so sánh tần suất quan sát được với tần suất kỳ vọng.</p>
           </div>
 
           <!-- Toggle button on tablet/mobile -->
@@ -51,30 +55,23 @@
           <div class="calculator-card">
             <h3>Tham số</h3>
 
-            <div id="groups" style="display: flex; flex-direction: column; gap: 16px;">
-              <div class="kruskal-wallis-group-block">
-                <input type="text" placeholder="Tên nhóm" value="Nhóm 1" class="group-label"
-                  style="margin-bottom: 8px;" />
-                <textarea placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
-              </div>
-              <div class="kruskal-wallis-group-block">
-                <input type="text" placeholder="Tên nhóm" value="Nhóm 2" class="group-label"
-                  style="margin-bottom: 8px;" />
-                <textarea placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
-              </div>
-              <div class="kruskal-wallis-group-block">
-                <input type="text" placeholder="Tên nhóm" value="Nhóm 3" class="group-label"
-                  style="margin-bottom: 8px;" />
-                <textarea placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
-              </div>
+            <div class="table-size-input-container caption" style="margin-bottom: 16px;">
+              <span>
+                <label for="rows">Số hàng:</label>
+                <input style="width: 80px;" type="number" id="rows" value="2" min="2">
+              </span>
+              <span>
+                <label for="cols">Số cột:</label>
+                <input style="width: 80px;" type="number" id="cols" value="2" min="2">
+              </span>
+              <button onclick="createTable()" class="cta-small font-sans-caption"
+                style="display: inline-block; padding: 12px 16px ">Tạo
+                bảng</button>
             </div>
 
-            <div class="kruskal-wallis-add-remove-group">
-              <button class="btn-outline" onclick="addKruskalWallisGroup()"
-                style="height: 38px; padding: 6px 16px; font-size: 0.8rem;">+ Thêm nhóm</button>
-              <button class="btn-outline" onclick="removeKruskalWallisGroup()"
-                style="height: 38px; padding: 6px 16px; font-size: 0.8rem; color: var(--highlight-red) !important; border-color: var(--highlight-red) !important;">-
-                Xóa nhóm cuối</button>
+            <div id="tableContainer">
+              <table id="dataTable" onpaste="pasteDataToTable()">
+              </table>
             </div>
 
             <div class="input-row-container" id="alpha">
@@ -93,8 +90,8 @@
               </span>
             </div>
 
-            <button class="cta-large paragraph medium font-sans-caption" onclick="calculateKruskalWallis()">Perform
-              Kruskal-Wallis Test</button>
+            <button class="cta-large paragraph medium font-sans-caption" onclick="calculateChiSquared()">Perform
+              Chi-squared Test</button>
           </div>
 
           <!-- Result Card -->

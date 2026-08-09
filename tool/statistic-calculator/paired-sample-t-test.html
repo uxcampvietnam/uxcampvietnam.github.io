@@ -4,16 +4,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Two Sample t-Test</title>
+  <title>Paired Sample t-Test</title>
   <meta property="og:image" content="https://i.ibb.co/1pzZtrF/05.png" />
   <meta property="og:description" content='UXCamp Vietnam' />
   <meta property="og:url" content='http://uxcamp.vn/' />
 
-  <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.4/dist/jstat.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.6/dist/jstat.min.js"></script>
   <script src="script.js"></script>
-  <script src="../script/libs/svg-inject.min.js"></script>
+  <script src="../../script/libs/svg-inject.min.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="../style/definition.css">
+  <link rel="stylesheet" type="text/css" href="../../style/definition.css">
   <link rel="stylesheet" href="../checklist/styles.css">
   <link rel="stylesheet" href="calculator.css">
 </head>
@@ -32,8 +32,8 @@
         <!-- Top Mobile Navigation/Toggle Bar -->
         <header class="main-header" style="flex-wrap: wrap; gap: 16px;">
           <div style="flex: 1; min-width: 250px;">
-            <h2>Two Sample t-Test</h2>
-            <p>So sánh trung bình của hai nhóm mẫu độc lập (Independent Samples t-Test).</p>
+            <h2>Paired Sample t-Test</h2>
+            <p>So sánh trung bình của hai nhóm dữ liệu có liên hệ (đôi/phụ thuộc).</p>
           </div>
 
           <!-- Toggle button on tablet/mobile -->
@@ -52,15 +52,15 @@
             <h3>Tham số</h3>
 
             <div class="section">
-              <label for="group1Data">Nhóm A:</label>
-              <input type="text" id="group1Name" placeholder="Group A" value="Group A">
-              <textarea id="group1Data" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+              <label for="group1">Biến số 1 (Ví dụ: Trước tác động):</label>
+              <input type="text" id="group1Name" placeholder="Before" value="Before">
+              <textarea id="group1" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
             </div>
 
             <div class="section">
-              <label for="group2Data">Nhóm B:</label>
-              <input type="text" id="group2Name" placeholder="Group B" value="Group B">
-              <textarea id="group2Data" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
+              <label for="group2">Biến số 2 (Ví dụ: Sau tác động):</label>
+              <input type="text" id="group2Name" placeholder="After" value="After">
+              <textarea id="group2" placeholder="Enter data (e.g. 32, 66, 57, 27...)"></textarea>
             </div>
 
             <div class="input-row-container" id="alpha">
@@ -95,7 +95,7 @@
               </span>
             </div>
 
-            <button class="cta-large paragraph medium font-sans-caption" onclick="calculateTwoSampleTTest()">Perform Two
+            <button class="cta-large paragraph medium font-sans-caption" onclick="calculatePairedTTest()">Perform Paired
               Sample t-Test</button>
           </div>
 

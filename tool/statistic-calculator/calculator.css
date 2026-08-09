@@ -11,6 +11,11 @@ body * {
   letter-spacing: var(--ls, 0.012em) !important;
 }
 
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+}
+
 /* Headers: mono-h5 (20px) */
 h1,
 h2,

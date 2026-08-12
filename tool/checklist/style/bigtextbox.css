@@ -1,0 +1,508 @@
+/* Main Layout Base */
+:root {
+	--sidebar-width: 320px;
+	--sidebar-bg: var(--main-colors-background-elevate-2, #1e1e1e);
+	--sidebar-card-bg: var(--main-colors-background-b100, #2a2a2a);
+	--editor-bg: var(--main-colors-background-b-200-slide-bg, #121212);
+	--text-main: var(--main-colors-foreground-f300, #ececec);
+	--text-muted: var(--main-colors-foreground-f-500-main, #888888);
+	--stroke-color: var(--console-stroke, rgba(255, 255, 255, 0.1));
+	--accent-gold: var(--alternative-foreground-gold, #d4af37);
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+	width: 100%;
+	background-color: var(--editor-bg) !important;
+	color: var(--text-main);
+	font-family: var(--font-sans-family, system-ui, -apple-system, sans-serif);
+	overflow: hidden;
+}
+
+.app-container {
+	display: flex;
+	width: 100vw;
+	height: 100vh;
+	position: relative;
+	overflow: hidden;
+}
+
+/* Left Sidebar (Using pre-defined Work Sans / .font-sans-paragraph style) */
+.sidebar {
+	width: var(--sidebar-width);
+	background-color: var(--sidebar-bg);
+	border-right: 0.5px solid var(--stroke-color);
+	display: flex;
+	flex-direction: column;
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 20;
+	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	font-family: var(--font-sans-family, system-ui, -apple-system, sans-serif) !important;
+}
+
+.sidebar-content {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	padding: 0px 24px 24px 24px;
+	box-sizing: border-box;
+	overflow-y: auto;
+	overflow-x: hidden;
+	font-family: var(--font-sans-family, system-ui, -apple-system, sans-serif) !important;
+	font-size: var(--font-sans-paragraph-size, 15px);
+	line-height: var(--font-sans-paragraph-line, 24px);
+	letter-spacing: var(--font-sans-paragraph-letter, 0px);
+}
+
+.sidebar-content::-webkit-scrollbar {
+	width: 5px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+	background: var(--transparent-foreground-main-color-20, rgba(255, 255, 255, 0.15));
+	border-radius: 10px;
+}
+
+/* Sidebar Toggle Button */
+.sidebar-toggle-btn {
+	position: absolute;
+	top: 24px;
+	right: -16px;
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	background-color: var(--sidebar-card-bg);
+	border: 0.5px solid var(--stroke-color);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--text-main);
+	cursor: pointer;
+	z-index: 25;
+	transition: transform 0.3s ease, background-color 0.2s ease, right 0.3s ease;
+}
+
+.sidebar-toggle-btn:hover {
+	background-color: var(--transparent-foreground-main-color-20, rgba(255, 255, 255, 0.2));
+	transform: scale(1.08);
+}
+
+.sidebar-toggle-btn .toggle-icon {
+	transition: transform 0.3s ease;
+}
+
+/* Sidebar Collapsed State */
+.sidebar-collapsed .sidebar {
+	transform: translateX(-100%);
+}
+
+.sidebar-collapsed .sidebar-toggle-btn {
+	right: -40px;
+}
+
+.sidebar-collapsed .sidebar-toggle-btn .toggle-icon {
+	transform: rotate(180deg);
+}
+
+.sidebar-collapsed .main-wrapper {
+	margin-left: 0;
+}
+
+/* Sidebar Header & Brand */
+.brand-header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	height: 72px;
+	margin-bottom: 20px;
+	border-bottom: 0.5px solid var(--stroke-color);
+}
+
+.eye-logo {
+	width: 36px;
+	height: 36px;
+	flex-shrink: 0;
+}
+
+.brand-title {
+	font-family: var(--font-sans-family, system-ui, -apple-system, sans-serif) !important;
+	font-size: var(--font-sans-paragraph-size, 15px);
+	line-height: var(--font-sans-paragraph-line, 24px);
+	color: var(--text-main);
+	text-decoration: none;
+}
+
+/* Sidebar Action Toolbar */
+.sidebar-actions {
+	display: flex;
+	gap: 8px;
+	margin-bottom: 16px;
+}
+
+.btn-sidebar-action {
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	padding: 8px 12px;
+	border-radius: 8px;
+	border: 0.5px solid var(--stroke-color);
+	background: var(--sidebar-card-bg);
+	color: var(--text-main);
+	font-family: var(--font-sans-family, system-ui, -apple-system, sans-serif) !important;
+	font-size: var(--font-sans-paragraph-size, 15px);
+	font-weight: 500;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.btn-sidebar-action *,
+.folder-header *,
+.note-item * {
+	color: var(--text-main) !important;
+	fill: var(--text-main) !important;
+}
+
+.btn-sidebar-action:hover {
+	background: var(--transparent-foreground-main-color-20, rgba(255, 255, 255, 0.15));
+	border-color: var(--accent-gold);
+}
+
+/* Pre-defined btn-primary style */
+.btn-primary {
+	color: var(--fix-white---white-100, #ffffff) !important;
+	display: flex;
+	height: 44px;
+	padding: 8px 16px;
+	justify-content: center;
+	align-items: center;
+	gap: 6px;
+	border-radius: 8px;
+	border: 0.5px solid var(--transparent-foreground-main-color-40, rgba(255, 255, 255, 0.40));
+	background: var(--button-background, rgba(60, 37, 9, 0.50));
+	backdrop-filter: blur(50px);
+	cursor: pointer;
+	font-weight: 500;
+	font-size: var(--font-sans-paragraph-size, 15px);
+	font-family: var(--font-sans-family, system-ui, -apple-system, sans-serif) !important;
+	transition: background 0.2s ease, opacity 0.2s ease;
+	flex: 1;
+	text-decoration: none;
+}
+
+.btn-primary:hover {
+	background: var(--button-background-hover, rgba(115, 69, 13, 0.50));
+	opacity: 0.9;
+}
+
+.btn-primary * {
+	color: var(--fix-white---white-100, #ffffff) !important;
+	fill: var(--fix-white---white-100, #ffffff) !important;
+}
+
+/* Folder & Note Tree */
+.folder-tree {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	flex: 1;
+	font-family: var(--font-sans-family, system-ui, -apple-system, sans-serif) !important;
+}
+
+.folder-group {
+	border-radius: 20px;
+	background: var(--main-colors-background-elevate-1);
+	border: 0.5px solid var(--console-stroke);
+	transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.folder-group.drag-over-folder {
+	border-color: var(--accent-gold);
+	background: rgba(212, 175, 55, 0.08);
+}
+
+.folder-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	cursor: pointer;
+	user-select: none;
+	transition: background 0.2s ease;
+	padding: 12px;
+	border-radius: 16px;
+	margin: 4px;
+}
+
+.folder-header:hover {
+	background: var(--sidebar-card-bg);
+}
+
+.folder-title-area {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	flex: 1;
+	overflow: hidden;
+}
+
+.folder-svg-icon {
+	width: 36px !important;
+	height: 36px !important;
+	min-width: 36px !important;
+	flex-shrink: 0;
+}
+
+.folder-toggle-icon {
+	width: 14px;
+	height: 14px;
+	transition: transform 0.2s ease;
+	color: var(--text-muted);
+}
+
+.folder-group.collapsed .folder-toggle-icon {
+	transform: rotate(-90deg);
+}
+
+.folder-name {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-weight: 500;
+}
+
+.note-count {
+	font-size: 0.75rem;
+	color: var(--text-muted);
+	background: rgba(255, 255, 255, 0.08);
+	padding: 2px 6px;
+	border-radius: 10px;
+}
+
+.folder-actions {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	opacity: 0;
+	transition: opacity 0.2s ease;
+}
+
+.folder-header:hover .folder-actions {
+	opacity: 1;
+}
+
+.btn-icon {
+	background: none;
+	border: none;
+	color: var(--text-muted);
+	padding: 4px;
+	border-radius: 4px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.btn-icon:hover {
+	color: var(--text-main);
+	background: rgba(255, 255, 255, 0.1);
+}
+
+/* Notes list inside folder */
+.folder-notes-list {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+}
+
+.folder-group.collapsed .folder-notes-list {
+	display: none;
+}
+
+.note-item {
+	padding: 12px;
+	margin: 4px;
+	border-radius: 12px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	font-size: var(--font-sans-paragraph-size, 15px);
+	line-height: var(--font-sans-paragraph-line, 24px);
+	color: var(--text-muted);
+	cursor: pointer;
+	transition: all 0.2s ease;
+	border: 0.5px solid transparent;
+	position: relative;
+}
+
+.note-item:hover {
+	background: var(--sidebar-card-bg);
+	color: var(--text-main);
+}
+
+.note-item.active {
+	background: var(--sidebar-card-bg);
+	color: var(--accent-gold);
+	font-weight: 500;
+}
+
+.note-title-text {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	flex: 1;
+	font-size: var(--font-sans-paragraph-size, 15px);
+}
+
+.btn-note-delete {
+	opacity: 0;
+	transition: opacity 0.2s ease;
+}
+
+.note-item:hover .btn-note-delete {
+	opacity: 1;
+}
+
+/* Drag & Drop Visual Indicators */
+.dragging {
+	opacity: 0.4;
+}
+
+.drag-over-above {
+	border-top: 2px solid var(--accent-gold) !important;
+}
+
+.drag-over-below {
+	border-bottom: 2px solid var(--accent-gold) !important;
+}
+
+/* Main Content Editor Area */
+.main-wrapper {
+	flex: 1;
+	margin-left: var(--sidebar-width);
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	background: var(--editor-bg);
+	transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Header matching background color of the whole page */
+.editor-header {
+	display: flex;
+	align-items: center;
+	height: 72px;
+	padding: 0px 10vw;
+	background: var(--editor-bg) !important;
+	border-bottom: 0.5px solid var(--stroke-color);
+}
+
+.note-title-input {
+	background: transparent !important;
+	border: none !important;
+	color: var(--text-main) !important;
+	outline: none !important;
+	width: 100%;
+	padding: 0 !important;
+}
+
+.editor-container {
+	flex: 1;
+	padding: 10vw;
+	overflow-y: auto;
+	box-sizing: border-box;
+	display: flex;
+	justify-content: center;
+}
+
+/* Editor Typography & Styling */
+#inputText {
+	background: transparent !important;
+	color: var(--text-main) !important;
+	width: 100%;
+	min-height: 70vh;
+	outline: none !important;
+	box-shadow: none !important;
+	word-break: break-word;
+	white-space: pre-wrap;
+}
+
+#inputText,
+#inputText p,
+#inputText div,
+#inputText span {
+	font-family: var(--font-sans-family, system-ui, sans-serif) !important;
+	font-size: var(--font-sans-xl-title-size, 40px) !important;
+	line-height: var(--font-sans-xl-title-line, 48px) !important;
+	letter-spacing: var(--font-sans-xl-title-letter, 0px) !important;
+}
+
+#inputText p,
+#inputText div {
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+/* Custom Bold Formatting (Weight 600 & Yellow Color) */
+#inputText b,
+#inputText strong,
+#inputText [style*="font-weight: bold"],
+#inputText [style*="font-weight:bold"],
+#inputText [style*="font-weight: 700"],
+#inputText [style*="font-weight:700"],
+#inputText [style*="font-weight: 600"],
+#inputText [style*="font-weight:600"],
+#inputText [style*="font-weight: 500"],
+#inputText [style*="font-weight:500"] {
+	font-weight: 600 !important;
+	color: var(--highlight-yellow, #dca015) !important;
+}
+
+/* Normal text override when unbolded */
+#inputText [style*="font-weight: normal"],
+#inputText [style*="font-weight:normal"],
+#inputText [style*="font-weight: 400"],
+#inputText [style*="font-weight:400"] {
+	font-weight: 400 !important;
+	color: var(--text-main) !important;
+}
+
+
+/* Custom Italic Formatting (Font Serif XL Title) */
+#inputText i,
+#inputText em,
+#inputText [style*="italic"],
+#inputText i *,
+#inputText em *,
+#inputText [style*="italic"] * {
+	font-family: var(--font-serif-family, "Crimson Pro", serif) !important;
+	font-style: italic !important;
+	font-size: 86px !important;
+	line-height: 76px !important;
+	color: var(--highlight-green);
+}
+
+#inputText a {
+	color: #4da6ff;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+#inputText a:hover {
+	color: #80c1ff;
+}
+
+/* Editor Placeholder */
+#inputText:empty:before {
+	content: attr(placeholder);
+	color: var(--text-disabled);
+	pointer-events: none;
+	display: block;
+	opacity: 0.4;
+}

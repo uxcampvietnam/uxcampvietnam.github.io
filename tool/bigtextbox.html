@@ -1,20 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="vi">
 
 <head>
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Bigtextbox</title>
+	<title>Bigtextbox - Ghi chú & Quản lý Note</title>
 	<link rel="icon" href="https://uxcamp.vn/asset/icon/favicon.ico">
 
-	<meta name="title" content="Big Text Box">
+	<meta name="title" content="BigTextBox">
 	<meta property="og:type" content="website">
-	<meta property="description" content='Big text box' />
+	<meta property="description" content='BigTextBox - Ghi chú nhanh & Quản lý thư mục' />
 	<meta property="og:image" content="https://i.ibb.co/pv9J4K2/Frame-1000003786.jpg" />
-	<meta property="og:description" content='Big Text Box' />
-	<meta property="og:url" content='http://tamdovisual.com/bigtextbox.html' />
-	<meta name="description" content="Big Text Box">
+	<meta property="og:description" content='BigTextBox' />
+	<meta property="og:url" content='http://uxcamp.vn/tool/bigtextbox.html' />
+	<meta name="description" content="BigTextBox">
 
 	<script src="../script/libs/svg-inject.min.js"></script>
 
@@ -22,43 +22,739 @@
 
 	<link rel="stylesheet" type="text/css" href="../style/definition.css">
 	<link rel="stylesheet" type="text/css" href="../style/style.css">
-
-	<style>
-		#inputText {
-			background: var(--main-colors-background-b-200-slide-bg) !important;
-			color: var(--main-colors-foreground-f300) !important;
-			width: 100vw;
-			height: 100vh;
-			text-overflow: ellipsis;
-			white-space: wrap;
-			-webkit-box-sizing: border-box;
-			-moz-box-sizing: border-box;
-			box-sizing: border-box;
-			border: 0px;
-			padding: 10vw;
-			border: none;
-			outline: none;
-			-webkit-box-shadow: none;
-			-moz-box-shadow: none;
-			box-shadow: none;
-			line-height: 130%;
-		}
-	</style>
+	<link rel="stylesheet" type="text/css" href="checklist/style/bigtextbox.css">
 </head>
 
 <body>
 
-	<div class="navigation">
-		<div class="navigation-row1">
-			<a href="../index.html"><img class="eye-logo" src="../asset/image/Eye.svg" onload="SVGInject(this)"></a>
+	<div class="app-container" id="app-container">
 
-		</div>
-		<div class="navigation-row2">
-		</div>
+		<!-- LEFT SIDEBAR -->
+		<aside class="sidebar" id="sidebar">
+			<button id="sidebar-toggle-btn" class="sidebar-toggle-btn" aria-label="Thu nhỏ menu" title="Đóng/mở menu">
+				<svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
+					<path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+				</svg>
+			</button>
+
+			<div class="sidebar-content font-sans-paragraph">
+				<!-- Brand Header -->
+				<div class="brand-header">
+					<a href="../index.html">
+						<img class="eye-logo" src="../asset/image/Eye.svg" onload="SVGInject(this)"
+							alt="UXCamp Eye Logo">
+					</a>
+					<span class="brand-title font-sans-paragraph">BigTextBox</span>
+				</div>
+
+				<!-- Action Toolbar -->
+				<div class="sidebar-actions">
+					<button id="btn-add-folder" class="btn-sidebar-action font-sans-paragraph" title="Tạo thư mục mới">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M7.82031 4.10156C8.43967 4.10156 8.98204 4.41146 9.36914 4.87598L10.2207 6.11426C10.2981 6.19167 10.4528 6.26952 10.5303 6.26953H19.4336C20.4399 6.26957 21.2918 7.04333 21.292 8.12695V18.1143C21.292 19.1981 20.5174 20.0498 19.4336 20.0498H4.64648C3.56261 20.0498 2.71094 19.1207 2.71094 18.1143V5.95996C2.71094 4.95351 3.56261 4.10156 4.64648 4.10156H7.82031ZM12 9C11.6452 9 11.3574 9.28775 11.3574 9.64258V12.8574H8.14258C7.78775 12.8574 7.5 13.1452 7.5 13.5C7.5 13.8548 7.78775 14.1426 8.14258 14.1426H11.3574V17.3574C11.3574 17.7123 11.6452 18 12 18C12.3548 18 12.6426 17.7123 12.6426 17.3574V14.1426H15.8574C16.2123 14.1426 16.5 13.8548 16.5 13.5C16.5 13.1452 16.2123 12.8574 15.8574 12.8574H12.6426V9.64258C12.6426 9.28775 12.3548 9 12 9Z"
+								fill="#68EE47" />
+						</svg>
+
+
+						<span class="font-sans-paragraph">Folder</span>
+					</button>
+					<button id="btn-add-note" class="btn-primary font-sans-paragraph"
+						title="Tạo ghi chú mới (Đẩy lên đầu tiên)">
+						<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path
+								d="M12 3C16.9706 3 21 7.02944 21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3ZM12 7.5C11.6452 7.5 11.3575 7.78765 11.3575 8.14248V11.3575H8.14248C7.78765 11.3575 7.5 11.6452 7.5 12C7.5 12.3548 7.78765 12.6425 8.14248 12.6425H11.3575V15.8575C11.3575 16.2124 11.6452 16.5 12 16.5C12.3548 16.5 12.6425 16.2124 12.6425 15.8575V12.6425H15.8575C16.2124 12.6425 16.5 12.3548 16.5 12C16.5 11.6452 16.2124 11.3575 15.8575 11.3575H12.6425V8.14248C12.6425 7.78765 12.3548 7.5 12 7.5Z"
+								fill="#68EE47" />
+						</svg>
+
+						<span class="font-sans-paragraph">Note</span>
+					</button>
+				</div>
+
+				<!-- Folder & Note Tree -->
+				<div class="folder-tree" id="folder-tree"></div>
+			</div>
+		</aside>
+
+		<!-- MAIN CONTENT EDITOR -->
+		<main class="main-wrapper">
+			<div class="editor-header">
+				<input type="text" id="note-title-input" class="note-title-input font-sans-h1"
+					placeholder="Tên ghi chú..." />
+			</div>
+
+			<div class="editor-container">
+				<div id="inputText" class="font-sans-xl-title" contenteditable="true" spellcheck="false"
+					placeholder="Bắt đầu gõ nội dung ghi chú tại đây..."></div>
+			</div>
+		</main>
+
 	</div>
 
+	<!-- JavaScript Engine -->
+	<script>
+		const STORAGE_KEY = 'bigtextbox_app_data_v1';
 
-	<textarea id="inputText" class="font-sans-xl-title" autofocus></textarea>
+		// App State
+		let appState = {
+			folders: [],
+			notes: [],
+			activeNoteId: null,
+			sidebarCollapsed: false
+		};
+
+		// Drag & Drop State
+		let dragSrcInfo = null;
+
+		// DOM Elements
+		const appContainer = document.getElementById('app-container');
+		const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
+		const btnAddFolder = document.getElementById('btn-add-folder');
+		const btnAddNote = document.getElementById('btn-add-note');
+		const folderTree = document.getElementById('folder-tree');
+		const noteTitleInput = document.getElementById('note-title-input');
+		const inputText = document.getElementById('inputText');
+
+		// --- INIT & PERSISTENCE ---
+
+		function initApp() {
+			loadData();
+			setupEventListeners();
+			applySidebarState();
+			renderSidebar();
+			loadActiveNote();
+		}
+
+		function loadData() {
+			try {
+				const raw = localStorage.getItem(STORAGE_KEY);
+				if (raw) {
+					appState = JSON.parse(raw);
+				}
+			} catch (e) {
+				console.error('Lỗi đọc localStorage:', e);
+			}
+
+			if (!appState.folders || appState.folders.length === 0) {
+				appState.folders = [
+					{ id: 'f_default', name: 'Ghi chú chung', order: 1000.0, collapsed: false }
+				];
+			}
+			if (!appState.notes || appState.notes.length === 0) {
+				appState.notes = [
+					{
+						id: 'n_welcome',
+						folderId: 'f_default',
+						title: 'Ghi chú đầu tiên',
+						content: 'Chào mừng bạn đến với <b>BigTextBox</b>!<br><br><b>Các phím tắt định dạng:</b><br>- <b>Ctrl/Cmd + B</b>: Chữ vàng mỏng mượt.<br>- <i>Ctrl/Cmd + I</i>: Chữ in nghiêng.<br>- <u>Ctrl/Cmd + U</u>: Chữ gạch chân.<br>- Dán đường dẫn URL để tự động tạo link nhấp được.<br>- Kéo thả thư mục và ghi chú để sắp xếp vị trí tuỳ thích.',
+						order: 1000.0,
+						updatedAt: Date.now()
+					}
+				];
+				appState.activeNoteId = 'n_welcome';
+			}
+
+			if (!appState.activeNoteId || !appState.notes.find(n => n.id === appState.activeNoteId)) {
+				appState.activeNoteId = appState.notes[0]?.id || null;
+			}
+		}
+
+		function saveData() {
+			localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+		}
+
+		// --- SIDEBAR COLLAPSE TOGGLE ---
+
+		function applySidebarState() {
+			if (appState.sidebarCollapsed) {
+				appContainer.classList.add('sidebar-collapsed');
+			} else {
+				appContainer.classList.remove('sidebar-collapsed');
+			}
+		}
+
+		function setupEventListeners() {
+			sidebarToggleBtn.addEventListener('click', () => {
+				appState.sidebarCollapsed = !appState.sidebarCollapsed;
+				applySidebarState();
+				saveData();
+			});
+			setupDragAndDropHandlers();
+		}
+
+		// --- RENDER SIDEBAR & FOLDERS ---
+
+		function renderSidebar() {
+			folderTree.innerHTML = '';
+			const sortedFolders = [...appState.folders].sort((a, b) => a.order - b.order);
+
+			sortedFolders.forEach(folder => {
+				const folderGroup = document.createElement('div');
+				folderGroup.className = `folder-group ${folder.collapsed ? 'collapsed' : ''}`;
+				folderGroup.dataset.folderId = folder.id;
+
+				const folderNotes = appState.notes
+					.filter(n => n.folderId === folder.id)
+					.sort((a, b) => a.order - b.order);
+
+				folderGroup.innerHTML = `
+					<div class="folder-header" draggable="true" data-folder-id="${folder.id}">
+						<div class="folder-title-area">
+							<svg class="folder-toggle-icon" viewBox="0 0 24 24" fill="currentColor">
+								<path d="M7 10l5 5 5-5z"/>
+							</svg>
+							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path
+									d="M8.33464 3.33594H3.33464C2.41797 3.33594 1.6763 4.08594 1.6763 5.0026L1.66797 15.0026C1.66797 15.9193 2.41797 16.6693 3.33464 16.6693H16.668C17.5846 16.6693 18.3346 15.9193 18.3346 15.0026V6.66927C18.3346 5.7526 17.5846 5.0026 16.668 5.0026H10.0013L8.33464 3.33594Z"
+									fill="black" />
+							</svg>
+							<span class="folder-name font-sans-paragraph">${escapeHtml(folder.name)}</span>
+							<span class="note-count font-sans-paragraph">${folderNotes.length}</span>
+						</div>
+						<div class="folder-actions">
+							<button class="btn-icon btn-add-note-to-folder" title="Tạo note trong thư mục này">
+								<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+							</button>
+							<button class="btn-icon btn-rename-folder" title="Đổi tên thư mục">
+								<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+							</button>
+							<button class="btn-icon btn-delete-folder" title="Xóa thư mục">
+								<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+							</button>
+						</div>
+					</div>
+					<div class="folder-notes-list" data-folder-id="${folder.id}"></div>
+				`;
+
+				const notesListContainer = folderGroup.querySelector('.folder-notes-list');
+
+				folderNotes.forEach(note => {
+					const noteEl = document.createElement('div');
+					noteEl.className = `note-item font-sans-paragraph ${note.id === appState.activeNoteId ? 'active' : ''}`;
+					noteEl.draggable = true;
+					noteEl.dataset.noteId = note.id;
+					noteEl.dataset.folderId = folder.id;
+
+					noteEl.innerHTML = `
+						<span class="note-title-text font-sans-paragraph">${escapeHtml(note.title || 'Ghi chú không tên')}</span>
+						<button class="btn-icon btn-note-delete" title="Xóa ghi chú">
+							<svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+						</button>
+					`;
+
+					noteEl.addEventListener('click', (e) => {
+						if (e.target.closest('.btn-note-delete')) {
+							deleteNote(note.id);
+						} else {
+							setActiveNote(note.id);
+						}
+					});
+
+					attachDragEventsToNote(noteEl, note.id, folder.id);
+					notesListContainer.appendChild(noteEl);
+				});
+
+				const folderHeader = folderGroup.querySelector('.folder-header');
+				folderHeader.addEventListener('click', (e) => {
+					if (e.target.closest('.btn-add-note-to-folder')) {
+						e.stopPropagation();
+						createNewNote(folder.id);
+					} else if (e.target.closest('.btn-rename-folder')) {
+						e.stopPropagation();
+						renameFolder(folder.id);
+					} else if (e.target.closest('.btn-delete-folder')) {
+						e.stopPropagation();
+						deleteFolder(folder.id);
+					} else {
+						folder.collapsed = !folder.collapsed;
+						folderGroup.classList.toggle('collapsed', folder.collapsed);
+						saveData();
+					}
+				});
+
+				attachDragEventsToFolder(folderGroup, folderHeader, folder.id);
+				folderTree.appendChild(folderGroup);
+			});
+		}
+
+		// --- CRUD OPERATIONS WITH FLOAT INDEXING ---
+
+		btnAddFolder.addEventListener('click', () => {
+			const name = prompt('Nhập tên thư mục mới:', 'Thư mục mới');
+			if (name && name.trim()) {
+				createNewFolder(name.trim());
+			}
+		});
+
+		btnAddNote.addEventListener('click', () => {
+			const activeNote = getActiveNote();
+			const targetFolderId = activeNote ? activeNote.folderId : appState.folders[0]?.id;
+			if (targetFolderId) {
+				createNewNote(targetFolderId);
+			}
+		});
+
+		function createNewFolder(name) {
+			const maxOrder = appState.folders.reduce((max, f) => Math.max(max, f.order), 0);
+			const newFolder = {
+				id: 'f_' + Date.now(),
+				name: name,
+				order: maxOrder + 1000.0,
+				collapsed: false
+			};
+			appState.folders.push(newFolder);
+			saveData();
+			renderSidebar();
+		}
+
+		function createNewNote(folderId) {
+			const folderNotes = appState.notes.filter(n => n.folderId === folderId);
+			let newOrder = 1000.0;
+			if (folderNotes.length > 0) {
+				const minOrder = Math.min(...folderNotes.map(n => n.order));
+				newOrder = minOrder - 1000.0;
+			}
+
+			const newNote = {
+				id: 'n_' + Date.now(),
+				folderId: folderId,
+				title: 'Ghi chú mới',
+				content: '',
+				order: newOrder,
+				updatedAt: Date.now()
+			};
+
+			appState.notes.push(newNote);
+			appState.activeNoteId = newNote.id;
+			saveData();
+			renderSidebar();
+			loadActiveNote();
+			inputText.focus();
+		}
+
+		function renameFolder(folderId) {
+			const folder = appState.folders.find(f => f.id === folderId);
+			if (!folder) return;
+			const newName = prompt('Nhập tên mới cho thư mục:', folder.name);
+			if (newName && newName.trim()) {
+				folder.name = newName.trim();
+				saveData();
+				renderSidebar();
+			}
+		}
+
+		function deleteFolder(folderId) {
+			if (appState.folders.length <= 1) {
+				alert('Bạn cần giữ lại ít nhất 1 thư mục!');
+				return;
+			}
+			if (confirm('Bạn có chắc chắn muốn xóa thư mục này cùng toàn bộ note bên trong?')) {
+				appState.folders = appState.folders.filter(f => f.id !== folderId);
+				appState.notes = appState.notes.filter(n => n.folderId !== folderId);
+				if (!appState.notes.find(n => n.id === appState.activeNoteId)) {
+					appState.activeNoteId = appState.notes[0]?.id || null;
+				}
+				saveData();
+				renderSidebar();
+				loadActiveNote();
+			}
+		}
+
+		function deleteNote(noteId) {
+			if (confirm('Xóa ghi chú này?')) {
+				appState.notes = appState.notes.filter(n => n.id !== noteId);
+				if (appState.activeNoteId === noteId) {
+					appState.activeNoteId = appState.notes[0]?.id || null;
+				}
+				saveData();
+				renderSidebar();
+				loadActiveNote();
+			}
+		}
+
+		function getActiveNote() {
+			return appState.notes.find(n => n.id === appState.activeNoteId);
+		}
+
+		function setActiveNote(noteId) {
+			appState.activeNoteId = noteId;
+			saveData();
+			renderSidebar();
+			loadActiveNote();
+		}
+
+		function loadActiveNote() {
+			const activeNote = getActiveNote();
+			if (!activeNote) {
+				noteTitleInput.value = '';
+				inputText.innerHTML = '';
+				return;
+			}
+
+			noteTitleInput.value = activeNote.title || '';
+			inputText.innerHTML = activeNote.content || '';
+		}
+
+		// Sync Title Input Changes
+		noteTitleInput.addEventListener('input', () => {
+			const activeNote = getActiveNote();
+			if (activeNote) {
+				activeNote.title = noteTitleInput.value;
+				activeNote.updatedAt = Date.now();
+				saveData();
+				const titleEl = document.querySelector(`.note-item[data-note-id="${activeNote.id}"] .note-title-text`);
+				if (titleEl) titleEl.textContent = activeNote.title || 'Ghi chú không tên';
+			}
+		});
+
+		// Sync Content Changes
+		let autoSaveTimer;
+		inputText.addEventListener('input', () => {
+			clearTimeout(autoSaveTimer);
+			autoSaveTimer = setTimeout(() => {
+				const activeNote = getActiveNote();
+				if (activeNote) {
+					activeNote.content = inputText.innerHTML;
+					activeNote.updatedAt = Date.now();
+					saveData();
+				}
+			}, 300);
+		});
+
+		// --- FLOAT INDEX DRAG AND DROP REORDERING ---
+
+		function attachDragEventsToNote(el, noteId, folderId) {
+			el.addEventListener('dragstart', (e) => {
+				dragSrcInfo = { type: 'note', id: noteId, folderId: folderId };
+				e.dataTransfer.effectAllowed = 'move';
+				el.classList.add('dragging');
+			});
+
+			el.addEventListener('dragend', () => {
+				el.classList.remove('dragging');
+				clearDragClasses();
+			});
+		}
+
+		function attachDragEventsToFolder(groupEl, headerEl, folderId) {
+			headerEl.addEventListener('dragstart', (e) => {
+				dragSrcInfo = { type: 'folder', id: folderId };
+				e.dataTransfer.effectAllowed = 'move';
+				groupEl.classList.add('dragging');
+			});
+
+			headerEl.addEventListener('dragend', () => {
+				groupEl.classList.remove('dragging');
+				clearDragClasses();
+			});
+		}
+
+		function setupDragAndDropHandlers() {
+			folderTree.addEventListener('dragover', (e) => {
+				if (!dragSrcInfo) return;
+				e.preventDefault();
+				clearDragClasses();
+
+				if (dragSrcInfo.type === 'folder') {
+					handleFolderDragOver(e);
+				} else if (dragSrcInfo.type === 'note') {
+					handleNoteDragOver(e);
+				}
+			});
+
+			folderTree.addEventListener('dragleave', (e) => {
+				if (!folderTree.contains(e.relatedTarget)) {
+					clearDragClasses();
+				}
+			});
+
+			folderTree.addEventListener('drop', (e) => {
+				if (!dragSrcInfo) return;
+				e.preventDefault();
+
+				if (dragSrcInfo.type === 'folder') {
+					handleFolderDrop(e);
+				} else if (dragSrcInfo.type === 'note') {
+					handleNoteDrop(e);
+				}
+
+				clearDragClasses();
+				dragSrcInfo = null;
+			});
+		}
+
+		function getDragAfterElement(container, y, selector) {
+			const draggableElements = [...container.querySelectorAll(selector)];
+			return draggableElements.reduce((closest, child) => {
+				const box = child.getBoundingClientRect();
+				const offset = y - (box.top + box.height / 2);
+				if (offset < 0 && offset > closest.offset) {
+					return { offset: offset, element: child };
+				} else {
+					return closest;
+				}
+			}, { offset: Number.NEGATIVE_INFINITY }).element;
+		}
+
+		function getDragAfterFolderGroup(y, draggedFolderId) {
+			const selector = draggedFolderId ? `.folder-group:not([data-folder-id="${draggedFolderId}"])` : '.folder-group:not(.dragging)';
+			const folderGroups = [...folderTree.querySelectorAll(selector)];
+			return folderGroups.reduce((closest, group) => {
+				const header = group.querySelector('.folder-header');
+				const box = header ? header.getBoundingClientRect() : group.getBoundingClientRect();
+				const offset = y - (box.top + box.height / 2);
+				if (offset < 0 && offset > closest.offset) {
+					return { offset: offset, element: group };
+				} else {
+					return closest;
+				}
+			}, { offset: Number.NEGATIVE_INFINITY }).element;
+		}
+
+		function handleFolderDragOver(e) {
+			const draggedFolderId = dragSrcInfo ? dragSrcInfo.id : null;
+			const afterFolderGroup = getDragAfterFolderGroup(e.clientY, draggedFolderId);
+			if (afterFolderGroup) {
+				afterFolderGroup.classList.add('drag-over-above');
+			} else {
+				const selector = draggedFolderId ? `.folder-group:not([data-folder-id="${draggedFolderId}"])` : '.folder-group:not(.dragging)';
+				const folderGroups = [...folderTree.querySelectorAll(selector)];
+				if (folderGroups.length > 0) {
+					folderGroups[folderGroups.length - 1].classList.add('drag-over-below');
+				}
+			}
+		}
+
+		function handleFolderDrop(e) {
+			const draggedFolderId = dragSrcInfo.id;
+			const draggedFolder = appState.folders.find(f => f.id === draggedFolderId);
+			if (!draggedFolder) return;
+
+			const afterFolderGroup = getDragAfterFolderGroup(e.clientY, draggedFolderId);
+			const sortedFolders = appState.folders
+				.filter(f => f.id !== draggedFolderId)
+				.sort((a, b) => a.order - b.order);
+
+			if (sortedFolders.length === 0) return;
+
+			let newOrder;
+			if (afterFolderGroup) {
+				const afterFolderId = afterFolderGroup.dataset.folderId;
+				const targetIndex = sortedFolders.findIndex(f => f.id === afterFolderId);
+				if (targetIndex === -1) {
+					newOrder = sortedFolders[sortedFolders.length - 1].order + 1000.0;
+				} else if (targetIndex === 0) {
+					newOrder = sortedFolders[0].order - 1000.0;
+				} else {
+					newOrder = (sortedFolders[targetIndex - 1].order + sortedFolders[targetIndex].order) / 2.0;
+				}
+			} else {
+				newOrder = sortedFolders[sortedFolders.length - 1].order + 1000.0;
+			}
+
+			draggedFolder.order = newOrder;
+			saveData();
+			renderSidebar();
+		}
+
+		function getTargetFolderGroup(y) {
+			const folderGroups = [...folderTree.querySelectorAll('.folder-group')];
+			if (folderGroups.length === 0) return null;
+
+			let bestGroup = null;
+			let minDistance = Infinity;
+
+			folderGroups.forEach(group => {
+				const rect = group.getBoundingClientRect();
+				let dist = 0;
+				if (y < rect.top) {
+					dist = rect.top - y;
+				} else if (y > rect.bottom) {
+					dist = y - rect.bottom;
+				} else {
+					dist = 0;
+				}
+
+				if (dist < minDistance) {
+					minDistance = dist;
+					bestGroup = group;
+				}
+			});
+
+			return bestGroup;
+		}
+
+		function handleNoteDragOver(e) {
+			const targetGroup = getTargetFolderGroup(e.clientY);
+			if (!targetGroup) return;
+
+			const targetFolderId = targetGroup.dataset.folderId;
+			const targetFolder = appState.folders.find(f => f.id === targetFolderId);
+			if (!targetFolder) return;
+
+			const draggedNoteId = dragSrcInfo.id;
+			const folderNotes = appState.notes.filter(n => n.folderId === targetFolderId && n.id !== draggedNoteId);
+
+			if (targetFolder.collapsed || folderNotes.length === 0) {
+				targetGroup.classList.add('drag-over-folder');
+				return;
+			}
+
+			const notesListEl = targetGroup.querySelector('.folder-notes-list');
+			if (!notesListEl) return;
+
+			const noteSelector = `.note-item:not([data-note-id="${draggedNoteId}"])`;
+			const afterNoteEl = getDragAfterElement(notesListEl, e.clientY, noteSelector);
+			if (afterNoteEl) {
+				afterNoteEl.classList.add('drag-over-above');
+			} else {
+				const noteEls = [...notesListEl.querySelectorAll(noteSelector)];
+				if (noteEls.length > 0) {
+					noteEls[noteEls.length - 1].classList.add('drag-over-below');
+				} else {
+					targetGroup.classList.add('drag-over-folder');
+				}
+			}
+		}
+
+		function handleNoteDrop(e) {
+			const draggedNoteId = dragSrcInfo.id;
+			const draggedNote = appState.notes.find(n => n.id === draggedNoteId);
+			if (!draggedNote) return;
+
+			const targetGroup = getTargetFolderGroup(e.clientY);
+			if (!targetGroup) return;
+
+			const targetFolderId = targetGroup.dataset.folderId;
+			const targetFolder = appState.folders.find(f => f.id === targetFolderId);
+			if (!targetFolder) return;
+
+			const sortedFolderNotes = appState.notes
+				.filter(n => n.folderId === targetFolderId && n.id !== draggedNoteId)
+				.sort((a, b) => a.order - b.order);
+
+			if (targetFolder.collapsed || sortedFolderNotes.length === 0) {
+				let newOrder = 1000.0;
+				if (sortedFolderNotes.length > 0) {
+					newOrder = sortedFolderNotes[sortedFolderNotes.length - 1].order + 1000.0;
+				}
+				draggedNote.folderId = targetFolderId;
+				draggedNote.order = newOrder;
+				saveData();
+				renderSidebar();
+				return;
+			}
+
+			const notesListEl = targetGroup.querySelector('.folder-notes-list');
+			if (!notesListEl) {
+				draggedNote.folderId = targetFolderId;
+				saveData();
+				renderSidebar();
+				return;
+			}
+
+			const noteSelector = `.note-item:not([data-note-id="${draggedNoteId}"])`;
+			const afterNoteEl = getDragAfterElement(notesListEl, e.clientY, noteSelector);
+
+			let newOrder;
+			if (afterNoteEl) {
+				const targetNoteId = afterNoteEl.dataset.noteId;
+				const targetIndex = sortedFolderNotes.findIndex(n => n.id === targetNoteId);
+				if (targetIndex === -1) {
+					newOrder = sortedFolderNotes[sortedFolderNotes.length - 1].order + 1000.0;
+				} else if (targetIndex === 0) {
+					newOrder = sortedFolderNotes[0].order - 1000.0;
+				} else {
+					newOrder = (sortedFolderNotes[targetIndex - 1].order + sortedFolderNotes[targetIndex].order) / 2.0;
+				}
+			} else {
+				newOrder = sortedFolderNotes[sortedFolderNotes.length - 1].order + 1000.0;
+			}
+
+			draggedNote.folderId = targetFolderId;
+			draggedNote.order = newOrder;
+
+			saveData();
+			renderSidebar();
+		}
+
+		function clearDragClasses() {
+			document.querySelectorAll('.drag-over-above, .drag-over-below, .drag-over-folder, .dragging').forEach(el => {
+				el.classList.remove('drag-over-above', 'drag-over-below', 'drag-over-folder', 'dragging');
+			});
+		}
+
+		// --- FORMATTING SHORTCUTS (Ctrl/Cmd + B, I, U) ---
+
+		inputText.addEventListener('keydown', (e) => {
+			if (e.metaKey || e.ctrlKey) {
+				const key = e.key.toLowerCase();
+				if (key === 'b') {
+					e.preventDefault();
+					document.execCommand('bold', false, null);
+					triggerContentSave();
+				} else if (key === 'i') {
+					e.preventDefault();
+					document.execCommand('italic', false, null);
+					triggerContentSave();
+				} else if (key === 'u') {
+					e.preventDefault();
+					document.execCommand('underline', false, null);
+					triggerContentSave();
+				}
+			}
+		});
+
+		function triggerContentSave() {
+			const activeNote = getActiveNote();
+			if (activeNote) {
+				activeNote.content = inputText.innerHTML;
+				activeNote.updatedAt = Date.now();
+				saveData();
+			}
+		}
+
+		// --- AUTO LINK FORMATTING ON PASTE & CLICK OPEN ---
+
+		inputText.addEventListener('paste', (e) => {
+			const clipboardData = e.clipboardData || window.clipboardData;
+			const pastedText = clipboardData.getData('text/plain');
+
+			const urlRegex = /(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/gi;
+
+			if (urlRegex.test(pastedText)) {
+				e.preventDefault();
+				const formattedHtml = escapeHtml(pastedText).replace(urlRegex, (url) => {
+					return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+				}).replace(/\n/g, '<br>');
+
+				document.execCommand('insertHTML', false, formattedHtml);
+				triggerContentSave();
+			}
+		});
+
+		inputText.addEventListener('click', (e) => {
+			const linkEl = e.target.closest('a');
+			if (linkEl && linkEl.href) {
+				e.preventDefault();
+				window.open(linkEl.href, '_blank', 'noopener,noreferrer');
+			}
+		});
+
+		// --- UTILITY ---
+
+		function escapeHtml(text) {
+			return text
+				.replace(/&/g, "&amp;")
+				.replace(/</g, "&lt;")
+				.replace(/>/g, "&gt;")
+				.replace(/"/g, "&quot;")
+				.replace(/'/g, "&#039;");
+		}
+
+		// Initialize application
+		initApp();
+	</script>
 </body>
 
 </html>

@@ -206,20 +206,20 @@
 							<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path
 									d="M8.33464 3.33594H3.33464C2.41797 3.33594 1.6763 4.08594 1.6763 5.0026L1.66797 15.0026C1.66797 15.9193 2.41797 16.6693 3.33464 16.6693H16.668C17.5846 16.6693 18.3346 15.9193 18.3346 15.0026V6.66927C18.3346 5.7526 17.5846 5.0026 16.668 5.0026H10.0013L8.33464 3.33594Z"
-									fill="black" />
+									fill="currentColor" />
 							</svg>
 							<span class="folder-name font-sans-paragraph">${escapeHtml(folder.name)}</span>
 							<span class="note-count font-sans-paragraph">${folderNotes.length}</span>
 						</div>
 						<div class="folder-actions">
 							<button class="btn-icon btn-add-note-to-folder" title="Tạo note trong thư mục này">
-								<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+								<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
 							</button>
 							<button class="btn-icon btn-rename-folder" title="Đổi tên thư mục">
-								<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+								<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
 							</button>
 							<button class="btn-icon btn-delete-folder" title="Xóa thư mục">
-								<svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+								<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
 							</button>
 						</div>
 					</div>
@@ -238,7 +238,7 @@
 					noteEl.innerHTML = `
 						<span class="note-title-text font-sans-paragraph">${escapeHtml(note.title || 'Ghi chú không tên')}</span>
 						<button class="btn-icon btn-note-delete" title="Xóa ghi chú">
-							<svg viewBox="0 0 24 24" width="12" height="12" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+							<svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
 						</button>
 					`;
 
@@ -297,7 +297,7 @@
 		function createNewFolder(name) {
 			const maxOrder = appState.folders.reduce((max, f) => Math.max(max, f.order), 0);
 			const newFolder = {
-				id: 'f_' + Date.now(),
+				id: crypto.randomUUID(),
 				name: name,
 				order: maxOrder + 1000.0,
 				collapsed: false
@@ -316,9 +316,9 @@
 			}
 
 			const newNote = {
-				id: 'n_' + Date.now(),
+				id: crypto.randomUUID(),
 				folderId: folderId,
-				title: 'Ghi chú mới',
+				title: new Date().toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' }),
 				content: '',
 				order: newOrder,
 				updatedAt: Date.now()
@@ -684,26 +684,33 @@
 			});
 		}
 
-		// --- FORMATTING SHORTCUTS (Ctrl/Cmd + B, I, U) ---
+		// --- INLINE FORMATTING (Toggle via execCommand) ---
+
+		function applyInlineFormat(command) {
+			inputText.focus();
+			document.execCommand(command, false, null);
+			triggerContentSave();
+		}
+
+		// --- KEYBOARD SHORTCUTS (Ctrl/Cmd + B, I, U) ---
 
 		inputText.addEventListener('keydown', (e) => {
 			if (e.metaKey || e.ctrlKey) {
 				const key = e.key.toLowerCase();
 				if (key === 'b') {
 					e.preventDefault();
-					document.execCommand('bold', false, null);
-					triggerContentSave();
+					applyInlineFormat('bold');
 				} else if (key === 'i') {
 					e.preventDefault();
-					document.execCommand('italic', false, null);
-					triggerContentSave();
+					applyInlineFormat('italic');
 				} else if (key === 'u') {
 					e.preventDefault();
-					document.execCommand('underline', false, null);
-					triggerContentSave();
+					applyInlineFormat('underline');
 				}
 			}
 		});
+
+		// --- CONTENT SAVE ---
 
 		function triggerContentSave() {
 			const activeNote = getActiveNote();
@@ -713,33 +720,6 @@
 				saveData();
 			}
 		}
-
-		// --- AUTO LINK FORMATTING ON PASTE & CLICK OPEN ---
-
-		inputText.addEventListener('paste', (e) => {
-			const clipboardData = e.clipboardData || window.clipboardData;
-			const pastedText = clipboardData.getData('text/plain');
-
-			const urlRegex = /(https?:\/\/[^\s<]+[^<.,:;"')\]\s])/gi;
-
-			if (urlRegex.test(pastedText)) {
-				e.preventDefault();
-				const formattedHtml = escapeHtml(pastedText).replace(urlRegex, (url) => {
-					return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
-				}).replace(/\n/g, '<br>');
-
-				document.execCommand('insertHTML', false, formattedHtml);
-				triggerContentSave();
-			}
-		});
-
-		inputText.addEventListener('click', (e) => {
-			const linkEl = e.target.closest('a');
-			if (linkEl && linkEl.href) {
-				e.preventDefault();
-				window.open(linkEl.href, '_blank', 'noopener,noreferrer');
-			}
-		});
 
 		// --- UTILITY ---
 

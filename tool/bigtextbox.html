@@ -146,7 +146,7 @@
 						id: 'n_welcome',
 						folderId: 'f_default',
 						title: 'Ghi chú đầu tiên',
-						content: 'Chào mừng bạn đến với <b>BigTextBox</b>!<br><br><b>Các phím tắt định dạng:</b><br>- <b>Ctrl/Cmd + B</b>: Chữ vàng mỏng mượt.<br>- <i>Ctrl/Cmd + I</i>: Chữ in nghiêng.<br>- <u>Ctrl/Cmd + U</u>: Chữ gạch chân.<br>- Dán đường dẫn URL để tự động tạo link nhấp được.<br>- Kéo thả thư mục và ghi chú để sắp xếp vị trí tuỳ thích.',
+						content: 'Chào mừng bạn đến với <b>BigTextBox</b>!<br><br><b>Các phím tắt định dạng:</b><br>- <b>Ctrl/Cmd + B</b>: Chữ vàng mỏng mượt.<br>- <i>Ctrl/Cmd + I</i>: Chữ in nghiêng.<br>- <u>Ctrl/Cmd + U</u>: Chữ gạch chân.<br>- Tự động nhận diện đường dẫn (ví dụ: <a href="https://uxcamp.vn" target="_blank" rel="noopener noreferrer">https://uxcamp.vn</a>) để nhấp vào được ngay.<br>- Kéo thả thư mục và ghi chú để sắp xếp vị trí tuỳ thích.',
 						order: 1000.0,
 						updatedAt: Date.now()
 					}
@@ -392,7 +392,7 @@
 			}
 
 			noteTitleInput.value = activeNote.title || '';
-			inputText.innerHTML = activeNote.content || '';
+			inputText.innerHTML = linkifyHtml(activeNote.content || '');
 		}
 
 		// Sync Title Input Changes
@@ -683,6 +683,143 @@
 				el.classList.remove('drag-over-above', 'drag-over-below', 'drag-over-folder', 'dragging');
 			});
 		}
+
+		// --- AUTO-LINK DETECTION & LINK INTERACTION ---
+
+		const URL_REGEX = /(https?:\/\/[^\s<]+[^<.,:;"')\]\s]|www\.[^\s<]+[^<.,:;"')\]\s])/gi;
+
+		function formatUrlHref(url) {
+			if (/^www\./i.test(url)) {
+				return 'https://' + url;
+			}
+			return url;
+		}
+
+		// Convert plain URLs inside an element/html safely
+		function linkifyHtml(html) {
+			if (!html) return '';
+			const temp = document.createElement('div');
+			temp.innerHTML = html;
+
+			function walkAndLinkify(element) {
+				if (['A', 'SCRIPT', 'STYLE', 'PRE', 'CODE'].includes(element.tagName)) return;
+				const children = Array.from(element.childNodes);
+				children.forEach(child => {
+					if (child.nodeType === Node.TEXT_NODE) {
+						const text = child.textContent;
+						URL_REGEX.lastIndex = 0;
+						if (URL_REGEX.test(text)) {
+							URL_REGEX.lastIndex = 0;
+							const fragment = document.createDocumentFragment();
+							let lastIdx = 0;
+							text.replace(URL_REGEX, (url, offset) => {
+								if (offset > lastIdx) {
+									fragment.appendChild(document.createTextNode(text.substring(lastIdx, offset)));
+								}
+								const a = document.createElement('a');
+								a.href = formatUrlHref(url);
+								a.target = '_blank';
+								a.rel = 'noopener noreferrer';
+								a.textContent = url;
+								fragment.appendChild(a);
+								lastIdx = offset + url.length;
+								return url;
+							});
+							if (lastIdx < text.length) {
+								fragment.appendChild(document.createTextNode(text.substring(lastIdx)));
+							}
+							element.replaceChild(fragment, child);
+						}
+					} else if (child.nodeType === Node.ELEMENT_NODE) {
+						walkAndLinkify(child);
+					}
+				});
+			}
+
+			walkAndLinkify(temp);
+			return temp.innerHTML;
+		}
+
+		// Check and auto-link the word just typed when Space or Enter is pressed
+		function checkAndAutoLinkCurrentWord() {
+			const sel = window.getSelection();
+			if (!sel.rangeCount) return;
+			const range = sel.getRangeAt(0);
+			const node = range.startContainer;
+
+			if (node.nodeType === Node.TEXT_NODE && !node.parentElement.closest('a')) {
+				const textBefore = node.textContent.substring(0, range.startOffset);
+				const match = textBefore.match(/(https?:\/\/[^\s<]+|www\.[^\s<]+)$/i);
+				if (match) {
+					const rawUrl = match[0];
+					const cleanUrl = rawUrl.replace(/[.,:;"')\]]+$/, '');
+					if (cleanUrl.length > 3) {
+						const urlStartOffset = textBefore.lastIndexOf(cleanUrl);
+						const urlEndOffset = urlStartOffset + cleanUrl.length;
+
+						const urlRange = document.createRange();
+						urlRange.setStart(node, urlStartOffset);
+						urlRange.setEnd(node, urlEndOffset);
+
+						const a = document.createElement('a');
+						a.href = formatUrlHref(cleanUrl);
+						a.target = '_blank';
+						a.rel = 'noopener noreferrer';
+						a.textContent = cleanUrl;
+
+						urlRange.deleteContents();
+						urlRange.insertNode(a);
+
+						// Position cursor right after the newly created link
+						const newRange = document.createRange();
+						newRange.setStartAfter(a);
+						newRange.collapse(true);
+						sel.removeAllRanges();
+						sel.addRange(newRange);
+
+						triggerContentSave();
+					}
+				}
+			}
+		}
+
+		// Handle paste event in editor to automatically linkify URLs
+		inputText.addEventListener('paste', (e) => {
+			const text = e.clipboardData.getData('text/plain');
+			if (!text) return;
+
+			URL_REGEX.lastIndex = 0;
+			if (URL_REGEX.test(text)) {
+				URL_REGEX.lastIndex = 0;
+				e.preventDefault();
+
+				const html = text.split('\n').map(line => {
+					return escapeHtml(line).replace(URL_REGEX, (url) => {
+						const href = formatUrlHref(url);
+						return `<a href="${href}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+					});
+				}).join('<br>');
+
+				document.execCommand('insertHTML', false, html);
+				triggerContentSave();
+			}
+		});
+
+		// Listen for Space and Enter to trigger auto-linking on typed words
+		inputText.addEventListener('keyup', (e) => {
+			if (e.key === ' ' || e.key === 'Enter') {
+				checkAndAutoLinkCurrentWord();
+			}
+		});
+
+		// Click handler for links inside contenteditable
+		inputText.addEventListener('click', (e) => {
+			const link = e.target.closest('a');
+			if (link && link.href) {
+				e.preventDefault();
+				window.open(link.href, '_blank', 'noopener,noreferrer');
+			}
+		});
 
 		// --- INLINE FORMATTING (Toggle via execCommand) ---
 

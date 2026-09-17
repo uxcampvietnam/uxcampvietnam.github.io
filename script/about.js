@@ -136,6 +136,10 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 		}
 
+		slidingImg.addEventListener("touchstart", () => {
+			stopMomentum();
+		}, { passive: true });
+
 		slidingImg.addEventListener("mousedown", (e) => {
 			isDown = true;
 			stopMomentum();

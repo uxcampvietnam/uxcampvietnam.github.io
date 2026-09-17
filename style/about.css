@@ -450,7 +450,8 @@ section {
 	scrollbar-width: none;
 	-ms-overflow-style: none;
 	-webkit-overflow-scrolling: touch;
-	touch-action: pan-y pinch-zoom;
+	touch-action: pan-x pan-y pinch-zoom;
+	overscroll-behavior-x: contain;
 }
 
 #sliding-img-container::-webkit-scrollbar {
@@ -472,6 +473,13 @@ section {
 	-webkit-user-select: none;
 	-webkit-user-drag: none;
 	pointer-events: none;
+}
+
+
+@media (max-width: 768px) {
+	.sliding-img {
+		height: 120px !important;
+	}
 }
 
 /* -------------------------------------------------------------------------

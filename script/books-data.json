@@ -13,7 +13,9 @@
         "event-tracking-deep-dive",
         "retention-cohort-analysis",
         "product-dashboard",
-        "hypothesis-testing-in-practice"
+        "hypothesis-testing-in-practice",
+        "vibe-design",
+        "product-portfolio-management-with-ai"
       ]
     },
     {
@@ -52,7 +54,9 @@
         "event-tracking-basics",
         "event-tracking-deep-dive",
         "data-visualization-storytelling",
-        "case-study-portfolio"
+        "case-study-portfolio",
+        "vibe-design",
+        "product-portfolio-management-with-ai"
       ]
     }
   ],
@@ -616,6 +620,40 @@
         "Stage": "Growth & Scaling",
         "Format": "Portfolio",
         "Focus": "Product Case Studies, Presentation Structure, Critical Thinking, Assessment"
+      }
+    },
+    {
+      "id": "vibe-design",
+      "title": "Vibe Design",
+      "topBadge": "ψ",
+      "tags": "Design, Delivery, AI",
+      "description": "Quy trình thiết kế sản phẩm và giao diện trong kỷ nguyên AI: chuẩn hóa UI & Design System, rapid prototyping, handle edge-cases & fallback, tối ưu hóa feedback loop từ ý tưởng đến sản phẩm hoàn thiện.",
+      "height": 396,
+      "spineImage": "asset/image/book-cover/vibe-design-spine.png",
+      "coverImage": "asset/image/book-cover/vibe-design-cover.png",
+      "meta": {
+        "Module": "ψ / Vibe Design",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Delivery & Design System",
+        "Format": "Design Playbook",
+        "Focus": "Vibe Design, Rapid Prototyping, UI System, Edge Cases, AI Workflows"
+      }
+    },
+    {
+      "id": "product-portfolio-management-with-ai",
+      "title": "Product Portfolio Management with AI",
+      "topBadge": "AI",
+      "tags": "Strategy, Delivery, AI",
+      "description": "Chiến lược quản trị danh mục sản phẩm kết hợp AI: tối ưu phân bổ nguồn lực, đánh giá cơ hội thị trường, liên kết mục tiêu kinh doanh và thúc đẩy tăng trưởng hệ sinh thái sản phẩm.",
+      "height": 395,
+      "spineImage": "asset/image/book-cover/Product Portfolio Management with AI-spine.png",
+      "coverImage": "asset/image/book-cover/Product Portfolio Management with AI-cover.png",
+      "meta": {
+        "Module": "AI / Product Portfolio",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Leadership & Strategy",
+        "Format": "Management Playbook",
+        "Focus": "Portfolio Strategy, AI Integration, Resource Allocation, Ecosystem Growth"
       }
     }
   ]

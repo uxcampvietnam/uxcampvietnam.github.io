@@ -2,7 +2,7 @@
   "shelves": [
     {
       "id": "enterprise-training",
-      "category": "Modules đào tạo",
+      "category": "Overview",
       "book_ids": [
         "talent-insight",
         "conducting-primary-research",

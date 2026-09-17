@@ -396,7 +396,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // -------------------------
 
         // submit form đăng ký
-        fetch("https://script.google.com/macros/s/AKfycbw3E3u5_-4fhsvwHbi04sQYz28Fgqk_uB5rqR56ILihUwVKN3_7x-swa0_7WN0aJ9roOw/exec", {
+        fetch("https://script.google.com/macros/s/AKfycbw-EYRg67mhTqRg58rEaIvuA2OoQywudWH8ZyBBhUkDnjGfd7kLjSdOIw4q7rYQBGSpiw/exec", {
             method: "POST",
             body: JSON.stringify(data),
             headers: { "Content-Type": "application/json" },

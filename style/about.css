@@ -1,0 +1,556 @@
+/* =========================================================================
+   ABOUT PAGE COMPONENT STYLES (about.css)
+   100% Tuân thủ Hệ Thống Biến Màu & Typography Tokens từ definition.css
+   Không tạo class mới nếu không cần thiết, tái sử dụng style có sẵn.
+   ========================================================================= */
+section {
+
+	margin-bottom: 100px;
+}
+
+
+.loi-bac-ho-hero-banner {
+	width: 100%;
+	height: 75vh;
+	object-fit: contain;
+	display: block;
+	margin-bottom: 64px;
+	filter: drop-shadow(0 20px 23.3px rgba(0, 0, 0, 0.25));
+}
+
+
+@media (prefers-color-scheme: light) and (max-width: 768px) {
+	.loi-bac-ho-hero-banner {
+		content: url("../asset/icon/hero-banner-light-mobile.png") !important;
+	}
+}
+
+@media (prefers-color-scheme: dark) and (max-width: 768px) {
+	.loi-bac-ho-hero-banner {
+		content: url("../asset/icon/hero-banner-dark-mobile.png") !important;
+	}
+}
+
+@media (prefers-color-scheme: light) and (min-width: 768px) {
+	.loi-bac-ho-hero-banner {
+		content: url("../asset/icon/hero-banner-light-desktop.png") !important;
+	}
+}
+
+@media (prefers-color-scheme: dark) and (min-width: 768px) {
+	.loi-bac-ho-hero-banner {
+		content: url("../asset/icon/hero-banner-dark-laptop.png") !important;
+	}
+}
+
+
+/* -------------------------------------------------------------------------
+   Section Header Centered
+   ------------------------------------------------------------------------- */
+.section-header-centered {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 8px;
+	width: 100%;
+}
+
+/* -------------------------------------------------------------------------
+   1. HERO BANNER SECTION ("Đối với chúng tôi, Học để:")
+   ------------------------------------------------------------------------- */
+.about-hero-section {
+	width: 100%;
+	min-height: 0vh;
+	justify-content: center;
+	align-items: center;
+}
+
+.hero-banner-frame {
+	width: 100%;
+	max-width: 1190px;
+	overflow: hidden;
+	box-shadow: 0 24px 80px var(--fix-black---black-50);
+	background: var(--body-background-elevate-1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: transform var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+
+/* -------------------------------------------------------------------------
+   2. MANIFESTO & 4 CORE PILLARS
+   ------------------------------------------------------------------------- */
+.manifesto-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 48px;
+	width: 100%;
+}
+
+.manifesto-lead-wrap {
+	width: 100%;
+	text-align: left;
+	margin: 16px 0 24px 0;
+}
+
+.manifesto-scroll-text {
+	font-family: var(--font-serif-family) !important;
+	font-size: var(--font-serif-xl-title-size) !important;
+	line-height: var(--font-serif-xl-title-line) !important;
+	letter-spacing: var(--font-serif-xl-title-letter) !important;
+	color: var(--main-colors-foreground-f700);
+	word-break: break-word;
+}
+
+.manifesto-scroll-text * {
+	font-family: var(--font-serif-family) !important;
+	font-size: inherit !important;
+	line-height: inherit !important;
+	letter-spacing: inherit !important;
+}
+
+.manifesto-scroll-text .highlight-term {
+	color: var(--main-colors-foreground-f100) !important;
+}
+
+.manifesto-scroll-text .char {
+	display: inline-block !important;
+	transition: color var(--transition-fast), opacity var(--transition-fast);
+	will-change: opacity, color;
+}
+
+/* -------------------------------------------------------------------------
+   2. 4 CORE PILLARS (PUZZLE CARDS GRID)
+   ------------------------------------------------------------------------- */
+.pillars-container {
+	position: relative;
+	isolation: isolate;
+}
+
+/* Card base styling */
+.pillars-container .pillar-card {
+	position: relative;
+	border: none !important;
+	box-shadow: none !important;
+	padding: 72px 48px;
+	gap: 12px;
+	overflow: visible;
+	transition: none !important;
+}
+
+.pillars-container .pillar-card:hover {
+	transform: none !important;
+	box-shadow: none !important;
+}
+
+/* Card color schemes (fixed pastel colors matching puzzle mockup) */
+.pillar-card-discovery {
+	--card-bg: #c6fecf;
+	background-color: var(--card-bg) !important;
+	color: var(--card-bg);
+}
+
+.pillar-card-analytic {
+	--card-bg: #ffeaa6;
+	background-color: var(--card-bg) !important;
+	color: var(--card-bg);
+}
+
+.pillar-card-ai {
+	--card-bg: #ffdddd;
+	background-color: var(--card-bg) !important;
+	color: var(--card-bg);
+}
+
+.pillar-card-delivery {
+	--card-bg: #dff3ff;
+	background-color: var(--card-bg) !important;
+	color: var(--card-bg);
+}
+
+/* Text styles inside cards (always high contrast on pastel backgrounds) */
+.pillars-container .pillar-card .pillar-tag {
+	color: rgba(26, 26, 26, 0.6) !important;
+}
+
+.pillars-container .pillar-card .pillar-title {
+	color: #272727 !important;
+}
+
+.pillars-container .pillar-card .pillar-desc {
+	color: rgba(26, 26, 26, 0.78) !important;
+	line-height: 1.6;
+	margin-bottom: 0;
+}
+
+/* Puzzle shape SVG tabs */
+.pillars-container .puzzle-tab {
+	display: block;
+	pointer-events: none;
+	z-index: 3;
+}
+
+/* Desktop layout (>= 768px): 2x2 interlocking puzzle */
+@media (min-width: 768px) {
+	.pillars-container .pillar-card-discovery {
+		border-radius: 32px 0 0 0 !important;
+	}
+
+	.pillars-container .pillar-card-analytic {
+		border-radius: 0 32px 0 0 !important;
+	}
+
+	.pillars-container .pillar-card-ai {
+		border-radius: 0 0 0 32px !important;
+	}
+
+	.pillars-container .pillar-card-delivery {
+		border-radius: 0 0 32px 0 !important;
+	}
+
+	.pillars-container .puzzle-tab-bottom-mobile {
+		display: none !important;
+	}
+
+	/* Top tab (Card 3 Pink pointing UP into Card 1 Green) */
+	.pillars-container .puzzle-tab-top {
+		position: absolute;
+		top: -24px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 180px;
+		height: 25px;
+	}
+
+	/* Bottom tab (Card 2 Yellow pointing DOWN into Card 4 Blue) */
+	.pillars-container .puzzle-tab-bottom {
+		position: absolute;
+		bottom: -24px;
+		left: 50%;
+		transform: translateX(-50%);
+		width: 180px;
+		height: 25px;
+	}
+
+	/* Right tab (Card 1 Green pointing RIGHT into Card 2 Yellow) */
+	.pillars-container .puzzle-tab-right {
+		position: absolute;
+		top: 50%;
+		right: -24px;
+		transform: translateY(-50%);
+		width: 25px;
+		height: 180px;
+	}
+
+	/* Left tab (Card 4 Blue pointing LEFT into Card 3 Pink) */
+	.pillars-container .puzzle-tab-left {
+		position: absolute;
+		top: 50%;
+		left: -24px;
+		transform: translateY(-50%);
+		width: 25px;
+		height: 180px;
+	}
+}
+
+/* Mobile layout (< 768px): vertical interlocking stack */
+@media (max-width: 767.98px) {
+	.pillars-container .pillar-card {
+		padding: 40px 24px 44px 24px;
+	}
+
+	.pillars-container .pillar-card-discovery {
+		border-radius: 32px 32px 0 0 !important;
+	}
+
+	.pillars-container .pillar-card-analytic {
+		border-radius: 0 !important;
+	}
+
+	.pillars-container .pillar-card-ai {
+		border-radius: 0 !important;
+	}
+
+	.pillars-container .pillar-card-delivery {
+		border-radius: 0 0 32px 32px !important;
+	}
+
+	/* Hide horizontal & desktop-only tabs on mobile */
+	.pillars-container .puzzle-tab-right,
+	.pillars-container .puzzle-tab-top,
+	.pillars-container .puzzle-tab-left {
+		display: none !important;
+	}
+
+	/* Show mobile bottom tabs on Card 1, 2, 3 spanning 100% width */
+	.pillars-container .puzzle-tab-bottom,
+	.pillars-container .puzzle-tab-bottom-mobile {
+		display: block !important;
+		position: absolute;
+		bottom: -27px;
+		left: 0;
+		width: 100%;
+		height: 28px;
+	}
+}
+
+/* -------------------------------------------------------------------------
+   3. EXPERIENCED INDUSTRIES (Lĩnh vực đào tạo)
+   ------------------------------------------------------------------------- */
+.industries-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 40px;
+	width: 100%;
+	text-align: center;
+}
+
+.industries-list {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 56px;
+	width: 100%;
+	padding: 20px 0 200px 0px;
+}
+
+.industry-item {
+	color: var(--main-colors-foreground-f-500-main);
+	will-change: opacity;
+}
+
+/* -------------------------------------------------------------------------
+   5. OUR TEAM (Ban tổ chức & Hội đồng)
+   ------------------------------------------------------------------------- */
+.team-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 40px;
+	width: 100%;
+}
+
+.team-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 16px;
+	width: 100%;
+	max-width: 1190px;
+}
+
+@media (min-width: 576px) {
+	.team-grid {
+		grid-template-columns: repeat(3, 1fr);
+	}
+}
+
+@media (min-width: 768px) {
+	.team-grid {
+		grid-template-columns: repeat(4, 1fr);
+	}
+}
+
+@media (min-width: 1100px) {
+	.team-grid {
+		grid-template-columns: repeat(8, 1fr);
+	}
+}
+
+.team-card {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	text-decoration: none !important;
+	color: inherit;
+	transition: transform var(--transition-normal);
+}
+
+.team-card:hover {
+	transform: translateY(-4px);
+}
+
+.team-avatar-frame {
+	width: 100%;
+	aspect-ratio: 194 / 252;
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	background: var(--body-background-elevate-2);
+	border: 0.5px solid var(--transparent-foreground-main-color-10);
+	position: relative;
+}
+
+.team-avatar-frame img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	filter: grayscale(80%) contrast(105%);
+	transition: filter var(--transition-slow), transform var(--transition-slow);
+}
+
+.team-card:hover .team-avatar-frame img {
+	filter: grayscale(0%) contrast(100%);
+	transform: scale(1.04);
+}
+
+.team-card-info {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	width: 100%;
+}
+
+.team-member-name {
+	color: var(--main-colors-foreground-f100);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.team-member-name .arrow-icon {
+	opacity: 0;
+	font-size: 11px;
+	transition: opacity var(--transition-fast), transform var(--transition-fast);
+	transform: translate(-3px, 3px);
+}
+
+.team-card:hover .team-member-name .arrow-icon {
+	opacity: 1;
+	transform: translate(0, 0);
+}
+
+.team-member-role {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+#sliding-img-container {
+	width: 100%;
+	max-width: 100vw;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+	align-content: center;
+	flex-wrap: nowrap;
+	gap: 0px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	cursor: grab;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	-webkit-overflow-scrolling: touch;
+	touch-action: pan-y pinch-zoom;
+}
+
+#sliding-img-container::-webkit-scrollbar {
+	display: none;
+}
+
+#sliding-img-container:active,
+#sliding-img-container.is-dragging {
+	cursor: grabbing;
+}
+
+.sliding-img {
+	height: 240px;
+	width: auto;
+	margin-right: 20px;
+	position: relative;
+	flex-shrink: 0;
+	user-select: none;
+	-webkit-user-select: none;
+	-webkit-user-drag: none;
+	pointer-events: none;
+}
+
+/* -------------------------------------------------------------------------
+   6. BOOTCAMP (Đã Triển Khai) - INTERACTIVE DRAGGABLE GALLERY
+   ------------------------------------------------------------------------- */
+.graduation-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 40px;
+	width: 100%;
+	overflow: hidden;
+}
+
+.gallery-container {
+	width: 100%;
+	max-width: 100%;
+	overflow-x: auto;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	position: relative;
+	padding: 20px 0;
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: pan-x pan-y;
+}
+
+.gallery-container::-webkit-scrollbar {
+	display: none;
+}
+
+
+.completed-bootcamp-image-container {
+	position: relative;
+	height: 200px;
+}
+
+.gallery-track {
+	display: flex;
+	gap: -100px;
+	padding: 0 40px;
+	width: max-content;
+	will-change: transform;
+	align-items: center;
+	position: absolute;
+}
+
+.gallery-card {
+	height: 200px;
+	overflow: hidden;
+	flex-shrink: 0;
+	transition: transform var(--transition-normal), border-color var(--transition-normal);
+	user-select: none;
+	position: relative;
+}
+
+
+.gallery-card img {
+	width: 100%;
+	height: 100%;
+	display: block;
+	object-fit: contain;
+	pointer-events: none;
+	user-select: none;
+}
+
+/* -------------------------------------------------------------------------
+   7. ANSWERED QUESTION (FAQ)
+   Tái sử dụng 100% .ds-accordion từ style/definition.css
+   ------------------------------------------------------------------------- */
+.faq-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 40px;
+	width: 100%;
+	max-width: 900px;
+}
+
+.faq-section .ds-accordion {
+	box-shadow: 0 16px 40px var(--fix-black---black-20);
+}

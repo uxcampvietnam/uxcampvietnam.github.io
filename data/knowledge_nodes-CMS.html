@@ -1,0 +1,1950 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Node & Connection CMS</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600;1,700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&family=Work+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0b0d13;
+      --bg-surface: #131722;
+      --bg-card: #1a1e2d;
+      --border: rgba(255, 255, 255, 0.1);
+      --border-focus: #6366f1;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent: #6366f1;
+      --accent-glow: rgba(99, 102, 241, 0.35);
+
+      --c-pillar: #ffb703;
+      --c-discovery: #00f5d4;
+      --c-delivery: #8b5cf6;
+      --c-metrics: #ec4899;
+      --c-stats: #3b82f6;
+      --c-ref: #10b981;
+      --c-keyword: #a855f7;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* Top Navigation Header */
+    header {
+      height: 64px;
+      background: rgba(13, 16, 25, 0.95);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(16px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      z-index: 30;
+      flex-shrink: 0;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 15px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 8px;
+      font-size: 12.5px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.06);
+      color: #f1f5f9;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6366f1, #4f46e5);
+      border-color: #6366f1;
+      color: #fff;
+      box-shadow: 0 4px 14px var(--accent-glow);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #4f46e5, #4338ca);
+      transform: translateY(-1px);
+    }
+
+    .btn-success {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10b981;
+      color: #34d399;
+    }
+
+    .btn-success:hover {
+      background: #10b981;
+      color: #fff;
+    }
+
+    .btn-xs {
+      padding: 4px 8px;
+      font-size: 11px;
+      border-radius: 4px;
+    }
+
+    /* Main Content Layout: Sidebar Palette + Table */
+    .app-layout {
+      flex: 1;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* Left Sidebar: Drag & Drop Node Palette */
+    .node-palette {
+      width: 360px;
+      background: rgba(15, 18, 28, 0.9);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      flex-shrink: 0;
+    }
+
+    .palette-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .palette-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .palette-title {
+      font-size: 13px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: #f1f5f9;
+    }
+
+    .selected-count-badge {
+      font-size: 11px;
+      font-weight: 700;
+      background: var(--accent);
+      color: #fff;
+      padding: 2px 8px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .palette-search {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--border);
+      padding: 6px 10px;
+      border-radius: 6px;
+      color: #fff;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .palette-search:focus {
+      border-color: var(--accent);
+    }
+
+    .palette-select-toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.03);
+      padding: 6px 8px;
+      border-radius: 6px;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .palette-hint {
+      font-size: 11px;
+      color: #94a3b8;
+      line-height: 1.45;
+    }
+
+    .palette-list {
+      flex: 1;
+      overflow-y: auto;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      position: relative;
+      user-select: none;
+    }
+
+    /* Visual Marquee Box Selection */
+    .selection-box {
+      position: absolute;
+      border: 1px dashed #6366f1;
+      background: rgba(99, 102, 241, 0.25);
+      pointer-events: none;
+      z-index: 100;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+    }
+
+    .drag-node-item {
+      padding: 9px 12px;
+      background: var(--bg-card);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-drag: element;
+      transition: background 0.15s, border-color 0.15s, transform 0.15s;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .drag-node-item * {
+      pointer-events: none;
+    }
+
+    .drag-node-item:hover {
+      background: rgba(99, 102, 241, 0.15);
+      border-color: var(--accent);
+      transform: translateX(3px);
+    }
+
+    .drag-node-item.selected {
+      background: rgba(99, 102, 241, 0.3);
+      border-color: #818cf8;
+      box-shadow: 0 0 10px var(--accent-glow);
+    }
+
+    .drag-node-item:active {
+      cursor: grabbing;
+    }
+
+    .drag-node-label {
+      font-weight: 600;
+      color: #f8fafc;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      flex: 1;
+    }
+
+    /* Right Main Area: Filters + Table */
+    .table-container-area {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+    .toolbar-bar {
+      padding: 12px 20px;
+      background: rgba(18, 22, 33, 0.7);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .table-search-input {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      width: 240px;
+      outline: none;
+    }
+
+    .table-select {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border);
+      color: #fff;
+      padding: 6px 10px;
+      border-radius: 6px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .table-select option {
+      background: #11141e;
+      color: #fff;
+    }
+
+    .stats-badge {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .stats-badge b {
+      color: #38bdf8;
+    }
+
+    /* Interactive Table */
+    .table-wrapper {
+      flex: 1;
+      overflow: auto;
+    }
+
+    table.node-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      text-align: left;
+    }
+
+    table.node-table th {
+      background: #111420;
+      color: #94a3b8;
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      padding: 10px 12px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      white-space: nowrap;
+    }
+
+    table.node-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+      vertical-align: top;
+    }
+
+    table.node-table tr {
+      cursor: pointer;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }
+
+    table.node-table tr:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    table.node-table tr.row-validated {
+      background: rgba(16, 185, 129, 0.08);
+    }
+
+    table.node-table tr.row-validated:hover {
+      background: rgba(16, 185, 129, 0.13);
+    }
+
+    table.node-table tr.row-validated td:first-child {
+      border-left: 3px solid #10b981;
+    }
+
+    .val-cell {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding-top: 4px;
+      user-select: none;
+    }
+
+    .val-checkbox {
+      width: 17px;
+      height: 17px;
+      cursor: pointer;
+      accent-color: #10b981;
+    }
+
+    .val-badge {
+      font-size: 10px;
+      font-weight: 600;
+      padding: 2px 6px;
+      border-radius: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 3px;
+      white-space: nowrap;
+      transition: all 0.15s ease;
+      cursor: pointer;
+    }
+
+    .val-badge.is-valid {
+      background: rgba(16, 185, 129, 0.2);
+      color: #34d399;
+      border: 1px solid rgba(16, 185, 129, 0.4);
+    }
+
+    .val-badge.is-unverified {
+      background: rgba(148, 163, 184, 0.1);
+      color: #94a3b8;
+      border: 1px solid rgba(148, 163, 184, 0.2);
+    }
+
+    /* Filter Pills Tabs */
+    .filter-pills {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(0, 0, 0, 0.35);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 3px;
+      gap: 3px;
+    }
+
+    .pill-btn {
+      background: transparent;
+      border: 1px solid transparent;
+      color: #94a3b8;
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .pill-btn:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .pill-btn.active {
+      background: rgba(99, 102, 241, 0.25);
+      border-color: #6366f1;
+      color: #fff;
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+    }
+
+    .pill-btn.pill-unverified.active {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: #f59e0b;
+      color: #fbbf24;
+      box-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
+    }
+
+    .pill-btn.pill-verified.active {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: #10b981;
+      color: #34d399;
+      box-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+    }
+
+    .palette-val-dot {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 700;
+      margin-right: 4px;
+    }
+
+    .palette-val-dot.is-valid {
+      color: #34d399;
+    }
+
+    .palette-val-dot.is-unverified {
+      color: #f59e0b;
+    }
+
+    /* Table Input Fields */
+    .cell-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid transparent;
+      color: #f1f5f9;
+      padding: 8px 10px;
+      min-height: 75px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      line-height: 1.45;
+      outline: none;
+      font-family: inherit;
+      box-sizing: border-box;
+      resize: vertical;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .cell-input:focus {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+    }
+
+    .cell-select {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid transparent;
+      color: #f1f5f9;
+      padding: 8px 10px;
+      height: 42px;
+      border-radius: 6px;
+      font-size: 12.5px;
+      outline: none;
+      width: 100%;
+      box-sizing: border-box;
+      transition: background 0.15s, border-color 0.15s;
+    }
+
+    .cell-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+    }
+
+    .cell-select option {
+      background: #111420;
+    }
+
+    /* Connections Drop Zone Cell */
+    .connections-drop-zone {
+      min-width: 260px;
+      min-height: 42px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      padding: 6px 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      align-items: center;
+      transition: all 0.2s;
+    }
+
+    .connections-drop-zone.drag-over {
+      background: rgba(99, 102, 241, 0.25) !important;
+      border-color: #6366f1 !important;
+      box-shadow: 0 0 12px rgba(99, 102, 241, 0.4);
+    }
+
+    tr.row-drag-over {
+      background: rgba(99, 102, 241, 0.12) !important;
+    }
+
+    tr.row-drag-over .connections-drop-zone {
+      background: rgba(99, 102, 241, 0.22);
+      border-color: #818cf8;
+      box-shadow: 0 0 10px rgba(99, 102, 241, 0.35);
+    }
+
+    .conn-chip {
+      background: rgba(99, 102, 241, 0.25);
+      border: 1px solid rgba(99, 102, 241, 0.5);
+      color: #e0e7ff;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 7px;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      cursor: grab;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-user-drag: element;
+      transition: all 0.15s ease;
+      max-width: 80px;
+    }
+
+    .conn-chip:active {
+      cursor: grabbing;
+    }
+
+    .conn-chip.selected {
+      background: rgba(234, 179, 8, 0.35);
+      border-color: #f59e0b;
+      color: #fff;
+      box-shadow: 0 0 8px rgba(245, 158, 11, 0.4);
+    }
+
+    .conn-chip-remove {
+      cursor: pointer;
+      font-size: 13px;
+      color: #94a3b8;
+      font-weight: bold;
+      line-height: 1;
+      padding: 0 2px;
+      pointer-events: auto;
+    }
+
+    .conn-chip-remove:hover {
+      color: #f43f5e;
+    }
+
+    /* Badges */
+    .lvl-badge {
+      display: inline-block;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .lvl-1 {
+      background: rgba(255, 183, 3, 0.2);
+      color: #ffb703;
+      border: 1px solid #ffb703;
+    }
+
+    .lvl-2 {
+      background: rgba(0, 245, 212, 0.2);
+      color: #00f5d4;
+      border: 1px solid #00f5d4;
+    }
+
+    .lvl-3 {
+      background: rgba(139, 92, 246, 0.2);
+      color: #c4b5fd;
+      border: 1px solid #8b5cf6;
+    }
+
+    .lvl-4 {
+      background: rgba(236, 72, 153, 0.2);
+      color: #f472b6;
+      border: 1px solid #ec4899;
+    }
+
+    .lvl-5 {
+      background: rgba(59, 130, 246, 0.2);
+      color: #60a5fa;
+      border: 1px solid #3b82f6;
+    }
+
+    .lvl-6 {
+      background: rgba(168, 85, 247, 0.2);
+      color: #c084fc;
+      border: 1px solid #a855f7;
+    }
+
+    .lvl-7 {
+      background: rgba(236, 72, 153, 0.2);
+      color: #f472b6;
+      border: 1px solid #ec4899;
+    }
+
+    /* Action Buttons */
+    .btn-row-action {
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 14px;
+      padding: 4px;
+      border-radius: 4px;
+      color: #94a3b8;
+      transition: all 0.2s;
+    }
+
+    .btn-row-action:hover {
+      color: #f43f5e;
+      background: rgba(244, 63, 94, 0.15);
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #10b981;
+      color: #000;
+      font-weight: 700;
+      padding: 12px 20px;
+      border-radius: 8px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      transform: translateY(20px);
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Top Navigation Header -->
+  <header>
+    <div class="brand"> NODE CONNECTION CMS
+    </div>
+
+    <div class="header-actions">
+      <!-- Nút Copy TSV chính -->
+      <button id="btnCopyTSV" class="btn btn-primary"
+        title="Sao chép toàn bộ dữ liệu ra định dạng TSV để dán vào knowledge_nodes.tsv">
+        <span>📋</span> Sao Chép TSV (Copy để Paste)
+      </button>
+
+      <!-- Nút Tải xuống file .tsv -->
+      <button id="btnDownloadTSV" class="btn" title="Tải trực tiếp file knowledge_nodes.tsv về máy">
+        <span>💾</span> Tải file .tsv
+      </button>
+
+
+    </div>
+  </header>
+
+  <!-- App Body Layout -->
+  <div class="app-layout">
+
+    <!-- Left Sidebar: Draggable Node Palette -->
+    <aside class="node-palette">
+      <div class="palette-header">
+        <div class="palette-title-row">
+          <div class="palette-title">
+            <span>📦</span> Khay Kéo Thả Node
+          </div>
+          <div id="selectedCountBadge" class="selected-count-badge" style="display: none;">Đã chọn: 0</div>
+        </div>
+
+        <input type="text" id="paletteSearch" class="palette-search" placeholder="🔍 Lọc nhanh theo tiêu đề...">
+
+        <div class="palette-filter-row" style="margin-top: 4px;">
+          <select id="paletteFilterValidated" class="table-select"
+            style="width: 100%; font-size: 11px; padding: 4px 8px;">
+            <option value="ALL">Khay: Tất cả node</option>
+            <option value="UNVALIDATED">Khay: ⚠️ Chỉ node chưa duyệt</option>
+            <option value="VALIDATED">Khay: ✓ Chỉ node đã duyệt</option>
+          </select>
+        </div>
+
+        <div class="palette-select-toolbar" style="margin-top: 4px;">
+          <button id="btnSelectAllPalette" class="btn btn-xs">Chọn tất cả</button>
+          <button id="btnClearPaletteSelection" class="btn btn-xs" style="display: none;">Bỏ chọn</button>
+        </div>
+
+        <div class="palette-hint">
+          👉 <b>Kéo giữ chuột quét (bôi đen)</b> hoặc <b>Shift / Ctrl + Click</b> để chọn nhiều node rồi kéo thả!
+        </div>
+      </div>
+      <div id="paletteList" class="palette-list">
+        <!-- Danh sách node có thể kéo thả -->
+      </div>
+    </aside>
+
+    <!-- Right Area: Table & Toolbars -->
+    <main class="table-container-area">
+      <div class="toolbar-bar">
+        <div class="toolbar-left">
+          <input type="text" id="tableSearch" class="table-search-input"
+            placeholder="🔍 Tìm kiếm theo tiêu đề hoặc mô tả...">
+
+          <select id="filterLevel" class="table-select">
+            <option value="ALL">Tất cả cấp độ (Level)</option>
+            <option value="1">Level 1</option>
+            <option value="2">Level 2</option>
+            <option value="3">Level 3</option>
+            <option value="4">Level 4</option>
+            <option value="5">Level 5</option>
+            <option value="6">Level 6</option>
+            <option value="7">Level 7</option>
+          </select>
+
+          <!-- Filter Pills Trực Quan Cho Trạng Thái Duyệt -->
+          <div class="filter-pills" id="validationFilterPills">
+            <button class="pill-btn active" data-val="ALL" title="Hiển thị tất cả các node">
+              Tất cả (<span id="pillCountAll">0</span>)
+            </button>
+            <button class="pill-btn pill-unverified" data-val="UNVALIDATED" title="Lọc xem các node chưa được duyệt">
+              ⚠️ Chưa duyệt (<span id="pillCountUnverified">0</span>)
+            </button>
+            <button class="pill-btn pill-verified" data-val="VALIDATED" title="Lọc xem các node đã duyệt">
+              ✓ Đã duyệt (<span id="pillCountVerified">0</span>)
+            </button>
+          </div>
+
+          <select id="filterValidated" class="table-select" style="display: none;">
+            <option value="ALL">Tất cả trạng thái</option>
+            <option value="VALIDATED">✓ Đã duyệt (true)</option>
+            <option value="UNVALIDATED">○ Chưa duyệt (false)</option>
+          </select>
+
+          <button id="btnAddRow" class="btn" style="background: rgba(99, 102, 241, 0.2); border-color: #6366f1;">
+            Thêm Node
+          </button>
+        </div>
+
+        <div class="stats-badge">
+          Hiển thị: <b id="statVisible">0</b> / <b id="statTotal">0</b> node |
+          Chưa duyệt: <b id="statUnverified" style="color: #f59e0b; cursor: pointer;"
+            title="Bấm để lọc node chưa duyệt">0</b> |
+          Đã duyệt: <b id="statValidated" style="color: #34d399; cursor: pointer;"
+            title="Bấm để lọc node đã duyệt">0</b> / <b id="statTotalVal">0</b> |
+          Tổng kết nối: <b id="statLinks">0</b>
+        </div>
+      </div>
+
+      <!-- Main Interactive Table -->
+      <div class="table-wrapper">
+        <table class="node-table" id="nodeTable">
+          <thead>
+            <tr>
+              <th style="width: 45px;">STT</th>
+              <th style="width: 90px; text-align: center;">Đã Duyệt</th>
+              <th style="width: 430px;">Tiêu Đề (Label)</th>
+              <th style="width: 90px;">Cấp Độ</th>
+              <th>Mô Tả Tóm Tắt</th>
+              <th style="width: 300px;">Liên Kết (Connections - Kéo thả vào đây)</th>
+              <th style="width: 60px;">Màu</th>
+              <th style="width: 50px;">Xóa</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody">
+            <!-- Render rows dynamically -->
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <span>✅</span>
+    <span id="toastMsg">Đã sao chép nội dung vào bộ nhớ tạm!</span>
+  </div>
+
+  <script>
+    // Global State
+    let nodesData = [];
+    let nodesMap = new Map(); // id -> node object
+    let selectedNodeIds = new Set(); // Multi-select node IDs in palette
+    let lastClickedIndex = null; // Shift-click range tracking
+    let currentDragState = null; // Quản lý dữ liệu kéo thả toàn cục (palette hoặc conn-chip)
+    let currentValidationFilter = 'ALL'; // 'ALL', 'UNVALIDATED', 'VALIDATED'
+
+    // Helper UUID Generator
+    function generateUUID() {
+      if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+        return crypto.randomUUID();
+      }
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        const r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 | 0x8);
+        return v.toString(16);
+      });
+    }
+
+    // Nạp dữ liệu ban đầu
+    document.addEventListener('DOMContentLoaded', async () => {
+      try {
+        const res = await fetch('knowledge_nodes.tsv');
+        if (res.ok) {
+          const tsvText = await res.text();
+          parseTSV(tsvText);
+        } else {
+          // Fallback sang JSON
+          const jsonRes = await fetch('knowledge_nodes.json');
+          const jsonData = await jsonRes.json();
+          parseJSON(jsonData);
+        }
+      } catch (e) {
+        console.warn('Không thể fetch tự động, nạp từ JSON dự phòng:', e);
+        try {
+          const jsonRes = await fetch('knowledge_nodes.json');
+          const jsonData = await jsonRes.json();
+          parseJSON(jsonData);
+        } catch (err) {
+          console.error('Không thể load dữ liệu:', err);
+        }
+      }
+
+      rebuildNodesMap();
+      renderPalette();
+      renderTable();
+      initEvents();
+      initMarqueeSelection();
+    });
+
+    function rebuildNodesMap() {
+      nodesMap.clear();
+      nodesData.forEach(n => {
+        nodesMap.set(n.id, n);
+      });
+    }
+
+    // Parse TSV text (Hỗ trợ cấu trúc 7 cột: id, label, level, desc, connections, color, validated)
+    function parseTSV(text) {
+      const lines = text.trim().split('\n');
+      if (lines.length < 2) return;
+      const headers = lines[0].split('\t').map(h => h.trim().toLowerCase());
+
+      nodesData = [];
+      for (let i = 1; i < lines.length; i++) {
+        const line = lines[i].trim();
+        if (!line) continue;
+        const cols = lines[i].split('\t');
+        const row = {};
+        headers.forEach((h, idx) => {
+          row[h] = (cols[idx] || '').trim().replace(/^["']|["']$/g, '');
+        });
+
+        let id = row.id || row['mã'] || row['mã node'] || '';
+        if (!id) {
+          id = generateUUID();
+        }
+
+        const label = row.label || row['tiêu đề'] || row.title || 'Untitled Node';
+        const level = parseInt(row.level || row['cấp độ'] || row.capdo, 10) || 3;
+        const desc = row.desc || row['mô tả'] || row.description || '';
+        const connStr = row.connections || row['liên kết'] || row.lienket || '';
+        const color = row.color || row['màu'] || row.mau || '';
+        const valStr = (row.validated || row['xác thực'] || row.verify || '').toLowerCase();
+        const validated = valStr === 'true' || valStr === '1' || valStr === 'yes';
+
+        nodesData.push({
+          id,
+          label,
+          level,
+          desc,
+          connections: connStr ? connStr.split(/[;,]/).map(c => c.trim()).filter(Boolean) : [],
+          color,
+          validated
+        });
+      }
+    }
+
+    // Parse JSON fallback
+    function parseJSON(json) {
+      const linksMap = new Map();
+      (json.links || []).forEach(l => {
+        if (!linksMap.has(l.source)) linksMap.set(l.source, []);
+        linksMap.get(l.source).push(l.target);
+      });
+
+      nodesData = (json.nodes || []).map(n => ({
+        id: n.id || generateUUID(),
+        label: n.label || n.id || 'Untitled Node',
+        level: parseInt(n.level, 10) || 3,
+        desc: n.desc || '',
+        connections: linksMap.get(n.id) || [],
+        color: n.color || '',
+        validated: n.validated === true || n.validated === 'true'
+      }));
+    }
+
+    // Update selection count badge UI
+    function updateSelectionUI() {
+      const badge = document.getElementById('selectedCountBadge');
+      const clearBtn = document.getElementById('btnClearPaletteSelection');
+      const count = selectedNodeIds.size;
+
+      if (count > 0) {
+        badge.style.display = 'inline-block';
+        badge.textContent = `Đã chọn: ${count}`;
+        clearBtn.style.display = 'inline-block';
+      } else {
+        badge.style.display = 'none';
+        clearBtn.style.display = 'none';
+      }
+    }
+
+    // Get visible nodes in palette based on current query & validation filter
+    function getVisiblePaletteNodes() {
+      const q = (document.getElementById('paletteSearch').value || '').toLowerCase();
+      const pFilter = document.getElementById('paletteFilterValidated') ? document.getElementById('paletteFilterValidated').value : 'ALL';
+      return nodesData.filter(n => {
+        if (pFilter === 'VALIDATED' && !n.validated) return false;
+        if (pFilter === 'UNVALIDATED' && n.validated) return false;
+        return n.label.toLowerCase().includes(q) || n.desc.toLowerCase().includes(q);
+      });
+    }
+
+    // Render Left Palette for Drag-and-Drop
+    function renderPalette() {
+      const listEl = document.getElementById('paletteList');
+      listEl.innerHTML = '';
+
+      const visibleNodes = getVisiblePaletteNodes();
+
+      visibleNodes.forEach((n, idx) => {
+        const isSelected = selectedNodeIds.has(n.id);
+
+        const item = document.createElement('div');
+        item.className = 'drag-node-item' + (isSelected ? ' selected' : '');
+        item.draggable = true;
+        item.dataset.nodeId = n.id;
+        item.dataset.index = idx;
+
+        item.innerHTML = `
+          <div class="drag-node-label" title="${escapeHtml(n.label)}">
+            <span class="palette-val-dot ${n.validated ? 'is-valid' : 'is-unverified'}" title="${n.validated ? 'Đã duyệt' : 'Chưa duyệt'}">${n.validated ? '✓' : '○'}</span>
+            ${escapeHtml(n.label)}
+          </div>
+          <span class="lvl-badge lvl-${n.level}">L${n.level}</span>
+        `;
+
+        // Click handler (Shift+Click range selection, Ctrl/Cmd+Click toggle, Normal click single)
+        item.addEventListener('click', (e) => {
+          // Bỏ qua event click phát sinh sau khi vừa hoàn tất 1 hành động drag
+          if (item.dataset.wasDragging === 'true') {
+            item.dataset.wasDragging = 'false';
+            return;
+          }
+
+          const visible = getVisiblePaletteNodes();
+          const currentIndex = idx;
+
+          if (e.shiftKey && lastClickedIndex !== null) {
+            // Range Selection
+            const start = Math.min(lastClickedIndex, currentIndex);
+            const end = Math.max(lastClickedIndex, currentIndex);
+            if (!e.ctrlKey && !e.metaKey) {
+              selectedNodeIds.clear();
+            }
+            for (let i = start; i <= end; i++) {
+              if (visible[i]) selectedNodeIds.add(visible[i].id);
+            }
+          } else if (e.ctrlKey || e.metaKey) {
+            // Toggle single selection
+            if (selectedNodeIds.has(n.id)) {
+              selectedNodeIds.delete(n.id);
+            } else {
+              selectedNodeIds.add(n.id);
+            }
+            lastClickedIndex = currentIndex;
+          } else {
+            // Plain click: Select single item
+            selectedNodeIds.clear();
+            selectedNodeIds.add(n.id);
+            lastClickedIndex = currentIndex;
+          }
+
+          renderPalette();
+        });
+
+        // Bắt đầu kéo thả (Kéo tất cả các node đang chọn!)
+        item.addEventListener('dragstart', (e) => {
+          item.dataset.wasDragging = 'true';
+          let dragIds = [];
+          if (selectedNodeIds.has(n.id) && selectedNodeIds.size > 0) {
+            dragIds = Array.from(selectedNodeIds);
+          } else {
+            selectedNodeIds.clear();
+            selectedNodeIds.add(n.id);
+            dragIds = [n.id];
+            listEl.querySelectorAll('.drag-node-item').forEach(el => el.classList.remove('selected'));
+            item.classList.add('selected');
+            updateSelectionUI();
+          }
+
+          currentDragState = {
+            type: 'PALETTE_NODES',
+            nodeIds: dragIds
+          };
+
+          const payloadStr = JSON.stringify(currentDragState);
+          try {
+            e.dataTransfer.setData('text/plain', payloadStr);
+            e.dataTransfer.setData('application/json', payloadStr);
+          } catch (err) { }
+          e.dataTransfer.effectAllowed = 'copyMove';
+        });
+
+        item.addEventListener('dragend', () => {
+          setTimeout(() => {
+            item.dataset.wasDragging = 'false';
+          }, 150);
+          currentDragState = null;
+          document.querySelectorAll('.row-drag-over').forEach(r => r.classList.remove('row-drag-over'));
+          document.querySelectorAll('.drag-over').forEach(d => d.classList.remove('drag-over'));
+        });
+
+        listEl.appendChild(item);
+      });
+
+      updateSelectionUI();
+    }
+
+    // Đồng bộ trạng thái bộ lọc duyệt (Pill buttons, Dropdown, và số lượng)
+    function updateValidationFilterUI() {
+      // 1. Sync pill buttons active class
+      document.querySelectorAll('#validationFilterPills .pill-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.val === currentValidationFilter);
+      });
+
+      // 2. Sync hidden select nếu có
+      const sel = document.getElementById('filterValidated');
+      if (sel) sel.value = currentValidationFilter;
+
+      // 3. Tính toán số lượng
+      const totalAll = nodesData.length;
+      let totalVerified = 0;
+      nodesData.forEach(n => {
+        if (n.validated) totalVerified++;
+      });
+      const totalUnverified = totalAll - totalVerified;
+
+      // 4. Cập nhật các badge số lượng trên pill
+      const pAll = document.getElementById('pillCountAll');
+      if (pAll) pAll.textContent = totalAll;
+      const pUnv = document.getElementById('pillCountUnverified');
+      if (pUnv) pUnv.textContent = totalUnverified;
+      const pVer = document.getElementById('pillCountVerified');
+      if (pVer) pVer.textContent = totalVerified;
+
+      // 5. Cập nhật thanh stats
+      const sUnv = document.getElementById('statUnverified');
+      if (sUnv) sUnv.textContent = totalUnverified;
+      const sVer = document.getElementById('statValidated');
+      if (sVer) sVer.textContent = totalVerified;
+      const sTot = document.getElementById('statTotalVal');
+      if (sTot) sTot.textContent = totalAll;
+    }
+
+    // Render Interactive Table
+    function renderTable() {
+      rebuildNodesMap();
+
+      const tbody = document.getElementById('tableBody');
+      tbody.innerHTML = '';
+
+      const searchQ = document.getElementById('tableSearch').value.trim().toLowerCase();
+      const filterLvl = document.getElementById('filterLevel').value;
+
+      let visibleCount = 0;
+      let totalLinks = 0;
+
+      nodesData.forEach((node, index) => {
+        // Filter logic
+        if (filterLvl !== 'ALL' && node.level !== parseInt(filterLvl, 10)) return;
+        if (currentValidationFilter === 'VALIDATED' && !node.validated) return;
+        if (currentValidationFilter === 'UNVALIDATED' && node.validated) return;
+
+        if (searchQ) {
+          const match = node.label.toLowerCase().includes(searchQ) ||
+            node.desc.toLowerCase().includes(searchQ);
+          if (!match) return;
+        }
+
+        visibleCount++;
+        totalLinks += node.connections.length;
+
+        const tr = document.createElement('tr');
+        tr.dataset.index = index;
+        if (node.validated) {
+          tr.classList.add('row-validated');
+        }
+
+        tr.innerHTML = `
+          <td style="color: #64748b; font-size: 11px;">${index + 1}</td>
+          <td style="text-align: center;">
+            <div class="val-cell" title="Nhấp vào hàng hoặc ô này để toggle Đã duyệt">
+              <input type="checkbox" class="val-checkbox" ${node.validated ? 'checked' : ''} data-index="${index}">
+              <span class="val-badge ${node.validated ? 'is-valid' : 'is-unverified'}">
+                ${node.validated ? '✓ Đã duyệt' : '○ Chưa'}
+              </span>
+            </div>
+          </td>
+          <td>
+            <textarea class="cell-input" data-field="label" rows="3" style="font-weight: 600;" placeholder="Nhập tiêu đề node...">${escapeHtml(node.label)}</textarea>
+          </td>
+          <td>
+            <select class="cell-select" data-field="level">
+              <option value="1" ${node.level === 1 ? 'selected' : ''}>1</option>
+              <option value="2" ${node.level === 2 ? 'selected' : ''}>2</option>
+              <option value="3" ${node.level === 3 ? 'selected' : ''}>3</option>
+              <option value="4" ${node.level === 4 ? 'selected' : ''}>4</option>
+              <option value="5" ${node.level === 5 ? 'selected' : ''}>5</option>
+              <option value="6" ${node.level === 6 ? 'selected' : ''}>6</option>
+              <option value="7" ${node.level === 7 ? 'selected' : ''}>7</option>
+            </select>
+          </td>
+          <td>
+            <textarea class="cell-input" data-field="desc" rows="3" placeholder="Nhập mô tả tóm tắt...">${escapeHtml(node.desc)}</textarea>
+          </td>
+          <td>
+            <!-- Drop Zone Kéo Thả Connections -->
+            <div class="connections-drop-zone" data-node-index="${index}" title="Kéo thả node từ khay bên trái vào đây để tạo kết nối">
+              ${renderConnectionChips(node.connections, index)}
+            </div>
+          </td>
+          <td>
+            <input type="color" value="${node.color || '#ffb703'}" data-field="color" style="width: 28px; height: 26px; padding: 0; border: none; cursor: pointer; border-radius: 4px;">
+          </td>
+          <td style="text-align: center;">
+            <button class="btn-row-action btn-delete-row" data-index="${index}" title="Xóa node này">🗑️</button>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+
+      document.getElementById('statVisible').textContent = visibleCount;
+      document.getElementById('statTotal').textContent = nodesData.length;
+      document.getElementById('statLinks').textContent = totalLinks;
+      updateValidationFilterUI();
+
+      attachTableEvents();
+    }
+
+    // Helper render connection chips (Hiển thị tiêu đề node)
+    function renderConnectionChips(connections, nodeIndex) {
+      let html = '';
+      connections.forEach((targetId, connIdx) => {
+        const targetNode = nodesMap.get(targetId);
+        const displayLabel = targetNode ? targetNode.label : targetId;
+
+        html += `
+          <span class="conn-chip" draggable="true" data-source-node-index="${nodeIndex}" data-target-id="${escapeHtml(targetId)}" title="ID: ${targetId}">
+            ${escapeHtml(displayLabel)}
+            <span class="conn-chip-remove" data-node-index="${nodeIndex}" data-conn-index="${connIdx}">×</span>
+          </span>
+        `;
+      });
+      html += `<span style="font-size: 10.5px; color: #64748b; font-style: italic; pointer-events: none;">+ Thả node vào đây</span>`;
+      return html;
+    }
+
+    // Gắn sự kiện cho bảng & kéo thả
+    function attachTableEvents() {
+      // 0. Bấm vào 1 row trong table -> toggle true/false cho trường validated
+      document.querySelectorAll('#tableBody tr').forEach(tr => {
+        tr.onclick = (e) => {
+          // Bỏ qua nếu người dùng tương tác với các ô nhập liệu, chọn màu, nút xóa, thẻ kết nối, hoặc drop zone
+          if (e.target.closest('textarea, select, input[type="color"], button, .conn-chip, .connections-drop-zone')) {
+            return;
+          }
+
+          const index = parseInt(tr.dataset.index, 10);
+          if (isNaN(index) || !nodesData[index]) return;
+
+          let targetState;
+          if (e.target.classList.contains('val-checkbox')) {
+            targetState = e.target.checked;
+          } else {
+            targetState = !nodesData[index].validated;
+          }
+
+          nodesData[index].validated = targetState;
+
+          // Cập nhật DOM của hàng trực tiếp
+          if (targetState) {
+            tr.classList.add('row-validated');
+          } else {
+            tr.classList.remove('row-validated');
+          }
+
+          const cb = tr.querySelector('.val-checkbox');
+          if (cb) cb.checked = targetState;
+
+          const badge = tr.querySelector('.val-badge');
+          if (badge) {
+            badge.className = `val-badge ${targetState ? 'is-valid' : 'is-unverified'}`;
+            badge.textContent = targetState ? '✓ Đã duyệt' : '○ Chưa';
+          }
+
+          // Cập nhật thống kê & đồng bộ filter UI
+          updateValidationFilterUI();
+
+          // Nếu đang lọc theo trạng thái duyệt khác ALL thì vẽ lại bảng để ẩn/hiện đúng
+          if (currentValidationFilter !== 'ALL') {
+            renderTable();
+          }
+          const palFilterEl = document.getElementById('paletteFilterValidated');
+          if (palFilterEl && palFilterEl.value !== 'ALL') {
+            renderPalette();
+          }
+        };
+      });
+
+      // 1. In-place input changes
+      document.querySelectorAll('.cell-input, .cell-select').forEach(input => {
+        const updateHandler = (e) => {
+          const tr = e.target.closest('tr');
+          if (!tr) return;
+          const index = parseInt(tr.dataset.index, 10);
+          const field = e.target.dataset.field;
+          let val = e.target.value;
+          if (field === 'level') val = parseInt(val, 10);
+          nodesData[index][field] = val;
+          rebuildNodesMap();
+          renderPalette();
+        };
+        input.oninput = updateHandler;
+        input.onchange = updateHandler;
+      });
+
+      // 2. Xóa node row (Tự động xóa node khỏi connections của các node còn lại)
+      document.querySelectorAll('.btn-delete-row').forEach(btn => {
+        btn.onclick = (e) => {
+          const index = parseInt(btn.dataset.index, 10);
+          const targetNode = nodesData[index];
+          if (confirm(`Bạn có chắc muốn xóa node "${targetNode.label}"?`)) {
+            const deletedId = targetNode.id;
+            const deletedLabel = targetNode.label;
+            selectedNodeIds.delete(deletedId);
+
+            // 1. Xóa khỏi danh sách nodes
+            nodesData.splice(index, 1);
+
+            // 2. Tự động dọn dẹp liên kết: Xóa deletedId khỏi connections của tất cả các node còn lại
+            let removedConnCount = 0;
+            nodesData.forEach(n => {
+              if (n.connections && n.connections.length > 0) {
+                const initialLen = n.connections.length;
+                n.connections = n.connections.filter(c => c !== deletedId);
+                removedConnCount += (initialLen - n.connections.length);
+              }
+            });
+
+            rebuildNodesMap();
+            renderPalette();
+            renderTable();
+
+            if (removedConnCount > 0) {
+              showToast(`🗑️ Đã xóa node "${deletedLabel}" và tự động dọn dẹp ${removedConnCount} liên kết chứa node này!`);
+            } else {
+              showToast(`🗑️ Đã xóa node "${deletedLabel}"!`);
+            }
+          }
+        };
+      });
+
+      // 3. Xóa một connection chip
+      document.querySelectorAll('.conn-chip-remove').forEach(rm => {
+        rm.onclick = (e) => {
+          const nodeIdx = parseInt(rm.dataset.nodeIndex, 10);
+          const connIdx = parseInt(rm.dataset.connIndex, 10);
+          nodesData[nodeIdx].connections.splice(connIdx, 1);
+          renderTable();
+        };
+      });
+
+      // 3.5 Selection & Drag cho conn-chip (Cho phép chọn nhiều chip & kéo thả đồng thời)
+      document.querySelectorAll('.conn-chip').forEach(chip => {
+        // Click handler chọn chip (Ctrl/Cmd toggle, Shift range, Click đơn)
+        chip.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const targetId = chip.dataset.targetId;
+          const zone = chip.closest('.connections-drop-zone');
+          if (!zone) return;
+
+          // Nếu click mà không dùng Ctrl/Meta/Shift, bỏ chọn tất cả chip ở zone này (hoặc ngoại trừ chip này)
+          if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+            zone.querySelectorAll('.conn-chip').forEach(c => c.classList.remove('selected'));
+            chip.classList.add('selected');
+          } else {
+            // Toggle selection với Ctrl/Cmd/Shift
+            chip.classList.toggle('selected');
+          }
+        });
+
+        // Drag start: Kéo tất cả các chip đang được chọn trong cùng drop zone (hoặc chip hiện tại nếu chưa chọn)
+        chip.addEventListener('dragstart', (e) => {
+          e.stopPropagation();
+          const srcIdx = parseInt(chip.dataset.sourceNodeIndex, 10);
+          const zone = chip.closest('.connections-drop-zone');
+
+          let selectedChips = [];
+          if (zone) {
+            selectedChips = Array.from(zone.querySelectorAll('.conn-chip.selected'));
+          }
+
+          // Nếu chip đang kéo nằm trong danh sách đã chọn -> kéo cả nhóm
+          // Nếu không nằm trong danh sách đã chọn -> chọn duy nhất chip này và kéo
+          let targetIds = [];
+          if (selectedChips.includes(chip) && selectedChips.length > 0) {
+            targetIds = selectedChips.map(c => c.dataset.targetId);
+          } else {
+            if (zone) zone.querySelectorAll('.conn-chip').forEach(c => c.classList.remove('selected'));
+            chip.classList.add('selected');
+            targetIds = [chip.dataset.targetId];
+          }
+
+          currentDragState = {
+            type: 'MOVE_CONNECTION',
+            sourceNodeIndex: srcIdx,
+            targetIds: targetIds
+          };
+
+          const payloadStr = JSON.stringify(currentDragState);
+          try {
+            e.dataTransfer.setData('text/plain', payloadStr);
+            e.dataTransfer.setData('application/json', payloadStr);
+          } catch (err) { }
+          e.dataTransfer.effectAllowed = 'copyMove';
+        });
+
+        chip.addEventListener('dragend', () => {
+          currentDragState = null;
+          document.querySelectorAll('.row-drag-over').forEach(r => r.classList.remove('row-drag-over'));
+          document.querySelectorAll('.drag-over').forEach(d => d.classList.remove('drag-over'));
+        });
+      });
+
+      // 4. KÉO THẢ VÀO KHUNG CONNECTIONS VÀ TABLE ROW CỦA NODE
+      const handleDragOver = (e, tr, zone) => {
+        e.preventDefault();
+        if (currentDragState && currentDragState.type === 'PALETTE_NODES') {
+          e.dataTransfer.dropEffect = 'copy';
+        } else {
+          e.dataTransfer.dropEffect = e.altKey ? 'copy' : 'move';
+        }
+        if (zone) zone.classList.add('drag-over');
+        if (tr) tr.classList.add('row-drag-over');
+      };
+
+      const handleDragLeave = (e, tr, zone) => {
+        const rel = e.relatedTarget;
+        if (zone && (!rel || !zone.contains(rel))) {
+          zone.classList.remove('drag-over');
+        }
+        if (tr && (!rel || !tr.contains(rel))) {
+          tr.classList.remove('row-drag-over');
+        }
+      };
+
+      const handleDrop = (e, nodeIdx, zone) => {
+        e.preventDefault();
+        e.stopPropagation();
+        if (zone) zone.classList.remove('drag-over');
+        document.querySelectorAll('.row-drag-over').forEach(r => r.classList.remove('row-drag-over'));
+
+        if (isNaN(nodeIdx) || !nodesData[nodeIdx]) return;
+
+        let parsedPayload = currentDragState;
+        if (!parsedPayload) {
+          try {
+            const raw = e.dataTransfer.getData('application/json') || e.dataTransfer.getData('text/plain');
+            if (raw) parsedPayload = JSON.parse(raw);
+          } catch (err) { }
+        }
+
+        if (!parsedPayload) return;
+
+        let droppedIds = [];
+        let isMoveConnection = false;
+        let sourceNodeIdx = null;
+
+        if (parsedPayload.type === 'MOVE_CONNECTION') {
+          isMoveConnection = true;
+          sourceNodeIdx = parsedPayload.sourceNodeIndex;
+          droppedIds = parsedPayload.targetIds || [];
+        } else if (parsedPayload.type === 'PALETTE_NODES') {
+          droppedIds = parsedPayload.nodeIds || [];
+        } else if (Array.isArray(parsedPayload)) {
+          droppedIds = parsedPayload;
+        } else if (parsedPayload.id) {
+          droppedIds = [parsedPayload.id];
+        }
+
+        const targetNode = nodesData[nodeIdx];
+        if (!Array.isArray(targetNode.connections)) targetNode.connections = [];
+
+        const isDuplicateMode = e.altKey; // Giữ phím Option (Alt) để copy/clone thay vì move
+        let addedCount = 0;
+        let selfSkipped = 0;
+
+        // Xử lý 1: Kéo từ conn-chip (Move hoặc Clone hoặc Sắp xếp trong cùng node)
+        if (isMoveConnection) {
+          const sourceNode = nodesData[sourceNodeIdx];
+          const setDropped = new Set(droppedIds);
+
+          // CÙNG 1 NODE: Sắp xếp lại thứ tự (Reorder)
+          if (sourceNodeIdx === nodeIdx) {
+            if (!sourceNode || !sourceNode.connections) return;
+
+            const dropTargetChip = e.target.closest('.conn-chip');
+            let insertIndex = sourceNode.connections.length;
+            if (dropTargetChip && dropTargetChip.dataset.targetId) {
+              const targetChipId = dropTargetChip.dataset.targetId;
+              const foundIdx = sourceNode.connections.indexOf(targetChipId);
+              if (foundIdx !== -1) insertIndex = foundIdx;
+            }
+
+            const remainingConn = sourceNode.connections.filter(c => !setDropped.has(c));
+            let reorderInsertIdx = insertIndex;
+            if (dropTargetChip && dropTargetChip.dataset.targetId) {
+              const newFoundIdx = remainingConn.indexOf(dropTargetChip.dataset.targetId);
+              if (newFoundIdx !== -1) reorderInsertIdx = newFoundIdx;
+            }
+
+            remainingConn.splice(reorderInsertIdx, 0, ...droppedIds);
+            sourceNode.connections = remainingConn;
+
+            renderTable();
+            showToast(`↕️ Đã sắp xếp lại thứ tự ${droppedIds.length} kết nối trong node "${sourceNode.label}"!`);
+            currentDragState = null;
+            return;
+          }
+
+          // KHÁC NODE: Move hoặc Clone
+          droppedIds.forEach(droppedId => {
+            if (targetNode.id === droppedId) {
+              selfSkipped++;
+              return;
+            }
+            if (!targetNode.connections.includes(droppedId)) {
+              targetNode.connections.push(droppedId);
+              addedCount++;
+            }
+          });
+
+          // Nếu KHÔNG giữ Option (Alt), xóa khỏi node nguồn (Move)
+          if (!isDuplicateMode && sourceNode && sourceNode.connections) {
+            sourceNode.connections = sourceNode.connections.filter(c => !setDropped.has(c));
+          }
+
+          renderTable();
+          if (addedCount > 0) {
+            if (isDuplicateMode) {
+              showToast(`📋 Đã nhân bản (copy) ${addedCount} liên kết sang node "${targetNode.label}"!`);
+            } else {
+              showToast(`🔄 Đã chuyển ${addedCount} liên kết từ node "${sourceNode ? sourceNode.label : ''}" sang node "${targetNode.label}"!`);
+            }
+          } else if (selfSkipped > 0) {
+            showToast('⚠️ Không thể tự kết nối tới chính node này!');
+          } else {
+            showToast('ℹ️ Các liên kết đã tồn tại ở node đích từ trước.');
+          }
+          currentDragState = null;
+          return;
+        }
+
+        // Xử lý 2: Kéo từ khay Palette bên trái (Thêm kết nối)
+        droppedIds.forEach(droppedId => {
+          if (targetNode.id === droppedId) {
+            selfSkipped++;
+            return;
+          }
+          if (!targetNode.connections.includes(droppedId)) {
+            targetNode.connections.push(droppedId);
+            addedCount++;
+          }
+        });
+
+        if (addedCount > 0) {
+          renderTable();
+          showToast(`🔗 Đã thêm ${addedCount} kết nối vào node "${targetNode.label}"!`);
+        } else if (selfSkipped > 0 && droppedIds.length === 1) {
+          showToast('⚠️ Không thể tự kết nối tới chính node này!');
+        } else {
+          showToast('ℹ️ Tất cả kết nối đã tồn tại từ trước.');
+        }
+        currentDragState = null;
+      };
+
+      document.querySelectorAll('#tableBody tr').forEach(tr => {
+        const nodeIdx = parseInt(tr.dataset.index, 10);
+        const zone = tr.querySelector('.connections-drop-zone');
+
+        tr.addEventListener('dragover', (e) => handleDragOver(e, tr, zone));
+        tr.addEventListener('dragleave', (e) => handleDragLeave(e, tr, zone));
+        tr.addEventListener('drop', (e) => handleDrop(e, nodeIdx, zone));
+      });
+    }
+
+    // Marquee Mouse Selection (Dùng chuột kéo bôi đen nhiều node)
+    function initMarqueeSelection() {
+      const listEl = document.getElementById('paletteList');
+      let isMarquee = false;
+      let startX = 0, startY = 0;
+      let marqueeBox = null;
+
+      listEl.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return; // Chỉ nhận chuột trái
+
+        const itemEl = e.target.closest('.drag-node-item');
+        // Nếu mousedown trúng 1 drag-node-item bất kỳ, ưu tiên cho kéo thả HTML5 thay vì vẽ khung bôi đen
+        if (itemEl) {
+          return;
+        }
+
+        isMarquee = true;
+        const rect = listEl.getBoundingClientRect();
+        startX = e.clientX;
+        startY = e.clientY;
+
+        if (!marqueeBox) {
+          marqueeBox = document.createElement('div');
+          marqueeBox.className = 'selection-box';
+          listEl.appendChild(marqueeBox);
+        }
+
+        marqueeBox.style.display = 'block';
+        marqueeBox.style.left = (startX - rect.left + listEl.scrollLeft) + 'px';
+        marqueeBox.style.top = (startY - rect.top + listEl.scrollTop) + 'px';
+        marqueeBox.style.width = '0px';
+        marqueeBox.style.height = '0px';
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isMarquee || !marqueeBox) return;
+
+        const rect = listEl.getBoundingClientRect();
+        const currentX = e.clientX;
+        const currentY = e.clientY;
+
+        const minX = Math.min(startX, currentX);
+        const maxX = Math.max(startX, currentX);
+        const minY = Math.min(startY, currentY);
+        const maxY = Math.max(startY, currentY);
+
+        marqueeBox.style.left = (minX - rect.left + listEl.scrollLeft) + 'px';
+        marqueeBox.style.top = (minY - rect.top + listEl.scrollTop) + 'px';
+        marqueeBox.style.width = (maxX - minX) + 'px';
+        marqueeBox.style.height = (maxY - minY) + 'px';
+
+        // Nếu kéo rê chuột lớn hơn 4px -> thực hiện quét bôi đen các node
+        if (maxX - minX > 4 || maxY - minY > 4) {
+          if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+            selectedNodeIds.clear();
+          }
+
+          const items = listEl.querySelectorAll('.drag-node-item');
+          items.forEach(item => {
+            const r = item.getBoundingClientRect();
+            const intersects = !(r.right < minX || r.left > maxX || r.bottom < minY || r.top > maxY);
+            const nid = item.dataset.nodeId;
+
+            if (intersects) {
+              selectedNodeIds.add(nid);
+              item.classList.add('selected');
+            } else if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+              selectedNodeIds.delete(nid);
+              item.classList.remove('selected');
+            }
+          });
+
+          updateSelectionUI();
+        }
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (isMarquee) {
+          isMarquee = false;
+          if (marqueeBox) marqueeBox.style.display = 'none';
+        }
+      });
+
+      // Bôi đen các conn-chip trong khung ô kết nối (table drop zone)
+      let isChipMarquee = false;
+      let chipStartX = 0, chipStartY = 0;
+      let chipMarqueeBox = null;
+      let currentDropZone = null;
+
+      document.addEventListener('mousedown', (e) => {
+        if (e.button !== 0) return;
+        const zone = e.target.closest('.connections-drop-zone');
+        if (!zone) return;
+
+        // Nếu click/mousedown vào bất kỳ chip hoặc nút xóa nào, nhường quyền cho kéo thả / click chip
+        if (e.target.closest('.conn-chip-remove') || e.target.closest('.conn-chip')) return;
+
+        isChipMarquee = true;
+        currentDropZone = zone;
+        const rect = zone.getBoundingClientRect();
+        chipStartX = e.clientX;
+        chipStartY = e.clientY;
+
+        if (!chipMarqueeBox) {
+          chipMarqueeBox = document.createElement('div');
+          chipMarqueeBox.className = 'selection-box';
+          document.body.appendChild(chipMarqueeBox);
+        }
+
+        chipMarqueeBox.style.display = 'block';
+        chipMarqueeBox.style.position = 'fixed';
+        chipMarqueeBox.style.left = chipStartX + 'px';
+        chipMarqueeBox.style.top = chipStartY + 'px';
+        chipMarqueeBox.style.width = '0px';
+        chipMarqueeBox.style.height = '0px';
+        chipMarqueeBox.style.zIndex = '9999';
+      });
+
+      document.addEventListener('mousemove', (e) => {
+        if (!isChipMarquee || !chipMarqueeBox || !currentDropZone) return;
+
+        const currentX = e.clientX;
+        const currentY = e.clientY;
+
+        const minX = Math.min(chipStartX, currentX);
+        const maxX = Math.max(chipStartX, currentX);
+        const minY = Math.min(chipStartY, currentY);
+        const maxY = Math.max(chipStartY, currentY);
+
+        chipMarqueeBox.style.left = minX + 'px';
+        chipMarqueeBox.style.top = minY + 'px';
+        chipMarqueeBox.style.width = (maxX - minX) + 'px';
+        chipMarqueeBox.style.height = (maxY - minY) + 'px';
+
+        if (maxX - minX > 3 || maxY - minY > 3) {
+          if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+            currentDropZone.querySelectorAll('.conn-chip').forEach(c => c.classList.remove('selected'));
+          }
+
+          const chips = currentDropZone.querySelectorAll('.conn-chip');
+          chips.forEach(chip => {
+            const r = chip.getBoundingClientRect();
+            const intersects = !(r.right < minX || r.left > maxX || r.bottom < minY || r.top > maxY);
+
+            if (intersects) {
+              chip.classList.add('selected');
+            } else if (!e.ctrlKey && !e.metaKey && !e.shiftKey) {
+              chip.classList.remove('selected');
+            }
+          });
+        }
+      });
+
+      document.addEventListener('mouseup', () => {
+        if (isChipMarquee) {
+          isChipMarquee = false;
+          currentDropZone = null;
+          if (chipMarqueeBox) chipMarqueeBox.style.display = 'none';
+        }
+      });
+    }
+
+    // Format xuất TSV (7 cột: id, label, level, desc, connections, color, validated)
+    function generateTSV() {
+      const headers = ['id', 'label', 'level', 'desc', 'connections', 'color', 'validated'];
+      const lines = [headers.join('\t')];
+
+      nodesData.forEach(n => {
+        const row = [
+          n.id,
+          n.label || '',
+          n.level || 3,
+          (n.desc || '').replace(/[\t\n\r]/g, ' '),
+          (n.connections || []).join(';'),
+          n.color || '',
+          n.validated ? 'true' : 'false'
+        ];
+        lines.push(row.join('\t'));
+      });
+
+      return lines.join('\n');
+    }
+
+    // Format xuất JSON
+    function generateJSON() {
+      const nodes = [];
+      const links = [];
+      const seenEdges = new Set();
+
+      nodesData.forEach(n => {
+        nodes.push({
+          id: n.id,
+          label: n.label,
+          level: n.level,
+          desc: n.desc,
+          color: n.color,
+          validated: !!n.validated
+        });
+
+        (n.connections || []).forEach(t => {
+          if (!t || t === n.id) return;
+          const edgeKey = n.id < t ? `${n.id}---${t}` : `${t}---${n.id}`;
+          if (!seenEdges.has(edgeKey)) {
+            seenEdges.add(edgeKey);
+            links.push({ source: n.id, target: t });
+          }
+        });
+      });
+
+      return JSON.stringify({ nodes, links }, null, 2);
+    }
+
+    // Toast Notification
+    function showToast(msg) {
+      const toast = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;');
+    }
+
+    // Init Global Events
+    function initEvents() {
+      // Tìm kiếm trên bảng
+      document.getElementById('tableSearch').oninput = () => renderTable();
+      document.getElementById('filterLevel').onchange = () => renderTable();
+
+      // Filter Pills cho trạng thái duyệt (Tất cả / Chưa duyệt / Đã duyệt)
+      document.querySelectorAll('#validationFilterPills .pill-btn').forEach(btn => {
+        btn.onclick = () => {
+          currentValidationFilter = btn.dataset.val;
+          updateValidationFilterUI();
+          renderTable();
+        };
+      });
+
+      // Lọc nhanh khi click vào số liệu trên stats badge
+      const statUnvEl = document.getElementById('statUnverified');
+      if (statUnvEl) {
+        statUnvEl.onclick = () => {
+          currentValidationFilter = 'UNVALIDATED';
+          updateValidationFilterUI();
+          renderTable();
+        };
+      }
+      const statValEl = document.getElementById('statValidated');
+      if (statValEl) {
+        statValEl.onclick = () => {
+          currentValidationFilter = 'VALIDATED';
+          updateValidationFilterUI();
+          renderTable();
+        };
+      }
+
+      if (document.getElementById('filterValidated')) {
+        document.getElementById('filterValidated').onchange = (e) => {
+          currentValidationFilter = e.target.value;
+          updateValidationFilterUI();
+          renderTable();
+        };
+      }
+
+      // Bộ lọc trên khay Palette
+      const palFilter = document.getElementById('paletteFilterValidated');
+      if (palFilter) {
+        palFilter.onchange = () => renderPalette();
+      }
+
+      // Tìm kiếm khay node palette
+      document.getElementById('paletteSearch').oninput = () => renderPalette();
+
+      // Nút Chọn tất cả trên palette
+      document.getElementById('btnSelectAllPalette').onclick = () => {
+        const visibleNodes = getVisiblePaletteNodes();
+        visibleNodes.forEach(n => selectedNodeIds.add(n.id));
+        renderPalette();
+      };
+
+      // Nút Bỏ chọn toàn bộ
+      document.getElementById('btnClearPaletteSelection').onclick = () => {
+        selectedNodeIds.clear();
+        renderPalette();
+      };
+
+      // Thêm node mới (sử dụng UUID unique cho id)
+      document.getElementById('btnAddRow').onclick = () => {
+        const newId = generateUUID();
+        nodesData.unshift({
+          id: newId,
+          label: 'Khái niệm mới',
+          level: 3,
+          desc: 'Mô tả khái niệm...',
+          connections: [],
+          color: '#e0aaff',
+          validated: false
+        });
+        rebuildNodesMap();
+        renderPalette();
+        renderTable();
+        showToast(`➕ Đã thêm node mới ở đầu bảng!`);
+      };
+
+      // 📋 NÚT SAO CHÉP TSV (COPY VÀO CLIPBOARD)
+      document.getElementById('btnCopyTSV').onclick = async () => {
+        const tsv = generateTSV();
+        try {
+          await navigator.clipboard.writeText(tsv);
+          showToast(`📋 Đã sao chép ${nodesData.length} node dạng TSV! Bạn hãy mở file knowledge_nodes.tsv và Paste (Ctrl+V) vào.`);
+        } catch (err) {
+          // Fallback nếu clipboard API bị chặn
+          const ta = document.createElement('textarea');
+          ta.value = tsv;
+          document.body.appendChild(ta);
+          ta.select();
+          document.execCommand('copy');
+          document.body.removeChild(ta);
+          showToast(`📋 Đã sao chép ${nodesData.length} node dạng TSV vào bộ nhớ tạm!`);
+        }
+      };
+
+      // 💾 TẢI XUỐNG TSV
+      document.getElementById('btnDownloadTSV').onclick = () => {
+        const tsv = generateTSV();
+        const blob = new Blob([tsv], { type: 'text/tab-separated-values;charset=utf-8' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'knowledge_nodes.tsv';
+        a.click();
+        showToast('💾 Đã tải xuống tệp knowledge_nodes.tsv');
+      };
+
+    }
+  </script>
+</body>
+
+</html>

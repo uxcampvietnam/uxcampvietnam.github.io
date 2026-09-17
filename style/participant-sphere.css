@@ -1,0 +1,111 @@
+/* ==========================================================================
+   PARTICIPANT 3D ORBITING SPHERE STYLESHEET
+   Dự án: uxcampvietnam.github.io
+   Tuân thủ nghiêm ngặt Token-Driven Design System (ui-design-skill.md)
+   Hỗ trợ hoàn toàn Dark Mode / Light Mode và Mobile Responsive
+   ========================================================================== */
+
+/* Ngăn chặn thanh cuộn ngang do 100vw mà không phá vỡ position: sticky */
+html {
+  overflow-x: clip;
+}
+
+
+
+.participant-sphere-wrapper {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  left: 0 !important;
+  top: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  overflow: hidden !important;
+  box-sizing: border-box;
+  z-index: 15;
+  pointer-events: none;
+}
+
+#participant-sphere-canvas {
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+  outline: none;
+  pointer-events: none;
+}
+
+/* Vùng tương tác drag xoay quả cầu: Hình vuông bọc gọn gàng quanh quả cầu */
+.participant-sphere-interaction {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  width: var(--sphere-box-size, 340px);
+  height: var(--sphere-box-size, 340px);
+  pointer-events: auto !important;
+  touch-action: none !important;
+  cursor: grab;
+  outline: none;
+  z-index: 20;
+  border-radius: 0 !important;
+  background: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.participant-sphere-interaction:active {
+  cursor: grabbing;
+}
+
+/* 2. Loading State */
+.participant-sphere-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-sans-family, "Work Sans", sans-serif);
+  font-size: 14px;
+  color: var(--secondary-text, #666666);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 2;
+}
+
+.participant-sphere-loading.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.participant-sphere-spinner {
+  width: 20px;
+  height: 20px;
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-top-color: var(--main-color, #eb4f0c);
+  border-radius: 50%;
+  animation: p-sphere-spin 0.8s linear infinite;
+}
+
+@keyframes p-sphere-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-color-scheme: dark) {
+  .participant-sphere-spinner {
+    border-color: rgba(255, 255, 255, 0.15);
+    border-top-color: var(--main-color, #eb4f0c);
+  }
+}

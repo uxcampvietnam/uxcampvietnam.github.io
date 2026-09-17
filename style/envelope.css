@@ -1,0 +1,910 @@
+/* ==========================================================================
+   UXCamp Vietnam - 3D Flying Envelope Feedback Section
+   Stylesheet: envelope.css
+   Using 100% Typography & Color Tokens from definition.css
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+
+/* ==========================================================================
+   Envelope Theme Assets & Dark/Light Mode Variables
+   ========================================================================== */
+:root {
+  --envelope-bg-main: url('../asset/icon/evelope-main-light.svg');
+  --envelope-bg-back: url('../asset/icon/evelope-back-light.svg');
+  --envelope-bg-cover: url('../asset/icon/evelope-cover-light.svg');
+  --envelope-liner-bg: linear-gradient(180deg, #BD9C5C 0%, #856E42 100%);
+  --envelope-front-fallback-bg: linear-gradient(180deg, #cbae73 0%, #C9AA6D 10%, #B19152 100%);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --envelope-bg-main: url('../asset/icon/evelope-main-dark.svg');
+    --envelope-bg-back: url('../asset/icon/evelope-back-dark.svg');
+    --envelope-bg-cover: url('../asset/icon/evelope-cover-dark.svg');
+    --envelope-liner-bg: linear-gradient(180deg, #0E1629 0%, #0F1F43 100%);
+    --envelope-front-fallback-bg: linear-gradient(180deg, #243764 0%, #0E1D41 100%);
+  }
+}
+
+html[data-theme="dark"],
+body[data-theme="dark"],
+[data-theme="dark"] {
+  --envelope-bg-main: url('../asset/icon/evelope-main-dark.svg');
+  --envelope-bg-back: url('../asset/icon/evelope-back-dark.svg');
+  --envelope-bg-cover: url('../asset/icon/evelope-cover-dark.svg');
+  --envelope-liner-bg: linear-gradient(180deg, #0E1629 0%, #0F1F43 100%);
+  --envelope-front-fallback-bg: linear-gradient(180deg, #243764 0%, #0E1D41 100%);
+}
+
+html[data-theme="light"],
+body[data-theme="light"],
+[data-theme="light"] {
+  --envelope-bg-main: url('../asset/icon/evelope-main-light.svg');
+  --envelope-bg-back: url('../asset/icon/evelope-back-light.svg');
+  --envelope-bg-cover: url('../asset/icon/evelope-cover-light.svg');
+  --envelope-liner-bg: linear-gradient(180deg, #8C2E06 0%, #532613 100%);
+  --envelope-front-fallback-bg: linear-gradient(180deg, #EB4F0C 0%, #532613 100%);
+}
+
+.spiral-gallery-title {
+  position: absolute;
+  top: 20vh;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+  margin: 0;
+  pointer-events: none;
+  font-style: italic;
+}
+
+/* ==========================================================================
+   Envelope Feedback Section - 3D Helical Spiral Helix Gallery
+   ========================================================================== */
+.spiral-gallery-section,
+.envelope-gallery-section {
+  position: relative;
+  width: 100%;
+  max-width: 100%;
+  height: 100vh;
+  min-height: 680px;
+  overflow-x: clip;
+  overflow-y: visible;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+
+.pin-spacer {
+  max-width: 100% !important;
+  overflow-x: clip !important;
+}
+
+/* 3D Viewport with Deep Perspective */
+.spiral-viewport {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 1800px;
+  perspective-origin: 50% 50%;
+  overflow: visible;
+  cursor: default;
+  user-select: none;
+  touch-action: pan-y;
+  transform-style: preserve-3d;
+  pointer-events: none;
+  overflow-y: visible;
+}
+
+/* 3D Stage Container */
+.spiral-stage {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Spiral Track Centered Zero-Size Pivot */
+.spiral-track {
+  position: relative;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Envelope Card: 3D Positioning with GPU Acceleration */
+.envelope-card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 440px;
+  aspect-ratio: 900 / 677;
+  margin-top: -165px;
+  margin-left: -220px;
+  cursor: pointer;
+  outline: none;
+  transform-style: preserve-3d;
+  transform-origin: 50% 50%;
+  will-change: transform;
+  transition: box-shadow 0.25s ease;
+  border-radius: 6px;
+  pointer-events: auto;
+  transition: filter 0.2s ease-in-out;
+}
+
+.envelope-card:focus-visible {
+  outline: 2px solid var(--main-color, #eb4f0c);
+  outline-offset: 4px;
+}
+
+.envelope-card h3,
+.envelope-card p {
+  filter: drop-shadow(0 0.2px 0 rgba(0, 0, 0, 0.4));
+}
+
+
+/* Loading & Empty State */
+.spiral-loading-state,
+.envelope-loading-state,
+.envelope-empty-state {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  color: var(--main-colors-foreground-f700);
+  padding: 40px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+/* ==========================================================================
+   ENVELOPE 3D DUAL-FACED CARDS (ORBIT & SPIRAL)
+   ========================================================================== */
+
+/* Background Image Divs for Envelopes */
+.face-bg,
+.envelope-card-bg,
+.envelope-cover-flap-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background-size: 100% 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: block;
+}
+
+.envelope-face-main-bg,
+.envelope-card-front .envelope-card-bg,
+.envelope-face-front .face-bg {
+  background-image: var(--envelope-bg-main);
+}
+
+.envelope-face-back-bg,
+.envelope-card-back .envelope-card-bg,
+.envelope-face-back .face-bg {
+  background-image: var(--envelope-bg-back);
+}
+
+.envelope-cover-flap-bg,
+.envelope-card-cover-flap .envelope-cover-flap-bg,
+.envelope-cover-flap .envelope-cover-flap-bg {
+  background-image: var(--envelope-bg-cover);
+}
+
+/* Explicit @media rules for dark & light schemes */
+@media (prefers-color-scheme: light) {
+
+  .envelope-face-main-bg,
+  .envelope-card-front .envelope-card-bg,
+  .envelope-face-front .face-bg {
+    background-image: url('../asset/icon/evelope-main-light.svg');
+  }
+
+  .envelope-face-back-bg,
+  .envelope-card-back .envelope-card-bg,
+  .envelope-face-back .face-bg {
+    background-image: url('../asset/icon/evelope-back-light.svg');
+  }
+
+  .envelope-cover-flap-bg,
+  .envelope-card-cover-flap .envelope-cover-flap-bg,
+  .envelope-cover-flap .envelope-cover-flap-bg {
+    background-image: url('../asset/icon/evelope-cover-light.svg');
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+
+  .envelope-face-main-bg,
+  .envelope-card-front .envelope-card-bg,
+  .envelope-face-front .face-bg {
+    background-image: url('../asset/icon/evelope-main-dark.svg');
+  }
+
+  .envelope-face-back-bg,
+  .envelope-card-back .envelope-card-bg,
+  .envelope-face-back .face-bg {
+    background-image: url('../asset/icon/evelope-back-dark.svg');
+  }
+
+  .envelope-cover-flap-bg,
+  .envelope-card-cover-flap .envelope-cover-flap-bg,
+  .envelope-cover-flap .envelope-cover-flap-bg {
+    background-image: url('../asset/icon/evelope-cover-dark.svg');
+  }
+}
+
+/* Mặt trước phong bì trên quỹ đạo */
+.envelope-card-front {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  container-type: inline-size;
+  transform: rotateY(0deg) translateZ(0.3px);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--envelope-front-fallback-bg);
+  overflow: hidden;
+}
+
+/* Lưng trong lót đáy phong bì (Hiển thị khi lật sang 180deg) */
+.envelope-card-liner {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--envelope-liner-bg);
+  transform: rotateY(180deg) translateZ(0px);
+  transform-style: preserve-3d;
+  pointer-events: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Mặt sau phong bì trên quỹ đạo (Hiển thị mượt mà khi xoay lật góc > 90deg) */
+.envelope-card-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotateY(180deg) translateZ(0.2px);
+  transform-style: preserve-3d;
+  pointer-events: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Nắp phong bì mặt sau */
+.envelope-card-cover-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% * (392 / 677));
+  aspect-ratio: 900 / 392;
+  transform-origin: 50% 0%;
+  transform-style: preserve-3d;
+  transform: rotateY(180deg) translateZ(0.3px) rotateX(0deg);
+  pointer-events: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Page Scroll Lock when modal is open */
+html.envelope-modal-open,
+body.envelope-modal-open {
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+/* ==========================================================================
+   3D Interactive Envelope Modal / Overlay
+   ========================================================================== */
+.envelope-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--fix-black---black-40);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  padding: 0;
+  overscroll-behavior: contain;
+}
+
+.envelope-modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+/* Top-Right Close Button in Modal (Figma 3705:36577) */
+.modal-close-btn {
+  position: absolute;
+  top: 32px;
+  right: 32px;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--body-background-elevate-2);
+  color: var(--main-colors-foreground-f100);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast, 0.15s ease);
+  box-shadow: 0px 1px 1.5px rgba(0, 0, 0, 0.05);
+  z-index: 50;
+}
+
+.modal-close-btn:hover {
+  transform: scale(1.08);
+  opacity: 0.85;
+}
+
+.modal-close-btn:active {
+  transform: scale(0.96);
+}
+
+/* Bottom-Center Navigation Bar in Modal (Figma 3705:36577) */
+.modal-bottom-nav {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 50;
+}
+
+.modal-nav-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: var(--body-background-elevate-2);
+  color: var(--main-colors-foreground-f100);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all var(--transition-fast, 0.15s ease);
+  box-shadow: 0px 1px 1.5px rgba(0, 0, 0, 0.05);
+}
+
+.modal-nav-btn:hover {
+  transform: scale(1.08);
+  opacity: 0.85;
+}
+
+.modal-nav-btn:active {
+  transform: scale(0.96);
+}
+
+.modal-counter-text {
+  font-family: var(--font-mono);
+  font-size: 17px;
+  color: var(--fix-white---white-100, #fff);
+  letter-spacing: 0.72px;
+  padding: 6px 14px;
+  user-select: none;
+  white-space: nowrap;
+}
+
+/* ==========================================================================
+   3D Stage & Envelope Object
+   ========================================================================== */
+.envelope-modal-stage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.stage-3d {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  perspective: 2800px;
+  perspective-origin: 50% 50%;
+}
+
+/* 3D Envelope Container */
+.envelope-3d-object {
+  position: relative;
+  width: min(440px, 86vw);
+  aspect-ratio: 900 / 677;
+  height: auto;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* 3D Envelope Wrapper (animated by GSAP) */
+.envelope-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* Front Face (Figma 3706:36662) */
+.envelope-face-front {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  container-type: inline-size;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: rotateY(0deg) translateZ(0.3px);
+  background: var(--envelope-front-fallback-bg);
+  transform-style: preserve-3d;
+  overflow: hidden;
+  box-shadow: 0 20px 50px var(--fix-black---black-60);
+}
+
+/* Front Cover: Top-Left Sender Block (Figma 3706:36662) */
+.front-sender-block {
+  position: absolute;
+  top: 7.2cqi;
+  left: 7.2cqi;
+  max-width: 60%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5cqi;
+
+}
+
+.front-sender-name {
+  font-family: var(--font-serif-family);
+  font-size: 5.65cqi;
+  font-weight: 500;
+  font-style: italic;
+  line-height: 1.35;
+  color: rgb(255, 243, 214);
+  letter-spacing: 0.05cqi;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.front-sender-title,
+.front-cohort-text,
+.front-bootcamp-text {
+  font-family: var(--font-sans-family);
+  font-size: 3.25cqi;
+  line-height: 1.4;
+  color: rgb(255, 243, 214);
+  letter-spacing: 0.04cqi;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Front Cover: Top-Right Postage Stamp (Figma 3706:36662) */
+.front-stamp-area {
+  position: absolute;
+  top: 6.5cqi;
+  right: 7.2cqi;
+}
+
+.front-stamp {
+  width: 22cqi;
+  aspect-ratio: 80 / 61;
+  background: url('../asset/icon/stamp.svg') no-repeat center / 100% 100%;
+  padding: 1.1cqi 1.2cqi;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.front-stamp img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Front Cover: Bottom-Right Bootcamp & Cohort Block (Figma 3706:36662) */
+.front-bootcamp-block {
+  position: absolute;
+  bottom: 8.5cqi;
+  right: 7.2cqi;
+  max-width: 90%;
+  text-align: right;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2cqi;
+}
+
+
+/* ==========================================================================
+   Back Face of Envelope
+   ========================================================================== */
+.envelope-face-back {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: rotateY(180deg) translateZ(0.2px);
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+/* Interior envelope cavity liner (Behind letter) */
+.envelope-interior-liner {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--envelope-liner-bg);
+  transform: rotateY(180deg) translateZ(0px);
+  transform-style: preserve-3d;
+  pointer-events: none;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* ==========================================================================
+   Real Content Letter Inside Envelope Pocket (Compact -> Expanded)
+   Matching Figma 3705:36592
+   ========================================================================== */
+.letter-3d-container,
+.letter-3d-card {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+  width: 440px;
+  box-sizing: border-box;
+  max-width: 95vw;
+  max-height: 85vh;
+  height: 250px;
+  background: var(--body-background-elevate-2, #ffffff);
+  color: var(--main-colors-foreground-f-500-main, #1a1a1a);
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.2),
+    0 0 0 1px rgba(0, 0, 0, 0.08);
+  padding: 28px;
+  border-radius: 12px;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transform: rotateY(180deg) translate3d(0, 0, 2px);
+  will-change: transform, height, width, left, box-shadow, padding;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 20px;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.letter-3d-container *,
+.letter-3d-card * {
+  color: var(--main-colors-foreground-f-500-main, #1a1a1a);
+}
+
+.letter-content-scroll {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+/* Top Header inside Letter: Avatar + Info on Left, Stamp on Right (Figma 3705:36592) */
+.letter-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-shrink: 0;
+  width: 100%;
+}
+
+.letter-profile,
+.letter-header-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+  flex: 1;
+}
+
+.letter-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.letter-profile-info,
+.letter-sender-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.letter-name,
+.letter-participant-name {
+  font-family: var(--font-serif-family, serif);
+  font-weight: 500;
+  font-style: italic;
+  font-size: 20px;
+  line-height: 28px;
+  color: var(--main-colors-foreground-f-500-main, #1a1a1a) !important;
+  letter-spacing: 0.24px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.letter-title-company,
+.letter-participant-meta {
+  font-family: var(--font-sans-family, sans-serif);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--main-colors-foreground-f-500-main, #1a1a1a) !important;
+  letter-spacing: 0.5px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.letter-stamp-box,
+.letter-stamp-wrapper .letter-stamp {
+  width: 72px;
+  height: 54px;
+  aspect-ratio: 80 / 61;
+  background: url('../asset/icon/stamp.svg') no-repeat center / 100% 100%;
+  padding: 4px 5px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+  flex-shrink: 0;
+}
+
+.letter-stamp-box img,
+.letter-stamp-wrapper .letter-stamp img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+  display: block;
+}
+
+/* Feedback Body Paragraph (Figma 3705:36592) */
+.letter-body {
+  color: var(--main-colors-foreground-f-500-main, #1a1a1a) !important;
+  white-space: pre-wrap;
+  flex-grow: 1;
+  margin: 0;
+}
+
+/* Horizontal Divider (Figma 3705:36592) */
+.letter-divider {
+  border: none;
+  border-top: 1px solid var(--transparent-foreground-main-color-20, rgba(0, 0, 0, 0.1));
+  width: 100%;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* Footer: Bootcamp & Cohort Information (Figma 3705:36592) */
+.letter-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex-shrink: 0;
+  margin-top: auto;
+}
+
+.letter-bootcamp,
+.letter-cohort,
+.letter-bootcamp-info,
+.letter-cohort-info {
+  font-family: var(--font-sans-family, sans-serif);
+  font-size: 13px;
+  line-height: 20px;
+  letter-spacing: -0.1px;
+  color: var(--main-colors-foreground-f800, #636270) !important;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .letter-3d-card {
+    padding: 20px 16px;
+    gap: 20px;
+  }
+
+  .letter-avatar {
+    width: 48px;
+    height: 48px;
+  }
+
+  .letter-participant-name {
+    font-size: 17px;
+    line-height: 24px;
+  }
+
+  .letter-participant-meta {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+  .letter-stamp-wrapper .letter-stamp {
+    width: 52px;
+    height: 38px;
+  }
+}
+
+/* Front Pocket mask (evelope-back.svg) - Covers bottom 2/3 */
+.envelope-pocket-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateZ(0.25px);
+  pointer-events: none;
+}
+
+.envelope-pocket-overlay img {
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  display: block;
+}
+
+/* Envelope Top Flap Cover */
+.envelope-cover-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100% * (392 / 677));
+  aspect-ratio: 900 / 392;
+  transform-origin: 50% 0%;
+  transform-style: preserve-3d;
+  transform: rotateY(180deg) translateZ(6px);
+  will-change: transform;
+}
+
+/* Inner Flap Face (When flipped up 180deg) */
+.envelope-cover-flap .flap-inside {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  transform: rotateX(180deg);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Loading Spinner & Animation */
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--transparent-foreground-main-color-20);
+  border-top-color: var(--main-color);
+  animation: spin 0.8s linear infinite;
+  border-radius: 50%;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Custom Scrollbar for letter */
+.letter-3d-card::-webkit-scrollbar {
+  width: 3px;
+}
+
+.letter-3d-card::-webkit-scrollbar-track {
+  background: var(--transparent-foreground-main-color-05);
+}
+
+.letter-3d-card::-webkit-scrollbar-thumb {
+  background: var(--transparent-foreground-main-color-30);
+  border-radius: 3px;
+}
+
+/* ==========================================================================
+   Responsive Adaptations for 3D Helix
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .envelope-card {
+    width: 380px;
+    margin-top: -142px;
+    margin-left: -190px;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .spiral-gallery-section,
+  .envelope-gallery-section {
+    height: 100vh;
+    min-height: 100vh;
+  }
+
+  .spiral-viewport {
+    perspective: 1200px;
+  }
+
+  .envelope-card {
+    width: 310px;
+    margin-top: -116px;
+    margin-left: -155px;
+  }
+}
+
+@media (max-width: 480px) {
+  .envelope-card {
+    width: 270px;
+    margin-top: -101px;
+    margin-left: -135px;
+  }
+}

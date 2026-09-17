@@ -5,29 +5,29 @@
 
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>UXCAMP VIETNAM</title>
+	<title>Design Thinking — UXCamp Vietnam</title>
 	<link rel="icon" href="https://uxcamp.vn/asset/icon/favicon.ico">
 	<meta name="title" content="UXCamp Vietnam">
 	<meta property="og:type" content="website">
 	<meta property="og:image" content="https://uxcamp.vn/asset/website-thumbnail/uxcampvietnam.jpg" />
-	<meta property="og:description" content='Designing Digital Product per Stage and Metric' />
+	<meta property="og:description" content='Design Thinking' />
 	<meta property="og:url" content='http://uxcamp.vn/' />
-	<meta property="description" content='Designing Digital Product per Stage and Metric là bootcamp đào tạo liên ngành chuyên môn cao, dành cho product builders - bao gồm Product Managers, Product Designers, UX
+	<meta property="description" content='Design Thinking là bootcamp đào tạo liên ngành chuyên môn cao, dành cho product builders - bao gồm Product Managers, Product Designers, UX
 							Researchers, Business Analysts và Data Analysts. Chương trình là sự hợp nhất giữa 3 nhóm
 							kiến thức: Product Discovery, Product Delivery và Data-Driven Decision Making, từ đó mang
 							lại một chương trình thực tiễn và toàn diện.' />
 
 	<!-- Open Graph / Facebook -->
 	<meta property="og:url" content="https://uxcamp.vn/">
-	<meta property="og:title" content="UXCamp Vietnam">
-	<meta property="og:description" content="Designing Digital Product per Stage and Metric">
+	<meta property="og:title" content="Design Thinking — UXCamp Vietnam">
+	<meta property="og:description" content="Design Thinking">
 	<meta property="og:image" content="https://i.ibb.co/7x4FWwHJ/uxcampvietnam.jpg">
 
 	<!-- Twitter -->
 	<meta name="twitter:card" content="summary_large_image">
 	<meta name="twitter:url" content="https://uxcamp.vn/">
-	<meta name="twitter:title" content="UXCamp Vietnam">
-	<meta name="twitter:description" content="Designing Digital Product per Stage and Metric">
+	<meta name="twitter:title" content="Design Thinking — UXCamp Vietnam">
+	<meta name="twitter:description" content="Design Thinking">
 	<meta name="twitter:image" content="https://i.ibb.co/7x4FWwHJ/uxcampvietnam.jpg">
 
 
@@ -74,33 +74,21 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
 	<script src="script/libs/svg-inject.min.js"></script>
 	<script src="script/libs/split-type.js"></script>
-	<script src="../../script/matter-js-interaction.js" defer></script>
+	<script src="script/matter-js-interaction.js" defer></script>
+	<script src="script/main-header.js" defer></script>
 	<script src="script/script.js" defer></script>
 
 	<script src="script/libs/mixpanel.js"></script>
 
 	<!-- custom css -->
-
 	<link rel="stylesheet" type="text/css" href="style/definition.css">
-	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<link rel="stylesheet" type="text/css" href="style/style.css?v=2">
 
 </head>
 
 <body onmousemove="getMousePositionOnScreen(event)">
 
-	<!-- <div class="navigation">
-		<div class="navigation-row1">
-			<a class="paragraph" href="index.html">Bootcamp</a>
-			<a href="index.html"><img class="eye-logo justify-content-center" src="asset/image/Eye.svg"
-					onload="SVGInject(this)"></a>
-			<a class="paragraph" href="corporate-training.html">Corporate Training</a>
-
-		</div>
-		<div class="navigation-row2">
-			<a class="paragraph" href="tool/statistic-calculator/index.html">Calculator</a>
-			<a class="paragraph" href="tool/bigtextbox.html">BigTextBox</a>
-		</div>
-	</div> -->
+	<header class="site-main-header" id="siteMainHeader" data-active="Individual"></header>
 
 
 
@@ -113,12 +101,10 @@
 				<div class="row bootcamp-title-full">
 					<div class="row1">
 						<a class="h6 text-logo" href="index.html">UXCAMP VIETNAM</a>
-						<img class="col-2 eye-logo" src="asset/image/Eye.svg" onload="SVGInject(this)">
+						<img class="col-2 eye-logo" src="asset/icon/eye.svg" onload="SVGInject(this)">
 					</div>
 					<div class="bootcamp-title">
-						<div class="title medium">Designing Digital Product <br class="d-none d-md-block"> per Stage and
-							Metric
-						</div>
+						<div class="title medium">Design Thinking</div>
 						<div class="h3 extralight sub-title"><i>Fact based, move fast, measure what matters</i></div>
 					</div>
 				</div>
@@ -126,36 +112,24 @@
 				<div class="row table-of-content bootcamp-section">
 					<h2 class="col-12">Mục lục</h2>
 					<div class="row paragraph bootcamp-section-content">
-						<a href="#bootcamp-introduction" class="table-of-content-item col-6 col-md-4 col-lg-3">
+						<a href="#bootcamp-introduction" class="table-of-content-item col-12 col-sm-6 col-md-4 flex-grow-1">
 							<span>I. </span>
 							<span>Giới thiệu</span>
 						</a>
-						<a href="#bootcamp-goal" class="table-of-content-item col-6 col-md-4 col-lg-3">
+						<a href="#bootcamp-goal" class="table-of-content-item col-12 col-sm-6 col-md-4 flex-grow-1">
 							<span>II. </span>
 							<span>Mục tiêu</span>
 						</a>
-						<a href="#syllabus" class="table-of-content-item col-6 col-md-4 col-lg-3">
+						<a href="#syllabus" class="table-of-content-item col-12 col-sm-6 col-md-4 flex-grow-1">
 							<span>III. </span>
 							<span>Giáo trình</span>
 						</a>
-						<a href="#trade-offs" class="table-of-content-item col-6 col-md-4 col-lg-3">
+						<a href="#trade-offs" class="table-of-content-item col-12 col-sm-6 col-md-4 flex-grow-1">
 							<span>IV. </span>
 							<span>Trade-offs</span>
 						</a>
-						<a href="#organizer" class="table-of-content-item col-6 col-md-4 col-lg-3">
+						<a href="#faq" class="table-of-content-item col-12 col-sm-6 col-md-4 flex-grow-1">
 							<span>V. </span>
-							<span>Ban tổ chức</span>
-						</a>
-						<a href="#what-learners-say" class="table-of-content-item col-6 col-md-4 col-lg-3">
-							<span>VI. </span>
-							<span>Feedback</span>
-						</a>
-						<a href="#case-study" class="table-of-content-item col-6 col-md-4 col-lg-3">
-							<span>VII. </span>
-							<span>Case Study</span>
-						</a>
-						<a href="#faq" class="table-of-content-item col-6 col-md-4 col-lg-3">
-							<span>VIII. </span>
 							<span>FAQ</span>
 						</a>
 					</div>
@@ -164,7 +138,7 @@
 				<div class="row bootcamp-section" id="bootcamp-introduction">
 					<h2 class="col-12">I. Giới thiệu</h2>
 					<div class="col-12 bootcamp-section-content">
-						<p>"Designing Digital Product per Stage and Metric" là bootcamp đào tạo liên ngành chuyên môn
+						<p>"Design Thinking" là bootcamp đào tạo liên ngành chuyên môn
 							cao, dành cho product builders - bao gồm Product Managers, Product Designers, UX
 							Researchers, Business Analysts và Data Analysts. Chương trình là sự hợp nhất giữa 3 nhóm
 							kiến thức: Product Discovery, Product Delivery và Product Analytic, từ đó mang
@@ -174,14 +148,7 @@
 							chúng tôi đang giải quyết:
 						</p>
 
-						<div onmousemove="toggleMouseOver(this, event, 'introductionMouse')"
-							onmouseout="toggleMouseOut('introductionMouse')"
-							onclick="toggleContent(this, 'introductionMouse')" data-element-name="participant-problem"
-							class="participant-problem toggle-container hide-content row paragraph">
-							<div id="introductionMouse" class="h6 hide-content toggleMouse d-none d-md-flex">
-								<span> Xem nào! </span>
-								<span> Ok biết ời </span>
-							</div>
+						<div class="participant-problem row paragraph mt-4">
 							<div class="accordion-el col-12 col-md-6">
 								<div class="accordion-title"><span class="h6 italic">1. Thiếu tư duy sản phẩm</span>
 								</div>
@@ -321,15 +288,7 @@
 							cách bài bản, linh hoạt và có thể mở rộng. Dưới đây là những mục tiêu chi tiết của chương
 							trình:</p>
 
-						<div onmousemove="toggleMouseOver(this, event, 'bootcampGoalMouse')"
-							onmouseout="toggleMouseOut('bootcampGoalMouse')"
-							onclick="toggleContent(this, 'bootcampGoalMouse')" data-element-name="bootcamp-goal"
-							class="toggle-container paragraph">
-
-							<div id="bootcampGoalMouse" class="h6 show-content toggleMouse d-none d-md-flex">
-								<span> Xem nào! </span>
-								<span> Ok ok </span>
-							</div>
+						<div class="bootcamp-goal-list mt-4 paragraph">
 
 							<div class="accordion-el col-12">
 								<h6 class="accordion-title medium italic">Product Discovery</h6>
@@ -1157,7 +1116,7 @@
 				<div class="row bootcamp-section" id="trade-offs">
 					<h2 class="col-12">IV. Trade-offs</h2>
 					<div class=" col-12 paragraph bootcamp-section-content">
-						<span>Designing Digital Product per Stage and Metric là một chương trình đào tạo chuyên sâu dành
+						<span>Design Thinking là một chương trình đào tạo chuyên sâu dành
 							cho
 							những người sẵn sàng đầu tư thời gian và nỗ lực để làm chủ tư duy thiết kế sản phẩm. Trước
 							khi đăng ký, vui lòng cân nhắc những điều sau:</span>
@@ -1179,200 +1138,110 @@
 					</div>
 				</div>
 
-				<div class="row bootcamp-section" id="organizer">
-					<h2 class="col-12">V. Ban tổ chức</h2>
-					<div class=" col-12  bootcamp-section-content">
-						<div class="row justify-content-md-start justify-content-center">
-							<a class="col-6 col-md-2" target="_blank" href="https://dominhtam.uxcamp.vn/">
-								<div class="organizer-member">
-									<img src="asset/image/organizer_01.webp">
-									<span class="name paragraph">Đỗ Minh Tâm</span>
-									<span class="caption"><i>Academic Head</i></span>
-								</div>
-							</a>
-							<a class="col-6 col-md-2" target="_blank" href="https://www.linkedin.com/in/du-du/">
-								<div class="organizer-member">
-									<img src="asset/image/organizer_05.webp">
-									<span class="name paragraph">Trần Thùy Dương</span>
-									<span class="caption"><i>Trainer</i></span>
-								</div>
-							</a>
-							<a class="col-6 col-md-2" target="_blank" href="https://www.linkedin.com/in/huongtt/">
-								<div class="organizer-member">
-									<img src="asset/image/organizer_03.webp">
-									<span class="name paragraph">Trương Thu Hương</span>
-									<span class="caption"><i>Ban tổ chức</i></span>
-								</div>
-							</a>
-							<a class="col-6 col-md-2" target="_blank"
-								href="https://www.linkedin.com/in/nhung-hoang-6859b3150/">
-								<div class="organizer-member">
-									<img src="asset/image/organizer_04.webp">
-									<span class="name paragraph">Hoàng Nhung</span>
-									<span class="caption"><i>Ban tổ chức</i></span>
-								</div>
-							</a>
-							<a class="col-6 col-md-2" target="_blank"
-								href="https://www.linkedin.com/in/nguyen-thi-minh-trang-aa4022112/">
-								<div class="organizer-member">
-									<img src="asset/image/organizer_02.webp">
-									<span class="name paragraph">Nguyễn Minh Trang</span>
-									<span class="caption"><i>Trainer</i></span>
-								</div>
-							</a>
-
-						</div>
-					</div>
-				</div>
-
-				<div class="row what-learners-say bootcamp-section" id="what-learners-say">
-					<h2 class="col-12">VI. Người tham dự nói gì?</h2>
-					<div class="col-12 paragraph bootcamp-section-content">
-						<div class="feedback-list" id="feedback-list">
-						</div>
-					</div>
-				</div>
-
-				<div class="row bootcamp-section" id="case-study">
-					<h2 class="col-12">VII. Case Study</h2>
-					<div class="col-12 paragraph bootcamp-section-content">
-
-						<div class="row justify-content-md-start justify-content-center">
-							<a class="col-12 col-md-6 col-lg-4 case-study-container" data-case-study="Meezy"
-								target="_blank"
-								href="https://www.figma.com/design/w9pGBjwW3doEs2pPJHxKXB/Meezy.vn-Case-Study">
-								<img class="case-study-thumbnail" src="asset/image/case-study/meezy.webp">
-							</a>
-
-							<a class="col-12 col-md-6 col-lg-4 case-study-container"
-								data-case-study="Vietnam Career Explorer" target="_blank"
-								href="https://www.figma.com/deck/dqpEYfeUZ16uZglZRZ6Pt2/Vietnam-Career-Explorer---4CE?node-id=2-56047&p=f&viewport=1531%2C441%2C0.14&t=kwRdbjaobslgDEp4-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1">
-								<img class="case-study-thumbnail"
-									src="asset/image/case-study/vietnam-career-explorer.webp">
-							</a>
-
-							<a class="col-12 col-md-6 col-lg-4 case-study-container" data-case-study="Ant Manga"
-								target="_blank"
-								href="https://www.figma.com/design/gW5uFwjn9a2tcJQbsryBwR/Ant-Manga-Case-Study">
-								<img class="case-study-thumbnail" src="asset/image/case-study/antmanga.webp">
-							</a>
-
-							<a class="col-12 col-md-6 col-lg-4 case-study-container" data-case-study="Potatot"
-								target="_blank"
-								href="https://www.figma.com/design/MNW9kCsgQ07CuQesOLbEmE/Potatot-Case-Study">
-								<img class="case-study-thumbnail" src="asset/image/case-study/potatot.webp">
-							</a>
-
-							<a class="col-12 col-md-6 col-lg-4 case-study-container" data-case-study="Pensieve"
-								target="_blank"
-								href="https://www.figma.com/design/S0s8nUQSJGQb3BRsSkh3kN/Pensieve-Case-Study">
-								<img class="case-study-thumbnail" src="asset/image/case-study/pensieve.webp">
-							</a>
-
-							<a class="col-12 col-md-6 col-lg-4 case-study-container" data-case-study="Jobify"
-								target="_blank"
-								href="https://www.figma.com/design/R3Cpknjkqs7qkUnawhmEd5/Jobify-Case-Study?node-id=0-1">
-								<img class="case-study-thumbnail" src="asset/image/case-study/jobify.webp">
-							</a>
-
-						</div>
-					</div>
-				</div>
-
 				<div class="row bootcamp-section" id="faq">
-					<h2 class="col-12">VIII. FAQ</h2>
-					<div class=" col-12 paragraph bootcamp-section-content">
-						<div class="accordion-container">
+					<h2 class="col-12">V. FAQ</h2>
+					<div class="col-12 bootcamp-section-content">
+						<div class="ds-accordion" id="faqAccordion">
 
-							<div class="accordion col-12">
-								<button class="accordion-title"> <span>Quy trình đăng ký tham dự như nào?</span> <img
-										class="small-arrow" src="asset/icon/expand-collapse-icon.svg"
-										onload="SVGInject(this)"></button>
-								<div class="answer">
+							<div class="ds-accordion-item">
+								<button class="ds-accordion-header" type="button">
+									<span>Quy trình đăng ký tham dự như nào?</span>
+									<svg class="ds-accordion-icon" width="16" height="16" viewBox="0 0 24 24"
+										fill="currentColor">
+										<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+									</svg>
+								</button>
+								<div class="ds-accordion-content">
 									<p>Sau khi gửi form đăng ký thành công, ban tổ chức sẽ liên hệ và sắp xếp với bạn
 										một buổi in-depth interview trước khi lên danh sách người tham dự chính
-										thức.<br>
-										2 tuần trước thời điểm bắt đầu chương trình, ban tổ chức sẽ gửi
-										thông báo nhập học chính thức cho người tham dự.<br>
+										thức.<br><br>
+										2 tuần trước thời điểm bắt đầu chương trình, ban tổ chức sẽ gửi thông báo nhập
+										học chính thức cho người tham dự.<br><br>
 										Sau khi nhận thông tin, bạn vui lòng thanh toán học phí trong vòng 7 ngày để xác
-										nhận việc tham dự bootcamp của mình.
-									</p>
+										nhận việc tham dự bootcamp của mình.</p>
 								</div>
 							</div>
 
-							<div class="accordion col-12">
-								<button class="accordion-title"><span> Data Driven trong bootcamp là dạy cái gì?
-									</span>
-									<img class="small-arrow" src="asset/icon/expand-collapse-icon.svg"
-										onload="SVGInject(this)"></button>
-								<div class="answer">
+							<div class="ds-accordion-item">
+								<button class="ds-accordion-header" type="button">
+									<span>Data Driven trong bootcamp là dạy cái gì?</span>
+									<svg class="ds-accordion-icon" width="16" height="16" viewBox="0 0 24 24"
+										fill="currentColor">
+										<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+									</svg>
+								</button>
+								<div class="ds-accordion-content">
 									<p>Data driven decision making là một định nghĩa rất rộng, trong bootcamp này chúng
-										tôi sẽ giảng dạy những kiến thức sau:.<br>
-										Khi bắt đầu một sản phẩm mới: Chúng ta sẽ tìm kiếm những dữ liệu để khám phá và
-										mô tả thị trường, người
-										dùng thông qua deck research. Nếu chưa đủ, chúng ta sẽ tiếp tục làm primary
-										research để thu thập thêm dữ liệu cho quá trình phát triển sản phẩm. Từ đó xác
-										định được mục
-										tiêu sản phẩm, các concepts khả thi để có thể đưa sản phẩm ra thị trường. Sau đó
-										từ mục tiêu diễn giải ra thành North Star Metric và các Success Metrics. <br>
-										Khi sản phẩm đã thành hình, các quyết định tối ưu được dựa trên số liệu hệ
-										thống: từ transactional records, system performance, user feedback cho đến các
-										dữ liệu
-										từ hành vi người dùng thao tác trên sản phẩm thông qua behavioral event
-										tracking. <br>
+										tôi sẽ giảng dạy những kiến thức sau:<br><br>
+										• <strong>Khi bắt đầu một sản phẩm mới:</strong> Chúng ta sẽ tìm kiếm những dữ
+										liệu để khám phá và mô tả thị trường, người dùng thông qua desk research. Nếu
+										chưa đủ, chúng ta sẽ tiếp tục làm primary research để thu thập thêm dữ liệu cho
+										quá trình phát triển sản phẩm. Từ đó xác định được mục tiêu sản phẩm, các
+										concepts khả thi để có thể đưa sản phẩm ra thị trường. Sau đó từ mục tiêu diễn
+										giải ra thành North Star Metric và các Success Metrics.<br><br>
+										• <strong>Khi sản phẩm đã thành hình:</strong> Các quyết định tối ưu được dựa
+										trên số liệu hệ thống: từ transactional records, system performance, user
+										feedback cho đến các dữ liệu từ hành vi người dùng thao tác trên sản phẩm thông
+										qua behavioral event tracking.<br><br>
 										Để làm được tất cả những điều đó, bạn cần phải trải qua những nội dung học sau:
-										<br>
-									<ul>
-										<li>Thiết kế nghiên cứu, các phương pháp & quy trình nghiên cứu</li>
-										<li>Thống kê mô tả & Thống kê suy luận</li>
+									</p>
+									<ul style="margin: 8px 0 0 0; padding-left: 20px;">
+										<li>Thiết kế nghiên cứu, các phương pháp &amp; quy trình nghiên cứu</li>
+										<li>Thống kê mô tả &amp; Thống kê suy luận</li>
 										<li>Product Metrics</li>
 										<li>Digital Behavioral Event Tracking</li>
 										<li>Product Analytic</li>
 										<li>Xây dựng product dashboard</li>
 									</ul>
-									</p>
 								</div>
 							</div>
 
-							<div class="accordion col-12">
-								<button class="accordion-title"><span>Tôi mới có 1-2 năm kinh nghiệm thì có nên tham
-										gia
-										không?</span> <img class="small-arrow" src="asset/icon/expand-collapse-icon.svg"
-										onload="SVGInject(this)"></button>
-								<div class="answer">
+							<div class="ds-accordion-item">
+								<button class="ds-accordion-header" type="button">
+									<span>Tôi mới có 1-2 năm kinh nghiệm thì có nên tham gia không?</span>
+									<svg class="ds-accordion-icon" width="16" height="16" viewBox="0 0 24 24"
+										fill="currentColor">
+										<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+									</svg>
+								</button>
+								<div class="ds-accordion-content">
 									<p>Bạn chưa nên tham gia tại thời điểm này đâu. Hơn 75% người tham dự đã có trên 3
 										năm kinh nghiệm làm việc nên các kiến thức nhập môn và công cụ thiết kế cơ bản
-										được
-										loại bỏ nhằm tập trung chính vào các vấn đề người tham dự pre-senior / senior
-										đang đối mặt trong công việc.
-										Với hàm lượng kiến thức và tốc độ giảng dạy này sẽ không phù hợp với những bạn
-										mới bắt đầu với nghề.<br>
+										được loại bỏ nhằm tập trung chính vào các vấn đề người tham dự pre-senior /
+										senior đang đối mặt trong công việc. Với hàm lượng kiến thức và tốc độ giảng dạy
+										này sẽ không phù hợp với những bạn mới bắt đầu với nghề.<br><br>
 										Trong tương lai, UXCamp Vietnam sẽ có các hoạt động dành riêng cho bạn.</p>
 								</div>
 							</div>
 
-							<div class="accordion col-12">
-								<button class="accordion-title"><span>UXCamp có xuất hóa đơn hoặc hợp đồng giảng dạy
-										không?</span>
-									<img class="small-arrow" src="asset/icon/expand-collapse-icon.svg"
-										onload="SVGInject(this)"></button>
-								<div class="answer">
+							<div class="ds-accordion-item">
+								<button class="ds-accordion-header" type="button">
+									<span>UXCamp có xuất hóa đơn hoặc hợp đồng giảng dạy không?</span>
+									<svg class="ds-accordion-icon" width="16" height="16" viewBox="0 0 24 24"
+										fill="currentColor">
+										<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+									</svg>
+								</button>
+								<div class="ds-accordion-content">
 									<p>Chương trình có thể xuất hóa đơn / hợp đồng nếu bạn đăng ký học theo diện công ty
 										cử đi nha.</p>
 								</div>
 							</div>
 
-							<div class="accordion col-12">
-								<button class="accordion-title"><span>Chương trình có giảm giá không?</span><img
-										class="small-arrow" src="asset/icon/expand-collapse-icon.svg"
-										onload="SVGInject(this)"></button>
-								<div class="answer">
+							<div class="ds-accordion-item">
+								<button class="ds-accordion-header" type="button">
+									<span>Chương trình có giảm giá không?</span>
+									<svg class="ds-accordion-icon" width="16" height="16" viewBox="0 0 24 24"
+										fill="currentColor">
+										<path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z" />
+									</svg>
+								</button>
+								<div class="ds-accordion-content">
 									<p>Hiện giờ UXCamp Vietnam đang chưa có chương trình giảm giá.</p>
 								</div>
 							</div>
 
 						</div>
-
 					</div>
 				</div>
 
@@ -1381,81 +1250,63 @@
 					<div class="bootcamp-list container-fluid"></div>
 				</div>
 
-				<div class="row bootcamp-section" id="footer">
-					<div class="col-12 bootcamp-section-content">
-						<div id="flyingContainer2"> </div>
+				<div id="flyingContainer2"></div>
 
-						<div class="row justify-content-center">
-							<div class="footer-row col-12 h3 justify-content-center">
-								<span>Bootcamp</span>
-								<br><a href="designing-digital-produc-per-stage-and-metric.html">Designing Digital
-									Product per Stage and Metric</a>
-								<br><a href="applied-ux-analytic/index.html">Applied UX Analytic</a>
-								<!-- <br><a href="corporate-training.html">Corporation Training</a> -->
-							</div>
-
-							<div class="footer-row col-12 h6 justify-content-center">
-								<span>Tools</span>
-								<br><a href="tool/statistic-calculator/index.html">Statistic Calculator</a>
-								<br><a href="https://quiz.uxcamp.vn/">Quiz Cực Căng</a>
-								<br><a href="tool/bigtextbox.html">Bigtextbox</a>
-								<br><a href="tabandtask/index.html">Tab&Task</a>
-							</div>
-
-							<div class="footer-row col-12 h6 justify-content-center">
-								<span>Links</span>
-								<br><a href="https://uxcamp.vn/certificate/find-your-certificate" target="_blank">For
-									Alumni: Find your certificate ›</a>
-								<br><a href="https://blog.uxcamp.vn/">Blogs</a>
-							</div>
-
-							<div class="footer-row col-12 h6 justify-content-center">
-								<span>Contact</span>
-								<br>
-								<div class="social-links">
-
-									<a target="_blank" rel="noopener noreferrer"
-										href="https://www.facebook.com/uxcampvn/"
-										title="https://www.facebook.com/uxcampvn"><img class="social-link-svg"
-											src="asset/icon/facebook.svg" onload="SVGInject(this)"></a>
-									<a target="_blank" rel="noopener noreferrer"
-										href="https://www.linkedin.com/company/uxcamp-vietnam"
-										title="https://www.linkedin.com/company/uxcamp-vietnam"><img
-											class="social-link-svg" src="asset/icon/linkedin.svg"
-											onload="SVGInject(this)"></a>
-									<a target="_blank" rel="noopener noreferrer"
-										href="https://www.youtube.com/@UXCampVietnam"
-										title="https://www.youtube.com/@UXCampVietnam"><img class="social-link-svg"
-											src="asset/icon/youtube.svg" onload="SVGInject(this)"></a>
-									<a target="_blank" rel="noopener noreferrer" href="mailto:hello@uxcamp.vn"
-										title="hello@uxcamp.vn"><img class="social-link-svg" src="asset/icon/email.svg"
-											onload="SVGInject(this)"></a>
-								</div>
-							</div>
-							<img class="eye-logo footer-img col-12" src="asset/image/Eye.svg" onload="SVGInject(this)">
+				<!-- Footer (Figma Design Node 3606:29511) -->
+				<footer class="site-footer" id="footer">
+					<div class="footer-content-container">
+						<!-- Left Column: Bootcamp Navigation Links -->
+						<div class="footer-nav-column">
+							<p class="footer-column-label">Bootcamp</p>
+							<nav class="footer-links-list">
+								<a href="designing-digital-produc-per-stage-and-metric.html"
+									class="footer-serif-link h3">Design Thinking</a>
+								<a href="applied-ux-analytic/index.html" class="footer-serif-link h3">Applied UX
+									Analytic</a>
+								<a href="for-business/index.html" class="footer-serif-link h3">For Business</a>
+								<a href="certificate/find-your-certificate.html" class="footer-serif-link h3">For
+									Alumni</a>
+							</nav>
 						</div>
 
+						<!-- Right Column: Contact Us + Eye Logo -->
+						<div class="footer-contact-column">
+							<div class="footer-contact-top">
+								<p class="footer-column-label">Contact Us</p>
+								<div class="footer-social-icons">
+									<a target="_blank" rel="noopener noreferrer"
+										href="https://www.facebook.com/uxcampvn/" class="footer-social-btn"
+										title="Facebook">
+										<img src="asset/icon/facebook.svg" onload="SVGInject(this)" alt="Facebook">
+									</a>
+									<a target="_blank" rel="noopener noreferrer"
+										href="https://www.linkedin.com/company/uxcamp-vietnam" class="footer-social-btn"
+										title="LinkedIn">
+										<img src="asset/icon/linkedin.svg" onload="SVGInject(this)" alt="LinkedIn">
+									</a>
+									<a target="_blank" rel="noopener noreferrer" href="mailto:hello@uxcamp.vn"
+										class="footer-social-btn" title="Email">
+										<img src="asset/icon/email.svg" onload="SVGInject(this)" alt="Email">
+									</a>
+								</div>
+							</div>
+
+							<div class="footer-eye-wrapper">
+								<img class="eye-logo" src="asset/icon/eye.svg" onload="SVGInject(this)"
+									alt="UXCamp Vietnam Eye Logo">
+							</div>
+						</div>
 					</div>
-				</div>
+
+					<!-- Big Bottom Bell Curve Graphic -->
+					<img src="asset/icon/bell-curve-shape.svg" class="footer-bell-curve" alt=""
+						onload="SVGInject(this)">
+				</footer>
 			</div>
 		</div>
 	</div>
 
-	<!-- Feedback Detail Container ===================== -->
-	<div id="feedbackDetailContainer" class="container-fluid align-item-center">
-		<img class="iconButton" onclick="closeFeedback()" id="close-feedback" src="asset/icon/close.svg"
-			onload="SVGInject(this)">
-		<div class="row col-12 justify-content-center align-item-center">
-			<div id="feedback-content" class="col-12 col-md-10 col-lg-8"></div>
-		</div>
-		<div class="feedback-nav">
-			<img class="iconButton" id="feedback-prev" onclick="showPrevFeedback()" aria-label="Previous feedback"
-				src="asset/icon/previous.svg" onload="SVGInject(this)">
-			<span id="feedback-nav-indicator" class="caption"></span>
-			<img class="iconButton" id="feedback-next" onclick="showNextFeedback()" aria-label="Next feedback"
-				src="asset/icon/next.svg" onload="SVGInject(this)">
-		</div>
-	</div>
+
 
 
 </body>

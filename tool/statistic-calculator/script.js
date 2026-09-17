@@ -627,7 +627,7 @@ function objectToTableHTML(tableName, dataObj, resultId, rejectH0) {
     const headers = Object.keys(entries[0]);
 
     // Bắt đầu tạo HTML
-    let html = "<h5>" + tableName + "</h5>" + "<table border='0' cellpadding='0' cellspacing='0'>";
+    let html = "<h5>" + tableName + "</h5>" + "<table border='0' cellpadding='0' cellspacing='0' class='stat-table'>";
 
     // Tạo các hàng dữ liệu
     html += "<tbody>";
@@ -771,7 +771,7 @@ function calculateBootstrap() {
 }
 
 // --- SIDEBAR & THEME MANAGEMENT FOR STYLES.CSS LAYOUT ---
-document.addEventListener('DOMContentLoaded', () => {
+function initStatisticApp() {
     // Dynamic sidebar injection
     const sidebarEl = document.getElementById('sidebar');
     if (sidebarEl) {
@@ -808,7 +808,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </svg>
       </button>
 
-      <div class = "sidebar-content" >
+      <div class="sidebar-content">
       <!-- Brand Logo -->
       <div class="brand">
         <div class="brand-icon">
@@ -828,11 +828,14 @@ document.addEventListener('DOMContentLoaded', () => {
           ${linksHtml}
         </nav>
       </div>
+
+      <!-- User Account Widget Placeholder -->
+      <div id="sidebar-user-widget" class="sidebar-user-widget" style="display: none;"></div>
       </div>
         `;
     }
 
-    // 2. Desktop sidebar collapse toggle
+    // Desktop sidebar collapse toggle
     const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
     const container = document.querySelector('.app-container');
     if (sidebarToggleBtn && container) {
@@ -842,22 +845,22 @@ document.addEventListener('DOMContentLoaded', () => {
             sidebarToggleBtn.setAttribute('aria-label', 'Mở rộng menu');
         }
 
-        sidebarToggleBtn.addEventListener('click', (e) => {
+        sidebarToggleBtn.onclick = (e) => {
             e.stopPropagation();
             const collapsed = container.classList.toggle('sidebar-collapsed');
             localStorage.setItem('wcag_designer_sidebar_collapsed', collapsed);
             sidebarToggleBtn.setAttribute('aria-label', collapsed ? 'Mở rộng menu' : 'Thu nhỏ menu');
-        });
+        };
     }
 
-    // 3. Mobile sidebar drawer toggling
+    // Mobile sidebar drawer toggling
     const mobileToggle = document.getElementById('mobile-menu-toggle');
     const sidebar = document.getElementById('sidebar');
     if (mobileToggle && sidebar) {
-        mobileToggle.addEventListener('click', (e) => {
+        mobileToggle.onclick = (e) => {
             e.stopPropagation();
             sidebar.classList.toggle('active');
-        });
+        };
 
         // Close sidebar when clicking outside on mobile
         document.addEventListener('click', (e) => {
@@ -865,6 +868,40 @@ document.addEventListener('DOMContentLoaded', () => {
                 sidebar.classList.remove('active');
             }
         });
+    }
+
+    // Tự động tạo bảng nếu trang là chi-squared
+    if (typeof createTable === 'function' && document.getElementById('tableContainer')) {
+        createTable();
+    }
+
+    // Luôn refresh widget auth trên sidebar
+    if (window.ToolAuthGuard && typeof ToolAuthGuard.refreshSidebarWidget === 'function') {
+        ToolAuthGuard.refreshSidebarWidget();
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.ToolAuthGuard) {
+        ToolAuthGuard.init({
+            toolName: 'Statistic Calculator',
+            toolDesc: 'Calculator & Hypothesis Testing.',
+            sidebarSelector: '#sidebar',
+            homeUrl: '../../index.html',
+            onAuthorized: () => {
+                initStatisticApp();
+                ToolAuthGuard.refreshSidebarWidget();
+            }
+        });
+    } else {
+        initStatisticApp();
+    }
+});
+
+// Lắng nghe sự kiện auth ready để tự động điền dữ liệu người dùng
+window.addEventListener('uxcamp:auth:ready', () => {
+    if (window.ToolAuthGuard && typeof ToolAuthGuard.refreshSidebarWidget === 'function') {
+        ToolAuthGuard.refreshSidebarWidget();
     }
 });
 

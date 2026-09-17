@@ -9,7 +9,7 @@ let activeCardId = null;
 let activeView = 'checklist'; // 'checklist' hoặc 'report'
 
 // Khởi tạo ứng dụng
-document.addEventListener('DOMContentLoaded', () => {
+function initHeuristicApp() {
   window.trackEvent('view_page', { page_name: 'heuristic_evaluation' });
   initLocalStorage();
   initSidebarCollapse();
@@ -17,6 +17,22 @@ document.addEventListener('DOMContentLoaded', () => {
   renderCategoryDropdown();
   bindEvents();
   switchTab(activeView);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.ToolAuthGuard) {
+    ToolAuthGuard.init({
+      toolName: 'Heuristic Checklist',
+      toolDesc: 'Công cụ checklist tiếng Việt trực quan giúp UX/UI Designer đánh giá heuristics sản phẩm.',
+      sidebarSelector: '#sidebar',
+      homeUrl: '../../index.html',
+      onAuthorized: () => {
+        initHeuristicApp();
+      }
+    });
+  } else {
+    initHeuristicApp();
+  }
 });
 
 // Khởi tạo bộ nhớ LocalStorage
@@ -802,7 +818,7 @@ function renderChecklist() {
             <span class="badge badge-id">${code}</span>
             <span class="badge" style="background:var(--bg-secondary); color:var(--main-colors-foreground-f700); border:1px solid var(--border-color); font-weight:500;">${item.catName}</span>
           </div>
-          <h6 style="font-size: 1.05rem; line-height: 1.5; font-weight: 500; margin-top: 8px; color: var(--text-color);">${item.title}</h6>
+          <h6 class="font-sans-h6">${item.title}</h6>
           ${item.desc && item.desc.trim() !== '' ? `<p class="font-sans-caption">${item.desc}</p>` : ''}
         </div>
         

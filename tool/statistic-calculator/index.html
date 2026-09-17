@@ -9,15 +9,25 @@
   <meta property="og:description" content='UXCamp Vietnam' />
   <meta property="og:url" content='http://uxcamp.vn/' />
 
-  <script src="script.js"></script>
-  <script src="../../script/libs/svg-inject.min.js"></script>
-
   <link rel="stylesheet" type="text/css" href="../../style/definition.css">
   <link rel="stylesheet" href="../checklist/style/styles.css">
   <link rel="stylesheet" href="calculator.css">
+  <link rel="stylesheet" href="../../style/tool-auth.css">
+
+  <!-- Firebase SDK (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="../../script/auth-guard.js"></script>
+
+  <script src="../../script/main-header.js" defer></script>
+  <script src="script.js"></script>
+  <script src="../../script/libs/svg-inject.min.js"></script>
 </head>
 
 <body>
+
+  <header class="site-main-header" id="siteMainHeader" data-active="Tool"></header>
 
   <div class="app-container">
 

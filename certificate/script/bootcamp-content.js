@@ -3,12 +3,39 @@
  * Add a new key matching `bootcamp_name` from the API to support future programs.
  */
 const BOOTCAMP_CONTENT = {
+  "Design Thinking": {
+    title: "Design Thinking",
+    tagline: "Fact based, move fast, measure what matters",
+    learningDurationHours: 97,
+    cta: {
+      label: "Explore Design Thinking →",
+      href: "../designing-digital-produc-per-stage-and-metric.html",
+    },
+    whatYouWillLearn: [
+      "Design digital products based on business stages, user behavior, and product metrics",
+      "Make product decisions through data analysis, experimentation, and user insights",
+      "Identify user problems, unmet needs, and market opportunities in Product Discovery",
+      "Design and validate hypotheses through research, behavioral analysis, and experimentation",
+      "Collaborate effectively across design, business, and engineering teams in Product Delivery",
+      "Measure product metrics to evaluate product health, user behavior, and business impact",
+      "Build Growth-oriented thinking by optimizing user lifecycle, and user expansion strategies",
+      "Apply product analytics and UX frameworks to align UX goals with business outcomes",
+      "CI/CD through tracking systems, feedback loops, and iteration",
+    ],
+    skills: [
+      "Product Lifecycle Management", "Agile", "Value Propositions", "North Star Metric", "Market Opportunities",
+      "Event Tracking", "User Journey Mapping", "Solution Design", "Behavior Analysis", "Data-Driven Decision Making",
+      "Problem Solving", "Critical Thinking", "Experiment Design", "Product Strategy", "Cross-functional Collaboration",
+      "Performance Metric", "Customer Retention", "Customer Analysis", "Statistical Analysis", "Digital Product Development"
+    ]
+  },
+
   "Designing Digital Product per Stage and Metric": {
     title: "Designing Digital Product per Stage and Metric",
     tagline: "Fact based, move fast, measure what matters",
     learningDurationHours: 97,
     cta: {
-      label: "Explore this bootcamp",
+      label: "Explore this bootcamp →",
       href: "../designing-digital-produc-per-stage-and-metric.html",
     },
     whatYouWillLearn: [
@@ -35,7 +62,7 @@ const BOOTCAMP_CONTENT = {
     tagline: "Behavioral decision making for product team",
     learningDurationHours: 36,
     cta: {
-      label: "Explore Applied UX Analytic",
+      label: "Explore Applied UX Analytic →",
       href: "../applied-ux-analytic/index.html",
     },
     whatYouWillLearn: [
@@ -91,10 +118,24 @@ const BOOTCAMP_CONTENT = {
   },
 };
 
+BOOTCAMP_CONTENT["Product Design"] = BOOTCAMP_CONTENT["Design Thinking"];
+BOOTCAMP_CONTENT["Product Management"] = BOOTCAMP_CONTENT["Designing Digital Product per Stage and Metric"];
+BOOTCAMP_CONTENT["design thinking"] = BOOTCAMP_CONTENT["Design Thinking"];
+
 /**
  * @param {string} bootcampName
  * @returns {object|null}
  */
 function getBootcampContent(bootcampName) {
-  return BOOTCAMP_CONTENT[bootcampName] || null;
+  if (!bootcampName) return null;
+  if (BOOTCAMP_CONTENT[bootcampName]) {
+    return BOOTCAMP_CONTENT[bootcampName];
+  }
+  const lower = bootcampName.trim().toLowerCase();
+  for (const key of Object.keys(BOOTCAMP_CONTENT)) {
+    if (key.toLowerCase() === lower) {
+      return BOOTCAMP_CONTENT[key];
+    }
+  }
+  return null;
 }

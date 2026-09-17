@@ -1,5 +1,5 @@
 :root {
-    --bg-color: #EBE1D4;
+    --bg-color: #f5f1ed;
     --text-color: #373d48;
     --card-bg: rgba(255, 255, 255, 0.7);
     --glass-bg: rgba(244, 237, 228, 0.6);
@@ -78,7 +78,7 @@ h3,
 }
 
 .feature-card {
-    background: var(--main-colors-background-elevate-1);
+    background: var(--body-background-elevate-1);
     backdrop-filter: blur(10px);
     border: 1px solid var(--border-color);
     border-radius: 16px;

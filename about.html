@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Về Chúng Tôi - UXCamp Vietnam | Kiến tạo thế hệ Product Builders thực chiến</title>
+	<link rel="icon" href="asset/icon/favicon.ico">
+
+	<meta name="title" content="Về Chúng Tôi - UXCamp Vietnam">
+	<meta name="description"
+		content="Khám phá câu chuyện, sứ mệnh, hệ sinh thái đào tạo và đội ngũ ban tổ chức, hội đồng chuyên môn đằng sau UXCamp Vietnam.">
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://uxcamp.vn/about.html">
+	<meta property="og:title" content="Về Chúng Tôi - UXCamp Vietnam">
+	<meta property="og:description"
+		content="Khám phá câu chuyện, sứ mệnh, hệ sinh thái đào tạo và đội ngũ ban tổ chức, hội đồng chuyên môn đằng sau UXCamp Vietnam.">
+	<meta property="og:image" content="https://i.ibb.co/7x4FWwHJ/uxcampvietnam.jpg">
+
+	<!-- Bootstrap 5.3 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+	<!-- Core Scripts & Libs -->
+	<script src="script/libs/svg-inject.min.js"></script>
+	<script src="script/libs/split-type.js"></script>
+	<script src="script/main-header.js" defer></script>
+	<script src="script/script.js" defer></script>
+	<script src="script/about.js" defer></script>
+	<script src="script/libs/mixpanel.js"></script>
+
+	<!-- GSAP & ScrollTrigger -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+	<!-- Design System & Styles -->
+	<link rel="stylesheet" type="text/css" href="style/definition.css?v=5">
+	<link rel="stylesheet" type="text/css" href="style/style.css?v=4">
+	<link rel="stylesheet" type="text/css" href="style/about.css?v=3">
+</head>
+
+<body>
+
+	<!-- 1. Site Main Header -->
+	<header class="site-main-header" id="siteMainHeader" data-active="AboutUs"></header>
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<main class="uxcamp-homepage col-12 about-page-container">
+
+				<!-- =========================================================================
+				     SECTION 1: HERO ARTWORK BANNER ("Đối với chúng tôi, Học để:")
+				     ========================================================================= -->
+				<section
+					class="row g-0 p-0 justify-content-center align-items-center about-hero-section bootcamp-section"
+					id="hero">
+					<img class="loi-bac-ho-hero-banner img-fluid" src="asset/icon/hero-banner-dark-mobile.png"
+						alt="Enterprise Training & Examination Banner" loading="eager">
+				</section>
+
+				<!-- =========================================================================
+				     SECTION 2: MANIFESTO & 4 CORE PILLARS
+				     ========================================================================= -->
+				<section class="row justify-content-center manifesto-section bootcamp-section" id="manifestoSection">
+					<div class="col-12 text-center section-header-centered">
+						<p class="mono-caption secondary-text">Về chúng tôi</p>
+						<h3 class="h3 italic mb-2">UXCamp Vietnam</h3>
+					</div>
+
+					<!-- Big Manifesto Statement (GSAP ScrollTrigger Character Animation) -->
+					<div class="col-12 col-xl-11 manifesto-lead-wrap">
+						<h3 class="manifesto-scroll-text font-serif-xl-title" id="manifestoScrollText">
+							Chúng tôi là tổ chức <span class="highlight-term">đào tạo, tư vấn</span> và <span
+								class="highlight-term">khảo thí độc lập,</span> tập trung vào 4 năng
+							lực trong <span class="highlight-term">phát triển sản phẩm số</span> gồm:
+						</h3>
+					</div>
+
+					<!-- 4 Core Pillars Grid (2x2 Interlocking Puzzle) -->
+					<div class="row pillars-container mt-0">
+						<!-- Pillar 1: Discovery -->
+						<div class="col-12 col-md-6 d-flex g-0">
+							<div class="pillar-card card-container w-100 pillar-card-discovery">
+								<!-- Desktop tab pointing RIGHT into Card 2 -->
+								<svg class="puzzle-tab puzzle-tab-right" viewBox="0 0 40 319" preserveAspectRatio="none" aria-hidden="true">
+									<path d="M159.5 0C-118.827 1.03426e-05 273.23 40 1.60408e-06 40L319 40C47.1565 40 437.828 -1.03426e-05 159.5 0Z" transform="translate(40, 0) rotate(90)" fill="currentColor"/>
+								</svg>
+								<!-- Mobile tab pointing DOWN into Card 2 -->
+								<svg class="puzzle-tab puzzle-tab-bottom-mobile" viewBox="0 0 319 40" preserveAspectRatio="none" aria-hidden="true">
+									<path d="M159.5 0C-118.827 1.03426e-05 273.23 40 1.60408e-06 40L319 40C47.1565 40 437.828 -1.03426e-05 159.5 0Z" transform="translate(0, 40) scale(1, -1)" fill="currentColor"/>
+								</svg>
+								<div class="pillar-tag mono-caption secondary-text">1. Product Discovery</div>
+								<h4 class="pillar-title font-serif-h4">Nghiên cứu: Khám phá, Mô Tả, Giải thích</h4>
+								<p class="pillar-desc paragraph">
+									Đặt người dùng làm trung tâm thông qua nghiên cứu định tính và định lượng chuẩn
+									mực. Xác định
+									đúng vấn đề cốt lõi, thấu hiểu tâm lý hành vi và tìm ra unmet needs trước khi
+									tiêu tốn tài
+									nguyên sprint.
+								</p>
+							</div>
+						</div>
+
+						<!-- Pillar 2: Analytic -->
+						<div class="col-12 col-md-6 d-flex g-0">
+							<div class="pillar-card card-container w-100 pillar-card-analytic">
+								<!-- Desktop & Mobile tab pointing DOWN into Card 4 (desktop) / Card 3 (mobile) -->
+								<svg class="puzzle-tab puzzle-tab-bottom" viewBox="0 0 319 40" preserveAspectRatio="none" aria-hidden="true">
+									<path d="M159.5 0C-118.827 1.03426e-05 273.23 40 1.60408e-06 40L319 40C47.1565 40 437.828 -1.03426e-05 159.5 0Z" transform="translate(0, 40) scale(1, -1)" fill="currentColor"/>
+								</svg>
+								<div class="pillar-tag mono-caption secondary-text">2. Product Analytic</div>
+								<h4 class="pillar-title font-serif-h4">Định hướng mục tiêu, đánh giá hiệu quả</h4>
+								<p class="pillar-desc paragraph">
+									Thay thế các quyết định cảm tính bằng tư duy thống kê suy luận, Event Tracking
+									Plan chuẩn chỉnh,
+									phân tích phễu chuyển đổi (Funnel), Cohort Retention và A/B Testing chặt chẽ.
+								</p>
+							</div>
+						</div>
+
+						<!-- Pillar 3: AI & Execution -->
+						<div class="col-12 col-md-6 d-flex g-0">
+							<div class="pillar-card card-container w-100 pillar-card-ai">
+								<!-- Desktop tab pointing UP into Card 1 -->
+								<svg class="puzzle-tab puzzle-tab-top" viewBox="0 0 319 40" preserveAspectRatio="none" aria-hidden="true">
+									<path d="M159.5 0C-118.827 1.03426e-05 273.23 40 1.60408e-06 40L319 40C47.1565 40 437.828 -1.03426e-05 159.5 0Z" fill="currentColor"/>
+								</svg>
+								<!-- Mobile tab pointing DOWN into Card 4 -->
+								<svg class="puzzle-tab puzzle-tab-bottom-mobile" viewBox="0 0 319 40" preserveAspectRatio="none" aria-hidden="true">
+									<path d="M159.5 0C-118.827 1.03426e-05 273.23 40 1.60408e-06 40L319 40C47.1565 40 437.828 -1.03426e-05 159.5 0Z" transform="translate(0, 40) scale(1, -1)" fill="currentColor"/>
+								</svg>
+								<div class="pillar-tag mono-caption secondary-text">3. AI &amp; Execution</div>
+								<h4 class="pillar-title font-serif-h4">AI</h4>
+								<p class="pillar-desc paragraph">
+									Ứng dụng Generative AI và AI Agents vào tối ưu hóa quy trình nghiên cứu, tự động
+									hóa xử lý dữ
+									liệu, tinh gọn luồng thiết kế và tăng tốc độ đưa sản phẩm ra thị trường.
+								</p>
+							</div>
+						</div>
+
+						<!-- Pillar 4: Delivery -->
+						<div class="col-12 col-md-6 d-flex g-0">
+							<div class="pillar-card card-container w-100 pillar-card-delivery">
+								<!-- Desktop tab pointing LEFT into Card 3 -->
+								<svg class="puzzle-tab puzzle-tab-left" viewBox="0 0 40 319" preserveAspectRatio="none" aria-hidden="true">
+									<path d="M159.5 0C-118.827 1.03426e-05 273.23 40 1.60408e-06 40L319 40C47.1565 40 437.828 -1.03426e-05 159.5 0Z" transform="translate(0, 319) rotate(-90)" fill="currentColor"/>
+								</svg>
+								<div class="pillar-tag mono-caption secondary-text">4. Product Delivery</div>
+								<h4 class="pillar-title font-serif-h4">Vận hành, triển khai, tạo tác động</h4>
+								<p class="pillar-desc paragraph">
+									Nâng tầm kỹ năng viết 1-pager, PRD, quản trị rủi ro kỹ thuật và bảo đảm sản phẩm
+									release đúng
+									tiến độ, tạo ra tác động kinh doanh thực tế (Business Metrics) chứ không chỉ
+									dừng ở bản vẽ.
+								</p>
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- =========================================================================
+				     SECTION 3: EXPERIENCED INDUSTRIES (Lĩnh vực đào tạo)
+				     ========================================================================= -->
+				<section class="row justify-content-center industries-section bootcamp-section" id="industriesSection">
+					<div class="col-12 text-center section-header-centered">
+						<p class="mono-caption secondary-text">Experienced Industries</p>
+						<h3 class="h3 italic mb-2">Lĩnh vực đào tạo</h3>
+					</div>
+
+					<div class="col-12 col-md-10 col-lg-8">
+						<div class="industries-list" id="industriesList">
+							<div class="industry-item font-sans-h1">SaaS</div>
+							<div class="industry-item font-sans-h1">E-commerce</div>
+							<div class="industry-item font-sans-h1">Education</div>
+							<div class="industry-item font-sans-h1">Financial Institutions</div>
+							<div class="industry-item font-sans-h1">Logistic</div>
+							<div class="industry-item font-sans-h1">Travel &amp; Leisure</div>
+							<div class="industry-item font-sans-h1">Property Management</div>
+							<div class="industry-item font-sans-h1">Media</div>
+							<div class="industry-item font-sans-h1">Telecommunications</div>
+
+						</div>
+					</div>
+				</section>
+
+				<!--TRUSTED ENTERPRISE CLIENTS -->
+				<section class="row bootcamp-section" id="trusted-clients">
+					<div class="col-12 mb-3 text-center">
+						<h3 class="h3 italic mb-2">Được tin tưởng bởi</h3>
+					</div>
+					<div class="col-12 bootcamp-section-content">
+						<div class="corporate-clients-grid">
+							<div class="client-logo-card" title="MBBank">
+								<img src="asset/image/corporate-training/logo1.png" alt="MBBank">
+							</div>
+							<div class="client-logo-card" title="An Binh Bank">
+								<img src="asset/image/corporate-training/logo5.png" alt="An Binh Bank">
+							</div>
+							<div class="client-logo-card" title="Viettel Telecom">
+								<img src="asset/image/corporate-training/logo2.png" alt="Viettel Telecom">
+							</div>
+							<div class="client-logo-card" title="VPS Securities">
+								<img src="asset/image/corporate-training/vps.png" alt="VPS Securities">
+							</div>
+							<div class="client-logo-card" title="PREP">
+								<img src="asset/image/corporate-training/logo7.png" alt="PREP">
+							</div>
+							<div class="client-logo-card" title="PvcomBank">
+								<img src="asset/image/corporate-training/logo3.png" alt="PvcomBank">
+							</div>
+							<div class="client-logo-card" title="eUp">
+								<img src="asset/image/corporate-training/logo8.png" alt="eUp">
+							</div>
+							<div class="client-logo-card" title="Viettel Post">
+								<img src="asset/image/corporate-training/logo4.png" alt="Viettel Post">
+							</div>
+							<div class="client-logo-card" title="stepUp">
+								<img src="asset/image/corporate-training/logo10.png" alt="stepUp">
+							</div>
+							<div class="client-logo-card" title="itViec">
+								<img src="asset/image/corporate-training/logo9.png" alt="itViec">
+							</div>
+							<div class="client-logo-card" title="Zing News">
+								<img src="asset/image/corporate-training/logo11.png" alt="Zing News">
+							</div>
+						</div>
+					</div>
+				</section>
+
+				<!-- Organizer / Instructors -->
+				<section class="row bootcamp-section" id="organizer">
+					<h3 class="col-12 text-center italic">Ban tổ chức</h3>
+					<div class="col-12 bootcamp-section-content">
+						<div class="row justify-content-md-center justify-content-center">
+
+							<a class="col-6 col-md-4 col-lg-2" target="_blank" href="https://dominhtam.uxcamp.vn/">
+								<div class="organizer-member">
+									<img src="asset/image/oragnizer/dominhtam.webp" alt="Đỗ Minh Tâm">
+									<span class="name paragraph">Đỗ Minh Tâm</span>
+									<span class="font-sans-small">UXCamp Vietnam</span>
+									<span class="font-sans-small">Academic Head</span>
+								</div>
+							</a>
+
+							<a class="col-6 col-md-4 col-lg-2" target="_blank"
+								href="https://www.linkedin.com/in/du-du/">
+								<div class="organizer-member">
+									<img src="asset/image/oragnizer/tranthuyduong.webp" alt="Trần Thùy Dương">
+									<span class="name paragraph">Trần Thùy Dương</span>
+									<span class="font-sans-small">CMO @ Proton</span>
+									<span class="font-sans-small">Trainer</span>
+								</div>
+							</a>
+
+							<a class="col-6 col-md-4 col-lg-2" target="_blank"
+								href="https://www.linkedin.com/in/pham-duy-thanh/">
+								<div class="organizer-member">
+									<img src="asset/image/oragnizer/phamduythanh.webp" alt="Phạm Duy Thành">
+									<span class="name paragraph">Phạm Duy Thành</span>
+									<span class="font-sans-small">UX Expert @ PvcomBank</span>
+									<span class="font-sans-small">Giảng viên</span>
+								</div>
+							</a>
+
+							<a class="col-6 col-md-4 col-lg-2" target="_blank"
+								href="https://www.linkedin.com/in/huongtt/">
+								<div class="organizer-member">
+									<img src="asset/image/oragnizer/truongthuhuong.webp" alt="Trương Thu Hương">
+									<span class="name paragraph">Trương Thu Hương</span>
+									<span class="font-sans-small">Product Owner @ Pila</span>
+									<span class="font-sans-small">Ban tổ chức</span>
+								</div>
+							</a>
+							<a class="col-6 col-md-4 col-lg-2" target="_blank"
+								href="https://www.linkedin.com/in/nhung-hoang-6859b3150/">
+								<div class="organizer-member">
+									<img src="asset/image/oragnizer/hoangnhung.webp" alt="Hoàng Nhung">
+									<span class="name paragraph">Hoàng Nhung</span>
+									<span class="font-sans-small">BA @ TCBS</span>
+									<span class="font-sans-small">Ban tổ chức</span>
+								</div>
+							</a>
+
+							<a class="col-6 col-md-4 col-lg-2" target="_blank"
+								href="https://www.linkedin.com/in/hung-pham-221b55236/">
+								<div class="organizer-member">
+									<img src="asset/image/oragnizer/phammanhhung.webp" alt="Phạm Mạnh Hùng">
+									<span class="name paragraph">Phạm Mạnh Hùng</span>
+									<span class="font-sans-small">Design Head @ PvcomBank</span>
+									<span class="font-sans-small">Hội đồng</span>
+								</div>
+							</a>
+
+							<a class="col-6 col-md-4 col-lg-2" target="_blank"
+								href="https://www.linkedin.com/in/tramanhlee/">
+								<div class="organizer-member">
+									<img src="asset/image/oragnizer/letramanh.webp" alt="Lê Trâm Anh">
+									<span class="name paragraph">Lê Trâm Anh</span>
+									<span class="font-sans-small">Senior PM @ One Mount</span>
+									<span class="font-sans-small">Hội đồng</span>
+								</div>
+							</a>
+
+							<a class="col-6 col-md-4 col-lg-2" target="_blank"
+								href="https://www.linkedin.com/in/nguyen-le-bach/">
+								<div class="organizer-member">
+									<img src="asset/image/oragnizer/nguyenlebach.webp" alt="Nguyễn Lê Bách">
+									<span class="name paragraph">Nguyễn Lê Bách</span>
+									<span class="font-sans-small">Design Manager @ VuiApp</span>
+									<span class="font-sans-small">Hội đồng</span>
+								</div>
+							</a>
+
+						</div>
+					</div>
+				</section>
+			</main>
+		</div>
+	</div>
+
+	<!-- =========================================================================
+				     SECTION 6: BOOTCAMP (Đã Triển Khai) - INTERACTIVE DRAGGABLE GALLERY
+				     ========================================================================= -->
+	<section class="row justify-content-center graduation-section bootcamp-section" id="graduationSection">
+		<div class="col-12 text-center section-header-centered">
+			<p class="mono-caption secondary-text">Bootcamp</p>
+			<h2 class="h3 italic mb-2">Đã Triển Khai</h2>
+		</div>
+		<div id="sliding-img-container">
+
+		</div>
+	</section>
+
+
+
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="uxcamp-homepage col-12 about-page-container">
+				<!-- Footer (Figma Design Node 3606:29511) -->
+				<footer class="site-footer" id="footer">
+					<div class="footer-content-container">
+						<!-- Left Column: Bootcamp Navigation Links -->
+						<div class="footer-nav-column">
+							<p class="footer-column-label">Bootcamp</p>
+							<nav class="footer-links-list">
+								<a href="designing-digital-produc-per-stage-and-metric.html"
+									class="footer-serif-link h3">Design Thinking</a>
+								<a href="applied-ux-analytic/index.html" class="footer-serif-link h3">Applied UX
+									Analytic</a>
+								<a href="for-business/index.html" class="footer-serif-link h3">For Business</a>
+								<a href="certificate/find-your-certificate.html" class="footer-serif-link h3">For
+									Alumni</a>
+							</nav>
+						</div>
+
+						<!-- Right Column: Contact Us + Eye Logo -->
+						<div class="footer-contact-column">
+							<div class="footer-contact-top">
+								<p class="footer-column-label">Contact Us</p>
+								<div class="footer-social-icons">
+									<a target="_blank" rel="noopener noreferrer"
+										href="https://www.facebook.com/uxcampvn/" class="footer-social-btn"
+										title="Facebook">
+										<img src="asset/icon/facebook.svg" onload="SVGInject(this)" alt="Facebook">
+									</a>
+									<a target="_blank" rel="noopener noreferrer"
+										href="https://www.linkedin.com/company/uxcamp-vietnam" class="footer-social-btn"
+										title="LinkedIn">
+										<img src="asset/icon/linkedin.svg" onload="SVGInject(this)" alt="LinkedIn">
+									</a>
+									<a target="_blank" rel="noopener noreferrer" href="mailto:hello@uxcamp.vn"
+										class="footer-social-btn" title="Email">
+										<img src="asset/icon/email.svg" onload="SVGInject(this)" alt="Email">
+									</a>
+								</div>
+							</div>
+
+							<div class="footer-eye-wrapper">
+								<img class="eye-logo" src="asset/icon/eye.svg" onload="SVGInject(this)"
+									alt="UXCamp Vietnam Eye Logo">
+							</div>
+						</div>
+					</div>
+
+					<!-- Big Bottom Bell Curve Graphic -->
+					<img src="asset/icon/bell-curve-shape.svg" class="footer-bell-curve" alt=""
+						onload="SVGInject(this)">
+				</footer>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

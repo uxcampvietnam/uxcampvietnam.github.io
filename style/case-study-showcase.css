@@ -1,0 +1,1166 @@
+/* ==========================================================================
+   UXCamp Vietnam - Unified 3D Participant Sphere & Case Study Showcase
+   Stylesheet: case-study-showcase.css
+   100% Pure Image, Sharp Corners (No border-radius), Zero Image Cropping,
+   Unified Full Viewport (100vw x 100vh), and Left Participant Authors Sidebar.
+   ========================================================================== */
+
+/* 1. Scroll-Driven Pinning Container (Hợp nhất) */
+.unified-showcase-wrapper {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+  /* Chiều cao scroll track được set động bằng JS dựa theo số lượng card + buffer sphere */
+  min-height: 100vh;
+  box-sizing: border-box;
+  z-index: 0;
+}
+
+/* 2. Sticky Full-Screen Viewport (100vw x 100vh) */
+.unified-sticky-viewport {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--body-background, #fff);
+  user-select: none;
+  -webkit-user-select: none;
+  box-sizing: border-box;
+  z-index: 10;
+  touch-action: pan-y;
+}
+
+/* ==========================================================================
+   0. SECTION CÁC CÔNG TY NGƯỜI THAM DỰ ĐẾN TỪ ("ĐẾN TỪ")
+   ========================================================================== */
+.participant-companies-section {
+  position: relative;
+  width: 100vw;
+  max-width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background-color: var(--body-background, #fff);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 120px 5vw 100px 5vw;
+  overflow: hidden;
+  z-index: 5;
+}
+
+.participant-companies-section .companies-container {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.participant-companies-section .companies-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 28px 20px;
+  align-items: center;
+  justify-items: center;
+  width: 100%;
+}
+
+.company-logo-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100px;
+  padding: 4px;
+  box-sizing: border-box;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
+.company-logo-item img {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: auto;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+@media (prefers-color-scheme: light) {
+  .company-logo-item img {
+    filter: grayscale(100%) brightness(0.85);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .company-logo-item img {
+    filter: grayscale(100%) brightness(1.5);
+  }
+}
+
+@media (max-width: 1200px) {
+  .participant-companies-section {
+    padding: 110px 4vw 90px 4vw;
+  }
+
+  .participant-companies-section .companies-grid {
+    grid-template-columns: repeat(8, 1fr);
+    gap: 24px 16px;
+  }
+
+  .company-logo-item {
+    height: 44px;
+  }
+}
+
+@media (max-width: 992px) {
+  .participant-companies-section {
+    min-height: auto;
+    padding: 100px 3vw 90px 3vw;
+  }
+
+  .participant-companies-section .companies-grid {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px 14px;
+  }
+
+  .company-logo-item {
+    height: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .participant-companies-section {
+    padding: 90px 16px 100px 16px;
+  }
+
+  .participant-companies-section .companies-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px 12px;
+  }
+
+  .company-logo-item {
+    height: 36px;
+  }
+}
+
+@media (max-width: 480px) {
+  .participant-companies-section {
+    padding: 80px 12px 90px 12px;
+  }
+
+  .participant-companies-section .companies-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px 10px;
+  }
+
+  .company-logo-item {
+    height: 48px;
+  }
+}
+
+/* ==========================================================================
+   CỤM TIÊU ĐỀ PINNED XUYÊN SUỐT 4 SECTION (HUD OVERLAY)
+   1. Đến từ (Logo công ty)
+   2. Người tham dự (Họ là ai)
+   3. Case study (Họ học được gì)
+   4. Phong bì thư feedback (Họ nói về chúng tôi)
+   ========================================================================== */
+.showcase-flow-hud {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 50;
+  opacity: 0;
+  will-change: transform, opacity;
+  transition: opacity 0.3s ease;
+}
+
+/* Tiêu đề góc trên bên trái: Người tham dự */
+.showcase-flow-header {
+  position: absolute;
+  top: 80px;
+  left: 5vw;
+  pointer-events: auto;
+}
+
+.showcase-flow-header h3,
+.showcase-flow-header p {
+  color: var(--main-colors-foreground-f-500-main, #111827) !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  user-select: none;
+}
+
+.showcase-flow-nav {
+  position: absolute;
+  bottom: 32px;
+  right: 5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 24px;
+  text-align: right;
+  pointer-events: auto !important;
+  user-select: none;
+  z-index: 100;
+  touch-action: manipulation;
+}
+
+.showcase-flow-nav-item:not(.active) * {
+  opacity: 0.7;
+
+  font-family: var(--font-sans-family);
+  font-weight: 400;
+  font-size: var(--font-sans-h5-size);
+  line-height: var(--font-sans-h5-line);
+  letter-spacing: var(--font-sans-h5-letter);
+}
+
+.showcase-flow-nav-item.active *,
+.showcase-flow-header * {
+  color: var(--main-colors-foreground-f-500-main, #111827) !important;
+  opacity: 1 !important;
+
+  font-family: var(--font-serif-family);
+  font-weight: 400;
+  font-size: var(--font-serif-h4-size);
+  line-height: var(--font-serif-h4-line);
+  letter-spacing: var(--font-serif-h4-letter);
+  font-style: italic;
+}
+
+.showcase-flow-nav-item:hover {
+  opacity: 0.85;
+}
+
+.showcase-flow-header .char,
+.showcase-flow-nav-item .char {
+  display: inline-block !important;
+  will-change: transform, opacity;
+}
+
+/* Responsive HUD Title & Flow Navigation */
+@media (max-width: 992px) {
+  .showcase-flow-header {
+    top: 60px;
+    left: 4vw;
+  }
+
+  .showcase-flow-nav {
+    bottom: 24px;
+    right: 4vw;
+    gap: 14px;
+  }
+
+}
+
+@media (max-width: 768px) {
+  .showcase-flow-header {
+    top: 48px;
+    left: 16px;
+  }
+
+  .showcase-flow-nav {
+    bottom: 16px;
+    right: 16px;
+    gap: 8px;
+    padding: 10px 14px;
+    border-radius: 12px;
+  }
+
+}
+
+@media (max-width: 480px) {
+  .showcase-flow-header {
+    top: 60px;
+    left: 16px;
+  }
+
+  .showcase-flow-nav {
+    bottom: 12px;
+    right: 12px;
+    gap: 6px;
+    padding: 8px 12px;
+    border-radius: 10px;
+  }
+
+}
+
+/* Khối Canvas 3D Người tham dự lồng trong Viewport */
+.unified-sticky-viewport .participant-sphere-wrapper {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  z-index: 15;
+  pointer-events: none;
+  touch-action: pan-y;
+  overflow: hidden !important;
+}
+
+/* 3. Cột Người tham dự bên trái (Participant Authors Sidebar) */
+.case-study-authors-sidebar {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 5vw;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+  pointer-events: auto;
+  opacity: 0;
+  transition: opacity 0.45s ease, transform 0.45s ease;
+}
+
+.case-study-authors-sidebar.visible {
+  opacity: 1;
+}
+
+.case-study-authors-label {
+  display: none;
+  /* Đã có tiêu đề góc trên bên trái của Flow HUD */
+}
+
+.case-study-authors-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  min-height: 160px;
+  min-width: 64px;
+}
+
+/* Từng Avatar tác giả: 100% Ảnh tròn đồng nhất khối cầu, không viền, không nền trắng */
+.case-study-author-item {
+  position: relative;
+  /* width: 64px; */
+  /* height: 64px; */
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+
+.case-study-author-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50% !important;
+  /* HÌNH TRÒN 100% ĐỒNG BỘ KHỐI CẦU */
+  corner-shape: round !important;
+  border: none !important;
+  /* KHÔNG BORDER */
+  background: transparent !important;
+  /* KHÔNG NỀN TRẮNG */
+  box-shadow: none !important;
+  /* KHÔNG ĐỔ BÓNG HALO */
+  object-fit: cover;
+  display: block;
+  transition: transform 0.25s ease;
+}
+
+.case-study-author-item:hover .case-study-author-avatar {
+  filter: none;
+}
+
+/* Tooltip hiển thị tên tác giả khi hover */
+.case-study-author-tooltip {
+  position: absolute;
+  left: calc(100% + 12px);
+  top: 50%;
+  transform: translateY(-50%) translateX(-6px);
+  background: rgba(17, 24, 39, 0.88);
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-family: var(--font-sans-family, "Work Sans", sans-serif);
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.case-study-author-item:hover .case-study-author-tooltip {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+
+
+/* 3.5. Lớp hoạt ảnh Avatar tác giả bay từ khối cầu sang sidebar */
+.case-study-flying-avatars-stage {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 38;
+  overflow: hidden;
+  display: block;
+}
+
+.case-study-flying-avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50% !important;
+  /* HÌNH TRÒN 100% ĐỒNG NHẤT KHỐI CẦU */
+  corner-shape: round !important;
+  overflow: hidden !important;
+  will-change: transform;
+  pointer-events: none;
+  transform-origin: center center;
+  background: transparent !important;
+  /* TUYỆT ĐỐI KHÔNG NỀN TRẮNG */
+  box-shadow: none !important;
+  /* BỎ ĐỔ BÓNG HALO ĐEN GÂY VIỀN TRẮNG */
+}
+
+.case-study-flying-avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50% !important;
+  /* KHÔNG BO GÓC VUÔNG */
+  corner-shape: round !important;
+  object-fit: cover !important;
+  background: transparent !important;
+  display: block;
+}
+
+/* 4. Sân khấu 3D Case Study (Full Screen Viewport) */
+.case-study-3d-stage {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  perspective: 1300px;
+  perspective-origin: 50% 50%;
+  overflow: hidden;
+  pointer-events: none;
+  background: transparent;
+  z-index: 25;
+}
+
+#case-study-curved-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  pointer-events: none;
+  outline: none;
+  background: transparent;
+}
+
+/* 5. Toast thông báo khi dự án bị khóa */
+.case-study-toast {
+  position: fixed;
+  bottom: 36px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(17, 24, 39, 0.94);
+  color: #fff;
+  padding: 12px 24px;
+  border-radius: 9999px;
+  font-family: var(--font-sans-family, "Work Sans", sans-serif);
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 10000000;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.case-study-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 6. Mobile & Tablet Responsive cho Sidebar tác giả */
+@media (max-width: 992px) {
+  .case-study-authors-sidebar {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 20px;
+  }
+
+  .case-study-author-avatar {
+    width: 52px;
+    height: 52px;
+  }
+}
+
+@media (max-width: 576px) {
+  .case-study-authors-sidebar {
+    top: 50%;
+    transform: translateY(-50%);
+    left: 14px;
+    gap: 12px;
+  }
+
+  .case-study-author-avatar {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+/* ==========================================================================
+   7. LIVE CONFIG TUNER 3D (ĐỒNG BỘ 100% VỚI CURVED COVER ENGINE)
+   ========================================================================== */
+/* =============================================================================
+   3D CASE STUDY TUNER GUI — APEX DESIGN SYSTEM
+   Tích hợp đồng bộ 100% với definition.css (Work Sans, Chivo Mono, CSS tokens)
+   ============================================================================= */
+
+.tuner-toggle-btn {
+  position: fixed;
+  bottom: 24px;
+  right: 24px;
+  z-index: 99999;
+  background: var(--body-background-elevate-2);
+  color: var(--main-colors-foreground-f100);
+  border: 1px solid var(--transparent-foreground-main-color-30);
+  padding: 8px 18px;
+  border-radius: 999px;
+  font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-optical-sizing: auto;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  box-shadow: 0 8px 24px var(--fix-black---black-15), 0 0 0 1px var(--transparent-foreground-main-color-10);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tuner-toggle-btn:hover {
+  background: var(--body-background-elevate-1);
+  color: var(--main-colors-foreground-f100);
+  border-color: var(--transparent-foreground-main-color-50);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px var(--fix-black---black-20);
+}
+
+.curved-cover-tuner-panel {
+  position: fixed;
+  bottom: 20px;
+  right: 24px;
+  width: 390px;
+  max-height: calc(50vh - 40px);
+  overflow-y: auto;
+  z-index: 99999;
+  background: var(--body-background-elevate-1);
+  border: 1px solid var(--transparent-foreground-main-color-20);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border-radius: 16px;
+  padding: 16px 18px;
+  box-shadow: 0 20px 48px var(--fix-black---black-20), 0 0 0 1px var(--transparent-foreground-main-color-10);
+  font-family: 'Work Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-optical-sizing: auto;
+  color: var(--main-colors-foreground-f-500-main);
+  box-sizing: border-box;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.curved-cover-tuner-panel::-webkit-scrollbar {
+  width: 5px;
+}
+
+.curved-cover-tuner-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.curved-cover-tuner-panel::-webkit-scrollbar-thumb {
+  background: var(--transparent-foreground-main-color-20);
+  border-radius: 4px;
+}
+
+.curved-cover-tuner-panel::-webkit-scrollbar-thumb:hover {
+  background: var(--transparent-foreground-main-color-40);
+}
+
+.curved-cover-tuner-panel .panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--transparent-foreground-main-color-10);
+}
+
+.curved-cover-tuner-panel .panel-title {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--main-colors-foreground-f100);
+}
+
+.curved-cover-tuner-panel .panel-title svg {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  fill: var(--main-colors-foreground-f100);
+}
+
+.curved-cover-tuner-panel .panel-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--main-colors-foreground-f700);
+  font-size: 13px;
+  font-weight: 600;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.curved-cover-tuner-panel .panel-close-btn:hover {
+  background: var(--transparent-foreground-main-color-10);
+  color: var(--main-colors-foreground-f100);
+}
+
+.curved-cover-tuner-panel .panel-header-actions {
+  display: grid;
+  grid-template-columns: 1.4fr 1.1fr 0.9fr;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.curved-cover-tuner-panel .panel-header-actions .btn {
+  padding: 6px 8px;
+  font-size: 10.5px;
+  font-weight: 600;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+.curved-cover-tuner-panel .scrubber-bar {
+  background: var(--transparent-foreground-main-color-05);
+  border: 1px solid var(--transparent-foreground-main-color-10);
+  border-radius: 10px;
+  padding: 8px 10px;
+  margin-bottom: 12px;
+}
+
+.curved-cover-tuner-panel .scrubber-bar .control-label-row {
+  margin-bottom: 2px;
+}
+
+.curved-cover-tuner-panel .tab-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  background: var(--transparent-foreground-main-color-05);
+  padding: 4px;
+  border-radius: 10px;
+  border: 1px solid var(--transparent-foreground-main-color-10);
+  margin-bottom: 14px;
+}
+
+.curved-cover-tuner-panel .tab-btn {
+  padding: 6px 4px;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  color: var(--main-colors-foreground-f700);
+  font-family: 'Work Sans', sans-serif;
+  font-optical-sizing: auto;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+}
+
+.curved-cover-tuner-panel .tab-btn:hover {
+  color: var(--main-colors-foreground-f100);
+  background: var(--transparent-foreground-main-color-05);
+}
+
+.curved-cover-tuner-panel .tab-btn.active {
+  background: var(--body-background-elevate-2);
+  color: var(--main-colors-foreground-f100);
+  box-shadow: 0 2px 8px var(--fix-black---black-05);
+  border: 0.5px solid var(--transparent-foreground-main-color-10);
+}
+
+.curved-cover-tuner-panel .tab-content {
+  display: none;
+}
+
+.curved-cover-tuner-panel .tab-content.active {
+  display: block;
+}
+
+.curved-cover-tuner-panel .section-title {
+  font-family: 'Work Sans', sans-serif;
+  font-optical-sizing: auto;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  color: var(--main-colors-foreground-f400);
+  font-weight: 700;
+  margin: 14px 0 8px 0;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--transparent-foreground-main-color-10);
+}
+
+.curved-cover-tuner-panel .section-title:first-of-type {
+  margin-top: 0;
+}
+
+.curved-cover-tuner-panel .control-group {
+  margin-bottom: 10px;
+}
+
+.curved-cover-tuner-panel .control-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--main-colors-foreground-f600);
+  margin-bottom: 2px;
+  gap: 8px;
+}
+
+.curved-cover-tuner-panel .control-label-row>span:first-child {
+  line-height: 1.35;
+  flex: 1;
+}
+
+.curved-cover-tuner-panel .val-input-box {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.curved-cover-tuner-panel .val-input {
+  width: 58px;
+  height: 24px;
+  padding: 2px 6px;
+  background: var(--body-background-elevate-2);
+  border: 1px solid var(--transparent-foreground-main-color-20);
+  border-radius: 6px;
+  color: var(--main-colors-foreground-f100);
+  font-family: 'Chivo Mono', monospace;
+  font-size: 11px;
+  font-weight: 600;
+  text-align: right;
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.curved-cover-tuner-panel .val-input:focus {
+  border-color: var(--main-colors-foreground-f100);
+  box-shadow: 0 0 0 2px var(--transparent-foreground-main-color-10);
+}
+
+.curved-cover-tuner-panel input[type="range"] {
+  width: 100%;
+  height: 18px;
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+  display: block;
+}
+
+.curved-cover-tuner-panel input[type="range"]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 5px;
+  background: var(--main-colors-foreground-f-500-main);
+  border-radius: 999px;
+  border: none;
+}
+
+.curved-cover-tuner-panel input[type="range"]:hover::-webkit-slider-runnable-track {
+  background: var(--transparent-foreground-main-color-25);
+}
+
+.curved-cover-tuner-panel input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  margin-top: -5px;
+  border-radius: 50%;
+  background: var(--main-colors-foreground-f100);
+  border: 2px solid var(--body-background-elevate-2);
+  cursor: pointer;
+  box-shadow: 0 2px 6px var(--fix-black---black-20);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.curved-cover-tuner-panel input[type="range"]::-webkit-slider-thumb:hover {
+  transform: scale(1.2);
+}
+
+.curved-cover-tuner-panel input[type="range"]::-moz-range-track {
+  width: 100%;
+  height: 5px;
+  background: var(--transparent-foreground-main-color-15);
+  border-radius: 999px;
+  border: none;
+}
+
+.curved-cover-tuner-panel input[type="range"]::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background: var(--main-colors-foreground-f100);
+  border: 2px solid var(--body-background-elevate-2);
+  cursor: pointer;
+  box-shadow: 0 2px 6px var(--fix-black---black-20);
+  transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.curved-cover-tuner-panel .btn-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+/* Bend Mode Segmented Switch */
+.curved-cover-tuner-panel .bend-mode-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 14px;
+  padding: 4px;
+  background: var(--body-background-elevate-2);
+  border-radius: 10px;
+  border: 1px solid var(--transparent-foreground-main-color-10);
+}
+
+.curved-cover-tuner-panel .bend-mode-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 10px 6px 8px;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.curved-cover-tuner-panel .bend-mode-btn:hover {
+  background: var(--transparent-foreground-main-color-05);
+  border-color: var(--transparent-foreground-main-color-20);
+}
+
+.curved-cover-tuner-panel .bend-mode-btn.active {
+  background: var(--main-colors-foreground-f100);
+  border-color: var(--main-colors-foreground-f100);
+  box-shadow: 0 2px 10px var(--fix-black---black-20);
+}
+
+.curved-cover-tuner-panel .bend-mode-btn .bend-mode-icon {
+  font-size: 20px;
+  line-height: 1;
+  display: block;
+}
+
+.curved-cover-tuner-panel .bend-mode-btn .bend-mode-label {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--main-colors-foreground-f-500-main);
+  transition: color 0.2s ease;
+}
+
+.curved-cover-tuner-panel .bend-mode-btn .bend-mode-desc {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 500;
+  color: var(--main-colors-foreground-f300);
+  opacity: 0.7;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.curved-cover-tuner-panel .bend-mode-btn.active .bend-mode-label {
+  color: var(--body-background-elevate-2);
+}
+
+.curved-cover-tuner-panel .bend-mode-btn.active .bend-mode-desc {
+  color: var(--body-background-elevate-2);
+  opacity: 0.85;
+}
+
+.curved-cover-tuner-panel .btn {
+  padding: 6px 8px;
+  background: var(--body-background-elevate-2);
+  border: 1px solid var(--transparent-foreground-main-color-20);
+  border-radius: 8px;
+  color: var(--main-colors-foreground-f-500-main);
+  font-family: 'Work Sans', sans-serif;
+  font-optical-sizing: auto;
+  font-size: 10.5px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.curved-cover-tuner-panel .btn:hover {
+  background: var(--transparent-foreground-main-color-05);
+  border-color: var(--transparent-foreground-main-color-40);
+  color: var(--main-colors-foreground-f100);
+}
+
+.curved-cover-tuner-panel .btn.active {
+  background: var(--main-colors-foreground-f100);
+  border-color: var(--main-colors-foreground-f100);
+  color: var(--body-background-elevate-2);
+  box-shadow: 0 2px 8px var(--fix-black---black-10);
+}
+
+.curved-cover-tuner-panel .btn-copy-config {
+  background: var(--main-colors-foreground-f100);
+  border-color: var(--main-colors-foreground-f100);
+  color: var(--body-background-elevate-2);
+  font-weight: 600;
+}
+
+.curved-cover-tuner-panel .btn-copy-config:hover {
+  opacity: 0.9;
+  background: var(--main-colors-foreground-f100);
+  color: var(--body-background-elevate-2);
+}
+
+.curved-cover-tuner-panel .toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 0;
+  font-family: 'Work Sans', sans-serif;
+  font-size: 11.5px;
+  font-weight: 500;
+  color: var(--main-colors-foreground-f600);
+  cursor: pointer;
+}
+
+.curved-cover-tuner-panel .switch {
+  position: relative;
+  display: inline-block;
+  width: 34px;
+  height: 18px;
+}
+
+.curved-cover-tuner-panel .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.curved-cover-tuner-panel .slider-switch {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--transparent-foreground-main-color-20);
+  transition: .25s ease;
+  border-radius: 18px;
+}
+
+.curved-cover-tuner-panel .slider-switch:before {
+  position: absolute;
+  content: "";
+  height: 12px;
+  width: 12px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--body-background-elevate-2);
+  box-shadow: 0 1px 3px var(--fix-black---black-20);
+  transition: .25s ease;
+  border-radius: 50%;
+}
+
+.curved-cover-tuner-panel input:checked+.slider-switch {
+  background-color: var(--main-colors-foreground-f100);
+}
+
+.curved-cover-tuner-panel input:checked+.slider-switch:before {
+  transform: translateX(16px);
+  background-color: var(--body-background-elevate-2);
+}
+
+.curved-cover-tuner-panel .val-color-input {
+  width: 26px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid var(--transparent-foreground-main-color-20);
+  border-radius: 6px;
+  cursor: pointer;
+  background: transparent;
+  vertical-align: middle;
+  outline: none;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.curved-cover-tuner-panel .val-color-input:hover {
+  transform: scale(1.06);
+  border-color: var(--main-colors-foreground-f100);
+}
+
+.curved-cover-tuner-panel .val-color-input::-webkit-color-swatch-wrapper {
+  padding: 1px;
+}
+
+.curved-cover-tuner-panel .val-color-input::-webkit-color-swatch {
+  border: none;
+  border-radius: 4px;
+}
+
+.curved-cover-tuner-panel .theme-preview-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px;
+  margin-bottom: 14px;
+  padding: 4px;
+  background: var(--body-background-elevate-2);
+  border-radius: 10px;
+  border: 1px solid var(--transparent-foreground-main-color-10);
+}
+
+.curved-cover-tuner-panel .theme-preview-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px 6px;
+  background: transparent;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.curved-cover-tuner-panel .theme-preview-btn:hover {
+  background: var(--transparent-foreground-main-color-05);
+  border-color: var(--transparent-foreground-main-color-20);
+}
+
+.curved-cover-tuner-panel .theme-preview-btn.active {
+  background: var(--main-colors-foreground-f100);
+  border-color: var(--main-colors-foreground-f100);
+  box-shadow: 0 2px 10px var(--fix-black---black-20);
+}
+
+.curved-cover-tuner-panel .theme-preview-btn .theme-preview-icon {
+  font-size: 16px;
+  line-height: 1;
+  display: block;
+}
+
+.curved-cover-tuner-panel .theme-preview-btn .theme-preview-label {
+  font-family: 'Work Sans', sans-serif;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--main-colors-foreground-f-500-main);
+  transition: color 0.2s ease;
+}
+
+.curved-cover-tuner-panel .theme-preview-btn.active .theme-preview-label {
+  color: var(--body-background-elevate-2);
+}
+
+.curved-cover-tuner-panel .telemetry {
+  background: var(--body-background-elevate-2);
+  border: 1px solid var(--transparent-foreground-main-color-15);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-family: 'Chivo Mono', monospace;
+  font-size: 11px;
+  color: var(--main-colors-foreground-f700);
+  line-height: 1.6;
+  margin-top: 8px;
+}
+
+.curved-cover-tuner-panel .telemetry span.highlight {
+  color: var(--main-colors-foreground-f100);
+  font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  .curved-cover-tuner-panel {
+    top: auto;
+    bottom: 0px;
+    right: 14px;
+    left: 14px;
+    width: auto;
+    max-height: 32vh;
+  }
+}

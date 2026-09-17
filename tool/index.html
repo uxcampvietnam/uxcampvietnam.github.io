@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Tools & Frameworks - UXCamp Vietnam</title>
+  <link rel="icon" href="https://uxcamp.vn/asset/icon/favicon.ico">
+  <meta name="title" content="Tools & Frameworks - UXCamp Vietnam">
+  <meta property="og:type" content="website">
+  <meta property="og:description"
+    content="Bộ công cụ phân tích định lượng, kiểm định giả thuyết thống kê và checklist tiêu chuẩn dành cho Product Builders." />
+  <meta property="og:image" content="https://i.ibb.co/7x4FWwHJ/uxcampvietnam.jpg" />
+  <meta property="og:url" content="https://uxcamp.vn/tool/index.html" />
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+  <!-- Core Styles -->
+  <link rel="stylesheet" type="text/css" href="../style/definition.css">
+  <link rel="stylesheet" type="text/css" href="../style/style.css">
+
+  <!-- Scripts -->
+  <script src="../script/libs/svg-inject.min.js"></script>
+  <script src="../script/main-header.js" defer></script>
+  <script src="../script/libs/mixpanel.js"></script>
+
+  <style>
+    .tools-page-wrapper {
+      min-height: calc(100vh - 80px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 0 60px 0;
+    }
+
+    .tool-icon-box {
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .tool-icon-box img,
+    .tool-icon-box svg {
+      height: 50px;
+      width: auto;
+      max-height: 50px;
+      object-fit: contain;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Shared Site Header -->
+  <header class="site-main-header" id="siteMainHeader" data-active="Tool"></header>
+
+  <main class="tools-page-wrapper">
+    <div class="container" style="max-width: 1180px;">
+      <!-- Section - Danh sách công cụ UXCamp -->
+      <section class="row g-4 justify-content-center" aria-label="Danh sách công cụ UXCamp">
+
+        <!-- 1. Tab & Task -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <a href="../tabandtask/index.html" class="card-container text-center align-items-center justify-content-center h-100" aria-label="Tab & Task">
+            <div class="tool-icon-box">
+              <img src="../asset/icon/tab-task-logo.svg" alt="Tab & Task" onload="SVGInject(this)">
+            </div>
+            <div class="d-flex flex-column align-items-center">
+              <h3 class="font-serif-h4 italic mb-1">Tab & Task</h3>
+              <span class="mono-small">Productivity & Notes</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- 2. BigTextBox -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <a href="bigtextbox.html" class="card-container text-center align-items-center justify-content-center h-100" aria-label="BigTextBox">
+            <div class="tool-icon-box">
+              <img src="../asset/icon/big-text-box.svg" alt="BigTextBox" onload="SVGInject(this)">
+            </div>
+            <div class="d-flex flex-column align-items-center">
+              <h3 class="font-serif-h4 italic mb-1">BigTextBox</h3>
+              <span class="mono-small">Productivity & Notes</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- 3. Mixpanel Profile Updater -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <a href="update-mixpanel-profile.html" class="card-container text-center align-items-center justify-content-center h-100" aria-label="Mixpanel Profile Updater">
+            <div class="tool-icon-box">
+              <img src="../asset/icon/update-mixpanel-profile.svg" alt="Mixpanel Profile Updater" onload="SVGInject(this)">
+            </div>
+            <div class="d-flex flex-column align-items-center">
+              <h3 class="font-serif-h4 italic mb-1">Mixpanel Profile Updater</h3>
+              <span class="mono-small">Data Utility</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- 4. WCAG 2.2 Checklist -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <a href="checklist/wcag.html" class="card-container text-center align-items-center justify-content-center h-100" aria-label="WCAG 2.2 Checklist">
+            <div class="tool-icon-box">
+              <img src="../asset/icon/wcag-checklist.svg" alt="WCAG 2.2 Checklist" onload="SVGInject(this)">
+            </div>
+            <div class="d-flex flex-column align-items-center">
+              <h3 class="font-serif-h4 italic mb-1">WCAG 2.2 Checklist</h3>
+              <span class="mono-small">Accessibility Standard</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- 5. Statistic Calculator -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <a href="statistic-calculator/index.html" class="card-container text-center align-items-center justify-content-center h-100" aria-label="Statistic Calculator">
+            <div class="tool-icon-box">
+              <img src="../asset/icon/statistic-calculator.svg" alt="Statistic Calculator" style="width: 120px;" onload="SVGInject(this)">
+            </div>
+            <div class="d-flex flex-column align-items-center">
+              <h3 class="font-serif-h4 italic mb-1">Statistic Calculator</h3>
+              <span class="mono-small">Analytics & Statistics</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- 6. Heuristic Checklist -->
+        <div class="col-12 col-md-6 col-lg-4">
+          <a href="checklist/he.html" class="card-container text-center align-items-center justify-content-center h-100" aria-label="Heuristic Checklist">
+            <div class="tool-icon-box">
+              <img src="../asset/icon/heuristic-checklist.svg" alt="Heuristic Checklist" onload="SVGInject(this)">
+            </div>
+            <div class="d-flex flex-column align-items-center">
+              <h3 class="font-serif-h4 italic mb-1">Heuristic Checklist</h3>
+              <span class="mono-small">UX Audit</span>
+            </div>
+          </a>
+        </div>
+
+      </section>
+    </div>
+  </main>
+
+</body>
+
+</html>

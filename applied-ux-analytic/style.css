@@ -50,7 +50,10 @@
     fill: var(--applied-analytic-main);
 }
 
-body,
+body {
+    background-color: var(--applied-analytic-background);
+}
+
 body *,
 .applied-ux-analytic-container,
 .applied-ux-analytic-container *,

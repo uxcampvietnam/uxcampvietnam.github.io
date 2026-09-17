@@ -9,16 +9,26 @@
   <meta property="og:description" content='UXCamp Vietnam' />
   <meta property="og:url" content='http://uxcamp.vn/' />
 
-  <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.6/dist/jstat.min.js"></script>
-  <script src="script.js"></script>
-  <script src="../../script/libs/svg-inject.min.js"></script>
-
   <link rel="stylesheet" type="text/css" href="../../style/definition.css">
   <link rel="stylesheet" href="../checklist/style/styles.css">
   <link rel="stylesheet" href="calculator.css">
+  <link rel="stylesheet" href="../../style/tool-auth.css">
+
+  <!-- Firebase SDK (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="../../script/auth-guard.js"></script>
+
+  <script src="../../script/main-header.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/jstat@1.9.6/dist/jstat.min.js"></script>
+  <script src="script.js"></script>
+  <script src="../../script/libs/svg-inject.min.js"></script>
 </head>
 
 <body>
+
+  <header class="site-main-header" id="siteMainHeader" data-active="Tool"></header>
 
   <div class="app-container">
 
@@ -70,31 +80,27 @@
             </div>
 
             <div class="kruskal-wallis-add-remove-group">
-              <button class="btn-outline" onclick="addKruskalWallisGroup()"
-                style="height: 38px; padding: 6px 16px; font-size: 0.8rem;">+ Thêm nhóm</button>
-              <button class="btn-outline" onclick="removeKruskalWallisGroup()"
-                style="height: 38px; padding: 6px 16px; font-size: 0.8rem; color: var(--highlight-red) !important; border-color: var(--highlight-red) !important;">-
-                Xóa nhóm cuối</button>
+              <button class="stat-btn-secondary" onclick="addKruskalWallisGroup()">+ Thêm nhóm</button>
+              <button class="stat-btn-secondary" onclick="removeKruskalWallisGroup()" style="color: var(--highlight-red) !important; border-color: var(--highlight-red) !important;">- Xóa nhóm cuối</button>
             </div>
 
-            <div class="input-row-container" id="alpha">
-              <label class="input-row-title font-sans-caption">Mức ý nghĩa - α:</label>
-              <span class="font-sans-caption">
+            <div class="input-row-container stat-radio-group" id="alpha">
+              <label class="input-row-title">Mức ý nghĩa - α:</label>
+              <span class="stat-radio">
                 <input type="radio" id="alpha010" name="alpha-selection" value="0.10">
-                <label class="font-sans-caption" for="alpha010">0.10</label>
+                <label for="alpha010">0.10</label>
               </span>
-              <span class="font-sans-caption">
+              <span class="stat-radio">
                 <input type="radio" id="alpha005" name="alpha-selection" value="0.05" checked>
-                <label class="font-sans-caption" for="alpha005">0.05</label>
+                <label for="alpha005">0.05</label>
               </span>
-              <span class="font-sans-caption">
+              <span class="stat-radio">
                 <input type="radio" id="alpha001" name="alpha-selection" value="0.01">
-                <label class="font-sans-caption" for="alpha001">0.01</label>
+                <label for="alpha001">0.01</label>
               </span>
             </div>
 
-            <button class="cta-large paragraph medium font-sans-caption" onclick="calculateKruskalWallis()">Perform
-              Kruskal-Wallis Test</button>
+            <button class="stat-btn-primary" onclick="calculateKruskalWallis()">Perform Kruskal-Wallis Test</button>
           </div>
 
           <!-- Result Card -->

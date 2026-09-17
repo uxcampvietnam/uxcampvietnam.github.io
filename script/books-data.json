@@ -1,0 +1,622 @@
+{
+  "shelves": [
+    {
+      "id": "enterprise-training",
+      "category": "Modules đào tạo",
+      "book_ids": [
+        "talent-insight",
+        "conducting-primary-research",
+        "prioritization-roadmap",
+        "prd-writing",
+        "product-metrics-north-star",
+        "data-visualization-storytelling",
+        "event-tracking-deep-dive",
+        "retention-cohort-analysis",
+        "product-dashboard",
+        "hypothesis-testing-in-practice"
+      ]
+    },
+    {
+      "id": "product-curriculum",
+      "category": "Nội dung đào tạo",
+      "book_ids": [
+        "talent-insight",
+        "fundamental-of-product-development",
+        "descriptive-statistics-analysis",
+        "inferential-statistics-foundations",
+        "product-discovery-101",
+        "conducting-primary-research",
+        "product-research-sampling",
+        "questionnaire-insights",
+        "research-report-writing",
+        "go-to-market-strategy",
+        "product-ideation",
+        "prioritization-roadmap",
+        "proof-of-concepts",
+        "product-led-growth",
+        "solution-reasoning",
+        "feature-design-erd",
+        "feature-impact-analysis",
+        "prd-writing",
+        "design-handoff",
+        "product-optimization",
+        "product-analytics-theory",
+        "product-dashboard",
+        "metrics-in-practice",
+        "product-analytics-mixpanel",
+        "conversion-rate-mastery",
+        "retention-cohort-analysis",
+        "hypothesis-testing-in-practice",
+        "validation-experimentation",
+        "product-metrics-north-star",
+        "event-tracking-basics",
+        "event-tracking-deep-dive",
+        "data-visualization-storytelling",
+        "case-study-portfolio"
+      ]
+    }
+  ],
+  "books": [
+    {
+      "id": "talent-insight",
+      "title": "Product Talent & Insights",
+      "topBadge": "α",
+      "tags": "101",
+      "description": "Đánh giá năng lực với 14 Skills Competency; định hướng phát triển nhân sự Product, cẩm nang tuyển dụng và đánh giá chuyên môn Product Discovery, Delivery, Analytic.",
+      "height": 396,
+      "spineImage": "asset/image/book-cover/talent-insight-spine.png",
+      "coverImage": "asset/image/book-cover/talent-insight-cover.png",
+      "meta": {
+        "Module": "α / Talent Insight",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Management",
+        "Format": "HR Playbook",
+        "Focus": "Skill Assessment, Career Path, Team Culture, 14 Skills Competency"
+      }
+    },
+    {
+      "id": "fundamental-of-product-development",
+      "title": "Fundamentals of Product Development",
+      "topBadge": "β",
+      "tags": "101, Strategy, Discovery, Delivery, Metrics",
+      "description": "Nền tảng phát triển sản phẩm, Product Life Cycle, Lean Startup, Design Thinking, Agile/Scrum và vai trò của PM, PD, UXR, BA trong việc kết nối giữa Product, Design và Engineering.",
+      "height": 392,
+      "spineImage": "asset/image/book-cover/fundamental-of-product-development-spine.png",
+      "coverImage": "asset/image/book-cover/fundamental-of-product-development-cover.png",
+      "meta": {
+        "Module": "β / Product Fundamentals",
+        "Author": "UXCamp Vietnam",
+        "Stage": "POC & Build",
+        "Format": "Framework Handbook",
+        "Focus": "SDLC, Agile/Scrum, Product Life Cycle, Lean Startup, Design Thinking"
+      }
+    },
+    {
+      "id": "descriptive-statistics-analysis",
+      "title": "Descriptive Statistics & Cleaning",
+      "topBadge": "ε",
+      "tags": "101, Analytics",
+      "description": "Làm việc với Raw Data, quy trình Data Clean-up làm sạch dữ liệu lỗi; đo lường Central Tendency (Mean/Median/Mode), độ phân tán Variability (Range/Variance/STD) và trực quan hóa dữ liệu.",
+      "height": 399,
+      "spineImage": "asset/image/book-cover/descriptive-statistics-spine.png",
+      "coverImage": "asset/image/book-cover/descriptive-statistics-cover.png",
+      "meta": {
+        "Module": "ε / Descriptive Statistics",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Data Analytics & Review",
+        "Format": "Statistical Primer",
+        "Focus": "Data Clean-up, Central Tendency, Variability, Segmenting Data"
+      }
+    },
+    {
+      "id": "inferential-statistics-foundations",
+      "title": "Inferential Statistics & Hypothesis",
+      "topBadge": "ζ",
+      "tags": "101, Analytics",
+      "description": "Nền tảng thống kê suy luận: định lý thống kê, kiểm định biến Categorical/Numerical, thiết lập và kiểm định giả thuyết (Hypothesis Testing), sai lầm Type I/II, p-value, Confidence Interval và Regression Analysis.",
+      "height": 394,
+      "spineImage": "asset/image/book-cover/inferential-statistics-spine.png",
+      "coverImage": "asset/image/book-cover/inferential-statistics-cover.png",
+      "meta": {
+        "Module": "ζ / Inferential Statistics",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Optimization & Testing",
+        "Format": "Theoretical Foundation",
+        "Focus": "Hypothesis Testing, Variable Types, Type I & II Error, p-Value, Regression Analysis"
+      }
+    },
+    {
+      "id": "product-discovery-101",
+      "title": "Product Discovery 101",
+      "topBadge": "γ",
+      "tags": "Discovery",
+      "description": "Khái niệm cơ bản về khám phá sản phẩm: phân loại nghiên cứu (Exploratory, Descriptive, Explanatory, Qualitative & Quantitative), xác định nỗi đau của khách hàng và Persona.",
+      "height": 390,
+      "spineImage": "asset/image/book-cover/product-discovery-101-spine.png",
+      "coverImage": "asset/image/book-cover/product-discovery-101-cover.png",
+      "meta": {
+        "Module": "γ / Product Discovery 101",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Discovery & POC",
+        "Format": "Introductory Guide",
+        "Focus": "Research Classification, User Painpoints, Personas"
+      }
+    },
+    {
+      "id": "conducting-primary-research",
+      "title": "Conducting Primary Research",
+      "topBadge": "δ",
+      "tags": "Discovery",
+      "description": "Hướng dẫn thực thi nghiên cứu sơ cấp (Primary Research); phương pháp phỏng vấn (Interview Method), khảo sát thực địa và thu thập dữ liệu hành vi trực tiếp từ người dùng.",
+      "height": 398,
+      "spineImage": "asset/image/book-cover/conducting-primary-research-spine.png",
+      "coverImage": "asset/image/book-cover/conducting-primary-research-cover.png",
+      "meta": {
+        "Module": "δ / Primary Research",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Discovery & POC",
+        "Format": "Field Guide",
+        "Focus": "Interview Method, Fieldwork, Primary Research"
+      }
+    },
+    {
+      "id": "product-research-sampling",
+      "title": "Research Design & Sampling",
+      "topBadge": "γ",
+      "tags": "Discovery",
+      "description": "Quy trình thiết kế nghiên cứu sản phẩm (Research Design), xác định Research Objective, Participant Screening, chọn phương pháp lấy mẫu (Sampling Method) và tính toán cỡ mẫu (Sample Size).",
+      "height": 393,
+      "spineImage": "asset/image/book-cover/research-sampling-spine.png",
+      "coverImage": "asset/image/book-cover/research-sampling-cover.png",
+      "meta": {
+        "Module": "γ / Research Design",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Discovery & POC",
+        "Format": "Methodology Handbook",
+        "Focus": "Research Design, Sampling Method, Sample Size Calculation"
+      }
+    },
+    {
+      "id": "questionnaire-insights",
+      "title": "Questionnaire & Deep Insights",
+      "topBadge": "δ",
+      "tags": "Discovery",
+      "description": "Thiết kế bảng hỏi (Questionnaire Design) không thiên lệch, nhận diện Doublespeak & Biases, cấu trúc câu hỏi đóng/mở (Closed/Open-ended) và phương pháp tiền kiểm (Pre-test & Revise).",
+      "height": 397,
+      "spineImage": "asset/image/book-cover/questionnaire-insights-spine.png",
+      "coverImage": "asset/image/book-cover/questionnaire-insights-cover.png",
+      "meta": {
+        "Module": "δ / Questionnaire Design",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Discovery & PMF",
+        "Format": "Fieldwork Guide",
+        "Focus": "Questionnaire Design, Question Content & Format, Bias Elimination, Pre-test"
+      }
+    },
+    {
+      "id": "research-report-writing",
+      "title": "Strategic Research Report",
+      "topBadge": "η",
+      "tags": "Discovery, Documentation",
+      "description": "Tổng hợp báo cáo nghiên cứu: tổng hợp dữ liệu (Data Synthesis) rút ra Key Findings, xây dựng Persona và Customer Journey Map, viết tài liệu 1-pager và Recommendations.",
+      "height": 391,
+      "spineImage": "asset/image/book-cover/research-report-spine.png",
+      "coverImage": "asset/image/book-cover/research-report-cover.png",
+      "meta": {
+        "Module": "η / Research Conclusion",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Discovery & Strategy",
+        "Format": "Executive Report Guide",
+        "Focus": "Data Synthesis, Persona & CJM, 1-pager, Recommendations"
+      }
+    },
+    {
+      "id": "go-to-market-strategy",
+      "title": "Go-To-Market (GTM) Strategy",
+      "topBadge": "θ",
+      "tags": "Discovery, Strategy",
+      "description": "Chiến lược đưa sản phẩm ra thị trường (Go-to-market), xây dựng Business Model Canvas (phân tích kênh phân phối, doanh thu), chiến lược định giá sản phẩm và mô hình Customer Adoption.",
+      "height": 395,
+      "spineImage": "asset/image/book-cover/go-to-market-strategy-spine.png",
+      "coverImage": "asset/image/book-cover/go-to-market-strategy-cover.png",
+      "meta": {
+        "Module": "θ / GTM Strategy",
+        "Author": "UXCamp Vietnam",
+        "Stage": "PMF & Growth",
+        "Format": "Strategy Playbook",
+        "Focus": "Business Model Canvas, Monetization, GTM Strategies, Customer Adoption"
+      }
+    },
+    {
+      "id": "product-ideation",
+      "title": "Product Ideation & Strategy",
+      "topBadge": "β",
+      "tags": "Discovery, Strategy",
+      "description": "Quy trình tìm kiếm và phát triển ý tưởng (Project Ideation): xuất phát từ vấn đề cốt lõi, tiêu chí đánh giá ý tưởng tốt, tư duy hội tụ/phân kỳ (Divergent/Convergent) và tìm kiếm Underserved Need.",
+      "height": 400,
+      "spineImage": "asset/image/book-cover/product-ideation-spine.png",
+      "coverImage": "asset/image/book-cover/product-ideation-cover.png",
+      "meta": {
+        "Module": "β / Product Ideation",
+        "Author": "UXCamp Vietnam",
+        "Stage": "POC (Proof of Concept)",
+        "Format": "Strategy Playbook",
+        "Focus": "Project Ideation, Idea Evaluation, Divergent & Convergent, Underserved Need"
+      }
+    },
+    {
+      "id": "prioritization-roadmap",
+      "title": "Prioritization & Product Roadmap",
+      "topBadge": "ι",
+      "tags": "Delivery, Strategy",
+      "description": "Kỹ thuật ưu tiên tính năng sử dụng các phương pháp RICE, ICE, S.M.A.R.T, phân tích lộ trình huyết mạch (Red Route), tối ưu hành trình Customer Journey và xác định MVP.",
+      "height": 392,
+      "spineImage": "asset/image/book-cover/prioritization-roadmap-spine.png",
+      "coverImage": "asset/image/book-cover/prioritization-roadmap-cover.png",
+      "meta": {
+        "Module": "ι / Prioritization & Roadmap",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Delivery (POC → Scale)",
+        "Format": "Decision Framework",
+        "Focus": "RICE/ICE/SMART, Red Route Analysis, Customer Journey, MVP Identification"
+      }
+    },
+    {
+      "id": "proof-of-concepts",
+      "title": "Proof of Concept (POC) Playbook",
+      "topBadge": "κ",
+      "tags": "Discovery, Strategy",
+      "description": "Xây dựng và xác thực Proof of Concept (POC): thiết lập câu hỏi How Might We, chứng minh Value Proposition, kiểm chứng giả thuyết và đánh giá Technical Feasibility (API, Low/No-code).",
+      "height": 397,
+      "spineImage": "asset/image/book-cover/proof-of-concepts-spine.png",
+      "coverImage": "asset/image/book-cover/proof-of-concepts-cover.png",
+      "meta": {
+        "Module": "κ / Proof of Concept",
+        "Author": "UXCamp Vietnam",
+        "Stage": "POC Stage",
+        "Format": "Validation Spec",
+        "Focus": "Value Proposition, Hypothesis testing, How Might We, Technical Feasibility"
+      }
+    },
+    {
+      "id": "product-led-growth",
+      "title": "Product-Led Growth (PLG)",
+      "topBadge": "π",
+      "tags": "Strategy, Delivery",
+      "description": "Chiến lược tăng trưởng dẫn dắt bởi sản phẩm (PLG): Growth Hack & K-factor, Referral using hook, tối ưu hóa Landing Page (SEO/ASO), theo dõi chia sẻ/giới thiệu và tối ưu hóa Conversion Funnel.",
+      "height": 394,
+      "spineImage": "asset/image/book-cover/product-led-growth-spine.png",
+      "coverImage": "asset/image/book-cover/product-led-growth-cover.png",
+      "meta": {
+        "Module": "π / Product-Led Growth",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Growth & Scale",
+        "Format": "Growth Playbook",
+        "Focus": "Growth Hack, Referral Loop, SEO & ASO, Funnel Optimization, Brand UI"
+      }
+    },
+    {
+      "id": "solution-reasoning",
+      "title": "Solution Reasoning & Diagrams",
+      "topBadge": "μ",
+      "tags": "Delivery, Design",
+      "description": "Lập luận giải pháp toàn diện: ra quyết định dựa trên dữ liệu hệ thống (Transactional records, System config), quy trình Design Validation (Success/Failure scenarios, Fallback, Responsiveness) và Heuristic Evaluation.",
+      "height": 391,
+      "spineImage": "asset/image/book-cover/solution-reasoning-spine.png",
+      "coverImage": "asset/image/book-cover/solution-reasoning-cover.png",
+      "meta": {
+        "Module": "μ / Solution Reasoning",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Delivery & Design",
+        "Format": "Architectural Playbook",
+        "Focus": "Logical Reasoning, Data Driven Decisions, Design Validation, Heuristic Evaluation"
+      }
+    },
+    {
+      "id": "feature-design-erd",
+      "title": "Feature Specification & ERD",
+      "topBadge": "λ",
+      "tags": "Delivery, Design, Documentation",
+      "description": "Chuyển hóa tính năng thành hàm logic (From Feature to Function): thiết kế thực thể quan hệ ERD, xây dựng sơ đồ hoạt động (Activity Diagram), thiết kế User Flow và tối ưu hóa giao diện cho Retention/Conversion.",
+      "height": 399,
+      "spineImage": "asset/image/book-cover/feature-design-spine.png",
+      "coverImage": "asset/image/book-cover/feature-design-cover.png",
+      "meta": {
+        "Module": "λ / Feature Design",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Delivery & Specification",
+        "Format": "Technical Spec Guide",
+        "Focus": "Feature to Function, ERD, Activity Diagrams, User Flow, Design for Retention/CR"
+      }
+    },
+    {
+      "id": "feature-impact-analysis",
+      "title": "Feature Evaluation",
+      "topBadge": "Δ",
+      "tags": "Delivery",
+      "description": "Đánh giá tác động thực tế của tính năng sau khi ra mắt: kiểm soát Selection Bias, kiểm định t-Test, phương pháp sai biệt kép Difference-in-Differences (DiD), ghép cặp mẫu Matching và nghiên cứu giải thích.",
+      "height": 398,
+      "spineImage": "asset/image/book-cover/feature-evaluation-spine.png",
+      "coverImage": "asset/image/book-cover/feature-evaluation-cover.png",
+      "meta": {
+        "Module": "Δ / Feature Evaluation",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Post-release Impact Evaluation",
+        "Format": "Case Study & Protocol",
+        "Focus": "Selection Bias, DiD, Matching, t-Test, Causal Impact"
+      }
+    },
+    {
+      "id": "prd-writing",
+      "title": "PRD Writing & Requirements",
+      "topBadge": "ξ",
+      "tags": "Delivery, Documentation",
+      "description": "Kỹ nghệ viết tài liệu PRD: cấu trúc PRD, định nghĩa mục tiêu phát hành sản phẩm, phân rã Success Metrics bằng toán tử logic, viết kịch bản Acceptance Criteria định dạng Given-When-Then.",
+      "height": 393,
+      "spineImage": "asset/image/book-cover/product-requirement-spine.png",
+      "coverImage": "asset/image/book-cover/product-requirement-cover.png",
+      "meta": {
+        "Module": "ξ / PRD Writing",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Delivery & Requirement",
+        "Format": "PRD Template & Spec",
+        "Focus": "PRD Structure, Release Goals, Success Metrics breakdown, Acceptance Criteria"
+      }
+    },
+    {
+      "id": "design-handoff",
+      "title": "Design Handoff & Specs",
+      "topBadge": "ξ",
+      "tags": "Delivery, Design",
+      "description": "Quy chuẩn bàn giao thiết kế (Design Handoff): cấu trúc tài liệu Design Spec, thiết kế kịch bản Success/Edge/Corner cases, xử lý Text Scale, Cursor/Keyboard behavior và các cơ chế Fallback.",
+      "height": 395,
+      "spineImage": "asset/image/book-cover/feature-hand-off-spine.png",
+      "coverImage": "asset/image/book-cover/feature-hand-off-cover.png",
+      "meta": {
+        "Module": "ξ / Design Handoff",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Delivery & Engineering",
+        "Format": "Handoff Specification",
+        "Focus": "Design Specifications, Edge & Corner Cases, Layout & Responsiveness, Fallbacks"
+      }
+    },
+    {
+      "id": "product-optimization",
+      "title": "Product Optimization",
+      "topBadge": "τ",
+      "tags": "Delivery, Analytics",
+      "description": "Tối ưu hóa sản phẩm thông qua thiết kế thử nghiệm (Experimental Design): thiết lập giả thuyết, phân bổ Control/Experimental Group, kỹ thuật Randomization/Replication và Explanatory Research qua phỏng vấn sâu.",
+      "height": 390,
+      "spineImage": "asset/image/book-cover/product-optimization-spine.png",
+      "coverImage": "asset/image/book-cover/product-optimization-cover.png",
+      "meta": {
+        "Module": "τ / Product Optimization",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Continuous Optimization",
+        "Format": "Experimentation Guide",
+        "Focus": "Experimental Design, Control & Experimental Groups, Hypothesis, Explanatory Research"
+      }
+    },
+    {
+      "id": "product-analytics-theory",
+      "title": "Product Analytics Theory",
+      "topBadge": "σ",
+      "tags": "Metrics, Analytics",
+      "description": "Nền tảng lý thuyết phân tích sản phẩm (Product Analytics): giới thiệu các công cụ phân tích dữ liệu, các tác vụ BAU, lập luận toán tử logic và thiết lập mục tiêu phân tích (Analytical Objective).",
+      "height": 396,
+      "spineImage": "asset/image/book-cover/product-analytic-spine.png",
+      "coverImage": "asset/image/book-cover/product-analytic-cover.png",
+      "meta": {
+        "Module": "σ / Product Analytics Theory",
+        "Author": "UXCamp Vietnam",
+        "Stage": "All Stages",
+        "Format": "Theoretical Guide",
+        "Focus": "Analytics Tools, BAU Tasks, Logical Operations, Analytical Objectives"
+      }
+    },
+    {
+      "id": "product-dashboard",
+      "title": "Product Dashboard Design",
+      "topBadge": "ς",
+      "tags": "Metrics, Design, Analytics",
+      "description": "Thiết kế bảng chỉ số (Product Dashboard): xác định mục tiêu của dashboard, lựa chọn kiểu hiển thị trực quan hóa, làm việc với các hàm Aggregation và tránh bẫy sai lầm thống kê (Statistical Fallacy).",
+      "height": 392,
+      "spineImage": "asset/image/book-cover/product-dashboard-spine.png",
+      "coverImage": "asset/image/book-cover/product-dashboard-cover.png",
+      "meta": {
+        "Module": "ς / Product Dashboard",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Growth & Optimize",
+        "Format": "Design Standard",
+        "Focus": "Dashboard Goals, Data Aggregation, Visualization & Naming, Statistical Fallacy"
+      }
+    },
+    {
+      "id": "metrics-in-practice",
+      "title": "Metrics in Practice & Aha Moment",
+      "topBadge": "ι",
+      "tags": "Metrics, Analytics",
+      "description": "Phương pháp đo lường thực chiến: phân rã Product Metric Frameworks, đo lường hành vi người dùng, tìm kiếm Aha Moment và phân tích luồng chuyển đổi người dùng.",
+      "height": 400,
+      "spineImage": "asset/image/book-cover/metrics-in-practice-spine.png",
+      "coverImage": "asset/image/book-cover/metrics-in-practice-cover.png",
+      "meta": {
+        "Module": "ι / Metrics in Practice",
+        "Author": "UXCamp Vietnam",
+        "Stage": "PMF & Growth",
+        "Format": "Practical Analytics",
+        "Focus": "Metric Frameworks, Aha Moment, User Conversion Flow"
+      }
+    },
+    {
+      "id": "product-analytics-mixpanel",
+      "title": "Product Analytics & Funnel",
+      "topBadge": "σ",
+      "tags": "Metrics, Analytics",
+      "description": "Phân tích dữ liệu hành vi sản phẩm nâng cao trên Mixpanel: phân tích phễu chuyển đổi (Funnel Analysis), phân tích xu hướng (Trend Analysis), Retention Analysis và phân bổ thuộc tính dữ liệu.",
+      "height": 394,
+      "spineImage": "asset/image/book-cover/product-analytics-spine.png",
+      "coverImage": "asset/image/book-cover/product-analytics-cover.png",
+      "meta": {
+        "Module": "σ / Product Analytics & Funnel",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Growth & Analytics",
+        "Format": "Analytics Playbook",
+        "Focus": "Mixpanel Analytics, Funnel Analysis, Trend Analysis, Retention Analysis, Attribution"
+      }
+    },
+    {
+      "id": "conversion-rate-mastery",
+      "title": "Conversion Rate Mastery",
+      "topBadge": "Ω",
+      "tags": "Metrics, Analytics, Delivery",
+      "description": "Làm chủ tỷ lệ chuyển đổi (Conversion Rate): định nghĩa và đo lường CR chính xác, phân đoạn người dùng thành các nhóm Cohorts và bóc tách CR theo từng thuộc tính cohort.",
+      "height": 397,
+      "spineImage": "asset/image/book-cover/conversion-rate-spine.png",
+      "coverImage": "asset/image/book-cover/conversion-rate-cover.png",
+      "meta": {
+        "Module": "Ω / Conversion Rate Mastery",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Growth & Optimization",
+        "Format": "Conversion Handbook",
+        "Focus": "Conversion Rate Measurement, Cohort Analysis, CR Optimization"
+      }
+    },
+    {
+      "id": "retention-cohort-analysis",
+      "title": "Retention & Cohort Modeling",
+      "topBadge": "ι",
+      "tags": "Metrics, Analytics",
+      "description": "Làm chủ chỉ số Retention và Cohort: phân biệt các loại Product Retention (Return/New/Current User Return Rate), vẽ đường cong duy trì và ánh xạ Retention vào hành trình Customer Journey.",
+      "height": 391,
+      "spineImage": "asset/image/book-cover/retention-cohort-spine.png",
+      "coverImage": "asset/image/book-cover/retention-cohort-cover.png",
+      "meta": {
+        "Module": "ι / Retention Modeling",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Growth & Retention",
+        "Format": "Cohort Playbook",
+        "Focus": "Retention Types, Cohort Analysis, Customer Journey Mapping"
+      }
+    },
+    {
+      "id": "hypothesis-testing-in-practice",
+      "title": "Hypothesis Testing in Practice",
+      "topBadge": "ζ",
+      "tags": "Statistics, Metrics, Analytics, Event Tracking",
+      "description": "Thực hành kiểm định giả thuyết thống kê (Hypothesis Testing): thiết lập cặp giả thuyết H0/Ha, chạy các phép thử kiểm định, kiểm soát sai lầm Type I/II, tính toán p-value và Confidence Interval.",
+      "height": 399,
+      "spineImage": "asset/image/book-cover/hypothesis-testing-spine.png",
+      "coverImage": "asset/image/book-cover/hypothesis-testing-cover.png",
+      "meta": {
+        "Module": "ζ / Hypothesis Testing",
+        "Author": "UXCamp Vietnam",
+        "Stage": "A/B Testing & Release",
+        "Format": "Testing Calculator Guide",
+        "Focus": "Hypothesis Formulation, Statistical Testing, p-Value & Confidence Intervals"
+      }
+    },
+    {
+      "id": "validation-experimentation",
+      "title": "Validation & Experimentation",
+      "topBadge": "κ",
+      "tags": "Discovery, Delivery",
+      "description": "Thử nghiệm và xác thực giả thuyết nhanh: kỹ thuật thiết kế Choice Architecture, phân loại người dùng (Identifying & Categorizing User) và tối ưu hóa phương thức kiểm chứng ý tưởng mới.",
+      "height": 395,
+      "spineImage": "asset/image/book-cover/validation-experimentation-spine.png",
+      "coverImage": "asset/image/book-cover/validation-experimentation-cover.png",
+      "meta": {
+        "Module": "κ / Validation & Experimentation",
+        "Author": "UXCamp Vietnam",
+        "Stage": "POC & PMF",
+        "Format": "Validation Handbook",
+        "Focus": "Hypothesis Validation, Choice Architecture, User Segmentation"
+      }
+    },
+    {
+      "id": "product-metrics-north-star",
+      "title": "Product Metrics & North Star",
+      "topBadge": "ι",
+      "tags": "Metrics, Strategy",
+      "description": "Xây dựng hệ thống chỉ số sản phẩm: xác định North Star Metric, phân rã Metric Tree và kết nối mối quan hệ giữa 3 nhóm: Product Metrics, User Experience Metrics và Business Metrics.",
+      "height": 393,
+      "spineImage": "asset/image/book-cover/product-metrics-spine.png",
+      "coverImage": "asset/image/book-cover/product-metrics-cover.png",
+      "meta": {
+        "Module": "ι / Metric Framework",
+        "Author": "UXCamp Vietnam",
+        "Stage": "PMF & Growth",
+        "Format": "Measurement Guide",
+        "Focus": "North Star Metric, HEART Framework, Metric Tree"
+      }
+    },
+    {
+      "id": "event-tracking-basics",
+      "title": "Event Tracking Foundations",
+      "topBadge": "ρ",
+      "tags": "Metrics, Event Tracking",
+      "description": "Nguyên lý Event Tracking: mô hình dữ liệu Event-Trigger-Property, thiết lập cấu trúc yêu cầu theo dõi hành vi người dùng, quy tắc định nghĩa Trigger và Naming Convention.",
+      "height": 398,
+      "spineImage": "asset/image/book-cover/digital-behavior-tracking-spine.png",
+      "coverImage": "asset/image/book-cover/digital-behavior-tracking-cover.png",
+      "meta": {
+        "Module": "ρ / Event Tracking Foundations",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Delivery & Pre-launch",
+        "Format": "Instrumentation Guide",
+        "Focus": "Event-Trigger-Property, Event Tracking Requirements, Naming Conventions"
+      }
+    },
+    {
+      "id": "event-tracking-deep-dive",
+      "title": "Event Tracking Deep Dive",
+      "topBadge": "ρ",
+      "tags": "Metrics, Event Tracking",
+      "description": "Kỹ thuật Event Tracking nâng cao: phân loại thuộc tính (User/Group/Event/Device/Page Properties), quản trị dữ liệu, Distinct ID nâng cao và tránh các lỗi sai cấu trúc phổ biến.",
+      "height": 392,
+      "spineImage": "asset/image/book-cover/event-tracking-deep-dive-spine.png",
+      "coverImage": "asset/image/book-cover/event-tracking-deep-dive-cover.png",
+      "meta": {
+        "Module": "ρ / Event Tracking Deep Dive",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Growth & Scale",
+        "Format": "Governance Standard",
+        "Focus": "User & Event Properties, Distinct ID, Data Governance"
+      }
+    },
+    {
+      "id": "data-visualization-storytelling",
+      "title": "Data Visualization & Storytelling",
+      "topBadge": "φ",
+      "tags": "Statistics, Design",
+      "description": "Nghệ thuật kể chuyện bằng dữ liệu (Data Storytelling): kỹ thuật trực quan hóa dữ liệu hiệu quả, kết hợp dữ liệu định lượng và định tính để thuyết phục các bên liên quan.",
+      "height": 396,
+      "spineImage": "asset/image/book-cover/data-visualization-spine.png",
+      "coverImage": "asset/image/book-cover/data-visualization-cover.png",
+      "meta": {
+        "Module": "φ / Data Storytelling",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Reporting & Strategy",
+        "Format": "Visualization Guide",
+        "Focus": "Data Visualization, Storytelling with Data, Qualitative & Quantitative Synthesis"
+      }
+    },
+    {
+      "id": "case-study-portfolio",
+      "title": "Product Case Study Portfolio",
+      "topBadge": "CS",
+      "tags": "Documentation",
+      "description": "Tổng hợp các nghiên cứu điển hình thực tế (Product Case Studies): rèn luyện Critical Thinking, cấu trúc bài thuyết trình, Public Speaking và đánh giá tốt nghiệp cuối khóa.",
+      "height": 394,
+      "spineImage": "asset/image/book-cover/case-study-spine.png",
+      "coverImage": "asset/image/book-cover/case-study-cover.png",
+      "meta": {
+        "Module": "υ / Case Study",
+        "Author": "UXCamp Vietnam",
+        "Stage": "Growth & Scaling",
+        "Format": "Portfolio",
+        "Focus": "Product Case Studies, Presentation Structure, Critical Thinking, Assessment"
+      }
+    }
+  ]
+}

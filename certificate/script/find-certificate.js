@@ -52,7 +52,7 @@
           reason: 'empty_email'
         });
       }
-      showFieldError("Con vợ nhập email vào đã.");
+      showFieldError("Vợ iu nhập email vào đã.");
       return;
     }
 
@@ -64,7 +64,7 @@
           reason: 'invalid_format'
         });
       }
-      showFieldError("Con vợ bịp à!. Đây có phải là format email đâu??");
+      showFieldError("SOS, đây không phải là email mà??");
       return;
     }
 

@@ -1,0 +1,212 @@
+/* ==========================================================================
+   UXCAMP VIETNAM - UNIFIED MOTION TUNER UI (DEV / TUNING MODE)
+   Dùng chung cho cả 3 bảng điều khiển chuyển động: Case Study, Sphere & Envelope
+   ========================================================================== */
+
+.motion-tuner-panel {
+  position: fixed;
+  width: 320px;
+  max-height: 30vh;
+  background: rgba(15, 23, 42, 0.94) !important;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 0, 0, 0.3) !important;
+  display: flex;
+  flex-direction: column;
+  z-index: 99999;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: #f8fafc !important;
+  box-sizing: border-box;
+  user-select: none;
+}
+
+
+
+.motion-tuner-panel.sphere-tuner-panel {
+  left: 20px;
+  bottom: 20px;
+}
+
+.motion-tuner-panel.rope-tuner-panel {
+  left: 20px;
+  bottom: 20px;
+}
+
+.motion-tuner-panel.envelope-tuner-panel {
+  right: 20px;
+  bottom: 20px;
+}
+
+.motion-tuner-panel *,
+.motion-tuner-panel *::before,
+.motion-tuner-panel *::after {
+  box-sizing: border-box;
+}
+
+/* Header */
+.motion-tuner-header {
+  padding: 10px 14px;
+  background: rgba(30, 41, 59, 0.9) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 12px 12px 0 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.motion-tuner-title {
+  margin: 0 !important;
+  font-size: 12.5px !important;
+  font-weight: 600 !important;
+  letter-spacing: 0.3px;
+  color: #f1f5f9 !important;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Body (Danh sách slider cuộn) */
+.motion-tuner-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.motion-tuner-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.motion-tuner-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
+}
+
+/* Tiêu đề nhóm thông số */
+.motion-tuner-group-title {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: #38bdf8 !important;
+  padding-bottom: 3px;
+  border-bottom: 1px solid rgba(56, 189, 248, 0.2) !important;
+  margin-top: 4px;
+}
+
+/* Hàng slider */
+.motion-tuner-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.motion-tuner-label-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 11px !important;
+  color: #94a3b8 !important;
+}
+
+.motion-tuner-label-wrap span {
+  color: #cbd5e1 !important;
+}
+
+.motion-tuner-val {
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  color: #facc15 !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+
+/* Input Range Slider */
+.motion-tuner-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 5px;
+  background: rgb(119, 119, 119);
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+  margin: 2px 0;
+}
+
+.motion-tuner-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 6px rgba(56, 189, 248, 0.6);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.motion-tuner-slider::-webkit-slider-thumb:hover {
+  transform: scale(1.25);
+  background: #777777;
+}
+
+/* Hàng nút tác vụ (Copy / Reset) */
+.motion-tuner-actions {
+  display: flex;
+  gap: 8px;
+  padding-top: 8px;
+  margin-top: 4px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.motion-tuner-btn {
+  flex: 1;
+  padding: 6px 10px;
+  color: #0f172a;
+  background: #38bdf8;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.motion-tuner-btn:hover {
+  background: #7dd3fc;
+}
+
+.motion-tuner-btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.motion-tuner-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+/* Toast thông báo ngắn */
+.motion-tuner-toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  color: #f8fafc;
+  padding: 8px 16px;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 100000;
+}
+
+.motion-tuner-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}

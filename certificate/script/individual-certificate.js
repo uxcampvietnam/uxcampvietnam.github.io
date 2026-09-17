@@ -128,10 +128,10 @@
       .join("");
 
     const ctaHtml = content?.cta
-      ? `<a class="font-sans-caption certificate-bootcamp-cta" href="${content.cta.href}">${content.cta.label}  ›</a>`
+      ? `<a class="cta-large paragraph certificate-bootcamp-cta" href="${content.cta.href}">${content.cta.label}</a>`
       : "";
 
-    const alumniCtaHtml = `<a class="font-sans-caption certificate-alumni-cta" href="find-your-certificate.html">For Alumni: Find your certificate here  ›</a>`;
+    const alumniCtaHtml = `<a class="secondary-button paragraph certificate-alumni-cta" href="find-your-certificate.html">Find your certificate</a>`;
 
     bootcampContentRoot.innerHTML = `
       <p class="paragraph">UXCAMP VIETNAM</p>
@@ -171,8 +171,10 @@
         : ""
       }
 
-      ${ctaHtml}
-      ${alumniCtaHtml}`;
+      <div class="certificate-actions-group" style="display: flex; flex-direction: column; gap: 12px; margin-top: 32px;">
+        ${ctaHtml}
+        ${alumniCtaHtml}
+      </div>`;
   }
 
   /**

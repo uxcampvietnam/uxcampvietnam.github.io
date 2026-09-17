@@ -5,7 +5,7 @@ body,
 body * {
   font-family: var(--font-mono, 'Chivo Mono', monospace) !important;
   font-weight: 400 !important;
-  border-radius: 0 !important;
+  border-radius: 0;
   font-size: 14px !important;
   line-height: var(--lh-normal, 150%) !important;
   letter-spacing: var(--ls, 0.012em) !important;
@@ -60,18 +60,47 @@ body {
   gap: 32px;
 }
 
-/* 3. Left Menu / Sidebar (Trắng đen hoàn toàn) */
+/* 3. Left Menu / Sidebar (Statistic Calculator Group) */
 .sidebar {
+  width: var(--sidebar-width-calculator, 280px);
+  height: calc(100vh - var(--site-header-height, 40px));
+  position: fixed;
+  top: var(--site-header-height, 40px);
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
   background-color: var(--applied-analytic-background-light) !important;
   border-right: 0.5px solid var(--applied-analytic-secondary) !important;
 }
 
 .sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
   background-color: var(--applied-analytic-background-light) !important;
   color: var(--applied-analytic-main) !important;
 }
 
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .brand-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
   background-color: var(--applied-analytic-main) !important;
   color: var(--applied-analytic-reverse-main) !important;
   border: 0.5px solid var(--applied-analytic-secondary) !important;
@@ -80,18 +109,49 @@ body {
 .brand-info h1,
 .brand-info p,
 .brand-info span {
+  margin: 0;
+  font-family: var(--font-serif-mono-family, 'Space Mono', monospace);
+  font-size: 1.1rem;
+  font-weight: 700;
+  line-height: 1.2;
   color: var(--applied-analytic-main) !important;
+}
+
+.nav-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .nav-section-title,
 .project-section-title {
+  font-family: var(--font-sans-family, 'Work Sans', sans-serif);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  font-weight: 600;
+  padding-left: 8px;
   color: var(--applied-analytic-secondary) !important;
 }
 
+.nav-links {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
 .nav-link {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-family: var(--font-serif-mono-family, 'Space Mono', monospace);
+  font-size: 0.85rem;
   color: var(--applied-analytic-secondary) !important;
   background-color: transparent !important;
   border: 0.5px solid transparent !important;
+  transition: all 0.15s ease;
 }
 
 .nav-link span {
@@ -150,6 +210,74 @@ body {
 
 .theme-label {
   color: var(--applied-analytic-secondary) !important;
+}
+
+/* Sidebar User Authentication Widget */
+.sidebar-user-widget:empty,
+.sidebar-user-widget[style*="display: none"],
+.sidebar-user-widget[style*="display:none"] {
+  display: none !important;
+  padding: 0 !important;
+  border: none !important;
+  margin: 0 !important;
+}
+
+.sidebar-user-widget:not(:empty) {
+  margin-top: auto !important;
+  padding: 12px 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  gap: 10px !important;
+  background-color: var(--applied-analytic-background) !important;
+  border: 1px solid var(--applied-analytic-secondary) !important;
+  border-radius: 4px !important;
+  margin-bottom: 8px !important;
+  box-sizing: border-box !important;
+}
+
+.sidebar-user-avatar {
+  width: 34px !important;
+  height: 34px !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--applied-analytic-secondary) !important;
+  background-color: var(--applied-analytic-background-light) !important;
+}
+
+.sidebar-user-name {
+  color: var(--applied-analytic-main) !important;
+  font-family: var(--font-mono, 'Chivo Mono', monospace) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+.sidebar-user-role-badge {
+  font-family: var(--font-mono, 'Chivo Mono', monospace) !important;
+  font-size: 11px !important;
+  border-radius: 4px !important;
+  padding: 2px 8px !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.sidebar-btn-signout {
+  width: 28px !important;
+  height: 28px !important;
+  border-radius: 4px !important;
+  border: 1px solid var(--applied-analytic-secondary) !important;
+  background: transparent !important;
+  color: var(--applied-analytic-main) !important;
+  cursor: pointer !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.15s ease !important;
+}
+
+.sidebar-btn-signout:hover {
+  background: var(--applied-analytic-main) !important;
+  color: var(--applied-analytic-reverse-main) !important;
+  border-color: var(--applied-analytic-main) !important;
 }
 
 /* 4. Cards & Containers with Generous Padding (Padding cho các Section) */
@@ -218,67 +346,159 @@ body {
   outline: none !important;
 }
 
-/* 6. Buttons & Chips */
-.btn-primary,
+/* 6. Buttons & Chips (.stat-*) */
+.stat-btn-primary,
 .cta-large {
-  background: var(--applied-analytic-main) !important;
-  color: var(--applied-analytic-reverse-main) !important;
-  border: 0.5px solid var(--applied-analytic-main) !important;
-  box-shadow: none !important;
-  cursor: pointer;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 8px !important;
   padding: 12px 24px !important;
-  width: 100%;
+  min-height: 44px !important;
+  background-color: var(--applied-analytic-main) !important;
+  color: var(--applied-analytic-reverse-main) !important;
+  border: 1px solid var(--applied-analytic-main) !important;
+  border-radius: 4px !important;
+  font-family: var(--font-mono, 'Chivo Mono', monospace) !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
 }
 
-.btn-primary:hover,
+.stat-btn-primary:hover,
 .cta-large:hover {
-  background: var(--applied-analytic-main-hover) !important;
+  background-color: var(--applied-analytic-main-hover) !important;
+  border-color: var(--applied-analytic-main-hover) !important;
   color: var(--applied-analytic-reverse-main) !important;
 }
 
-.btn-outline,
-.btn-secondary-sm,
-.secondary-button-large {
-  background: var(--applied-analytic-background) !important;
-  color: var(--applied-analytic-main) !important;
-  border: 0.5px solid var(--applied-analytic-secondary) !important;
-  box-shadow: none !important;
-  cursor: pointer;
-  padding: 10px 20px !important;
+.stat-btn-primary *,
+.stat-btn-primary span,
+.stat-btn-primary p,
+.cta-large *,
+.cta-large span,
+.cta-large p {
+  color: var(--applied-analytic-reverse-main) !important;
+  fill: var(--applied-analytic-reverse-main) !important;
 }
 
-.btn-outline:hover,
-.btn-secondary-sm:hover,
-.secondary-button-large:hover {
-  background: var(--applied-analytic-background-light) !important;
+.stat-btn-secondary,
+.secondary-button-large,
+.secondary-button-small,
+.cta-small {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  padding: 8px 16px !important;
+  min-height: 36px !important;
+  background-color: var(--applied-analytic-background) !important;
+  color: var(--applied-analytic-main) !important;
+  border: 1px solid var(--applied-analytic-secondary) !important;
+  border-radius: 4px !important;
+  font-family: var(--font-mono, 'Chivo Mono', monospace) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  cursor: pointer !important;
+  text-decoration: none !important;
+  box-sizing: border-box !important;
+  box-shadow: none !important;
+  transition: all 0.15s ease !important;
+}
+
+.stat-btn-secondary:hover,
+.secondary-button-large:hover,
+.secondary-button-small:hover,
+.cta-small:hover {
+  background-color: var(--applied-analytic-background-light) !important;
   border-color: var(--applied-analytic-main) !important;
   color: var(--applied-analytic-main) !important;
 }
 
+.stat-btn-secondary *,
+.secondary-button-large *,
+.secondary-button-small *,
+.cta-small * {
+  color: var(--applied-analytic-main) !important;
+}
+
 /* Radio & Checkbox chips */
+.stat-radio,
+.stat-chip,
 span:has(input[type="radio"]),
 span:has(input[type="checkbox"]) {
-  background: var(--applied-analytic-background) !important;
-  border: 0.5px solid var(--applied-analytic-secondary) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: var(--applied-analytic-background) !important;
+  border: 1px solid var(--applied-analytic-secondary) !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  user-select: none !important;
+  box-sizing: border-box !important;
   box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  opacity: 1 !important;
+  margin: 0 !important;
+  min-height: 36px !important;
 }
 
+.stat-radio input[type="radio"],
+.stat-chip input[type="radio"],
+.stat-chip input[type="checkbox"],
+span:has(input[type="radio"]) input[type="radio"],
+span:has(input[type="checkbox"]) input[type="checkbox"] {
+  position: absolute !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
+}
+
+.stat-radio:hover:not(:has(input:checked)),
+.stat-chip:hover:not(:has(input:checked)),
+span:has(input[type="radio"]):not(:has(input:checked)):hover,
+span:has(input[type="checkbox"]):not(:has(input:checked)):hover {
+  border-color: var(--applied-analytic-main) !important;
+  background-color: var(--applied-analytic-background-light) !important;
+}
+
+.stat-radio:has(input[type="radio"]:checked),
+.stat-chip:has(input[type="radio"]:checked),
+.stat-chip:has(input[type="checkbox"]:checked),
 span:has(input[type="radio"]:checked),
 span:has(input[type="checkbox"]:checked) {
-  background: var(--applied-analytic-main) !important;
-  border: 0.5px solid var(--applied-analytic-main) !important;
+  background-color: var(--applied-analytic-main) !important;
+  border-color: var(--applied-analytic-main) !important;
 }
 
+.stat-radio:has(input[type="radio"]:checked) label,
+.stat-chip:has(input[type="radio"]:checked) label,
+.stat-chip:has(input[type="checkbox"]:checked) label,
 span:has(input[type="radio"]:checked) label,
 span:has(input[type="checkbox"]:checked) label {
   color: var(--applied-analytic-reverse-main) !important;
+  font-weight: 600 !important;
 }
 
 .calculator-card span:has(input[type="radio"]) label,
-.calculator-card span:has(input[type="checkbox"]) label {
-  padding: 8px 16px;
-  display: inline-block;
-  cursor: pointer;
+.calculator-card span:has(input[type="checkbox"]) label,
+.stat-radio label,
+.stat-chip label {
+  padding: 6px 14px !important;
+  display: inline-block !important;
+  cursor: pointer !important;
+  color: var(--applied-analytic-main) !important;
+  font-family: var(--font-mono, 'Chivo Mono', monospace) !important;
+  font-size: 13px !important;
+  margin: 0 !important;
 }
 
 /* 7. Typography & Labels */

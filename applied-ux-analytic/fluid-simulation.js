@@ -1177,9 +1177,24 @@ function checkContainerUpdates() {
     });
 }
 
+let isFluidVisible = true;
+if (typeof IntersectionObserver !== "undefined" && fluid_canvas) {
+    const fluidObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            isFluidVisible = entry.isIntersecting;
+            if (isFluidVisible) {
+                lastUpdateTime = Date.now();
+                update();
+            }
+        });
+    }, { rootMargin: "200px 0px" });
+    fluidObserver.observe(fluid_canvas);
+}
+
 update();
 
 function update() {
+    if (!isFluidVisible) return;
     const dt = calcDeltaTime();
     if (resizeCanvas())
         initFramebuffers();

@@ -9,15 +9,25 @@
   <meta property="og:description" content='UXCamp Vietnam' />
   <meta property="og:url" content='http://uxcamp.vn/' />
 
-  <script src="script.js"></script>
-  <script src="../../script/libs/svg-inject.min.js"></script>
-
   <link rel="stylesheet" type="text/css" href="../../style/definition.css">
   <link rel="stylesheet" href="../checklist/style/styles.css">
   <link rel="stylesheet" href="calculator.css">
+  <link rel="stylesheet" href="../../style/tool-auth.css">
+
+  <!-- Firebase SDK (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="../../script/auth-guard.js"></script>
+
+  <script src="../../script/main-header.js" defer></script>
+  <script src="script.js"></script>
+  <script src="../../script/libs/svg-inject.min.js"></script>
 </head>
 
 <body>
+
+  <header class="site-main-header" id="siteMainHeader" data-active="Tool"></header>
 
   <div class="app-container">
 
@@ -60,33 +70,32 @@
               <input type="number" id="margin" placeholder="e.g., 5" value="5">
             </div>
 
-            <div class="input-row-container" id="confidence">
-              <label class="input-row-title font-sans-caption">Confidence Level:</label>
-              <span class="font-sans-caption">
+            <div class="input-row-container stat-radio-group" id="confidence">
+              <label class="input-row-title">Confidence Level:</label>
+              <span class="stat-radio">
                 <input type="radio" id="confident-level-80" name="confidence-level-selection" value="1.28155157">
-                <label class="font-sans-caption" for="confident-level-80">80%</label>
+                <label for="confident-level-80">80%</label>
               </span>
-              <span class="font-sans-caption">
+              <span class="stat-radio">
                 <input type="radio" id="confident-level-85" name="confidence-level-selection" value="1.43953147">
-                <label class="font-sans-caption" for="confident-level-85">85%</label>
+                <label for="confident-level-85">85%</label>
               </span>
-              <span class="font-sans-caption">
+              <span class="stat-radio">
                 <input type="radio" id="confident-level-90" name="confidence-level-selection" value="1.64485363">
-                <label class="font-sans-caption" for="confident-level-90">90%</label>
+                <label for="confident-level-90">90%</label>
               </span>
-              <span class="font-sans-caption">
+              <span class="stat-radio">
                 <input type="radio" id="confident-level-95" name="confidence-level-selection" value="1.95996398"
                   checked>
-                <label class="font-sans-caption" for="confident-level-95">95%</label>
+                <label for="confident-level-95">95%</label>
               </span>
-              <span class="font-sans-caption">
+              <span class="stat-radio">
                 <input type="radio" id="confident-level-99" name="confidence-level-selection" value="2.57582930">
-                <label class="font-sans-caption" for="confident-level-99">99%</label>
+                <label for="confident-level-99">99%</label>
               </span>
             </div>
 
-            <button class="cta-large paragraph medium font-sans-caption" onclick="calculateSampleSize()">Calculate
-              Sample Size</button>
+            <button class="stat-btn-primary" onclick="calculateSampleSize()">Calculate Sample Size</button>
           </div>
 
           <!-- Result Card -->

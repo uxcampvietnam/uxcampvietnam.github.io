@@ -1,0 +1,276 @@
+/* =========================================================================
+   UXCAMP VIETNAM — FOR BUSINESS / ENTERPRISE TRAINING CUSTOM STYLE
+   Figma Design Node: 3591-25931 & 3606-29511
+   ========================================================================= */
+
+
+/* 1. Page Background & Base Canvas */
+body {
+
+	color: var(--main-colors-foreground-f-500-main);
+	min-height: 100vh;
+}
+
+/* 3. Hero Intro Header */
+.b2b-hero-intro {
+	max-width: 1000px;
+	margin: 0 auto;
+}
+
+.b2b-hero-intro .serif-title {
+	font-family: var(--font-serif-family, 'Crimson Pro', serif);
+	font-size: clamp(2.25rem, 5vw, 56px);
+	font-weight: 500;
+	line-height: 1.15;
+	letter-spacing: 0.02em;
+}
+
+
+/* 5. Figma B2B Cards (Overview, Delivery Modes, Process, Advantage -> Standardized to .card-container) */
+.badge-track {
+	display: inline-flex;
+	align-items: center;
+	padding: 4px 8px;
+	background: var(--transparent-foreground-main-color-10);
+	border: 1px solid var(--console-stroke);
+	border-radius: 4px;
+	font-size: 11px;
+	font-weight: 500;
+	width: fit-content;
+	color: var(--main-colors-foreground-f-500-main);
+	letter-spacing: 0.05em;
+}
+
+/* 6. Advantage Cards (Vì sao chọn chúng tôi) */
+.advantage-icon-box {
+	width: 48px;
+	height: 48px;
+	margin-bottom: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	color: var(--main-colors-foreground-f-500-main, #c9c4ca);
+}
+
+.advantage-icon-box svg,
+.advantage-icon-box img {
+	width: 48px;
+	height: 48px;
+	display: block;
+	color: inherit;
+	stroke: currentColor;
+}
+
+/* 6b. Delivery Format Cards (Hình thức Triển khai) */
+.delivery-format-card {
+	background-color: var(--body-background-elevate-1);
+	border: 0.5px solid var(--console-stroke);
+	border-radius: 20px;
+	padding: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+	height: 100%;
+	transition: border-color var(--transition-fast, 0.2s ease), background-color var(--transition-fast, 0.2s ease), box-shadow var(--transition-fast, 0.2s ease);
+}
+
+.delivery-format-card:hover {
+	border-color: var(--transparent-foreground-main-color-40);
+	box-shadow: var(--shadow-sm);
+}
+
+.delivery-format-card .format-img-wrapper {
+	width: 100%;
+	height: 220px;
+	border-radius: 8px;
+	border: 0.5px solid var(--console-stroke);
+	overflow: hidden;
+}
+
+.delivery-format-card .format-img-wrapper img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.delivery-format-card .format-content {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+/* 7. Organizer Typography Network Layout */
+.organizer-network-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 32px;
+	margin-top: 32px;
+}
+
+@media (max-width: 992px) {
+	.organizer-network-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 24px;
+	}
+}
+
+@media (max-width: 576px) {
+	.organizer-network-grid {
+		grid-template-columns: 1fr;
+		gap: 20px;
+	}
+}
+
+.organizer-network-item {
+	margin-bottom: 24px;
+}
+
+.organizer-network-item .member-name {
+	font-size: 14px;
+	font-weight: 500;
+	color: var(--gray-scale-100);
+	text-decoration: underline;
+	display: inline-block;
+	margin-bottom: 2px;
+	transition: color var(--transition-fast);
+}
+
+.organizer-network-item .member-name:hover {
+	color: var(--highlight-blue);
+}
+
+.organizer-network-item .member-role {
+	font-size: 13px;
+	color: var(--main-colors-foreground-f-500-main);
+	display: block;
+	margin-bottom: 2px;
+}
+
+.organizer-network-item .member-tag {
+	font-size: 12px;
+	color: var(--main-colors-foreground-f700);
+	display: block;
+}
+
+/* 8. FAQ Section Container */
+.faq-section-container {
+	max-width: 880px;
+	margin: 0 auto;
+	width: 100%;
+}
+
+/* 9. Consultation Form Card */
+.consultation-form-wrapper {
+	max-width: 880px;
+	margin: 0 auto;
+}
+
+
+#b2b-form input.form-input {
+	height: 48px;
+	width: 100%;
+	background-color: var(--main-colors-background-b100, #000000);
+	border: 0.5px solid #3d3d3d;
+	border-radius: 8px;
+	padding: 10px 14px;
+	color: var(--main-colors-foreground-f-500-main);
+	font-size: 14.4px;
+}
+
+#b2b-form input.form-input::placeholder,
+#b2b-form textarea.form-input::placeholder {
+	color: #757575;
+}
+
+#b2b-form input.form-input:focus,
+#b2b-form textarea.form-input:focus {
+	outline: none;
+	border-color: var(--transparent-foreground-main-color-40);
+}
+
+/* Service Pills Selector */
+.service-pills-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	padding-top: 4px;
+}
+
+.service-pill-item {
+	position: relative;
+	cursor: pointer;
+	user-select: none;
+}
+
+.service-pill-item input[type="radio"],
+.service-pill-item input[type="checkbox"] {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+.service-pill-label {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 6px 16px;
+	border-radius: 8px;
+	font-family: var(--font-mono-family, 'Chivo Mono', monospace);
+	font-size: 12px;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.03em;
+	background: var(--transparent-foreground-main-color-10, rgba(201, 196, 202, 0.1));
+	border: 0.5px solid #3d3d3d;
+	color: var(--main-colors-foreground-f-500-main);
+	transition: background-color var(--transition-fast, 0.2s ease), color var(--transition-fast, 0.2s ease), border-color var(--transition-fast, 0.2s ease);
+	cursor: pointer;
+	margin-bottom: 0;
+}
+
+.service-pill-item input:checked+.service-pill-label {
+	background: var(--main-colors-foreground-f100) !important;
+	border-color: var(--main-colors-foreground-f100) !important;
+	color: var(--main-colors-background-b100) !important;
+	box-shadow: none !important;
+}
+
+#b2b-form textarea.form-input {
+	width: 100%;
+	min-height: 48px;
+	background-color: var(--main-colors-background-b100, #000000);
+	border: 0.5px solid #3d3d3d;
+	border-radius: 8px;
+	padding: 12px 14px;
+	color: var(--main-colors-foreground-f-500-main);
+	font-size: 14.4px;
+	resize: vertical;
+}
+
+/* 10. Section Spacing & Layout Alignment */
+.corporate-training>.bootcamp-title-full {
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: flex-start;
+	gap: 10vh;
+}
+
+.corporate-training .bootcamp-section {
+	padding-top: 15vh;
+	padding-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+	.corporate-training .bootcamp-section {
+		padding-top: 64px;
+		padding-bottom: 16px;
+	}
+}
+
+.corporate-training .row:not(.bootcamp-title-full):not(.bootcamp-section) {
+	margin-left: calc(var(--bs-gutter-x, 1.5rem) * -0.5) !important;
+	margin-right: calc(var(--bs-gutter-x, 1.5rem) * -0.5) !important;
+}

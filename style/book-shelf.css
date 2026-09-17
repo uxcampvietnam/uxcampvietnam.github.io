@@ -1,0 +1,377 @@
+/* =========================================================================
+   UXCAMP VIETNAM — BOOK SHELF COMPONENT STYLE
+   =========================================================================
+   - Pure Bookshelf Component Styles
+   - Follows definition.css Design System
+   - Reusable across any container (.book-shelf-gallery)
+   ========================================================================= */
+
+@import url('definition.css');
+
+/* -------------------------------------------------------------------------
+   1. BOOK SHELF WRAPPER & TRACK (.book-shelf-gallery)
+   ------------------------------------------------------------------------- */
+.book-shelf-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+.shelf-block {
+  position: relative;
+  width: 100%;
+}
+
+.shelf-header-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 16px;
+  margin-bottom: 24px;
+  padding: 0 4px;
+  border-bottom: 1px solid var(--transparent-foreground-main-color-20);
+  padding-bottom: 12px;
+}
+
+.shelf-books-container {
+  position: relative;
+  gap: 0px;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  min-height: 460px;
+  overflow-x: visible;
+  overflow-y: scroll;
+  padding-top: 24px;
+  /* Ẩn thanh cuộn ngang trên toàn bộ trình duyệt */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  user-select: none;
+}
+
+.shelf-books-container.is-dragging {
+  cursor: grabbing;
+}
+
+.shelf-books-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Shelf Base Rail Line */
+.shelf-base-line {
+  width: 100%;
+  height: 0.5px;
+  background-color: var(--main-colors-foreground-f400);
+  opacity: 0.5;
+  position: relative;
+}
+
+/* -------------------------------------------------------------------------
+   2. BOOK SLOT & 3D SPINE
+   ------------------------------------------------------------------------- */
+.book-slot {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  flex-shrink: 0;
+  height: 445px;
+  user-select: none;
+  perspective: 1400px;
+  transform-style: preserve-3d;
+  will-change: width, margin-left, margin-right, transform;
+  z-index: 2;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.book-slot:not(.is-open):hover {
+  transform: translateY(-12px);
+  z-index: 10;
+}
+
+.book-spine {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 2px 14px 2px;
+  border-radius: 1px;
+  transform-origin: right center;
+  cursor: pointer;
+  overflow: hidden;
+  box-sizing: border-box;
+  will-change: transform, opacity;
+}
+
+
+.spine-image-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: fill;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spine-top-badge {
+  position: relative;
+  z-index: 2;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.spine-title-wrap {
+  position: relative;
+  z-index: 2;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  overflow: hidden;
+}
+
+.spine-title {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  transform: rotate(180deg);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 240px;
+  text-align: center;
+}
+
+.spine-emboss-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg,
+      rgba(255, 255, 255, 0.12) 0%,
+      rgba(255, 255, 255, 0) 10%,
+      rgba(0, 0, 0, 0) 20%,
+      rgba(0, 0, 0, 0.32) 40%);
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* -------------------------------------------------------------------------
+   3. EXPANDED 3D BOOK & METADATA PANEL
+   ------------------------------------------------------------------------- */
+.book-expanded-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 36px;
+  width: max-content;
+  max-width: none;
+  height: auto;
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+  transform-style: preserve-3d;
+  perspective: 1400px;
+}
+
+.book-slot:not(.is-open) .book-expanded-content {
+  display: none !important;
+}
+
+.book-slot.is-open .book-expanded-content {
+  display: flex !important;
+  pointer-events: auto;
+}
+
+.book-cover-3d-wrapper {
+  position: relative;
+  width: auto;
+  flex-shrink: 0;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  border-radius: 0px 24px 24px 0px;
+  background-color: var(--main-colors-background-b100);
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+  transition: box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.book-cover-3d-wrapper.has-shadow {
+  box-shadow:
+    0px 30px 48px rgba(0, 0, 0, 0.35),
+    0px 3px 3px rgba(0, 0, 0, 0.28)
+}
+
+.book-cover-img {
+  height: 100%;
+  width: auto;
+  display: block;
+  user-select: none;
+  pointer-events: none;
+}
+
+.book-cover-crease {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 24px;
+  background: linear-gradient(90deg,
+      rgba(0, 0, 0, 0.45) 0%,
+      rgba(255, 255, 255, 0.18) 20%,
+      rgba(0, 0, 0, 0.12) 40%,
+      rgba(0, 0, 0, 0) 100%);
+  pointer-events: none;
+}
+
+.book-info-panel {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-bottom: 16px;
+  padding-right: 8px;
+  gap: 16px;
+  width: 360px;
+  min-width: 340px;
+  max-width: 420px;
+  flex-shrink: 0;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: var(--transparent-foreground-main-color-20) transparent;
+}
+
+.book-info-panel::-webkit-scrollbar {
+  width: 3px;
+}
+
+.book-info-panel::-webkit-scrollbar-thumb {
+  background: var(--transparent-foreground-main-color-20);
+  border-radius: 3px;
+}
+
+.book-info-title {
+  color: var(--main-colors-foreground-f100);
+  margin-bottom: 12px;
+}
+
+.book-info-description {
+  margin-bottom: 22px;
+}
+
+.book-meta-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  border-top: 0.5px solid var(--transparent-foreground-main-color-20);
+  margin-bottom: 8px;
+}
+
+.meta-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 0;
+  border-bottom: 0.5px solid var(--transparent-foreground-main-color-20);
+}
+
+.meta-label {
+  color: var(--main-colors-foreground-f700);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.meta-value {
+  color: var(--main-colors-foreground-f100);
+  text-align: right;
+}
+
+/* -------------------------------------------------------------------------
+   4. RESPONSIVE DESIGN
+   ------------------------------------------------------------------------- */
+@media (max-width: 1024px) {
+  .book-info-panel {
+    width: 320px;
+    min-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .book-slot {
+    height: 300px;
+  }
+
+  .book-cover-3d-wrapper {
+    height: 290px;
+  }
+
+  .book-expanded-content {
+    gap: 20px;
+  }
+
+  .book-info-panel {
+    width: 260px;
+    min-width: 240px;
+  }
+}
+
+/* -------------------------------------------------------------------------
+   5. BOOK SHELF TAG CHIP FILTER
+   ------------------------------------------------------------------------- */
+.shelf-filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 8px;
+  padding: 0 4px;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  align-content: flex-start;
+}
+
+.shelf-filter-chip {
+  background: var(--transparent-foreground-main-color-10);
+  border: 0.5px solid var(--console-stroke);
+  padding: 5px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+  user-select: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+}
+
+.shelf-filter-chip:hover {
+  background: var(--transparent-foreground-main-color-20);
+  color: var(--main-colors-foreground-f100);
+  border-color: var(--transparent-foreground-main-color-40);
+  transform: translateY(-1px);
+}
+
+.shelf-filter-chip.active {
+  background: var(--main-colors-foreground-f100) !important;
+  border-color: var(--main-colors-foreground-f100) !important;
+  color: var(--main-colors-background-b100) !important;
+  box-shadow: none !important;
+}
+
+/* Animation for hidden books */
+.book-slot.tag-filtered-out {
+  display: none !important;
+}

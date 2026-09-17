@@ -9,7 +9,7 @@ let searchQuery = '';
 let activeCardId = null;
 
 // Khởi tạo ứng dụng
-document.addEventListener('DOMContentLoaded', () => {
+function initWcagApp() {
   window.trackEvent('view_page', { page_name: 'wcag_accessibility' });
   initLocalStorage();
   initSidebarCollapse();
@@ -18,6 +18,22 @@ document.addEventListener('DOMContentLoaded', () => {
   bindEvents();
   switchTab(activeView);
   updateProgressAndStats();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  if (window.ToolAuthGuard) {
+    ToolAuthGuard.init({
+      toolName: 'WCAG 2.2 Accessibility Checklist',
+      toolDesc: 'Checklist giúp Product Team tự đánh giá trải nghiệm accessibility sản phẩm.',
+      sidebarSelector: '#sidebar',
+      homeUrl: '../../index.html',
+      onAuthorized: () => {
+        initWcagApp();
+      }
+    });
+  } else {
+    initWcagApp();
+  }
 });
 
 // Khởi tạo bộ nhớ LocalStorage
@@ -674,7 +690,7 @@ function renderChecklist() {
             ${indicatorHtml}
             ${badgeHtml}
           </div>
-          <h6>${item.title}</h6>
+          <h6 class="font-sans-h6">${item.title}</h6>
           <p class="font-sans-caption">${item.desc}</p>
         </div>
         

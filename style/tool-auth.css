@@ -1,0 +1,353 @@
+@import url('definition.css');
+
+/* ==========================================================================
+   UXCAMP VIETNAM — CONSOLIDATED AUTHENTICATION & AUTH GUARD STYLES
+   Tập trung 100% style của authentication.html và Auth Guard vào 1 file duy nhất
+   Tuân thủ 100% Hệ Thống Biến & Tokens từ definition.css
+   ========================================================================== */
+
+/* 0. Content Protection: Ẩn hoàn toàn nội dung công cụ cho đến khi xác thực thành công */
+body:not(.auth-verified) .app-container {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+body.auth-verified .app-container {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* 1. Fullscreen Container & Overlay (Dùng chung cho cả .auth-page và .tool-auth-overlay) */
+.auth-page,
+.tool-auth-overlay {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: var(--main-colors-background-b-200-slide-bg);
+}
+
+.tool-auth-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100vh;
+  z-index: 99999;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tool-auth-overlay.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Decorative background orbs */
+.auth-page::before,
+.auth-page::after,
+.tool-auth-overlay::before,
+.tool-auth-overlay::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  opacity: 0.15;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.auth-page::before,
+.tool-auth-overlay::before {
+  width: 500px;
+  height: 500px;
+  top: -150px;
+  right: -100px;
+}
+
+.auth-page::after,
+.tool-auth-overlay::after {
+  width: 400px;
+  height: 400px;
+  bottom: -100px;
+  left: -100px;
+}
+
+/* 2. Card Container */
+.auth-card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  animation: authFadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Header */
+.auth-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+  width: 100%;
+}
+
+.auth-header .eye-logo {
+  width: 56px;
+  height: auto;
+  opacity: 0.8;
+  transition: opacity 0.3s ease;
+  margin-bottom: 8px;
+}
+
+.auth-header .eye-logo:hover {
+  opacity: 1;
+}
+
+.auth-header .text-logo {
+  color: var(--main-colors-foreground-f-500-main);
+  letter-spacing: 4px;
+}
+
+.auth-subtitle {
+  color: var(--main-colors-foreground-f700);
+  max-width: 320px;
+  margin: 4px 0 0 0;
+  line-height: 1.5;
+}
+
+/* Glass Panel */
+.auth-panel {
+  width: 100%;
+  padding: 32px 28px;
+  border-radius: 16px;
+  border: 0.5px solid var(--transparent-foreground-main-color-10);
+  background: var(--transparent-background-elevate-blur);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  box-shadow:
+    0px 8px 32px 0px var(--fix-black---black-10),
+    0px 4px 16px 0px var(--fix-white---white-05) inset;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Loading Spinner & Container */
+.auth-spinner-container {
+  display: none;
+  justify-content: center;
+  width: 100%;
+}
+
+.auth-spinner-container.visible,
+.auth-spinner-container:has(.auth-spinner.visible) {
+  display: flex;
+}
+
+.auth-spinner {
+  display: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--transparent-foreground-main-color-20);
+  border-top-color: var(--main-colors-foreground-f-500-main);
+  border-radius: 50%;
+  animation: authSpin 0.7s linear infinite;
+}
+
+.auth-spinner.visible {
+  display: block;
+}
+
+/* User Profile */
+.user-profile {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  animation: authFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.user-profile.visible,
+.user-profile.active {
+  display: flex;
+}
+
+.user-avatar {
+  width: 72px;
+  height: 72px;
+  border-radius: 64px;
+  object-fit: cover;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  text-align: center;
+}
+
+.user-name {
+  color: var(--main-colors-foreground-f-500-main);
+  margin: 0;
+}
+
+.user-email {
+  color: var(--main-colors-foreground-f700);
+  margin: 0;
+}
+
+/* Action Buttons Container (sử dụng trực tiếp .cta-large & .secondary-button-large từ definition.css) */
+.auth-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.auth-actions a,
+.auth-actions button {
+  width: 100%;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* Animations */
+@keyframes authFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes authSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .auth-panel {
+    padding: 24px 20px;
+  }
+
+  .auth-card {
+    gap: 32px;
+  }
+}
+
+/* 3. SIDEBAR USER ACCOUNT WIDGET */
+.sidebar-user-widget {
+  margin-top: auto;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  background: var(--transparent-foreground-main-color-05);
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.sidebar-user-info-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  flex: 1;
+}
+
+.sidebar-user-avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1.5px solid var(--alternative-foreground-gold);
+  background: var(--main-colors-background-b400);
+  flex-shrink: 0;
+}
+
+.sidebar-user-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+  gap: 4px;
+}
+
+.sidebar-user-name {
+  color: var(--main-colors-foreground-f100);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.sidebar-user-meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+}
+
+
+
+.sidebar-btn-signout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  border: 0.5px solid var(--transparent-foreground-main-color-50);
+  background: transparent;
+  color: var(--main-colors-foreground-f700);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+}
+
+.sidebar-btn-signout:hover {
+  background: var(--alternative-background-red-to-do);
+  border-color: var(--alternative-foreground-red);
+  color: var(--alternative-foreground-red);
+}
+
+/* Collapsed sidebar mode adjustments */
+.sidebar-collapsed .sidebar-user-widget {
+  padding: 8px 4px;
+  justify-content: center;
+}
+
+.sidebar-collapsed .sidebar-user-text,
+.sidebar-collapsed .sidebar-btn-signout {
+  display: none !important;
+}
+
+.sidebar-collapsed .sidebar-user-avatar {
+  margin: 0 auto;
+}

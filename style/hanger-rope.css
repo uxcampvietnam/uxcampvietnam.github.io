@@ -1,0 +1,197 @@
+/* =========================================================
+   Interactive Physics Rope & Hanging Photos (Quy trình tham dự)
+   ========================================================= */
+
+.admissions-sticky-header {
+    z-index: 50 !important;
+    pointer-events: none;
+}
+
+.admissions-sticky-header>h4 {
+    pointer-events: auto;
+}
+
+.hanger-rope-container {
+    display: block;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    position: relative;
+    height: 900px;
+    margin-bottom: -540px;
+    overflow: visible;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: pan-y;
+    cursor: grab;
+    transform: translateY(-12%);
+    z-index: 50;
+    pointer-events: none;
+}
+
+.hanger-rope-container.is-dragging {
+    cursor: grabbing;
+}
+
+#hanger-rope-canvas {
+    position: absolute;
+    top: -250px;
+    left: 0;
+    width: 100%;
+    height: calc(100% + 500px);
+    pointer-events: none;
+    z-index: 2;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+.hanger-items-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 3;
+    transform-style: preserve-3d;
+}
+
+/* Individual Hanging Item */
+.hanger-item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform-origin: 50% 6px;
+    pointer-events: auto;
+    cursor: grab;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: filter 0.15s ease;
+    filter: drop-shadow(0px 130px 50px rgba(0, 0, 0, 0.07));
+}
+
+.hanger-item:hover {
+    filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.18));
+}
+
+.hanger-item.is-dragging {
+    cursor: grabbing;
+    filter: drop-shadow(0 18px 36px rgba(0, 0, 0, 0.25));
+}
+
+/* Paperclip (Ghim kẹp giấy) */
+.hanger-clip {
+    position: absolute;
+    top: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 26px;
+    height: 44px;
+    z-index: 10;
+    pointer-events: none;
+    filter: drop-shadow(1px 2px 3px rgba(0, 0, 0, 0.25));
+}
+
+.hanger-clip svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+/* Photo Card Frame */
+.hanger-card {
+    position: relative;
+    padding: 7px;
+    transition: transform 0.2s ease;
+    overflow: visible;
+}
+
+.hanger-card-inner {
+    overflow: hidden;
+    position: relative;
+}
+
+.hanger-card-inner img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    pointer-events: none;
+}
+
+/* Note Tag (Thẻ ghi chú bên dưới góc ảnh) */
+.hanger-tag {
+    position: absolute;
+    bottom: -16px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #F7EEDF;
+    color: #1a1a1a;
+    padding: 6px 14px;
+    border-radius: 8px;
+    white-space: nowrap;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+    transition: background 0.15s ease, transform 0.15s ease;
+    z-index: 20;
+    pointer-events: auto;
+}
+
+.card-header h3 {
+    font-style: italic;
+}
+
+.hanger-tag .arrow {
+    font-size: 12px;
+    opacity: 0.8;
+    transition: transform 0.15s ease;
+}
+
+.hanger-tag:hover .arrow {
+    transform: translate(1px, -1px);
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1200px) {
+    .hanger-rope-container {
+        height: 800px;
+        margin-bottom: -480px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hanger-rope-container {
+        height: 700px;
+        margin-bottom: -450px;
+        transform: translateY(-4%);
+    }
+
+    .hanger-card {
+        padding: 4px;
+    }
+
+    .hanger-tag {
+        font-size: 10px;
+        padding: 3px 6px;
+        bottom: -20px;
+        gap: 2px;
+    }
+
+    .hanger-tag .arrow {
+        font-size: 9px;
+    }
+
+    .hanger-clip {
+        top: -10px;
+        width: 13px;
+        height: 26px;
+    }
+}

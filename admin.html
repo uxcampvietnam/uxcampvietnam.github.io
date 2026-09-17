@@ -1,0 +1,892 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Admin — UXCamp Vietnam</title>
+	<link rel="icon" href="https://uxcamp.vn/asset/icon/favicon.ico">
+	<meta name="robots" content="noindex, nofollow">
+
+	<!-- Bootstrap 5 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+	<!-- External scripts -->
+	<script src="script/libs/svg-inject.min.js"></script>
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="style/definition.css">
+	<link rel="stylesheet" type="text/css" href="style/style.css">
+	<link rel="stylesheet" type="text/css" href="style/admin.css">
+
+	<!-- Firebase SDK -->
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+	<div class="admin-page">
+
+		<!-- Auth gate (shown while checking auth) -->
+		<div class="auth-gate" id="auth-gate">
+			<div class="auth-spinner"></div>
+			<span class="caption" style="color: var(--main-colors-foreground-f700);">Đang kiểm tra quyền truy cập
+				admin...</span>
+		</div>
+
+		<!-- Admin content (shown only for authorized admins) -->
+		<div class="admin-content" id="admin-content">
+
+			<!-- Header -->
+			<header class="admin-header">
+				<div class="admin-header-left">
+					<a href="index.html" title="Trang chủ"><img class="eye-logo" src="asset/icon/eye.svg" alt="UXCamp"
+							onload="SVGInject(this)"></a>
+					<div>
+						<h1 class="h5 medium admin-section-title">Admin Management</h1>
+						<span class="x-small" style="color: var(--main-colors-foreground-f700);">Quản lý phân quyền
+							người tham dự</span>
+					</div>
+				</div>
+				<div class="admin-header-right">
+					<div class="admin-user-info">
+						<img class="admin-user-avatar" id="admin-avatar" src="" alt="">
+						<span class="caption" id="admin-name" style="color: var(--main-colors-foreground-f700);"></span>
+					</div>
+					<button class="btn-signout" id="btn-signout">Đăng xuất</button>
+				</div>
+			</header>
+
+			<!-- Stats Overview -->
+			<div class="stats-row" id="stats-row">
+				<div class="stat-card">
+					<span class="h4 medium stat-value" id="stat-total">—</span>
+					<span class="x-small stat-label">Tổng Users</span>
+				</div>
+				<div class="stat-card">
+					<span class="h4 medium stat-value" id="stat-member">—</span>
+					<span class="x-small stat-label">Members</span>
+				</div>
+				<div class="stat-card">
+					<span class="h4 medium stat-value" id="stat-alumni">—</span>
+					<span class="x-small stat-label">Alumni</span>
+				</div>
+				<div class="stat-card">
+					<span class="h4 medium stat-value" id="stat-instructor">—</span>
+					<span class="x-small stat-label">Instructors</span>
+				</div>
+				<div class="stat-card">
+					<span class="h4 medium stat-value" id="stat-admin">—</span>
+					<span class="x-small stat-label">Admins</span>
+				</div>
+			</div>
+
+			<!-- 1. Add Single User Form -->
+			<section class="admin-section">
+				<div class="admin-section-header">
+					<h2 class="h6 medium admin-section-title">Thêm user đơn lẻ</h2>
+				</div>
+				<form class="add-user-form" id="add-user-form">
+					<div class="form-field">
+						<label class="x-small">Email Gmail *</label>
+						<input type="email" id="input-email" placeholder="nguyenvana@gmail.com" required>
+					</div>
+					<div class="form-field">
+						<label class="x-small">Tên hiển thị</label>
+						<input type="text" id="input-name" placeholder="Nguyễn Văn A">
+					</div>
+					<div class="form-field" style="min-width: 140px; flex: 0.6;">
+						<label class="x-small">Role phân quyền *</label>
+						<select id="input-role" required>
+							<option value="member">Member</option>
+							<option value="alumni">Alumni</option>
+							<option value="instructor">Instructor</option>
+							<option value="admin">Admin</option>
+						</select>
+					</div>
+					<button type="submit" class="btn-add" id="btn-add-user">+ Thêm User</button>
+				</form>
+			</section>
+
+			<!-- 2. Batch Import / Google Sheet & CSV Paste with Interactive Grid -->
+			<section class="admin-section">
+				<div class="admin-section-header">
+					<div>
+						<h2 class="h6 medium admin-section-title">Cập nhật hàng loạt từ Google Sheet / CSV</h2>
+						<span class="x-small" style="color: var(--main-colors-foreground-f700);">Dán bảng dữ liệu trực
+							tiếp từ Google Sheet hoặc tải file CSV lên để chỉnh sửa trước khi lưu.</span>
+					</div>
+				</div>
+
+				<div class="csv-format-hint">
+					<span class="caption" style="color: var(--main-colors-foreground-f600); font-weight: 500;">Cách copy
+						từ Google Sheet:</span>
+					<br>
+					<span class="x-small" style="color: var(--main-colors-foreground-f700);">Tạo 3 cột trên Sheet:
+						<code>email</code> &nbsp;|&nbsp; <code>role</code> (member/alumni/instructor/admin)
+						&nbsp;|&nbsp; <code>displayName</code> (tên)</span><br>
+					<span class="x-small" style="color: var(--main-colors-foreground-f700);">Ví dụ:</span><br>
+					<code>user1@gmail.com	member	Nguyễn Văn A</code><br>
+					<code>user2@gmail.com	alumni	Trần Thị B</code>
+				</div>
+
+				<div class="batch-input-container">
+					<div class="d-flex justify-content-between align-items-center">
+						<label for="rawBatchInput" class="x-small"
+							style="font-weight: 500; color: var(--main-colors-foreground-f700);">Dán nội dung (Copy từ
+							Sheet hoặc Excel rồi Paste vào đây):</label>
+						<div class="d-flex gap-2 align-items-center">
+							<button type="button" class="btn-file-upload" id="btn-trigger-file">
+								<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none"
+									viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+									<path stroke-linecap="round" stroke-linejoin="round"
+										d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+								</svg>
+								Hoặc Chọn file .csv / .tsv
+							</button>
+							<input type="file" id="batch-file-input" accept=".csv,.tsv,.txt" style="display: none;">
+						</div>
+					</div>
+
+					<textarea id="rawBatchInput" class="raw-paste-textarea" rows="3"
+						placeholder="Dán (Ctrl+V / Cmd+V) các dòng copy từ Google Sheet vào đây..."></textarea>
+
+					<div class="batch-dropzone-row">
+						<div id="parseStatusInfo" class="caption" style="color: var(--main-colors-foreground-f700);">
+							Chưa có dữ liệu hàng loạt.
+						</div>
+						<div class="d-flex gap-2">
+							<button type="button" id="btnClearBatch" class="btn-outline-custom">Xóa dữ liệu</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Interactive Editable Preview Table -->
+				<div id="batchPreviewSection" style="display: none;" class="d-flex flex-column gap-3">
+					<div class="d-flex align-items-center justify-content-between flex-wrap gap-2">
+						<div class="d-flex align-items-center gap-2">
+							<span class="caption"
+								style="font-weight: 500; color: var(--main-colors-foreground-f300);">Bảng xem trước &
+								Chỉnh sửa trực tiếp:</span>
+							<span id="batchCountBadge" class="role-cell member" style="font-size: 11px;">0 users</span>
+						</div>
+						<div class="d-flex gap-2">
+							<button type="button" class="btn-add-row" id="btnAddEmptyRow">+ Thêm 1 dòng</button>
+						</div>
+					</div>
+
+					<!-- Scrollable drag-to-scroll container -->
+					<div id="tableContainer">
+						<table class="editable-table" id="batchEditableTable">
+							<thead>
+								<tr>
+									<th style="width: 40px; text-align: center;">#</th>
+									<th style="min-width: 260px;">Email (Gmail) *</th>
+									<th style="min-width: 140px;">Role *</th>
+									<th style="min-width: 200px;">Tên hiển thị (displayName)</th>
+									<th style="width: 44px; text-align: center;">Xóa</th>
+								</tr>
+							</thead>
+							<tbody id="batchTableBody"></tbody>
+						</table>
+					</div>
+
+					<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pt-2">
+						<span class="x-small" style="color: var(--main-colors-foreground-f700);">
+							💡 <i>Bạn có thể click trực tiếp vào từng ô để sửa email, đổi role hoặc sửa tên trước khi
+								import.</i>
+						</span>
+						<button type="button" id="btnSubmitBatch" class="btn-import-submit">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none"
+								viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+								<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+							</svg>
+							Lưu Tất Cả Lên Database
+						</button>
+					</div>
+				</div>
+			</section>
+
+			<!-- 3. Current User List & Management -->
+			<section class="admin-section">
+				<div class="admin-section-header">
+					<div>
+						<h2 class="h6 medium admin-section-title">Danh sách users trong Database</h2>
+						<span class="x-small" style="color: var(--main-colors-foreground-f700);">Các email được cấp
+							quyền truy cập hệ thống.</span>
+					</div>
+					<div class="d-flex gap-2 align-items-center flex-wrap">
+						<input type="text" id="searchInput" class="search-input"
+							placeholder="Tìm theo email hoặc tên...">
+						<button class="btn-signout" id="btn-refresh">Làm mới</button>
+					</div>
+				</div>
+
+				<div class="user-table-container" id="user-list-container">
+					<div class="empty-state">
+						<div class="auth-spinner"></div>
+						<span class="caption">Đang tải danh sách...</span>
+					</div>
+				</div>
+			</section>
+
+		</div>
+
+	</div>
+
+	<!-- Confirm Batch Modal -->
+	<div class="confirm-modal-overlay" id="confirmBatchModal">
+		<div class="confirm-modal-box">
+			<h3 class="h5 medium m-0" style="color: var(--main-colors-foreground-f200);">Xác nhận Import Users</h3>
+			<p class="caption m-0" id="confirmModalMsg" style="color: var(--main-colors-foreground-f700);">
+				Bạn có chắc chắn muốn cập nhật danh sách users này vào Firestore Database?
+			</p>
+			<div class="d-flex justify-content-end gap-2 pt-2">
+				<button type="button" class="btn-outline-custom" id="btnModalCancel">Hủy bỏ</button>
+				<button type="button" class="btn-import-submit" id="btnModalConfirm">Đồng ý Lưu</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- Toast -->
+	<div class="admin-toast" id="admin-toast"></div>
+
+	<script>
+		// ============================================================
+		// FIREBASE CONFIG
+		// ============================================================
+		const firebaseConfig = {
+			apiKey: "AIzaSyC6KmQxFzAwI9RnIMtdUsMktQ0CCkM7z-E",
+			authDomain: "uxcampvn.firebaseapp.com",
+			projectId: "uxcampvn",
+			storageBucket: "uxcampvn.firebasestorage.app",
+			messagingSenderId: "491407083539",
+			appId: "1:491407083539:web:8c1635c421989082a397e6",
+			measurementId: "G-NLJWC0L47K"
+		};
+
+		if (!firebase.apps.length) {
+			firebase.initializeApp(firebaseConfig);
+		}
+		const auth = firebase.auth();
+		const db = firebase.firestore();
+
+		// ============================================================
+		// DOM ELEMENTS
+		// ============================================================
+		const $ = (id) => document.getElementById(id);
+
+		const dom = {
+			authGate: $('auth-gate'),
+			content: $('admin-content'),
+			avatar: $('admin-avatar'),
+			name: $('admin-name'),
+			btnSignout: $('btn-signout'),
+			// Stats
+			statTotal: $('stat-total'),
+			statAdmin: $('stat-admin'),
+			statMember: $('stat-member'),
+			statAlumni: $('stat-alumni'),
+			statInstructor: $('stat-instructor'),
+			// Add single user
+			addForm: $('add-user-form'),
+			inputEmail: $('input-email'),
+			inputName: $('input-name'),
+			inputRole: $('input-role'),
+			btnAdd: $('btn-add-user'),
+			// Batch Paste / GSheet / CSV
+			rawBatchInput: $('rawBatchInput'),
+			parseStatusInfo: $('parseStatusInfo'),
+			btnClearBatch: $('btnClearBatch'),
+			btnTriggerFile: $('btn-trigger-file'),
+			batchFileInput: $('batch-file-input'),
+			batchPreviewSection: $('batchPreviewSection'),
+			batchCountBadge: $('batchCountBadge'),
+			tableContainer: $('tableContainer'),
+			batchTableBody: $('batchTableBody'),
+			btnAddEmptyRow: $('btnAddEmptyRow'),
+			btnSubmitBatch: $('btn-submit-batch') || $('btnSubmitBatch'),
+			// User list
+			userListContainer: $('user-list-container'),
+			btnRefresh: $('btn-refresh'),
+			searchInput: $('searchInput'),
+			// Modal & Toast
+			confirmModal: $('confirmBatchModal'),
+			confirmModalMsg: $('confirmModalMsg'),
+			btnModalCancel: $('btnModalCancel'),
+			btnModalConfirm: $('btnModalConfirm'),
+			toast: $('admin-toast'),
+		};
+
+		// ============================================================
+		// TOAST HELPER
+		// ============================================================
+		let toastTimer;
+		function showToast(msg) {
+			clearTimeout(toastTimer);
+			dom.toast.textContent = msg;
+			dom.toast.classList.add('show');
+			toastTimer = setTimeout(() => dom.toast.classList.remove('show'), 3500);
+		}
+
+		function escapeHtml(str) {
+			return String(str || '')
+				.replace(/&/g, '&amp;')
+				.replace(/</g, '&lt;')
+				.replace(/>/g, '&gt;')
+				.replace(/"/g, '&quot;');
+		}
+
+		// ============================================================
+		// AUTH GUARD — Admin only
+		// ============================================================
+		let currentUser = null;
+
+		auth.onAuthStateChanged(async (user) => {
+			if (!user) {
+				window.location.href = 'authentication.html';
+				return;
+			}
+
+			try {
+				const doc = await db.collection('authorized_users').doc(user.email).get();
+				if (!doc.exists || doc.data().role !== 'admin') {
+					dom.authGate.innerHTML = `
+						<div class="empty-state">
+							<span class="h4" style="color: var(--main-colors-foreground-f300);">⛔ Không có quyền truy cập</span>
+							<p class="caption" style="color: var(--main-colors-foreground-f700); max-width: 380px;">
+								Tài khoản <strong>${escapeHtml(user.email)}</strong> không có quyền admin.
+							</p>
+							<div class="d-flex gap-2">
+								<a class="btn-outline-custom" href="index.html" style="text-decoration: none;">← Về trang chủ</a>
+								<button class="btn-signout" onclick="auth.signOut().then(() => window.location.href='authentication.html')">Đăng nhập tài khoản khác</button>
+							</div>
+						</div>
+					`;
+					return;
+				}
+
+				// User is Admin
+				currentUser = user;
+				dom.authGate.style.display = 'none';
+				dom.content.classList.add('visible');
+
+				dom.avatar.src = user.photoURL || '';
+				dom.avatar.style.display = user.photoURL ? 'block' : 'none';
+				dom.name.textContent = user.displayName || user.email;
+
+				await loadUsers();
+
+			} catch (error) {
+				dom.authGate.innerHTML = `
+					<div class="empty-state">
+						<span class="h5" style="color: var(--alternative-foreground-red);">Lỗi kiểm tra quyền</span>
+						<span class="caption" style="color: var(--main-colors-foreground-f700);">${escapeHtml(error.message)}</span>
+						<a class="btn-outline-custom mt-2" href="authentication.html" style="text-decoration: none;">Đăng nhập lại</a>
+					</div>
+				`;
+			}
+		});
+
+		// ============================================================
+		// LOAD USERS FROM FIRESTORE
+		// ============================================================
+		let allUsers = [];
+
+		async function loadUsers() {
+			try {
+				const snapshot = await db.collection('authorized_users').get();
+				allUsers = [];
+				snapshot.forEach(doc => {
+					allUsers.push({ email: doc.id, ...doc.data() });
+				});
+
+				// Update stats
+				dom.statTotal.textContent = allUsers.length;
+				dom.statAdmin.textContent = allUsers.filter(u => u.role === 'admin').length;
+				dom.statMember.textContent = allUsers.filter(u => u.role === 'member').length;
+				dom.statAlumni.textContent = allUsers.filter(u => u.role === 'alumni').length;
+				dom.statInstructor.textContent = allUsers.filter(u => u.role === 'instructor').length;
+
+				filterAndRenderUsers();
+
+			} catch (error) {
+				dom.userListContainer.innerHTML = `
+					<div class="empty-state">
+						<span class="caption" style="color: var(--alternative-foreground-red);">Lỗi tải dữ liệu: ${escapeHtml(error.message)}</span>
+					</div>
+				`;
+			}
+		}
+
+		function filterAndRenderUsers() {
+			const query = (dom.searchInput.value || '').trim().toLowerCase();
+			let filtered = allUsers;
+			if (query) {
+				filtered = allUsers.filter(u =>
+					(u.email && u.email.toLowerCase().includes(query)) ||
+					(u.displayName && u.displayName.toLowerCase().includes(query)) ||
+					(u.role && u.role.toLowerCase().includes(query))
+				);
+			}
+
+			if (filtered.length === 0) {
+				dom.userListContainer.innerHTML = `
+					<div class="empty-state">
+						<span class="caption">${query ? 'Không tìm thấy user phù hợp.' : 'Chưa có user nào trong danh sách.'}</span>
+					</div>
+				`;
+				return;
+			}
+
+			const roleOrder = { admin: 0, instructor: 1, member: 2, alumni: 3 };
+			filtered.sort((a, b) => (roleOrder[a.role] ?? 99) - (roleOrder[b.role] ?? 99));
+
+			dom.userListContainer.innerHTML = `
+				<table class="user-table">
+					<thead>
+						<tr>
+							<th style="width: 40px;">#</th>
+							<th>Email</th>
+							<th>Role</th>
+							<th>Tên hiển thị</th>
+							<th style="width: 80px; text-align: right;">Thao tác</th>
+						</tr>
+					</thead>
+					<tbody>
+						${filtered.map((u, i) => `
+							<tr>
+								<td class="caption" style="color: var(--main-colors-foreground-f800);">${i + 1}</td>
+								<td class="caption" style="font-weight: 500;">${escapeHtml(u.email)}</td>
+								<td><span class="role-cell ${escapeHtml(u.role || 'member')}">${escapeHtml(u.role || 'member')}</span></td>
+								<td class="caption">${escapeHtml(u.displayName || '—')}</td>
+								<td style="text-align: right;">
+									${u.email !== currentUser?.email
+					? `<button class="btn-delete" onclick="deleteUser('${escapeHtml(u.email)}')">Xóa</button>`
+					: `<span class="x-small" style="color: var(--main-colors-foreground-f800); font-style: italic;">Bạn</span>`}
+								</td>
+							</tr>
+						`).join('')}
+					</tbody>
+				</table>
+			`;
+		}
+
+		dom.searchInput.addEventListener('input', filterAndRenderUsers);
+		dom.btnRefresh.addEventListener('click', loadUsers);
+
+		// ============================================================
+		// ADD SINGLE USER
+		// ============================================================
+		dom.addForm.addEventListener('submit', async (e) => {
+			e.preventDefault();
+			const email = dom.inputEmail.value.trim().toLowerCase();
+			const displayName = dom.inputName.value.trim();
+			const role = dom.inputRole.value;
+
+			if (!email || !email.includes('@')) {
+				showToast('⚠️ Vui lòng nhập email hợp lệ!');
+				return;
+			}
+
+			dom.btnAdd.disabled = true;
+			dom.btnAdd.textContent = 'Đang lưu...';
+
+			try {
+				await db.collection('authorized_users').doc(email).set({
+					role,
+					displayName: displayName || '',
+					addedAt: firebase.firestore.FieldValue.serverTimestamp(),
+					addedBy: currentUser.email
+				}, { merge: true });
+
+				showToast(`✅ Đã thêm ${email}`);
+				dom.addForm.reset();
+				await loadUsers();
+			} catch (error) {
+				showToast(`❌ Lỗi: ${error.message}`);
+			}
+
+			dom.btnAdd.disabled = false;
+			dom.btnAdd.textContent = '+ Thêm User';
+		});
+
+		// ============================================================
+		// DELETE SINGLE USER
+		// ============================================================
+		window.deleteUser = async function (email) {
+			if (!confirm(`Xóa quyền truy cập của ${email}?`)) return;
+
+			try {
+				await db.collection('authorized_users').doc(email).delete();
+				showToast(`✅ Đã xóa ${email}`);
+				await loadUsers();
+			} catch (error) {
+				showToast(`❌ Lỗi: ${error.message}`);
+			}
+		};
+
+		// ============================================================
+		// BATCH GSHEET / CSV PARSING & INTERACTIVE GRID LOGIC
+		// ============================================================
+		let batchUsers = [];
+		const VALID_ROLES = ['member', 'alumni', 'instructor', 'admin'];
+
+		function parseBatchText() {
+			const text = dom.rawBatchInput.value.trim();
+
+			if (!text) {
+				batchUsers = [];
+				dom.batchPreviewSection.style.display = 'none';
+				dom.parseStatusInfo.innerHTML = 'Chưa có dữ liệu hàng loạt.';
+				return;
+			}
+
+			const lines = text.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+			if (lines.length === 0) {
+				batchUsers = [];
+				dom.batchPreviewSection.style.display = 'none';
+				dom.parseStatusInfo.innerHTML = 'Chưa có dữ liệu hàng loạt.';
+				return;
+			}
+
+			// Determine delimiter (tab '\t' or comma ',' or semicolon ';')
+			const firstLine = lines[0];
+			let delimiter = '\t';
+			if (firstLine.includes('\t')) {
+				delimiter = '\t';
+			} else if (firstLine.includes(',')) {
+				delimiter = ',';
+			} else if (firstLine.includes(';')) {
+				delimiter = ';';
+			}
+
+			const parsedRows = [];
+			let startIndex = 0;
+
+			// Check if line 0 is a header line
+			const firstParts = firstLine.split(delimiter).map(p => p.trim().replace(/^["']|["']$/g, ''));
+			const isHeader = firstParts.some(p => {
+				const lower = p.toLowerCase();
+				return lower === 'email' || lower === 'role' || lower === 'name' || lower === 'displayname' || lower === 'tên' || lower === 'vai trò';
+			});
+
+			// Map header positions if available
+			let emailCol = 0;
+			let roleCol = 1;
+			let nameCol = 2;
+
+			if (isHeader) {
+				startIndex = 1;
+				firstParts.forEach((p, idx) => {
+					const lower = p.toLowerCase();
+					if (lower === 'email') emailCol = idx;
+					else if (lower === 'role' || lower === 'vai trò') roleCol = idx;
+					else if (lower === 'name' || lower === 'displayname' || lower === 'tên' || lower === 'họ và tên') nameCol = idx;
+				});
+			}
+
+			for (let i = startIndex; i < lines.length; i++) {
+				const parts = lines[i].split(delimiter).map(p => p.trim().replace(/^["']|["']$/g, ''));
+				if (parts.length === 0 || !parts[0]) continue;
+
+				let email = (parts[emailCol] || parts[0] || '').toLowerCase().trim();
+				let roleCandidate = (parts[roleCol] !== undefined ? parts[roleCol] : (parts[1] || 'member')).toLowerCase().trim();
+				let name = parts[nameCol] !== undefined ? parts[nameCol] : (parts[2] || '');
+
+				// If roleCandidate is not in VALID_ROLES but looks like a name, adjust
+				let role = 'member';
+				if (VALID_ROLES.includes(roleCandidate)) {
+					role = roleCandidate;
+				} else if (parts[2] && VALID_ROLES.includes(parts[2].toLowerCase().trim())) {
+					role = parts[2].toLowerCase().trim();
+					name = parts[1] || '';
+				}
+
+				if (email) {
+					parsedRows.push({
+						email: email,
+						role: role,
+						displayName: name
+					});
+				}
+			}
+
+			batchUsers = parsedRows;
+
+			if (batchUsers.length > 0) {
+				dom.parseStatusInfo.innerHTML = `<span style="color: var(--highlight-green);">✓ Đã nhận diện <b>${batchUsers.length} dòng</b> từ dữ liệu dán. Bạn có thể chỉnh sửa trực tiếp bên dưới:</span>`;
+				renderBatchTable();
+				dom.batchPreviewSection.style.display = 'flex';
+			} else {
+				dom.parseStatusInfo.innerHTML = '<span style="color: var(--highlight-yellow);">Không tìm thấy dòng dữ liệu email hợp lệ nào.</span>';
+				dom.batchPreviewSection.style.display = 'none';
+			}
+		}
+
+		// Render the interactive table
+		function renderBatchTable() {
+			dom.batchCountBadge.textContent = `${batchUsers.length} users`;
+
+			let html = '';
+			batchUsers.forEach((u, idx) => {
+				const isEmailValid = u.email && u.email.includes('@') && u.email.includes('.');
+				html += `
+					<tr data-row="${idx}">
+						<td style="text-align: center; vertical-align: middle; color: var(--main-colors-foreground-f800); font-size: 12px;">${idx + 1}</td>
+						<td class="${!isEmailValid ? 'cell-invalid' : ''}">
+							<input type="email" value="${escapeHtml(u.email)}" data-row="${idx}" data-field="email" placeholder="user@gmail.com" />
+						</td>
+						<td>
+							<select data-row="${idx}" data-field="role">
+								<option value="member" ${u.role === 'member' ? 'selected' : ''}>Member</option>
+								<option value="alumni" ${u.role === 'alumni' ? 'selected' : ''}>Alumni</option>
+								<option value="instructor" ${u.role === 'instructor' ? 'selected' : ''}>Instructor</option>
+								<option value="admin" ${u.role === 'admin' ? 'selected' : ''}>Admin</option>
+							</select>
+						</td>
+						<td>
+							<input type="text" value="${escapeHtml(u.displayName)}" data-row="${idx}" data-field="displayName" placeholder="Tên người dùng..." />
+						</td>
+						<td style="text-align: center; vertical-align: middle;">
+							<button type="button" class="btn-row-delete" onclick="deleteBatchRow(${idx})" title="Xóa dòng này">&times;</button>
+						</td>
+					</tr>
+				`;
+			});
+
+			dom.batchTableBody.innerHTML = html;
+		}
+
+		// Row delete
+		window.deleteBatchRow = function (idx) {
+			if (idx >= 0 && idx < batchUsers.length) {
+				batchUsers.splice(idx, 1);
+				renderBatchTable();
+				if (batchUsers.length === 0) {
+					dom.batchPreviewSection.style.display = 'none';
+					dom.parseStatusInfo.innerHTML = 'Bảng dữ liệu rỗng.';
+				} else {
+					dom.parseStatusInfo.innerHTML = `<span style="color: var(--highlight-green);">✓ Còn lại <b>${batchUsers.length} users</b>.</span>`;
+				}
+			}
+		};
+
+		// Add empty row
+		dom.btnAddEmptyRow.addEventListener('click', () => {
+			batchUsers.push({
+				email: '',
+				role: 'member',
+				displayName: ''
+			});
+			renderBatchTable();
+			dom.batchPreviewSection.style.display = 'flex';
+			// Scroll to bottom
+			dom.tableContainer.scrollTop = dom.tableContainer.scrollHeight;
+		});
+
+		// Listen to user inputs inside the editable table
+		dom.batchTableBody.addEventListener('input', (e) => {
+			const target = e.target;
+			const rowIdx = parseInt(target.dataset.row);
+			const field = target.dataset.field;
+
+			if (isNaN(rowIdx) || !field || !batchUsers[rowIdx]) return;
+
+			if (field === 'email') {
+				batchUsers[rowIdx].email = target.value.trim().toLowerCase();
+				// Visual email validation
+				const isEmailValid = batchUsers[rowIdx].email.includes('@') && batchUsers[rowIdx].email.includes('.');
+				target.parentElement.classList.toggle('cell-invalid', !isEmailValid);
+			} else if (field === 'role') {
+				batchUsers[rowIdx].role = target.value;
+			} else if (field === 'displayName') {
+				batchUsers[rowIdx].displayName = target.value;
+			}
+		});
+
+		dom.batchTableBody.addEventListener('change', (e) => {
+			const target = e.target;
+			const rowIdx = parseInt(target.dataset.row);
+			const field = target.dataset.field;
+
+			if (isNaN(rowIdx) || !field || !batchUsers[rowIdx]) return;
+			if (field === 'role') {
+				batchUsers[rowIdx].role = target.value;
+			}
+		});
+
+		// Textarea input event
+		dom.rawBatchInput.addEventListener('input', parseBatchText);
+
+		// Clear button
+		dom.btnClearBatch.addEventListener('click', () => {
+			dom.rawBatchInput.value = '';
+			dom.batchFileInput.value = '';
+			batchUsers = [];
+			dom.batchPreviewSection.style.display = 'none';
+			dom.parseStatusInfo.innerHTML = 'Chưa có dữ liệu hàng loạt.';
+		});
+
+		// File upload trigger & parse
+		dom.btnTriggerFile.addEventListener('click', () => dom.batchFileInput.click());
+
+		dom.batchFileInput.addEventListener('change', (e) => {
+			const file = e.target.files[0];
+			if (!file) return;
+
+			const reader = new FileReader();
+			reader.onload = (event) => {
+				dom.rawBatchInput.value = event.target.result;
+				parseBatchText();
+			};
+			reader.readAsText(file);
+		});
+
+		// Drag & drop on textarea
+		dom.rawBatchInput.addEventListener('dragover', (e) => e.preventDefault());
+		dom.rawBatchInput.addEventListener('drop', (e) => {
+			e.preventDefault();
+			const file = e.dataTransfer.files[0];
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = (event) => {
+					dom.rawBatchInput.value = event.target.result;
+					parseBatchText();
+				};
+				reader.readAsText(file);
+			}
+		});
+
+		// Drag-to-scroll for tableContainer (same smooth feel as mixpanel tool)
+		const tContainer = dom.tableContainer;
+		let isMouseDown = false;
+		let startX, startY, scrollLeft, scrollTop;
+
+		tContainer.addEventListener('mousedown', (e) => {
+			// Don't drag if clicking directly on input/select/button
+			if (['INPUT', 'SELECT', 'BUTTON'].includes(e.target.tagName)) return;
+			isMouseDown = true;
+			startX = e.pageX - tContainer.offsetLeft;
+			startY = e.pageY - tContainer.offsetTop;
+			scrollLeft = tContainer.scrollLeft;
+			scrollTop = tContainer.scrollTop;
+		});
+
+		tContainer.addEventListener('mouseleave', () => {
+			isMouseDown = false;
+			tContainer.style.cursor = 'grab';
+		});
+
+		tContainer.addEventListener('mouseup', () => {
+			isMouseDown = false;
+			tContainer.style.cursor = 'grab';
+		});
+
+		tContainer.addEventListener('mousemove', (e) => {
+			if (!isMouseDown) return;
+			const x = e.pageX - tContainer.offsetLeft;
+			const y = e.pageY - tContainer.offsetTop;
+			const walkX = (x - startX);
+			const walkY = (y - startY);
+
+			if (Math.abs(walkX) > 2 || Math.abs(walkY) > 2) {
+				tContainer.style.cursor = 'grabbing';
+				tContainer.scrollLeft = scrollLeft - walkX;
+				tContainer.scrollTop = scrollTop - walkY;
+			}
+		});
+
+		// ============================================================
+		// SUBMIT BATCH TO FIRESTORE
+		// ============================================================
+		dom.btnSubmitBatch.addEventListener('click', () => {
+			// Validate users
+			const validUsers = batchUsers.filter(u => u.email && u.email.includes('@') && u.email.includes('.'));
+
+			if (validUsers.length === 0) {
+				showToast('⚠️ Không có user nào có email hợp lệ để lưu!');
+				return;
+			}
+
+			// Show confirmation modal
+			dom.confirmModalMsg.innerHTML = `Bạn có chắc chắn muốn lưu <b>${validUsers.length} user profile</b> này vào danh sách phân quyền trên Firebase Database?`;
+			dom.confirmModal.style.display = 'flex';
+		});
+
+		dom.btnModalCancel.addEventListener('click', () => {
+			dom.confirmModal.style.display = 'none';
+		});
+
+		dom.confirmModal.addEventListener('click', (e) => {
+			if (e.target === dom.confirmModal) dom.confirmModal.style.display = 'none';
+		});
+
+		dom.btnModalConfirm.addEventListener('click', async () => {
+			dom.confirmModal.style.display = 'none';
+			dom.btnSubmitBatch.disabled = true;
+			dom.btnSubmitBatch.innerHTML = 'Đang lưu lên Database...';
+
+			const validUsers = batchUsers.filter(u => u.email && u.email.includes('@') && u.email.includes('.'));
+
+			try {
+				// Firestore batch write limit is 500 operations per batch
+				const chunkSize = 400;
+				for (let i = 0; i < validUsers.length; i += chunkSize) {
+					const chunk = validUsers.slice(i, i + chunkSize);
+					const batch = db.batch();
+
+					chunk.forEach(u => {
+						const docRef = db.collection('authorized_users').doc(u.email);
+						batch.set(docRef, {
+							role: u.role || 'member',
+							displayName: u.displayName || '',
+							addedAt: firebase.firestore.FieldValue.serverTimestamp(),
+							addedBy: currentUser.email
+						}, { merge: true });
+					});
+
+					await batch.commit();
+				}
+
+				showToast(`✅ Đã lưu thành công ${validUsers.length} users!`);
+
+				// Reset batch
+				dom.rawBatchInput.value = '';
+				dom.batchFileInput.value = '';
+				batchUsers = [];
+				dom.batchPreviewSection.style.display = 'none';
+				dom.parseStatusInfo.innerHTML = 'Chưa có dữ liệu hàng loạt.';
+
+				await loadUsers();
+
+			} catch (error) {
+				showToast(`❌ Lỗi khi lưu: ${error.message}`);
+				console.error('Batch commit error:', error);
+			}
+
+			dom.btnSubmitBatch.disabled = false;
+			dom.btnSubmitBatch.innerHTML = `
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+					<path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/>
+				</svg>
+				Lưu Tất Cả Lên Database
+			`;
+		});
+
+		// ============================================================
+		// SIGN OUT
+		// ============================================================
+		dom.btnSignout.addEventListener('click', async () => {
+			await auth.signOut();
+			sessionStorage.removeItem('uxcamp_auth');
+			window.location.href = 'authentication.html';
+		});
+	</script>
+
+</body>
+
+</html>

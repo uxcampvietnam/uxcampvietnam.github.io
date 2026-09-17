@@ -1,27 +1,85 @@
-var acc = document.getElementsByClassName("accordion");
+// Initialize Accordions (Design System & Legacy)
+document.addEventListener("DOMContentLoaded", function () {
+    // Helper function to smoothly close an accordion item
+    function closeAccordionItem(item) {
+        if (!item || !item.classList.contains('active')) return;
+        const content = item.querySelector('.accordion-content, .ds-accordion-content');
+        if (content) {
+            content.style.maxHeight = content.scrollHeight + 'px';
+            content.offsetHeight; // Force reflow
+            content.style.maxHeight = '0px';
+        }
+        item.classList.remove('active');
+    }
 
-let isDragging = false;
-let draggingInitialX = 0;
-let draggingOffsetX = 0;
-let clickableFeedback = true;
-// let velocity = 0;
-let lastX = 0;
-let lastTime = 0;
-let momentumID;
+    // Helper function to smoothly open an accordion item
+    function openAccordionItem(item) {
+        if (!item) return;
+        const content = item.querySelector('.accordion-content, .ds-accordion-content');
+        item.classList.add('active');
+        if (content) {
+            const targetHeight = content.scrollHeight + 30;
+            content.style.maxHeight = targetHeight + 'px';
 
+            // Allow dynamic height after animation completes
+            setTimeout(() => {
+                if (item.classList.contains('active')) {
+                    content.style.maxHeight = 'none';
+                }
+            }, 420);
+        }
+    }
 
-var i;
-for (i = 0; i < acc.length; i++) {
-    acc[i].addEventListener("click", function () {
-        this.classList.toggle("accordion-active");
+    // Design System Accordion Click Handling
+    document.querySelectorAll('.accordion-header, .ds-accordion-header').forEach(header => {
+        header.addEventListener('click', function (e) {
+            e.preventDefault();
+            const item = this.closest('.accordion-item, .ds-accordion-item');
+            if (!item) return;
+
+            const parent = item.closest('.accordion, .ds-accordion');
+            const wasActive = item.classList.contains('active');
+
+            if (parent) {
+                parent.querySelectorAll('.accordion-item.active, .ds-accordion-item.active').forEach(openItem => {
+                    if (openItem !== item) {
+                        closeAccordionItem(openItem);
+                    }
+                });
+            }
+
+            if (wasActive) {
+                closeAccordionItem(item);
+            } else {
+                openAccordionItem(item);
+            }
+        });
     });
-}
+
+    // Initialize initial active items
+    document.querySelectorAll('.accordion-item.active, .ds-accordion-item.active').forEach(activeItem => {
+        const content = activeItem.querySelector('.accordion-content, .ds-accordion-content');
+        if (content) {
+            content.style.maxHeight = 'none';
+        }
+    });
+
+    // Legacy Accordions
+    var acc = document.getElementsByClassName("accordion");
+    for (var i = 0; i < acc.length; i++) {
+        if (!acc[i].classList.contains("ds-accordion") && !acc[i].classList.contains("ds-accordion-item")) {
+            acc[i].addEventListener("click", function () {
+                this.classList.toggle("accordion-active");
+            });
+        }
+    }
+});
 
 // =============================================
 // MIXPANEL EVENT TRACKING - HOMEPAGE
 // =============================================
 
-var bootcamp_list, feedback_list, syllabus_01;
+var bootcamp_list, syllabus_01;
 
 function getAssetPrefix() {
     return document.querySelector('.uxcamp-homepage') ? 'asset/' : '../asset/';
@@ -30,7 +88,7 @@ function getAssetPrefix() {
 function renderCourseBootcampItem(item, registerUrl, assetPrefix) {
     is_applied_ux_analytic = item.bootcamp == "Applied UX Analytic";
 
-    return `<span class="bootcamp-item-homepage ${is_applied_ux_analytic ? "mono-caption" : "paragraph"}"> 
+    return `<span class="bootcamp-item-homepage paragraph"}> 
     <b>${item.start_date.length !== 0 ? item.start_date : " "}</b><br>
     ${item.offline == 1 ? "Offline, " + item.location : "Online"},
     ${item.pricing}
@@ -154,7 +212,7 @@ fetch("https://script.google.com/macros/s/AKfycbwW79mfaIZX5DHGSV9jX2o95GDWxCK_Gq
                     <span class="paragraph bootcamp-pricing">${item.pricing} ${item.offline == 1 ? "(*)" : ""}</span>                    
                     <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Fully booked"}</span>
                     </div>
-                    <a href="bootcamp-register.html?bootcamp_id=${item.bootcamp_id}" class="sign-up-now paragraph">
+                    <a href="bootcamp-register.html?bootcamp_id=${item.bootcamp_id}" class="cta-large stretch paragraph">
                     ${item.is_open == 1
                                 ? `Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>`
                                 : `<i>Form đã đóng</i>`
@@ -167,7 +225,7 @@ fetch("https://script.google.com/macros/s/AKfycbwW79mfaIZX5DHGSV9jX2o95GDWxCK_Gq
                     bootcamp_innerHTML += `</div>
                 <div style = "padding: 12px 16px 0px 16px;
                 color: var(--main-colors-foreground-f700);"
-                class = "paragraph italic col-12">
+                class = "paragraph col-12">
                 (*) Đối với các bootcamp offline: Phí tham dự chưa bao gồm chi phí di chuyển, ăn ở cho graduation retreat. Địa điểm tổ chức graduation retreat sẽ được thống nhất với người tham dự 1 tháng trước ngày tổ chức bảo vệ cuối khóa.</div>`;
                     bootcamp_list_Els[i].innerHTML += bootcamp_innerHTML;
                 }
@@ -182,8 +240,7 @@ fetch("https://script.google.com/macros/s/AKfycbwW79mfaIZX5DHGSV9jX2o95GDWxCK_Gq
                 const selectedBootcamp = params.get('bootcamp_id');
 
                 console.log("user selected bootcamp: ", selectedBootcamp);
-                var signUp_bootcamp_innerHTML = `<span class="col-12 h6 input-row-title">Bạn đăng ký bootcamp *</span>
-`;
+                var signUp_bootcamp_innerHTML = ``;
                 for (let j = 0; j < bootcamp_list.length; j++) {
                     const item = bootcamp_list[j];
                     if (item.is_open == 1) {
@@ -210,39 +267,7 @@ fetch("https://script.google.com/macros/s/AKfycbwW79mfaIZX5DHGSV9jX2o95GDWxCK_Gq
             }
         }
 
-        // lấy dữ liệu feedback
 
-        feedback_list = data.feedback.filter(item => item.listing == 1);
-        const feedback_list_Els = document.querySelectorAll(".feedback-list");
-
-        for (let i = 0; i < feedback_list_Els.length; i++) {
-            let feedback_list_innerHTML = `<div class="feedback-container col-12">`;
-
-            for (let j = 0; j < feedback_list.length; j++) {
-                const item = feedback_list[j];
-
-                feedback_list_innerHTML += `
-          <div onclick="showFeedback(${item.feedback_id})"
-               onmousemove="showFeedbackImg(this, event)"
-               onmouseout="hideFeedbackImg(this, event)"
-               data-feedback-id="${item.feedback_id}"
-               data-feedback-participant-name="${item.name}"
-               data-feedback-participant-title="${item.title}"
-               class="feedback-item col-6 col-lg-4">
-            <img class="feedback-thumbnail" src="${getAssetPrefix()}image/participant/${item.img}">
-            <div class="feedback-item-content">
-              <span class="participant-name"><i>${item.name}</i></span>
-              <div class="caption">
-                <span class="italic caption participant-title">${item.title}</span>
-                ${item.company !== '-' ? `<span class="italic caption participant-company">${item.company}</span>` : ''}
-              </div>
-            </div>
-          </div>`;
-            }
-
-            feedback_list_innerHTML += `</div>`;
-            feedback_list_Els[i].innerHTML += feedback_list_innerHTML;
-        }
 
     });
 
@@ -303,9 +328,7 @@ function parseCSVToObjects(csvText, filterColumn, filterValue) {
     return result;
 }
 
-function getFeedbackById(feedbackId) {
-    return feedback_list.find(feedback => feedback.feedback_id == String(feedbackId)) || null;
-}
+
 
 // animate opening bootcamp
 
@@ -339,7 +362,6 @@ function openBootcampMouseOut(el, event) {
     el.getElementsByClassName('opening-bootcamp-highlight')[0].style.opacity = 0;
 }
 
-// full width for feedback học viên.
 
 
 var syllabusMouse = document.getElementById('syllabusMouse');
@@ -396,140 +418,7 @@ function toggleMouseOut(mouseID) {
     mouse.style.opacity = "0";
 }
 
-function showFeedbackImg(element, event) {
 
-    if (!deviceHasMouse()) { return };
-
-    var feedbackImg = element.getElementsByClassName('feedback-thumbnail')[0];
-    const mouseX = event.clientX - element.getBoundingClientRect().left;
-    const mouseY = event.clientY - element.getBoundingClientRect().top;
-
-    feedbackImg.style.left = mouseX - feedbackImg.getBoundingClientRect().width / 2 + "px";
-    feedbackImg.style.top = mouseY - feedbackImg.getBoundingClientRect().height / 2 + "px";
-
-    feedbackImg.style.height = "100px";
-    feedbackImg.style.width = "auto";
-    feedbackImg.style.opacity = "1";
-}
-
-function hideFeedbackImg(element, event) {
-    var feedbackImg = element.getElementsByClassName('feedback-thumbnail')[0];
-
-    feedbackImg.style.height = "1px";
-    feedbackImg.style.width = "1px";
-    feedbackImg.style.opacity = "0";
-}
-
-var feedbackContentEl = document.getElementById('feedback-content');
-var closeFeedbackIcon = document.getElementById('close-feedback');
-
-var currentFeedbackIndex = -1;
-
-function closeFeedback() {
-    feedbackDetailContainer.classList.remove('show-feedback');
-}
-
-function renderFeedbackContent(feedback) {
-    feedbackContentEl.innerHTML = ``;
-    feedbackContentEl.innerHTML +=
-        `<div class ="feedback-header caption">
-            <div class = "feedback-header-content">
-                <span><i>
-                    ${feedback.bootcamp} <br> ${feedback.bootcamp_name}
-                </i></span>
-                </div>
-        <img src = '${getAssetPrefix()}image/participant/${feedback.img}'>
-    </div>`;
-    feedbackContentEl.innerHTML += `<br><div class = "paragraph"> ${feedback.feedback.replace(/\n/g, '<br>')} </div>`;
-    feedbackContentEl.innerHTML += `<br>
-        <div class="feedback-item-content">
-            <span class="h2 participant-name"><i>${feedback.name} </i></span>
-            <div class = "caption">
-                <span class="caption participant-title">${feedback.title}</span>
-                ${feedback.company != '-' ? '<span class="caption participant-company"> <i>' + feedback.company + '</i></span>' : ''}
-            </div>
-        </div>
-`;
-}
-
-function updateFeedbackNav() {
-    var indicator = document.getElementById('feedback-nav-indicator');
-    if (indicator && feedback_list) {
-        indicator.textContent = (currentFeedbackIndex + 1) + ' / ' + feedback_list.length;
-    }
-}
-
-function showPrevFeedback() {
-    if (!feedback_list || feedback_list.length === 0) { return; }
-    currentFeedbackIndex = (currentFeedbackIndex - 1 + feedback_list.length) % feedback_list.length;
-    var feedback = feedback_list[currentFeedbackIndex];
-    renderFeedbackContent(feedback);
-    updateFeedbackNav();
-    mixpanel.track('view_feedback', {
-        participant_name: feedback.name,
-        participant_title: feedback.title,
-        participant_company: feedback.company,
-        bootcamp_name: feedback.bootcamp_name,
-        feedback_id: feedback.feedback_id,
-        navigation: 'prev',
-    });
-}
-
-function showNextFeedback() {
-    if (!feedback_list || feedback_list.length === 0) { return; }
-    currentFeedbackIndex = (currentFeedbackIndex + 1) % feedback_list.length;
-    var feedback = feedback_list[currentFeedbackIndex];
-    renderFeedbackContent(feedback);
-    updateFeedbackNav();
-    mixpanel.track('view_feedback', {
-        participant_name: feedback.name,
-        participant_title: feedback.title,
-        participant_company: feedback.company,
-        bootcamp_name: feedback.bootcamp_name,
-        feedback_id: feedback.feedback_id,
-        navigation: 'next',
-    });
-}
-
-function showFeedback(feedbackId) {
-
-    if (clickableFeedback == null || clickableFeedback == false) { return };
-
-    var index = feedback_list ? feedback_list.findIndex(function (f) { return f.feedback_id == String(feedbackId); }) : -1;
-    if (index === -1) { return; }
-    currentFeedbackIndex = index;
-
-    var feedback = feedback_list[currentFeedbackIndex];
-    var feedbackDetailContainer = document.getElementById('feedbackDetailContainer');
-    feedbackDetailContainer.classList.add('show-feedback');
-
-    renderFeedbackContent(feedback);
-    updateFeedbackNav();
-
-    mixpanel.track('view_feedback', {
-        participant_name: feedback.name,
-        participant_title: feedback.title,
-        participant_company: feedback.company,
-        bootcamp_name: feedback.bootcamp_name,
-        feedback_id: feedback.feedback_id,
-    });
-
-}
-
-// Keyboard arrow-key navigation for feedback modal
-document.addEventListener('keydown', function (e) {
-    var container = document.getElementById('feedbackDetailContainer');
-    if (!container || !container.classList.contains('show-feedback')) { return; }
-    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        e.preventDefault();
-        showNextFeedback();
-    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        showPrevFeedback();
-    } else if (e.key === 'Escape') {
-        closeFeedback();
-    }
-});
 
 window.onload = function () {
     //   console.log('test window.onload');
@@ -576,68 +465,6 @@ window.onload = function () {
     }
 
 
-    // Corporate Training ================
-
-    var slidingImg = document.getElementById('sliding-img-container');
-
-    if (slidingImg != null) {
-        const corporateTrainingTitle = new SplitType('.title, .sub-title', {
-            types: 'words, chars'
-        });
-        var totalImg = 45;
-        var slidingImgInnerHTML = ``;
-        for (var i = 1; i <= totalImg; i++) {
-            slidingImgInnerHTML += `<img class="sliding-img" src = "asset/image/corporate-training/${i}.webp">`;
-        }
-
-        slidingImg.innerHTML = slidingImgInnerHTML;
-
-        var slidingTimeline = gsap.timeline({
-            repeat: 0,
-            onComplete: () => { ScrollTrigger.refresh() }
-        });
-
-        slidingTimeline
-            .from(corporateTrainingTitle.chars, {
-                opacity: 0,
-                y: 20,
-                stagger: 0.01,
-                duration: 1,
-                ease: "elastic.out(1.5,0.9)",
-            },)
-            .from('#sliding-img-container', {
-                height: '0px',
-                duration: 2,
-                ease: "elastic.out(1.5,0.9)",
-            }, '<')
-            .from('.corporate-training>.bootcamp-title-full', {
-                gap: '0px',
-                duration: 2,
-                ease: "elastic.out(1.5,0.9)",
-            }, '<')
-
-            .from('.sliding-img', {
-                right: 2000,
-
-                stagger: {
-                    each: 0.05,
-                    from: "end" // Animates from the last element to the first
-                },
-                duration: 2,
-                ease: "power4.inOut",
-            }, '<')
-            .from('.sliding-img', {
-                scale: 0,
-                opacity: 0,
-                stagger: {
-                    each: 0.05,
-                    from: "end" // Animates from the last element to the first
-                },
-                duration: 0.4,
-                ease: "power3.inOut",
-            }, '<')
-            ;
-    }
 
 };
 
@@ -674,30 +501,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }, '-=0.6');
     }
 
-    if (document.querySelectorAll('.feedback-item-content > *')[0] != null) {
-        const feedback = new SplitType('.feedback-item-content > *', {
-            types: 'words, chars'
-        });
-
-        gsap.from(feedback.chars, {
-            scrollTrigger: {
-                trigger: '.feedback-list',
-                start: 'top 90%',
-                end: 'bottom center',
-                toggleActions: 'play none play reverse', //onEnter, onLeave, onEnterBack, and onLeaveBack -> sẽ nhận 1 trong các giá trị sau: "play", "pause", "resume", "reset", "restart", "complete", "reverse", and "none".
-                // markers: true,
-                // scrub: true,
-            },
-            opacity: 0,
-            y: 20,
-            stagger: 0.005,
-            duration: 0.3,
-            ease: 'power2.out',
-            onStart: () => {
-                document.getElementById('feedback-list').parentNode.style.height = document.getElementById('feedback-list').getBoundingClientRect().height;
-            },
-        });
-    }
 
 });
 
@@ -840,17 +643,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
-    // newly added event - 2026-05-19
-    // ── 8. close_feedback_modal ──
-    var closeFeedbackBtn = document.getElementById('close-feedback');
-    if (closeFeedbackBtn) {
-        closeFeedbackBtn.addEventListener('click', function () {
-            mixpanel.track('close_feedback_modal', {
-                section: 'testimonials',
-                device_type: getDeviceType(),
-            });
-        });
-    }
+
 
     // newly added event - 2026-05-19
     // ── 9. section_viewed (scroll-based visibility via IntersectionObserver) ──
@@ -920,14 +713,3 @@ function smoothGrowth(x) {
 function deviceHasMouse() {
     return matchMedia('(pointer:fine)').matches == true ? true : false;
 }
-
-
-window.onwheel = function (event) {
-    // event.preventDefault();
-    ScrollTrigger.refresh();
-};
-
-window.onmousewheel = function (event) {
-    // event.preventDefault();
-    ScrollTrigger.refresh();
-};

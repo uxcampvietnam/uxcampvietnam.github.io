@@ -13,6 +13,7 @@
 
     <!-- External scripts -->
     <script src="../script/libs/svg-inject.min.js"></script>
+    <script src="../script/main-header.js" defer></script>
 
     <!-- Custom CSS strictly from project style directory & statistic-calculator monochrome system -->
     <link rel="stylesheet" type="text/css" href="../style/definition.css">
@@ -53,18 +54,9 @@
 
 <body>
 
-    <!-- Header Navigation -->
-    <div class="navigation">
-        <div class="navigation-row1">
-            <a href="../index.html">
-                <img class="eye-logo justify-content-center" src="../asset/image/Eye.svg" onload="SVGInject(this)">
-            </a>
-        </div>
-        <div class="navigation-row2">
-        </div>
-    </div>
+    <header class="site-main-header" id="siteMainHeader" data-active="Tool"></header>
 
-    <div class="container" style="max-width: 920px; margin-top: 100px">
+    <div class="container" style="max-width: 920px; margin-top: 40px">
         <!-- Title section -->
         <header class="main-header mb-4">
             <div>
@@ -153,7 +145,7 @@
 
     <!-- Confirm Popup / Modal -->
     <div id="confirmModal" class="blur-background"
-        style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0, 0, 0, 0.7); z-index: 9999; justify-content: center; align-items: center;">
+        style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: var(--fix-black---black-70); z-index: 9999; justify-content: center; align-items: center;">
         <div class="calculator-card shadow-lg" style="max-width: 580px; width: 90%;">
             <h3 class="mb-3">Xác nhận Update Profile</h3>
             <p class="mb-3" id="modalMessage">

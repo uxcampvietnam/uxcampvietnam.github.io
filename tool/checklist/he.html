@@ -9,10 +9,22 @@
     content="Công cụ checklist tiếng Việt trực quan giúp UX/UI Designer đánh giá heuristics sản phẩm dựa trên 4 bộ quy chuẩn Nielsen, Gerhardt-Powals, Shneiderman và Weinschenk.">
   <link rel="stylesheet" type="text/css" href="../../style/definition.css">
   <link rel="stylesheet" href="style/styles.css">
+  <link rel="stylesheet" href="../../style/tool-auth.css">
   <script src="script/tracking.js"></script>
+
+  <script src="../../script/libs/svg-inject.min.js"></script>
+  <script src="../../script/main-header.js" defer></script>
+
+  <!-- Firebase SDK (compat) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="../../script/auth-guard.js"></script>
 </head>
 
 <body>
+
+  <header class="site-main-header" id="siteMainHeader" data-active="Tool"></header>
 
   <div class="app-container">
 
@@ -27,12 +39,12 @@
 
       <div class="sidebar-content">
 
-        <!-- Checklist Switcher -->
-        <div class="checklist-switcher">
-          <a href="he.html" class="switcher-btn active" title="Đánh giá Heuristic">
+        <!-- Checklist Navigation Tabs -->
+        <div class="tabs-navigation tabs-fill">
+          <a href="he.html" class="tab-btn active" title="Đánh giá Heuristic">
             <span>Heuristic</span>
           </a>
-          <a href="wcag.html" class="switcher-btn" title="Tiêu chuẩn tiếp cận WCAG 2.2">
+          <a href="wcag.html" class="tab-btn" title="Tiêu chuẩn tiếp cận WCAG 2.2">
             <span>WCAG 2.2</span>
           </a>
         </div>
@@ -97,20 +109,22 @@
             </select>
           </div>
           <div class="project-actions">
-            <button id="btn-new-project" class="btn-secondary-sm" title="Tạo luồng đánh giá mới">
+            <button id="btn-new-project" class="secondary-button-small font-sans-caption"
+              title="Tạo luồng đánh giá mới">
               <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24">
                 <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" />
               </svg>
               Thêm
             </button>
-            <button id="btn-rename-project" class="btn-secondary-sm" title="Đổi tên luồng hiện tại">
+            <button id="btn-rename-project" class="secondary-button-small font-sans-caption"
+              title="Đổi tên luồng hiện tại">
               <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24">
                 <path
                   d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z" />
               </svg>
               Sửa
             </button>
-            <button id="btn-delete-project" class="btn-secondary-sm" style="color:var(--highlight-red);"
+            <button id="btn-delete-project" class="destructive-button-small font-sans-caption"
               title="Xóa vĩnh viễn dự án này">
               <svg style="width:12px;height:12px;fill:currentColor" viewBox="0 0 24 24">
                 <path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z" />
@@ -134,19 +148,19 @@
 
           <!-- Detail Statistics Grid -->
           <div class="stats-grid">
-            <div class="stat-item">
+            <div class="stat-item" style="border-bottom: 3px solid var(--highlight-green);">
               <span class="stat-val" id="stat-done" style="color: var(--highlight-green);">0</span>
               <span class="stat-label">Pass</span>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" style="border-bottom: 3px solid var(--highlight-red);">
               <span class="stat-val" id="stat-todo" style="color: var(--highlight-red);">0</span>
               <span class="stat-label">Fail</span>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" style="border-bottom: 3px solid var(--main-colors-foreground-f700);">
               <span class="stat-val" id="stat-na" style="color: var(--main-colors-foreground-f700);">0</span>
               <span class="stat-label">N/A</span>
             </div>
-            <div class="stat-item">
+            <div class="stat-item" style="border-bottom: 3px solid var(--main-colors-foreground-f700);">
               <span class="stat-val" id="stat-total" style="color: var(--main-colors-foreground-f700);">0</span>
               <span class="stat-label">Tổng tiêu chí</span>
             </div>
@@ -154,7 +168,7 @@
 
           <!-- Actions -->
           <div class="action-section">
-            <button id="btn-download-skills" class="btn-outline"
+            <button id="btn-download-skills" class="secondary-button-large paragraph"
               title="Tải xuống tài liệu Agent Skills và Knowledge tương ứng">
               <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24">
                 <path
@@ -162,7 +176,7 @@
               </svg>
               Tải Agent Skills
             </button>
-            <button id="btn-reset-project" class="btn-outline"
+            <button id="btn-reset-project" class="secondary-button-large paragraph"
               title="Reset tất cả tiêu chí về trạng thái chưa đánh giá">
               <svg style="width:16px;height:16px;fill:currentColor" viewBox="0 0 24 24">
                 <path
@@ -265,8 +279,8 @@
           style="display: none; flex-direction: column; gap: 16px;">
           <!-- Report Header Toolbar with Export Button -->
           <div class="report-toolbar" style="display: flex; justify-content: flex-end; margin-bottom: 8px;">
-            <button id="btn-export-markdown" class="btn-primary"
-              style="width: fit-content; height: 38px; padding: 6px 16px; font-size: 0.8rem; display: inline-flex; align-items: center; gap: 6px;"
+            <button id="btn-export-markdown" class="cta-small font-sans-caption"
+              style="display: inline-flex; align-items: center; gap: 6px;"
               title="Tải báo cáo đánh giá và copy vào clipboard">
               <svg style="width:14px;height:14px;fill:currentColor" viewBox="0 0 24 24">
                 <path
@@ -392,8 +406,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn-outline modal-close-btn">Hủy bỏ</button>
-          <button type="submit" class="btn-primary">Tạo dự án</button>
+          <button type="button" class="secondary-button-large paragraph modal-close-btn">Hủy bỏ</button>
+          <button type="submit" class="cta-large paragraph">Tạo dự án</button>
         </div>
       </form>
     </div>
@@ -420,8 +434,8 @@
           </div>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn-outline modal-close-btn">Hủy bỏ</button>
-          <button type="submit" class="btn-primary">Lưu thay đổi</button>
+          <button type="button" class="secondary-button-large paragraph modal-close-btn">Hủy bỏ</button>
+          <button type="submit" class="cta-large paragraph">Lưu thay đổi</button>
         </div>
       </form>
     </div>

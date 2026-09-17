@@ -128,9 +128,10 @@
                 <div class="title medium" style="color: var(--main-colors-foreground-f300);">Tab & Task</div>
                 <div class="h6 extralight sub-title"><i>Managing your tab and todos</i></div>
             </div>
-            <a href=" https://chromewebstore.google.com/detail/tabtask/ldeceampkbbeigojeglgajnceomfohlf" target="_blank" class="col-3 d-flex justify-content-end">
-                <img class="download-on-store" style="width: 100%;"
-                    src="../asset/icon/Available Chrome Web Store.svg"  onload="SVGInject(this)">
+            <a href=" https://chromewebstore.google.com/detail/tabtask/ldeceampkbbeigojeglgajnceomfohlf" target="_blank"
+                class="col-3 d-flex justify-content-end">
+                <img class="download-on-store" style="width: 100%;" src="../asset/icon/Available Chrome Web Store.svg"
+                    onload="SVGInject(this)">
             </a>
         </div>
         <div class="row">
@@ -228,7 +229,7 @@
             list.innerHTML = '';
 
             if (tabs.length === 0) {
-                list.innerHTML = '<li style="color: #666;">No tabs in this collection.</li>';
+                list.innerHTML = '<li style="color: var(--main-colors-foreground-f700);">No tabs in this collection.</li>';
                 return;
             }
 
@@ -238,7 +239,7 @@
                 li.onclick = () => window.open(tab.url, '_blank');
 
                 li.innerHTML = `
-                    <img class="favicon" src="${tab.favicon || '../asset/image/Eye.svg'}" alt="icon" onerror="this.src='../asset/image/Eye.svg'">
+                    <img class="favicon" src="${tab.favicon || '../asset/icon/eye.svg'}" alt="icon" onerror="this.src='../asset/icon/eye.svg'">
                     <span class="font-sans-paragraph">${tab.title}</span>
                 `;
                 list.appendChild(li);

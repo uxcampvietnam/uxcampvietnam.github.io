@@ -1,0 +1,1685 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>UXCamp Vietnam — Case Study & Participant Configurator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../style/definition.css">
+  <style>
+    :root {
+      --bg-base: var(--body-background, #0D0D0D);
+      --bg-elevate-1: var(--body-background-elevate-1, #161616);
+      --bg-elevate-2: var(--body-background-elevate-2, #202020);
+      --bg-elevate-3: var(--main-colors-background-elevate-2, #2A2A2A);
+
+      --text-main: var(--main-colors-foreground-f-500-main, #EDEDED);
+      --text-heading: var(--main-colors-foreground-f100, #FFFFFF);
+      --text-muted: var(--main-colors-foreground-f700, #8E8E93);
+      --text-subtle: var(--main-colors-foreground-f800, #636270);
+
+      --border-color: var(--transparent-foreground-main-color-10, rgba(255, 255, 255, 0.08));
+      --border-color-hover: var(--transparent-foreground-main-color-20, rgba(255, 255, 255, 0.16));
+      --border-color-focus: var(--transparent-foreground-main-color-40, rgba(255, 255, 255, 0.32));
+
+      --accent-brand: #E58332;
+      --accent-brand-glow: rgba(229, 131, 50, 0.22);
+      --accent-brand-hover: #F09244;
+
+      --state-danger: #FF453A;
+      --state-danger-bg: rgba(255, 69, 58, 0.12);
+      --state-success: #30D158;
+
+      --radius-xs: 4px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-full: 9999px;
+
+      --font-family-sans: var(--font-sans-family, 'Work Sans', sans-serif);
+      --font-family-serif: var(--font-serif-family, 'Playfair Display', serif);
+      --font-family-mono: var(--font-mono-family, 'Chivo Mono', monospace);
+    }
+
+    /* KHÓA CUỘN BODY - ĐẢM BẢO 2 CỘT CUỘN ĐỘC LẬP HOÀN TOÀN */
+    html,
+    body {
+      height: 100vh !important;
+      max-height: 100vh !important;
+      width: 100vw !important;
+      max-width: 100vw !important;
+      overflow: hidden !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-family-sans);
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    /* =========================================================================
+       1. HEADER THANH CÔNG CỤ CỐ ĐỊNH TRÊN CÙNG
+       ========================================================================= */
+    .top-header {
+      flex-shrink: 0;
+      height: 60px;
+      background: var(--bg-elevate-1);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      z-index: 100;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-badge {
+      background: var(--accent-brand);
+      color: #000000;
+      font-family: var(--font-family-sans);
+      font-weight: 700;
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: var(--radius-xs);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .brand-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-heading);
+      letter-spacing: -0.01em;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* BUTTONS DESIGN SYSTEM */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 7px 14px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-family-sans);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      border: 1px solid var(--border-color);
+      background: var(--bg-elevate-2);
+      color: var(--text-main);
+      transition: all 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+      user-select: none;
+      white-space: nowrap;
+      text-decoration: none;
+    }
+
+    .btn:hover {
+      background: var(--bg-elevate-3);
+      border-color: var(--border-color-hover);
+      color: var(--text-heading);
+      transform: translateY(-1px);
+    }
+
+    .btn:active {
+      transform: translateY(0);
+    }
+
+    .btn-primary {
+      background: var(--accent-brand);
+      color: #000000 !important;
+      border-color: transparent;
+      font-weight: 600;
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-brand-hover);
+      box-shadow: 0 4px 14px var(--accent-brand-glow);
+    }
+
+    .btn-sm {
+      padding: 5px 10px;
+      font-size: 12px;
+      border-radius: var(--radius-xs);
+    }
+
+    .btn-icon {
+      width: 30px;
+      height: 30px;
+      padding: 0;
+      border-radius: var(--radius-xs);
+    }
+
+    .btn-danger {
+      color: var(--state-danger);
+    }
+
+    .btn-danger:hover {
+      background: var(--state-danger-bg);
+      border-color: var(--state-danger);
+    }
+
+    /* =========================================================================
+       2. WORKSPACE LAYOUT (2 CỘT CUỘN ĐỘC LẬP)
+       ========================================================================= */
+    .workspace {
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      flex: 1;
+      height: calc(100vh - 60px);
+      min-height: 0;
+      /* Cho phép child flex/grid scroll độc lập */
+      overflow: hidden;
+      background: var(--bg-base);
+    }
+
+    /* =========================================================================
+       3. CỘT TRÁI: PARTICIPANT POOL (CUỘN ĐỘC LẬP)
+       ========================================================================= */
+    .participant-pool {
+      background: var(--bg-elevate-1);
+      border-right: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    .pool-header {
+      flex-shrink: 0;
+      padding: 16px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      background: var(--bg-elevate-1);
+    }
+
+    .pool-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pool-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-heading);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .counter-pill {
+      background: var(--bg-elevate-2);
+      border: 1px solid var(--border-color);
+      color: var(--text-muted);
+      font-family: var(--font-family-mono);
+      font-size: 11px;
+      padding: 2px 7px;
+      border-radius: var(--radius-full);
+    }
+
+    .search-box {
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--bg-base);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 7px 10px 7px 32px;
+      color: var(--text-heading);
+      font-family: var(--font-family-sans);
+      font-size: 12px;
+      outline: none;
+      transition: border-color 0.18s, box-shadow 0.18s;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent-brand);
+      box-shadow: 0 0 0 1px var(--accent-brand);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 12px;
+      pointer-events: none;
+    }
+
+    /* BỘ LỌC THEO SỐ CASE CỦA HỌC VIÊN (0 - 1 - 2 - 2+) */
+    .pool-filter-pills {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 4px;
+      margin-top: 4px;
+    }
+
+    .filter-pill {
+      background: var(--bg-elevate-2);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xs);
+      color: var(--text-muted);
+      font-size: 11px;
+      font-weight: 500;
+      padding: 4px 2px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+
+    .filter-pill:hover {
+      background: var(--bg-elevate-3);
+      border-color: var(--border-color-hover);
+      color: var(--text-heading);
+    }
+
+    .filter-pill.active {
+      background: var(--accent-brand);
+      border-color: var(--accent-brand);
+      color: #000000 !important;
+      font-weight: 700;
+      box-shadow: 0 2px 8px var(--accent-brand-glow);
+    }
+
+    .filter-pill-label {
+      font-size: 10.5px;
+      line-height: 1.1;
+      white-space: nowrap;
+    }
+
+    .filter-pill-count {
+      font-family: var(--font-family-mono);
+      font-size: 10px;
+      opacity: 0.85;
+      line-height: 1;
+    }
+
+    .filter-pill.active .filter-pill-count {
+      opacity: 1;
+      font-weight: 700;
+    }
+
+    /* DANH SÁCH HỌC VIÊN CUỘN ĐỘC LẬP */
+    .participant-list {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      overscroll-behavior: contain;
+    }
+
+    .participant-card {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 7px 10px;
+      background: var(--bg-elevate-2);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: grab;
+      user-select: none;
+      transition: all 0.15s ease;
+    }
+
+    .participant-card:hover {
+      background: var(--bg-elevate-3);
+      border-color: var(--border-color-hover);
+      transform: translateX(2px);
+    }
+
+    .participant-card:active {
+      cursor: grabbing;
+    }
+
+    .participant-card.dragging {
+      opacity: 0.35;
+      border-color: var(--accent-brand);
+      background: var(--accent-brand-glow);
+    }
+
+    .participant-avatar {
+      width: 64px;
+      height: 64px;
+      object-fit: cover;
+      flex-shrink: 0;
+    }
+
+    .participant-info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .participant-name {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--text-heading);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .participant-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-family-mono);
+    }
+
+    .participant-usage-badge {
+      font-family: var(--font-family-mono);
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: var(--radius-xs);
+      background: var(--bg-base);
+      color: var(--accent-brand);
+      border: 1px solid rgba(229, 131, 50, 0.25);
+    }
+
+    /* =========================================================================
+       4. CỘT PHẢI: CASE STUDY WORKSPACE (CUỘN ĐỘC LẬP)
+       ========================================================================= */
+    .case-study-workspace {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      min-height: 0;
+      overflow: hidden;
+      background: var(--bg-base);
+    }
+
+    .workspace-top-bar {
+      flex-shrink: 0;
+      padding: 12px 24px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      background: var(--bg-elevate-1);
+      flex-wrap: wrap;
+    }
+
+    .workspace-stats {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .stat-item {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .stat-item b {
+      color: var(--text-heading);
+      font-family: var(--font-family-mono);
+    }
+
+    /* THANH BỘ LỌC CASE STUDY (THÀNH VIÊN, THUMBNAIL, FIGMA URL) */
+    .case-filters-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-select-group {
+      display: flex;
+      align-items: center;
+      background: var(--bg-elevate-2);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xs);
+      padding: 2px 6px 2px 8px;
+      gap: 6px;
+      transition: border-color 0.18s;
+    }
+
+    .filter-select-group:hover,
+    .filter-select-group:focus-within {
+      border-color: var(--border-color-hover);
+    }
+
+    .filter-select-label {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-weight: 500;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .case-filter-select {
+      background: transparent;
+      border: none;
+      color: var(--text-heading);
+      font-family: var(--font-family-sans);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 4px 4px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .case-filter-select option {
+      background: var(--bg-elevate-2);
+      color: var(--text-main);
+    }
+
+    .btn-reset-filters {
+      font-size: 11.5px;
+      padding: 4px 8px;
+      color: var(--text-muted);
+      background: transparent;
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-xs);
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      gap: 4px;
+      transition: all 0.15s ease;
+    }
+
+    .btn-reset-filters:hover {
+      color: var(--accent-brand);
+      border-color: var(--accent-brand);
+    }
+
+    /* DANH SÁCH CASE STUDIES CUỘN ĐỘC LẬP */
+    .case-cards-container {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 20px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      overscroll-behavior: contain;
+    }
+
+    /* THẺ CASE STUDY */
+    .case-card {
+      background: var(--bg-elevate-1);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      transition: border-color 0.18s, box-shadow 0.18s;
+      position: relative;
+    }
+
+    .case-card:hover {
+      border-color: var(--border-color-hover);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+    }
+
+    .case-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .case-order-badge {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--bg-elevate-2);
+      border: 1px solid var(--border-color);
+      font-family: var(--font-family-mono);
+      font-size: 11px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-brand);
+      flex-shrink: 0;
+    }
+
+    .case-title-input {
+      flex: 1;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: var(--radius-xs);
+      font-family: var(--font-family-sans);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text-heading);
+      padding: 4px 8px;
+      outline: none;
+      transition: border-color 0.18s, background 0.18s;
+    }
+
+    .case-title-input:hover,
+    .case-title-input:focus {
+      background: var(--bg-elevate-2);
+      border-color: var(--border-color);
+    }
+
+    .case-card-controls {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .case-body-grid {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 16px;
+      align-items: center;
+    }
+
+    .case-thumbnail-box {
+      width: 130px;
+      height: 80px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background: var(--bg-elevate-2);
+      border: 1px solid var(--border-color);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .case-thumbnail-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .case-fields {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .field-label {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      font-family: var(--font-family-mono);
+    }
+
+    .field-input {
+      width: 100%;
+      background: var(--bg-elevate-2);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xs);
+      padding: 5px 8px;
+      font-size: 12px;
+      color: var(--text-heading);
+      font-family: var(--font-family-mono);
+      outline: none;
+      transition: border-color 0.18s;
+    }
+
+    .field-input:focus {
+      border-color: var(--accent-brand);
+    }
+
+    /* VÙNG THẢ THÀNH VIÊN (DROP ZONE) */
+    .members-section {
+      background: var(--bg-base);
+      border: 1px dashed var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      transition: all 0.18s ease;
+    }
+
+    .members-section.drag-over {
+      border-color: var(--accent-brand);
+      background: var(--accent-brand-glow);
+      box-shadow: inset 0 0 0 1px var(--accent-brand);
+    }
+
+    .members-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .members-title {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .members-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      min-height: 34px;
+      align-items: center;
+    }
+
+    .member-chip {
+      background: var(--bg-elevate-2);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-full);
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      user-select: none;
+      transition: all 0.15s ease;
+      corner-shape: round !important;
+      position: relative;
+    }
+
+    .member-chip:hover {
+      background: var(--bg-elevate-3);
+      border-color: var(--border-color-hover);
+    }
+
+    .member-chip-avatar {
+      width: 48px;
+      height: 48px;
+      object-fit: cover;
+    }
+
+    .member-chip-name:focus {
+      border-bottom-color: var(--accent-brand);
+    }
+
+    .member-chip-id {
+      font-family: var(--font-family-mono);
+      font-size: 10px;
+      color: var(--text-muted);
+    }
+
+    .member-chip-remove {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 9px;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.15s;
+      position: absolute;
+      bottom: 10%;
+      right: 10%;
+    }
+
+    .member-chip-remove:hover {
+      background: var(--state-danger);
+      color: #FFFFFF;
+    }
+
+    .empty-drop-hint {
+      color: var(--text-muted);
+      font-size: 11.5px;
+      font-style: italic;
+      padding: 4px 0;
+      pointer-events: none;
+    }
+
+    /* =========================================================================
+       5. MODAL EXPORT CSV
+       ========================================================================= */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.78);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-backdrop.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: var(--bg-elevate-1);
+      border: 1px solid var(--border-color-hover);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 840px;
+      max-height: 85vh;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 24px 64px rgba(0, 0, 0, 0.65);
+      overflow: hidden;
+    }
+
+    .modal-header {
+      padding: 16px 20px;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .modal-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text-heading);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .modal-body {
+      padding: 16px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow: hidden;
+    }
+
+    .csv-textarea {
+      width: 100%;
+      flex: 1;
+      height: 360px;
+      background: var(--bg-base);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-family: var(--font-family-mono);
+      font-size: 12px;
+      line-height: 1.5;
+      color: var(--accent-brand);
+      resize: none;
+      outline: none;
+      white-space: pre;
+    }
+
+    .modal-footer {
+      padding: 14px 20px;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-elevate-2);
+    }
+
+    /* TOAST */
+    .toast-msg {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: var(--text-heading);
+      color: var(--bg-base);
+      font-family: var(--font-family-sans);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 9px 18px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+      z-index: 2000;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .toast-msg.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* SCROLLBAR TINH TẾ CHUẨN DESIGN SYSTEM */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--border-color-hover);
+      border-radius: var(--radius-full);
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--border-color-focus);
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP HEADER -->
+  <header class="top-header">
+    <div class="header-brand">
+      <span class="brand-badge">Data Hub</span>
+      <span class="brand-title">Case Study & Participant Configurator</span>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-sm" id="btnReloadCsv" title="Nạp lại từ file case-studies.csv">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67" />
+        </svg>
+        Nạp lại CSV
+      </button>
+      <button class="btn btn-sm" id="btnAddCase">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="12" y1="5" x2="12" y2="19"></line>
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+        Thêm Case Study
+      </button>
+      <button class="btn btn-primary btn-sm" id="btnExportCsv">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+          <polyline points="7 10 12 15 17 10"></polyline>
+          <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Xuất & Copy CSV
+      </button>
+    </div>
+  </header>
+
+  <!-- WORKSPACE -->
+  <div class="workspace">
+
+    <!-- LEFT SIDEBAR: PARTICIPANTS POOL (CUỘN ĐỘC LẬP) -->
+    <aside class="participant-pool">
+      <div class="pool-header">
+        <div class="pool-title-row">
+          <div class="pool-title">
+            <span>Học viên tham dự</span>
+            <span class="counter-pill" id="totalParticipantsCount">0</span>
+          </div>
+        </div>
+        <div class="search-box">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" id="participantSearch" placeholder="Tìm theo tên hoặc ID...">
+        </div>
+        <!-- BỘ LỌC SỐ CASE THAM GIA (0 - 1 - 2 - 2+) -->
+        <div class="pool-filter-pills" id="poolFilterPills">
+          <button class="filter-pill active" data-filter="all" title="Xem tất cả học viên">
+            <span class="filter-pill-label">Tất cả</span>
+            <span class="filter-pill-count" id="countAll">0</span>
+          </button>
+          <button class="filter-pill" data-filter="0" title="Học viên chưa tham gia case nào">
+            <span class="filter-pill-label">0 case</span>
+            <span class="filter-pill-count" id="count0">0</span>
+          </button>
+          <button class="filter-pill" data-filter="1" title="Học viên tham gia đúng 1 case">
+            <span class="filter-pill-label">1 case</span>
+            <span class="filter-pill-count" id="count1">0</span>
+          </button>
+          <button class="filter-pill" data-filter="2" title="Học viên tham gia đúng 2 case">
+            <span class="filter-pill-label">2 case</span>
+            <span class="filter-pill-count" id="count2">0</span>
+          </button>
+          <button class="filter-pill" data-filter="2+" title="Học viên tham gia từ 2 case trở lên (≥2)">
+            <span class="filter-pill-label">2+ case</span>
+            <span class="filter-pill-count" id="count2Plus">0</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="participant-list" id="participantList">
+        <!-- Đổ động danh sách 132 học viên từ participants.csv -->
+      </div>
+    </aside>
+
+    <!-- RIGHT CONTENT: CASE STUDIES WORKSPACE (CUỘN ĐỘC LẬP) -->
+    <main class="case-study-workspace">
+      <div class="workspace-top-bar">
+        <div class="workspace-stats">
+          <div class="stat-item">Tổng Case: <b id="caseStudyCount">0</b></div>
+        </div>
+
+        <!-- BỘ LỌC CASE STUDY (THÀNH VIÊN, THUMBNAIL, FIGMA URL) -->
+        <div class="case-filters-bar">
+          <!-- 1. Lọc theo Thành viên -->
+          <div class="filter-select-group" title="Lọc theo tình trạng gán thành viên">
+            <span class="filter-select-label">👥 Thành viên:</span>
+            <select class="case-filter-select" id="filterCaseMember">
+              <option value="all">Tất cả</option>
+              <option value="has">Có thành viên</option>
+              <option value="none">Chưa có thành viên (0)</option>
+            </select>
+          </div>
+
+          <!-- 2. Lọc theo Ảnh Thumbnail -->
+          <div class="filter-select-group" title="Lọc theo tình trạng ảnh thumbnail">
+            <span class="filter-select-label">🖼️ Thumbnail:</span>
+            <select class="case-filter-select" id="filterCaseThumb">
+              <option value="all">Tất cả</option>
+              <option value="has">Có ảnh</option>
+              <option value="none">Chưa có ảnh</option>
+            </select>
+          </div>
+
+          <!-- 3. Lọc theo URL Figma -->
+          <div class="filter-select-group" title="Lọc theo link Figma / Prototype">
+            <span class="filter-select-label">🔗 Figma URL:</span>
+            <select class="case-filter-select" id="filterCaseFigma">
+              <option value="all">Tất cả</option>
+              <option value="has">Có Figma link</option>
+              <option value="none">Không có link (hoặc #)</option>
+            </select>
+          </div>
+
+          <!-- Nút Reset Bộ Lọc -->
+          <button class="btn-reset-filters" id="btnResetCaseFilters" title="Đặt lại tất cả bộ lọc về mặc định">
+            ✕ Đặt lại
+          </button>
+        </div>
+
+        <div class="search-box" style="width: 200px;">
+          <span class="search-icon">🔍</span>
+          <input type="text" class="search-input" id="caseSearch" placeholder="Lọc theo tên / TV...">
+        </div>
+      </div>
+
+      <div class="case-cards-container" id="caseCardsContainer">
+        <!-- Render danh sách Case Study -->
+      </div>
+    </main>
+
+  </div>
+
+  <!-- MODAL EXPORT CSV -->
+  <div class="modal-backdrop" id="exportModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="brand-badge">Output CSV</span>
+          <span>Dữ liệu chuẩn cho data/case-studies.csv</span>
+        </div>
+        <button class="btn btn-icon btn-sm" id="btnCloseModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: var(--text-muted);">
+          Toàn bộ cấu hình học viên và case study đã được chuyển đổi thành định dạng CSV chuẩn. Bạn chỉ cần bấm nút
+          <b>Copy CSV</b> và dán đè vào file <code>data/case-studies.csv</code>.
+        </p>
+        <textarea class="csv-textarea" id="csvOutput" readonly spellcheck="false"></textarea>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm" id="btnDownloadCsv">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Tải về case-studies.csv
+        </button>
+        <div style="display: flex; gap: 8px;">
+          <button class="btn btn-primary" id="btnCopyCsv">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Sao chép toàn bộ CSV
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div class="toast-msg" id="toastMsg">Đã sao chép vào clipboard!</div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      // STATE
+      let participants = []; // [{ id: 'adat', imageSrc: 'asset/image/participant/adat.webp', name: 'Anh Đạt' }]
+      let caseStudies = [];  // [{ title: '', imageSrc: '', url: '', memberIds: [], memberNames: [] }]
+      let participantCaseFilter = 'all'; // 'all', '0', '1', '2', '2+'
+
+      // CASE STUDY FILTER STATES
+      let caseMemberFilter = 'all'; // 'all' | 'has' | 'none'
+      let caseThumbFilter = 'all';  // 'all' | 'has' | 'none'
+      let caseFigmaFilter = 'all';  // 'all' | 'has' | 'none'
+
+      // DOM ELEMENTS
+      const participantListEl = document.getElementById('participantList');
+      const caseCardsContainerEl = document.getElementById('caseCardsContainer');
+      const participantSearchEl = document.getElementById('participantSearch');
+      const caseSearchEl = document.getElementById('caseSearch');
+      const totalParticipantsCountEl = document.getElementById('totalParticipantsCount');
+      const caseStudyCountEl = document.getElementById('caseStudyCount');
+      const exportModalEl = document.getElementById('exportModal');
+      const csvOutputEl = document.getElementById('csvOutput');
+      const btnExportCsvEl = document.getElementById('btnExportCsv');
+      const btnCloseModalEl = document.getElementById('btnCloseModal');
+      const btnCopyCsvEl = document.getElementById('btnCopyCsv');
+      const btnDownloadCsvEl = document.getElementById('btnDownloadCsv');
+      const btnReloadCsvEl = document.getElementById('btnReloadCsv');
+      const btnAddCaseEl = document.getElementById('btnAddCase');
+      const toastMsgEl = document.getElementById('toastMsg');
+      const poolFilterPillsEl = document.getElementById('poolFilterPills');
+
+      // CASE FILTERS DOM
+      const filterCaseMemberEl = document.getElementById('filterCaseMember');
+      const filterCaseThumbEl = document.getElementById('filterCaseThumb');
+      const filterCaseFigmaEl = document.getElementById('filterCaseFigma');
+      const btnResetCaseFiltersEl = document.getElementById('btnResetCaseFilters');
+
+      function resolveAssetUrl(path) {
+        if (!path) return '';
+        if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('/')) {
+          return path;
+        }
+        return '../' + path.replace(/^\.\//, '');
+      }
+
+      // LOAD PARTICIPANTS CSV
+      async function loadParticipants() {
+        try {
+          const res = await fetch(`participants.csv?t=${Date.now()}`);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const text = await res.text();
+          const lines = text.trim().split(/\r?\n/).filter(l => l.trim().length > 0);
+          participants = [];
+          for (let i = 1; i < lines.length; i++) {
+            const raw = lines[i].trim();
+            if (!raw) continue;
+            const filename = raw.split('/').pop();
+            const id = filename.replace(/\.[^/.]+$/, '');
+            participants.push({
+              id: id,
+              rawSrc: raw,
+              imageSrc: resolveAssetUrl(raw),
+              name: id
+            });
+          }
+        } catch (err) {
+          console.warn('Lỗi nạp participants.csv:', err);
+        }
+      }
+
+      // LOAD CASE STUDIES CSV
+      async function loadCaseStudies() {
+        try {
+          const res = await fetch(`case-studies.csv?t=${Date.now()}`);
+          if (!res.ok) throw new Error(`HTTP ${res.status}`);
+          const text = await res.text();
+          const lines = text.trim().split(/\r?\n/).filter(l => l.trim().length > 0);
+          caseStudies = [];
+
+          if (lines.length > 1) {
+            const headers = lines[0].split(',').map(h => h.trim());
+            for (let i = 1; i < lines.length; i++) {
+              const rawLine = lines[i];
+              const values = [];
+              let inQuotes = false;
+              let cur = '';
+              for (let c = 0; c < rawLine.length; c++) {
+                const char = rawLine[c];
+                if (char === '"') inQuotes = !inQuotes;
+                else if (char === ',' && !inQuotes) {
+                  values.push(cur.trim());
+                  cur = '';
+                } else cur += char;
+              }
+              values.push(cur.trim());
+
+              const row = {};
+              headers.forEach((h, idx) => { row[h] = values[idx] || ''; });
+
+              const title = row['ten_case_study'] || `Case Study ${i}`;
+              const imageSrc = row['anh_case_study'] || 'asset/image/case-study/tabtaskonboarding.webp';
+              const url = row['url_case_study'] || '#';
+              const memberIds = (row['id_thanh_vien'] || '').split(';').map(s => s.trim()).filter(Boolean);
+
+              caseStudies.push({ title, imageSrc, url, memberIds });
+            }
+          }
+        } catch (err) {
+          console.warn('Lỗi nạp case-studies.csv:', err);
+        }
+      }
+
+      // HELPER: ĐẾM SỐ CASE MỖI HỌC VIÊN ĐANG THAM GIA
+      function getParticipantUsageCount(participantId) {
+        return caseStudies.filter(c => c.memberIds.includes(participantId)).length;
+      }
+
+      // CẬP NHẬT SỐ LƯỢNG THỐNG KÊ TRÊN CÁC NÚT BỘ LỌC
+      function updateFilterCounts() {
+        const countAll = participants.length;
+        let count0 = 0;
+        let count1 = 0;
+        let count2 = 0;
+        let count2Plus = 0;
+
+        participants.forEach(p => {
+          const usage = getParticipantUsageCount(p.id);
+          if (usage === 0) count0++;
+          else if (usage === 1) count1++;
+          else if (usage === 2) count2++;
+
+          if (usage >= 2) count2Plus++;
+        });
+
+        const countAllEl = document.getElementById('countAll');
+        const count0El = document.getElementById('count0');
+        const count1El = document.getElementById('count1');
+        const count2El = document.getElementById('count2');
+        const count2PlusEl = document.getElementById('count2Plus');
+
+        if (countAllEl) countAllEl.textContent = countAll;
+        if (count0El) count0El.textContent = count0;
+        if (count1El) count1El.textContent = count1;
+        if (count2El) count2El.textContent = count2;
+        if (count2PlusEl) count2PlusEl.textContent = count2Plus;
+      }
+
+      // RENDER PARTICIPANT POOL (CỘT TRÁI)
+      function renderParticipantPool(filterText = '') {
+        updateFilterCounts();
+        const ft = filterText.toLowerCase().trim();
+
+        const filtered = participants.filter(p => {
+          const usageCount = getParticipantUsageCount(p.id);
+
+          // Lọc theo số case
+          if (participantCaseFilter === '0' && usageCount !== 0) return false;
+          if (participantCaseFilter === '1' && usageCount !== 1) return false;
+          if (participantCaseFilter === '2' && usageCount !== 2) return false;
+          if (participantCaseFilter === '2+' && usageCount < 2) return false;
+
+          // Lọc theo tìm kiếm tên / ID
+          if (ft && !p.id.toLowerCase().includes(ft) && !p.name.toLowerCase().includes(ft)) {
+            return false;
+          }
+
+          return true;
+        });
+
+        totalParticipantsCountEl.textContent = `${filtered.length}/${participants.length}`;
+
+        participantListEl.innerHTML = '';
+
+        if (filtered.length === 0) {
+          participantListEl.innerHTML = `
+            <div style="padding: 32px 16px; text-align: center; color: var(--text-muted); font-size: 12.5px;">
+              <div style="font-size: 24px; margin-bottom: 8px; opacity: 0.6;">🔍</div>
+              Không tìm thấy học viên nào phù hợp với bộ lọc hiện tại.
+            </div>
+          `;
+          return;
+        }
+
+        filtered.forEach(p => {
+          const usageCount = getParticipantUsageCount(p.id);
+
+          const card = document.createElement('div');
+          card.className = 'participant-card';
+          card.draggable = true;
+          card.dataset.participantId = p.id;
+          card.dataset.participantName = p.name;
+          card.dataset.imageSrc = p.imageSrc;
+
+          let badgeHtml = '';
+          if (usageCount === 0) {
+            badgeHtml = `<span class="participant-usage-badge" style="background: rgba(255, 255, 255, 0.05); color: var(--text-subtle); border-color: transparent;">0 case</span>`;
+          } else if (usageCount === 1) {
+            badgeHtml = `<span class="participant-usage-badge" style="background: rgba(48, 209, 88, 0.12); color: var(--state-success); border-color: rgba(48, 209, 88, 0.25);">1 case</span>`;
+          } else if (usageCount === 2) {
+            badgeHtml = `<span class="participant-usage-badge" style="background: rgba(229, 131, 50, 0.14); color: var(--accent-brand); border-color: rgba(229, 131, 50, 0.3);">2 case</span>`;
+          } else {
+            badgeHtml = `<span class="participant-usage-badge" style="background: rgba(255, 69, 58, 0.15); color: var(--state-danger); border-color: rgba(255, 69, 58, 0.35); font-weight: 700;">${usageCount} case</span>`;
+          }
+
+          card.innerHTML = `
+            <img class="participant-avatar" src="${p.imageSrc}" alt="${p.id}" onerror="this.src='../asset/icon/profile.svg'">
+            <div class="participant-info">
+              <div class="participant-name">${p.id}</div>
+              <div class="participant-meta">
+                ${badgeHtml}
+              </div>
+            </div>
+            <button class="btn btn-sm btn-icon" title="Thêm nhanh vào case study đầu tiên" style="opacity:0.6;">+</button>
+          `;
+
+          // Drag Events
+          card.addEventListener('dragstart', (e) => {
+            card.classList.add('dragging');
+            e.dataTransfer.setData('text/plain', JSON.stringify({
+              id: p.id,
+              name: p.name,
+              imageSrc: p.imageSrc
+            }));
+            e.dataTransfer.effectAllowed = 'copy';
+          });
+
+          card.addEventListener('dragend', () => {
+            card.classList.remove('dragging');
+          });
+
+          // Quick add button
+          const addBtn = card.querySelector('button');
+          addBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (caseStudies.length > 0) {
+              caseStudies[0].memberIds.push(p.id);
+              renderCaseStudies(caseSearchEl.value);
+              renderParticipantPool(participantSearchEl.value);
+              showToast(`Đã thêm @${p.id} vào "${caseStudies[0].title}"`);
+            }
+          });
+
+          participantListEl.appendChild(card);
+        });
+      }
+
+      // RENDER CASE STUDIES (CỘT PHẢI)
+      function renderCaseStudies(filterText = '') {
+        const ft = filterText.toLowerCase().trim();
+
+        // Lọc danh sách case study theo cả 4 tiêu chí: Member, Thumb, Figma, Text
+        const filtered = caseStudies.map((cs, idx) => ({ cs, originalIndex: idx })).filter(({ cs }) => {
+          // 1. Lọc theo Thành viên (Có / Không)
+          if (caseMemberFilter === 'has' && cs.memberIds.length === 0) return false;
+          if (caseMemberFilter === 'none' && cs.memberIds.length > 0) return false;
+
+          // 2. Lọc theo Ảnh Thumbnail (Có / Không)
+          const hasThumb = Boolean(cs.imageSrc && cs.imageSrc.trim() !== '' && cs.imageSrc.trim() !== '#');
+          if (caseThumbFilter === 'has' && !hasThumb) return false;
+          if (caseThumbFilter === 'none' && hasThumb) return false;
+
+          // 3. Lọc theo URL Figma (Có / Không)
+          const hasFigma = Boolean(cs.url && (cs.url.includes('figma.com') || cs.url.startsWith('http://') || cs.url.startsWith('https://')));
+          if (caseFigmaFilter === 'has' && !hasFigma) return false;
+          if (caseFigmaFilter === 'none' && hasFigma) return false;
+
+          // 4. Lọc theo Text tìm kiếm
+          if (ft) {
+            const matchTitle = cs.title.toLowerCase().includes(ft);
+            const matchMember = cs.memberIds.some(id => id.toLowerCase().includes(ft));
+            if (!matchTitle && !matchMember) return false;
+          }
+
+          return true;
+        });
+
+        // Cập nhật thống kê
+        caseStudyCountEl.textContent = `${filtered.length}/${caseStudies.length}`;
+
+        // Hiển thị nút Reset nếu đang có filter hoạt động
+        const isFiltering = caseMemberFilter !== 'all' || caseThumbFilter !== 'all' || caseFigmaFilter !== 'all' || ft !== '';
+        if (btnResetCaseFiltersEl) {
+          btnResetCaseFiltersEl.style.display = isFiltering ? 'inline-flex' : 'none';
+        }
+
+        caseCardsContainerEl.innerHTML = '';
+
+        if (filtered.length === 0) {
+          caseCardsContainerEl.innerHTML = `
+            <div style="padding: 60px 24px; text-align: center; color: var(--text-muted);">
+              <div style="font-size: 32px; margin-bottom: 12px; opacity: 0.6;">🔍</div>
+              <div style="font-size: 15px; font-weight: 600; color: var(--text-heading); margin-bottom: 6px;">Không tìm thấy Case Study nào</div>
+              <div style="font-size: 12.5px; max-width: 360px; margin: 0 auto; line-height: 1.5;">
+                Không có mục nào khớp với bộ lọc (Thành viên: <b>${caseMemberFilter}</b>, Thumbnail: <b>${caseThumbFilter}</b>, Figma URL: <b>${caseFigmaFilter}</b>).
+              </div>
+            </div>
+          `;
+          return;
+        }
+
+        filtered.forEach(({ cs, originalIndex: index }) => {
+          const card = document.createElement('div');
+          card.className = 'case-card';
+          card.dataset.caseIndex = index;
+
+          // Render member chips
+          const memberChipsHtml = cs.memberIds.map((id, mIdx) => {
+            const pObj = participants.find(p => p.id === id);
+            const imgSrc = pObj ? pObj.imageSrc : `../asset/image/participant/${id}.webp`;
+
+            return `
+              <div class="member-chip" draggable="true" data-member-index="${mIdx}" data-member-id="${id}">
+                <img class="member-chip-avatar" src="${imgSrc}" onerror="this.src='../asset/icon/profile.svg'" alt="${id}">
+                <span class="member-chip-remove" title="Xóa học viên khỏi case study" data-remove-member="${mIdx}">✕</span>
+              </div>
+            `;
+          }).join('');
+
+          card.innerHTML = `
+            <div class="case-card-header">
+              <div class="case-order-badge">${index + 1}</div>
+              <input type="text" class="case-title-input" value="${cs.title}" data-field="title" placeholder="Tên Case Study...">
+              <div class="case-card-controls">
+                <button class="btn btn-sm btn-icon" title="Di chuyển lên" data-action="move-up" ${index === 0 ? 'disabled style="opacity:0.3;"' : ''}>↑</button>
+                <button class="btn btn-sm btn-icon" title="Di chuyển xuống" data-action="move-down" ${index === caseStudies.length - 1 ? 'disabled style="opacity:0.3;"' : ''}>↓</button>
+                <button class="btn btn-sm btn-icon" title="Nhân bản case study" data-action="duplicate">📑</button>
+                <button class="btn btn-sm btn-icon btn-danger" title="Xóa case study" data-action="delete">✕</button>
+              </div>
+            </div>
+
+            <div class="case-body-grid">
+              <div class="case-thumbnail-box">
+                <img class="case-thumbnail-img" src="${resolveAssetUrl(cs.imageSrc)}" alt="${cs.title}" onerror="this.src='../asset/image/case-study/tabtaskonboarding.webp'">
+              </div>
+              <div class="case-fields">
+                <div class="field-row">
+                  <span class="field-label">Ảnh slide:</span>
+                  <input type="text" class="field-input" value="${cs.imageSrc}" data-field="imageSrc" placeholder="asset/image/case-study/...">
+                </div>
+                <div class="field-row">
+                  <span class="field-label">URL Figma:</span>
+                  <input type="text" class="field-input" value="${cs.url}" data-field="url" placeholder="https://www.figma.com/proto/...">
+                </div>
+              </div>
+            </div>
+
+            <div class="members-section" data-drop-zone="${index}">
+              <div class="members-header">
+                <span class="members-title">Thành viên tham gia (${cs.memberIds.length})</span>
+                <span style="font-size: 11px; color: var(--text-muted);">Kéo thả học viên từ cột trái vào đây</span>
+              </div>
+              <div class="members-chips">
+                ${memberChipsHtml || '<div class="empty-drop-hint">Chưa có học viên nào. Kéo thả học viên từ cột bên trái vào đây...</div>'}
+              </div>
+            </div>
+          `;
+
+          // Field edit listeners
+          card.querySelectorAll('.field-input, .case-title-input').forEach(input => {
+            input.addEventListener('input', (e) => {
+              const field = e.target.dataset.field;
+              cs[field] = e.target.value;
+              if (field === 'imageSrc') {
+                const img = card.querySelector('.case-thumbnail-img');
+                if (img) img.src = resolveAssetUrl(e.target.value);
+              }
+            });
+          });
+
+          // Remove Member button
+          card.querySelectorAll('[data-remove-member]').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+              e.stopPropagation();
+              const mIdx = parseInt(btn.dataset.removeMember, 10);
+              cs.memberIds.splice(mIdx, 1);
+              renderCaseStudies(caseSearchEl.value);
+              renderParticipantPool(participantSearchEl.value);
+            });
+          });
+
+          // Controls (Move, Duplicate, Delete)
+          card.querySelectorAll('[data-action]').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const action = btn.dataset.action;
+              if (action === 'move-up' && index > 0) {
+                const temp = caseStudies[index];
+                caseStudies[index] = caseStudies[index - 1];
+                caseStudies[index - 1] = temp;
+                renderCaseStudies(caseSearchEl.value);
+              } else if (action === 'move-down' && index < caseStudies.length - 1) {
+                const temp = caseStudies[index];
+                caseStudies[index] = caseStudies[index + 1];
+                caseStudies[index + 1] = temp;
+                renderCaseStudies(caseSearchEl.value);
+              } else if (action === 'duplicate') {
+                const clone = JSON.parse(JSON.stringify(cs));
+                clone.title += ' (Copy)';
+                caseStudies.splice(index + 1, 0, clone);
+                renderCaseStudies(caseSearchEl.value);
+                renderParticipantPool(participantSearchEl.value);
+              } else if (action === 'delete') {
+                if (confirm(`Bạn có chắc chắn muốn xóa "${cs.title}"?`)) {
+                  caseStudies.splice(index, 1);
+                  renderCaseStudies(caseSearchEl.value);
+                  renderParticipantPool(participantSearchEl.value);
+                }
+              }
+            });
+          });
+
+          // DROP ZONE EVENTS
+          const dropZone = card.querySelector('[data-drop-zone]');
+          dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'copy';
+            dropZone.classList.add('drag-over');
+          });
+
+          dropZone.addEventListener('dragleave', () => {
+            dropZone.classList.remove('drag-over');
+          });
+
+          dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('drag-over');
+            try {
+              const rawData = e.dataTransfer.getData('text/plain');
+              if (!rawData) return;
+              const data = JSON.parse(rawData);
+
+              if (data.id) {
+                cs.memberIds.push(data.id);
+                renderCaseStudies(caseSearchEl.value);
+                renderParticipantPool(participantSearchEl.value);
+                showToast(`Đã thêm @${data.id} vào "${cs.title}"`);
+              }
+            } catch (err) {
+              console.error('Drop error:', err);
+            }
+          });
+
+          caseCardsContainerEl.appendChild(card);
+        });
+      }
+
+      // EXPORT CSV
+      function generateCsv() {
+        const headers = ['ten_case_study', 'anh_case_study', 'url_case_study', 'id_thanh_vien'];
+        const rows = [headers.join(',')];
+
+        caseStudies.forEach(cs => {
+          const title = (cs.title || '').includes(',') ? `"${cs.title.replace(/"/g, '""')}"` : (cs.title || '');
+          const imageSrc = cs.imageSrc || '';
+          const url = cs.url || '#';
+          const memberIds = (cs.memberIds || []).join(';');
+
+          rows.push([title, imageSrc, url, memberIds].join(','));
+        });
+
+        return rows.join('\n');
+      }
+
+      // TOAST
+      let toastTimeout = null;
+      function showToast(msg) {
+        if (toastTimeout) clearTimeout(toastTimeout);
+        toastMsgEl.textContent = msg;
+        toastMsgEl.classList.add('show');
+        toastTimeout = setTimeout(() => {
+          toastMsgEl.classList.remove('show');
+        }, 2200);
+      }
+
+      // EVENT LISTENERS
+      btnExportCsvEl.addEventListener('click', () => {
+        csvOutputEl.value = generateCsv();
+        exportModalEl.classList.add('open');
+      });
+
+      btnCloseModalEl.addEventListener('click', () => {
+        exportModalEl.classList.remove('open');
+      });
+
+      exportModalEl.addEventListener('click', (e) => {
+        if (e.target === exportModalEl) exportModalEl.classList.remove('open');
+      });
+
+      btnCopyCsvEl.addEventListener('click', () => {
+        csvOutputEl.select();
+        navigator.clipboard.writeText(csvOutputEl.value).then(() => {
+          showToast('✓ Đã sao chép toàn bộ CSV vào Clipboard!');
+        });
+      });
+
+      btnDownloadCsvEl.addEventListener('click', () => {
+        const csvContent = generateCsv();
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'case-studies.csv';
+        a.click();
+        URL.revokeObjectURL(url);
+        showToast('✓ Đã tải về case-studies.csv');
+      });
+
+      btnReloadCsvEl.addEventListener('click', async () => {
+        if (confirm('Nạp lại từ file case-studies.csv sẽ ghi đè các thay đổi chưa lưu?')) {
+          await loadParticipants();
+          await loadCaseStudies();
+          renderParticipantPool();
+          renderCaseStudies();
+          showToast('✓ Đã nạp lại dữ liệu từ case-studies.csv');
+        }
+      });
+
+      btnAddCaseEl.addEventListener('click', () => {
+        caseStudies.unshift({
+          title: 'Case Study Mới',
+          imageSrc: 'asset/image/case-study/tabtaskonboarding.webp',
+          url: '#',
+          memberIds: []
+        });
+        renderCaseStudies(caseSearchEl.value);
+        caseCardsContainerEl.scrollTo({ top: 0, behavior: 'smooth' });
+        showToast('+ Đã thêm 1 Case Study mới');
+      });
+
+      participantSearchEl.addEventListener('input', (e) => {
+        renderParticipantPool(e.target.value);
+      });
+
+      // BẮT SỰ KIỆN CLICK FILTER PILLS (0 - 1 - 2 - 2+)
+      if (poolFilterPillsEl) {
+        poolFilterPillsEl.querySelectorAll('.filter-pill').forEach(btn => {
+          btn.addEventListener('click', () => {
+            poolFilterPillsEl.querySelectorAll('.filter-pill').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            participantCaseFilter = btn.dataset.filter || 'all';
+            renderParticipantPool(participantSearchEl.value);
+          });
+        });
+      }
+
+      caseSearchEl.addEventListener('input', (e) => {
+        renderCaseStudies(e.target.value);
+      });
+
+      // BẮT SỰ KIỆN FILTER CASE STUDY (THÀNH VIÊN, THUMBNAIL, FIGMA URL)
+      if (filterCaseMemberEl) {
+        filterCaseMemberEl.addEventListener('change', (e) => {
+          caseMemberFilter = e.target.value;
+          renderCaseStudies(caseSearchEl.value);
+        });
+      }
+
+      if (filterCaseThumbEl) {
+        filterCaseThumbEl.addEventListener('change', (e) => {
+          caseThumbFilter = e.target.value;
+          renderCaseStudies(caseSearchEl.value);
+        });
+      }
+
+      if (filterCaseFigmaEl) {
+        filterCaseFigmaEl.addEventListener('change', (e) => {
+          caseFigmaFilter = e.target.value;
+          renderCaseStudies(caseSearchEl.value);
+        });
+      }
+
+      if (btnResetCaseFiltersEl) {
+        btnResetCaseFiltersEl.addEventListener('click', () => {
+          caseMemberFilter = 'all';
+          caseThumbFilter = 'all';
+          caseFigmaFilter = 'all';
+          if (filterCaseMemberEl) filterCaseMemberEl.value = 'all';
+          if (filterCaseThumbEl) filterCaseThumbEl.value = 'all';
+          if (filterCaseFigmaEl) filterCaseFigmaEl.value = 'all';
+          caseSearchEl.value = '';
+          renderCaseStudies('');
+          showToast('✓ Đã đặt lại tất cả bộ lọc Case Study');
+        });
+      }
+
+      // INIT
+      async function init() {
+        await loadParticipants();
+        await loadCaseStudies();
+        renderParticipantPool();
+        renderCaseStudies();
+      }
+
+      init();
+    })();
+  </script>
+</body>
+
+</html>

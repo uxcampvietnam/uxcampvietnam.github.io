@@ -1,7 +1,7 @@
 /* Main Layout Base */
 :root {
 	--sidebar-width: 320px;
-	--sidebar-bg: var(--main-colors-background-elevate-2);
+	--sidebar-bg: var(--body-background-elevate-2);
 	--sidebar-card-bg: var(--main-colors-background-b100);
 	--editor-bg: var(--main-colors-background-b-200-slide-bg);
 	--text-main: var(--main-colors-foreground-f300);
@@ -26,89 +26,18 @@ body {
 .app-container {
 	display: flex;
 	width: 100vw;
-	height: 100vh;
+	height: calc(100vh - var(--site-header-height, 40px));
 	position: relative;
 	overflow: hidden;
 }
 
-/* Left Sidebar (Using pre-defined Work Sans / .font-sans-paragraph style) */
-.sidebar {
-	width: var(--sidebar-width);
-	background-color: var(--sidebar-bg);
-	border-right: 0.5px solid var(--stroke-color);
-	display: flex;
-	flex-direction: column;
-	position: fixed;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	z-index: 20;
-	transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-	font-family: var(--font-sans-family, system-ui, -apple-system, sans-serif) !important;
-}
-
+/* Left Sidebar specifics (Base layout inherits from definition.css) */
 .sidebar-content {
-	display: flex;
-	flex-direction: column;
-	height: 100%;
 	padding: 0px 24px 24px 24px;
-	box-sizing: border-box;
-	overflow-y: auto;
-	overflow-x: hidden;
 	font-family: var(--font-sans-family, system-ui, -apple-system, sans-serif) !important;
 	font-size: var(--font-sans-paragraph-size, 15px);
 	line-height: var(--font-sans-paragraph-line, 24px);
 	letter-spacing: var(--font-sans-paragraph-letter, 0px);
-}
-
-.sidebar-content::-webkit-scrollbar {
-	width: 5px;
-}
-
-.sidebar-content::-webkit-scrollbar-thumb {
-	background: var(--transparent-foreground-main-color-20);
-	border-radius: 10px;
-}
-
-/* Sidebar Toggle Button */
-.sidebar-toggle-btn {
-	position: absolute;
-	top: 24px;
-	right: -16px;
-	width: 32px;
-	height: 32px;
-	border-radius: 50%;
-	background-color: var(--sidebar-card-bg);
-	border: 0.5px solid var(--stroke-color);
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: var(--text-main);
-	cursor: pointer;
-	z-index: 25;
-	transition: transform 0.3s ease, background-color 0.2s ease, right 0.3s ease;
-}
-
-.sidebar-toggle-btn:hover {
-	background-color: var(--transparent-foreground-main-color-20);
-	transform: scale(1.08);
-}
-
-.sidebar-toggle-btn .toggle-icon {
-	transition: transform 0.3s ease;
-}
-
-/* Sidebar Collapsed State */
-.sidebar-collapsed .sidebar {
-	transform: translateX(-100%);
-}
-
-.sidebar-collapsed .sidebar-toggle-btn {
-	right: -40px;
-}
-
-.sidebar-collapsed .sidebar-toggle-btn .toggle-icon {
-	transform: rotate(180deg);
 }
 
 .sidebar-collapsed .main-wrapper {
@@ -219,7 +148,7 @@ body {
 
 .folder-group {
 	border-radius: 20px;
-	background: var(--main-colors-background-elevate-1);
+	background: var(--body-background-elevate-1);
 	border: 0.5px solid var(--console-stroke);
 	transition: border-color 0.2s ease, background 0.2s ease;
 }
@@ -619,7 +548,7 @@ body {
 
 #inputText pre {
 	font-family: monospace, monospace !important;
-	background: var(--main-colors-background-elevate-1) !important;
+	background: var(--body-background-elevate-1) !important;
 	border: 0.5px solid var(--stroke-color) !important;
 	border-radius: 8px;
 	padding: 16px !important;

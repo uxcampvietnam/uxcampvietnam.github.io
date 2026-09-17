@@ -1,0 +1,587 @@
+@import url('definition.css');
+
+/* ==========================================================================
+   UXCAMP VIETNAM — ADMIN DASHBOARD STYLES
+   100% Tuân thủ Hệ Thống Biến & Tokens từ definition.css
+   ========================================================================== */
+
+.admin-page {
+	min-height: 100vh;
+	padding: 24px 16px 80px;
+	max-width: 1020px;
+	margin: 0 auto;
+}
+
+/* Auth gate overlay */
+.auth-gate {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	min-height: 80vh;
+	gap: 16px;
+	text-align: center;
+}
+
+.auth-gate .auth-spinner {
+	width: 32px;
+	height: 32px;
+	border: 2.5px solid var(--transparent-foreground-main-color-20);
+	border-top-color: var(--main-colors-foreground-f-500-main);
+	border-radius: 50%;
+	animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+/* Header */
+.admin-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px 0;
+	margin-bottom: 24px;
+	border-bottom: 0.5px solid var(--transparent-foreground-main-color-10);
+	flex-wrap: wrap;
+	gap: 12px;
+}
+
+.admin-header-left {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.admin-header-left .eye-logo {
+	width: 36px;
+	height: auto;
+}
+
+.admin-header-right {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.admin-user-info {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.admin-user-avatar {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 1px solid var(--transparent-foreground-main-color-20);
+}
+
+.btn-signout {
+	padding: 6px 14px;
+	border-radius: 8px;
+	border: 0.5px solid var(--transparent-foreground-main-color-20);
+	background: transparent;
+	color: var(--main-colors-foreground-f700);
+	cursor: pointer;
+	transition: all 0.2s;
+	font-family: var(--font-sans-family);
+	font-size: 13px;
+}
+
+.btn-signout:hover {
+	border-color: var(--alternative-foreground-red);
+	color: var(--alternative-foreground-red);
+	background: var(--alternative-background-red-to-do);
+}
+
+/* Content area */
+.admin-content {
+	display: none;
+	flex-direction: column;
+	gap: 28px;
+}
+
+.admin-content.visible {
+	display: flex;
+}
+
+/* Section cards */
+.admin-section {
+	padding: 24px;
+	border-radius: 16px;
+	border: 0.5px solid var(--transparent-foreground-main-color-10);
+	background: var(--body-background-elevate-2);
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	box-shadow: 0px 4px 20px 0px var(--fix-black---black-05);
+}
+
+.admin-section-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.admin-section-title {
+	color: var(--main-colors-foreground-f300);
+	margin: 0;
+}
+
+/* Stats row */
+.stats-row {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+}
+
+.stat-card {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding: 12px 20px;
+	border-radius: 12px;
+	background: var(--main-colors-background-b-300-main);
+	border: 0.5px solid var(--transparent-foreground-main-color-10);
+	min-width: 110px;
+	flex: 1;
+}
+
+.stat-value {
+	color: var(--main-colors-foreground-f200);
+	font-weight: 500;
+}
+
+.stat-label {
+	color: var(--main-colors-foreground-f700);
+}
+
+/* Add user form */
+.add-user-form {
+	display: flex;
+	gap: 12px;
+	flex-wrap: wrap;
+	align-items: flex-end;
+}
+
+.form-field {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	flex: 1;
+	min-width: 180px;
+}
+
+.form-field label {
+	color: var(--main-colors-foreground-f700);
+	font-weight: 500;
+}
+
+.form-field input,
+.form-field select,
+.form-input-text {
+	height: 42px;
+	padding: 8px 12px;
+	border-radius: 8px;
+	border: 0.5px solid var(--transparent-foreground-main-color-40);
+	background: var(--body-background-elevate-1) !important;
+	color: var(--main-colors-foreground-f-500-main);
+	font-family: var(--font-sans-family);
+	font-size: 14px;
+}
+
+.form-field input:focus,
+.form-field select:focus,
+.form-input-text:focus {
+	outline: none;
+	border-color: var(--main-colors-foreground-f700);
+	box-shadow: 0 0 0 2px var(--transparent-foreground-main-color-10);
+}
+
+.btn-add {
+	height: 42px;
+	padding: 8px 24px;
+	border-radius: 8px;
+	border: none;
+	background: var(--alternative-foreground-gold);
+	color: var(--main-colors-background-b100) !important;
+	cursor: pointer;
+	font-family: var(--font-sans-family);
+	font-weight: 500;
+	font-size: 14px;
+	transition: all 0.2s;
+	white-space: nowrap;
+}
+
+.btn-add:hover {
+	opacity: 0.9;
+	transform: translateY(-1px);
+}
+
+.btn-add:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+	transform: none;
+}
+
+/* Batch / GSheet Paste Styles */
+.batch-input-container {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+}
+
+.raw-paste-textarea {
+	width: 100%;
+	min-height: 90px;
+	padding: 10px 14px;
+	border-radius: 8px;
+	border: 0.5px solid var(--transparent-foreground-main-color-40);
+	background: var(--body-background-elevate-1) !important;
+	color: var(--main-colors-foreground-f-500-main);
+	font-family: var(--font-mono, monospace);
+	font-size: 13px;
+	resize: vertical;
+	line-height: 1.5;
+}
+
+.raw-paste-textarea:focus {
+	outline: none;
+	border-color: var(--main-colors-foreground-f700);
+	box-shadow: 0 0 0 2px var(--transparent-foreground-main-color-10);
+}
+
+.csv-format-hint {
+	padding: 12px 16px;
+	border-radius: 8px;
+	background: var(--main-colors-background-b-300-main);
+	border-left: 3px solid var(--alternative-foreground-gold);
+}
+
+.csv-format-hint code {
+	font-family: var(--font-mono, monospace);
+	font-size: 13px;
+	color: var(--main-colors-foreground-f400);
+	background: none;
+}
+
+.batch-dropzone-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.btn-file-upload {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 6px 14px;
+	border-radius: 8px;
+	border: 0.5px dashed var(--transparent-foreground-main-color-40);
+	background: transparent;
+	color: var(--main-colors-foreground-f700);
+	cursor: pointer;
+	font-size: 13px;
+	transition: all 0.2s;
+}
+
+.btn-file-upload:hover {
+	border-color: var(--alternative-foreground-gold);
+	color: var(--main-colors-foreground-f300);
+	background: var(--main-colors-background-b-300-main);
+}
+
+.btn-outline-custom {
+	padding: 6px 14px;
+	border-radius: 8px;
+	border: 0.5px solid var(--transparent-foreground-main-color-30);
+	background: transparent;
+	color: var(--main-colors-foreground-f700);
+	cursor: pointer;
+	font-size: 13px;
+	transition: all 0.2s;
+}
+
+.btn-outline-custom:hover {
+	border-color: var(--main-colors-foreground-f700);
+	color: var(--main-colors-foreground-f300);
+}
+
+/* ====================================================
+   EDITABLE PREVIEW TABLE (Interactive like Mixpanel Tool)
+==================================================== */
+
+#tableContainer {
+	max-height: 480px;
+	overflow: auto;
+	border-radius: 10px;
+	border: 0.5px solid var(--transparent-foreground-main-color-20);
+	background: var(--body-background-elevate-1);
+	cursor: grab;
+	user-select: none;
+}
+
+#tableContainer::-webkit-scrollbar {
+	height: 6px;
+	width: 6px;
+}
+
+#tableContainer::-webkit-scrollbar-track {
+	background: var(--main-colors-background-b-300-main);
+}
+
+#tableContainer::-webkit-scrollbar-thumb {
+	background: var(--transparent-foreground-main-color-30);
+	border-radius: 3px;
+}
+
+#tableContainer::-webkit-scrollbar-thumb:hover {
+	background: var(--transparent-foreground-main-color-50);
+}
+
+#tableContainer input,
+#tableContainer select {
+	user-select: text;
+}
+
+.editable-table {
+	width: 100%;
+	border-collapse: collapse;
+	margin: 0;
+	font-family: var(--font-sans-family);
+}
+
+.editable-table th {
+	background: var(--main-colors-background-b-300-main);
+	color: var(--main-colors-foreground-f600);
+	font-weight: 500;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	padding: 10px 12px;
+	position: sticky;
+	top: 0;
+	z-index: 2;
+	border-bottom: 0.5px solid var(--transparent-foreground-main-color-20);
+	white-space: nowrap;
+}
+
+.editable-table td {
+	padding: 0 !important;
+	border-bottom: 0.5px solid var(--transparent-foreground-main-color-10);
+	border-right: 0.5px solid var(--transparent-foreground-main-color-10);
+	background: var(--body-background-elevate-1);
+}
+
+.editable-table td:last-child {
+	border-right: none;
+}
+
+.editable-table td input,
+.editable-table td select {
+	width: 100%;
+	height: 38px;
+	border: none !important;
+	border-radius: 0 !important;
+	background: transparent !important;
+	padding: 6px 10px;
+	color: var(--main-colors-foreground-f-500-main);
+	font-size: 13.5px;
+	box-shadow: none !important;
+}
+
+.editable-table td input:focus,
+.editable-table td select:focus {
+	outline: none;
+	background: var(--transparent-foreground-main-color-05) !important;
+	box-shadow: inset 0 0 0 1.5px var(--alternative-foreground-gold) !important;
+}
+
+.editable-table td.cell-invalid input {
+	color: var(--alternative-foreground-red) !important;
+	background: var(--alternative-background-red-to-do) !important;
+}
+
+.btn-row-delete {
+	border: none;
+	background: transparent;
+	color: var(--alternative-foreground-red);
+	font-size: 18px;
+	cursor: pointer;
+	width: 100%;
+	height: 38px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.15s;
+}
+
+.btn-row-delete:hover {
+	background: var(--alternative-background-red-to-do);
+	opacity: 0.9;
+}
+
+.btn-add-row {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	padding: 6px 12px;
+	border-radius: 6px;
+	border: 0.5px dashed var(--transparent-foreground-main-color-30);
+	background: transparent;
+	color: var(--main-colors-foreground-f700);
+	cursor: pointer;
+	font-size: 12.5px;
+	transition: all 0.2s;
+}
+
+.btn-add-row:hover {
+	border-color: var(--main-colors-foreground-f700);
+	color: var(--main-colors-foreground-f300);
+	background: var(--transparent-foreground-main-color-05);
+}
+
+.btn-import-submit {
+	height: 42px;
+	padding: 8px 24px;
+	border-radius: 8px;
+	border: none;
+	background: var(--alternative-foreground-green);
+	color: var(--fix-white---white-100) !important;
+	cursor: pointer;
+	font-family: var(--font-sans-family);
+	font-weight: 500;
+	font-size: 14px;
+	transition: all 0.2s;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.btn-import-submit:hover {
+	opacity: 0.9;
+	transform: translateY(-1px);
+}
+
+.btn-import-submit:disabled {
+	opacity: 0.4;
+	cursor: not-allowed;
+	transform: none;
+}
+
+/* User table list */
+.user-table-container {
+	overflow-x: auto;
+	border-radius: 12px;
+	border: 0.5px solid var(--transparent-foreground-main-color-10);
+}
+
+.user-table {
+	width: 100%;
+	border-collapse: collapse;
+	font-family: var(--font-sans-family);
+}
+
+.user-table th {
+	padding: 10px 16px;
+	text-align: left;
+	background: var(--main-colors-background-b-300-main);
+	color: var(--main-colors-foreground-f600);
+	font-weight: 500;
+	font-size: 12px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	white-space: nowrap;
+	border-bottom: 0.5px solid var(--transparent-foreground-main-color-10);
+}
+
+.user-table td {
+	padding: 10px 16px;
+	color: var(--main-colors-foreground-f-500-main);
+	font-size: 14px;
+	border-bottom: 0.5px solid var(--transparent-foreground-main-color-05);
+	white-space: nowrap;
+}
+
+.user-table tbody tr:hover {
+	background: var(--transparent-foreground-main-color-05);
+}
+
+.btn-delete {
+	padding: 4px 10px;
+	border-radius: 6px;
+	border: 0.5px solid var(--transparent-foreground-main-color-20);
+	background: transparent;
+	color: var(--main-colors-foreground-f800);
+	cursor: pointer;
+	font-size: 12px;
+	transition: all 0.2s;
+}
+
+.btn-delete:hover {
+	border-color: var(--alternative-foreground-red);
+	color: var(--alternative-foreground-red);
+	background: var(--alternative-background-red-to-do);
+}
+
+/* Modal */
+.confirm-modal-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background: var(--transparent-foreground-main-color-60);
+	backdrop-filter: blur(8px);
+	-webkit-backdrop-filter: blur(8px);
+	z-index: 9999;
+	justify-content: center;
+	align-items: center;
+	padding: 16px;
+}
+
+.confirm-modal-box {
+	background: var(--body-background-elevate-2);
+	border: 0.5px solid var(--transparent-foreground-main-color-20);
+	border-radius: 16px;
+	padding: 24px;
+	max-width: 520px;
+	width: 100%;
+	box-shadow: 0px 16px 40px var(--fix-black---black-20);
+	display: flex;
+	flex-direction: column;
+	gap: 16px;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+	.admin-section {
+		padding: 16px;
+	}
+
+	.add-user-form {
+		flex-direction: column;
+	}
+
+	.form-field {
+		min-width: 100%;
+	}
+
+	.stats-row {
+		flex-direction: column;
+	}
+
+	.stat-card {
+		min-width: auto;
+	}
+}

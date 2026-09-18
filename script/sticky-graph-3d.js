@@ -27,6 +27,8 @@ const STICKY_GRAPH_CONFIG = {
   noteScale: 1.3,                       // Hệ số phóng to / thu nhỏ kích thước tất cả note (VD: 0.7 = 70%)
   fontSize: 8,                          // Kích thước font tiêu đề (title) trong sticky note (null = tự động theo level)
   descFontSize: 6.2,                    // Kích thước font mô tả (description) trong sticky note (null = tự động)
+  hoverScale: 1.08,                     // Phóng to nhẹ sticky note khi hover chuột (1.0 = giữ nguyên, 1.08 = to lên 8%)
+  hoverBrightness: 0.18,                // Độ sáng tăng thêm khi hover sticky note (0.0 -> 1.0)
 
   // ----------------------------------------------------------------------------
   // 4. KHÔNG GIAN, MÀU NỀN & CAMERA (Environment & Camera)
@@ -182,6 +184,7 @@ const STICKY_GRAPH_CONFIG = {
 
       this.selectedNode = null;
       this.hoveredNode = null;
+      this.hoveredMesh = null;
       this.draggedNode = null;
       this.isDragging = false;
       this.dragPlane = null;
@@ -846,6 +849,9 @@ const STICKY_GRAPH_CONFIG = {
       }
       this.meshMap.clear();
       this.linkMeshes = [];
+      this.hoveredMesh = null;
+      this.hoveredNode = null;
+      if (this.canvas) this.canvas.style.cursor = 'default';
 
       // 1. Phân bố vị trí ban đầu theo thuật toán không gian chống tụ đống
       this._calculateLayoutPositions();
@@ -1287,7 +1293,10 @@ const STICKY_GRAPH_CONFIG = {
         wobbleSpeedFactor: 0.8 + Math.random() * 0.4,
         frontMaterial: frontMaterial,
         accentColor: new THREE.Color(node.color || DEFAULT_FALLBACK_COLOR),
-        filterMatch: true
+        filterMatch: true,
+        targetScale: 1.0,
+        targetOpacity: 1.0,
+        currentEmissive: 0.0
       };
 
       return mesh;
@@ -1295,6 +1304,10 @@ const STICKY_GRAPH_CONFIG = {
 
     // Tái tạo toàn bộ mesh khi thay đổi hình dạng card (Box / Plane / Bevel) hoặc chất liệu
     _rebuildMeshes() {
+      this.hoveredMesh = null;
+      this.hoveredNode = null;
+      if (this.canvas) this.canvas.style.cursor = 'default';
+
       this.meshMap.forEach((oldMesh, id) => {
         const node = oldMesh.userData.node;
         const pos = oldMesh.position.clone();
@@ -1311,6 +1324,9 @@ const STICKY_GRAPH_CONFIG = {
         const newMesh = this._createStickyNoteMesh(node);
         newMesh.position.copy(pos);
         newMesh.userData.basePos.copy(basePos);
+        newMesh.userData.targetScale = oldMesh.userData.targetScale || 1.0;
+        newMesh.userData.targetOpacity = oldMesh.userData.targetOpacity !== undefined ? oldMesh.userData.targetOpacity : 1.0;
+        newMesh.userData.currentEmissive = 0.0;
         this.graphGroup.add(newMesh);
         this.meshMap.set(id, newMesh);
       });
@@ -1591,20 +1607,25 @@ const STICKY_GRAPH_CONFIG = {
 
         if (!node) {
           // Trạng thái bình thường: khôi phục kích thước và opacity 100%
-          mesh.scale.set(1.0, 1.0, 1.0);
-          mesh.userData.frontMaterial.opacity = 1.0;
+          mesh.userData.targetScale = 1.0;
+          mesh.userData.targetOpacity = 1.0;
           mesh.visible = isFilterMatch;
         } else if (connectedSet.has(n.id)) {
           // Node được chọn hoặc liên kết trực tiếp với node được chọn: giữ nguyên kích thước & sáng rõ
-          mesh.scale.set(1.0, 1.0, 1.0);
-          mesh.userData.frontMaterial.opacity = 1.0;
+          mesh.userData.targetScale = 1.0;
+          mesh.userData.targetOpacity = 1.0;
           mesh.visible = isFilterMatch;
         } else {
           // Node KHÔNG liên quan: thu nhỏ nhẹ và giảm opacity theo cấu hình noteDimmedOpacity
-          mesh.scale.set(0.85, 0.85, 0.85);
-          mesh.userData.frontMaterial.opacity = Math.max(0, noteDimmedOpacity);
+          mesh.userData.targetScale = 0.85;
+          mesh.userData.targetOpacity = Math.max(0, noteDimmedOpacity);
           // Nếu opacity <= 0 thì ẩn luôn note đi
           mesh.visible = isFilterMatch && (noteDimmedOpacity > 0);
+        }
+
+        if (!this.animRunning) {
+          mesh.scale.setScalar(mesh.userData.targetScale);
+          mesh.userData.frontMaterial.opacity = mesh.userData.targetOpacity;
         }
       });
 
@@ -1782,6 +1803,7 @@ const STICKY_GRAPH_CONFIG = {
             // Trên chuột (Desktop): Kéo thả node tự do
             this.isDragging = true;
             this.draggedMesh = hitMesh;
+            dom.style.cursor = 'grabbing';
             this.pendingTouchMesh = null;
             this.controls.enabled = false; // Tắt xoay camera khi kéo node
 
@@ -1816,6 +1838,7 @@ const STICKY_GRAPH_CONFIG = {
         this.mouse.y = -((e.clientY - rect.top) / rh) * 2 + 1;
 
         if (this.isDragging && this.draggedMesh) {
+          dom.style.cursor = 'grabbing';
           this.raycaster.setFromCamera(this.mouse, this.camera);
           const planeIntersect = new window.THREE.Vector3();
           if (this.raycaster.ray.intersectPlane(this.dragPlane, planeIntersect)) {
@@ -1843,13 +1866,14 @@ const STICKY_GRAPH_CONFIG = {
             });
           }
         } else {
-          // Hovering over sticky notes (không có hiệu ứng lift/tilt/highlight)
+          // Hovering over sticky notes (đổi chuột thành pointer, làm sáng & phóng to nhẹ)
           this.raycaster.setFromCamera(this.mouse, this.camera);
           const visibleMeshes = Array.from(this.meshMap.values()).filter(m => m.visible);
           const intersects = this.raycaster.intersectObjects(visibleMeshes);
 
           if (intersects.length > 0) {
             const hit = intersects[0].object;
+            dom.style.cursor = 'pointer';
             if (this.hoveredMesh !== hit) {
               this.hoveredMesh = hit;
               this.hoveredNode = hit.userData.node;
@@ -1858,12 +1882,27 @@ const STICKY_GRAPH_CONFIG = {
               }
             }
           } else {
+            dom.style.cursor = 'default';
             if (this.hoveredMesh) {
               this.hoveredMesh = null;
               this.hoveredNode = null;
               if (typeof this.options.onNodeHover === 'function') {
                 this.options.onNodeHover(null);
               }
+            }
+          }
+        }
+      });
+
+      // Pointer Leave: Khi chuột rời khỏi vùng canvas, khôi phục chuột mặc định và hủy hover
+      dom.addEventListener('pointerleave', () => {
+        if (!this.isDragging) {
+          dom.style.cursor = 'default';
+          if (this.hoveredMesh) {
+            this.hoveredMesh = null;
+            this.hoveredNode = null;
+            if (typeof this.options.onNodeHover === 'function') {
+              this.options.onNodeHover(null);
             }
           }
         }
@@ -1891,6 +1930,22 @@ const STICKY_GRAPH_CONFIG = {
           this.isDragging = false;
           this.controls.enabled = true;
           this.draggedMesh = null;
+          // Cập nhật lại cursor & hover sau khi thả kéo
+          if (e.pointerType !== 'touch') {
+            const rect = dom.getBoundingClientRect();
+            const rw = rect.width || this.width;
+            const rh = rect.height || this.height;
+            this.mouse.x = ((e.clientX - rect.left) / rw) * 2 - 1;
+            this.mouse.y = -((e.clientY - rect.top) / rh) * 2 + 1;
+            this.raycaster.setFromCamera(this.mouse, this.camera);
+            const visibleMeshes = Array.from(this.meshMap.values()).filter(m => m.visible);
+            const intersects = this.raycaster.intersectObjects(visibleMeshes);
+            dom.style.cursor = intersects.length > 0 ? 'pointer' : 'default';
+            this.hoveredMesh = intersects.length > 0 ? intersects[0].object : null;
+            this.hoveredNode = this.hoveredMesh ? this.hoveredMesh.userData.node : null;
+          } else {
+            dom.style.cursor = 'default';
+          }
         }
         this.pendingTouchMesh = null;
         this.dragStartPos = null;
@@ -1902,6 +1957,7 @@ const STICKY_GRAPH_CONFIG = {
           this.isDragging = false;
           this.controls.enabled = true;
           this.draggedMesh = null;
+          dom.style.cursor = 'default';
         }
         this.pendingTouchMesh = null;
         this.dragStartPos = null;
@@ -2050,6 +2106,8 @@ const STICKY_GRAPH_CONFIG = {
       // 2. Xử lý Billboarding, Hover Lift & Tilt, và Lò xo đàn hồi (Physics Repulsion)
       const wobbleSpeed = this.options.wobbleSpeed;
       const wobbleAmp = this.options.wobbleAmp;
+      const hoverScaleSetting = this.options.hoverScale !== undefined ? this.options.hoverScale : 1.08;
+      const hoverBrightSetting = this.options.hoverBrightness !== undefined ? this.options.hoverBrightness : 0.18;
 
       this.meshMap.forEach(mesh => {
         if (!mesh.visible) return;
@@ -2067,6 +2125,33 @@ const STICKY_GRAPH_CONFIG = {
             mesh.position.lerp(u.basePos, 0.1);
           }
         }
+
+        // 🌟 Hiệu ứng Hover: Phóng to nhẹ và sáng lên một chút
+        const isHovered = (this.hoveredMesh === mesh);
+        const baseScale = u.targetScale !== undefined ? u.targetScale : 1.0;
+        const targetScale = isHovered ? (baseScale * hoverScaleSetting) : baseScale;
+
+        // Mượt mà lerp kích thước (to lên nhẹ ~1.08x)
+        mesh.scale.x += (targetScale - mesh.scale.x) * 0.18;
+        mesh.scale.y += (targetScale - mesh.scale.y) * 0.18;
+        mesh.scale.z += (targetScale - mesh.scale.z) * 0.18;
+
+        // Mượt mà lerp độ sáng (emissive)
+        const targetEmissive = isHovered ? hoverBrightSetting : 0.0;
+        u.currentEmissive = (u.currentEmissive || 0) + (targetEmissive - (u.currentEmissive || 0)) * 0.18;
+        if (u.frontMaterial && u.frontMaterial.emissive) {
+          u.frontMaterial.emissive.setRGB(u.currentEmissive, u.currentEmissive, u.currentEmissive);
+        }
+
+        // Mượt mà lerp độ mờ opacity (khi đang chọn 1 note khác mà hover vào note mờ thì note đó sáng rõ lên)
+        const baseOpacity = u.targetOpacity !== undefined ? u.targetOpacity : 1.0;
+        const targetOpacity = isHovered ? Math.max(baseOpacity, 0.88) : baseOpacity;
+        if (u.frontMaterial) {
+          u.frontMaterial.opacity += (targetOpacity - u.frontMaterial.opacity) * 0.18;
+        }
+
+        // Ưu tiên hiển thị note đang hover đè lên trên các note khác
+        mesh.renderOrder = isHovered ? 99 : 0;
 
         // Cập nhật shader uniforms cho độ cong vênh & rung lắc mép giấy (Paper Curl & Flutter)
         const shader = u.frontMaterial.userData.shader;
@@ -2127,6 +2212,12 @@ const STICKY_GRAPH_CONFIG = {
       }
       if (newConfig.fontSize !== undefined || newConfig.descFontSize !== undefined || newConfig.borderRadius !== undefined) {
         this._rebuildMeshes();
+      }
+      if (newConfig.hoverScale !== undefined) {
+        this.options.hoverScale = newConfig.hoverScale;
+      }
+      if (newConfig.hoverBrightness !== undefined) {
+        this.options.hoverBrightness = newConfig.hoverBrightness;
       }
 
       // 2. Không gian, Ánh sáng & Chế độ Dark/Light

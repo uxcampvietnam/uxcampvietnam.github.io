@@ -728,6 +728,127 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    /* Color picker & Hex text styles */
+    .color-picker-wrap {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .cell-color-picker {
+      width: 28px;
+      height: 26px;
+      padding: 0;
+      border: 1px solid var(--border);
+      cursor: pointer;
+      border-radius: 5px;
+      background: transparent;
+      outline: none;
+      flex-shrink: 0;
+      transition: border-color 0.15s, transform 0.15s;
+    }
+
+    .cell-color-picker:hover {
+      border-color: rgba(255, 255, 255, 0.4);
+      transform: scale(1.05);
+    }
+
+    .cell-color-text {
+      width: 76px;
+      height: 26px;
+      padding: 3px 6px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: rgba(255, 255, 255, 0.05);
+      color: var(--text);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      outline: none;
+      text-transform: uppercase;
+      box-sizing: border-box;
+      transition: border-color 0.15s, background 0.15s;
+    }
+
+    .cell-color-text:focus {
+      border-color: var(--accent);
+      background: rgba(255, 255, 255, 0.09);
+      box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.25);
+    }
+
+    /* Modal Backdrop & Card */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(5, 7, 12, 0.82);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .modal-card {
+      background: #141824;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      width: 720px;
+      max-width: 94vw;
+      box-shadow: 0 24px 50px rgba(0, 0, 0, 0.85);
+      padding: 22px 26px;
+      display: flex;
+      flex-direction: column;
+      animation: modalFadeIn 0.2s ease-out;
+    }
+
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.96) translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .modal-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-close-modal {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 22px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 2px 6px;
+      border-radius: 4px;
+      transition: color 0.15s, background 0.15s;
+    }
+
+    .btn-close-modal:hover {
+      color: #fff;
+      background: rgba(255, 255, 255, 0.1);
+    }
   </style>
 </head>
 
@@ -739,6 +860,11 @@
     </div>
 
     <div class="header-actions">
+      <!-- Nút Dán / Nhập TSV -->
+      <button id="btnPasteTSV" class="btn" title="Dán hoặc nạp nội dung TSV vào CMS">
+        <span>📥</span> Nhập / Dán TSV
+      </button>
+
       <!-- Nút Copy TSV chính -->
       <button id="btnCopyTSV" class="btn btn-primary"
         title="Sao chép toàn bộ dữ liệu ra định dạng TSV để dán vào knowledge_nodes.tsv">
@@ -749,8 +875,6 @@
       <button id="btnDownloadTSV" class="btn" title="Tải trực tiếp file knowledge_nodes.tsv về máy">
         <span>💾</span> Tải file .tsv
       </button>
-
-
     </div>
   </header>
 
@@ -855,7 +979,7 @@
               <th style="width: 90px;">Cấp Độ</th>
               <th>Mô Tả Tóm Tắt</th>
               <th style="width: 300px;">Liên Kết (Connections - Kéo thả vào đây)</th>
-              <th style="width: 60px;">Màu</th>
+              <th style="width: 130px;">Màu</th>
               <th style="width: 50px;">Xóa</th>
             </tr>
           </thead>
@@ -871,6 +995,38 @@
   <div id="toast" class="toast">
     <span>✅</span>
     <span id="toastMsg">Đã sao chép nội dung vào bộ nhớ tạm!</span>
+  </div>
+
+  <!-- Modal Nhập / Dán TSV -->
+  <div id="modalImportTSV" class="modal-backdrop" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>📥</span> Nhập / Dán Dữ Liệu TSV
+        </div>
+        <button id="btnCloseImportModal" class="btn-close-modal" title="Đóng">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5;">
+          Dán nội dung từ file <code>knowledge_nodes.tsv</code> (hoặc bảng tính Google Sheets/Excel) vào ô bên dưới để cập nhật vào CMS:
+        </p>
+        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+          <button id="btnPasteFromClipboard" class="btn btn-xs" style="background: rgba(99, 102, 241, 0.2); border-color: #6366f1; color: #a5b4fc;">
+            📋 Dán từ Clipboard
+          </button>
+          <label class="btn btn-xs" style="cursor: pointer;">
+            📁 Chọn file .tsv từ máy
+            <input type="file" id="fileInputTSV" accept=".tsv,.txt" style="display: none;">
+          </label>
+        </div>
+        <textarea id="importTSVTextarea" class="cell-input" style="width: 100%; height: 260px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; line-height: 1.4; padding: 10px; border-radius: 6px; resize: vertical; white-space: pre;" placeholder="Dán nội dung TSV vào đây (cột: id, label, level, desc, connections, color, validated)..."></textarea>
+        <div id="importStats" style="font-size: 12px; color: #94a3b8; margin-top: 6px;"></div>
+      </div>
+      <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px;">
+        <button id="btnCancelImport" class="btn">Hủy</button>
+        <button id="btnApplyImport" class="btn btn-primary">✅ Nạp Vào CMS</button>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -931,13 +1087,31 @@
       });
     }
 
+    // Helper format Hex color to valid 7-char lowercase hex for HTML5 input
+    function formatHexColor(color) {
+      if (!color) return '#ffb703';
+      color = String(color).trim();
+      if (!color.startsWith('#') && /^[0-9a-fA-F]{6}$/.test(color)) {
+        color = '#' + color;
+      }
+      if (/^#[0-9a-fA-F]{6}$/.test(color)) {
+        return color.toLowerCase();
+      }
+      if (/^#[0-9a-fA-F]{3}$/.test(color)) {
+        const r = color[1], g = color[2], b = color[3];
+        return `#${r}${r}${g}${g}${b}${b}`.toLowerCase();
+      }
+      return '#ffb703';
+    }
+
     // Parse TSV text (Hỗ trợ cấu trúc 7 cột: id, label, level, desc, connections, color, validated)
     function parseTSV(text) {
-      const lines = text.trim().split('\n');
-      if (lines.length < 2) return;
+      const cleanText = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
+      const lines = cleanText.trim().split('\n');
+      if (lines.length < 2) return false;
       const headers = lines[0].split('\t').map(h => h.trim().toLowerCase());
 
-      nodesData = [];
+      const newNodes = [];
       for (let i = 1; i < lines.length; i++) {
         const line = lines[i].trim();
         if (!line) continue;
@@ -956,11 +1130,17 @@
         const level = parseInt(row.level || row['cấp độ'] || row.capdo, 10) || 3;
         const desc = row.desc || row['mô tả'] || row.description || '';
         const connStr = row.connections || row['liên kết'] || row.lienket || '';
-        const color = row.color || row['màu'] || row.mau || '';
+        let color = row.color || row['màu'] || row.mau || '';
+        if (color && !color.startsWith('#') && /^[0-9a-fA-F]{3,6}$/.test(color)) {
+          color = '#' + color;
+        }
+        if (color) {
+          color = color.toUpperCase();
+        }
         const valStr = (row.validated || row['xác thực'] || row.verify || '').toLowerCase();
         const validated = valStr === 'true' || valStr === '1' || valStr === 'yes';
 
-        nodesData.push({
+        newNodes.push({
           id,
           label,
           level,
@@ -970,6 +1150,12 @@
           validated
         });
       }
+
+      if (newNodes.length > 0) {
+        nodesData = newNodes;
+        return true;
+      }
+      return false;
     }
 
     // Parse JSON fallback
@@ -1031,11 +1217,10 @@
         const item = document.createElement('div');
         item.className = 'drag-node-item' + (isSelected ? ' selected' : '');
         item.draggable = true;
-        item.dataset.nodeId = n.id;
-        item.dataset.index = idx;
-
+        const nodeColor = n.color ? formatHexColor(n.color) : '#ffb703';
         item.innerHTML = `
           <div class="drag-node-label" title="${escapeHtml(n.label)}">
+            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background-color:${nodeColor}; flex-shrink:0;" title="Màu: ${escapeHtml(n.color || 'Mặc định')}"></span>
             <span class="palette-val-dot ${n.validated ? 'is-valid' : 'is-unverified'}" title="${n.validated ? 'Đã duyệt' : 'Chưa duyệt'}">${n.validated ? '✓' : '○'}</span>
             ${escapeHtml(n.label)}
           </div>
@@ -1228,7 +1413,10 @@
             </div>
           </td>
           <td>
-            <input type="color" value="${node.color || '#ffb703'}" data-field="color" style="width: 28px; height: 26px; padding: 0; border: none; cursor: pointer; border-radius: 4px;">
+            <div class="color-picker-wrap">
+              <input type="color" class="cell-color-picker" value="${formatHexColor(node.color)}" data-field="color" title="Chọn màu trực quan">
+              <input type="text" class="cell-color-text" value="${escapeHtml(node.color || '#ffb703')}" data-field="color-text" placeholder="#HEX" title="Nhập mã màu Hex (vd: #F8B195)">
+            </div>
           </td>
           <td style="text-align: center;">
             <button class="btn-row-action btn-delete-row" data-index="${index}" title="Xóa node này">🗑️</button>
@@ -1270,7 +1458,7 @@
       document.querySelectorAll('#tableBody tr').forEach(tr => {
         tr.onclick = (e) => {
           // Bỏ qua nếu người dùng tương tác với các ô nhập liệu, chọn màu, nút xóa, thẻ kết nối, hoặc drop zone
-          if (e.target.closest('textarea, select, input[type="color"], button, .conn-chip, .connections-drop-zone')) {
+          if (e.target.closest('textarea, select, input, button, .conn-chip, .connections-drop-zone')) {
             return;
           }
 
@@ -1317,15 +1505,35 @@
       });
 
       // 1. In-place input changes
-      document.querySelectorAll('.cell-input, .cell-select').forEach(input => {
+      document.querySelectorAll('.cell-input, .cell-select, .cell-color-picker, .cell-color-text').forEach(input => {
         const updateHandler = (e) => {
           const tr = e.target.closest('tr');
           if (!tr) return;
           const index = parseInt(tr.dataset.index, 10);
           const field = e.target.dataset.field;
           let val = e.target.value;
-          if (field === 'level') val = parseInt(val, 10);
-          nodesData[index][field] = val;
+          if (field === 'level') {
+            val = parseInt(val, 10);
+            nodesData[index][field] = val;
+          } else if (field === 'color') {
+            val = val.toUpperCase();
+            nodesData[index]['color'] = val;
+            const textInput = tr.querySelector('.cell-color-text');
+            if (textInput && textInput !== e.target) textInput.value = val;
+          } else if (field === 'color-text') {
+            val = val.trim();
+            if (val && !val.startsWith('#') && /^[0-9a-fA-F]{3,6}$/.test(val)) {
+              val = '#' + val;
+            }
+            val = val.toUpperCase();
+            nodesData[index]['color'] = val;
+            const colorPicker = tr.querySelector('.cell-color-picker');
+            if (colorPicker && /^#[0-9a-fA-F]{6}$/.test(val)) {
+              colorPicker.value = val.toLowerCase();
+            }
+          } else {
+            nodesData[index][field] = val;
+          }
           rebuildNodesMap();
           renderPalette();
         };
@@ -1771,13 +1979,14 @@
       const lines = [headers.join('\t')];
 
       nodesData.forEach(n => {
+        const colorVal = (n.color || '').trim().toUpperCase();
         const row = [
           n.id,
           n.label || '',
           n.level || 3,
           (n.desc || '').replace(/[\t\n\r]/g, ' '),
           (n.connections || []).join(';'),
-          n.color || '',
+          colorVal,
           n.validated ? 'true' : 'false'
         ];
         lines.push(row.join('\t'));
@@ -1942,6 +2151,129 @@
         a.click();
         showToast('💾 Đã tải xuống tệp knowledge_nodes.tsv');
       };
+
+      // 📥 MODAL NHẬP / DÁN TSV
+      const modalImport = document.getElementById('modalImportTSV');
+      const importTextarea = document.getElementById('importTSVTextarea');
+      const importStats = document.getElementById('importStats');
+
+      function openImportModal() {
+        if (!modalImport) return;
+        modalImport.style.display = 'flex';
+        if (importTextarea) importTextarea.focus();
+        updateImportStats();
+      }
+
+      function closeImportModal() {
+        if (!modalImport) return;
+        modalImport.style.display = 'none';
+      }
+
+      function updateImportStats() {
+        if (!importStats || !importTextarea) return;
+        const text = importTextarea.value.trim();
+        if (!text) {
+          importStats.textContent = '';
+          return;
+        }
+        const lines = text.split(/\r?\n/).filter(l => l.trim().length > 0);
+        if (lines.length > 1) {
+          importStats.textContent = `📊 Phát hiện khoảng ${lines.length - 1} dòng dữ liệu node.`;
+          importStats.style.color = '#34d399';
+        } else {
+          importStats.textContent = '⚠️ Nội dung cần có ít nhất 1 dòng tiêu đề và 1 dòng dữ liệu (phân cách bằng Tab).';
+          importStats.style.color = '#fbbf24';
+        }
+      }
+
+      const btnPasteTSV = document.getElementById('btnPasteTSV');
+      if (btnPasteTSV) btnPasteTSV.onclick = openImportModal;
+
+      const btnCloseModal = document.getElementById('btnCloseImportModal');
+      if (btnCloseModal) btnCloseModal.onclick = closeImportModal;
+
+      const btnCancelModal = document.getElementById('btnCancelImport');
+      if (btnCancelModal) btnCancelModal.onclick = closeImportModal;
+
+      if (modalImport) {
+        modalImport.onclick = (e) => {
+          if (e.target === modalImport) closeImportModal();
+        };
+      }
+
+      if (importTextarea) {
+        importTextarea.oninput = updateImportStats;
+      }
+
+      // Nút dán từ Clipboard vào modal
+      const btnPasteClip = document.getElementById('btnPasteFromClipboard');
+      if (btnPasteClip) {
+        btnPasteClip.onclick = async () => {
+          try {
+            const text = await navigator.clipboard.readText();
+            if (text) {
+              importTextarea.value = text;
+              updateImportStats();
+              showToast('📋 Đã dán nội dung từ Clipboard!');
+            }
+          } catch (err) {
+            showToast('⚠️ Hãy dùng phím tắt Ctrl+V / Cmd+V để dán trực tiếp vào khung.');
+          }
+        };
+      }
+
+      // Chọn file .tsv từ máy
+      const fileInput = document.getElementById('fileInputTSV');
+      if (fileInput) {
+        fileInput.onchange = (e) => {
+          const file = e.target.files && e.target.files[0];
+          if (!file) return;
+          const reader = new FileReader();
+          reader.onload = (evt) => {
+            importTextarea.value = evt.target.result;
+            updateImportStats();
+            showToast(`📁 Đã đọc file "${file.name}"!`);
+          };
+          reader.readAsText(file);
+        };
+      }
+
+      // Nút xác nhận nạp TSV
+      const btnApply = document.getElementById('btnApplyImport');
+      if (btnApply) {
+        btnApply.onclick = () => {
+          const text = importTextarea.value.trim();
+          if (!text) {
+            alert('Vui lòng nhập hoặc dán nội dung TSV trước khi nạp!');
+            return;
+          }
+          const success = parseTSV(text);
+          if (success) {
+            rebuildNodesMap();
+            renderPalette();
+            renderTable();
+            closeImportModal();
+            showToast(`✅ Đã nạp thành công ${nodesData.length} node từ TSV!`);
+          } else {
+            alert('Không thể đọc dữ liệu TSV. Vui lòng kiểm tra định dạng dữ liệu (cần có ít nhất 1 dòng tiêu đề và 1 dòng dữ liệu, phân cách bằng Tab).');
+          }
+        };
+      }
+
+      // Phím tắt dán toàn cục (Ctrl+V / Cmd+V khi không focus ô nhập văn bản)
+      window.addEventListener('paste', (e) => {
+        const activeTag = document.activeElement ? document.activeElement.tagName : '';
+        if (activeTag === 'INPUT' || activeTag === 'TEXTAREA') return;
+
+        const clipboardData = (e.clipboardData || window.clipboardData).getData('text');
+        if (clipboardData && (clipboardData.includes('\tlabel\t') || clipboardData.includes('id\t') || clipboardData.split('\t').length > 3)) {
+          e.preventDefault();
+          openImportModal();
+          importTextarea.value = clipboardData;
+          updateImportStats();
+          showToast('📥 Đã nhận diện dữ liệu TSV từ Clipboard!');
+        }
+      });
 
     }
   </script>

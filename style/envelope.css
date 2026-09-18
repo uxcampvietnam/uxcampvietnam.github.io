@@ -610,12 +610,11 @@ body.envelope-modal-open {
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.2),
     0 0 0 1px rgba(0, 0, 0, 0.08);
-  padding: 28px;
   border-radius: 12px;
   overflow: hidden;
   transform-style: preserve-3d;
   transform: rotateY(180deg) translate3d(0, 0, 2px);
-  will-change: transform, height, width, left, box-shadow, padding;
+  will-change: transform, height, box-shadow;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -631,6 +630,7 @@ body.envelope-modal-open {
 }
 
 .letter-content-scroll {
+  padding: 28px;
   width: 100%;
   height: 100%;
   display: flex;
@@ -638,7 +638,6 @@ body.envelope-modal-open {
   gap: 20px;
   overflow-y: auto;
   box-sizing: border-box;
-  will-change: opacity, transform;
 }
 
 /* Top Header inside Letter: Avatar + Info on Left, Stamp on Right (Figma 3705:36592) */
@@ -736,6 +735,7 @@ body.envelope-modal-open {
   color: var(--main-colors-foreground-f-500-main, #1a1a1a) !important;
   white-space: pre-wrap;
   flex-grow: 1;
+  flex-shrink: 0;
   margin: 0;
 }
 
@@ -859,17 +859,23 @@ body.envelope-modal-open {
 }
 
 /* Custom Scrollbar for letter */
-.letter-3d-card::-webkit-scrollbar {
-  width: 3px;
+.letter-3d-card::-webkit-scrollbar,
+.letter-3d-container::-webkit-scrollbar,
+.letter-content-scroll::-webkit-scrollbar {
+  width: 4px;
 }
 
-.letter-3d-card::-webkit-scrollbar-track {
-  background: var(--transparent-foreground-main-color-05);
+.letter-3d-card::-webkit-scrollbar-track,
+.letter-3d-container::-webkit-scrollbar-track,
+.letter-content-scroll::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-.letter-3d-card::-webkit-scrollbar-thumb {
-  background: var(--transparent-foreground-main-color-30);
-  border-radius: 3px;
+.letter-3d-card::-webkit-scrollbar-thumb,
+.letter-3d-container::-webkit-scrollbar-thumb,
+.letter-content-scroll::-webkit-scrollbar-thumb {
+  background: var(--transparent-foreground-main-color-30, rgba(255, 255, 255, 0.2));
+  border-radius: 4px;
 }
 
 /* ==========================================================================

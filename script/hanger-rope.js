@@ -173,6 +173,9 @@
 
             // Kéo thả chuột / chạm
             this.isDragging = false;
+            this.hasDragged = false;
+            this.dragStartClientX = 0;
+            this.dragStartClientY = 0;
             this.dragItemInstance = null;
             this.dragItemGrabOffsetY = 0;
             this.pointerX = 0;
@@ -355,8 +358,8 @@
 
                 // Thẻ ảnh Polaroid & Tag ghi chú
                 const cardHtml = `
-                    <div class="hanger-card">
-                        <div class="hanger-card-inner">
+                    <div class="hanger-card" data-id="${item.id}" data-target="${item.targetSelector || ''}">
+                        <div class="hanger-card-inner" data-target="${item.targetSelector || ''}">
                             <img src="${item.imageUrl}" alt="${item.title}" loading="lazy" />
                         </div>
                         <button type="button" class="hanger-tag" data-id="${item.id}" data-target="${item.targetSelector || ''}">
@@ -423,11 +426,15 @@
                 }
             }, { passive: true });
 
-            // Click vào Tag để cuộn mượt đến bước tương ứng
+            // Click vào Tag hoặc Ảnh để cuộn mượt đến bước tương ứng
             this.itemsLayer.addEventListener('click', (e) => {
-                const tagBtn = e.target.closest('.hanger-tag');
-                if (!tagBtn) return;
-                const targetSelector = tagBtn.getAttribute('data-target');
+                if (this.hasDragged) {
+                    this.hasDragged = false;
+                    return;
+                }
+                const clickable = e.target.closest('.hanger-tag, .hanger-card, [data-target]');
+                if (!clickable) return;
+                const targetSelector = clickable.getAttribute('data-target');
                 if (targetSelector) {
                     const targetEl = document.querySelector(targetSelector);
                     if (targetEl) {
@@ -449,6 +456,9 @@
 
             const onPointerMove = (e) => {
                 if (!this.isDragging) return;
+                if (!this.hasDragged && (Math.abs(e.clientX - this.dragStartClientX) > 6 || Math.abs(e.clientY - this.dragStartClientY) > 6)) {
+                    this.hasDragged = true;
+                }
                 const pos = getPointerPos(e);
                 this.pointerVelocityX = pos.x - this.pointerX;
                 this.pointerVelocityY = pos.y - this.pointerY;
@@ -460,6 +470,12 @@
                 if (!this.isDragging) return;
                 this.isDragging = false;
                 this.container.classList.remove('is-dragging');
+
+                if (this.hasDragged) {
+                    setTimeout(() => {
+                        this.hasDragged = false;
+                    }, 120);
+                }
 
                 // Tháo gỡ listener move & up ngay khi nhả chuột/thả tay để giải phóng 100% CPU
                 window.removeEventListener('pointermove', onPointerMove);
@@ -499,6 +515,9 @@
 
             const startDrag = (e, itemTarget) => {
                 this.isDragging = true;
+                this.hasDragged = false;
+                this.dragStartClientX = e.clientX;
+                this.dragStartClientY = e.clientY;
                 this.container.classList.add('is-dragging');
                 const pos = getPointerPos(e);
                 this.pointerX = pos.x;

@@ -105,6 +105,7 @@
     padding: 7px;
     transition: transform 0.2s ease;
     overflow: visible;
+    cursor: pointer;
 }
 
 .hanger-card-inner {

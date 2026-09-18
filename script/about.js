@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		const graduationSection = new SplitType('.graduation-section p, .graduation-section h2', {
 			types: 'words, chars'
 		});
-		var totalImg = 50;
+		var totalImg = 133;
 		var slidingImgInnerHTML = ``;
 		for (var i = 1; i <= totalImg; i++) {
 			slidingImgInnerHTML += `<img class="sliding-img" src="asset/image/graduation/${i}.webp" alt="Graduation ${i}" draggable="false">`;

@@ -29,7 +29,7 @@ window.addEventListener('load', () => {
     }
 
     gsap.to('.sticky-graph-overlay', {
-        height: '100%',
+        height: '200%',
         ease: "none",
         scrollTrigger: {
             trigger: "#graphContainer",

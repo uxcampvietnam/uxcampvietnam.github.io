@@ -78,7 +78,7 @@
 	height: 1%;
 	pointer-events: none;
 	position: absolute;
-	bottom: 0px;
+	bottom: -10px;
 	background: linear-gradient(180deg, transparent 0%, var(--body-background) 100%);
 }
 

@@ -93,7 +93,7 @@
             {
                 "id": "step-1",
                 "title": "Đăng ký",
-                "imageUrl": "asset/icon/rope-img-01.png",
+                "imageUrl": "asset/icon/rope-img-01.webp",
                 "ropePosition": 0.1,
                 "widthDesktop": 225,
                 "widthMobile": 50,
@@ -103,7 +103,7 @@
             {
                 "id": "step-2",
                 "title": "Orientation",
-                "imageUrl": "asset/icon/rope-img-02.png",
+                "imageUrl": "asset/icon/rope-img-02.webp",
                 "ropePosition": 0.3,
                 "widthDesktop": 220,
                 "widthMobile": 50,
@@ -113,7 +113,7 @@
             {
                 "id": "step-3",
                 "title": "Học hành",
-                "imageUrl": "asset/icon/rope-img-03.png",
+                "imageUrl": "asset/icon/rope-img-03.webp",
                 "ropePosition": 0.5,
                 "widthDesktop": 340,
                 "widthMobile": 70,
@@ -123,7 +123,7 @@
             {
                 "id": "step-4",
                 "title": "Bảo vệ",
-                "imageUrl": "asset/icon/rope-img-04.png",
+                "imageUrl": "asset/icon/rope-img-04.webp",
                 "ropePosition": 0.71,
                 "widthDesktop": 320,
                 "widthMobile": 70,
@@ -133,7 +133,7 @@
             {
                 "id": "step-5",
                 "title": "Về bờ",
-                "imageUrl": "asset/icon/rope-img-05.png",
+                "imageUrl": "asset/icon/rope-img-05.webp",
                 "ropePosition": 0.9,
                 "widthDesktop": 355,
                 "widthMobile": 70,

@@ -358,6 +358,7 @@
     elements.faceBack = document.getElementById("faceBack");
     elements.coverFlap = document.getElementById("coverFlap");
     elements.letter3dContainer = document.getElementById("letter3dContainer");
+    elements.letterContentScroll = elements.letter3dContainer ? elements.letter3dContainer.querySelector(".letter-content-scroll") : null;
 
     elements.frontSenderName = document.getElementById("frontSenderName");
     elements.frontSenderTitle = document.getElementById("frontSenderTitle");
@@ -1141,6 +1142,7 @@
     const envelopeWrapper = elements.envelopeWrapper;
     const coverFlap = elements.coverFlap;
     const letterContainer = elements.letter3dContainer;
+    const letterContent = elements.letterContentScroll || (letterContainer ? letterContainer.querySelector(".letter-content-scroll") : null);
     const faceFront = elements.faceFront;
     const faceBack = elements.faceBack;
 
@@ -1201,6 +1203,15 @@
       overflowY: "hidden"
     });
 
+    // Ẩn nội dung chữ lúc đầu để tránh hiện tượng text reflow / vỡ dòng khi kích thước thẻ thay đổi
+    if (letterContent) {
+      gsap.set(letterContent, {
+        opacity: 0,
+        y: 18
+      });
+      letterContent.scrollTop = 0;
+    }
+
     // 4. Túi trước của mặt sau (bao phủ che nửa dưới ruột thư)
     gsap.set(faceBack, {
       rotateY: 180,
@@ -1253,30 +1264,36 @@
         duration: 0.85,
         ease: "power2.inOut"
       }, "<")
-      // ⚡ GIAI ĐOẠN 3 & 4: Rút thư và phóng to (Overlap để tạo độ mượt)
+      // ⚡ GIAI ĐOẠN 3 & 4: Rút lá thư ra khỏi phong bì và mở rộng kích thước
       .addLabel("pullOut")
       .to(letterContainer, {
-        y: -letterContainer.getBoundingClientRect().height - 200,
-        duration: 0.5,
+        y: -initLetterH - 180,
+        duration: 0.45,
         ease: "power2.out"
       }, "pullOut")
-      // Bắt đầu phóng to thư (scale up) TRƯỚC KHI rút xong (overlap 0.2s)
+      // Đưa lá thư ra lớp trước ngoài cùng sau khi đã trượt lên cao (y tới đỉnh)
+      .set(letterContainer, { z: -6 }, "pullOut+=0.4")
+      // Bắt đầu mở rộng kích thước thư khi đã trượt ra khỏi miệng phong bì
       .to(letterContainer, {
         left: targetLeft,
         width: targetW,
         height: targetH,
-        duration: 1, // Kéo dài ra cho mượt
+        duration: 0.6,
         ease: "power2.inOut"
-      }, "pullOut+=0.2")
-      // Đưa lá thư ra lớp trước ngoài cùng sau khi đã trượt lên cao (y tới đỉnh)
-      .set(letterContainer, { z: -6 }, "pullOut+=0.5")
-      // Tiếp tục trượt y xuống giữa màn hình
+      }, "pullOut+=0.25")
+      // Tiếp tục trượt y xuống giữa màn hình đồng bộ với việc mở rộng kích thước
       .to(letterContainer, {
         y: targetY,
-        duration: 0.5,
-        ease: "power2.in"
-      }, "pullOut+=0.5")
-
+        duration: 0.55,
+        ease: "power2.out"
+      }, "pullOut+=0.35")
+      // ⚡ HIỆN CHỮ MƯỢT MÀ: Chữ chỉ bắt đầu xuất hiện khi container đã đạt full kích thước chuẩn xác, loại bỏ 100% hiện tượng vỡ dòng / layout reflow
+      .to(letterContent, {
+        opacity: 1,
+        y: 0,
+        duration: 0.4,
+        ease: "power2.out"
+      }, "pullOut+=0.85")
 
       // ⚡ GIAI ĐOẠN 5: Hiện các nút điều hướng sau khi hoạt ảnh hoàn tất
       .to([elements.modalCloseBtn, elements.modalPrevBtn, elements.modalNextBtn].filter(Boolean), {
@@ -1284,7 +1301,7 @@
         pointerEvents: "auto",
         duration: 0.3,
         ease: "power2.out"
-      });
+      }, "pullOut+=1.05");
 
     tl.add(() => {
       gsap.set(letterContainer, { overflowY: "auto" });
@@ -1371,26 +1388,31 @@
     currentIndex = newIndex;
     const f = filteredFeedbacks[currentIndex];
 
-    const envH = elements.envelopeObject.offsetHeight || 361;
-    const targetH = Math.min(620, window.innerHeight * 0.8);
-    const targetY = (envH - targetH) / 2 - 20;
+    const letterContent = elements.letterContentScroll || (elements.letter3dContainer ? elements.letter3dContainer.querySelector(".letter-content-scroll") : null);
 
-    gsap.to(elements.letter3dContainer, {
-      opacity: 0,
-      duration: 0,
-      onComplete: () => {
-        populateModalDetails(f);
-        if (elements.letter3dContainer) {
-          elements.letter3dContainer.scrollTop = 0;
+    if (letterContent) {
+      gsap.to(letterContent, {
+        opacity: 0,
+        y: -8,
+        duration: 0.15,
+        ease: "power2.in",
+        onComplete: () => {
+          populateModalDetails(f);
+          if (elements.letter3dContainer) {
+            elements.letter3dContainer.scrollTop = 0;
+          }
+          letterContent.scrollTop = 0;
+          gsap.fromTo(letterContent,
+            { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: 0.25, ease: "power2.out" }
+          );
         }
-        gsap.fromTo(elements.letter3dContainer,
-          { opacity: 0, y: targetY + 30 },
-          { opacity: 1, y: targetY, duration: 0 }
-        );
-      }
-    });
+      });
+    } else {
+      populateModalDetails(f);
+    }
 
-    const targetCard = elements.envelopeGrid.querySelector(`.envelope - card[data - index="${currentIndex}"]`);
+    const targetCard = elements.envelopeGrid.querySelector(`.envelope-card[data-index="${currentIndex}"]`);
     if (targetCard) {
       if (activeCardElement) activeCardElement.style.opacity = "1";
       activeCardElement = targetCard;

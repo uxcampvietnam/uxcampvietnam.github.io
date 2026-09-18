@@ -21,25 +21,25 @@ section {
 
 @media (prefers-color-scheme: light) and (max-width: 768px) {
 	.loi-bac-ho-hero-banner {
-		content: url("../asset/icon/hero-banner-light-mobile.png") !important;
+		content: url("../asset/icon/hero-banner-light-mobile.webp") !important;
 	}
 }
 
 @media (prefers-color-scheme: dark) and (max-width: 768px) {
 	.loi-bac-ho-hero-banner {
-		content: url("../asset/icon/hero-banner-dark-mobile.png") !important;
+		content: url("../asset/icon/hero-banner-dark-mobile.webp") !important;
 	}
 }
 
 @media (prefers-color-scheme: light) and (min-width: 768px) {
 	.loi-bac-ho-hero-banner {
-		content: url("../asset/icon/hero-banner-light-desktop.png") !important;
+		content: url("../asset/icon/hero-banner-light-desktop.webp") !important;
 	}
 }
 
 @media (prefers-color-scheme: dark) and (min-width: 768px) {
 	.loi-bac-ho-hero-banner {
-		content: url("../asset/icon/hero-banner-dark-laptop.png") !important;
+		content: url("../asset/icon/hero-banner-dark-laptop.webp") !important;
 	}
 }
 

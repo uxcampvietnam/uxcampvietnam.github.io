@@ -1101,6 +1101,11 @@ article:has(.course-card) {
 	fill: var(--main-colors-foreground-f-500-main);
 }
 
+
+.bootcamp-section#compare {
+	display: none;
+}
+
 .uxcamp-homepage .course-card-image {
 	position: relative;
 	width: 100%;

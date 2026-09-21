@@ -64,6 +64,7 @@
 	width: 100vw !important;
 	height: 80vh;
 	overflow: visible;
+	position: relative;
 }
 
 
@@ -75,10 +76,10 @@
 
 #graphContainer .sticky-graph-overlay {
 	width: 100%;
-	height: 1%;
+	height: 30%;
 	pointer-events: none;
 	position: absolute;
-	bottom: -10px;
+	bottom: -5px;
 	background: linear-gradient(180deg, transparent 0%, var(--body-background) 100%);
 }
 
@@ -1138,6 +1139,48 @@ article:has(.course-card) {
 	flex-grow: 1;
 }
 
+.uxcamp-homepage .course-card .course-tags {
+	margin-top: 8px;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0px;
+}
+
+.uxcamp-homepage .course-card .course-tag {
+	background: var(--alternative-background-light-gold, rgba(135, 131, 119, 0.5));
+	padding: 8px 16px;
+	border-radius: 32px;
+	white-space: nowrap;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.uxcamp-homepage .course-card .course-features {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	list-style: none;
+	padding: 0;
+	margin: 8px 0px;
+}
+
+.uxcamp-homepage .course-card .course-feature-item {
+	display: flex;
+	align-items: flex-start;
+	gap: 8px;
+	padding-left: 4px;
+}
+
+
+.uxcamp-homepage .course-card .course-feature-icon {
+	width: 10px;
+	height: 9px;
+	flex-shrink: 0;
+	margin-top: 5px;
+	color: var(--main-colors-foreground-f-500-main, #c9c4ca);
+}
+
 .uxcamp-homepage .course-card-meta .course-status {
 	margin-top: 8px;
 	display: inline-block;
@@ -1337,28 +1380,28 @@ body {
 /* Backgrounds from definition.css */
 .card-1,
 .hanger-tag[data-id="step-1"] {
-	background: #E5F1FE;
+	background: #e8ebee;
 }
 
 .card-2,
 .hanger-tag[data-id="step-2"] {
-	background: #EBCCB8;
+	background: #e8e4c7;
 }
 
 
 .card-3,
 .hanger-tag[data-id="step-3"] {
-	background: #FEFFE0;
+	background: #f1ddcb;
 }
 
 .card-4,
 .hanger-tag[data-id="step-4"] {
-	background: #F8E8FE;
+	background: #f8c8b3;
 }
 
 .card-5,
 .hanger-tag[data-id="step-5"] {
-	background: #DCFEE7;
+	background: #dceefe;
 }
 
 

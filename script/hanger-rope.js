@@ -35,70 +35,77 @@
     // =========================================================================
 
     const DEFAULT_CONFIG = {
+        // Cấu hình chế độ phát triển (Developer Mode)
         "devMode": {
-            "showLiveTuner": false
+            "showLiveTuner": false // Bật/tắt giao diện tùy chỉnh thông số trực tiếp (GUI Live Tuner)
         },
+        // Cấu hình vật lý & giao diện sợi dây (Rope Physics & Styling)
         "rope": {
-            "pointCount": 16,
-            "stiffness": 0.85,
-            "constraintIterations": 8,
-            "gravity": 1.5,
-            "damping": 0.9,
-            "sagRatio": 0.05,
-            "restoreSpeed": 0.077,
-            "color": "#b5a184",
-            "shadowColor": "rgba(40, 25, 10, 0)",
-            "highlightColor": "#e8decb",
-            "lineWidth": 2,
-            "pinOffsetTop": 28
+            "pointCount": 16,            // Số lượng nút/điểm mô phỏng trên dây (càng cao dây càng mềm mượt nhưng tốn CPU)
+            "stiffness": 0.85,           // Độ cứng/co giãn của dây (0.0 - 1.0)
+            "constraintIterations": 8,   // Số lần lặp giải độ dài liên kết giữa các điểm (giữ độ ổn định chiều dài dây)
+            "gravity": 1.5,              // Trọng lực kéo dây xuống
+            "damping": 0.9,              // Hệ số cản/ma sát của dây (giảm chấn gia tốc qua thời gian)
+            "sagRatio": 0.05,            // Tỷ lệ độ võng tự nhiên của dây khi ở trạng thái nghỉ
+            "restoreSpeed": 0.077,       // Tốc độ dây đàn hồi trở lại hình dạng võng ban đầu
+            "color": "#b5a184",          // Mã màu hiển thị của sợi dây
+            "shadowColor": "rgba(40, 25, 10, 0)", // Màu và độ trong suốt của bóng đổ bên dưới dây
+            "highlightColor": "#e8decb",   // Màu của đường viền phản quang/sáng trên thân dây
+            "lineWidth": 2,              // Độ dày nét vẽ sợi dây (pixel)
+            "pinOffsetTop": 28           // Khoảng cách cố định từ mép trên khung chứa đến 2 điểm ghim đầu dây (px)
         },
+        // Cấu hình phản hồi khi cuộn trang (Scroll Physics)
         "scroll": {
-            "influence": 0.1,
-            "maxImpulse": 6,
-            "damping": 0.85
+            "influence": 0.1,  // Mức độ ảnh hưởng của thao tác cuộn trang tới lực tác động lên dây
+            "maxImpulse": 6,   // Giới hạn xung lực tối đa từ cuộn trang (tránh dây đung đưa quá mạnh)
+            "damping": 0.85    // Hệ số giảm chấn xung lực cuộn theo thời gian
         },
+        // Cấu hình tương tác kéo rê bằng chuột / cảm ứng (Drag / Touch Interaction)
         "drag": {
-            "radius": 400,
-            "strength": 0.78,
-            "releaseImpulse": 1.4,
-            "cardPullStrength": 0.5
+            "radius": 400,          // Bán kính vùng tác động tương tác xung quanh con trỏ (px)
+            "strength": 0.78,       // Mức độ mạnh của lực kéo dây theo con trỏ chuột
+            "releaseImpulse": 1.4,  // Xung lực nẩy ban đầu khi thả chuột khỏi dây
+            "cardPullStrength": 0.5 // Mức độ kéo lệch dây khi người dùng nắm trực tiếp các thẻ treo
         },
+        // Cấu hình hiệu ứng lắc/đung đưa của các thẻ treo (Card Items Sway & 3D Rotation)
         "itemsSway": {
-            "swayAxis": "depth",
-            "depthSwayEnabled": true,
-            "depthFrequency": 0.04,
-            "depthDamping": 0.96,
-            "depthMaxAngleDeg": 53,
-            "depthScrollInfluence": 1,
-            "depthScrollFlutter": 0.011,
-            "depthScrollWaveFreq": 0.016,
-            "depthScrollBias": 0.18,
-            "depthBreezeInfluence": 10,
-            "depthInertiaFactor": 0.2,
-            "depthReleaseImpulse": 0.7,
-            "perspective": 900,
-            "rollStrength": 0,
-            "frequency": 0.035,
-            "damping": 0.958,
-            "inertiaFactor": 1.6,
-            "tangentInfluence": 0.62,
-            "maxAngleDeg": 46
+            "swayAxis": "depth",         // Trục lắc chính ("depth" cho hiệu ứng lắc chiều sâu 3D)
+            "depthSwayEnabled": true,    // Bật/tắt hiệu ứng đung đưa 3D theo trục Z
+            "depthFrequency": 0.04,      // Tần số / tốc độ dao động đung đưa 3D
+            "depthDamping": 0.96,        // Hệ số dập tắt dao động đung đưa 3D
+            "depthMaxAngleDeg": 53,      // Góc xoay nghiêng 3D tối đa của thẻ (độ - deg)
+            "depthScrollInfluence": 1,   // Mức độ tác động của cuộn trang lên độ lắc 3D
+            "depthScrollFlutter": 0.011, // Độ rung lắc nhè nhẹ (flutter) tạo ra khi cuộn trang
+            "depthScrollWaveFreq": 0.016,// Tần số sóng dao động lan truyền khi cuộn trang nhanh
+            "depthScrollBias": 0.18,     // Độ nghiêng thiên vị cố định theo chiều cuộn trang
+            "depthBreezeInfluence": 10,  // Mức độ ảnh hưởng của gió (breeze) đến độ đung đưa 3D
+            "depthInertiaFactor": 0.2,   // Quán tính xoay nghiêng 3D của thẻ khi di chuyển
+            "depthReleaseImpulse": 0.7,  // Xung lực xoay 3D tạo ra khi thả kéo dây
+            "perspective": 900,          // Khoảng cách góc nhìn 3D (CSS perspective px)
+            "rollStrength": 0,           // Độ cuộn/xoay nghiêng nhẹ theo chiều ngang (roll)
+            "frequency": 0.035,          // Tần số lắc 2D chuẩn
+            "damping": 0.958,            // Hệ số dập tắt lắc 2D
+            "inertiaFactor": 1.6,        // Hệ số quán tính lắc 2D
+            "tangentInfluence": 0.62,    // Mức độ ảnh hưởng từ độ nghiêng tiếp tuyến của dây lên góc thẻ
+            "maxAngleDeg": 46            // Góc lắc 2D tối đa (độ)
         },
+        // Cấu hình hiệu ứng gió đung đưa tự nhiên (Natural Breeze Simulation)
         "breeze": {
-            "enabled": false,
-            "strength": 0.8,
-            "speed": 0.0018
+            "enabled": false,   // Bật/tắt hiệu ứng gió tự nhiên đung đưa dây
+            "strength": 0.8,    // Cường độ / lực đẩy của gió
+            "speed": 0.0018     // Tốc độ biến thiên/thay đổi hướng gió theo thời gian
         },
+        // Danh sách các thẻ (items) treo trên dây
         "items": [
             {
-                "id": "step-1",
-                "title": "Đăng ký",
-                "imageUrl": "asset/icon/rope-img-01.webp",
-                "ropePosition": 0.1,
-                "widthDesktop": 225,
-                "widthMobile": 50,
-                "baseAngle": 5,
-                "targetSelector": ".wrapper-1"
+                "id": "step-1",                     // ID duy nhất đại diện cho thẻ
+                "title": "Đăng ký",                 // Tiêu đề hiển thị trên thẻ
+                "imageUrl": "asset/icon/rope-img-01.webp", // Đường dẫn ảnh minh họa cho thẻ
+                "ropePosition": 0.1,                // Vị trí gắn thẻ trên dây (tỷ lệ từ 0.0 ở đầu dây đến 1.0 ở cuối dây)
+                "widthDesktop": 225,                // Chiều rộng thẻ trên màn hình Desktop (px)
+                "widthMobile": 50,                  // Chiều rộng thẻ trên màn hình Mobile (px)
+                "baseAngle": 5,                     // Góc xoay nghiêng tự nhiên ban đầu của thẻ (độ)
+                "targetSelector": ".wrapper-1"      // Selector CSS của phần tử DOM liên kết
             },
             {
                 "id": "step-2",
@@ -360,7 +367,7 @@
                 const cardHtml = `
                     <div class="hanger-card" data-id="${item.id}" data-target="${item.targetSelector || ''}">
                         <div class="hanger-card-inner" data-target="${item.targetSelector || ''}">
-                            <img src="${item.imageUrl}" alt="${item.title}" loading="lazy" />
+                            <img src="${item.imageUrl}" alt="${item.title}" />
                         </div>
                         <button type="button" class="hanger-tag" data-id="${item.id}" data-target="${item.targetSelector || ''}">
                             <span class="font-serif-caption medium" style="font-style: italic; color: #0000009f">${item.title}</span>

@@ -6,7 +6,7 @@
 .motion-tuner-panel {
   position: fixed;
   width: 320px;
-  max-height: 30vh;
+  max-height: 80vh;
   background: rgba(15, 23, 42, 0.94) !important;
   backdrop-filter: blur(14px);
   -webkit-backdrop-filter: blur(14px);

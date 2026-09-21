@@ -106,7 +106,7 @@ const STICKY_GRAPH_CONFIG = {
   // ----------------------------------------------------------------------------
   // 9. BỐ CỤC KHÔNG GIAN & QUỸ ĐẠO (Layout & Orbit)
   // ----------------------------------------------------------------------------
-  layoutType: 'auto',                   // Bố cục phân bố: 'auto' (tự chọn theo màn hình) | 'galaxy' | 'cylinder'
+  layoutType: 'galaxy',                   // Bố cục phân bố: 'auto' (tự chọn theo màn hình) | 'galaxy' | 'cylinder'
   layoutTypeDesktop: 'galaxy',          // Bố cục mặc định cho màn hình Desktop (rộng >= 768px)
   layoutTypeMobile: 'galaxy',           // Bố cục mặc định cho màn hình Mobile (rộng < 768px)
   spreadRadius: 1300,                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D

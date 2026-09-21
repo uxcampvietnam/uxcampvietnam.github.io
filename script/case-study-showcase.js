@@ -61,7 +61,7 @@
     "avatarFlightDurationMobile": 1.3,
     "card0EntryDurationMobile": 1.8,
     "unpinCaseOffsetMobile": 0,
-    "pixelsPerCardMobile": 120,
+    "pixelsPerCardMobile": 70,
     "frictionMobile": 0.025,
     "cardSpacingMobile": 260,
     "flyAngleDegMobile": 75,

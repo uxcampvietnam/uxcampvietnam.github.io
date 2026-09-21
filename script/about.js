@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		var totalImg = 100;
 		var slidingImgInnerHTML = ``;
 		for (var i = 1; i <= totalImg; i++) {
-			slidingImgInnerHTML += `<img class="sliding-img" src="asset/image/graduation/${i}.webp" alt="Graduation ${i}" draggable="false">`;
+			slidingImgInnerHTML += `<img class="sliding-img" src="asset/image/graduation/${i}.webp" alt="Graduation ${i}" loading="lazy" decoding="async" draggable="false">`;
 		}
 
 		slidingImg.innerHTML = slidingImgInnerHTML;

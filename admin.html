@@ -28,40 +28,129 @@
 
 <body>
 
-	<div class="admin-page">
+	<div class="app-container admin-app-container">
 
 		<!-- Auth gate (shown while checking auth) -->
 		<div class="auth-gate" id="auth-gate">
 			<div class="auth-spinner"></div>
-			<span class="caption" style="color: var(--main-colors-foreground-f700);">Đang kiểm tra quyền truy cập
-				admin...</span>
+			<span class="caption" style="color: var(--main-colors-foreground-f700);">Đang kiểm tra quyền truy cập admin...</span>
 		</div>
 
-		<!-- Admin content (shown only for authorized admins) -->
-		<div class="admin-content" id="admin-content">
+		<!-- SIDEBAR PANEL (Design System standard) -->
+		<aside class="sidebar admin-sidebar" id="sidebar" style="display: none;">
+			<!-- Desktop Sidebar Toggle Button -->
+			<button id="sidebar-toggle-btn" class="sidebar-toggle-btn" aria-label="Thu nhỏ menu">
+				<svg class="toggle-icon" viewBox="0 0 24 24" width="16" height="16">
+					<path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z" />
+				</svg>
+			</button>
 
-			<!-- Header -->
-			<header class="admin-header">
-				<div class="admin-header-left">
-					<a href="index.html" title="Trang chủ"><img class="eye-logo" src="asset/icon/eye.svg" alt="UXCamp"
-							onload="SVGInject(this)"></a>
-					<div>
-						<h1 class="h5 medium admin-section-title">Admin Management</h1>
-						<span class="x-small" style="color: var(--main-colors-foreground-f700);">Quản lý phân quyền
-							người tham dự</span>
+			<div class="sidebar-content">
+				<!-- Brand Header -->
+				<div class="brand">
+					<a href="index.html" class="brand-icon" title="Về trang chủ">
+						<img class="eye-logo" src="asset/icon/eye.svg" alt="UXCamp" onload="SVGInject(this)">
+					</a>
+					<div class="brand-info">
+						<h1>UXCamp Admin</h1>
+						<span>Management Portal</span>
 					</div>
 				</div>
-				<div class="admin-header-right">
+
+				<!-- Navigation Menu: Mỗi item là 1 row theo design system -->
+				<div class="nav-section">
+					<div class="nav-section-title">HỆ THỐNG ĐÀO TẠO (LMS)</div>
+					<nav class="nav-links">
+						<button type="button" class="admin-nav-item active" data-tab="tab-users">
+							<span class="nav-icon">👥</span>
+							<span class="nav-text">Tài khoản Users</span>
+							<span class="tab-count-badge" id="badge-count-users">—</span>
+						</button>
+						<button type="button" class="admin-nav-item" data-tab="tab-courses">
+							<span class="nav-icon">🎓</span>
+							<span class="nav-text">Khóa học (Courses)</span>
+							<span class="tab-count-badge" id="badge-count-courses">—</span>
+						</button>
+						<button type="button" class="admin-nav-item" data-tab="tab-cohorts">
+							<span class="nav-icon">🏛️</span>
+							<span class="nav-text">Lớp học (Cohorts)</span>
+							<span class="tab-count-badge" id="badge-count-cohorts">—</span>
+						</button>
+						<button type="button" class="admin-nav-item" data-tab="tab-certificates">
+							<span class="nav-icon">🎖️</span>
+							<span class="nav-text">Chứng chỉ (Certificates)</span>
+							<span class="tab-count-badge" id="badge-count-certificates">—</span>
+						</button>
+					</nav>
+				</div>
+
+				<div class="nav-section mt-3">
+					<div class="nav-section-title">DỮ LIỆU WEBSITE</div>
+					<nav class="nav-links">
+						<button type="button" class="admin-nav-item" data-tab="tab-case-studies">
+							<span class="nav-icon">💼</span>
+							<span class="nav-text">Case Studies</span>
+							<span class="tab-count-badge" id="badge-count-case-studies">—</span>
+						</button>
+						<button type="button" class="admin-nav-item" data-tab="tab-participants">
+							<span class="nav-icon">🌐</span>
+							<span class="nav-text">Người tham dự 3D</span>
+							<span class="tab-count-badge" id="badge-count-participants">—</span>
+						</button>
+						<button type="button" class="admin-nav-item" data-tab="tab-knowledge">
+							<span class="nav-icon">🧠</span>
+							<span class="nav-text">Đồ thị Kiến thức</span>
+							<span class="tab-count-badge" id="badge-count-knowledge">—</span>
+						</button>
+						<button type="button" class="admin-nav-item" data-tab="tab-books">
+							<span class="nav-icon">📚</span>
+							<span class="nav-text">Tủ Sách UX</span>
+							<span class="tab-count-badge" id="badge-count-books">—</span>
+						</button>
+					</nav>
+				</div>
+
+				<!-- User Account Widget at bottom of Sidebar -->
+				<div class="sidebar-user-widget admin-sidebar-user">
 					<div class="admin-user-info">
-						<img class="admin-user-avatar" id="admin-avatar" src="" alt="">
-						<span class="caption" id="admin-name" style="color: var(--main-colors-foreground-f700);"></span>
+						<img class="admin-user-avatar" id="admin-avatar" src="" alt="Avatar" style="display: none;">
+						<div class="d-flex flex-column" style="overflow: hidden;">
+							<span class="caption" id="admin-name" style="color: var(--main-colors-foreground-f200); font-weight: 500;"></span>
+							<span class="sidebar-user-role-badge admin" style="width: fit-content; font-size: 10px; padding: 1px 6px;">ADMIN</span>
+						</div>
 					</div>
-					<button class="btn-signout" id="btn-signout">Đăng xuất</button>
+					<div class="d-flex gap-2 mt-2">
+						<a href="index.html" class="btn-sidebar-home" title="Trang chủ">← Home</a>
+						<button class="btn-signout" id="btn-signout" style="flex: 1;">Đăng xuất</button>
+					</div>
 				</div>
-			</header>
+			</div>
+		</aside>
 
-			<!-- Stats Overview -->
-			<div class="stats-row" id="stats-row">
+		<!-- MAIN CONTENT WORKSPACE -->
+		<div class="main-wrapper admin-main-wrapper" id="admin-content" style="display: none;">
+			<main class="main-content admin-main-content">
+
+				<!-- Top Bar on Main Content -->
+				<header class="admin-top-bar">
+					<div class="d-flex align-items-center gap-3">
+						<button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Mở menu quản lý">
+							<svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24">
+								<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+							</svg>
+						</button>
+						<div>
+							<h1 class="h5 medium m-0" id="current-page-title" style="color: var(--main-colors-foreground-f100);">Phân quyền Users</h1>
+							<span class="x-small" id="current-page-desc" style="color: var(--main-colors-foreground-f700);">Quản lý tài khoản và phân quyền người tham dự</span>
+						</div>
+					</div>
+				</header>
+
+			<!-- TAB 1: PHÂN QUYỀN USERS -->
+			<div class="admin-tab-pane active" id="tab-users">
+
+				<!-- Stats Overview -->
+				<div class="stats-row" id="stats-row">
 				<div class="stat-card">
 					<span class="h4 medium stat-value" id="stat-total">—</span>
 					<span class="x-small stat-label">Tổng Users</span>
@@ -90,21 +179,32 @@
 					<h2 class="h6 medium admin-section-title">Thêm user đơn lẻ</h2>
 				</div>
 				<form class="add-user-form" id="add-user-form">
-					<div class="form-field">
+					<div class="form-field" style="flex: 1.2;">
 						<label class="x-small">Email Gmail *</label>
 						<input type="email" id="input-email" placeholder="nguyenvana@gmail.com" required>
 					</div>
-					<div class="form-field">
+					<div class="form-field" style="flex: 1;">
 						<label class="x-small">Tên hiển thị</label>
 						<input type="text" id="input-name" placeholder="Nguyễn Văn A">
 					</div>
-					<div class="form-field" style="min-width: 140px; flex: 0.6;">
+					<div class="form-field" style="flex: 0.8;">
+						<label class="x-small">Số điện thoại</label>
+						<input type="tel" id="input-phone" placeholder="0901234567">
+					</div>
+					<div class="form-field" style="min-width: 130px; flex: 0.6;">
 						<label class="x-small">Role phân quyền *</label>
 						<select id="input-role" required>
 							<option value="member">Member</option>
 							<option value="alumni">Alumni</option>
 							<option value="instructor">Instructor</option>
 							<option value="admin">Admin</option>
+						</select>
+					</div>
+					<div class="form-field" style="min-width: 120px; flex: 0.5;">
+						<label class="x-small">Trạng thái *</label>
+						<select id="input-status" required>
+							<option value="active">Active</option>
+							<option value="inactive">Inactive</option>
 						</select>
 					</div>
 					<button type="submit" class="btn-add" id="btn-add-user">+ Thêm User</button>
@@ -220,7 +320,21 @@
 					</div>
 					<div class="d-flex gap-2 align-items-center flex-wrap">
 						<input type="text" id="searchInput" class="search-input"
-							placeholder="Tìm theo email hoặc tên...">
+							placeholder="Tìm theo email, tên, SĐT...">
+						<select id="filter-user-role" class="form-select-custom" style="padding: 6px 12px; background: var(--body-background-elevate-2); border: 0.5px solid var(--console-stroke); color: var(--main-colors-foreground-f200); border-radius: 6px; font-size: 13px;">
+							<option value="all">Tất cả vai trò</option>
+							<option value="admin">Admin</option>
+							<option value="instructor">Instructor</option>
+							<option value="member">Member</option>
+							<option value="alumni">Alumni</option>
+						</select>
+						<select id="filter-user-status" class="form-select-custom" style="padding: 6px 12px; background: var(--body-background-elevate-2); border: 0.5px solid var(--console-stroke); color: var(--main-colors-foreground-f200); border-radius: 6px; font-size: 13px;">
+							<option value="all">Tất cả trạng thái</option>
+							<option value="active">Active</option>
+							<option value="inactive">Inactive</option>
+							<option value="disabled">Disabled</option>
+						</select>
+						<button type="button" class="btn-outline-custom" id="btn-export-users" title="Xuất toàn bộ danh sách ra file JSON">Xuất Backup JSON</button>
 						<button class="btn-signout" id="btn-refresh">Làm mới</button>
 					</div>
 				</div>
@@ -233,6 +347,448 @@
 				</div>
 			</section>
 
+			</div>
+			<!-- END TAB 1 -->
+
+			<!-- TAB: COURSES -->
+			<div class="admin-tab-pane" id="tab-courses">
+				<!-- Action Banner -->
+				<div class="sync-banner">
+					<div class="sync-banner-info">
+						<span class="caption" style="font-weight: 600; color: var(--main-colors-foreground-f200);">🎓 Quản lý Danh mục Khóa học (Courses)</span>
+						<span class="x-small" style="color: var(--main-colors-foreground-f700);">Quản lý các chương trình đào tạo cộng đồng (Bootcamp) & Đào tạo Doanh nghiệp (Corporate Training).</span>
+					</div>
+					<div class="sync-banner-actions">
+						<button type="button" class="btn-sync-action" id="btn-add-course" style="border-color: var(--alternative-foreground-gold); color: var(--alternative-foreground-gold);">
+							+ Thêm Khóa học mới
+						</button>
+						<button type="button" class="btn-outline-custom" id="btn-export-courses">
+							Xuất Backup JSON
+						</button>
+					</div>
+				</div>
+
+				<!-- Stats Overview -->
+				<div class="stats-row">
+					<div class="stat-card">
+						<span class="h4 medium stat-value" id="stat-courses-total">—</span>
+						<span class="x-small stat-label">Tổng Khóa học</span>
+					</div>
+					<div class="stat-card">
+						<span class="h4 medium stat-value" id="stat-courses-active">—</span>
+						<span class="x-small stat-label">Đang giảng dạy</span>
+					</div>
+					<div class="stat-card">
+						<span class="h4 medium stat-value" id="stat-courses-public">—</span>
+						<span class="x-small stat-label">Hiện trên Web</span>
+					</div>
+					<div class="stat-card">
+						<span class="h4 medium stat-value" id="stat-courses-corporate">—</span>
+						<span class="x-small stat-label">Doanh nghiệp Private</span>
+					</div>
+				</div>
+
+				<!-- Section: Course List -->
+				<section class="admin-section">
+					<div class="admin-section-header">
+						<h2 class="h6 medium admin-section-title">Danh sách Khóa học</h2>
+						<div class="search-filter-box">
+							<input type="text" id="search-courses" class="search-input" placeholder="Tìm theo tên hoặc mã khóa...">
+							<select id="filter-course-delivery" class="form-select-custom" style="padding: 6px 12px; background: var(--body-background-elevate-2); border: 0.5px solid var(--console-stroke); color: var(--main-colors-foreground-f200); border-radius: 6px; font-size: 13px;">
+								<option value="all">Tất cả hình thức</option>
+								<option value="public_bootcamp">Bootcamp Cộng đồng</option>
+								<option value="corporate_training">Đào tạo Doanh nghiệp</option>
+								<option value="custom_workshop">Workshop</option>
+							</select>
+							<button type="button" class="btn-signout" id="btn-refresh-courses">Làm mới</button>
+						</div>
+					</div>
+
+					<div class="user-table-container" id="container-courses-list">
+						<div class="empty-state">
+							<div class="auth-spinner"></div>
+							<span class="caption">Đang tải danh sách Khóa học...</span>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<!-- TAB: COHORTS -->
+			<div class="admin-tab-pane" id="tab-cohorts">
+				<!-- Action Banner -->
+				<div class="sync-banner">
+					<div class="sync-banner-info">
+						<span class="caption" style="font-weight: 600; color: var(--main-colors-foreground-f200);">🏛️ Quản lý Lớp học Tuyển sinh (Cohorts)</span>
+						<span class="x-small" style="color: var(--main-colors-foreground-f700);">Theo dõi các lớp học cụ thể theo khóa, lịch khai giảng, bế giảng và danh sách học viên.</span>
+					</div>
+					<div class="sync-banner-actions">
+						<button type="button" class="btn-sync-action" id="btn-add-cohort" style="border-color: var(--alternative-foreground-gold); color: var(--alternative-foreground-gold);">
+							+ Mở Lớp học mới
+						</button>
+						<button type="button" class="btn-outline-custom" id="btn-export-cohorts">
+							Xuất Backup JSON
+						</button>
+					</div>
+				</div>
+
+				<!-- Stats Overview -->
+				<div class="stats-row">
+					<div class="stat-card">
+						<span class="h4 medium stat-value" id="stat-cohorts-total">—</span>
+						<span class="x-small stat-label">Tổng Lớp học</span>
+					</div>
+					<div class="stat-card">
+						<span class="h4 medium stat-value" id="stat-cohorts-enrolling">—</span>
+						<span class="x-small stat-label">Đang tuyển sinh</span>
+					</div>
+					<div class="stat-card">
+						<span class="h4 medium stat-value" id="stat-cohorts-inprogress">—</span>
+						<span class="x-small stat-label">Đang diễn ra</span>
+					</div>
+					<div class="stat-card">
+						<span class="h4 medium stat-value" id="stat-cohorts-completed">—</span>
+						<span class="x-small stat-label">Đã tốt nghiệp</span>
+					</div>
+				</div>
+
+				<!-- Section: Cohort List -->
+				<section class="admin-section">
+					<div class="admin-section-header">
+						<h2 class="h6 medium admin-section-title">Danh sách Lớp học theo Khóa</h2>
+						<div class="search-filter-box">
+							<input type="text" id="search-cohorts" class="search-input" placeholder="Tìm theo tên lớp...">
+							<select id="filter-cohort-course" class="form-select-custom" style="padding: 6px 12px; background: var(--body-background-elevate-2); border: 0.5px solid var(--console-stroke); color: var(--main-colors-foreground-f200); border-radius: 6px; font-size: 13px;">
+								<option value="all">Tất cả khóa học</option>
+							</select>
+							<button type="button" class="btn-signout" id="btn-refresh-cohorts">Làm mới</button>
+						</div>
+					</div>
+
+					<div class="user-table-container" id="container-cohorts-list">
+						<div class="empty-state">
+							<div class="auth-spinner"></div>
+							<span class="caption">Đang tải danh sách Lớp học...</span>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<!-- TAB: CERTIFICATES -->
+			<div class="admin-tab-pane" id="tab-certificates">
+				<!-- Stats Row -->
+				<div class="stats-row">
+					<div class="stat-card">
+						<span class="h4 medium stat-value" id="stat-certificates-total">—</span>
+						<span class="x-small stat-label">Tổng Chứng chỉ</span>
+					</div>
+					<div class="stat-card">
+						<span class="h4 medium stat-value" id="stat-certificates-linked-cohort">—</span>
+						<span class="x-small stat-label">Đã gắn Lớp học</span>
+					</div>
+					<div class="stat-card">
+						<span class="h4 medium stat-value" id="stat-certificates-linked-user">—</span>
+						<span class="x-small stat-label">Đã gắn User Profile</span>
+					</div>
+					<div class="stat-card">
+						<span class="h4 medium stat-value" id="stat-certificates-active">—</span>
+						<span class="x-small stat-label">Đang hiệu lực</span>
+					</div>
+				</div>
+
+				<!-- Management Section -->
+				<section class="admin-section">
+					<div class="panel-toolbar">
+						<div class="panel-toolbar-left">
+							<div>
+								<div class="d-flex align-items-center gap-2">
+									<h2 class="h6 medium admin-section-title m-0">Quản Lý & Cấp Chứng Chỉ Tốt Nghiệp</h2>
+									<span class="cert-count-indicator" id="cert-counter-badge">Đang tải...</span>
+								</div>
+								<span class="x-small" style="color: var(--main-colors-foreground-f700); margin-top: 4px; display: block;">
+									Tra cứu xác thực theo UUID bất biến. Hỗ trợ lọc đa chiều, chỉnh sửa nhanh trạng thái và xử lý hàng loạt theo lớp học.
+								</span>
+							</div>
+						</div>
+						<div class="panel-toolbar-right">
+							<button type="button" class="btn-outline-custom" id="btn-export-certificates" title="Tải về bản sao lưu JSON">
+								<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+								Export JSON
+							</button>
+							<button type="button" class="btn-outline-custom" id="btn-open-batch-create-certs" style="border-color: rgba(255, 199, 0, 0.4); color: var(--alternative-foreground-gold); background: rgba(255, 199, 0, 0.08);" title="Cấp chứng chỉ hàng loạt cho toàn bộ học viên trong 1 lớp học">
+								<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+								🎓 Cấp Bằng Cả Lớp
+							</button>
+							<button type="button" class="btn-add" id="btn-add-certificate">
+								<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+								+ Cấp Chứng Chỉ Đơn
+							</button>
+						</div>
+					</div>
+
+					<!-- Multi-Column Filter Bar -->
+					<div class="cert-filter-bar">
+						<div class="cert-filter-item search-flex">
+							<label class="cert-filter-label">🔍 Tìm kiếm nhanh</label>
+							<input type="text" id="search-certificates" class="cert-filter-input" placeholder="Tên học viên, email, mã code, UUID...">
+						</div>
+
+						<div class="cert-filter-item">
+							<label class="cert-filter-label">🏫 Lớp học (Cohort)</label>
+							<select id="filter-certificate-cohort" class="cert-filter-select">
+								<option value="all">Tất cả lớp học</option>
+							</select>
+						</div>
+
+						<div class="cert-filter-item">
+							<label class="cert-filter-label">📚 Khóa học</label>
+							<select id="filter-certificate-course" class="cert-filter-select">
+								<option value="all">Tất cả khóa học</option>
+							</select>
+						</div>
+
+						<div class="cert-filter-item small-flex">
+							<label class="cert-filter-label">🚦 Trạng thái</label>
+							<select id="filter-certificate-status" class="cert-filter-select">
+								<option value="all">Tất cả trạng thái</option>
+								<option value="active">● Hiệu lực (Active)</option>
+								<option value="revoked">✕ Thu hồi (Revoked)</option>
+							</select>
+						</div>
+
+						<div class="cert-filter-item small-flex">
+							<label class="cert-filter-label">🩺 Kiểm tra dữ liệu</label>
+							<select id="filter-certificate-health" class="cert-filter-select">
+								<option value="all">Tất cả bản ghi</option>
+								<option value="missing-date">⚠️ Thiếu ngày cấp</option>
+								<option value="missing-cohort-link">⚠️ Thiếu liên kết Lớp</option>
+								<option value="missing-image">⚠️ Thiếu ảnh bằng</option>
+								<option value="missing-pdf">⚠️ Thiếu link PDF</option>
+							</select>
+						</div>
+
+						<div class="cert-filter-item small-flex" style="justify-content: flex-end;">
+							<button type="button" class="btn-outline-custom" id="btn-reset-cert-filters" style="height: 34px; padding: 0 10px; font-size: 12px; margin-top: 18px;" title="Xóa toàn bộ bộ lọc">
+								✕ Xóa lọc
+							</button>
+						</div>
+					</div>
+
+					<!-- Table List Container -->
+					<div class="user-table-container" id="container-certificates-list">
+						<div class="empty-state">
+							<div class="auth-spinner"></div>
+							<span class="caption">Đang tải danh sách Chứng chỉ...</span>
+						</div>
+					</div>
+
+					<!-- Floating Batch Action Bar -->
+					<div class="cert-batch-bar" id="cert-batch-action-bar">
+						<span class="cert-batch-count" id="cert-batch-selected-count">Đã chọn: 0</span>
+						<button type="button" class="btn-batch-action primary" id="btn-batch-assign-cohort">
+							🏷️ Gán Lớp học
+						</button>
+						<button type="button" class="btn-batch-action" id="btn-batch-set-date">
+							📅 Đặt Ngày cấp
+						</button>
+						<button type="button" class="btn-batch-action" id="btn-batch-activate" title="Kích hoạt hiệu lực cho các chứng chỉ đã chọn">
+							● Set Active
+						</button>
+						<button type="button" class="btn-batch-action" id="btn-batch-revoke" title="Thu hồi các chứng chỉ đã chọn">
+							✕ Thu hồi
+						</button>
+						<button type="button" class="btn-batch-action danger" id="btn-batch-delete" title="Xóa các chứng chỉ đã chọn">
+							🗑️ Xóa đã chọn
+						</button>
+						<button type="button" class="btn-batch-action" id="btn-batch-deselect" style="margin-left: 4px; border: none; background: transparent; color: var(--main-colors-foreground-f700);">
+							✕ Bỏ chọn
+						</button>
+					</div>
+				</section>
+			</div>
+
+			<!-- TAB 2: CASE STUDIES -->
+			<div class="admin-tab-pane" id="tab-case-studies">
+				<!-- Sync Banner -->
+				<div class="sync-banner">
+					<div class="sync-banner-info">
+						<span class="caption" style="font-weight: 600; color: var(--main-colors-foreground-f200);">💼 Đồng bộ dữ liệu Case Studies</span>
+						<span class="x-small" style="color: var(--main-colors-foreground-f700);">Nạp toàn bộ dự án từ <code>data/case-studies.csv</code> lên Firestore collection <code>case_studies</code> chỉ với 1 click.</span>
+						<div class="sync-progress-bar-container" id="progress-container-case-studies">
+							<div class="sync-progress-bar" id="progress-case-studies"></div>
+						</div>
+					</div>
+					<div class="sync-banner-actions">
+						<button type="button" class="btn-sync-action" id="btn-sync-case-studies">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+							Đồng bộ từ case-studies.csv
+						</button>
+					</div>
+				</div>
+
+				<!-- Management Section -->
+				<section class="admin-section">
+					<div class="panel-toolbar">
+						<div class="panel-toolbar-left">
+							<div>
+								<h2 class="h6 medium admin-section-title">Danh sách Case Studies</h2>
+								<span class="x-small" style="color: var(--main-colors-foreground-f700);">Các bài tập tốt nghiệp & đồ án thực tế của học viên UXCamp.</span>
+							</div>
+						</div>
+						<div class="panel-toolbar-right">
+							<input type="text" id="search-case-studies" class="search-input" placeholder="Tìm theo tên hoặc thành viên...">
+							<button type="button" class="btn-outline-custom" id="btn-export-case-studies" title="Tải về bản sao lưu">Export JSON</button>
+							<button type="button" class="btn-add" id="btn-add-case-study">+ Thêm Case Study</button>
+						</div>
+					</div>
+
+					<div class="user-table-container" id="case-studies-list-container">
+						<div class="empty-state">
+							<div class="auth-spinner"></div>
+							<span class="caption">Đang tải danh sách Case Studies...</span>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<!-- TAB 3: PARTICIPANTS 3D SPHERE -->
+			<div class="admin-tab-pane" id="tab-participants">
+				<!-- Sync Banner -->
+				<div class="sync-banner">
+					<div class="sync-banner-info">
+						<span class="caption" style="font-weight: 600; color: var(--main-colors-foreground-f200);">🌐 Đồng bộ Avatar Quả cầu 3D Người tham dự</span>
+						<span class="x-small" style="color: var(--main-colors-foreground-f700);">Nạp danh sách ảnh từ <code>data/participants.csv</code> lên Firestore collection <code>participants</code>.</span>
+						<div class="sync-progress-bar-container" id="progress-container-participants">
+							<div class="sync-progress-bar" id="progress-participants"></div>
+						</div>
+					</div>
+					<div class="sync-banner-actions">
+						<button type="button" class="btn-sync-action" id="btn-sync-participants">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+							Đồng bộ từ participants.csv
+						</button>
+					</div>
+				</div>
+
+				<!-- Management Section -->
+				<section class="admin-section">
+					<div class="panel-toolbar">
+						<div class="panel-toolbar-left">
+							<div>
+								<h2 class="h6 medium admin-section-title">Danh sách Người tham dự</h2>
+								<span class="x-small" style="color: var(--main-colors-foreground-f700);">Hình ảnh hiển thị trên quả cầu Three.js Sphere ở trang chủ.</span>
+							</div>
+						</div>
+						<div class="panel-toolbar-right">
+							<input type="text" id="search-participants" class="search-input" placeholder="Tìm theo tên file / ID...">
+							<button type="button" class="btn-outline-custom" id="btn-export-participants" title="Tải về bản sao lưu">Export JSON</button>
+							<button type="button" class="btn-add" id="btn-add-participant">+ Thêm Người tham dự</button>
+						</div>
+					</div>
+
+					<div class="user-table-container" id="participants-list-container">
+						<div class="empty-state">
+							<div class="auth-spinner"></div>
+							<span class="caption">Đang tải danh sách...</span>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<!-- TAB 4: KNOWLEDGE GRAPH -->
+			<div class="admin-tab-pane" id="tab-knowledge">
+				<!-- Sync Banner -->
+				<div class="sync-banner">
+					<div class="sync-banner-info">
+						<span class="caption" style="font-weight: 600; color: var(--main-colors-foreground-f200);">🧠 Đồng bộ Đồ thị Kiến thức 3D</span>
+						<span class="x-small" style="color: var(--main-colors-foreground-f700);">Nạp hơn 300 node kiến thức từ <code>data/knowledge_nodes.tsv</code> lên Firestore collection <code>knowledge_nodes</code>.</span>
+						<div class="sync-progress-bar-container" id="progress-container-knowledge">
+							<div class="sync-progress-bar" id="progress-knowledge"></div>
+						</div>
+					</div>
+					<div class="sync-banner-actions">
+						<button type="button" class="btn-sync-action" id="btn-sync-knowledge">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+							Đồng bộ từ knowledge_nodes.tsv
+						</button>
+					</div>
+				</div>
+
+				<!-- Management Section -->
+				<section class="admin-section">
+					<div class="panel-toolbar">
+						<div class="panel-toolbar-left">
+							<div>
+								<h2 class="h6 medium admin-section-title">Danh sách Nodes Kiến Thức</h2>
+								<span class="x-small" style="color: var(--main-colors-foreground-f700);">Cấu trúc đồ thị mạng lưới hiển thị trong Sticky 3D Graph.</span>
+							</div>
+						</div>
+						<div class="panel-toolbar-right">
+							<select id="filter-knowledge-level" class="form-input-text" style="height: 38px; width: 120px;">
+								<option value="all">Tất cả Level</option>
+								<option value="1">Level 1</option>
+								<option value="2">Level 2</option>
+								<option value="3">Level 3</option>
+							</select>
+							<input type="text" id="search-knowledge" class="search-input" placeholder="Tìm theo tên hoặc mô tả...">
+							<button type="button" class="btn-outline-custom" id="btn-export-knowledge" title="Tải về bản sao lưu">Export JSON</button>
+							<button type="button" class="btn-add" id="btn-add-knowledge">+ Thêm Node Mới</button>
+						</div>
+					</div>
+
+					<div class="user-table-container" id="knowledge-list-container">
+						<div class="empty-state">
+							<div class="auth-spinner"></div>
+							<span class="caption">Đang tải dữ liệu đồ thị...</span>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			<!-- TAB 5: BOOKS & SHELVES -->
+			<div class="admin-tab-pane" id="tab-books">
+				<!-- Sync Banner -->
+				<div class="sync-banner">
+					<div class="sync-banner-info">
+						<span class="caption" style="font-weight: 600; color: var(--main-colors-foreground-f200);">📚 Đồng bộ Tủ Sách UX</span>
+						<span class="x-small" style="color: var(--main-colors-foreground-f700);">Nạp toàn bộ kệ sách và sách từ <code>script/books-data.json</code> lên collections <code>books</code> & <code>book_shelves</code>.</span>
+						<div class="sync-progress-bar-container" id="progress-container-books">
+							<div class="sync-progress-bar" id="progress-books"></div>
+						</div>
+					</div>
+					<div class="sync-banner-actions">
+						<button type="button" class="btn-sync-action" id="btn-sync-books">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+							Đồng bộ từ books-data.json
+						</button>
+					</div>
+				</div>
+
+				<!-- Management Section -->
+				<section class="admin-section">
+					<div class="panel-toolbar">
+						<div class="panel-toolbar-left">
+							<div>
+								<h2 class="h6 medium admin-section-title">Danh mục Sách trong Tủ</h2>
+								<span class="x-small" style="color: var(--main-colors-foreground-f700);">Các đầu sách tương tác 3D hiển thị trên Book Shelf.</span>
+							</div>
+						</div>
+						<div class="panel-toolbar-right">
+							<input type="text" id="search-books" class="search-input" placeholder="Tìm theo tựa sách hoặc tag...">
+							<button type="button" class="btn-outline-custom" id="btn-export-books" title="Tải về bản sao lưu">Export JSON</button>
+							<button type="button" class="btn-add" id="btn-add-book">+ Thêm Sách Mới</button>
+						</div>
+					</div>
+
+					<div class="user-table-container" id="books-list-container">
+						<div class="empty-state">
+							<div class="auth-spinner"></div>
+							<span class="caption">Đang tải Tủ sách...</span>
+						</div>
+					</div>
+				</section>
+			</div>
+
+			</main>
 		</div>
 
 	</div>
@@ -248,6 +804,692 @@
 				<button type="button" class="btn-outline-custom" id="btnModalCancel">Hủy bỏ</button>
 				<button type="button" class="btn-import-submit" id="btnModalConfirm">Đồng ý Lưu</button>
 			</div>
+		</div>
+	</div>
+
+	<!-- Modal: User Edit Form -->
+	<div class="admin-modal-overlay" id="modal-user">
+		<div class="admin-modal-container" style="max-width: 560px;">
+			<div class="admin-modal-header">
+				<h3 class="h6 medium m-0" id="modal-user-title-header" style="color: var(--main-colors-foreground-f200);">Chỉnh sửa Người dùng</h3>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<form id="form-modal-user">
+				<div class="admin-modal-body">
+					<input type="hidden" id="modal-user-id">
+					
+					<div class="row g-2">
+						<div class="col-md-7">
+							<div class="form-field">
+								<label class="x-small">Email chính (primaryEmail) *</label>
+								<input type="email" id="modal-user-primary-email" required placeholder="user@gmail.com">
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="form-field">
+								<label class="x-small">Vai trò (Role) *</label>
+								<select id="modal-user-role" required>
+									<option value="member">Member</option>
+									<option value="alumni">Alumni</option>
+									<option value="instructor">Instructor</option>
+									<option value="admin">Admin</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row g-2 mt-1">
+						<div class="col-md-7">
+							<div class="form-field">
+								<label class="x-small">Tên hiển thị (displayName)</label>
+								<input type="text" id="modal-user-name" placeholder="Nguyễn Văn A">
+							</div>
+						</div>
+						<div class="col-md-5">
+							<div class="form-field">
+								<label class="x-small">Trạng thái (Status) *</label>
+								<select id="modal-user-status" required>
+									<option value="active">Hoạt động (Active)</option>
+									<option value="inactive">Tạm ngưng (Inactive)</option>
+									<option value="disabled">Khóa truy cập (Disabled)</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row g-2 mt-1">
+						<div class="col-md-6">
+							<div class="form-field">
+								<label class="x-small">Số điện thoại (phone)</label>
+								<input type="tel" id="modal-user-phone" placeholder="0901234567">
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-field">
+								<label class="x-small">Firebase Auth UID</label>
+								<input type="text" id="modal-user-uid" placeholder="Tự động liên kết khi login" readonly style="opacity: 0.7; font-family: monospace; font-size: 11px;">
+							</div>
+						</div>
+					</div>
+
+					<div class="form-field mt-2">
+						<label class="x-small">Danh sách Email liên kết (Emails - Mỗi email 1 dòng)</label>
+						<textarea id="modal-user-emails" rows="3" placeholder="user@gmail.com&#10;user.work@company.com" style="background: var(--body-background-elevate-2); border: 0.5px solid var(--console-stroke); color: var(--main-colors-foreground-f200); border-radius: 6px; padding: 8px 12px; font-size: 13px; font-family: monospace;"></textarea>
+					</div>
+
+					<div class="form-field mt-2">
+						<label class="x-small">Link ảnh đại diện (photoUrl)</label>
+						<input type="url" id="modal-user-photo" placeholder="https://lh3.googleusercontent.com/...">
+					</div>
+				</div>
+				<div class="admin-modal-footer">
+					<button type="button" class="btn-outline-custom btn-close-modal">Hủy bỏ</button>
+					<button type="submit" class="btn-add">Lưu Thay Đổi</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal: Course Form -->
+	<div class="admin-modal-overlay" id="modal-course">
+		<div class="admin-modal-container" style="max-width: 580px;">
+			<div class="admin-modal-header">
+				<h3 class="h6 medium m-0" id="modal-course-title-header" style="color: var(--main-colors-foreground-f200);">Thêm Khóa Học Mới</h3>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<form id="form-modal-course">
+				<div class="admin-modal-body">
+					<input type="hidden" id="modal-course-id">
+					<div class="row g-2">
+						<div class="col-md-4">
+							<div class="form-field">
+								<label class="x-small">Mã Khóa (Code) *</label>
+								<input type="text" id="modal-course-code" placeholder="VD: DT, UXA..." required style="text-transform: uppercase;">
+							</div>
+						</div>
+						<div class="col-md-8">
+							<div class="form-field">
+								<label class="x-small">Tên Khóa Học *</label>
+								<input type="text" id="modal-course-title" placeholder="Design Thinking & Innovation" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="row g-2 mt-1">
+						<div class="col-md-6">
+							<div class="form-field">
+								<label class="x-small">Hình thức Đào tạo *</label>
+								<select id="modal-course-delivery" required>
+									<option value="public_bootcamp">Bootcamp Tuyển sinh Cộng đồng</option>
+									<option value="corporate_training">Đào tạo Doanh nghiệp (In-house)</option>
+									<option value="custom_workshop">Workshop / Coaching Chuyên đề</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-field">
+								<label class="x-small">Trạng thái Khóa học *</label>
+								<select id="modal-course-status" required>
+									<option value="active">Đang giảng dạy (Active)</option>
+									<option value="draft">Bản nháp (Draft)</option>
+									<option value="archived">Tạm ngưng (Archived)</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="row g-2 mt-1">
+						<div class="col-md-6">
+							<div class="form-field">
+								<label class="x-small">Thời lượng Đào tạo (Giờ) *</label>
+								<input type="number" id="modal-course-duration" placeholder="VD: 36" min="1" required>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-field">
+								<label class="x-small">Hiển thị trên Website *</label>
+								<select id="modal-course-public" required>
+									<option value="true">Có — Hiển thị công khai trên web</option>
+									<option value="false">Không — Khóa Private Doanh nghiệp</option>
+								</select>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-field mt-2">
+						<label class="x-small">URL Khóa Học (Landing Page / Notion / Brochure)</label>
+						<input type="url" id="modal-course-url" placeholder="https://uxcamp.vn/courses/... hoặc link Notion">
+					</div>
+
+					<div class="form-field mt-2">
+						<label class="x-small">Slug URL (dành cho SEO web)</label>
+						<input type="text" id="modal-course-slug" placeholder="design-thinking-fundamentals">
+					</div>
+
+					<div class="form-field mt-2">
+						<label class="x-small">Khẩu hiệu định vị (Tagline)</label>
+						<input type="text" id="modal-course-tagline" placeholder="Làm chủ tư duy thiết kế sản phẩm số thực chiến">
+					</div>
+
+					<div class="form-field mt-2">
+						<label class="x-small">Kỹ năng đạt được (phân cách bằng dấu phẩy)</label>
+						<input type="text" id="modal-course-skills" placeholder="User Research, Wireframing, Usability Testing, Figma">
+					</div>
+
+					<div class="form-field mt-2">
+						<label class="x-small">Mô tả khóa học (Description)</label>
+						<textarea id="modal-course-desc" rows="3" placeholder="Mô tả tóm tắt nội dung và mục tiêu khóa học..." style="background: var(--body-background-elevate-2); border: 0.5px solid var(--console-stroke); color: var(--main-colors-foreground-f200); border-radius: 6px; padding: 8px 12px; font-size: 13px; resize: vertical; width: 100%; box-sizing: border-box;"></textarea>
+					</div>
+				</div>
+				<div class="admin-modal-footer">
+					<button type="button" class="btn-outline-custom btn-close-modal">Hủy bỏ</button>
+					<button type="submit" class="btn-add">Lưu Khóa Học</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal: Cohort Form -->
+	<div class="admin-modal-overlay" id="modal-cohort">
+		<div class="admin-modal-container" style="max-width: 600px;">
+			<div class="admin-modal-header">
+				<h3 class="h6 medium m-0" id="modal-cohort-title-header" style="color: var(--main-colors-foreground-f200);">Mở Lớp Học Mới (Cohort)</h3>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<form id="form-modal-cohort">
+				<div class="admin-modal-body">
+					<input type="hidden" id="modal-cohort-id">
+					<div class="row g-2">
+						<div class="col-md-4">
+							<div class="form-field">
+								<label class="x-small">Mã Lớp (Code)</label>
+								<input type="text" id="modal-cohort-code" placeholder="VD: DT-C08" style="text-transform: uppercase;">
+							</div>
+						</div>
+						<div class="col-md-8">
+							<div class="form-field">
+								<label class="x-small">Tên Lớp (Cohort) *</label>
+								<input type="text" id="modal-cohort-name" placeholder="VD: Cohort 08, K08 - Weekend" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-field mt-1">
+						<label class="x-small">Thuộc Khóa học *</label>
+						<select id="modal-cohort-course-id" required>
+							<option value="">-- Chọn Khóa học --</option>
+						</select>
+					</div>
+
+					<div class="row g-2 mt-1">
+						<div class="col-md-6">
+							<div class="form-field">
+								<label class="x-small">Ngày Khai giảng *</label>
+								<input type="date" id="modal-cohort-start-date" required>
+							</div>
+						</div>
+						<div class="col-md-6">
+							<div class="form-field">
+								<label class="x-small">Ngày Bế giảng *</label>
+								<input type="date" id="modal-cohort-end-date" required>
+							</div>
+						</div>
+					</div>
+
+					<div class="form-field mt-1">
+						<label class="x-small">Trạng thái Lớp học *</label>
+						<select id="modal-cohort-status" required>
+							<option value="enrolling">Đang tuyển sinh (Enrolling)</option>
+							<option value="in-progress">Đang giảng dạy (In-progress)</option>
+							<option value="completed">Đã bế giảng / Tốt nghiệp (Completed)</option>
+							<option value="paused">Tạm dừng (Paused)</option>
+						</select>
+					</div>
+
+					<div class="form-field mt-2">
+						<label class="x-small">Danh sách Email Học viên (Mỗi email 1 dòng hoặc cách nhau bằng dấu phẩy)</label>
+						<textarea id="modal-cohort-student-emails" rows="4" placeholder="student1@gmail.com&#10;student2@gmail.com" style="background: var(--body-background-elevate-2); border: 0.5px solid var(--console-stroke); color: var(--main-colors-foreground-f200); border-radius: 6px; padding: 8px 12px; font-size: 13px; font-family: monospace;"></textarea>
+					</div>
+
+					<div class="form-field mt-2">
+						<label class="x-small">Email Giảng viên / Mentor phụ trách (Phân cách bằng dấu phẩy)</label>
+						<input type="text" id="modal-cohort-instructor-emails" placeholder="instructor@uxcamp.vn, mentor@uxcamp.vn">
+					</div>
+
+					<div class="form-field mt-2">
+						<label class="x-small">Ghi chú / Link lớp học (Google Meet, Notion, Discord)</label>
+						<input type="text" id="modal-cohort-notes" placeholder="VD: Link tài liệu Notion hoặc link học trực tuyến">
+					</div>
+				</div>
+				<div class="admin-modal-footer">
+					<button type="button" class="btn-outline-custom btn-close-modal">Hủy bỏ</button>
+					<button type="submit" class="btn-add">Lưu Lớp Học</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal: Certificate Form -->
+	<div class="admin-modal-overlay" id="modal-certificate">
+		<div class="admin-modal-container" style="max-width: 620px;">
+			<div class="admin-modal-header">
+				<h3 class="h6 medium m-0" id="modal-cert-title-header" style="color: var(--main-colors-foreground-f200);">Cấp Chứng Chỉ Tốt Nghiệp</h3>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<form id="form-modal-certificate">
+				<div class="admin-modal-body">
+					<!-- ID UUID (Bảo toàn UUID cũ, hoặc sinh mới khi tạo) -->
+					<div class="form-field">
+						<div class="d-flex justify-content-between align-items-center mb-1">
+							<label class="x-small">Mã Định Danh Duy Nhất (UUID v4) *</label>
+							<span class="x-small" style="color: var(--alternative-foreground-gold); font-size: 11px;">🔒 Bảo toàn vĩnh viễn cho link tra cứu cá nhân</span>
+						</div>
+						<div class="d-flex gap-2">
+							<input type="text" id="modal-cert-id" placeholder="UUID v4 (Tự động tạo hoặc giữ nguyên ID cũ)" style="font-family: monospace; font-size: 12px; background: rgba(0,0,0,0.3);" required>
+							<button type="button" class="btn-outline-custom" id="btn-cert-regen-id" style="white-space: nowrap; font-size: 11px; padding: 4px 10px;" title="Chỉ dùng khi tạo mới hoặc muốn sinh mã mới">Tạo UUID mới</button>
+						</div>
+					</div>
+
+					<div class="form-row mt-2">
+						<div class="form-field flex-1">
+							<label class="x-small">Mã Chứng Chỉ Trang Trọng (Code)</label>
+							<input type="text" id="modal-cert-code" placeholder="VD: UXCVN-2026-DT08-012" style="font-family: monospace; text-transform: uppercase;">
+						</div>
+						<div class="form-field flex-1">
+							<label class="x-small">Trạng Thái Chứng Chỉ *</label>
+							<select id="modal-cert-status" required>
+								<option value="active" selected>● Đang hiệu lực (Active)</option>
+								<option value="revoked">✕ Đã thu hồi (Revoked)</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-row mt-2">
+						<div class="form-field flex-1">
+							<label class="x-small">Lớp Học Tốt Nghiệp (Cohort Dropdown)</label>
+							<select id="modal-cert-cohort-id">
+								<option value="" selected>-- Chọn lớp học liên kết --</option>
+							</select>
+						</div>
+						<div class="form-field flex-1">
+							<label class="x-small">Tên Lớp Hiển Thị (Cohort Name)</label>
+							<input type="text" id="modal-cert-cohort-name" placeholder="VD: Nông Trường, Cơn Mưa...">
+						</div>
+					</div>
+
+					<div class="form-field mt-2">
+						<label class="x-small">Tên Khóa Học (Course Title)</label>
+						<input type="text" id="modal-cert-course-title" placeholder="VD: Designing Digital Product per Stage and Metric">
+					</div>
+
+					<div class="form-row mt-2">
+						<div class="form-field flex-1">
+							<label class="x-small">Email Học Viên *</label>
+							<input type="email" id="modal-cert-recipient-email" placeholder="student@gmail.com" required>
+						</div>
+						<div class="form-field flex-1">
+							<label class="x-small">Họ Tên In Trên Bằng *</label>
+							<input type="text" id="modal-cert-recipient-name" placeholder="VD: Lê Trâm Anh" required>
+						</div>
+					</div>
+
+					<div class="form-field mt-2">
+						<label class="x-small">Đường dẫn Ảnh Chứng Chỉ (Image URL / Path) *</label>
+						<input type="text" id="modal-cert-image-url" placeholder="VD: asset/image/certificate/conmua-letramanh.webp hoặc https://..." required>
+						<span class="x-small" style="color: var(--main-colors-foreground-f700); font-size: 11px; margin-top: 2px;">
+							Có thể nhập đường dẫn trong <code>asset/image/certificate/...</code> hoặc link ảnh Cloud/Drive.
+						</span>
+					</div>
+
+					<div class="form-row mt-2">
+						<div class="form-field flex-1">
+							<label class="x-small">Link File PDF Tải Về (Tùy chọn)</label>
+							<input type="url" id="modal-cert-pdf-url" placeholder="https://drive.google.com/... hoặc https://...">
+						</div>
+						<div class="form-field flex-1">
+							<label class="x-small">Ngày Cấp Chứng Chỉ *</label>
+							<input type="date" id="modal-cert-issue-date" required>
+						</div>
+					</div>
+
+					<div class="form-field mt-2">
+						<label class="x-small">Link LinkedIn / Trang cá nhân Học viên (Tùy chọn)</label>
+						<input type="url" id="modal-cert-social-link" placeholder="https://www.linkedin.com/in/...">
+					</div>
+				</div>
+				<div class="admin-modal-footer">
+					<button type="button" class="btn-outline-custom btn-close-modal">Hủy bỏ</button>
+					<button type="submit" class="btn-add">Lưu Chứng Chỉ</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal: Batch Assign Cohort -->
+	<div class="admin-modal-overlay" id="modal-batch-cert-cohort">
+		<div class="admin-modal-container" style="max-width: 520px;">
+			<div class="admin-modal-header">
+				<h3 class="h6 medium m-0" style="color: var(--main-colors-foreground-f200);">🏷️ Gán Lớp Học Hàng Loạt</h3>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<form id="form-batch-cert-cohort">
+				<div class="admin-modal-body">
+					<div class="caption" style="color: var(--alternative-foreground-gold); font-size: 13px;">
+						Đang chọn: <strong id="batch-cohort-count-text">0</strong> chứng chỉ.
+					</div>
+					<div class="form-field mt-2">
+						<label class="x-small">Chọn Lớp học trong hệ thống</label>
+						<select id="batch-cohort-select">
+							<option value="" selected>-- Chọn lớp học --</option>
+						</select>
+					</div>
+					<div class="form-field mt-2">
+						<label class="x-small">Hoặc nhập Tên Lớp học tùy chỉnh (Nếu lớp chưa tạo trên hệ thống)</label>
+						<input type="text" id="batch-cohort-custom-name" placeholder="VD: Nông Trường, Cơn Mưa, Mùa Xuân...">
+					</div>
+					<div class="form-field mt-2">
+						<label class="x-small">Tên Khóa học (Course Title)</label>
+						<input type="text" id="batch-cohort-course-title" placeholder="VD: Designing Digital Product per Stage and Metric">
+					</div>
+				</div>
+				<div class="admin-modal-footer">
+					<button type="button" class="btn-outline-custom btn-close-modal">Hủy bỏ</button>
+					<button type="submit" class="btn-add">Áp Dụng Cho Tất Cả</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal: Batch Update Issue Date -->
+	<div class="admin-modal-overlay" id="modal-batch-cert-date">
+		<div class="admin-modal-container" style="max-width: 440px;">
+			<div class="admin-modal-header">
+				<h3 class="h6 medium m-0" style="color: var(--main-colors-foreground-f200);">📅 Cập Nhật Ngày Cấp Hàng Loạt</h3>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<form id="form-batch-cert-date">
+				<div class="admin-modal-body">
+					<div class="caption" style="color: var(--alternative-foreground-gold); font-size: 13px;">
+						Đang chọn: <strong id="batch-date-count-text">0</strong> chứng chỉ.
+					</div>
+					<div class="form-field mt-2">
+						<label class="x-small">Ngày cấp mới *</label>
+						<input type="date" id="batch-date-input" required>
+					</div>
+				</div>
+				<div class="admin-modal-footer">
+					<button type="button" class="btn-outline-custom btn-close-modal">Hủy bỏ</button>
+					<button type="submit" class="btn-add">Lưu Ngày Cấp</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal: Batch Create Certificates for Cohort -->
+	<div class="admin-modal-overlay" id="modal-batch-create-certs">
+		<div class="admin-modal-container" style="max-width: 780px;">
+			<div class="admin-modal-header">
+				<div class="d-flex align-items-center gap-2">
+					<span style="font-size: 22px;">🎓</span>
+					<div>
+						<h3 class="h6 medium m-0" style="color: var(--main-colors-foreground-f200);">Cấp Chứng Chỉ Tốt Nghiệp Hàng Loạt Theo Lớp (Cohort)</h3>
+						<span class="x-small" style="color: var(--main-colors-foreground-f700);">Tự động tạo danh sách chứng chỉ độc lập, sinh mã UUID v4 riêng biệt và liên kết hồ sơ học viên.</span>
+					</div>
+				</div>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<form id="form-batch-create-certs">
+				<div class="admin-modal-body" style="max-height: 72vh; overflow-y: auto; padding-right: 4px;">
+					<!-- 1. Chọn Lớp học -->
+					<div class="form-row">
+						<div class="form-field flex-1">
+							<label class="x-small">1. Chọn Lớp học tốt nghiệp (Cohort) *</label>
+							<select id="batch-create-cohort-select" required>
+								<option value="" disabled selected>-- Chọn lớp học tốt nghiệp --</option>
+							</select>
+						</div>
+						<div class="form-field flex-1">
+							<label class="x-small">Tên Khóa học (Course Title)</label>
+							<input type="text" id="batch-create-course-title" placeholder="Tự động nạp từ lớp học" readonly style="background: rgba(0,0,0,0.25); color: var(--main-colors-foreground-f500);">
+						</div>
+					</div>
+
+					<!-- 2. Cấu hình Ngày cấp & Tiền tố Mã -->
+					<div class="form-row mt-2">
+						<div class="form-field flex-1">
+							<label class="x-small">2. Ngày Cấp Chứng Chỉ *</label>
+							<input type="date" id="batch-create-issue-date" required>
+						</div>
+						<div class="form-field flex-1">
+							<label class="x-small">Tiền tố Mã Chứng chỉ (Prefix)</label>
+							<input type="text" id="batch-create-code-prefix" placeholder="VD: UXCVN-2026-DT08-" style="font-family: monospace; text-transform: uppercase;">
+						</div>
+						<div class="form-field flex-1">
+							<label class="x-small">Đánh số bắt đầu từ</label>
+							<input type="number" id="batch-create-code-start-seq" value="1" min="1" style="font-family: monospace;">
+						</div>
+					</div>
+
+					<!-- 3. Mẫu đường dẫn ảnh (Tùy chọn) -->
+					<div class="form-field mt-2">
+						<div class="d-flex justify-content-between align-items-center mb-1">
+							<label class="x-small">Mẫu Đường Dẫn Ảnh (Image Path Pattern - Tùy chọn)</label>
+							<span class="x-small" style="color: var(--main-colors-foreground-f700); font-size: 11px;">Dùng {slug_name}, {email_prefix}, hoặc {cohort_code}</span>
+						</div>
+						<input type="text" id="batch-create-image-pattern" placeholder="VD: asset/image/certificate/{cohort_code}-{slug_name}.webp (hoặc để trống để cập nhật sau)">
+					</div>
+
+					<!-- 4. Danh sách Học viên Nhận bằng -->
+					<div class="form-field mt-3">
+						<div class="d-flex justify-content-between align-items-center mb-1">
+							<label class="x-small">3. Danh sách Học viên (Emails / Họ tên) *</label>
+							<div class="d-flex gap-2 align-items-center">
+								<button type="button" class="btn-outline-custom" id="btn-load-cohort-emails" style="font-size: 11px; padding: 2px 8px;" title="Nạp lại từ danh sách email đã lưu trong Lớp">
+									↺ Nạp từ danh sách lớp
+								</button>
+								<span class="x-small" style="color: var(--alternative-foreground-gold);" id="batch-create-student-count-hint">0 học viên</span>
+							</div>
+						</div>
+						<textarea id="batch-create-students-raw" rows="6" placeholder="Nhập mỗi học viên 1 dòng. Các định dạng được hỗ trợ:&#10;• student1@gmail.com, Lê Hoàng Nam&#10;• student2@gmail.com | Hứa Hoàng Yến&#10;• student3@gmail.com (Hệ thống sẽ tự tra cứu Họ tên trong Profile nếu có)" style="background: var(--body-background-elevate-2); border: 0.5px solid var(--console-stroke); color: var(--main-colors-foreground-f200); border-radius: 6px; padding: 8px 12px; font-size: 12px; font-family: monospace; width: 100%; box-sizing: border-box;" required></textarea>
+						<span class="x-small" style="color: var(--main-colors-foreground-f700); margin-top: 3px; display: block;">
+							💡 Mẹo: Có thể copy 2 cột (Email và Họ Tên) từ Google Sheet / Excel rồi dán trực tiếp vào ô trên.
+						</span>
+					</div>
+
+					<!-- 5. Nút Preview & Bảng Xem Trước -->
+					<div class="d-flex justify-content-between align-items-center mt-3 pt-2" style="border-top: 0.5px solid var(--transparent-foreground-main-color-10);">
+						<span class="x-small" style="color: var(--main-colors-foreground-f500); font-weight: 500;">Xem trước danh sách chứng chỉ sẽ được tạo:</span>
+						<button type="button" class="btn-outline-custom" id="btn-preview-batch-create" style="font-size: 12px; padding: 4px 12px;">
+							🔍 Phân tích & Xem trước
+						</button>
+					</div>
+
+					<div id="batch-create-preview-container" class="mt-2" style="max-height: 200px; overflow-y: auto; border: 0.5px solid var(--transparent-foreground-main-color-10); border-radius: 8px; background: rgba(0,0,0,0.2); display: none;">
+						<table class="user-table" style="font-size: 12px;">
+							<thead>
+								<tr>
+									<th style="width: 35px; text-align: center;">#</th>
+									<th>Email</th>
+									<th>Họ Tên In Trên Bằng</th>
+									<th>Mã Chứng Chỉ</th>
+									<th style="width: 120px; text-align: center;">Kiểm tra</th>
+								</tr>
+							</thead>
+							<tbody id="batch-create-preview-tbody"></tbody>
+						</table>
+					</div>
+
+					<!-- Tùy chọn xử lý trùng lặp -->
+					<div class="d-flex align-items-center gap-2 mt-2">
+						<input type="checkbox" id="batch-create-overwrite-existing" checked>
+						<label for="batch-create-overwrite-existing" class="x-small" style="cursor: pointer; color: var(--main-colors-foreground-f500);">
+							Nếu học viên đã có chứng chỉ trong lớp này, bảo toàn UUID gốc và cập nhật thông tin (Merge update).
+						</label>
+					</div>
+				</div>
+
+				<div class="admin-modal-footer">
+					<button type="button" class="btn-outline-custom btn-close-modal">Hủy bỏ</button>
+					<button type="submit" class="btn-add" id="btn-submit-batch-create">
+						🚀 Cấp Bằng Hàng Loạt
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal 1: Case Study Form -->
+	<div class="admin-modal-overlay" id="modal-case-study">
+		<div class="admin-modal-container">
+			<div class="admin-modal-header">
+				<h3 class="h6 medium m-0" id="modal-cs-title-header" style="color: var(--main-colors-foreground-f200);">Thêm Case Study</h3>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<form id="form-modal-case-study">
+				<div class="admin-modal-body">
+					<input type="hidden" id="modal-cs-id">
+					<div class="form-field">
+						<label class="x-small">Tên Case Study *</label>
+						<input type="text" id="modal-cs-title" placeholder="VD: PIKA, VibeCheck..." required>
+					</div>
+					<div class="form-field">
+						<label class="x-small">Đường dẫn ảnh bìa *</label>
+						<input type="text" id="modal-cs-image" placeholder="asset/image/case-study/pikaranking.webp" required>
+					</div>
+					<div class="form-field">
+						<label class="x-small">URL Case Study (Link Figma / Website / Deck) *</label>
+						<input type="url" id="modal-cs-url" placeholder="https://www.figma.com/..." required>
+					</div>
+					<div class="form-field">
+						<label class="x-small">Thành viên thực hiện (phân cách bằng dấu chấm phẩy ; )</label>
+						<input type="text" id="modal-cs-members" placeholder="nguyenhongduong;nguyenthidiu;thanhha">
+					</div>
+					<div class="form-field">
+						<label class="x-small">Thứ tự hiển thị (Order)</label>
+						<input type="number" id="modal-cs-order" min="1" placeholder="1">
+					</div>
+				</div>
+				<div class="admin-modal-footer">
+					<button type="button" class="btn-outline-custom btn-close-modal">Hủy bỏ</button>
+					<button type="submit" class="btn-add">Lưu Case Study</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal 2: Participant Form -->
+	<div class="admin-modal-overlay" id="modal-participant">
+		<div class="admin-modal-container">
+			<div class="admin-modal-header">
+				<h3 class="h6 medium m-0" style="color: var(--main-colors-foreground-f200);">Thêm Người tham dự (Avatar)</h3>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<form id="form-modal-participant">
+				<div class="admin-modal-body">
+					<div class="form-field">
+						<label class="x-small">Đường dẫn ảnh Avatar *</label>
+						<input type="text" id="modal-pt-image" placeholder="asset/image/participant/ten_anh.webp" required>
+						<span class="x-small" style="color: var(--main-colors-foreground-f700);">Tên file sẽ được tự động trích xuất làm ID thành viên.</span>
+					</div>
+					<div class="form-field">
+						<label class="x-small">Thứ tự (Order)</label>
+						<input type="number" id="modal-pt-order" min="1" placeholder="1">
+					</div>
+				</div>
+				<div class="admin-modal-footer">
+					<button type="button" class="btn-outline-custom btn-close-modal">Hủy bỏ</button>
+					<button type="submit" class="btn-add">Thêm vào Quả cầu</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal 3: Knowledge Node Form -->
+	<div class="admin-modal-overlay" id="modal-knowledge">
+		<div class="admin-modal-container">
+			<div class="admin-modal-header">
+				<h3 class="h6 medium m-0" id="modal-kn-title-header" style="color: var(--main-colors-foreground-f200);">Thêm Node Kiến Thức</h3>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<form id="form-modal-knowledge">
+				<div class="admin-modal-body">
+					<input type="hidden" id="modal-kn-id">
+					<div class="form-field">
+						<label class="x-small">Tên Node (Label) *</label>
+						<input type="text" id="modal-kn-label" placeholder="VD: Business Model Canvas..." required>
+					</div>
+					<div class="d-flex gap-2 flex-wrap">
+						<div class="form-field" style="flex: 1;">
+							<label class="x-small">Cấp độ (Level) *</label>
+							<select id="modal-kn-level" required>
+								<option value="1">Level 1 (Core / Category)</option>
+								<option value="2">Level 2 (Specific Topic)</option>
+								<option value="3">Level 3 (Tool / Detail)</option>
+							</select>
+						</div>
+						<div class="form-field" style="flex: 1;">
+							<label class="x-small">Màu hiển thị Node (Hex Color) *</label>
+							<div class="d-flex gap-2 align-items-center">
+								<input type="color" id="modal-kn-color-picker" value="#F8B195" style="width: 42px; height: 42px; padding: 2px; border-radius: 8px; cursor: pointer;" oninput="document.getElementById('modal-kn-color').value = this.value">
+								<input type="text" id="modal-kn-color" value="#F8B195" style="flex: 1;" oninput="document.getElementById('modal-kn-color-picker').value = this.value">
+							</div>
+						</div>
+					</div>
+					<div class="form-field">
+						<label class="x-small">Mô tả kiến thức</label>
+						<textarea id="modal-kn-desc" class="raw-paste-textarea" rows="3" placeholder="Nội dung giải thích tóm tắt về node kiến thức này..."></textarea>
+					</div>
+					<div class="form-field">
+						<label class="x-small">Liên kết tới các Node khác (ID phân cách bằng dấu ; )</label>
+						<input type="text" id="modal-kn-connections" placeholder="id_node_1;id_node_2">
+					</div>
+				</div>
+				<div class="admin-modal-footer">
+					<button type="button" class="btn-outline-custom btn-close-modal">Hủy bỏ</button>
+					<button type="submit" class="btn-add">Lưu Node Kiến Thức</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- Modal 4: Book Form -->
+	<div class="admin-modal-overlay" id="modal-book">
+		<div class="admin-modal-container">
+			<div class="admin-modal-header">
+				<h3 class="h6 medium m-0" id="modal-bk-title-header" style="color: var(--main-colors-foreground-f200);">Thêm Cuốn Sách Mới</h3>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<form id="form-modal-book">
+				<div class="admin-modal-body">
+					<input type="hidden" id="modal-bk-id">
+					<div class="form-field">
+						<label class="x-small">Tựa sách *</label>
+						<input type="text" id="modal-bk-title" placeholder="VD: Product Talent & Insights..." required>
+					</div>
+					<div class="d-flex gap-2 flex-wrap">
+						<div class="form-field" style="flex: 1;">
+							<label class="x-small">Badge trên đỉnh gáy sách (Top Badge)</label>
+							<input type="text" id="modal-bk-badge" placeholder="VD: α, β, 101, PRO">
+						</div>
+						<div class="form-field" style="flex: 1;">
+							<label class="x-small">Tags</label>
+							<input type="text" id="modal-bk-tags" placeholder="VD: 101, Core, Advanced">
+						</div>
+						<div class="form-field" style="flex: 1;">
+							<label class="x-small">Chiều cao gáy sách (px)</label>
+							<input type="number" id="modal-bk-height" value="380" min="200" max="600">
+						</div>
+					</div>
+					<div class="form-field">
+						<label class="x-small">Mô tả tóm tắt</label>
+						<textarea id="modal-bk-desc" class="raw-paste-textarea" rows="3" placeholder="Tóm tắt nội dung cuốn sách..."></textarea>
+					</div>
+				</div>
+				<div class="admin-modal-footer">
+					<button type="button" class="btn-outline-custom btn-close-modal">Hủy bỏ</button>
+					<button type="submit" class="btn-add">Lưu Cuốn Sách</button>
+				</div>
+			</form>
 		</div>
 	</div>
 
@@ -295,7 +1537,9 @@
 			addForm: $('add-user-form'),
 			inputEmail: $('input-email'),
 			inputName: $('input-name'),
+			inputPhone: $('input-phone'),
 			inputRole: $('input-role'),
+			inputStatus: $('input-status'),
 			btnAdd: $('btn-add-user'),
 			// Batch Paste / GSheet / CSV
 			rawBatchInput: $('rawBatchInput'),
@@ -313,6 +1557,21 @@
 			userListContainer: $('user-list-container'),
 			btnRefresh: $('btn-refresh'),
 			searchInput: $('searchInput'),
+			filterUserRole: $('filter-user-role'),
+			filterUserStatus: $('filter-user-status'),
+			btnExportUsers: $('btn-export-users'),
+			// Modal Edit User
+			modalUser: $('modal-user'),
+			formModalUser: $('form-modal-user'),
+			modalUserId: $('modal-user-id'),
+			modalUserPrimaryEmail: $('modal-user-primary-email'),
+			modalUserRole: $('modal-user-role'),
+			modalUserName: $('modal-user-name'),
+			modalUserStatus: $('modal-user-status'),
+			modalUserPhone: $('modal-user-phone'),
+			modalUserUid: $('modal-user-uid'),
+			modalUserEmails: $('modal-user-emails'),
+			modalUserPhoto: $('modal-user-photo'),
 			// Modal & Toast
 			confirmModal: $('confirmBatchModal'),
 			confirmModalMsg: $('confirmModalMsg'),
@@ -345,6 +1604,57 @@
 		// ============================================================
 		let currentUser = null;
 
+		// Helper tìm user theo email trong authorizedUsers
+		async function findAuthorizedUser(email, user = null) {
+			const cleanEmail = (email || '').trim().toLowerCase();
+			const currentUid = (user && user.uid) || (auth.currentUser && auth.currentUser.uid) || '';
+
+			try {
+				// 1. Tìm docId trực tiếp theo email (Ưu tiên O(1) - Chuẩn Security Rules)
+				const docNew = await db.collection('authorizedUsers').doc(cleanEmail).get();
+				if (docNew.exists) {
+					const d = docNew.data() || {};
+					return { exists: true, docId: docNew.id, id: d.id || docNew.id, ...d };
+				}
+
+				// 2. Tìm trong authorizedUsers theo primaryEmail
+				const snapPrimary = await db.collection('authorizedUsers').where('primaryEmail', '==', cleanEmail).get();
+				if (!snapPrimary.empty) {
+					const d = snapPrimary.docs[0];
+					return { exists: true, docId: d.id, id: d.data().id || d.id, ...d.data() };
+				}
+
+				// 3. Tìm trong authorizedUsers theo mảng emails
+				const snap = await db.collection('authorizedUsers').where('emails', 'array-contains', cleanEmail).get();
+				if (!snap.empty) {
+					const d = snap.docs[0];
+					return { exists: true, docId: d.id, id: d.data().id || d.id, ...d.data() };
+				}
+
+				// 4. Tìm theo firebaseUid
+				if (currentUid) {
+					const snapUid = await db.collection('authorizedUsers').where('firebaseUid', '==', currentUid).get();
+					if (!snapUid.empty) {
+						const d = snapUid.docs[0];
+						return { exists: true, docId: d.id, id: d.data().id || d.id, ...d.data() };
+					}
+				}
+
+				// 5. Tìm theo UID làm docId
+				if (currentUid) {
+					const docUid = await db.collection('authorizedUsers').doc(currentUid).get();
+					if (docUid.exists) {
+						const d = docUid.data() || {};
+						return { exists: true, docId: docUid.id, id: d.id || docUid.id, ...d };
+					}
+				}
+			} catch (err) {
+				console.warn('[findAuthorizedUser] Query warning:', err);
+			}
+
+			return { exists: false };
+		}
+
 		auth.onAuthStateChanged(async (user) => {
 			if (!user) {
 				window.location.href = 'authentication.html';
@@ -352,8 +1662,8 @@
 			}
 
 			try {
-				const doc = await db.collection('authorized_users').doc(user.email).get();
-				if (!doc.exists || doc.data().role !== 'admin') {
+				const userProfile = await findAuthorizedUser(user.email, user);
+				if (!userProfile.exists || userProfile.role !== 'admin') {
 					dom.authGate.innerHTML = `
 						<div class="empty-state">
 							<span class="h4" style="color: var(--main-colors-foreground-f300);">⛔ Không có quyền truy cập</span>
@@ -372,11 +1682,27 @@
 				// User is Admin
 				currentUser = user;
 				dom.authGate.style.display = 'none';
-				dom.content.classList.add('visible');
+				dom.content.style.display = 'flex';
+				const sidebarEl = document.getElementById('sidebar');
+				if (sidebarEl) sidebarEl.style.display = 'flex';
 
 				dom.avatar.src = user.photoURL || '';
 				dom.avatar.style.display = user.photoURL ? 'block' : 'none';
-				dom.name.textContent = user.displayName || user.email;
+				dom.name.textContent = userProfile.displayName || user.displayName || user.email;
+
+				// Đảm bảo cập nhật firebaseUid & id UUID cho userProfile nếu chưa có
+				const cleanAdminEmail = user.email.toLowerCase();
+				const updates = {};
+				if (!userProfile.firebaseUid || userProfile.firebaseUid !== user.uid) {
+					updates.firebaseUid = user.uid;
+				}
+				if (!userProfile.id) {
+					updates.id = generateUUID();
+				}
+				if (Object.keys(updates).length > 0) {
+					updates.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+					db.collection('authorizedUsers').doc(cleanAdminEmail).set(updates, { merge: true }).catch(() => {});
+				}
 
 				await loadUsers();
 
@@ -392,16 +1718,34 @@
 		});
 
 		// ============================================================
-		// LOAD USERS FROM FIRESTORE
+		// LOAD USERS FROM FIRESTORE (authorizedUsers)
 		// ============================================================
 		let allUsers = [];
 
 		async function loadUsers() {
 			try {
-				const snapshot = await db.collection('authorized_users').get();
+				const snapshot = await db.collection('authorizedUsers').get();
+
 				allUsers = [];
 				snapshot.forEach(doc => {
-					allUsers.push({ email: doc.id, ...doc.data() });
+					const data = doc.data();
+					const docId = doc.id;
+					const primaryEmail = (data.primaryEmail || (Array.isArray(data.emails) ? data.emails[0] : null) || data.email || docId).toLowerCase();
+					const emails = Array.isArray(data.emails) && data.emails.length > 0 ? data.emails : [primaryEmail];
+
+					allUsers.push({
+						id: data.id || generateUUID(),
+						docId: docId,
+						primaryEmail,
+						emails,
+						displayName: data.displayName || '',
+						role: data.role || 'member',
+						status: data.status || 'active',
+						phone: data.phone || '',
+						photoUrl: data.photoUrl || '',
+						firebaseUid: data.firebaseUid || '',
+						...data
+					});
 				});
 
 				// Update stats
@@ -410,6 +1754,9 @@
 				dom.statMember.textContent = allUsers.filter(u => u.role === 'member').length;
 				dom.statAlumni.textContent = allUsers.filter(u => u.role === 'alumni').length;
 				dom.statInstructor.textContent = allUsers.filter(u => u.role === 'instructor').length;
+
+				const badgeUsers = document.getElementById('badge-count-users');
+				if (badgeUsers) badgeUsers.textContent = allUsers.length;
 
 				filterAndRenderUsers();
 
@@ -424,19 +1771,32 @@
 
 		function filterAndRenderUsers() {
 			const query = (dom.searchInput.value || '').trim().toLowerCase();
+			const roleFilter = dom.filterUserRole ? dom.filterUserRole.value : 'all';
+			const statusFilter = dom.filterUserStatus ? dom.filterUserStatus.value : 'all';
+
 			let filtered = allUsers;
 			if (query) {
-				filtered = allUsers.filter(u =>
-					(u.email && u.email.toLowerCase().includes(query)) ||
+				filtered = filtered.filter(u =>
+					(u.primaryEmail && u.primaryEmail.toLowerCase().includes(query)) ||
+					(u.emails && u.emails.some(e => e.toLowerCase().includes(query))) ||
 					(u.displayName && u.displayName.toLowerCase().includes(query)) ||
+					(u.phone && u.phone.toLowerCase().includes(query)) ||
 					(u.role && u.role.toLowerCase().includes(query))
 				);
+			}
+
+			if (roleFilter !== 'all') {
+				filtered = filtered.filter(u => u.role === roleFilter);
+			}
+
+			if (statusFilter !== 'all') {
+				filtered = filtered.filter(u => (u.status || 'active') === statusFilter);
 			}
 
 			if (filtered.length === 0) {
 				dom.userListContainer.innerHTML = `
 					<div class="empty-state">
-						<span class="caption">${query ? 'Không tìm thấy user phù hợp.' : 'Chưa có user nào trong danh sách.'}</span>
+						<span class="caption">${query || roleFilter !== 'all' || statusFilter !== 'all' ? 'Không tìm thấy user phù hợp bộ lọc.' : 'Chưa có user nào trong danh sách.'}</span>
 					</div>
 				`;
 				return;
@@ -445,47 +1805,176 @@
 			const roleOrder = { admin: 0, instructor: 1, member: 2, alumni: 3 };
 			filtered.sort((a, b) => (roleOrder[a.role] ?? 99) - (roleOrder[b.role] ?? 99));
 
+			const statusLabels = {
+				active: '<span class="admin-tag" style="background: rgba(46, 213, 115, 0.15); color: #2ed573; border-color: rgba(46, 213, 115, 0.3);">Active</span>',
+				inactive: '<span class="admin-tag" style="background: rgba(255, 177, 66, 0.15); color: #ffb142; border-color: rgba(255, 177, 66, 0.3);">Inactive</span>',
+				disabled: '<span class="admin-tag" style="background: rgba(255, 71, 87, 0.15); color: #ff4757; border-color: rgba(255, 71, 87, 0.3);">Disabled</span>'
+			};
+
 			dom.userListContainer.innerHTML = `
 				<table class="user-table">
 					<thead>
 						<tr>
 							<th style="width: 40px;">#</th>
-							<th>Email</th>
+							<th>Email chính & Phụ</th>
 							<th>Role</th>
 							<th>Tên hiển thị</th>
-							<th style="width: 80px; text-align: right;">Thao tác</th>
+							<th>SĐT</th>
+							<th style="text-align: center;">Trạng thái</th>
+							<th style="text-align: center;">Auth UID</th>
+							<th style="width: 100px; text-align: right;">Thao tác</th>
 						</tr>
 					</thead>
 					<tbody>
-						${filtered.map((u, i) => `
+						${filtered.map((u, i) => {
+							const displayEmail = u.primaryEmail || (u.emails ? u.emails[0] : u.id);
+							const extraEmails = (u.emails || []).filter(e => e.toLowerCase() !== displayEmail.toLowerCase());
+							const isCurrent = (u.primaryEmail === currentUser?.email) || (u.emails && u.emails.includes(currentUser?.email));
+							const isUidLinked = Boolean(u.firebaseUid);
+
+							return `
 							<tr>
 								<td class="caption" style="color: var(--main-colors-foreground-f800);">${i + 1}</td>
-								<td class="caption" style="font-weight: 500;">${escapeHtml(u.email)}</td>
+								<td>
+									<div class="caption" style="font-weight: 500; color: var(--main-colors-foreground-f200);">${escapeHtml(displayEmail)}</div>
+									${extraEmails.length > 0 ? `<div class="x-small" style="color: var(--main-colors-foreground-f700);">${extraEmails.map(e => `+ ${escapeHtml(e)}`).join(', ')}</div>` : ''}
+								</td>
 								<td><span class="role-cell ${escapeHtml(u.role || 'member')}">${escapeHtml(u.role || 'member')}</span></td>
 								<td class="caption">${escapeHtml(u.displayName || '—')}</td>
+								<td class="caption" style="color: var(--main-colors-foreground-f500); font-family: monospace; font-size: 12px;">${escapeHtml(u.phone || '—')}</td>
+								<td style="text-align: center;">${statusLabels[u.status] || statusLabels.active}</td>
+								<td style="text-align: center;">
+									${isUidLinked
+										? '<span class="admin-tag" style="background: rgba(46, 213, 115, 0.12); color: #2ed573; border-color: rgba(46, 213, 115, 0.25); font-size: 10px;">✓ Linked</span>'
+										: '<span class="admin-tag" style="background: rgba(120, 120, 120, 0.12); color: #888; border-color: rgba(120, 120, 120, 0.2); font-size: 10px;">○ Chờ login</span>'}
+								</td>
 								<td style="text-align: right;">
-									${u.email !== currentUser?.email
-					? `<button class="btn-delete" onclick="deleteUser('${escapeHtml(u.email)}')">Xóa</button>`
-					: `<span class="x-small" style="color: var(--main-colors-foreground-f800); font-style: italic;">Bạn</span>`}
+									<div class="d-inline-flex gap-1 align-items-center">
+										<button class="btn-icon-action" title="Sửa thông tin" onclick="window.editUser('${escapeHtml(u.docId || u.primaryEmail)}')">
+											<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+										</button>
+										${!isCurrent
+											? `<button class="btn-icon-action delete" title="Xóa user" onclick="window.deleteUser('${escapeHtml(u.docId || u.primaryEmail)}', '${escapeHtml(displayEmail)}')">
+												<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+											</button>`
+											: `<span class="x-small" style="color: var(--main-colors-foreground-f800); font-style: italic; margin-left: 4px;">Bạn</span>`}
+									</div>
 								</td>
 							</tr>
-						`).join('')}
+						`;
+						}).join('')}
 					</tbody>
 				</table>
 			`;
 		}
 
 		dom.searchInput.addEventListener('input', filterAndRenderUsers);
+		if (dom.filterUserRole) dom.filterUserRole.addEventListener('change', filterAndRenderUsers);
+		if (dom.filterUserStatus) dom.filterUserStatus.addEventListener('change', filterAndRenderUsers);
 		dom.btnRefresh.addEventListener('click', loadUsers);
 
+		// Export Users to JSON
+		if (dom.btnExportUsers) {
+			dom.btnExportUsers.addEventListener('click', () => {
+				const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allUsers, null, 2));
+				const dlAnchor = document.createElement('a');
+				dlAnchor.setAttribute("href", dataStr);
+				dlAnchor.setAttribute("download", `users_backup_${new Date().toISOString().slice(0, 10)}.json`);
+				document.body.appendChild(dlAnchor);
+				dlAnchor.click();
+				dlAnchor.remove();
+				showToast('💾 Đã xuất file sao lưu users thành công!');
+			});
+		}
+
+		// Edit User Modal open
+		window.editUser = function (userId) {
+			const user = allUsers.find(u => u.id === userId || u.docId === userId || u.primaryEmail === userId);
+			if (!user) return;
+
+			dom.modalUserId.value = user.id || generateUUID();
+			dom.modalUserPrimaryEmail.value = user.primaryEmail || user.docId || '';
+			dom.modalUserRole.value = user.role || 'member';
+			dom.modalUserName.value = user.displayName || '';
+			dom.modalUserStatus.value = user.status || 'active';
+			dom.modalUserPhone.value = user.phone || '';
+			dom.modalUserUid.value = user.firebaseUid || '';
+			dom.modalUserEmails.value = Array.isArray(user.emails) ? user.emails.join('\n') : (user.primaryEmail || '');
+			dom.modalUserPhoto.value = user.photoUrl || '';
+			
+			const headerTitle = document.getElementById('modal-user-title-header');
+			if (headerTitle) headerTitle.textContent = `Chỉnh sửa: ${user.displayName || user.primaryEmail}`;
+
+			if (dom.modalUser) dom.modalUser.classList.add('open');
+		};
+
+		// Submit Edit User Form
+		if (dom.formModalUser) {
+			dom.formModalUser.addEventListener('submit', async (e) => {
+				e.preventDefault();
+				const internalId = dom.modalUserId.value.trim() || generateUUID();
+				const primaryEmail = dom.modalUserPrimaryEmail.value.trim().toLowerCase();
+				const role = dom.modalUserRole.value;
+				const displayName = dom.modalUserName.value.trim();
+				const status = dom.modalUserStatus.value;
+				const phone = dom.modalUserPhone.value.trim();
+				const photoUrl = dom.modalUserPhoto.value.trim();
+				const rawEmails = dom.modalUserEmails.value.trim();
+
+				let emails = rawEmails.split(/\r?\n|,/).map(s => s.trim().toLowerCase()).filter(s => s.includes('@'));
+				if (!emails.includes(primaryEmail)) {
+					emails.unshift(primaryEmail);
+				}
+				emails = Array.from(new Set(emails));
+
+				const btnSave = dom.formModalUser.querySelector('button[type="submit"]');
+				if (btnSave) btnSave.disabled = true;
+
+				try {
+					const updatedData = {
+						id: internalId,
+						primaryEmail,
+						emails,
+						role,
+						displayName,
+						status,
+						phone,
+						photoUrl,
+						updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+					};
+
+					// Luôn ghi Document ID là primaryEmail
+					await db.collection('authorizedUsers').doc(primaryEmail).set(updatedData, { merge: true });
+
+					showToast(`✅ Đã cập nhật thông tin ${primaryEmail}`);
+					if (dom.modalUser) dom.modalUser.classList.remove('open');
+					await loadUsers();
+				} catch (err) {
+					showToast(`❌ Lỗi cập nhật: ${err.message}`);
+				} finally {
+					if (btnSave) btnSave.disabled = false;
+				}
+			});
+		}
+
+		// Helper tạo UUID v4
+		function generateUUID() {
+			if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+				return crypto.randomUUID();
+			}
+			return 'usr_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 9);
+		}
+
 		// ============================================================
-		// ADD SINGLE USER
+		// ADD SINGLE USER (authorizedUsers)
 		// ============================================================
 		dom.addForm.addEventListener('submit', async (e) => {
 			e.preventDefault();
 			const email = dom.inputEmail.value.trim().toLowerCase();
 			const displayName = dom.inputName.value.trim();
+			const phone = dom.inputPhone ? dom.inputPhone.value.trim() : '';
 			const role = dom.inputRole.value;
+			const status = dom.inputStatus ? dom.inputStatus.value : 'active';
 
 			if (!email || !email.includes('@')) {
 				showToast('⚠️ Vui lòng nhập email hợp lệ!');
@@ -496,14 +1985,32 @@
 			dom.btnAdd.textContent = 'Đang lưu...';
 
 			try {
-				await db.collection('authorized_users').doc(email).set({
-					role,
-					displayName: displayName || '',
-					addedAt: firebase.firestore.FieldValue.serverTimestamp(),
-					addedBy: currentUser.email
-				}, { merge: true });
+				// Kiểm tra xem email này đã tồn tại trong authorizedUsers chưa
+				const existing = await findAuthorizedUser(email);
+				const internalId = (existing && existing.exists && existing.id) ? existing.id : generateUUID();
 
-				showToast(`✅ Đã thêm ${email}`);
+				const userData = {
+					id: internalId,
+					primaryEmail: email,
+					emails: [email],
+					firebaseUid: existing?.firebaseUid || '',
+					displayName: displayName || existing?.displayName || '',
+					role: role,
+					photoUrl: existing?.photoUrl || '',
+					phone: phone || existing?.phone || '',
+					status: status,
+					updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+					addedBy: currentUser.email
+				};
+
+				if (!existing || !existing.exists) {
+					userData.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+				}
+
+				// Luôn ghi vào collection authorizedUsers với Doc ID là email
+				await db.collection('authorizedUsers').doc(email).set(userData, { merge: true });
+
+				showToast(`✅ Đã lưu ${email} vào authorizedUsers`);
 				dom.addForm.reset();
 				await loadUsers();
 			} catch (error) {
@@ -517,12 +2024,18 @@
 		// ============================================================
 		// DELETE SINGLE USER
 		// ============================================================
-		window.deleteUser = async function (email) {
-			if (!confirm(`Xóa quyền truy cập của ${email}?`)) return;
+		window.deleteUser = async function (docId, email) {
+			const targetEmail = (email || docId || '').trim().toLowerCase();
+			if (!confirm(`Xóa quyền truy cập của ${targetEmail}?`)) return;
 
 			try {
-				await db.collection('authorized_users').doc(email).delete();
-				showToast(`✅ Đã xóa ${email}`);
+				if (targetEmail) {
+					await db.collection('authorizedUsers').doc(targetEmail).delete();
+				}
+				if (docId && docId !== targetEmail) {
+					await db.collection('authorizedUsers').doc(docId).delete().catch(() => {});
+				}
+				showToast(`✅ Đã xóa ${targetEmail}`);
 				await loadUsers();
 			} catch (error) {
 				showToast(`❌ Lỗi: ${error.message}`);
@@ -840,19 +2353,44 @@
 					const batch = db.batch();
 
 					chunk.forEach(u => {
-						const docRef = db.collection('authorized_users').doc(u.email);
-						batch.set(docRef, {
+						const email = u.email.trim().toLowerCase();
+						// Tìm xem user này đã tồn tại trong allUsers chưa để giữ nguyên ID
+						const matchedExisting = allUsers.find(ex =>
+							(ex.primaryEmail && ex.primaryEmail.toLowerCase() === email) ||
+							(ex.emails && ex.emails.some(e => e.toLowerCase() === email)) ||
+							ex.id === email
+						);
+
+						const docId = email;
+						const internalId = matchedExisting?.id || generateUUID();
+						const docRef = db.collection('authorizedUsers').doc(docId);
+
+						const userPayload = {
+							id: internalId,
+							primaryEmail: email,
+							emails: matchedExisting?.emails?.length ? Array.from(new Set([...matchedExisting.emails, email])) : [email],
+							firebaseUid: matchedExisting?.firebaseUid || '',
+							displayName: u.displayName || matchedExisting?.displayName || '',
 							role: u.role || 'member',
-							displayName: u.displayName || '',
-							addedAt: firebase.firestore.FieldValue.serverTimestamp(),
+							status: 'active',
+							photoUrl: matchedExisting?.photoUrl || '',
+							phone: matchedExisting?.phone || '',
+							updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
 							addedBy: currentUser.email
-						}, { merge: true });
+						};
+
+						if (!matchedExisting) {
+							userPayload.createdAt = firebase.firestore.FieldValue.serverTimestamp();
+						}
+
+						batch.set(docRef, userPayload, { merge: true });
+
 					});
 
 					await batch.commit();
 				}
 
-				showToast(`✅ Đã lưu thành công ${validUsers.length} users!`);
+				showToast(`✅ Đã lưu thành công ${validUsers.length} users vào authorizedUsers!`);
 
 				// Reset batch
 				dom.rawBatchInput.value = '';
@@ -886,6 +2424,9 @@
 			window.location.href = 'authentication.html';
 		});
 	</script>
+
+	<!-- Multi-Collection Admin Data Manager -->
+	<script src="script/admin-data-manager.js"></script>
 
 </body>
 

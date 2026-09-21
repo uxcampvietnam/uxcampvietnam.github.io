@@ -24,12 +24,9 @@ window.addEventListener('load', () => {
         });
     }
 
-    if (typeof randomSplats === 'function' && document.getElementById('fluidCanvas')) {
-        setTimeout(() => randomSplats(8, 0, 1, 0.2, 0.8), 400);
-    }
 
-    gsap.to('.sticky-graph-overlay', {
-        height: '200%',
+    gsap.to('#graphContainer', {
+        opacity: 0.3,
         ease: "none",
         scrollTrigger: {
             trigger: "#graphContainer",

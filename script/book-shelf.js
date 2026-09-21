@@ -517,7 +517,7 @@
 
       expanded.innerHTML = `
         <div class="book-cover-3d-wrapper" id="cover-${book.id}" style="height: ${bookHeight}px;">
-          <img class="book-cover-img" src="${coverImgSrc}" alt="${book.title || ''}" loading="lazy">
+          <img class="book-cover-img" src="${coverImgSrc}" alt="${book.title || ''}">
           <div class="book-cover-crease"></div>
         </div>
         <div class="book-info-panel" id="info-${book.id}">

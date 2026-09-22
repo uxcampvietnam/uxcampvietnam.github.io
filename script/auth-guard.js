@@ -13,7 +13,7 @@
  *    - Chưa đăng nhập (Unauthenticated):
  *      + Chuyển hướng ngay lập tức (redirect) về authentication.html?redirect=... mà không render
  *        popup/card gây chớp nháy (flicker-free).
- *    - Đã đăng nhập: Tra cứu email trong Firestore collection "authorized_users":
+ *    - Đã đăng nhập: Tra cứu email trong Firestore collection "authorizedUsers":
  *      + ĐƯỢC CẤP QUYỀN (Authorized): Gắn lại .app-container vào DOM, kích hoạt tool, render User Widget.
  *      + CHƯA ĐƯỢC CẤP QUYỀN (Unauthorized): Hiển thị Auth Card đồng bộ 100% với authentication.html.
  *      + LỖI XÁC THỰC (Error/Offline): Hiển thị Auth Card thông báo lỗi và nút Thử lại.
@@ -314,7 +314,7 @@
   }
 
   /**
-   * Kiểm tra email trong Firestore collection authorized_users
+   * Kiểm tra email trong Firestore collection authorizedUsers
    * @param {string} email 
    * @returns {Promise<{ authorized: boolean, data: object|null, error?: string }>}
    */
@@ -322,24 +322,77 @@
     if (!db || !email) return { authorized: false, data: null };
 
     try {
-      const cleanEmail = email.trim();
-      // 1. Thử tìm chính xác email chữ thường
-      let doc = await db.collection('authorized_users').doc(cleanEmail.toLowerCase()).get();
-      if (doc.exists) {
-        return { authorized: true, data: doc.data() };
+      const cleanEmail = email.trim().toLowerCase();
+      const currentUid = (auth && auth.currentUser) ? auth.currentUser.uid : '';
+
+      let matchedDoc = null;
+
+      // 1. Tra cứu trực tiếp theo Document ID = cleanEmail (Chuẩn O(1) & Security Rules)
+      try {
+        const docByEmail = await db.collection('authorizedUsers').doc(cleanEmail).get();
+        if (docByEmail.exists) {
+          matchedDoc = docByEmail;
+        }
+      } catch (e0) {
+        console.warn('[ToolAuthGuard] docId email notice:', e0);
       }
 
-      // 2. Thử tìm chính xác dạng nguyên bản (nếu Firestore lưu có chữ hoa)
-      if (cleanEmail !== cleanEmail.toLowerCase()) {
-        doc = await db.collection('authorized_users').doc(cleanEmail).get();
-        if (doc.exists) {
-          return { authorized: true, data: doc.data() };
+      // 2. Tra cứu dự phòng theo primaryEmail
+      if (!matchedDoc) {
+        try {
+          const snapPrimary = await db.collection('authorizedUsers').where('primaryEmail', '==', cleanEmail).get();
+          if (!snapPrimary.empty) {
+            matchedDoc = snapPrimary.docs[0];
+          }
+        } catch (e1) {
+          console.warn('[ToolAuthGuard] primaryEmail query notice:', e1);
         }
       }
 
-      return { authorized: false, data: null };
+      // 3. Tra cứu dự phòng theo mảng emails
+      if (!matchedDoc) {
+        try {
+          const snapEmails = await db.collection('authorizedUsers').where('emails', 'array-contains', cleanEmail).get();
+          if (!snapEmails.empty) {
+            matchedDoc = snapEmails.docs[0];
+          }
+        } catch (e2) {
+          console.warn('[ToolAuthGuard] emails array query notice:', e2);
+        }
+      }
+
+      // 4. Tra cứu dự phòng theo firebaseUid
+      if (!matchedDoc && currentUid) {
+        try {
+          const snapUid = await db.collection('authorizedUsers').where('firebaseUid', '==', currentUid).get();
+          if (!snapUid.empty) {
+            matchedDoc = snapUid.docs[0];
+          }
+        } catch (e3) {
+          console.warn('[ToolAuthGuard] firebaseUid query notice:', e3);
+        }
+      }
+
+      // 5. Tra cứu dự phòng theo Document ID = UID
+      if (!matchedDoc && currentUid) {
+        try {
+          const docByUid = await db.collection('authorizedUsers').doc(currentUid).get();
+          if (docByUid.exists) {
+            matchedDoc = docByUid;
+          }
+        } catch (e5) {
+          console.warn('[ToolAuthGuard] docId uid notice:', e5);
+        }
+      }
+
+      if (!matchedDoc) {
+        return { authorized: false, data: null };
+      }
+
+      const d = matchedDoc.data() || {};
+      return { authorized: true, data: { id: matchedDoc.id, ...d } };
     } catch (error) {
-      console.error('[ToolAuthGuard] Lỗi kiểm tra Firestore authorized_users:', error);
+      console.error('[ToolAuthGuard] Lỗi kiểm tra Firestore authorizedUsers:', error);
       return { authorized: false, data: null, error: error.message };
     }
   }
@@ -473,12 +526,36 @@
 
           if (authCheck.authorized) {
             // ĐƯỢC CẤP QUYỀN
+            const authDoc = authCheck.data || {};
+            const docId = authDoc.id || user.email.toLowerCase();
+
+            // Tự động liên kết firebaseUid vào authorizedUsers nếu chưa có (Luôn ghi theo docId là email)
+            const cleanUserEmail = user.email.toLowerCase();
+            const updates = {};
+            if (!authDoc.firebaseUid || authDoc.firebaseUid !== user.uid) {
+              updates.firebaseUid = user.uid;
+            }
+            if (!authDoc.photoUrl && user.photoURL) {
+              updates.photoUrl = user.photoURL;
+            }
+            if (!authDoc.displayName && user.displayName) {
+              updates.displayName = user.displayName;
+            }
+            if (Object.keys(updates).length > 0) {
+              updates.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+              db.collection('authorizedUsers').doc(cleanUserEmail).set(updates, { merge: true }).catch(() => {});
+            }
+
             currentAuthState = {
               uid: user.uid,
-              email: user.email,
-              displayName: user.displayName || user.email.split('@')[0],
-              photoURL: user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || user.email)}&background=e2a03f&color=000`,
-              role: (authCheck.data && authCheck.data.role) || 'member',
+              id: authDoc.id || user.uid,
+              email: user.email.toLowerCase(),
+              primaryEmail: authDoc.primaryEmail || user.email.toLowerCase(),
+              emails: authDoc.emails || [user.email.toLowerCase()],
+              displayName: authDoc.displayName || user.displayName || user.email.split('@')[0],
+              photoURL: authDoc.photoUrl || user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || user.email)}&background=e2a03f&color=000`,
+              role: authDoc.role || 'member',
+              status: authDoc.status || 'active',
               authorized: true
             };
 
@@ -496,13 +573,14 @@
             window.dispatchEvent(new CustomEvent('uxcamp:auth:ready', { detail: currentAuthState }));
 
           } else {
-            // CHƯA CÓ TRONG authorized_users (KHÔNG ĐƯỢC XEM)
+            // CHƯA CÓ TRONG authorizedUsers (KHÔNG ĐƯỢC XEM)
             currentAuthState = {
               uid: user.uid,
-              email: user.email,
+              email: user.email.toLowerCase(),
               displayName: user.displayName,
               photoURL: user.photoURL,
               role: null,
+              status: 'unauthorized',
               authorized: false
             };
 

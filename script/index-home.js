@@ -11,6 +11,7 @@ window.addEventListener('load', () => {
 
     if (typeof ScrollTrigger !== "undefined") {
         gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.config({ ignoreMobileResize: true });
     }
 
     const chars = document.querySelectorAll('.uxcamp-homepage .title .char, .uxcamp-homepage .sub-title .char');

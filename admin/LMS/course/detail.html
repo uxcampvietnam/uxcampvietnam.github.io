@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Chi Tiết Khóa Học — UXCamp Admin</title>
+	<link rel="icon" href="../../../asset/icon/favicon.ico">
+	<meta name="robots" content="noindex, nofollow">
+
+	<!-- Bootstrap 5 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="../../../style/definition.css">
+	<link rel="stylesheet" type="text/css" href="../../../style/style.css">
+	<link rel="stylesheet" type="text/css" href="../../../style/admin.css">
+	<link rel="stylesheet" type="text/css" href="../../admin-shared.css">
+
+	<!-- Firebase SDK -->
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+	<div class="app-container admin-app-container">
+
+		<!-- Auth gate overlay -->
+		<div class="auth-gate" id="auth-gate">
+			<div class="auth-spinner"></div>
+			<span class="font-sans-caption" style="color: var(--main-colors-foreground-f700);">Đang kiểm tra quyền truy
+				cập admin...</span>
+		</div>
+
+		<!-- SIDEBAR PANEL (Rendered dynamically by admin-shell.js) -->
+		<aside class="sidebar admin-sidebar" id="sidebar" style="display: none;"></aside>
+
+		<!-- MAIN CONTENT WORKSPACE -->
+		<div class="main-wrapper admin-main-wrapper" id="admin-content" style="display: none;">
+			<main class="main-content admin-main-content">
+
+				<!-- Top Bar -->
+				<header class="admin-top-bar">
+					<div class="top-bar-left">
+						<button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Mở menu quản lý">
+							<svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24">
+								<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+							</svg>
+						</button>
+						<div>
+							<div class="admin-breadcrumb">
+								<a href="../../index.html">Admin</a>
+								<span class="separator">/</span>
+								<a href="index.html">Courses</a>
+								<span class="separator">/</span>
+								<span id="breadcrumb-course-title">Chi tiết</span>
+							</div>
+							<h4 class="font-sans-h4 medium m-0" id="detail-title"
+								style="color: var(--main-colors-foreground-f100);">Chi Tiết Khóa Học</h4>
+						</div>
+					</div>
+					<div class="top-bar-actions">
+						<a href="index.html" class="btn-admin btn-admin-secondary btn-admin-sm">← Danh sách</a>
+						<a href="#" id="btn-edit-course" class="btn-admin btn-admin-primary btn-admin-sm">✏️ Chỉnh
+							Sửa</a>
+						<a href="#" id="btn-open-cohort" class="btn-admin btn-admin-secondary btn-admin-sm">🏛️ Mở Lớp
+							Học</a>
+					</div>
+				</header>
+
+				<!-- COURSE DETAILS CARD -->
+				<div class="admin-card mb-4" id="course-card-details">
+					<div class="d-flex align-items-center justify-content-between mb-3 pb-3"
+						style="border-bottom: 0.5px solid var(--transparent-foreground-main-color-10);">
+						<div class="d-flex align-items-center gap-3">
+							<span id="detail-code" class="badge"
+								style="background: var(--body-background-elevate-2); border: 1px solid var(--console-stroke); color: var(--alternative-foreground-gold); font-size: 14px; padding: 6px 12px; font-family: monospace;">—</span>
+							<div>
+								<h5 class="font-sans-h5 medium m-0" id="detail-name"
+									style="color: var(--main-colors-foreground-f100);">—</h5>
+								<div class="font-sans-small mt-1" id="detail-tagline"
+									style="color: var(--main-colors-foreground-f600); font-style: italic;"></div>
+							</div>
+						</div>
+						<div class="d-flex gap-2 align-items-center" id="detail-status-badges"></div>
+					</div>
+
+					<div class="row g-3 mb-4">
+						<div class="col-12 col-md-3">
+							<div class="p-3 rounded-3"
+								style="background: var(--body-background-elevate-2); border: 0.5px solid var(--console-stroke);">
+								<div class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Hình
+									thức học</div>
+								<div class="font-sans-caption fw-semibold mt-1" id="detail-delivery"
+									style="color: var(--main-colors-foreground-f200);">—</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-3">
+							<div class="p-3 rounded-3"
+								style="background: var(--body-background-elevate-2); border: 0.5px solid var(--console-stroke);">
+								<div class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Thời
+									lượng chương trình</div>
+								<div class="font-sans-caption fw-semibold mt-1" id="detail-duration"
+									style="color: var(--main-colors-foreground-f200);">—</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-3">
+							<div class="p-3 rounded-3"
+								style="background: var(--body-background-elevate-2); border: 0.5px solid var(--console-stroke);">
+								<div class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Slug URL
+								</div>
+								<div class="font-sans-caption fw-semibold mt-1 text-truncate" id="detail-slug"
+									style="color: var(--main-colors-foreground-f200); font-family: monospace;">—</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-3">
+							<div class="p-3 rounded-3"
+								style="background: var(--body-background-elevate-2); border: 0.5px solid var(--console-stroke);">
+								<div class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Trang
+									nội dung / Notion</div>
+								<div class="font-sans-caption fw-semibold mt-1 text-truncate" id="detail-url-container">
+									—</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="mb-4">
+						<div class="font-sans-small mb-2 fw-semibold"
+							style="color: var(--main-colors-foreground-f400);">MÔ TẢ KHÓA HỌC</div>
+						<div class="font-sans-caption" id="detail-desc"
+							style="color: var(--main-colors-foreground-f300); line-height: 1.6; white-space: pre-wrap;">
+							—</div>
+					</div>
+
+					<div>
+						<div class="font-sans-small mb-2 fw-semibold"
+							style="color: var(--main-colors-foreground-f400);">KỸ NĂNG ĐẠT ĐƯỢC (OUTPUT SKILLS)</div>
+						<div class="d-flex flex-wrap gap-2" id="detail-skills-container"></div>
+					</div>
+				</div>
+
+				<!-- ASSOCIATED COHORTS (Lớp học theo khóa) -->
+				<section class="admin-card">
+					<div class="admin-card-header flex-wrap gap-2">
+						<div>
+							<h6 class="font-sans-h6 medium m-0" style="color: var(--main-colors-foreground-f200);">Danh
+								Sách Lớp Học Thuộc Khóa Này (Cohorts)</h6>
+							<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Tiến độ
+								tuyển sinh và học viên theo từng đợt</span>
+						</div>
+						<a href="#" id="btn-add-cohort-sub" class="btn-admin btn-admin-primary btn-admin-sm">+ Mở Lớp
+							Cho Khóa Này</a>
+					</div>
+
+					<div class="user-table-container" id="cohorts-sub-container">
+						<div class="empty-state p-4 text-center">
+							<span class="font-sans-caption">Đang tải danh sách lớp học...</span>
+						</div>
+					</div>
+				</section>
+
+			</main>
+		</div>
+
+	</div>
+
+	<script src="course-detail.js"></script>
+	<script src="../../admin-shell.js"></script>
+
+</body>
+
+</html>

@@ -400,7 +400,16 @@
         bindEvents() {
             // Resize debounce
             let resizeTimer;
+            let lastHangerWidth = window.innerWidth;
             window.addEventListener('resize', () => {
+                const curW = window.innerWidth;
+                const widthChanged = Math.abs(curW - lastHangerWidth) > 5;
+                const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+                if (isTouch && !widthChanged) {
+                    return;
+                }
+                lastHangerWidth = curW;
+
                 clearTimeout(resizeTimer);
                 resizeTimer = setTimeout(() => {
                     this.handleResize();

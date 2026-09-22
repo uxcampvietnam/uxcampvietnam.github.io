@@ -63,6 +63,7 @@
 .graph-3d-warper {
 	width: 100vw !important;
 	height: 80vh;
+	height: 80svh;
 	overflow: visible;
 	position: relative;
 }
@@ -71,6 +72,7 @@
 #graphContainer {
 	width: 100vw !important;
 	height: 100vh;
+	height: 100svh;
 	touch-action: pan-y;
 }
 
@@ -163,7 +165,7 @@ td input:focus {
 th input,
 td input {
 	width: 100%;
-	min-width: 100px;
+	/* min-width: 100px; */
 	border: 0.5px solid var(--transparent-foreground-main-color-40);
 	border-bottom: none;
 	border-right: none;

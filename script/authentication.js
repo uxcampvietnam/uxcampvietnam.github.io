@@ -1,20 +1,25 @@
 /**
  * UXCamp Vietnam — Firebase Authentication + Firestore Authorization
  * 
- * Luồng hoạt động:
- * 1. User click "Đăng nhập bằng Google" → Firebase Auth popup
- * 2. Sau khi đăng nhập → check email trong Firestore collection "authorized_users"
- * 3. Nếu authorized → hiện profile + role badge
- * 4. Nếu không → hiện thông báo chưa được cấp quyền
- * 
- * Firestore structure:
- *   authorized_users/{email} → { role: "admin" | "member", displayName: "..." }
- * 
- * ⚠️ SETUP: Thay firebaseConfig bên dưới bằng config từ Firebase Console của bạn.
+ * Luồng hoạt động chuẩn hóa (100% camelCase collection 'authorizedUsers'):
+ * 1. User click "Đăng nhập bằng Google" → Firebase Auth popup (chọn tài khoản Google)
+ * 2. Sau khi đăng nhập → tra cứu quyền trong Firestore collection "authorizedUsers"
+ *    - Tìm theo primaryEmail
+ *    - Tìm theo mảng emails
+ *    - Tìm theo firebaseUid
+ *    - Tìm theo Document ID trực tiếp
+ * 3. Nếu authorized:
+ *    - Tự động liên kết firebaseUid, cập nhật photoUrl / emails nếu thiếu
+ *    - Hiển thị thông tin profile & badge role (Admin / Giảng viên / Thành viên / Alumni)
+ *    - Lưu trạng thái vào sessionStorage ('uxcamp_auth')
+ *    - Tự động chuyển tiếp (redirect) nếu có tham số URL ?redirect=...
+ * 4. Nếu chưa được cấp quyền:
+ *    - Hiển thị badge CHƯA ĐƯỢC CẤP QUYỀN
+ *    - Nút Đăng xuất / Về trang chủ
  */
 
 // ============================================================
-// FIREBASE CONFIG — Thay bằng config thật từ Firebase Console
+// FIREBASE CONFIG
 // ============================================================
 
 const firebaseConfig = {
@@ -30,7 +35,9 @@ const firebaseConfig = {
 // ============================================================
 // INITIALIZATION
 // ============================================================
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+	firebase.initializeApp(firebaseConfig);
+}
 
 const auth = firebase.auth();
 const db = firebase.firestore();
@@ -100,15 +107,12 @@ function showUserProfile(user, authData) {
 	hideLogin();
 
 	// Avatar
-	if (user.photoURL) {
-		elements.userAvatar.src = user.photoURL;
-		elements.userAvatar.style.display = 'block';
-	} else {
-		elements.userAvatar.style.display = 'none';
-	}
+	const avatarSrc = (authData && authData.photoUrl) || user.photoURL || `https://ui-avatars.com/api/?name=${encodeURIComponent(user.displayName || user.email)}&background=e2a03f&color=000`;
+	elements.userAvatar.src = avatarSrc;
+	elements.userAvatar.style.display = 'block';
 
 	// Name & email
-	elements.userName.textContent = user.displayName || 'Người dùng';
+	elements.userName.textContent = (authData && authData.displayName) || user.displayName || user.email.split('@')[0];
 	elements.userEmail.textContent = user.email;
 
 	// Role badge
@@ -132,38 +136,123 @@ function showUserProfile(user, authData) {
 }
 
 // ============================================================
-// AUTHORIZATION CHECK (Firestore)
+// AUTHORIZATION CHECK (Firestore: authorizedUsers)
 // ============================================================
 
+function generateUUID() {
+	if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+		return crypto.randomUUID();
+	}
+	return 'usr_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 9);
+}
+
 /**
- * Check if the user's email exists in the authorized_users collection.
+ * Check if the user's email exists in the authorizedUsers collection.
+ * Tra cứu toàn diện: Ưu tiên Document ID = email O(1), sau đó tra cứu dự phòng qua: primaryEmail, emails array, firebaseUid.
  * @param {string} email 
+ * @param {object} [firebaseUser]
  * @returns {Promise<{authorized: boolean, data: object|null, error?: string}>}
  */
-async function checkAuthorization(email) {
+async function checkAuthorization(email, firebaseUser = null) {
 	try {
-		const cleanEmail = email.trim();
-		// 1. Thử tìm chính xác email chữ thường
-		let doc = await db.collection('authorized_users').doc(cleanEmail.toLowerCase()).get();
-		if (doc.exists) {
-			return { authorized: true, data: doc.data() };
+		if (!email) return { authorized: false, data: null };
+		const cleanEmail = email.trim().toLowerCase();
+		const currentUid = (firebaseUser && firebaseUser.uid) || (auth.currentUser && auth.currentUser.uid) || '';
+
+		let matchedDoc = null;
+
+		// 1. Tra cứu trực tiếp theo Document ID = cleanEmail (Chuẩn O(1) & Security Rules)
+		try {
+			const docByEmail = await db.collection('authorizedUsers').doc(cleanEmail).get();
+			if (docByEmail.exists) {
+				matchedDoc = docByEmail;
+			}
+		} catch (errDocEmail) {
+			console.warn('[checkAuthorization] get doc by email warning:', errDocEmail);
 		}
 
-		// 2. Thử tìm chính xác dạng nguyên bản (nếu lưu chữ hoa)
-		if (cleanEmail !== cleanEmail.toLowerCase()) {
-			doc = await db.collection('authorized_users').doc(cleanEmail).get();
-			if (doc.exists) {
-				return { authorized: true, data: doc.data() };
+		// 2. Tra cứu dự phòng theo primaryEmail
+		if (!matchedDoc) {
+			try {
+				const snapPrimary = await db.collection('authorizedUsers').where('primaryEmail', '==', cleanEmail).get();
+				if (!snapPrimary.empty) {
+					matchedDoc = snapPrimary.docs[0];
+				}
+			} catch (errPrimary) {
+				console.warn('[checkAuthorization] query primaryEmail warning:', errPrimary);
 			}
 		}
 
-		return { authorized: false, data: null };
+		// 3. Tra cứu dự phòng theo mảng emails (hỗ trợ 1 user liên kết nhiều email)
+		if (!matchedDoc) {
+			try {
+				const snapEmails = await db.collection('authorizedUsers').where('emails', 'array-contains', cleanEmail).get();
+				if (!snapEmails.empty) {
+					matchedDoc = snapEmails.docs[0];
+				}
+			} catch (errEmails) {
+				console.warn('[checkAuthorization] query emails warning:', errEmails);
+			}
+		}
+
+		// 4. Tra cứu dự phòng theo firebaseUid
+		if (!matchedDoc && currentUid) {
+			try {
+				const snapUid = await db.collection('authorizedUsers').where('firebaseUid', '==', currentUid).get();
+				if (!snapUid.empty) {
+					matchedDoc = snapUid.docs[0];
+				}
+			} catch (errUid) {
+				console.warn('[checkAuthorization] query firebaseUid warning:', errUid);
+			}
+		}
+
+		// 5. Tra cứu dự phòng theo Document ID = UID
+		if (!matchedDoc && currentUid) {
+			try {
+				const docByUid = await db.collection('authorizedUsers').doc(currentUid).get();
+				if (docByUid.exists) {
+					matchedDoc = docByUid;
+				}
+			} catch (errDocUid) {
+				console.warn('[checkAuthorization] get doc by uid warning:', errDocUid);
+			}
+		}
+
+		if (!matchedDoc) {
+			return { authorized: false, data: null };
+		}
+
+		const raw = matchedDoc.data() || {};
+		const docId = matchedDoc.id;
+		const internalId = raw.id || generateUUID();
+
+		// Chuẩn hóa profile trả về theo camelCase schema
+		const profile = {
+			id: internalId,
+			docId: docId,
+			primaryEmail: raw.primaryEmail || cleanEmail,
+			emails: Array.isArray(raw.emails) && raw.emails.length > 0 ? raw.emails : [raw.primaryEmail || cleanEmail],
+			firebaseUid: raw.firebaseUid || currentUid || '',
+			displayName: raw.displayName || (firebaseUser && firebaseUser.displayName) || cleanEmail.split('@')[0],
+			photoUrl: raw.photoUrl || (firebaseUser && firebaseUser.photoURL) || '',
+			phone: raw.phone || '',
+			role: raw.role || 'member',
+			status: raw.status || 'active',
+			createdAt: raw.createdAt || null,
+			updatedAt: raw.updatedAt || null
+		};
+
+		// Kiểm tra trạng thái tài khoản
+		if (profile.status === 'disabled' || profile.status === 'inactive') {
+			return { authorized: false, data: profile, error: 'Tài khoản của bạn đang bị tạm ngưng.' };
+		}
+
+		return { authorized: true, data: profile };
 	} catch (error) {
 		console.error('Authorization check failed:', error);
-
-		// If Firestore is not set up yet, treat as unauthorized but don't error out
 		if (error.code === 'permission-denied' || error.code === 'unavailable') {
-			console.warn('Firestore chưa được cấu hình hoặc chưa có security rules. Xem hướng dẫn setup.');
+			console.warn('Firestore security rules hoặc mạng gặp vấn đề.');
 			return { authorized: false, data: null, error: error.message };
 		}
 		throw error;
@@ -182,26 +271,60 @@ auth.onAuthStateChanged(async (user) => {
 	hideSpinner();
 
 	if (user) {
-		// User is signed in
+		// User is signed in via Google
 		hideLogin();
 		showSpinner();
 
 		try {
-			const { authorized, data, error } = await checkAuthorization(user.email);
+			const { authorized, data, error } = await checkAuthorization(user.email, user);
 
 			hideSpinner();
 
-			if (authorized) {
+			if (authorized && data) {
 				showStatus('Đăng nhập thành công.', 'success');
 				showUserProfile(user, data);
 
-				// Lưu trạng thái auth vào sessionStorage
+				// Tự động đồng bộ và liên kết (Self-healing & account binding):
+				// Luôn ghi vào Document ID là email chuẩn hóa
+				const cleanEmail = user.email.toLowerCase();
+				const updates = {};
+				if (!data.id) {
+					updates.id = generateUUID();
+					data.id = updates.id;
+				}
+				if (!data.firebaseUid || data.firebaseUid !== user.uid) {
+					updates.firebaseUid = user.uid;
+				}
+				if (!data.photoUrl && user.photoURL) {
+					updates.photoUrl = user.photoURL;
+				}
+				if (!data.displayName && user.displayName) {
+					updates.displayName = user.displayName;
+				}
+				if (!Array.isArray(data.emails) || !data.emails.includes(cleanEmail)) {
+					const curEmails = Array.isArray(data.emails) ? data.emails : [];
+					updates.emails = Array.from(new Set([...curEmails, cleanEmail]));
+				}
+
+				if (Object.keys(updates).length > 0) {
+					updates.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
+					db.collection('authorizedUsers').doc(cleanEmail).set(updates, { merge: true }).catch(err => {
+						console.warn('[Auth] Không thể cập nhật thông tin user:', err);
+					});
+				}
+
+
+				// Lưu trạng thái auth chuẩn hóa vào sessionStorage
 				sessionStorage.setItem('uxcamp_auth', JSON.stringify({
 					uid: user.uid,
-					email: user.email,
-					displayName: user.displayName,
-					photoURL: user.photoURL,
-					role: data ? data.role : 'member',
+					id: data.id,
+					email: user.email.toLowerCase(),
+					primaryEmail: data.primaryEmail || user.email.toLowerCase(),
+					emails: data.emails || [user.email.toLowerCase()],
+					displayName: data.displayName || user.displayName || user.email.split('@')[0],
+					photoURL: data.photoUrl || user.photoURL || '',
+					role: data.role,
+					status: data.status,
 					authorized: true
 				}));
 
@@ -217,15 +340,16 @@ auth.onAuthStateChanged(async (user) => {
 					}, 600);
 				}
 			} else {
-				showStatus('Vợ iu chưa được cấp quyền truy cập.', 'warning');
+				showStatus(error || 'Tài khoản chưa được cấp quyền truy cập. Vui lòng liên hệ Admin.', 'warning');
 				showUserProfile(user, null);
 
 				sessionStorage.setItem('uxcamp_auth', JSON.stringify({
 					uid: user.uid,
-					email: user.email,
+					email: user.email.toLowerCase(),
 					displayName: user.displayName,
 					photoURL: user.photoURL,
 					role: null,
+					status: 'unauthorized',
 					authorized: false
 				}));
 			}
@@ -299,20 +423,6 @@ elements.btnSignOut.addEventListener('click', async () => {
 /**
  * Hàm tiện ích để kiểm tra trạng thái auth từ các trang khác.
  * Import script này và gọi UXCampAuth.requireAuth() để gate features.
- * 
- * Cách dùng trên trang khác:
- *   <script src="script/authentication.js"></script>
- *   <script>
- *     // Redirect đến trang login nếu chưa đăng nhập hoặc chưa authorized
- *     UXCampAuth.requireAuth({ redirectTo: 'authentication.html' });
- * 
- *     // Hoặc chỉ ẩn/hiện element tùy trạng thái
- *     UXCampAuth.onAuthReady((authState) => {
- *       if (authState.authorized) {
- *         document.getElementById('protected-feature').style.display = 'block';
- *       }
- *     });
- *   </script>
  */
 window.UXCampAuth = {
 
@@ -367,13 +477,17 @@ window.UXCampAuth = {
 			firebase.auth().onAuthStateChanged(async (user) => {
 				if (user) {
 					try {
-						const { authorized, data } = await checkAuthorization(user.email);
+						const { authorized, data } = await checkAuthorization(user.email, user);
 						const authState = {
 							uid: user.uid,
-							email: user.email,
-							displayName: user.displayName,
-							photoURL: user.photoURL,
+							id: data?.id || user.uid,
+							email: user.email.toLowerCase(),
+							primaryEmail: data?.primaryEmail || user.email.toLowerCase(),
+							emails: data?.emails || [user.email.toLowerCase()],
+							displayName: data?.displayName || user.displayName || user.email.split('@')[0],
+							photoURL: data?.photoUrl || user.photoURL || '',
 							role: data ? data.role : null,
+							status: data?.status || 'active',
 							authorized: authorized
 						};
 						sessionStorage.setItem('uxcamp_auth', JSON.stringify(authState));

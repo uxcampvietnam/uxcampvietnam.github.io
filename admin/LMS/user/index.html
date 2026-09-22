@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Quản lý Users — UXCamp Admin</title>
+	<link rel="icon" href="../../../asset/icon/favicon.ico">
+	<meta name="robots" content="noindex, nofollow">
+
+	<!-- Bootstrap 5 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- External scripts -->
+	<script src="../../../script/libs/svg-inject.min.js"></script>
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="../../../style/definition.css">
+	<link rel="stylesheet" type="text/css" href="../../../style/style.css">
+	<link rel="stylesheet" type="text/css" href="../../../style/admin.css">
+	<link rel="stylesheet" type="text/css" href="../../admin-shared.css">
+
+	<!-- Firebase SDK -->
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+	<div class="app-container admin-app-container">
+
+		<!-- Auth gate overlay -->
+		<div class="auth-gate" id="auth-gate">
+			<div class="auth-spinner"></div>
+			<span class="font-sans-caption" style="color: var(--main-colors-foreground-f700);">Đang kiểm tra quyền truy cập admin...</span>
+		</div>
+
+		<!-- SIDEBAR PANEL (Rendered dynamically by admin-shell.js) -->
+		<aside class="sidebar admin-sidebar" id="sidebar" style="display: none;"></aside>
+
+		<!-- MAIN CONTENT WORKSPACE (Fill 100% Horizontal) -->
+		<div class="main-wrapper admin-main-wrapper" id="admin-content" style="display: none;">
+			<main class="main-content admin-main-content">
+
+				<!-- Top Bar -->
+				<header class="admin-top-bar">
+					<div class="top-bar-left">
+						<button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Mở menu quản lý">
+							<svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24">
+								<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+							</svg>
+						</button>
+						<div>
+							<div class="admin-breadcrumb">
+								<a href="../../index.html">Admin</a>
+								<span class="separator">/</span>
+								<a href="../course/index.html">LMS</a>
+								<span class="separator">/</span>
+								<span>Users</span>
+							</div>
+							<h4 class="font-sans-h4 medium m-0" style="color: var(--main-colors-foreground-f100);">Phân Quyền & Quản Lý Users</h4>
+						</div>
+					</div>
+					<div class="top-bar-actions">
+						<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btn-toggle-add-section">+ Thêm / Nạp Users</button>
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-export-users">Export JSON</button>
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-refresh">🔄 Tải Lại</button>
+					</div>
+				</header>
+
+				<!-- STATS BAR -->
+				<div class="admin-stats-bar mb-3">
+					<div class="stat-card">
+						<span class="stat-value" id="stat-total">0</span>
+						<span class="stat-label">Tổng Users</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-admin" style="color: var(--highlight-red);">0</span>
+						<span class="stat-label">Admin</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-instructor" style="color: var(--highlight-blue);">0</span>
+						<span class="stat-label">Giảng Viên</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-member" style="color: var(--highlight-green);">0</span>
+						<span class="stat-label">Học Viên</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-alumni" style="color: var(--highlight-yellow);">0</span>
+						<span class="stat-label">Cựu Học Viên</span>
+					</div>
+				</div>
+
+				<!-- COLLAPSIBLE ADD & IMPORT SECTION (GỌN GÀNG, KHÔNG CHIẾM CHỖ) -->
+				<div class="row g-3 mb-3" id="addUserSection" style="display: none;">
+					<!-- CỘT TRÁI: THÊM TỪNG USER -->
+					<div class="col-12 col-lg-5">
+						<div class="admin-card h-100">
+							<div class="admin-card-header">
+								<h5 class="font-sans-h5 medium m-0" style="color: var(--main-colors-foreground-f200);">➕ Thêm Tài Khoản Mới</h5>
+							</div>
+							<form id="add-user-form">
+								<div class="form-group">
+									<label for="input-email">Email Google <span class="required">*</span></label>
+									<input type="email" id="input-email" class="form-control-custom" placeholder="name@domain.com" required>
+									<span class="form-hint">Email tài khoản Google người dùng dùng để đăng nhập.</span>
+								</div>
+								<div class="form-group">
+									<label for="input-name">Họ và Tên hiển thị</label>
+									<input type="text" id="input-name" class="form-control-custom" placeholder="Nguyễn Văn A">
+								</div>
+								<div class="form-grid-2">
+									<div class="form-group">
+										<label for="input-role">Phân quyền (Role)</label>
+										<select id="input-role" class="form-control-custom">
+											<option value="member" selected>Member (Học viên)</option>
+											<option value="alumni">Alumni (Cựu học viên)</option>
+											<option value="instructor">Instructor (Giảng viên)</option>
+											<option value="admin">Admin (Quản trị viên)</option>
+										</select>
+									</div>
+									<div class="form-group">
+										<label for="input-status">Trạng thái</label>
+										<select id="input-status" class="form-control-custom">
+											<option value="active" selected>Active</option>
+											<option value="inactive">Inactive</option>
+											<option value="disabled">Disabled</option>
+										</select>
+									</div>
+								</div>
+								<div class="form-group">
+									<label for="input-phone">Số điện thoại</label>
+									<input type="tel" id="input-phone" class="form-control-custom" placeholder="0901234567">
+								</div>
+								<button type="submit" class="btn-admin btn-admin-primary w-100 mt-2" id="btn-add-user">+ Thêm User Này</button>
+							</form>
+						</div>
+					</div>
+
+					<!-- CỘT PHẢI: IMPORT HÀNG LOẠT -->
+					<div class="col-12 col-lg-7">
+						<div class="admin-card h-100">
+							<div class="admin-card-header">
+								<h5 class="font-sans-h5 medium m-0" style="color: var(--main-colors-foreground-f200);">📋 Nạp Hàng Loạt (Google Sheet / Excel / CSV)</h5>
+								<div class="d-flex gap-2">
+									<input type="file" id="batch-file-input" accept=".csv, .tsv, .txt" style="display: none;">
+									<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-trigger-file">📁 Tải File</button>
+									<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btnClearBatch">Xóa trắng</button>
+								</div>
+							</div>
+							<div class="form-group">
+								<textarea id="rawBatchInput" class="form-control-custom" rows="4" placeholder="Dán cột dữ liệu trực tiếp từ Excel / Google Sheet vào đây:&#10;Email (Tab hoặc Comma) Role Tên hiển thị"></textarea>
+								<div id="parseStatusInfo" class="font-sans-small mt-1" style="color: var(--main-colors-foreground-f700);">Chưa có dữ liệu hàng loạt.</div>
+							</div>
+
+							<!-- BẢNG PREVIEW CHỈNH SỬA TRỰC TIẾP -->
+							<div id="batchPreviewSection" style="display: none; flex-direction: column; gap: 10px; margin-top: 14px;">
+								<div class="d-flex justify-content-between align-items-center">
+									<span class="font-sans-small fw-semibold" id="batchCountBadge" style="color: var(--alternative-foreground-gold);">0 users</span>
+									<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btnAddEmptyRow">+ Thêm dòng</button>
+								</div>
+								<div id="tableContainer" style="max-height: 240px; overflow: auto;">
+									<table class="editable-table">
+										<thead>
+											<tr>
+												<th style="width: 36px;">#</th>
+												<th>Email</th>
+												<th style="width: 130px;">Role</th>
+												<th>Họ và Tên</th>
+												<th style="width: 36px;"></th>
+											</tr>
+										</thead>
+										<tbody id="batchTableBody"></tbody>
+									</table>
+								</div>
+								<button type="button" class="btn-admin btn-admin-primary w-100" id="btn-submit-batch">💾 Lưu Tất Cả Vào Database</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- DANH SÁCH USERS -->
+				<section class="admin-card">
+					<div class="admin-card-header flex-wrap gap-2">
+						<div>
+							<h5 class="font-sans-h5 medium m-0" style="color: var(--main-colors-foreground-f200);">Danh Sách Người Dùng Trong Hệ Thống</h5>
+							<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Bảng phân quyền và tài khoản liên kết Google Auth</span>
+						</div>
+						<div class="d-flex gap-2 align-items-center flex-wrap">
+							<select id="filter-user-role" class="form-control-custom" style="width: auto; height: 36px; padding: 4px 10px; font-size: 12px;">
+								<option value="all">Tất cả Role</option>
+								<option value="admin">Admin</option>
+								<option value="instructor">Instructor</option>
+								<option value="member">Member</option>
+								<option value="alumni">Alumni</option>
+							</select>
+							<select id="filter-user-status" class="form-control-custom" style="width: auto; height: 36px; padding: 4px 10px; font-size: 12px;">
+								<option value="all">Tất cả Trạng thái</option>
+								<option value="active">Active</option>
+								<option value="inactive">Inactive</option>
+								<option value="disabled">Disabled</option>
+							</select>
+							<input type="text" id="searchInput" class="form-control-custom" placeholder="Tìm theo email, tên, SĐT..." style="width: 220px; height: 36px; font-size: 12px;">
+						</div>
+					</div>
+
+					<div class="user-table-container" id="user-list-container">
+						<div class="empty-state p-4 text-center">
+							<div class="auth-spinner"></div>
+							<span class="font-sans-caption mt-2">Đang tải dữ liệu users...</span>
+						</div>
+					</div>
+				</section>
+
+			</main>
+		</div>
+
+	</div>
+
+	<!-- MODAL CHỈNH SỬA USER -->
+	<div class="admin-modal-overlay" id="modal-user">
+		<div class="admin-modal-container" style="max-width: 560px;">
+			<div class="admin-modal-header">
+				<h6 class="font-sans-h6 medium m-0" id="modal-user-title-header" style="color: var(--main-colors-foreground-f200);">Chỉnh sửa Người dùng</h6>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<form id="form-modal-user">
+				<div class="admin-modal-body">
+					<input type="hidden" id="modal-user-id">
+					<div class="form-grid-2">
+						<div class="form-group">
+							<label for="modal-user-primary-email">Email chính <span class="required">*</span></label>
+							<input type="email" id="modal-user-primary-email" class="form-control-custom" required>
+						</div>
+						<div class="form-group">
+							<label for="modal-user-role">Role</label>
+							<select id="modal-user-role" class="form-control-custom" required>
+								<option value="member">Member</option>
+								<option value="alumni">Alumni</option>
+								<option value="instructor">Instructor</option>
+								<option value="admin">Admin</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-grid-2">
+						<div class="form-group">
+							<label for="modal-user-name">Họ và Tên</label>
+							<input type="text" id="modal-user-name" class="form-control-custom">
+						</div>
+						<div class="form-group">
+							<label for="modal-user-status">Trạng thái</label>
+							<select id="modal-user-status" class="form-control-custom" required>
+								<option value="active">Active</option>
+								<option value="inactive">Inactive</option>
+								<option value="disabled">Disabled</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-grid-2">
+						<div class="form-group">
+							<label for="modal-user-phone">Số điện thoại</label>
+							<input type="tel" id="modal-user-phone" class="form-control-custom">
+						</div>
+						<div class="form-group">
+							<label for="modal-user-uid">Firebase Auth UID</label>
+							<input type="text" id="modal-user-uid" class="form-control-custom" readonly style="opacity: 0.6; font-family: monospace; font-size: 11px;">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="modal-user-emails">Danh sách Email phụ (mỗi email 1 dòng)</label>
+						<textarea id="modal-user-emails" class="form-control-custom" rows="2"></textarea>
+					</div>
+					<div class="form-group">
+						<label for="modal-user-photo">Ảnh đại diện URL</label>
+						<input type="url" id="modal-user-photo" class="form-control-custom" placeholder="https://...">
+					</div>
+				</div>
+				<div class="admin-modal-footer">
+					<button type="button" class="btn-admin btn-admin-secondary btn-close-modal">Hủy bỏ</button>
+					<button type="submit" class="btn-admin btn-admin-primary">Lưu Thay Đổi</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- CONFIRM MODAL OVERLAY -->
+	<div class="confirm-modal-overlay" id="confirmBatchModal">
+		<div class="confirm-modal-box">
+			<h6 class="font-sans-h6 medium m-0" style="color: var(--main-colors-foreground-f200);">Xác nhận Import Users</h6>
+			<p class="font-sans-caption mt-2 mb-3" id="confirmModalMsg" style="color: var(--main-colors-foreground-f700);"></p>
+			<div class="confirm-modal-actions">
+				<button class="btn-admin btn-admin-secondary btn-admin-sm" id="btnModalCancel">Hủy</button>
+				<button class="btn-admin btn-admin-primary btn-admin-sm" id="btnModalConfirm">Xác nhận Lưu</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="user.js"></script>
+	<script src="../../admin-shell.js"></script>
+
+</body>
+
+</html>

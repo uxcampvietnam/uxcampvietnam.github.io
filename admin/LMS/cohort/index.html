@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Quản lý Lớp học — UXCamp Admin</title>
+	<link rel="icon" href="../../../asset/icon/favicon.ico">
+	<meta name="robots" content="noindex, nofollow">
+
+	<!-- Bootstrap 5 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="../../../style/definition.css">
+	<link rel="stylesheet" type="text/css" href="../../../style/style.css">
+	<link rel="stylesheet" type="text/css" href="../../../style/admin.css">
+	<link rel="stylesheet" type="text/css" href="../../admin-shared.css">
+
+	<!-- Firebase SDK -->
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+	<div class="app-container admin-app-container">
+
+		<!-- Auth gate overlay -->
+		<div class="auth-gate" id="auth-gate">
+			<div class="auth-spinner"></div>
+			<span class="font-sans-caption" style="color: var(--main-colors-foreground-f700);">Đang kiểm tra quyền truy cập admin...</span>
+		</div>
+
+		<!-- SIDEBAR PANEL (Rendered dynamically by admin-shell.js) -->
+		<aside class="sidebar admin-sidebar" id="sidebar" style="display: none;"></aside>
+
+		<!-- MAIN CONTENT WORKSPACE -->
+		<div class="main-wrapper admin-main-wrapper" id="admin-content" style="display: none;">
+			<main class="main-content admin-main-content">
+
+				<!-- Top Bar -->
+				<header class="admin-top-bar">
+					<div class="top-bar-left">
+						<button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Mở menu quản lý">
+							<svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24">
+								<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+							</svg>
+						</button>
+						<div>
+							<div class="admin-breadcrumb">
+								<a href="../../index.html">Admin</a>
+								<span class="separator">/</span>
+								<a href="../course/index.html">LMS</a>
+								<span class="separator">/</span>
+								<span>Cohorts</span>
+							</div>
+							<h4 class="font-sans-h4 medium m-0" style="color: var(--main-colors-foreground-f100);">Quản Lý Lớp Học Tuyển Sinh (Cohorts)</h4>
+						</div>
+					</div>
+					<div class="top-bar-actions">
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-export-cohorts">Export JSON</button>
+						<a href="create.html" class="btn-admin btn-admin-primary btn-admin-sm">+ Mở Lớp Học Mới</a>
+					</div>
+				</header>
+
+				<!-- STATS BAR -->
+				<div class="admin-stats-bar mb-4">
+					<div class="stat-card">
+						<span class="stat-value" id="stat-cohorts-total">0</span>
+						<span class="stat-label">Tổng Lớp Học</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-cohorts-open" style="color: var(--highlight-green);">0</span>
+						<span class="stat-label">Đang Tuyển Sinh</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-cohorts-running" style="color: var(--highlight-blue);">0</span>
+						<span class="stat-label">Đang Học</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-cohorts-completed" style="color: var(--highlight-yellow);">0</span>
+						<span class="stat-label">Đã Tốt Nghiệp</span>
+					</div>
+				</div>
+
+				<!-- COHORT TABLE CARD -->
+				<section class="admin-card">
+					<div class="admin-card-header flex-wrap gap-2">
+						<div>
+							<h5 class="font-sans-h5 medium m-0" style="color: var(--main-colors-foreground-f200);">Danh Sách Lớp Học</h5>
+							<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Theo dõi lịch học, giảng viên và tình trạng tuyển sinh</span>
+						</div>
+						<div class="d-flex gap-2 align-items-center flex-wrap">
+							<select id="filter-cohort-status" class="form-control-custom" style="width: auto; height: 36px; padding: 4px 10px; font-size: 12px;">
+								<option value="all">Tất cả Trạng thái</option>
+								<option value="open">Đang mở đăng ký</option>
+								<option value="in-progress">Đang học</option>
+								<option value="completed">Đã kết thúc</option>
+							</select>
+							<input type="text" id="search-cohort" class="form-control-custom" placeholder="Tìm theo mã lớp, khóa học..." style="width: 220px; height: 36px; font-size: 12px;">
+						</div>
+					</div>
+
+					<div class="user-table-container" id="cohorts-list-container">
+						<div class="empty-state p-4 text-center">
+							<div class="auth-spinner"></div>
+							<span class="font-sans-caption mt-2">Đang tải danh sách lớp học...</span>
+						</div>
+					</div>
+				</section>
+
+			</main>
+		</div>
+
+	</div>
+
+	<script src="cohort-index.js"></script>
+	<script src="../../admin-shell.js"></script>
+
+</body>
+
+</html>

@@ -745,7 +745,16 @@
         // Lắng nghe sự kiện kéo chuột và vuốt chạm
         bindEvents() {
             let resizeTimer;
+            let lastSphereWidth = window.innerWidth;
             window.addEventListener('resize', () => {
+                const curW = window.innerWidth;
+                const widthChanged = Math.abs(curW - lastSphereWidth) > 5;
+                const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+                if (isTouch && !widthChanged) {
+                    return;
+                }
+                lastSphereWidth = curW;
+
                 clearTimeout(resizeTimer);
                 resizeTimer = setTimeout(() => {
                     this.handleResize();
@@ -1496,6 +1505,23 @@
             if ((!this.isVisible && !this.isExitAnimating) || document.hidden) return;
             const ctx = this.ctx;
             if (!ctx) return;
+
+            // 🛡️ BẢO VỆ TỈ LỆ KHỐI CẦU 1:1 TRÊN MOBILE SAFARI:
+            // Khi thanh công cụ Safari co nhỏ / mở to, clientHeight của canvas thay đổi theo viewport.
+            // Luôn đồng bộ internal pixel buffer (width, height) khớp 100% với kích thước hiển thị CSS
+            // để triệt tiêu hoàn toàn hiện tượng khối cầu bị kéo dãn méo theo chiều dọc.
+            const clientW = this.canvas.clientWidth || (this.wrapper ? this.wrapper.clientWidth : window.innerWidth);
+            const clientH = this.canvas.clientHeight || (this.wrapper ? this.wrapper.clientHeight : window.innerHeight);
+            if (clientW > 0 && clientH > 0) {
+                const targetW = Math.round(clientW * this.dpr);
+                const targetH = Math.round(clientH * this.dpr);
+                if (this.canvas.width !== targetW || this.canvas.height !== targetH) {
+                    this.canvas.width = targetW;
+                    this.canvas.height = targetH;
+                    this.width = clientW;
+                    this.height = clientH;
+                }
+            }
 
             ctx.save();
             ctx.scale(this.dpr, this.dpr);

@@ -28,7 +28,9 @@
   width: 100vw;
   max-width: 100vw;
   height: 100vh;
+  height: 100dvh;
   max-height: 100vh;
+  max-height: 100dvh;
   overflow: hidden;
   display: flex;
   align-items: center;
@@ -426,6 +428,7 @@
   inset: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   pointer-events: none;
   z-index: 38;
   overflow: hidden;
@@ -467,6 +470,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   display: none;
   align-items: center;
   justify-content: center;
@@ -482,8 +486,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100% !important;
+  height: 100% !important;
   display: block;
   pointer-events: none;
   outline: none;
@@ -592,7 +596,7 @@
   bottom: 20px;
   right: 24px;
   width: 390px;
-  max-height: calc(50vh - 40px);
+  max-height: 50vh;
   overflow-y: auto;
   z-index: 99999;
   background: var(--body-background-elevate-1);
@@ -1161,6 +1165,6 @@
     right: 14px;
     left: 14px;
     width: auto;
-    max-height: 32vh;
+    height: 50vh;
   }
 }

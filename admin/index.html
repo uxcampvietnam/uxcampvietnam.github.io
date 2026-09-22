@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Admin Dashboard — UXCamp Vietnam</title>
+	<link rel="icon" href="../asset/icon/favicon.ico">
+	<meta name="robots" content="noindex, nofollow">
+
+	<!-- Bootstrap 5 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- External scripts -->
+	<script src="../script/libs/svg-inject.min.js"></script>
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="../style/definition.css">
+	<link rel="stylesheet" type="text/css" href="../style/style.css">
+	<link rel="stylesheet" type="text/css" href="../style/admin.css">
+	<link rel="stylesheet" type="text/css" href="admin-shared.css">
+
+	<!-- Firebase SDK -->
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+	<div class="app-container admin-app-container">
+
+		<!-- Auth gate overlay -->
+		<div class="auth-gate" id="auth-gate">
+			<div class="auth-spinner"></div>
+			<span class="font-sans-caption" style="color: var(--main-colors-foreground-f700);">Đang kiểm tra quyền truy cập admin...</span>
+		</div>
+
+		<!-- SIDEBAR PANEL (Rendered dynamically by admin-shell.js) -->
+		<aside class="sidebar admin-sidebar" id="sidebar" style="display: none;"></aside>
+
+		<!-- MAIN CONTENT WORKSPACE (100% Horizontal Fill) -->
+		<div class="main-wrapper admin-main-wrapper" id="admin-content" style="display: none;">
+			<main class="main-content admin-main-content">
+
+				<!-- Top Bar -->
+				<header class="admin-top-bar">
+					<div class="top-bar-left">
+						<button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Mở menu quản lý">
+							<svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24">
+								<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+							</svg>
+						</button>
+						<div>
+							<h4 class="font-sans-h4 medium m-0" style="color: var(--main-colors-foreground-f100);">Bảng Điều Khiển Quản Trị</h4>
+							<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Chào mừng đến với Cổng Quản lý Hệ thống Đào tạo & Dữ liệu UXCamp</span>
+						</div>
+					</div>
+					<div class="top-bar-actions">
+						<a href="../index.html" class="btn-admin btn-admin-secondary" target="_blank">Xem Website ↗</a>
+					</div>
+				</header>
+
+				<!-- MODULE GROUP 1: LMS -->
+				<div class="mb-4">
+					<div class="d-flex align-items-center justify-content-between mb-3">
+						<h5 class="font-sans-h5 medium m-0" style="color: var(--alternative-foreground-gold); letter-spacing: 0.5px;">🎓 HỆ THỐNG ĐÀO TẠO (LMS)</h5>
+					</div>
+					<div class="row g-3">
+						<div class="col-12 col-md-6 col-xl-3">
+							<div class="admin-card h-100 d-flex flex-column justify-content-between">
+								<div>
+									<div class="d-flex align-items-center justify-content-between mb-2">
+										<span style="font-size: 28px;">👥</span>
+										<span class="admin-tag admin-tag-accent" id="dash-count-users">— users</span>
+									</div>
+									<h6 class="font-sans-h6 medium mb-1" style="color: var(--main-colors-foreground-f200);">Tài khoản Users</h6>
+									<p class="font-sans-small mb-3" style="color: var(--main-colors-foreground-f700);">Phân quyền admin, giảng viên, học viên và import hàng loạt.</p>
+								</div>
+								<a href="LMS/user/index.html" class="btn-admin btn-admin-secondary btn-admin-sm w-100">Quản lý Users →</a>
+							</div>
+						</div>
+
+						<div class="col-12 col-md-6 col-xl-3">
+							<div class="admin-card h-100 d-flex flex-column justify-content-between">
+								<div>
+									<div class="d-flex align-items-center justify-content-between mb-2">
+										<span style="font-size: 28px;">🎓</span>
+										<span class="admin-tag admin-tag-accent" id="dash-count-courses">— courses</span>
+									</div>
+									<h6 class="font-sans-h6 medium mb-1" style="color: var(--main-colors-foreground-f200);">Khóa học (Courses)</h6>
+									<p class="font-sans-small mb-3" style="color: var(--main-colors-foreground-f700);">Danh mục các chương trình đào tạo bootcamp và doanh nghiệp.</p>
+								</div>
+								<div class="d-flex gap-2">
+									<a href="LMS/course/index.html" class="btn-admin btn-admin-secondary btn-admin-sm flex-fill">Danh sách</a>
+									<a href="LMS/course/create.html" class="btn-admin btn-admin-primary btn-admin-sm">+ Thêm</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-12 col-md-6 col-xl-3">
+							<div class="admin-card h-100 d-flex flex-column justify-content-between">
+								<div>
+									<div class="d-flex align-items-center justify-content-between mb-2">
+										<span style="font-size: 28px;">🏛️</span>
+										<span class="admin-tag admin-tag-accent" id="dash-count-cohorts">— cohorts</span>
+									</div>
+									<h6 class="font-sans-h6 medium mb-1" style="color: var(--main-colors-foreground-f200);">Lớp học (Cohorts)</h6>
+									<p class="font-sans-small mb-3" style="color: var(--main-colors-foreground-f700);">Tiến độ tuyển sinh, lịch khai giảng và học viên theo lớp.</p>
+								</div>
+								<div class="d-flex gap-2">
+									<a href="LMS/cohort/index.html" class="btn-admin btn-admin-secondary btn-admin-sm flex-fill">Danh sách</a>
+									<a href="LMS/cohort/create.html" class="btn-admin btn-admin-primary btn-admin-sm">+ Mở lớp</a>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-12 col-md-6 col-xl-3">
+							<div class="admin-card h-100 d-flex flex-column justify-content-between">
+								<div>
+									<div class="d-flex align-items-center justify-content-between mb-2">
+										<span style="font-size: 28px;">🎖️</span>
+										<span class="admin-tag admin-tag-accent" id="dash-count-certs">— certs</span>
+									</div>
+									<h6 class="font-sans-h6 medium mb-1" style="color: var(--main-colors-foreground-f200);">Chứng chỉ (Certificates)</h6>
+									<p class="font-sans-small mb-3" style="color: var(--main-colors-foreground-f700);">Cấp và xác thực chứng chỉ tốt nghiệp UUID chuẩn bảo mật.</p>
+								</div>
+								<div class="d-flex gap-2">
+									<a href="LMS/certificate/index.html" class="btn-admin btn-admin-secondary btn-admin-sm flex-fill">Danh sách</a>
+									<a href="LMS/certificate/create.html" class="btn-admin btn-admin-primary btn-admin-sm">+ Cấp mới</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- MODULE GROUP 2: CMS -->
+				<div>
+					<div class="d-flex align-items-center justify-content-between mb-3">
+						<h5 class="font-sans-h5 medium m-0" style="color: var(--alternative-foreground-gold); letter-spacing: 0.5px;">🌐 DỮ LIỆU WEBSITE (CMS)</h5>
+					</div>
+					<div class="row g-3">
+						<div class="col-12 col-md-6 col-xl-3">
+							<div class="admin-card h-100 d-flex flex-column justify-content-between">
+								<div>
+									<div class="d-flex align-items-center justify-content-between mb-2">
+										<span style="font-size: 28px;">🧠</span>
+										<span class="admin-tag admin-tag-accent" style="background: rgba(220, 160, 21, 0.15); color: var(--highlight-yellow);">3D CMS</span>
+									</div>
+									<h6 class="font-sans-h6 medium mb-1" style="color: var(--main-colors-foreground-f200);">Đồ thị Kiến thức</h6>
+									<p class="font-sans-small mb-3" style="color: var(--main-colors-foreground-f700);">Chỉnh sửa trực quan, kéo thả node, sửa bảng và lưu trực tiếp lên Firebase.</p>
+								</div>
+								<a href="CMS/knowledge/index.html" class="btn-admin btn-admin-primary btn-admin-sm w-100">Mở Trình Biên Tập Đồ Thị →</a>
+							</div>
+						</div>
+
+						<div class="col-12 col-md-6 col-xl-3">
+							<div class="admin-card h-100 d-flex flex-column justify-content-between">
+								<div>
+									<div class="d-flex align-items-center justify-content-between mb-2">
+										<span style="font-size: 28px;">💼</span>
+										<span class="admin-tag admin-tag-accent" id="dash-count-cases">— bài viết</span>
+									</div>
+									<h6 class="font-sans-h6 medium mb-1" style="color: var(--main-colors-foreground-f200);">Case Studies</h6>
+									<p class="font-sans-small mb-3" style="color: var(--main-colors-foreground-f700);">Bài tập tốt nghiệp và đồ án thực tế của học viên UXCamp.</p>
+								</div>
+								<a href="CMS/casestudy/index.html" class="btn-admin btn-admin-secondary btn-admin-sm w-100">Quản lý Case Studies →</a>
+							</div>
+						</div>
+
+						<div class="col-12 col-md-6 col-xl-3">
+							<div class="admin-card h-100 d-flex flex-column justify-content-between">
+								<div>
+									<div class="d-flex align-items-center justify-content-between mb-2">
+										<span style="font-size: 28px;">🌐</span>
+										<span class="admin-tag admin-tag-accent">3D Sphere</span>
+									</div>
+									<h6 class="font-sans-h6 medium mb-1" style="color: var(--main-colors-foreground-f200);">Người tham dự 3D</h6>
+									<p class="font-sans-small mb-3" style="color: var(--main-colors-foreground-f700);">Dữ liệu quả cầu người tham dự Three.js tại trang chủ.</p>
+								</div>
+								<a href="CMS/participant/index.html" class="btn-admin btn-admin-secondary btn-admin-sm w-100">Quản lý Người tham dự →</a>
+							</div>
+						</div>
+
+						<div class="col-12 col-md-6 col-xl-3">
+							<div class="admin-card h-100 d-flex flex-column justify-content-between">
+								<div>
+									<div class="d-flex align-items-center justify-content-between mb-2">
+										<span style="font-size: 28px;">📚</span>
+										<span class="admin-tag admin-tag-accent">Book Shelf</span>
+									</div>
+									<h6 class="font-sans-h6 medium mb-1" style="color: var(--main-colors-foreground-f200);">Tủ Sách UX</h6>
+									<p class="font-sans-small mb-3" style="color: var(--main-colors-foreground-f700);">Đầu sách tương tác 3D và các kệ phân loại.</p>
+								</div>
+								<a href="CMS/book/index.html" class="btn-admin btn-admin-secondary btn-admin-sm w-100">Quản lý Tủ Sách →</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</main>
+		</div>
+
+	</div>
+
+	<script src="admin-dashboard.js"></script>
+	<script src="admin-shell.js"></script>
+
+</body>
+
+</html>

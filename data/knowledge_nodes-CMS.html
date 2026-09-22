@@ -143,7 +143,7 @@
 
     /* Left Sidebar: Drag & Drop Node Palette */
     .node-palette {
-      width: 360px;
+      width: 260px;
       background: rgba(15, 18, 28, 0.9);
       border-right: 1px solid var(--border);
       display: flex;
@@ -562,6 +562,8 @@
     .connections-drop-zone {
       min-width: 260px;
       min-height: 42px;
+      overflow: scroll;
+      max-height: 200px;
       width: 100%;
       background: rgba(255, 255, 255, 0.02);
       border: 1px dashed rgba(255, 255, 255, 0.15);
@@ -809,6 +811,7 @@
         opacity: 0;
         transform: scale(0.96) translateY(10px);
       }
+
       to {
         opacity: 1;
         transform: scale(1) translateY(0);
@@ -975,7 +978,7 @@
             <tr>
               <th style="width: 45px;">STT</th>
               <th style="width: 90px; text-align: center;">Đã Duyệt</th>
-              <th style="width: 430px;">Tiêu Đề (Label)</th>
+              <th style="width: 230px;">Tiêu Đề (Label)</th>
               <th style="width: 90px;">Cấp Độ</th>
               <th>Mô Tả Tóm Tắt</th>
               <th style="width: 300px;">Liên Kết (Connections - Kéo thả vào đây)</th>
@@ -1008,10 +1011,12 @@
       </div>
       <div class="modal-body">
         <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.5;">
-          Dán nội dung từ file <code>knowledge_nodes.tsv</code> (hoặc bảng tính Google Sheets/Excel) vào ô bên dưới để cập nhật vào CMS:
+          Dán nội dung từ file <code>knowledge_nodes.tsv</code> (hoặc bảng tính Google Sheets/Excel) vào ô bên dưới để
+          cập nhật vào CMS:
         </p>
         <div style="display: flex; gap: 10px; margin-bottom: 10px;">
-          <button id="btnPasteFromClipboard" class="btn btn-xs" style="background: rgba(99, 102, 241, 0.2); border-color: #6366f1; color: #a5b4fc;">
+          <button id="btnPasteFromClipboard" class="btn btn-xs"
+            style="background: rgba(99, 102, 241, 0.2); border-color: #6366f1; color: #a5b4fc;">
             📋 Dán từ Clipboard
           </button>
           <label class="btn btn-xs" style="cursor: pointer;">
@@ -1019,7 +1024,9 @@
             <input type="file" id="fileInputTSV" accept=".tsv,.txt" style="display: none;">
           </label>
         </div>
-        <textarea id="importTSVTextarea" class="cell-input" style="width: 100%; height: 260px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; line-height: 1.4; padding: 10px; border-radius: 6px; resize: vertical; white-space: pre;" placeholder="Dán nội dung TSV vào đây (cột: id, label, level, desc, connections, color, validated)..."></textarea>
+        <textarea id="importTSVTextarea" class="cell-input"
+          style="width: 100%; height: 260px; font-family: 'JetBrains Mono', monospace; font-size: 11.5px; line-height: 1.4; padding: 10px; border-radius: 6px; resize: vertical; white-space: pre;"
+          placeholder="Dán nội dung TSV vào đây (cột: id, label, level, desc, connections, color, validated)..."></textarea>
         <div id="importStats" style="font-size: 12px; color: #94a3b8; margin-top: 6px;"></div>
       </div>
       <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 16px;">
@@ -1404,7 +1411,7 @@
             </select>
           </td>
           <td>
-            <textarea class="cell-input" data-field="desc" rows="3" placeholder="Nhập mô tả tóm tắt...">${escapeHtml(node.desc)}</textarea>
+            <textarea class="cell-input" data-field="desc" rows="10" placeholder="Nhập mô tả tóm tắt...">${escapeHtml(node.desc)}</textarea>
           </td>
           <td>
             <!-- Drop Zone Kéo Thả Connections -->
@@ -1454,40 +1461,27 @@
 
     // Gắn sự kiện cho bảng & kéo thả
     function attachTableEvents() {
-      // 0. Bấm vào 1 row trong table -> toggle true/false cho trường validated
-      document.querySelectorAll('#tableBody tr').forEach(tr => {
-        tr.onclick = (e) => {
-          // Bỏ qua nếu người dùng tương tác với các ô nhập liệu, chọn màu, nút xóa, thẻ kết nối, hoặc drop zone
-          if (e.target.closest('textarea, select, input, button, .conn-chip, .connections-drop-zone')) {
-            return;
-          }
-
-          const index = parseInt(tr.dataset.index, 10);
+      // 0. Bấm vào checkbox duyệt -> toggle true/false cho trường validated
+      document.querySelectorAll('.val-checkbox').forEach(cb => {
+        cb.onchange = () => {
+          const tr = cb.closest('tr');
+          const index = parseInt(cb.dataset.index, 10);
           if (isNaN(index) || !nodesData[index]) return;
 
-          let targetState;
-          if (e.target.classList.contains('val-checkbox')) {
-            targetState = e.target.checked;
-          } else {
-            targetState = !nodesData[index].validated;
-          }
-
+          const targetState = cb.checked;
           nodesData[index].validated = targetState;
 
-          // Cập nhật DOM của hàng trực tiếp
-          if (targetState) {
-            tr.classList.add('row-validated');
-          } else {
-            tr.classList.remove('row-validated');
-          }
-
-          const cb = tr.querySelector('.val-checkbox');
-          if (cb) cb.checked = targetState;
-
-          const badge = tr.querySelector('.val-badge');
-          if (badge) {
-            badge.className = `val-badge ${targetState ? 'is-valid' : 'is-unverified'}`;
-            badge.textContent = targetState ? '✓ Đã duyệt' : '○ Chưa';
+          if (tr) {
+            if (targetState) {
+              tr.classList.add('row-validated');
+            } else {
+              tr.classList.remove('row-validated');
+            }
+            const badge = tr.querySelector('.val-badge');
+            if (badge) {
+              badge.className = `val-badge ${targetState ? 'is-valid' : 'is-unverified'}`;
+              badge.textContent = targetState ? '✓ Đã duyệt' : '○ Chưa';
+            }
           }
 
           // Cập nhật thống kê & đồng bộ filter UI

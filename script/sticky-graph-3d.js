@@ -9,8 +9,19 @@ const STICKY_GRAPH_CONFIG = {
   // ----------------------------------------------------------------------------
   // 1. DỮ LIỆU & CONTAINER (Data & Mounting)
   // ----------------------------------------------------------------------------
-  dataSource: '../data/knowledge_nodes.tsv',  // Đường dẫn URL file dữ liệu kiến thức (.tsv)
-  container: '#graphContainer',                // DOM element hoặc selector CSS chứa canvas 3D
+  dataSource: 'firebase',                       // Nguồn dữ liệu: 'firebase' (tải trực tiếp từ Firestore) | đường dẫn file .tsv
+  firebaseCollection: 'knowledgeNodes',        // Tên Collection Firestore chứa dữ liệu node kiến thức
+  fallbackTsvUrl: 'data/knowledge_nodes.tsv',   // Đường dẫn TSV dự phòng nếu Firebase gặp sự cố mạng hoặc offline
+  container: '#graphContainer',                 // DOM element hoặc selector CSS chứa canvas 3D
+
+  // 💾 CẤU HÌNH BỘ NHỚ ĐỆM LOCAL (Local Cache / LocalStorage)
+  // Lưu dữ liệu đã tải từ Firebase vào LocalStorage trình duyệt để không phải gọi Firebase liên tục mỗi khi tải trang
+  enableLocalCache: false,                      // Bật/tắt lưu cache vào LocalStorage (true = lưu local, false = luôn tải mới từ Firebase)
+  localCacheKey: 'sticky_graph_nodes_cache',   // Tên khóa lưu trữ trong LocalStorage
+  localCacheTTL: 86400000,                     // Thời gian hết hạn cache (ms): 24h = 86400000 ms (Đặt 0 để không hết hạn tự động)
+
+  // 🛡️ LỌC KIỂM DUYỆT (Validation Filter)
+  onlyValidated: true,                          // Chỉ hiển thị các node đã được kiểm duyệt (validated === true)
 
   // ----------------------------------------------------------------------------
   // 2. CHẾ ĐỘ HIỂN THỊ (Theme & Appearance)
@@ -152,6 +163,13 @@ const STICKY_GRAPH_CONFIG = {
       // Tự động gộp cấu hình từ const STICKY_GRAPH_CONFIG ở đầu file
       const baseConfig = typeof STICKY_GRAPH_CONFIG !== 'undefined' ? STICKY_GRAPH_CONFIG : {};
       this.options = Object.assign({
+        dataSource: 'firebase',
+        firebaseCollection: 'knowledgeNodes',
+        fallbackTsvUrl: 'data/knowledge_nodes.tsv',
+        enableLocalCache: true,
+        localCacheKey: 'sticky_graph_nodes_cache',
+        localCacheTTL: 86400000,
+        onlyValidated: true,
         autoRotateSpeed: 0.2,
         wobbleSpeed: 1.4,
         lineWidth: 1.5,
@@ -164,6 +182,13 @@ const STICKY_GRAPH_CONFIG = {
         onNodeClick: null,
         onNodeHover: null
       }, baseConfig, options);
+
+      if (options.onlyValidated !== undefined) this.options.onlyValidated = !!options.onlyValidated;
+
+      // Hỗ trợ alias tên cấu hình: saveLocalhost, useLocalCache, saveToLocalStorage
+      if (options.saveLocalhost !== undefined) this.options.enableLocalCache = !!options.saveLocalhost;
+      if (options.useLocalCache !== undefined) this.options.enableLocalCache = !!options.useLocalCache;
+      if (options.saveToLocalStorage !== undefined) this.options.enableLocalCache = !!options.saveToLocalStorage;
 
       this.container = typeof this.options.container === 'string'
         ? document.querySelector(this.options.container)
@@ -290,6 +315,17 @@ const STICKY_GRAPH_CONFIG = {
       if (!this.renderer || !this.camera) return;
       if (w <= 0 || h <= 0) return;
       if (this.width === w && this.height === h) return;
+
+      // Tối ưu hóa cho thiết bị cảm ứng / Mobile Safari:
+      // Khi người dùng cuộn, Safari liên tục thay đổi kích thước thanh URL bar (chỉ thay đổi chiều cao, chiều rộng giữ nguyên).
+      // Việc gọi renderer.setSize() liên tục sẽ ép GPU giải phóng & cấp phát lại WebGL framebuffer gây giật lag (pipeline stall).
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+      const widthChanged = Math.abs(w - (this.width || 0)) > 2;
+      const heightDiff = Math.abs(h - (this.height || 0));
+
+      if (isTouch && !widthChanged && heightDiff < 180 && this.width > 0) {
+        return;
+      }
 
       this.width = w;
       this.height = h;
@@ -701,21 +737,271 @@ const STICKY_GRAPH_CONFIG = {
       this._startAnimation();
     }
 
-    // --- NẠP DỮ LIỆU TỪ FILE TSV ---
-    async loadData(dataSource) {
+    // Tự động nạp Firebase SDK (compat) nếu trang chưa có sẵn
+    async _ensureFirebaseReady() {
+      if (typeof window === 'undefined') return null;
+      if (window.firebase && window.firebase.firestore) return window.firebase;
+
+      const loadScript = (src) => new Promise((resolve, reject) => {
+        const existing = document.querySelector(`script[src="${src}"]`);
+        if (existing) {
+          if (window.firebase && window.firebase.firestore) return resolve();
+          existing.addEventListener('load', () => resolve(), { once: true });
+          existing.addEventListener('error', (e) => reject(e), { once: true });
+          return;
+        }
+        const s = document.createElement('script');
+        s.src = src;
+        s.crossOrigin = 'anonymous';
+        s.onload = () => resolve();
+        s.onerror = (e) => reject(new Error(`Không thể nạp script: ${src}`));
+        document.head.appendChild(s);
+      });
+
+      if (!window.firebase) {
+        await loadScript('https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js');
+      }
+      if (!window.firebase.firestore) {
+        await loadScript('https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js');
+      }
+      return window.firebase;
+    }
+
+    // Lấy instance Firestore (tận dụng config sẵn có hoặc cấu hình từ options)
+    _getFirestoreDb() {
+      if (!window.firebase) return null;
+      const firebaseConfig = this.options.firebaseConfig || {
+        apiKey: "AIzaSyC6KmQxFzAwI9RnIMtdUsMktQ0CCkM7z-E",
+        authDomain: "uxcampvn.firebaseapp.com",
+        projectId: "uxcampvn",
+        storageBucket: "uxcampvn.firebasestorage.app",
+        messagingSenderId: "491407083539",
+        appId: "1:491407083539:web:8c1635c421989082a397e6",
+        measurementId: "G-NLJWC0L47K"
+      };
+
+      if (!window.firebase.apps || !window.firebase.apps.length) {
+        window.firebase.initializeApp(firebaseConfig);
+      }
+      return window.firebase.firestore();
+    }
+
+    // Dự phòng tải trực tiếp qua REST API (không phụ thuộc SDK nếu bị chặn bởi trình duyệt / adblocker)
+    async _fetchFirestoreRest(collectionName = 'knowledgeNodes') {
+      const projectId = (this.options.firebaseConfig && this.options.firebaseConfig.projectId) || 'uxcampvn';
+      let url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${collectionName}?pageSize=300`;
+      const allDocs = [];
+
+      while (url) {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`Firestore REST API HTTP ${res.status}`);
+        const json = await res.json();
+        if (json.documents && Array.isArray(json.documents)) {
+          allDocs.push(...json.documents);
+        }
+        if (json.nextPageToken) {
+          url = `https://firestore.googleapis.com/v1/projects/${projectId}/databases/(default)/documents/${collectionName}?pageSize=300&pageToken=${encodeURIComponent(json.nextPageToken)}`;
+        } else {
+          url = null;
+        }
+      }
+
+      const nodes = [];
+      const links = [];
+
+      allDocs.forEach(doc => {
+        const f = doc.fields || {};
+        const docId = doc.name ? doc.name.split('/').pop() : '';
+        const id = (f.id && f.id.stringValue) || docId;
+        if (!id) return;
+
+        const isValidated = f.validated ? (f.validated.booleanValue === true || f.validated.stringValue === 'true') : false;
+        if (this.options.onlyValidated && !isValidated) {
+          return;
+        }
+
+        const label = (f.label && f.label.stringValue) || id;
+        const level = parseInt((f.level && (f.level.integerValue || f.level.stringValue)) || '3', 10) || 3;
+        const desc = (f.desc && f.desc.stringValue) || '';
+        const category = ((f.category && f.category.stringValue) || 'KEYWORD').toUpperCase();
+        const color = (f.color && f.color.stringValue) || '#ffb703';
+        const urlLink = (f.url && f.url.stringValue) || '';
+
+        nodes.push({ id, label, level, category, desc, url: urlLink, color, validated: isValidated });
+
+        if (f.connections && f.connections.arrayValue && Array.isArray(f.connections.arrayValue.values)) {
+          f.connections.arrayValue.values.forEach(v => {
+            const targetId = v.stringValue || '';
+            if (targetId && targetId !== id) {
+              links.push({ source: id, target: targetId });
+            }
+          });
+        }
+      });
+
+      return { nodes, links };
+    }
+
+    // Đọc dữ liệu từ bộ nhớ cache LocalStorage
+    _getLocalCache() {
+      if (!this.options.enableLocalCache || typeof window === 'undefined' || !window.localStorage) return null;
+      try {
+        const raw = window.localStorage.getItem(this.options.localCacheKey);
+        if (!raw) return null;
+        const parsed = JSON.parse(raw);
+        if (!parsed || !parsed.data || !Array.isArray(parsed.data.nodes) || parsed.data.nodes.length === 0) {
+          return null;
+        }
+        // Kiểm tra tương thích phiên bản cache và bộ lọc kiểm duyệt
+        if (parsed.version !== '2.0' || parsed.onlyValidated !== !!this.options.onlyValidated) {
+          return null; // Bỏ qua cache cũ không cùng chế độ lọc duyệt để tải mới đúng dữ liệu
+        }
+        const ttl = Number(this.options.localCacheTTL) || 0;
+        const isExpired = ttl > 0 && (Date.now() - (parsed.timestamp || 0) > ttl);
+        return {
+          isExpired,
+          timestamp: parsed.timestamp,
+          data: parsed.data
+        };
+      } catch (e) {
+        console.warn('[StickyGraph3D] Không thể đọc cache từ LocalStorage:', e);
+        return null;
+      }
+    }
+
+    // Lưu dữ liệu vào bộ nhớ cache LocalStorage
+    _saveLocalCache(data) {
+      if (!this.options.enableLocalCache || typeof window === 'undefined' || !window.localStorage) return;
+      if (!data || !Array.isArray(data.nodes) || data.nodes.length === 0) return;
+      try {
+        const payload = {
+          timestamp: Date.now(),
+          version: '2.0',
+          onlyValidated: !!this.options.onlyValidated,
+          count: data.nodes.length,
+          data: {
+            nodes: data.nodes,
+            links: data.links || []
+          }
+        };
+        window.localStorage.setItem(this.options.localCacheKey, JSON.stringify(payload));
+        console.log(`[StickyGraph3D] 💾 Đã lưu ${data.nodes.length} node vào LocalStorage (Key: '${this.options.localCacheKey}') để tái sử dụng.`);
+      } catch (e) {
+        console.warn('[StickyGraph3D] Không thể ghi cache vào LocalStorage:', e);
+      }
+    }
+
+    // Nạp dữ liệu từ Firebase Firestore
+    async _loadFromFirebase() {
+      const colName = this.options.firebaseCollection || 'knowledgeNodes';
+
+      // 1. Thử qua Firebase SDK compat
+      try {
+        await this._ensureFirebaseReady();
+        const db = this._getFirestoreDb();
+        if (db) {
+          let snapshot = await db.collection(colName).get();
+          if (snapshot.empty && colName !== 'knowledge_nodes') {
+            snapshot = await db.collection('knowledge_nodes').get();
+          }
+
+          if (!snapshot.empty) {
+            const nodes = [];
+            const links = [];
+
+            snapshot.forEach(doc => {
+              const d = doc.data() || {};
+              const id = String(d.id || doc.id).trim();
+              if (!id) return;
+
+              const isValidated = d.validated === true || d.validated === 'true';
+              if (this.options.onlyValidated && !isValidated) {
+                return;
+              }
+
+              const label = d.label || id;
+              const level = parseInt(d.level, 10) || 3;
+              const desc = d.desc || '';
+              const category = (d.category || 'KEYWORD').toUpperCase();
+              const color = d.color || '#ffb703';
+              const url = d.url || '';
+
+              nodes.push({ id, label, level, category, desc, url, color, validated: isValidated });
+
+              const rawConn = d.connections;
+              let connList = [];
+              if (Array.isArray(rawConn)) {
+                connList = rawConn;
+              } else if (typeof rawConn === 'string') {
+                connList = rawConn.split(/[;,]/);
+              }
+
+              connList.forEach(c => {
+                const targetId = typeof c === 'object' && c !== null ? (c.id || c.target) : String(c).trim();
+                if (targetId && targetId !== id) {
+                  links.push({ source: id, target: targetId });
+                }
+              });
+            });
+
+            if (nodes.length > 0) {
+              return { nodes, links };
+            }
+          }
+        }
+      } catch (sdkErr) {
+        console.warn('[StickyGraph3D] Firebase SDK không khả dụng, chuyển sang REST API:', sdkErr);
+      }
+
+      // 2. Dự phòng: Thử qua REST API
+      try {
+        let restResult = await this._fetchFirestoreRest(colName);
+        if (!restResult || !restResult.nodes || restResult.nodes.length === 0) {
+          if (colName !== 'knowledge_nodes') {
+            restResult = await this._fetchFirestoreRest('knowledge_nodes');
+          }
+        }
+        if (restResult && restResult.nodes && restResult.nodes.length > 0) {
+          return restResult;
+        }
+      } catch (restErr) {
+        console.warn('[StickyGraph3D] Firestore REST API lỗi:', restErr);
+      }
+
+      return null;
+    }
+
+    // Nạp dữ liệu từ file hoặc chuỗi TSV
+    async _loadFromTSV(tsvSource) {
       try {
         let tsvText;
-        if (typeof dataSource === 'string') {
-          // Hỗ trợ truyền chuỗi nội dung TSV trực tiếp hoặc đường dẫn file .tsv
-          if (dataSource.includes('\n') || dataSource.includes('\t')) {
-            tsvText = dataSource;
+        if (typeof tsvSource === 'string') {
+          if (tsvSource.includes('\n') || tsvSource.includes('\t')) {
+            tsvText = tsvSource;
           } else {
-            const res = await fetch(dataSource);
-            if (!res.ok) throw new Error(`Không thể nạp file TSV: ${res.status} ${res.statusText}`);
+            let res = await fetch(tsvSource).catch(() => null);
+            if (!res || !res.ok) {
+              // Thử các ứng viên đường dẫn tương đối khác nếu 404
+              const candidates = [
+                'data/knowledge_nodes.tsv',
+                '../data/knowledge_nodes.tsv',
+                '../../data/knowledge_nodes.tsv',
+                '/data/knowledge_nodes.tsv'
+              ].filter(c => c !== tsvSource);
+
+              for (const path of candidates) {
+                const retryRes = await fetch(path).catch(() => null);
+                if (retryRes && retryRes.ok) {
+                  res = retryRes;
+                  break;
+                }
+              }
+            }
+            if (!res || !res.ok) throw new Error(`Không thể nạp file TSV: ${tsvSource}`);
             tsvText = await res.text();
           }
         } else {
-          throw new Error('Đường dẫn dữ liệu không hợp lệ: dataSource phải là đường dẫn file TSV (.tsv)');
+          throw new Error('Đường dẫn dữ liệu không hợp lệ: tsvSource phải là chuỗi TSV hoặc URL file .tsv');
         }
 
         const rawData = this._parseTSV(tsvText);
@@ -724,6 +1010,66 @@ const STICKY_GRAPH_CONFIG = {
       } catch (err) {
         console.error('[StickyGraph3D] Lỗi khi nạp dữ liệu TSV:', err);
       }
+    }
+
+    // --- NẠP DỮ LIỆU CHÍNH (HỖ TRỢ FIREBASE + CACHE LOCAL / TSV) ---
+    async loadData(dataSource) {
+      const source = dataSource || this.options.dataSource || 'firebase';
+
+      // --- TRƯỜNG HỢP 1: NẠP TỪ FIREBASE (MẶC ĐỊNH) ---
+      if (source === 'firebase') {
+        // 1. Kiểm tra cache Local (LocalStorage) trước nếu enableLocalCache = true
+        const cached = this._getLocalCache();
+        if (cached && !cached.isExpired) {
+          console.log(`[StickyGraph3D] ⚡ Nạp thành công ${cached.data.nodes.length} node từ LocalStorage cache (tiết kiệm gọi Firebase liên tục).`);
+          this._processData(cached.data);
+          this.buildGraph();
+          return;
+        }
+
+        if (cached && cached.isExpired) {
+          console.log('[StickyGraph3D] ⏳ Cache LocalStorage đã hết hạn (TTL). Đang làm mới dữ liệu từ Firebase...');
+        }
+
+        // 2. Tải dữ liệu mới từ Firebase
+        try {
+          const fbData = await this._loadFromFirebase();
+          if (fbData && fbData.nodes && fbData.nodes.length > 0) {
+            this._saveLocalCache(fbData);
+            this._processData(fbData);
+            this.buildGraph();
+            return;
+          }
+          throw new Error('Dữ liệu từ Firestore rỗng.');
+        } catch (fbErr) {
+          console.warn('[StickyGraph3D] Không thể tải dữ liệu mới từ Firebase:', fbErr);
+
+          // Nếu có cache local cũ (dù đã hết hạn), ưu tiên tái sử dụng để không làm gián đoạn hiển thị
+          if (cached && cached.data && Array.isArray(cached.data.nodes) && cached.data.nodes.length > 0) {
+            console.warn('[StickyGraph3D] ⚠️ Tái sử dụng cache LocalStorage trước đó để hiển thị đồ thị.');
+            this._processData(cached.data);
+            this.buildGraph();
+            return;
+          }
+
+          // Fallback cuối cùng: nạp file TSV dự phòng
+          const fallbackUrl = this.options.fallbackTsvUrl || 'data/knowledge_nodes.tsv';
+          console.warn(`[StickyGraph3D] 🔄 Chuyển sang nạp dữ liệu dự phòng từ file TSV: ${fallbackUrl}`);
+          await this._loadFromTSV(fallbackUrl);
+        }
+        return;
+      }
+
+      // --- TRƯỜNG HỢP 2: NẠP TỪ FILE HOẶC CHUỖI TSV ---
+      await this._loadFromTSV(source);
+    }
+
+    // Tải lại dữ liệu từ Firebase (tùy chọn xóa cache local để buộc làm mới hoàn toàn)
+    async reloadFromFirebase(forceRefresh = true) {
+      if (forceRefresh) {
+        StickyGraph3D.clearLocalCache(this.options.localCacheKey);
+      }
+      await this.loadData('firebase');
     }
 
     // Parse TSV dạng table: id, label, level, desc, connections, color (hỗ trợ cả tiếng Việt: tiêu đề, cấp độ, mô tả, liên kết, màu)
@@ -749,6 +1095,11 @@ const STICKY_GRAPH_CONFIG = {
         const id = row.id || row['mã'] || row['mã node'] || '';
         if (!id) continue;
 
+        const isValidated = row.validated === 'true' || row.validated === true || row['đã duyệt'] === 'true' || row['duyệt'] === 'true';
+        if (this.options.onlyValidated && !isValidated) {
+          continue;
+        }
+
         const label = row.label || row['tiêu đề'] || row.title || id;
         const level = parseInt(row.level || row['cấp độ'] || row.capdo, 10) || 3;
         const desc = row.desc || row['mô tả'] || row.description || '';
@@ -762,7 +1113,8 @@ const STICKY_GRAPH_CONFIG = {
           category: row.category ? row.category.toUpperCase() : 'KEYWORD',
           desc,
           url: row.url || '',
-          color
+          color,
+          validated: isValidated
         });
 
         // Kết nối phân cách bởi dấu chấm phẩy ; hoặc dấu phẩy
@@ -1742,6 +2094,23 @@ const STICKY_GRAPH_CONFIG = {
       const dom = this.renderer.domElement;
 
       // Resize: Quan sát sự thay đổi kích thước của container div do CSS quy định
+      let resizeRaf = null;
+      let lastStickyWidth = window.innerWidth;
+      const triggerResize = (w, h) => {
+        const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+        const widthChanged = Math.abs(w - lastStickyWidth) > 5;
+        if (isTouch && !widthChanged) {
+          return;
+        }
+        lastStickyWidth = w;
+
+        if (resizeRaf) cancelAnimationFrame(resizeRaf);
+        resizeRaf = requestAnimationFrame(() => {
+          resizeRaf = null;
+          this._onContainerResize(w, h);
+        });
+      };
+
       if (typeof ResizeObserver !== 'undefined' && this.wrapper) {
         this.resizeObserver = new ResizeObserver((entries) => {
           for (const entry of entries) {
@@ -1757,7 +2126,7 @@ const STICKY_GRAPH_CONFIG = {
               h = s.height;
             }
             if (w > 0 && h > 0) {
-              this._onContainerResize(w, h);
+              triggerResize(w, h);
             }
           }
         });
@@ -1768,9 +2137,9 @@ const STICKY_GRAPH_CONFIG = {
       window.addEventListener('resize', () => {
         const s = this._getContainerSize();
         if (s.width > 0 && s.height > 0) {
-          this._onContainerResize(s.width, s.height);
+          triggerResize(s.width, s.height);
         }
-      });
+      }, { passive: true });
 
       // Vô hiệu hóa menu ngữ cảnh mặc định của trình duyệt để bấm chuột phải kéo Pan mượt mà
       dom.addEventListener('contextmenu', (e) => e.preventDefault());
@@ -2437,6 +2806,19 @@ const STICKY_GRAPH_CONFIG = {
   // Khởi tạo nhanh phương thức static: StickyGraph3D.init(options)
   StickyGraph3D.init = function (options) {
     return new StickyGraph3D(options);
+  };
+
+  // Xóa cache trong localStorage
+  StickyGraph3D.clearLocalCache = function (key) {
+    const cacheKey = key || (typeof STICKY_GRAPH_CONFIG !== 'undefined' ? STICKY_GRAPH_CONFIG.localCacheKey : 'sticky_graph_nodes_cache');
+    try {
+      if (typeof window !== 'undefined' && window.localStorage) {
+        window.localStorage.removeItem(cacheKey);
+        console.log(`[StickyGraph3D] 🗑️ Đã xóa cache local '${cacheKey}'.`);
+      }
+    } catch (e) {
+      console.warn('[StickyGraph3D] Không thể xóa cache LocalStorage:', e);
+    }
   };
 
   // Đăng ký toàn cục

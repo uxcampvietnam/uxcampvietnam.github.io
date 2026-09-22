@@ -914,7 +914,19 @@
 
     // 4. Cập nhật khi Resize màn hình (Debounced & Sync)
     let resizeTimer = null;
+    let lastEnvelopeWidth = window.innerWidth;
+
     window.addEventListener("resize", () => {
+      const curW = window.innerWidth;
+      const widthChanged = Math.abs(curW - lastEnvelopeWidth) > 5;
+      const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+      // Bỏ qua khi thanh công cụ Safari co dãn (chiều rộng không đổi) để không kill momentum scrolling
+      if (isTouch && !widthChanged) {
+        return;
+      }
+      lastEnvelopeWidth = curW;
+
       if (resizeTimer) clearTimeout(resizeTimer);
       resizeTimer = setTimeout(() => {
         updateCachedGeometry();

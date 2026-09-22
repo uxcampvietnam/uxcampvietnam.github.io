@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Đồ Thị Kiến Thức CMS — UXCamp Admin</title>
+	<link rel="icon" href="../../../asset/icon/favicon.ico">
+	<meta name="robots" content="noindex, nofollow">
+
+	<!-- Bootstrap 5 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="../../../style/definition.css">
+	<link rel="stylesheet" type="text/css" href="../../../style/style.css">
+	<link rel="stylesheet" type="text/css" href="../../../style/admin.css">
+	<link rel="stylesheet" type="text/css" href="../../admin-shared.css">
+	<link rel="stylesheet" type="text/css" href="knowledge.css">
+
+	<!-- Firebase SDK -->
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+</head>
+
+<body data-tab="tab-knowledge" data-root="../../../">
+
+	<div class="app-container admin-app-container">
+
+		<!-- Auth gate overlay -->
+		<div class="auth-gate" id="auth-gate">
+			<div class="auth-spinner"></div>
+			<span class="font-sans-caption" style="color: var(--main-colors-foreground-f700);">Đang kiểm tra quyền truy
+				cập
+				admin...</span>
+		</div>
+
+		<!-- SIDEBAR PANEL (Rendered dynamically by admin-shell.js) -->
+		<aside class="sidebar admin-sidebar" id="sidebar" style="display: none;"></aside>
+
+		<!-- MAIN CONTENT WORKSPACE -->
+		<div class="main-wrapper admin-main-wrapper" id="admin-content" style="display: none;">
+			<main class="main-content admin-main-content-knowledge">
+
+				<!-- Top Header Controls -->
+				<div class="d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">
+					<div class="d-flex align-items-center gap-3">
+						<button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Mở menu quản lý">
+							<svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24">
+								<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+							</svg>
+						</button>
+						<div>
+							<div class="d-flex align-items-center gap-2">
+								<h4 class="font-sans-h4 medium m-0" style="color: var(--main-colors-foreground-f100);">
+									🧠 Đồ Thị Kiến Thức 3D CMS</h4>
+								<span class="dirty-tracker-badge" id="dirtyBadge">
+									⚠️ <span id="dirtyCount">0</span> thay đổi chưa lưu
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="d-flex align-items-center gap-2 flex-wrap">
+						<!-- NÚT LƯU LÊN FIREBASE (CHÍNH) -->
+						<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btnSaveToFirebase">
+							💾 Lưu Lên Firebase
+						</button>
+
+						<!-- NÚT NẠP TỪ FIREBASE -->
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btnReloadFirebase"
+							title="Tải lại dữ liệu từ Firestore">
+							🔄 Nạp từ Firebase
+						</button>
+
+						<!-- ĐỒNG BỘ TSV / IMPORT -->
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btnPasteTSV"
+							title="Nạp từ clipboard hoặc tệp TSV">
+							📥 Nạp TSV
+						</button>
+
+						<!-- COPY & DOWNLOAD TSV -->
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btnCopyTSV"
+							title="Sao chép toàn bộ sang TSV">
+							📋 Copy TSV
+						</button>
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btnDownloadTSV"
+							title="Tải xuống tệp TSV">
+							💾 Tải TSV
+						</button>
+					</div>
+				</div>
+
+				<!-- Thanh tiến độ khi lưu Batch lên Firebase -->
+				<div id="firebaseProgressWrap">
+					<div id="firebaseProgressBar"></div>
+				</div>
+
+				<!-- APP LAYOUT: PALETTE (LEFT) + TABLE (RIGHT) -->
+				<div class="knowledge-cms-container">
+
+					<!-- KHAY NODE BÊN TRÁI -->
+					<aside class="node-palette" id="nodePalette">
+						<div class="palette-header">
+							<div class="palette-title-row">
+								<div class="palette-title">
+									<span class="font-sans-caption bold"
+										style="color: var(--main-colors-foreground-f100);">Node</span>
+									<span class="selected-count-badge" id="selectedCountBadge"
+										style="display: none;">Selected: 0</span>
+								</div>
+								<div class="d-flex gap-1">
+									<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm p-1"
+										id="btnSelectAllPalette" title="Chọn tất cả" style="font-size: 11px;">Chọn
+										hết</button>
+									<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm p-1"
+										id="btnClearPaletteSelection" title="Bỏ chọn"
+										style="font-size: 11px; display: none;">Bỏ chọn</button>
+								</div>
+							</div>
+							<input type="text" id="paletteSearch" class="palette-search"
+								placeholder="🔍 Tìm node để kéo thả...">
+							<div class="d-flex justify-content-between align-items-center">
+								<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Kéo
+									node vào
+									cột liên kết</span>
+								<select id="paletteFilterValidated" class="cell-select" style="font-size: 10.5px;">
+									<option value="ALL">Tất cả</option>
+									<option value="VALIDATED">Đã duyệt</option>
+									<option value="UNVALIDATED">Chưa duyệt</option>
+								</select>
+							</div>
+						</div>
+						<div class="palette-list" id="paletteList"></div>
+					</aside>
+
+					<!-- BẢNG DỮ LIỆU BÊN PHẢI -->
+					<div class="table-container-area">
+						<!-- Thanh công cụ lọc & tìm kiếm trên bảng -->
+						<div class="toolbar-bar">
+							<div class="toolbar-left">
+								<input type="text" id="tableSearch" class="table-search-input"
+									placeholder="🔍 Tìm kiếm trên bảng...">
+								<select id="filterLevel" class="level-select">
+									<option value="ALL">Tất cả Level</option>
+									<option value="1">Level 1 (Pillar)</option>
+									<option value="2">Level 2</option>
+									<option value="3">Level 3</option>
+									<option value="4">Level 4</option>
+									<option value="5">Level 5</option>
+									<option value="6">Level 6</option>
+									<option value="7">Level 7</option>
+								</select>
+								<!-- Pill buttons lọc trạng thái duyệt -->
+								<div class="pill-group" id="validationFilterPills">
+									<button type="button" class="pill-btn active" data-val="ALL">Tất cả</button>
+									<button type="button" class="pill-btn" data-val="UNVALIDATED">Chưa duyệt</button>
+									<button type="button" class="pill-btn" data-val="VALIDATED">Đã duyệt</button>
+								</div>
+							</div>
+
+							<div class="toolbar-center">
+								<div id="chipActionToolbar" class="chip-action-bar" style="display: none;">
+									<span class="chip-sel-count">Đã chọn: <b id="chipSelCount">0</b></span>
+									<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm p-1"
+										id="btnCopySelectedChips" title="Sao chép (Ctrl+C)">📋 Copy</button>
+									<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm p-1"
+										id="btnCutSelectedChips" title="Cắt để di chuyển (Ctrl+X)">✂️ Cut</button>
+									<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm p-1"
+										id="btnDeleteSelectedChips" title="Xóa liên kết (Delete)">🗑️ Xóa</button>
+									<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm p-1"
+										id="btnClearChipSelection" title="Bỏ chọn (Esc)">✖ Bỏ chọn</button>
+								</div>
+							</div>
+
+							<div class="toolbar-right">
+								<span class="font-sans-caption" style="color: var(--main-colors-foreground-f700);">
+									Hiển thị: <b id="statVisible"
+										style="color: var(--main-colors-foreground-f100);">0</b> / <span
+										id="statTotal">0</span> nodes | <span id="statLinks">0</span> liên kết
+								</span>
+								<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btnAddRow">
+									➕ Thêm Node
+								</button>
+							</div>
+						</div>
+
+						<!-- Khung bảng scrollable với sticky header -->
+						<div class="table-scroll-wrap" id="tableScrollWrap">
+							<table class="cms-table">
+								<thead>
+									<tr>
+										<th class="col-th-num">#</th>
+										<th class="col-th-val">Duyệt</th>
+										<th class="col-th-label">Node</th>
+										<th class="col-th-level">Level</th>
+										<th class="col-th-desc">Mô tả</th>
+										<th class="col-th-links">Liên kết (Giữ Alt để clone)</th>
+										<th class="col-th-color">Màu</th>
+										<th class="col-th-action">Xóa</th>
+									</tr>
+								</thead>
+								<tbody id="tableBody"></tbody>
+							</table>
+						</div>
+					</div>
+
+				</div>
+
+			</main>
+		</div>
+
+	</div>
+
+	<!-- MODAL NHẬP / DÁN TSV -->
+	<div class="admin-modal-overlay" id="modalImportTSV">
+		<div class="admin-modal-container">
+			<div class="admin-modal-header">
+				<h6 class="font-sans-h6 medium m-0" style="color: var(--main-colors-foreground-f100);">📥 Nạp Dữ Liệu
+					TSV / Excel</h6>
+				<button type="button" class="btn-icon-action" id="btnCloseImportModal">✕</button>
+			</div>
+			<div class="admin-modal-body">
+				<p class="font-sans-caption" style="color: var(--main-colors-foreground-f700); margin-bottom: 8px;">
+					Dán dữ liệu 7 cột phân cách bằng Tab:
+					<code>id, label, level, desc, connections, color, validated</code>
+				</p>
+				<textarea id="importTSVTextarea" class="form-control-custom" rows="8"
+					placeholder="Dán nội dung TSV vào đây..."></textarea>
+				<div class="d-flex justify-content-between align-items-center mt-2">
+					<span id="importStats" class="font-sans-small"></span>
+					<div class="d-flex gap-2">
+						<input type="file" id="fileInputTSV" accept=".tsv,.txt,.csv" style="display: none;">
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm"
+							onclick="document.getElementById('fileInputTSV').click()">📁 Chọn file</button>
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm"
+							id="btnPasteFromClipboard">📋 Dán từ Clipboard</button>
+					</div>
+				</div>
+			</div>
+			<div class="admin-modal-footer">
+				<button type="button" class="btn-admin btn-admin-secondary" id="btnCancelImport">Hủy</button>
+				<button type="button" class="btn-admin btn-admin-primary" id="btnApplyImport">✅ Nạp Vào Trình Soạn
+					Thảo</button>
+			</div>
+		</div>
+	</div>
+
+	<script src="knowledge.js"></script>
+	<script src="../../admin-shell.js"></script>
+
+</body>
+
+</html>

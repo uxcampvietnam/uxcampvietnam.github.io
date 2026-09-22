@@ -62,7 +62,7 @@
     "card0EntryDurationMobile": 1.8,
     "unpinCaseOffsetMobile": 0,
     "pixelsPerCardMobile": 70,
-    "frictionMobile": 0.025,
+    "frictionMobile": 0.25,
     "cardSpacingMobile": 260,
     "flyAngleDegMobile": 75,
     "shadowXMobile": 30,
@@ -406,7 +406,7 @@
         antialias: true,
         powerPreference: 'high-performance'
       });
-      this.renderer.setSize(w, h);
+      this.renderer.setSize(w, h, false);
       this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
       this.renderer.setClearColor(0x000000, 0);
 
@@ -673,8 +673,8 @@
       // Target card index: offset = 0 => case cuối cùng (lastIndex), offset = 1 => case gần cuối (lastIndex - 1)...
       const targetCardIndex = lastIndex - offset;
 
-      // caseProgress khi targetCardIndex vừa qua khỏi bottom của viewport
-      const endCaseProgress = Math.max(0, targetCardIndex - uBottom);
+      // Cho phép các card bay trọn vẹn qua màn hình (thay vì cắt ngang ở đáy với - uBottom)
+      const endCaseProgress = Math.max(0, targetCardIndex + 1.2);
       const endStep = CARD_CENTER_PHASE + endCaseProgress;
       return { endStep, endCaseProgress, uBottom };
     }
@@ -682,7 +682,10 @@
     updateScrollHeight() {
       const cfg = window.CASE_STUDY_CONFIG || DEFAULT_CONFIG;
       const { endStep } = this.getUnpinTargetStep();
-      const trackHeight = Math.max(window.innerHeight, window.innerHeight + Math.round(endStep * getResponsiveValue(cfg, 'pixelsPerCard')));
+      const isMobile = window.innerWidth <= 768;
+      // Dùng screen.height trên mobile để trackHeight ổn định tuyệt đối, không nhảy giật khi thanh Safari co dãn
+      const baseH = isMobile ? (window.screen.height || window.innerHeight) : window.innerHeight;
+      const trackHeight = Math.max(baseH, baseH + Math.round(endStep * getResponsiveValue(cfg, 'pixelsPerCard')));
       this.wrapper.style.height = `${trackHeight}px`;
 
       if (typeof ScrollTrigger !== 'undefined') {
@@ -724,6 +727,18 @@
               }
               this.isLoopRunning = false;
             } else {
+              if (this.renderer && this.camera) {
+                const rw = window.innerWidth;
+                const rh = window.innerHeight;
+                if (Math.abs(rw - (this.cachedWidth || 0)) > 2 || Math.abs(rh - (this.cachedHeight || 0)) > 10) {
+                  this.cachedWidth = rw;
+                  this.cachedHeight = rh;
+                  this.camera.aspect = rw / rh;
+                  this.camera.updateProjectionMatrix();
+                  this.renderer.setSize(rw, rh, false);
+                  this.updateScrollHeight();
+                }
+              }
               this.onScroll();
             }
           });
@@ -736,20 +751,40 @@
         this.updateFlowHUD();
       }, { passive: true });
 
+      let caseResizeTimer = null;
+      let lastCaseWidth = window.innerWidth;
+
       window.addEventListener('resize', () => {
-        if (this.renderer && this.camera) {
-          const rw = window.innerWidth;
-          const rh = window.innerHeight;
-          this.camera.aspect = rw / rh;
-          this.camera.fov = getResponsiveValue(window.CASE_STUDY_CONFIG, 'cameraFov') || 45;
-          this.camera.updateProjectionMatrix();
-          this.renderer.setSize(rw, rh);
+        const rw = window.innerWidth;
+        const widthChanged = Math.abs(rw - lastCaseWidth) > 5;
+        const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+        // Bỏ qua hoàn toàn nếu chỉ là co/dãn thanh công cụ Safari (chiều rộng không đổi)
+        // để bảo toàn 100% quán tính cuộn (momentum scrolling) tự nhiên
+        if (isTouch && !widthChanged) {
+          return;
         }
-        this.cachedAvatarStarts = null;
-        this.cachedSidebarTargets = null;
-        this.updateCardDimensions();
-        this.updateScrollHeight();
-      });
+        lastCaseWidth = rw;
+
+        clearTimeout(caseResizeTimer);
+        caseResizeTimer = setTimeout(() => {
+          const currentW = window.innerWidth;
+          const currentH = window.innerHeight;
+          this.cachedWidth = currentW;
+          this.cachedHeight = currentH;
+
+          if (this.renderer && this.camera) {
+            this.camera.aspect = currentW / currentH;
+            this.camera.fov = getResponsiveValue(window.CASE_STUDY_CONFIG, 'cameraFov') || 45;
+            this.camera.updateProjectionMatrix();
+            this.renderer.setSize(currentW, currentH, false);
+          }
+          this.cachedAvatarStarts = null;
+          this.cachedSidebarTargets = null;
+          this.updateCardDimensions();
+          this.updateScrollHeight();
+        }, 180);
+      }, { passive: true });
     }
 
     onScroll() {

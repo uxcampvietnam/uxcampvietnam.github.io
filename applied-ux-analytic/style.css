@@ -830,11 +830,32 @@ body * {
     border: 0.5px solid var(--console-stroke);
 }
 
+.sign-up-ux-analytic-bootcamp-item:has(input[type="radio"]:not(:checked)) label,
+.sign-up-ux-analytic-bootcamp-item:has(input[type="radio"]:not(:checked)) label *,
+.sign-up-ux-analytic-bootcamp-item:has(input[type="checkbox"]:not(:checked)) label,
+.sign-up-ux-analytic-bootcamp-item:has(input[type="checkbox"]:not(:checked)) label * {
+    color: var(--applied-analytic-main) !important;
+}
+
+.sign-up-ux-analytic-bootcamp-item:has(input[type="radio"]:checked),
+.sign-up-ux-analytic-bootcamp-item:has(input[type="checkbox"]:checked) {
+    border-color: var(--applied-analytic-main);
+}
+
 .sign-up-ux-analytic-bootcamp-item:has(input[type="radio"]:checked) label,
 .sign-up-ux-analytic-bootcamp-item:has(input[type="checkbox"]:checked) label {
     color: var(--applied-analytic-reverse-main) !important;
     background: var(--applied-analytic-main);
     border: 0.5px solid var(--applied-analytic-main);
+}
+
+.sign-up-ux-analytic-bootcamp-item:has(input[type="radio"]:checked) label *,
+.sign-up-ux-analytic-bootcamp-item:has(input[type="checkbox"]:checked) label * {
+    color: var(--applied-analytic-reverse-main) !important;
+}
+
+.reverse-color {
+    color: inherit;
 }
 
 .sign-up-ux-analytic-bootcamp-item:has(input[type="radio"]:not(:checked)) .is_selected,

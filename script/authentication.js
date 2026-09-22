@@ -160,18 +160,50 @@ async function checkAuthorization(email, firebaseUser = null) {
 		const currentUid = (firebaseUser && firebaseUser.uid) || (auth.currentUser && auth.currentUser.uid) || '';
 
 		let matchedDoc = null;
+		let directDoc = null;
+		let directData = null;
 
-		// 1. Tra cứu trực tiếp theo Document ID = cleanEmail (Chuẩn O(1) & Security Rules)
+		// 1. Tra cứu trực tiếp theo Document ID = cleanEmail (Chuẩn O(1))
 		try {
 			const docByEmail = await db.collection('authorizedUsers').doc(cleanEmail).get();
 			if (docByEmail.exists) {
-				matchedDoc = docByEmail;
+				directDoc = docByEmail;
+				directData = docByEmail.data() || {};
+				// Nếu docDirect là admin, dùng luôn
+				if (directData.role === 'admin') {
+					matchedDoc = docByEmail;
+				}
 			}
 		} catch (errDocEmail) {
 			console.warn('[checkAuthorization] get doc by email warning:', errDocEmail);
 		}
 
-		// 2. Tra cứu dự phòng theo primaryEmail
+		// 2. Tra cứu theo mảng emails (tìm tài khoản cha nếu cleanEmail là email phụ của Admin/tài khoản chính)
+		if (!matchedDoc) {
+			try {
+				const snapEmails = await db.collection('authorizedUsers').where('emails', 'array-contains', cleanEmail).get();
+				if (!snapEmails.empty) {
+					// Ưu tiên tài khoản có quyền cao nhất (admin > instructor > member)
+					const docsFound = snapEmails.docs;
+					const adminDoc = docsFound.find(d => (d.data() || {}).role === 'admin');
+					matchedDoc = adminDoc || docsFound[0];
+
+					// Dọn dẹp docDirect rác nếu trước đó đã bị tạo nhầm với ID là cleanEmail
+					if (directDoc && directDoc.id !== matchedDoc.id) {
+						db.collection('authorizedUsers').doc(directDoc.id).delete().catch(() => {});
+					}
+				}
+			} catch (errEmails) {
+				console.warn('[checkAuthorization] query emails warning:', errEmails);
+			}
+		}
+
+		// Nếu không tìm thấy qua mảng emails nhưng có directDoc (tài khoản độc lập)
+		if (!matchedDoc && directDoc) {
+			matchedDoc = directDoc;
+		}
+
+		// 3. Tra cứu dự phòng theo primaryEmail
 		if (!matchedDoc) {
 			try {
 				const snapPrimary = await db.collection('authorizedUsers').where('primaryEmail', '==', cleanEmail).get();
@@ -183,24 +215,17 @@ async function checkAuthorization(email, firebaseUser = null) {
 			}
 		}
 
-		// 3. Tra cứu dự phòng theo mảng emails (hỗ trợ 1 user liên kết nhiều email)
-		if (!matchedDoc) {
-			try {
-				const snapEmails = await db.collection('authorizedUsers').where('emails', 'array-contains', cleanEmail).get();
-				if (!snapEmails.empty) {
-					matchedDoc = snapEmails.docs[0];
-				}
-			} catch (errEmails) {
-				console.warn('[checkAuthorization] query emails warning:', errEmails);
-			}
-		}
-
-		// 4. Tra cứu dự phòng theo firebaseUid
+		// 4. Tra cứu dự phòng theo firebaseUid & firebaseUids
 		if (!matchedDoc && currentUid) {
 			try {
 				const snapUid = await db.collection('authorizedUsers').where('firebaseUid', '==', currentUid).get();
 				if (!snapUid.empty) {
 					matchedDoc = snapUid.docs[0];
+				} else {
+					const snapUids = await db.collection('authorizedUsers').where('firebaseUids', 'array-contains', currentUid).get();
+					if (!snapUids.empty) {
+						matchedDoc = snapUids.docs[0];
+					}
 				}
 			} catch (errUid) {
 				console.warn('[checkAuthorization] query firebaseUid warning:', errUid);
@@ -226,14 +251,16 @@ async function checkAuthorization(email, firebaseUser = null) {
 		const raw = matchedDoc.data() || {};
 		const docId = matchedDoc.id;
 		const internalId = raw.id || generateUUID();
+		const primaryEmail = raw.primaryEmail || (Array.isArray(raw.emails) ? raw.emails[0] : null) || docId;
 
 		// Chuẩn hóa profile trả về theo camelCase schema
 		const profile = {
 			id: internalId,
 			docId: docId,
-			primaryEmail: raw.primaryEmail || cleanEmail,
-			emails: Array.isArray(raw.emails) && raw.emails.length > 0 ? raw.emails : [raw.primaryEmail || cleanEmail],
+			primaryEmail: primaryEmail,
+			emails: Array.isArray(raw.emails) && raw.emails.length > 0 ? raw.emails : [primaryEmail],
 			firebaseUid: raw.firebaseUid || currentUid || '',
+			firebaseUids: Array.isArray(raw.firebaseUids) ? raw.firebaseUids : (raw.firebaseUid ? [raw.firebaseUid] : []),
 			displayName: raw.displayName || (firebaseUser && firebaseUser.displayName) || cleanEmail.split('@')[0],
 			photoUrl: raw.photoUrl || (firebaseUser && firebaseUser.photoURL) || '',
 			phone: raw.phone || '',
@@ -285,34 +312,52 @@ auth.onAuthStateChanged(async (user) => {
 				showUserProfile(user, data);
 
 				// Tự động đồng bộ và liên kết (Self-healing & account binding):
-				// Luôn ghi vào Document ID là email chuẩn hóa
+				// Luôn ghi vào Document ID của tài khoản chính (data.docId hoặc data.primaryEmail)
+				// TUYỆT ĐỐI không ghi vào user.email nếu email đó chỉ là email phụ
 				const cleanEmail = user.email.toLowerCase();
+				const targetDocId = data.docId || data.primaryEmail || cleanEmail;
 				const updates = {};
+
 				if (!data.id) {
 					updates.id = generateUUID();
 					data.id = updates.id;
 				}
+
+				// Quản lý đa UID khi user đăng nhập bằng nhiều tài khoản Google khác nhau
+				const curUids = Array.isArray(data.firebaseUids) ? data.firebaseUids : (data.firebaseUid ? [data.firebaseUid] : []);
+				if (user.uid && !curUids.includes(user.uid)) {
+					updates.firebaseUids = Array.from(new Set([...curUids, user.uid]));
+					data.firebaseUids = updates.firebaseUids;
+				}
 				if (!data.firebaseUid || data.firebaseUid !== user.uid) {
 					updates.firebaseUid = user.uid;
+					data.firebaseUid = user.uid;
 				}
 				if (!data.photoUrl && user.photoURL) {
 					updates.photoUrl = user.photoURL;
+					data.photoUrl = user.photoURL;
 				}
 				if (!data.displayName && user.displayName) {
 					updates.displayName = user.displayName;
+					data.displayName = user.displayName;
 				}
 				if (!Array.isArray(data.emails) || !data.emails.includes(cleanEmail)) {
 					const curEmails = Array.isArray(data.emails) ? data.emails : [];
 					updates.emails = Array.from(new Set([...curEmails, cleanEmail]));
+					data.emails = updates.emails;
 				}
 
 				if (Object.keys(updates).length > 0) {
 					updates.updatedAt = firebase.firestore.FieldValue.serverTimestamp();
-					db.collection('authorizedUsers').doc(cleanEmail).set(updates, { merge: true }).catch(err => {
+					db.collection('authorizedUsers').doc(targetDocId).set(updates, { merge: true }).catch(err => {
 						console.warn('[Auth] Không thể cập nhật thông tin user:', err);
 					});
 				}
 
+				// Nếu đang đăng nhập bằng email phụ và vô tình có document rác mang tên cleanEmail khác targetDocId
+				if (cleanEmail !== targetDocId) {
+					db.collection('authorizedUsers').doc(cleanEmail).delete().catch(() => {});
+				}
 
 				// Lưu trạng thái auth chuẩn hóa vào sessionStorage
 				sessionStorage.setItem('uxcamp_auth', JSON.stringify({

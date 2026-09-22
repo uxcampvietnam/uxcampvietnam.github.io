@@ -26,9 +26,35 @@ window.ADMIN_CONFIG = {
 			try {
 				const snapshot = await currentDb.collection('authorizedUsers').get();
 				allUsers = [];
+				const docs = [];
 				snapshot.forEach(doc => {
-					const data = doc.data();
-					const docId = doc.id;
+					docs.push({ docId: doc.id, data: doc.data() });
+				});
+
+				// Gom nhóm tất cả email phụ của các tài khoản chính để phát hiện document rác
+				const secondaryEmailToPrimary = new Map();
+				docs.forEach(({ docId, data }) => {
+					const primaryEmail = (data.primaryEmail || (Array.isArray(data.emails) ? data.emails[0] : null) || data.email || docId).toLowerCase();
+					if (Array.isArray(data.emails)) {
+						data.emails.forEach(e => {
+							const cleanE = (e || '').trim().toLowerCase();
+							if (cleanE && cleanE !== primaryEmail) {
+								secondaryEmailToPrimary.set(cleanE, primaryEmail);
+							}
+						});
+					}
+				});
+
+				// Lọc và tự động dọn dẹp các document trùng với email phụ của tài khoản khác
+				for (const { docId, data } of docs) {
+					const cleanDocId = docId.trim().toLowerCase();
+					if (secondaryEmailToPrimary.has(cleanDocId)) {
+						const parentPrimary = secondaryEmailToPrimary.get(cleanDocId);
+						console.log(`[LMS User] Tự động dọn dẹp document rác trùng với email phụ của ${parentPrimary}: ${cleanDocId}`);
+						currentDb.collection('authorizedUsers').doc(docId).delete().catch(() => {});
+						continue;
+					}
+
 					const primaryEmail = (data.primaryEmail || (Array.isArray(data.emails) ? data.emails[0] : null) || data.email || docId).toLowerCase();
 					const emails = Array.isArray(data.emails) && data.emails.length > 0 ? data.emails : [primaryEmail];
 
@@ -45,7 +71,7 @@ window.ADMIN_CONFIG = {
 						firebaseUid: data.firebaseUid || '',
 						...data
 					});
-				});
+				}
 
 				// Update stats
 				document.getElementById('stat-total').textContent = allUsers.length;
@@ -285,6 +311,13 @@ window.ADMIN_CONFIG = {
 						photoUrl,
 						updatedAt: firebase.firestore.FieldValue.serverTimestamp()
 					}, { merge: true });
+
+					// Tự động dọn dẹp nếu có email phụ nào từng bị tạo thành document riêng lẻ
+					for (const secEmail of emails) {
+						if (secEmail !== primaryEmail) {
+							await currentDb.collection('authorizedUsers').doc(secEmail).delete().catch(() => {});
+						}
+					}
 
 					showAdminToast(`✅ Đã cập nhật ${primaryEmail}`, 'success');
 					document.getElementById('modal-user').classList.remove('open');

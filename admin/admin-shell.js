@@ -326,20 +326,47 @@
 		try {
 			// 1. Thử doc ID = cleanEmail
 			const docDirect = await db.collection('authorizedUsers').doc(cleanEmail).get();
-			if (docDirect.exists) return { exists: true, docId: docDirect.id, ...docDirect.data() };
+			let directData = docDirect.exists ? { exists: true, docId: docDirect.id, ...docDirect.data() } : null;
 
-			// 2. Tra cứu mảng emails
+			// Nếu docDirect tồn tại và là admin
+			if (directData && directData.role === 'admin') {
+				return directData;
+			}
+
+			// 2. Tra cứu mảng emails (tìm tài khoản cha nếu cleanEmail là email phụ của Admin)
 			const qEmails = await db.collection('authorizedUsers').where('emails', 'array-contains', cleanEmail).limit(1).get();
 			if (!qEmails.empty) {
 				const d = qEmails.docs[0];
+				const parentData = { exists: true, docId: d.id, ...d.data() };
+				// Nếu tài khoản cha có quyền admin hoặc docDirect không phải admin
+				if (parentData.role === 'admin' || !directData) {
+					// Tự động dọn dẹp doc rác nếu trước đó vô tình bị tạo trùng với secondary email
+					if (directData && directData.docId !== parentData.docId) {
+						db.collection('authorizedUsers').doc(directData.docId).delete().catch(() => {});
+					}
+					return parentData;
+				}
+			}
+
+			if (directData) return directData;
+
+			// 3. Tra cứu primaryEmail
+			const qPrimary = await db.collection('authorizedUsers').where('primaryEmail', '==', cleanEmail).limit(1).get();
+			if (!qPrimary.empty) {
+				const d = qPrimary.docs[0];
 				return { exists: true, docId: d.id, ...d.data() };
 			}
 
-			// 3. Tra cứu firebaseUid nếu có
+			// 4. Tra cứu firebaseUid & firebaseUids nếu có
 			if (firebaseUser && firebaseUser.uid) {
 				const qUid = await db.collection('authorizedUsers').where('firebaseUid', '==', firebaseUser.uid).limit(1).get();
 				if (!qUid.empty) {
 					const d = qUid.docs[0];
+					return { exists: true, docId: d.id, ...d.data() };
+				}
+				const qUids = await db.collection('authorizedUsers').where('firebaseUids', 'array-contains', firebaseUser.uid).limit(1).get();
+				if (!qUids.empty) {
+					const d = qUids.docs[0];
 					return { exists: true, docId: d.id, ...d.data() };
 				}
 			}

@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="style.css">
     <script src="../script/libs/mixpanel.js"></script>
     <script src="script.js" defer type="module"></script>
+    <script src="../script/libs/svg-inject.min.js"></script>
+
 
     <style>
         body,
@@ -34,9 +36,9 @@
                 <a href="index.html" class="primary-text mono-caption">applied_ux_analytic</a>
                 <br><br>
             </div>
-
-            <p class="d-none d-lg-block asciiIllus syllabus-ascii primary-text align-left avoid-mouse" data-avoid="true"
-                data-img-src="bootcamp_name"></p>
+            <br>
+            <img class="bootcamp-name-image" src="../asset/icon/applied-ux-analytic-image.svg" alt=""
+                onload="SVGInject(this)">
         </header>
 
         <input type="hidden" name="form_type" value="applied_ux_analytic">
@@ -44,9 +46,8 @@
         <!-- section 0: intro -->
         <div class="form-step active" data-title="Intro">
             <div class="question-block">
-                <p class="mono-caption primary-text">Bạn vui lòng hoàn thành form đăng ký tham dự Applied UX Analytic
-                    này
-                    nhé. <br> Mục tiêu của form đăng ký này là:</p>
+                <p class="mono-caption primary-text">Bạn vui lòng hoàn thành form đăng ký tham dự này để chương trình:
+                </p>
                 <ul class="mono-caption primary-text">
                     <li class="mono-caption primary-text">Hiểu bối cảnh công việc hiện tại của bạn.</li>
                     <li class="mono-caption primary-text">Hiểu pain point, nhu cầu & kỳ vọng để điều chỉnh nội dung

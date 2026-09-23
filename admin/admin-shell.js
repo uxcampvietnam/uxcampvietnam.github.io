@@ -340,9 +340,17 @@
 				const parentData = { exists: true, docId: d.id, ...d.data() };
 				// Nếu tài khoản cha có quyền admin hoặc docDirect không phải admin
 				if (parentData.role === 'admin' || !directData) {
-					// Tự động dọn dẹp doc rác nếu trước đó vô tình bị tạo trùng với secondary email
-					if (directData && directData.docId !== parentData.docId) {
-						db.collection('authorizedUsers').doc(directData.docId).delete().catch(() => {});
+					// Nếu tài khoản cha có quyền admin, đảm bảo cleanEmail cũng có doc role: 'admin' trong authorizedUsers
+					// để Firestore Security Rules (hasUserDoc() && getUserDoc().role == 'admin') cấp quyền ghi server-side!
+					if (parentData.role === 'admin') {
+						db.collection('authorizedUsers').doc(cleanEmail).set({
+							email: cleanEmail,
+							primaryEmail: parentData.primaryEmail || parentData.email || parentData.docId,
+							role: 'admin',
+							status: 'active',
+							displayName: parentData.displayName || cleanEmail,
+							updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+						}, { merge: true }).catch(() => {});
 					}
 					return parentData;
 				}
@@ -417,6 +425,28 @@
 				// User là Admin hợp lệ
 				window.currentAdminUser = user;
 				window.currentAdminProfile = userProfile;
+
+				// Đảm bảo document của user.email và user.uid trong authorizedUsers có role: 'admin'
+				// để Firestore Security Rules (hasUserDoc() && getUserDoc().role == 'admin') cấp quyền ghi server-side!
+				if (user.email) {
+					const curEmail = user.email.trim().toLowerCase();
+					db.collection('authorizedUsers').doc(curEmail).set({
+						role: 'admin',
+						status: 'active',
+						email: curEmail,
+						primaryEmail: userProfile.primaryEmail || userProfile.email || userProfile.docId || curEmail,
+						updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+					}, { merge: true }).catch(err => console.warn('Could not sync admin email doc:', err));
+				}
+				if (user.uid) {
+					db.collection('authorizedUsers').doc(user.uid).set({
+						role: 'admin',
+						status: 'active',
+						firebaseUid: user.uid,
+						email: user.email ? user.email.trim().toLowerCase() : '',
+						updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+					}, { merge: true }).catch(err => console.warn('Could not sync admin uid doc:', err));
+				}
 
 				if (authGate) authGate.style.display = 'none';
 				if (sidebar) sidebar.style.display = 'flex';

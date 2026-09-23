@@ -118,9 +118,6 @@ const BOOTCAMP_CONTENT = {
   },
 };
 
-BOOTCAMP_CONTENT["Product Design"] = BOOTCAMP_CONTENT["Design Thinking"];
-BOOTCAMP_CONTENT["Product Management"] = BOOTCAMP_CONTENT["Designing Digital Product per Stage and Metric"];
-BOOTCAMP_CONTENT["design thinking"] = BOOTCAMP_CONTENT["Design Thinking"];
 
 /**
  * @param {string} bootcampName

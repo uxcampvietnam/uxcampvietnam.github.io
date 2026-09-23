@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Cấp Chứng Chỉ Mới — UXCamp Admin</title>
+	<title>Cấp Chứng Chỉ Tốt Nghiệp — UXCamp Admin</title>
 	<link rel="icon" href="../../../asset/icon/favicon.ico">
 	<meta name="robots" content="noindex, nofollow">
 
@@ -16,6 +16,150 @@
 	<link rel="stylesheet" type="text/css" href="../../../style/style.css">
 	<link rel="stylesheet" type="text/css" href="../../../style/admin.css">
 	<link rel="stylesheet" type="text/css" href="../../admin-shared.css">
+
+	<!-- Extra Inline Styles for Batch & Modern Certificate UI -->
+	<style>
+		.cert-mode-switcher {
+			display: inline-flex;
+			padding: 4px;
+			background: var(--body-background-elevate-1);
+			border: 0.5px solid var(--console-stroke);
+			border-radius: 10px;
+			gap: 4px;
+			margin-bottom: 20px;
+		}
+
+		.btn-mode-tab {
+			display: inline-flex;
+			align-items: center;
+			gap: 8px;
+			padding: 8px 18px;
+			border-radius: 8px;
+			font-size: 13px;
+			font-weight: 500;
+			color: var(--main-colors-foreground-f600);
+			background: transparent;
+			border: none;
+			cursor: pointer;
+			transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+		}
+
+		.btn-mode-tab:hover {
+			color: var(--main-colors-foreground-f200);
+		}
+
+		.btn-mode-tab.active {
+			background: var(--body-background-elevate-3);
+			color: var(--alternative-foreground-gold);
+			font-weight: 600;
+			box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+		}
+
+		.batch-table-wrapper {
+			overflow-x: auto;
+			border-radius: 8px;
+			border: 0.5px solid var(--console-stroke);
+			background: var(--body-background-elevate-1);
+			margin-top: 14px;
+			max-height: 560px;
+		}
+
+		.batch-table {
+			width: 100%;
+			border-collapse: collapse;
+			font-size: 13px;
+		}
+
+		.batch-table thead {
+			position: sticky;
+			top: 0;
+			background: var(--body-background-elevate-2);
+			z-index: 2;
+			border-bottom: 0.5px solid var(--console-stroke);
+		}
+
+		.batch-table th {
+			padding: 10px 12px;
+			font-weight: 600;
+			color: var(--main-colors-foreground-f500);
+			font-size: 11.5px;
+			text-transform: uppercase;
+			letter-spacing: 0.5px;
+			white-space: nowrap;
+		}
+
+		.batch-table td {
+			padding: 8px 10px;
+			border-bottom: 0.5px solid var(--transparent-foreground-main-color-10);
+			vertical-align: middle;
+		}
+
+		.batch-table tr:hover {
+			background: var(--body-background-elevate-2);
+		}
+
+		.batch-table-input {
+			width: 100%;
+			padding: 6px 10px;
+			font-size: 12.5px;
+			background: var(--body-background-elevate-2);
+			border: 0.5px solid var(--console-stroke);
+			border-radius: 6px;
+			color: var(--main-colors-foreground-f100);
+			transition: border-color 0.15s, box-shadow 0.15s;
+		}
+
+		.batch-table-input:focus {
+			outline: none;
+			border-color: var(--alternative-foreground-gold);
+			box-shadow: 0 0 0 2px rgba(255, 199, 0, 0.15);
+		}
+
+		.batch-uuid-badge {
+			font-family: monospace;
+			font-size: 11px;
+			color: var(--alternative-foreground-gold);
+			background: rgba(255, 199, 0, 0.08);
+			padding: 4px 8px;
+			border-radius: 4px;
+			border: 0.5px solid rgba(255, 199, 0, 0.2);
+			max-width: 130px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			display: inline-block;
+		}
+
+		.cert-thumb-preview {
+			width: 32px;
+			height: 24px;
+			object-fit: cover;
+			border-radius: 4px;
+			border: 0.5px solid var(--console-stroke);
+			display: inline-block;
+			background: var(--body-background-elevate-3);
+		}
+
+		.quick-paste-box {
+			background: var(--body-background-elevate-2);
+			border: 0.5px solid var(--console-stroke);
+			border-radius: 8px;
+			padding: 14px;
+			margin-top: 12px;
+		}
+
+		.date-sync-pill {
+			display: inline-flex;
+			align-items: center;
+			gap: 6px;
+			background: rgba(46, 213, 115, 0.12);
+			color: #2ed573;
+			padding: 3px 8px;
+			border-radius: 12px;
+			font-size: 11px;
+			font-weight: 500;
+		}
+	</style>
 
 	<!-- Firebase SDK -->
 	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -56,7 +200,7 @@
 								<span class="separator">/</span>
 								<span>Cấp mới</span>
 							</div>
-							<h4 class="font-sans-h4 medium m-0" style="color: var(--main-colors-foreground-f100);">Cấp Chứng Chỉ Tốt Nghiệp Mới</h4>
+							<h4 class="font-sans-h4 medium m-0" style="color: var(--main-colors-foreground-f100);">Cấp Chứng Chỉ Tốt Nghiệp</h4>
 						</div>
 					</div>
 					<div class="top-bar-actions">
@@ -64,14 +208,139 @@
 					</div>
 				</header>
 
-				<!-- FORM CARD (Full horizontal width) -->
-				<div class="admin-card">
+				<!-- MODE SWITCHER -->
+				<div class="cert-mode-switcher" id="cert-mode-switcher">
+					<button type="button" class="btn-mode-tab active" data-mode="batch" id="tab-btn-batch">
+						🎓 Cấp Theo Lớp (Batch Cohort)
+					</button>
+					<button type="button" class="btn-mode-tab" data-mode="single" id="tab-btn-single">
+						👤 Cấp Đơn Lẻ (Single Learner)
+					</button>
+				</div>
+
+				<!-- =================================================================== -->
+				<!-- VIEW 1: CẤP CHỨNG CHỈ THEO LỚP (BATCH COHORT)                       -->
+				<!-- =================================================================== -->
+				<div class="admin-card" id="view-batch-cert">
+					<div class="admin-card-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+						<div>
+							<h5 class="font-sans-h5 medium m-0" style="color: var(--main-colors-foreground-f200);">Cấp Chứng Chỉ Hàng Loạt Theo Lớp Học</h5>
+							<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Hệ thống tự động sinh UUID riêng cho từng học viên, đồng bộ ngày cấp và cho phép dán link ảnh + đồ án độc lập.</span>
+						</div>
+						<div class="d-flex align-items-center gap-2">
+							<span class="date-sync-pill">⚡ Ngày cấp tự động áp dụng toàn bộ</span>
+						</div>
+					</div>
+
+					<form id="batch-cert-form">
+						<!-- STEP 1: CHỌN LỚP, KHÓA HỌC & NGÀY CẤP DÙNG CHUNG -->
+						<div class="form-grid-3" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-bottom: 20px;">
+							<div class="form-group">
+								<label for="batch-cohort-select">Lớp Học (Cohort) Cần Cấp <span class="required">*</span></label>
+								<select id="batch-cohort-select" class="form-control-custom" required>
+									<option value="">-- Chọn Lớp Học --</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="batch-course-select">Khóa Học Trực Thuộc <span class="required">*</span></label>
+								<select id="batch-course-select" class="form-control-custom" required>
+									<option value="">-- Chọn Khóa Học --</option>
+								</select>
+							</div>
+
+							<div class="form-group">
+								<label for="batch-global-date">
+									Ngày Cấp Chứng Chỉ (Tất Cả) <span class="required">*</span>
+								</label>
+								<div class="d-flex gap-2 align-items-center">
+									<input type="date" id="batch-global-date" class="form-control-custom" required title="Thay đổi ngày ở đây sẽ tự động cập nhật vào tất cả chứng chỉ">
+									<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-sync-date-now" title="Đồng bộ ngày này vào toàn bộ danh sách">Sync</button>
+								</div>
+								<div class="font-sans-caption mt-1" style="color: var(--alternative-foreground-gold); font-size: 11px;">
+									* Tự động áp dụng cho tất cả học viên trong bảng
+								</div>
+							</div>
+						</div>
+
+						<!-- STEP 2: TOOLBAR QUẢN LÝ DANH SÁCH HỌC VIÊN -->
+						<div class="d-flex justify-content-between align-items-center flex-wrap gap-2 pt-3" style="border-top: 0.5px solid var(--console-stroke);">
+							<div class="d-flex align-items-center gap-2">
+								<h6 class="font-sans-h6 medium m-0" style="color: var(--main-colors-foreground-f200);">Danh Sách Học Viên Nhận Chứng Chỉ</h6>
+								<span class="badge rounded-pill" id="batch-student-count-badge" style="background: rgba(255, 199, 0, 0.15); color: var(--alternative-foreground-gold); border: 0.5px solid rgba(255, 199, 0, 0.3); font-size: 12px;">0 học viên</span>
+							</div>
+							<div class="d-flex align-items-center gap-2 flex-wrap">
+								<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-toggle-quick-paste">📋 Nhập nhanh (Paste Sheet/CSV)</button>
+								<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-reload-cohort-students" title="Tải lại từ danh sách lớp">↺ Nạp lại từ Lớp</button>
+								<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btn-add-student-row">+ Thêm Học Viên</button>
+							</div>
+						</div>
+
+						<!-- QUICK PASTE PANEL (Collapsible) -->
+						<div class="quick-paste-box" id="quick-paste-panel" style="display: none;">
+							<div class="d-flex justify-content-between align-items-center mb-2">
+								<span class="font-sans-small fw-semibold" style="color: var(--alternative-foreground-gold);">📋 Dán danh sách học viên từ Excel / Google Sheets:</span>
+								<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-close-quick-paste">✕ Đóng</button>
+							</div>
+							<div class="font-sans-caption mb-2" style="color: var(--main-colors-foreground-f600); font-size: 11.5px;">
+								Định dạng mỗi dòng (phân tách bằng phím Tab hoặc dấu phẩy):<br>
+								<code>Email [Tab] Họ Tên [Tab] Link ảnh chứng chỉ (tùy chọn) [Tab] Đồ án tốt nghiệp (tùy chọn)</code>
+							</div>
+							<textarea id="quick-paste-textarea" class="form-control-custom" rows="4" placeholder="VD:&#10;nam@gmail.com&#9;Trần Hoàng Nam&#9;https://cdn.uxcamp.vn/certs/nam.webp&#9;Redesign App Banking&#10;linh@gmail.com&#9;Nguyễn Thùy Linh&#9;https://cdn.uxcamp.vn/certs/linh.webp&#9;E-commerce UX Research" style="font-family: monospace; font-size: 12px;"></textarea>
+							<div class="d-flex justify-content-end gap-2 mt-2">
+								<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btn-apply-quick-paste">✓ Nạp Vào Bảng Danh Sách</button>
+							</div>
+						</div>
+
+						<!-- STEP 3: BẢNG HỌC VIÊN BATCH (TABLE WITH INDIVIDUAL IMAGE & PROJECT) -->
+						<div class="batch-table-wrapper">
+							<table class="batch-table" id="batch-students-table">
+								<thead>
+									<tr>
+										<th style="width: 45px; text-align: center;">STT</th>
+										<th style="min-width: 160px;">Mã UUID (Tự Sinh)</th>
+										<th style="min-width: 170px;">Họ và Tên Học Viên <span class="required">*</span></th>
+										<th style="min-width: 190px;">Email Nhận Chứng Chỉ <span class="required">*</span></th>
+										<th style="min-width: 260px;">Link Ảnh Certificate (Paste riêng)</th>
+										<th style="min-width: 240px;">Đồ Án Tốt Nghiệp (Paste riêng)</th>
+										<th style="width: 70px; text-align: center;">Xóa</th>
+									</tr>
+								</thead>
+								<tbody id="batch-students-tbody">
+									<tr>
+										<td colspan="7" class="text-center py-4 text-muted">
+											Vui lòng chọn <strong>Lớp Học</strong> ở trên để tự động nạp danh sách học viên hoặc bấm <strong>+ Thêm Học Viên</strong>.
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<!-- FOOTER ACTIONS -->
+						<div class="d-flex justify-content-between align-items-center gap-3 mt-4 pt-3 flex-wrap" style="border-top: 0.5px solid var(--transparent-foreground-main-color-10);">
+							<div class="font-sans-caption" id="batch-summary-text" style="color: var(--main-colors-foreground-f500);">
+								Chưa có học viên nào được chọn.
+							</div>
+							<div class="d-flex gap-2">
+								<a href="index.html" class="btn-admin btn-admin-secondary">Hủy Bỏ</a>
+								<button type="submit" class="btn-admin btn-admin-primary" id="btn-save-batch-certs">
+									🎓 Phát Hành Toàn Bộ Chứng Chỉ Lớp
+								</button>
+							</div>
+						</div>
+					</form>
+				</div>
+
+				<!-- =================================================================== -->
+				<!-- VIEW 2: CẤP CHỨNG CHỈ ĐƠN LẺ (SINGLE LEARNER)                       -->
+				<!-- =================================================================== -->
+				<div class="admin-card" id="view-single-cert" style="display: none;">
 					<div class="admin-card-header">
-						<h5 class="font-sans-h5 medium m-0" style="color: var(--main-colors-foreground-f200);">Thông Tin Chứng Chỉ Xác Thực</h5>
+						<h5 class="font-sans-h5 medium m-0" style="color: var(--main-colors-foreground-f200);">Cấp Chứng Chỉ Đơn Lẻ Cho Cá Nhân</h5>
 						<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Hệ thống tự động phát hành mã UUID v4 bảo toàn liên kết tra cứu</span>
 					</div>
 
-					<form id="create-cert-form">
+					<form id="create-single-cert-form">
 						<div class="form-grid-2">
 							<div class="form-group">
 								<label for="cert-student-name">Họ và Tên Học Viên <span class="required">*</span></label>
@@ -106,8 +375,22 @@
 							<div class="form-group">
 								<label for="cert-uuid">Mã UUID Định Danh Duy Nhất (Tự Sinh)</label>
 								<div class="d-flex gap-2">
-									<input type="text" id="cert-uuid" class="form-control-custom" readonly style="font-family: monospace; opacity: 0.8;">
+									<input type="text" id="cert-uuid" class="form-control-custom" readonly style="font-family: monospace; opacity: 0.85;">
 									<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-regen-uuid" title="Tạo lại UUID khác">🔄</button>
+								</div>
+							</div>
+						</div>
+
+						<!-- NEW FIELD: CERTIFICATE IMAGE URL -->
+						<div class="form-group">
+							<label for="cert-image-url">
+								Link Ảnh Chứng Chỉ (Certificate Image URL)
+								<span class="font-sans-caption fw-normal" style="color: var(--main-colors-foreground-f700);">(WebP / PNG / CDN hoặc asset/...)</span>
+							</label>
+							<div class="d-flex gap-2 align-items-center">
+								<input type="text" id="cert-image-url" class="form-control-custom" placeholder="https://cdn.uxcamp.vn/certificates/cert-uuid.webp hoặc asset/image/certificate/...">
+								<div id="single-cert-img-preview-box" style="display: none; flex-shrink: 0;">
+									<img id="single-cert-img-preview" src="" alt="Preview" class="cert-thumb-preview" style="width: 48px; height: 34px;">
 								</div>
 							</div>
 						</div>
@@ -124,7 +407,7 @@
 
 						<div class="d-flex justify-content-end gap-3 mt-4 pt-3" style="border-top: 0.5px solid var(--transparent-foreground-main-color-10);">
 							<a href="index.html" class="btn-admin btn-admin-secondary">Hủy Bỏ</a>
-							<button type="submit" class="btn-admin btn-admin-primary" id="btn-save-cert">🎓 Phát Hành Chứng Chỉ</button>
+							<button type="submit" class="btn-admin btn-admin-primary" id="btn-save-single-cert">🎓 Phát Hành Chứng Chỉ</button>
 						</div>
 					</form>
 				</div>

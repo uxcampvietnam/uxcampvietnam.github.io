@@ -353,9 +353,16 @@
             const adminDoc = docsFound.find(d => (d.data() || {}).role === 'admin');
             matchedDoc = adminDoc || docsFound[0];
 
-            // Dọn dẹp docDirect rác nếu trước đó đã bị tạo nhầm với ID là cleanEmail
-            if (directDoc && directDoc.id !== matchedDoc.id) {
-              db.collection('authorizedUsers').doc(directDoc.id).delete().catch(() => {});
+            // Nếu tài khoản cha có quyền admin, đảm bảo cleanEmail cũng có doc role: 'admin' trong authorizedUsers
+            if ((matchedDoc.data() || {}).role === 'admin') {
+              db.collection('authorizedUsers').doc(cleanEmail).set({
+                email: cleanEmail,
+                primaryEmail: (matchedDoc.data() || {}).primaryEmail || (matchedDoc.data() || {}).email || matchedDoc.id,
+                role: 'admin',
+                status: 'active',
+                displayName: (matchedDoc.data() || {}).displayName || cleanEmail,
+                updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+              }, { merge: true }).catch(() => {});
             }
           }
         } catch (e2) {

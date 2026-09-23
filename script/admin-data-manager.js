@@ -1747,6 +1747,10 @@
 		};
 
 		window.adminDataManager.openBatchCreateCertsForCohort = function (cohortId) {
+			if (cohortId) {
+				window.location.href = `LMS/certificate/create.html?mode=batch&cohortId=${encodeURIComponent(cohortId)}`;
+				return;
+			}
 			window.adminDataManager.openBatchCreateCertsModal(cohortId);
 		};
 

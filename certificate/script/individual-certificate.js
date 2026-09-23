@@ -107,6 +107,9 @@
       certificate.bootcamp_cohort_name
         ? `Cohort: ${certificate.bootcamp_cohort_name}`
         : "",
+      certificate.final_project
+        ? `Final Project: ${certificate.final_project}`
+        : "",
     ]
       .filter(Boolean)
       .join(" · ");
@@ -180,14 +183,33 @@
   /**
    * @param {object} certificate
    */
-  function renderCertificate(certificate) {
+  async function renderCertificate(certificate) {
     showMainContent();
 
+    // Nạp dữ liệu khóa học & lớp học trực tiếp từ Firebase Firestore (không sử dụng fallback tĩnh từ bootcamp-content.js)
+    let content = null;
+    if (typeof fetchBootcampContentFromFirebase === 'function') {
+      try {
+        content = await fetchBootcampContentFromFirebase(certificate);
+      } catch (err) {
+        console.warn('Error fetching live bootcamp content from Firebase:', err);
+      }
+    }
+
     const imgFileName = certificate.certificate_img_name;
+    const certImgUrl = certificate.certificate_image_url || '';
     const pdfUrl = resolveCertificateAssetUrl(certificate.certificate_pdf_url);
 
     if (certificateImage) {
-      certificateImage.src = "../asset/image/certificate/" + imgFileName + ".webp";
+      if (certImgUrl && /^https?:\/\//i.test(certImgUrl)) {
+        certificateImage.src = certImgUrl;
+      } else if (certImgUrl && certImgUrl.startsWith('asset/')) {
+        certificateImage.src = "../" + certImgUrl;
+      } else if (imgFileName) {
+        certificateImage.src = "../asset/image/certificate/" + imgFileName + ".webp";
+      } else if (certImgUrl) {
+        certificateImage.src = certImgUrl;
+      }
       certificateImage.alt = `Certificate for ${certificate.individual_name || "learner"}`;
     }
 
@@ -217,7 +239,6 @@
       }
     }
 
-    const content = getBootcampContent(certificate.bootcamp_name);
     renderBootcampContent(certificate, content);
 
     document.title = `${certificate.individual_name || "Certificate"} — UXCamp Vietnam`;
@@ -284,6 +305,38 @@
     let certificate = null;
     if (certificateId) {
       certificate = findCertificateById(certificateId, certificates);
+      // Nếu chưa tìm thấy trong cache/danh sách, truy vấn trực tiếp Document ID từ Firestore
+      if (!certificate && typeof getFirestoreDb === 'function') {
+        const db = getFirestoreDb();
+        if (db) {
+          try {
+            const certDoc = await db.collection('certificates').doc(certificateId).get();
+            if (certDoc.exists) {
+              const d = certDoc.data() || {};
+              certificate = {
+                certificate_id: certDoc.id,
+                certificate_code: d.certificateCode || '',
+                cohort_id: d.cohortId || '',
+                course_id: d.courseId || '',
+                individual_email: d.recipientEmail || d.studentEmail || d.email || '',
+                individual_name: d.recipientName || d.studentName || d.name || '',
+                certificate_img_name: d.certificateImgName || (d.certificateImageUrl ? d.certificateImageUrl.replace(/.*\/([^/]+)\.webp$/, '$1') : ''),
+                certificate_image_url: d.certificateImageUrl || '',
+                bootcamp_cohort_end_date: d.issueDate || d.graduationDate || '',
+                individual_social_link: d.recipientSocialLink || d.socialLink || '',
+                bootcamp_name: d.courseTitle || d.bootcamp_name || '',
+                bootcamp_cohort_name: d.cohortName || d.cohortTitle || d.cohortCode || '',
+                certificate_pdf_url: d.certificatePdfUrl || '',
+                final_project: d.finalProject || d.project || '',
+                status: d.status || 'active',
+                raw: d
+              };
+            }
+          } catch (docErr) {
+            console.warn('Direct certificate doc lookup error:', docErr);
+          }
+        }
+      }
     } else {
       certificate = findCertificateByEmail(certificateEmail, certificates);
     }
@@ -309,7 +362,7 @@
       replaceUrlWithCertificateId(certificate.certificate_id);
     }
 
-    renderCertificate(certificate);
+    await renderCertificate(certificate);
   } catch (error) {
     console.error(error);
     showPageError(

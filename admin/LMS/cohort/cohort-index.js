@@ -98,6 +98,9 @@ function renderCohortsTable() {
 								<td style="text-align: center;">${statusBadges[c.status] || statusBadges['open']}</td>
 								<td style="text-align: right;">
 									<div class="d-inline-flex gap-1 align-items-center">
+										<a href="../certificate/create.html?mode=batch&cohortId=${encodeURIComponent(c.id)}" class="btn-icon-action" title="Cấp Chứng Chỉ Tốt Nghiệp cho Lớp này" style="color: var(--alternative-foreground-gold);">
+											<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+										</a>
 										<a href="edit.html?id=${encodeURIComponent(c.id)}" class="btn-icon-action" title="Sửa lớp">
 											<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
 										</a>

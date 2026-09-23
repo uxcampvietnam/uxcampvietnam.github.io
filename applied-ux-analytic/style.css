@@ -442,7 +442,7 @@ svg path[fill="rgb(255, 0, 0)"] {
 }
 
 .open-bootcamp * {
-    color: var(--applied-analytic-reverse-main);
+    color: var(--applied-analytic-reverse-main) !important;
     text-decoration: none;
 }
 
@@ -458,7 +458,7 @@ svg path[fill="rgb(255, 0, 0)"] {
 .button-reverse {
     width: 100%;
     background-color: var(--applied-analytic-background);
-    color: var(--applied-analytic-main);
+    color: var(--applied-analytic-main) !important;
     padding: 10px 24px;
     margin-top: 10px;
     text-align: center;

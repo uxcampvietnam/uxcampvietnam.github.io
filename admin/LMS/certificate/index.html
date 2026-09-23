@@ -17,6 +17,56 @@
 	<link rel="stylesheet" type="text/css" href="../../../style/admin.css">
 	<link rel="stylesheet" type="text/css" href="../../admin-shared.css">
 
+	<style>
+		.cert-thumb-wrapper {
+			width: 52px;
+			height: 36px;
+			margin: 0 auto;
+			border-radius: 4px;
+			overflow: hidden;
+			background: var(--body-background-elevate-1);
+			border: 0.5px solid var(--console-stroke);
+			cursor: pointer;
+			box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			position: relative;
+			transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+		}
+		.cert-thumb-wrapper:hover {
+			transform: scale(1.12);
+			border-color: var(--alternative-foreground-gold, #c5a059);
+			box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+			z-index: 2;
+		}
+		.cert-table-thumb {
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+			display: block;
+		}
+		.cert-thumb-placeholder {
+			width: 52px;
+			height: 36px;
+			margin: 0 auto;
+			border-radius: 4px;
+			background: var(--body-background-elevate-1);
+			border: 0.5px dashed var(--console-stroke);
+			color: var(--main-colors-foreground-f700);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 15px;
+			cursor: pointer;
+			transition: background 0.15s ease, border-color 0.15s ease;
+		}
+		.cert-thumb-placeholder:hover {
+			background: var(--body-background-elevate-2);
+			border-color: var(--main-colors-foreground-f400);
+		}
+	</style>
+
 	<!-- Firebase SDK -->
 	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
@@ -61,9 +111,30 @@
 					</div>
 					<div class="top-bar-actions">
 						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-export-certs">Export JSON</button>
-						<a href="create.html" class="btn-admin btn-admin-primary btn-admin-sm">+ Cấp Chứng Chỉ Mới</a>
+						<a href="create.html?mode=single" class="btn-admin btn-admin-secondary btn-admin-sm">👤 + Cấp Đơn Lẻ</a>
+						<a href="create.html?mode=batch" class="btn-admin btn-admin-primary btn-admin-sm">🎓 + Cấp Theo Lớp (Batch)</a>
 					</div>
 				</header>
+
+				<!-- STATS BAR -->
+				<div class="admin-stats-bar">
+					<div class="stat-card">
+						<span class="stat-value" id="stat-certs-total" style="color: var(--main-colors-foreground-f100);">0</span>
+						<span class="stat-label">Tổng Chứng Chỉ</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-certs-active" style="color: var(--highlight-green);">0</span>
+						<span class="stat-label">Đang Hoạt Động</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-certs-cohort" style="color: var(--highlight-blue);">0</span>
+						<span class="stat-label">Đã Gán Lớp</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-certs-revoked" style="color: var(--highlight-red);">0</span>
+						<span class="stat-label">Đã Thu Hồi</span>
+					</div>
+				</div>
 
 				<!-- CERTIFICATES TABLE CARD -->
 				<section class="admin-card">
@@ -73,7 +144,18 @@
 							<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Chứng chỉ xác thực tốt nghiệp của học viên UXCamp</span>
 						</div>
 						<div class="d-flex gap-2 align-items-center flex-wrap">
-							<input type="text" id="search-certs" class="form-control-custom" placeholder="Tìm theo tên học viên, email, UUID..." style="width: 260px; height: 36px; font-size: 12px;">
+							<select id="filter-cohort" class="form-control-custom" style="width: 200px; height: 36px; font-size: 12px;">
+								<option value="all">Tất cả Lớp học</option>
+							</select>
+							<select id="filter-course" class="form-control-custom" style="width: 200px; height: 36px; font-size: 12px;">
+								<option value="all">Tất cả Khóa học</option>
+							</select>
+							<select id="filter-status" class="form-control-custom" style="width: 140px; height: 36px; font-size: 12px;">
+								<option value="all">Tất cả Trạng thái</option>
+								<option value="active">Active (Hoạt động)</option>
+								<option value="revoked">Revoked (Thu hồi)</option>
+							</select>
+							<input type="text" id="search-certs" class="form-control-custom" placeholder="Tìm tên học viên, email, UUID..." style="width: 220px; height: 36px; font-size: 12px;">
 						</div>
 					</div>
 
@@ -88,6 +170,183 @@
 			</main>
 		</div>
 
+	</div>
+
+	<!-- FLOATING BATCH ACTION BAR -->
+	<div class="cert-batch-bar" id="batch-action-bar">
+		<span class="cert-batch-count" id="batch-selected-count">Đã chọn 0 chứng chỉ</span>
+		<button type="button" class="btn-batch-action" id="btn-batch-status-active" title="Chuyển trạng thái sang Hoạt động">
+			✓ Active
+		</button>
+		<button type="button" class="btn-batch-action" id="btn-batch-status-revoked" title="Thu hồi các chứng chỉ đã chọn">
+			⛔ Thu hồi
+		</button>
+		<button type="button" class="btn-batch-action" id="btn-batch-change-date" title="Cập nhật ngày cấp hàng loạt">
+			📅 Đổi ngày cấp
+		</button>
+		<button type="button" class="btn-batch-action" id="btn-batch-change-cohort" title="Gán lớp học hàng loạt">
+			🏫 Đổi lớp học
+		</button>
+		<button type="button" class="btn-batch-action danger" id="btn-batch-delete" title="Xóa vĩnh viễn các chứng chỉ đã chọn">
+			🗑️ Xóa đã chọn
+		</button>
+		<button type="button" class="btn-batch-action" id="btn-batch-clear" title="Bỏ chọn tất cả" style="margin-left: 6px;">
+			✕
+		</button>
+	</div>
+
+	<!-- MODAL XEM CHI TIẾT CHỨNG CHỈ -->
+	<div class="admin-modal-overlay" id="modal-cert-detail">
+		<div class="admin-modal-container" style="max-width: 600px;">
+			<div class="admin-modal-header">
+				<h6 class="font-sans-h6 medium m-0" id="modal-detail-title" style="color: var(--main-colors-foreground-f200);">Chi Tiết Chứng Chỉ</h6>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<div class="admin-modal-body">
+				<div id="modal-detail-preview-img-box" class="text-center p-2 rounded-3 mb-2" style="background: var(--body-background-elevate-1); border: 0.5px solid var(--console-stroke); display: none;">
+					<img id="modal-detail-img" src="" alt="Ảnh chứng chỉ" style="max-width: 100%; max-height: 220px; border-radius: 6px; object-fit: contain;">
+				</div>
+				<div class="form-grid-2">
+					<div>
+						<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Học viên nhận:</span>
+						<div class="font-sans-caption fw-semibold" id="modal-detail-name" style="color: var(--main-colors-foreground-f100); font-size: 15px;">—</div>
+						<div class="font-sans-small" id="modal-detail-email" style="color: var(--main-colors-foreground-f600);">—</div>
+					</div>
+					<div>
+						<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Trạng thái:</span>
+						<div id="modal-detail-status" class="mt-1">—</div>
+					</div>
+				</div>
+				<hr style="border-color: var(--transparent-foreground-main-color-10); margin: 6px 0;">
+				<div class="form-grid-2">
+					<div>
+						<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Khóa học:</span>
+						<div class="font-sans-caption fw-medium" id="modal-detail-course" style="color: var(--main-colors-foreground-f200);">—</div>
+					</div>
+					<div>
+						<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Lớp học / Cohort:</span>
+						<div class="font-sans-caption fw-medium" id="modal-detail-cohort" style="color: var(--alternative-foreground-gold);">—</div>
+					</div>
+				</div>
+				<div class="form-grid-2">
+					<div>
+						<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Ngày cấp / Tốt nghiệp:</span>
+						<div class="font-sans-caption" id="modal-detail-date" style="color: var(--main-colors-foreground-f300);">—</div>
+					</div>
+					<div>
+						<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Mã chứng chỉ (Code):</span>
+						<div class="font-sans-caption font-monospace" id="modal-detail-code" style="color: var(--main-colors-foreground-f300);">—</div>
+					</div>
+				</div>
+				<div>
+					<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Đồ án tốt nghiệp:</span>
+					<div class="font-sans-caption fst-italic" id="modal-detail-project" style="color: var(--main-colors-foreground-f300);">—</div>
+				</div>
+				<div class="p-3 rounded-3" style="background: var(--body-background-elevate-1); border: 0.5px solid var(--console-stroke);">
+					<span class="font-sans-small fw-semibold" style="color: var(--alternative-foreground-gold);">Mã UUID xác thực bảo toàn:</span>
+					<div class="d-flex align-items-center gap-2 mt-1">
+						<input type="text" id="modal-detail-uuid" class="form-control-custom" readonly style="font-family: monospace; font-size: 12px;">
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-copy-detail-uuid">Copy</button>
+					</div>
+				</div>
+			</div>
+			<div class="admin-modal-footer">
+				<a href="#" target="_blank" class="btn-admin btn-admin-secondary" id="btn-detail-view-online">↗ Xem Trang Số</a>
+				<button type="button" class="btn-admin btn-admin-primary" id="btn-detail-goto-edit">✏️ Chỉnh Sửa</button>
+				<button type="button" class="btn-admin btn-admin-outline btn-close-modal">Đóng</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL CHỈNH SỬA CHỨNG CHỈ -->
+	<div class="admin-modal-overlay" id="modal-cert-edit">
+		<div class="admin-modal-container" style="max-width: 620px;">
+			<div class="admin-modal-header">
+				<h6 class="font-sans-h6 medium m-0" id="modal-edit-title" style="color: var(--main-colors-foreground-f200);">Chỉnh Sửa Chứng Chỉ</h6>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<form id="form-modal-cert-edit">
+				<input type="hidden" id="edit-cert-id">
+				<div class="admin-modal-body">
+					<div class="form-grid-2">
+						<div class="form-group">
+							<label for="edit-student-name">Họ và Tên Học Viên <span class="required">*</span></label>
+							<input type="text" id="edit-student-name" class="form-control-custom" required>
+						</div>
+						<div class="form-group">
+							<label for="edit-student-email">Email Học Viên <span class="required">*</span></label>
+							<input type="email" id="edit-student-email" class="form-control-custom" required>
+						</div>
+					</div>
+
+					<div class="form-grid-2">
+						<div class="form-group">
+							<label for="edit-cert-course">Khóa Học Tốt Nghiệp</label>
+							<select id="edit-cert-course" class="form-control-custom">
+								<option value="">-- Chọn khóa học --</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="edit-cert-cohort">Lớp Học (Cohort)</label>
+							<select id="edit-cert-cohort" class="form-control-custom">
+								<option value="">-- Không chọn / Tự do --</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-grid-2">
+						<div class="form-group">
+							<label for="edit-cert-date">Ngày Cấp Chứng Chỉ</label>
+							<input type="text" id="edit-cert-date" class="form-control-custom" placeholder="YYYY-MM-DD hoặc DD/MM/YYYY">
+						</div>
+						<div class="form-group">
+							<label for="edit-cert-status">Trạng Thái Chứng Chỉ</label>
+							<select id="edit-cert-status" class="form-control-custom">
+								<option value="active">Active (Đang hiệu lực)</option>
+								<option value="revoked">Revoked (Thu hồi / Tạm ngưng)</option>
+							</select>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="edit-cert-project">Đồ Án Tốt Nghiệp / Final Project</label>
+						<input type="text" id="edit-cert-project" class="form-control-custom" placeholder="VD: Báo cáo phân tích hành vi người dùng...">
+					</div>
+
+					<div class="form-grid-2">
+						<div class="form-group">
+							<label for="edit-cert-img-url">Link Ảnh Chứng Chỉ (WebP / PNG)</label>
+							<input type="text" id="edit-cert-img-url" class="form-control-custom" placeholder="https://... hoặc asset/...">
+						</div>
+						<div class="form-group">
+							<label for="edit-cert-pdf-url">Link File PDF Chứng Chỉ</label>
+							<input type="text" id="edit-cert-pdf-url" class="form-control-custom" placeholder="https://drive.google.com/...">
+						</div>
+					</div>
+				</div>
+				<div class="admin-modal-footer">
+					<button type="button" class="btn-admin btn-admin-secondary btn-close-modal">Hủy Bỏ</button>
+					<button type="submit" class="btn-admin btn-admin-primary" id="btn-save-edit-cert">💾 Lưu Thay Đổi</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+	<!-- MODAL THAO TÁC HÀNG LOẠT (BULK MODAL) -->
+	<div class="admin-modal-overlay" id="modal-cert-batch">
+		<div class="admin-modal-container" style="max-width: 480px;">
+			<div class="admin-modal-header">
+				<h6 class="font-sans-h6 medium m-0" id="modal-batch-title" style="color: var(--main-colors-foreground-f200);">Cập Nhật Hàng Loạt</h6>
+				<button type="button" class="btn-icon-action btn-close-modal" title="Đóng">✕</button>
+			</div>
+			<div class="admin-modal-body" id="modal-batch-body">
+				<!-- Nội dung động cho từng loại bulk action -->
+			</div>
+			<div class="admin-modal-footer">
+				<button type="button" class="btn-admin btn-admin-secondary btn-close-modal">Hủy Bỏ</button>
+				<button type="button" class="btn-admin btn-admin-primary" id="btn-confirm-batch-action">Xác Nhận</button>
+			</div>
+		</div>
 	</div>
 
 	<script src="certificate-index.js"></script>

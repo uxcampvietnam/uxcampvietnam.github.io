@@ -53,7 +53,7 @@ const STICKY_GRAPH_CONFIG = {
   // 📸 CẤU HÌNH KHOẢNG CÁCH CAMERA (ZOOM DISTANCE) CHO DESKTOP & MOBILE
   // Mặc định luôn tự động xoay ngẫu nhiên 360° xung quanh tâm; góc nghiêng (pitch) tự động chọn theo mức độ zoom.
   cameraDistanceDesktop: 3000,          // Khoảng cách camera trên Desktop / Laptop (pixel)
-  cameraDistanceMobile: 3200,           // Khoảng cách camera trên Mobile / Điện thoại (pixel)
+  cameraDistanceMobile: 5000,           // Khoảng cách camera trên Mobile / Điện thoại (pixel)
 
   rotateSpeed: 2.0,                     // Tốc độ xoay camera khi kéo drag chuột (0.1 -> 3.0)
   dampingFactor: 0.05,                  // Hệ số hãm quán tính khi xoay camera (0.01 -> 0.3, nhỏ hơn = mượt hơn)
@@ -120,6 +120,11 @@ const STICKY_GRAPH_CONFIG = {
   layoutType: 'galaxy',                   // Bố cục phân bố: 'auto' (tự chọn theo màn hình) | 'galaxy' | 'cylinder'
   layoutTypeDesktop: 'galaxy',          // Bố cục mặc định cho màn hình Desktop (rộng >= 768px)
   layoutTypeMobile: 'galaxy',           // Bố cục mặc định cho màn hình Mobile (rộng < 768px)
+  adaptiveAspectShape: true,            // Tự động phân bổ hình dạng khối theo tỷ lệ canvas (dài ngang trên desktop, cao dọc trên mobile)
+  aspectRatioPower: 0.1,                // Độ co dãn thích ứng theo tỷ lệ khung hình (0.3 -> 1.0)
+  aspectScaleX: 1.0,                    // Hệ số tùy chỉnh dãn trục X
+  aspectScaleY: 1.0,                    // Hệ số tùy chỉnh dãn trục Y
+  aspectScaleZ: 1.0,                    // Hệ số tùy chỉnh dãn trục Z
   spreadRadius: 1300,                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
   autoRotate: true,                     // Bật/Tắt tự động xoay nhẹ camera xung quanh trung tâm
   autoRotateSpeed: 0.1,                 // Tốc độ tự động xoay camera (0.1 -> 2.0)
@@ -136,7 +141,18 @@ const STICKY_GRAPH_CONFIG = {
     5: { width: 145, height: 82 },     // Cấp 5
     6: { width: 145, height: 74 },     // Cấp 6 (Câu hỏi thực hành)
     7: { width: 145, height: 74 }      // Cấp 7
-  }
+  },
+
+  // ----------------------------------------------------------------------------
+  // 11. HIỆU ỨNG XUẤT HIỆN BAN ĐẦU (Intro & Entrance Animation)
+  // ----------------------------------------------------------------------------
+  enableIntroAnim: true,               // Bật/tắt animation xuất hiện từng note khi nạp dữ liệu
+  introDuration: 150,                  // Thời gian phóng to của mỗi sticky note (ms)
+  introStagger: 5,                    // Khoảng thời gian giãn cách giữa các note xuất hiện nối tiếp nhau (ms)
+  introOrder: 'centerOut',                // Thứ tự xuất hiện: 'random' (ngẫu nhiên) | 'centerOut' (từ tâm lõi lan ra ngoài) | 'level' (theo cấp độ 1 -> 7) | 'sequential'
+  introEasing: 'backOut',              // Hiệu ứng nảy: 'backOut' (phóng to nảy nhẹ đàn hồi) | 'cubicOut' (mượt mà tự nhiên) | 'elasticOut' (nảy mạnh đàn hồi)
+  introShowConnections: true,          // Bật/tắt tự động xuất hiện connection theo từng cặp note đã hiện
+  introLineFadeDuration: 100           // Thời gian mờ dần hiện rõ của đường dây nối (ms)
 };
 
 (function (global) {
@@ -210,10 +226,9 @@ const STICKY_GRAPH_CONFIG = {
       this.selectedNode = null;
       this.hoveredNode = null;
       this.hoveredMesh = null;
-      this.draggedNode = null;
-      this.isDragging = false;
-      this.dragPlane = null;
-      this.dragOffset = null;
+
+      // Trạng thái hiệu ứng xuất hiện ban đầu (Stagger Entrance Animation)
+      this.isIntroAnimating = false;
 
       // Vectors theo dõi vận tốc xoay và di chuyển camera để tạo độ rung lắc mép giấy
       this.prevCamPos = null;
@@ -334,6 +349,19 @@ const STICKY_GRAPH_CONFIG = {
       // updateStyle = false để giữ nguyên width: 100%, height: 100% không đè px cố định lên inline CSS của canvas
       this.renderer.setSize(this.width, this.height, false);
       this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+
+      // Tự động phân bổ lại hình dạng khối theo tỷ lệ khung hình mới (Adaptive Aspect Shape)
+      if (this.options.adaptiveAspectShape !== false && this.nodes && this.nodes.length > 0) {
+        this._calculateLayoutPositions();
+        this.meshMap.forEach(mesh => {
+          const n = mesh.userData.node;
+          mesh.userData.basePos.set(n.x, n.y, n.z);
+          if (!this.isIntroAnimating) {
+            mesh.position.set(n.x, n.y, n.z);
+          }
+        });
+        this.linkMeshes.forEach(line => this._updateLinkGeometry(line));
+      }
 
       if (this.controls) {
         this.controls.update();
@@ -723,13 +751,9 @@ const STICKY_GRAPH_CONFIG = {
       this.prevCamPos = new THREE.Vector3().copy(this.camera.position);
       this.prevCamRot = new THREE.Quaternion().copy(this.camera.quaternion);
 
-      // Raycaster cho kéo thả & hover
+      // Raycaster cho hover và click chọn node
       this.raycaster = new THREE.Raycaster();
       this.mouse = new THREE.Vector2();
-
-      // Drag Plane (mặt phẳng song song camera đi qua vị trí node)
-      this.dragPlane = new THREE.Plane();
-      this.dragPlanePoint = new THREE.Vector3();
 
       this.isInitialized = true;
       this._initViewportObserver();
@@ -1220,6 +1244,11 @@ const STICKY_GRAPH_CONFIG = {
 
       // 4. Áp dụng bộ lọc hiện tại
       this._applyFilters();
+
+      // 5. Khởi chạy hiệu ứng xuất hiện ban đầu (Stagger Entrance Animation)
+      if (this.options.enableIntroAnim !== false) {
+        this.playEntranceAnimation();
+      }
     }
 
     _getActiveLayoutType() {
@@ -1246,6 +1275,39 @@ const STICKY_GRAPH_CONFIG = {
         default:
           this._layoutCylinder(R);
           break;
+      }
+
+      // 🎯 Thích ứng hình dạng theo tỷ lệ khung hình canvas (Adaptive Aspect Shape):
+      // Dãn rộng ngang trên màn hình rộng (Desktop / Laptop) và dãn dọc trên màn hình hẹp (Mobile)
+      // Giúp hạn chế tối đa các sticky note bị lọt ra ngoài mép canvas ở góc nhìn ban đầu.
+      if (this.options.adaptiveAspectShape !== false) {
+        const w = this.width || (this.wrapper && this.wrapper.clientWidth) || window.innerWidth || 1200;
+        const h = this.height || (this.wrapper && this.wrapper.clientHeight) || window.innerHeight || 800;
+        const aspect = (w > 0 && h > 0) ? (w / h) : 1.6;
+        const power = this.options.aspectRatioPower !== undefined ? this.options.aspectRatioPower : 0.6;
+
+        let scaleXZ = 1.0;
+        let scaleY = 1.0;
+
+        if (aspect >= 1.0) {
+          // Màn hình ngang (Laptop / Desktop / Tablet ngang):
+          // Dãn rộng bề ngang X/Z, nén chiều cao Y để khối không bị trượt ra ngoài mép trên/dưới canvas
+          scaleXZ = Math.min(1.7, Math.max(1.0, Math.pow(aspect, power))) * (this.options.aspectScaleX || 1.0);
+          scaleY = Math.max(0.45, Math.min(1.0, Math.pow(1 / aspect, power))) * (this.options.aspectScaleY || 1.0);
+        } else {
+          // Màn hình dọc (Mobile / Tablet dọc):
+          // Thu gọn bề ngang X/Z để tránh bị tràn mép trái/phải, dãn chiều cao Y tận dụng khoảng trống dọc
+          scaleXZ = Math.max(0.5, Math.min(1.0, Math.pow(aspect, power))) * (this.options.aspectScaleX || 1.0);
+          scaleY = Math.min(1.7, Math.max(1.0, Math.pow(1 / aspect, power))) * (this.options.aspectScaleY || 1.0);
+        }
+
+        const scaleZ = scaleXZ * (this.options.aspectScaleZ || 1.0);
+
+        this.nodes.forEach(n => {
+          n.x *= scaleXZ;
+          n.y *= scaleY;
+          n.z *= scaleZ;
+        });
       }
 
       // Phân tầng độ sâu theo cấp bậc (Depth by Hierarchy): Lõi nổi về phía trước (+Z), các tầng sau lùi dần (-Z)
@@ -1648,7 +1710,8 @@ const STICKY_GRAPH_CONFIG = {
         filterMatch: true,
         targetScale: 1.0,
         targetOpacity: 1.0,
-        currentEmissive: 0.0
+        currentEmissive: 0.0,
+        intro: null
       };
 
       return mesh;
@@ -1769,7 +1832,8 @@ const STICKY_GRAPH_CONFIG = {
           midOffset: curveOffset,
           baseOpacity: lineOpacity,
           baseWidth: defaultLineWidth,
-          baseColor: linkColor.clone()
+          baseColor: linkColor.clone(),
+          intro: null
         };
 
         // Nếu opacity mặc định <= 0 thì ẩn luôn connection đi
@@ -1780,6 +1844,84 @@ const STICKY_GRAPH_CONFIG = {
         this.graphGroup.add(line);
         this.linkMeshes.push(line);
       });
+    }
+
+    // --- CÁC HÀM EASING CHO HIỆU ỨNG XUẤT HIỆN BAN ĐẦU ---
+    _easeBackOut(t) {
+      const c1 = 1.70158;
+      const c3 = c1 + 1;
+      return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2);
+    }
+
+    _easeCubicOut(t) {
+      return 1 - Math.pow(1 - t, 3);
+    }
+
+    _easeElasticOut(t) {
+      if (t === 0) return 0;
+      if (t === 1) return 1;
+      return Math.pow(2, -10 * t) * Math.sin((t * 10 - 0.75) * ((2 * Math.PI) / 3)) + 1;
+    }
+
+    // --- HIỆU ỨNG XUẤT HIỆN BAN ĐẦU (STAGGER ENTRANCE ANIMATION) ---
+    playEntranceAnimation() {
+      if (!this.meshMap || this.meshMap.size === 0) return;
+
+      const visibleMeshes = Array.from(this.meshMap.values()).filter(m => m.userData.filterMatch !== false);
+      if (visibleMeshes.length === 0) return;
+
+      const orderType = this.options.introOrder || 'random';
+      if (orderType === 'random') {
+        // Trộn ngẫu nhiên (Fisher-Yates)
+        for (let i = visibleMeshes.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          const temp = visibleMeshes[i];
+          visibleMeshes[i] = visibleMeshes[j];
+          visibleMeshes[j] = temp;
+        }
+      } else if (orderType === 'centerOut' || orderType === 'radial') {
+        // Từ tâm (0, 0, 0) lan tỏa dần ra ngoài biên
+        visibleMeshes.sort((a, b) => a.position.length() - b.position.length());
+      } else if (orderType === 'level') {
+        // Theo cấp độ Level 1 -> 2 -> 3... với một chút jitter ngẫu nhiên trong cùng level
+        visibleMeshes.sort((a, b) => {
+          const lvlA = (a.userData.node.level || 1) + Math.random() * 0.3;
+          const lvlB = (b.userData.node.level || 1) + Math.random() * 0.3;
+          return lvlA - lvlB;
+        });
+      }
+
+      const now = performance.now();
+      const stagger = this.options.introStagger !== undefined ? this.options.introStagger : 15;
+      const duration = this.options.introDuration !== undefined ? this.options.introDuration : 650;
+
+      // 1. Khởi tạo trạng thái ban đầu cho các node: Scale = 0.0001, Opacity = 0
+      visibleMeshes.forEach((mesh, idx) => {
+        mesh.scale.set(0.0001, 0.0001, 0.0001);
+        if (mesh.userData.frontMaterial) {
+          mesh.userData.frontMaterial.opacity = 0;
+        }
+        mesh.userData.intro = {
+          startTime: now + idx * stagger,
+          duration: duration,
+          done: false,
+          progress: 0
+        };
+      });
+
+      // 2. Khởi tạo trạng thái cho các dây nối liên kết: Opacity = 0
+      const lineFadeDuration = this.options.introLineFadeDuration !== undefined ? this.options.introLineFadeDuration : 400;
+      this.linkMeshes.forEach(line => {
+        line.material.opacity = 0;
+        line.userData.intro = {
+          fadeStartTime: null,
+          duration: lineFadeDuration,
+          progress: 0,
+          done: false
+        };
+      });
+
+      this.isIntroAnimating = true;
     }
 
     // Dọn dẹp các mesh 3D Tube của đường liên kết được highlight
@@ -2144,128 +2286,62 @@ const STICKY_GRAPH_CONFIG = {
       // Vô hiệu hóa menu ngữ cảnh mặc định của trình duyệt để bấm chuột phải kéo Pan mượt mà
       dom.addEventListener('contextmenu', (e) => e.preventDefault());
 
-      // Pointer Down (Bắt đầu kéo thả node hoặc Pan/Rotate camera)
-      dom.addEventListener('pointerdown', (e) => {
-        // Chỉ kéo thả node khi nhấn chuột trái (button === 0)
-        if (e.button !== 0) return;
+      // Phân định thao tác Chuột & Cảm ứng:
+      // - Drag (kéo giữ chuột/ngón tay ở bất cứ đâu): Xoay hoặc Pan toàn bộ khối cầu trong canvas qua OrbitControls
+      // - Click nhẹ (khoảng cách chuột di chuyển < 8px): Chọn/Focus sticky note nếu click trúng note, hoặc Bỏ chọn nếu click ra khoảng trống
+      let isPointerDown = false;
+      let pointerDownPos = null;
 
+      // Pointer Down
+      dom.addEventListener('pointerdown', (e) => {
+        if (e.button !== 0) return;
+        isPointerDown = true;
+        pointerDownPos = { x: e.clientX, y: e.clientY };
+
+        // Luôn giữ OrbitControls kích hoạt để việc kéo chuột ở bất kỳ đâu (kể cả bắt đầu từ trên sticky note)
+        // cũng đều xoay khối cầu mượt mà, không bao giờ bị đè hoặc xung đột
+      });
+
+      // Pointer Move (Hover hiệu ứng sáng/phóng to khi không drag)
+      dom.addEventListener('pointermove', (e) => {
+        // Trên màn hình cảm ứng: cử chỉ vuốt đã được xử lý bởi touch listener chuyên biệt
+        if (e.pointerType === 'touch') return;
+
+        // Nếu đang nhấn giữ chuột (đang kéo xoay khối cầu), đổi cursor grabbing và bỏ hover
+        if (isPointerDown || (e.buttons && e.buttons > 0)) {
+          dom.style.cursor = 'grabbing';
+          if (this.hoveredMesh) {
+            this.hoveredMesh = null;
+            this.hoveredNode = null;
+            if (typeof this.options.onNodeHover === 'function') {
+              this.options.onNodeHover(null);
+            }
+          }
+          return;
+        }
+
+        // Hover raycast khi chuột di chuyển tự do (buttons === 0)
         const rect = dom.getBoundingClientRect();
         const rw = rect.width || this.width;
         const rh = rect.height || this.height;
         this.mouse.x = ((e.clientX - rect.left) / rw) * 2 - 1;
         this.mouse.y = -((e.clientY - rect.top) / rh) * 2 + 1;
-
-        this.dragStartPos = { x: e.clientX, y: e.clientY };
 
         this.raycaster.setFromCamera(this.mouse, this.camera);
         const visibleMeshes = Array.from(this.meshMap.values()).filter(m => m.visible);
         const intersects = this.raycaster.intersectObjects(visibleMeshes);
 
         if (intersects.length > 0) {
-          const hitMesh = intersects[0].object;
-          if (e.pointerType === 'touch') {
-            // Trên màn hình cảm ứng: KHÔNG kích hoạt kéo node ngay để người dùng có thể cuộn dọc trang HTML
-            this.isDragging = false;
-            this.draggedMesh = null;
-            this.pendingTouchMesh = hitMesh;
-          } else {
-            // Trên chuột (Desktop): Kéo thả node tự do
-            this.isDragging = true;
-            this.draggedMesh = hitMesh;
-            dom.style.cursor = 'grabbing';
-            this.pendingTouchMesh = null;
-            this.controls.enabled = false; // Tắt xoay camera khi kéo node
-
-            // Thiết lập mặt phẳng kéo 3D song song camera đi qua vị trí node
-            const camDir = new window.THREE.Vector3();
-            this.camera.getWorldDirection(camDir).negate();
-            this.dragPlane.setFromNormalAndCoplanarPoint(camDir, hitMesh.position);
-
-            // Tính offset giữa điểm click và tâm node
-            const planeIntersect = new window.THREE.Vector3();
-            this.raycaster.ray.intersectPlane(this.dragPlane, planeIntersect);
-            this.dragOffset = new window.THREE.Vector3().subVectors(hitMesh.position, planeIntersect);
+          const hit = intersects[0].object;
+          dom.style.cursor = 'pointer';
+          if (this.hoveredMesh !== hit) {
+            this.hoveredMesh = hit;
+            this.hoveredNode = hit.userData.node;
+            if (typeof this.options.onNodeHover === 'function') {
+              this.options.onNodeHover(this.hoveredNode);
+            }
           }
         } else {
-          this.isDragging = false;
-          this.draggedMesh = null;
-          this.pendingTouchMesh = null;
-        }
-      });
-
-      // Pointer Move (Kéo node, va chạm vật lý mềm & Hover Lift Tilt)
-      dom.addEventListener('pointermove', (e) => {
-        // Nếu là touch và không có thao tác kéo nào, bỏ qua hover để tiết kiệm tài nguyên
-        if (e.pointerType === 'touch' && !this.isDragging) {
-          return;
-        }
-
-        const rect = dom.getBoundingClientRect();
-        const rw = rect.width || this.width;
-        const rh = rect.height || this.height;
-        this.mouse.x = ((e.clientX - rect.left) / rw) * 2 - 1;
-        this.mouse.y = -((e.clientY - rect.top) / rh) * 2 + 1;
-
-        if (this.isDragging && this.draggedMesh) {
-          dom.style.cursor = 'grabbing';
-          this.raycaster.setFromCamera(this.mouse, this.camera);
-          const planeIntersect = new window.THREE.Vector3();
-          if (this.raycaster.ray.intersectPlane(this.dragPlane, planeIntersect)) {
-            this.draggedMesh.position.copy(planeIntersect.add(this.dragOffset));
-
-            // Va chạm vật lý mềm (Physics Repulsion): Đẩy đàn hồi các node xung quanh dãn ra né chỗ
-            if (this.options.physicsRepulsion) {
-              const dragPos = this.draggedMesh.position;
-              const repRadius = 280;
-              const strength = (this.options.repulsionStrength || 1.0) * 16;
-              this.meshMap.forEach(otherMesh => {
-                if (otherMesh === this.draggedMesh || !otherMesh.visible) return;
-                const dist = otherMesh.position.distanceTo(dragPos);
-                if (dist < repRadius && dist > 1) {
-                  const force = ((repRadius - dist) / repRadius) * strength;
-                  const dir = new window.THREE.Vector3().subVectors(otherMesh.position, dragPos).normalize();
-                  otherMesh.position.addScaledVector(dir, force);
-                }
-              });
-            }
-
-            // Cập nhật các đường nối liên quan ngay tức thì
-            this.linkMeshes.forEach(line => {
-              this._updateLinkGeometry(line);
-            });
-          }
-        } else {
-          // Hovering over sticky notes (đổi chuột thành pointer, làm sáng & phóng to nhẹ)
-          this.raycaster.setFromCamera(this.mouse, this.camera);
-          const visibleMeshes = Array.from(this.meshMap.values()).filter(m => m.visible);
-          const intersects = this.raycaster.intersectObjects(visibleMeshes);
-
-          if (intersects.length > 0) {
-            const hit = intersects[0].object;
-            dom.style.cursor = 'pointer';
-            if (this.hoveredMesh !== hit) {
-              this.hoveredMesh = hit;
-              this.hoveredNode = hit.userData.node;
-              if (typeof this.options.onNodeHover === 'function') {
-                this.options.onNodeHover(this.hoveredNode);
-              }
-            }
-          } else {
-            dom.style.cursor = 'default';
-            if (this.hoveredMesh) {
-              this.hoveredMesh = null;
-              this.hoveredNode = null;
-              if (typeof this.options.onNodeHover === 'function') {
-                this.options.onNodeHover(null);
-              }
-            }
-          }
-        }
-      });
-
-      // Pointer Leave: Khi chuột rời khỏi vùng canvas, khôi phục chuột mặc định và hủy hover
-      dom.addEventListener('pointerleave', () => {
-        if (!this.isDragging) {
           dom.style.cursor = 'default';
           if (this.hoveredMesh) {
             this.hoveredMesh = null;
@@ -2277,59 +2353,74 @@ const STICKY_GRAPH_CONFIG = {
         }
       });
 
-      // Pointer Up
+      // Pointer Leave: Khi chuột rời khỏi vùng canvas, khôi phục chuột mặc định và hủy hover
+      dom.addEventListener('pointerleave', () => {
+        isPointerDown = false;
+        pointerDownPos = null;
+        dom.style.cursor = 'default';
+        if (this.hoveredMesh) {
+          this.hoveredMesh = null;
+          this.hoveredNode = null;
+          if (typeof this.options.onNodeHover === 'function') {
+            this.options.onNodeHover(null);
+          }
+        }
+      });
+
+      // Pointer Up (Phân biệt Click vs Drag)
       window.addEventListener('pointerup', (e) => {
-        if (this.dragStartPos) {
-          const dist = Math.hypot(e.clientX - this.dragStartPos.x, e.clientY - this.dragStartPos.y);
+        if (pointerDownPos) {
+          const dist = Math.hypot(e.clientX - pointerDownPos.x, e.clientY - pointerDownPos.y);
+          // Ngưỡng di chuyển < 8px được xác định chính xác là hành vi Click / Tap
           if (dist < 8) {
-            // Đây là hành vi click nhẹ (Click / Tap)
-            const targetMesh = this.draggedMesh || this.pendingTouchMesh;
-            if (targetMesh) {
-              const hitNodeId = targetMesh.userData.node.id;
+            const rect = dom.getBoundingClientRect();
+            const rw = rect.width || this.width;
+            const rh = rect.height || this.height;
+            this.mouse.x = ((e.clientX - rect.left) / rw) * 2 - 1;
+            this.mouse.y = -((e.clientY - rect.top) / rh) * 2 + 1;
+
+            this.raycaster.setFromCamera(this.mouse, this.camera);
+            const visibleMeshes = Array.from(this.meshMap.values()).filter(m => m.visible);
+            const intersects = this.raycaster.intersectObjects(visibleMeshes);
+
+            if (intersects.length > 0) {
+              const hitMesh = intersects[0].object;
+              const hitNodeId = hitMesh.userData.node.id;
               this.focusNode(hitNodeId);
             } else {
-              // Click/Tap ra ngoài khoảng trống canvas: Bỏ chọn node & Zoom out về vị trí camera ban đầu
+              // Click vào khoảng trống canvas: Bỏ chọn node & Zoom out về vị trí camera ban đầu
               this.resetSelection();
               this.resetCamera();
             }
           }
         }
 
-        if (this.isDragging) {
-          this.isDragging = false;
-          this.controls.enabled = true;
-          this.draggedMesh = null;
-          // Cập nhật lại cursor & hover sau khi thả kéo
-          if (e.pointerType !== 'touch') {
-            const rect = dom.getBoundingClientRect();
-            const rw = rect.width || this.width;
-            const rh = rect.height || this.height;
-            this.mouse.x = ((e.clientX - rect.left) / rw) * 2 - 1;
-            this.mouse.y = -((e.clientY - rect.top) / rh) * 2 + 1;
-            this.raycaster.setFromCamera(this.mouse, this.camera);
-            const visibleMeshes = Array.from(this.meshMap.values()).filter(m => m.visible);
-            const intersects = this.raycaster.intersectObjects(visibleMeshes);
-            dom.style.cursor = intersects.length > 0 ? 'pointer' : 'default';
-            this.hoveredMesh = intersects.length > 0 ? intersects[0].object : null;
-            this.hoveredNode = this.hoveredMesh ? this.hoveredMesh.userData.node : null;
-          } else {
-            dom.style.cursor = 'default';
-          }
-        }
-        this.pendingTouchMesh = null;
-        this.dragStartPos = null;
-      });
+        isPointerDown = false;
+        pointerDownPos = null;
 
-      // Pointer Cancel (khi cử chỉ cuộn dọc trang HTML trên mobile kích hoạt)
-      window.addEventListener('pointercancel', (e) => {
-        if (this.isDragging) {
-          this.isDragging = false;
-          this.controls.enabled = true;
-          this.draggedMesh = null;
+        // Khôi phục cursor dựa trên vị trí hiện tại
+        if (e.pointerType !== 'touch') {
+          const rect = dom.getBoundingClientRect();
+          const rw = rect.width || this.width;
+          const rh = rect.height || this.height;
+          this.mouse.x = ((e.clientX - rect.left) / rw) * 2 - 1;
+          this.mouse.y = -((e.clientY - rect.top) / rh) * 2 + 1;
+          this.raycaster.setFromCamera(this.mouse, this.camera);
+          const visibleMeshes = Array.from(this.meshMap.values()).filter(m => m.visible);
+          const intersects = this.raycaster.intersectObjects(visibleMeshes);
+          dom.style.cursor = intersects.length > 0 ? 'pointer' : 'default';
+          this.hoveredMesh = intersects.length > 0 ? intersects[0].object : null;
+          this.hoveredNode = this.hoveredMesh ? this.hoveredMesh.userData.node : null;
+        } else {
           dom.style.cursor = 'default';
         }
-        this.pendingTouchMesh = null;
-        this.dragStartPos = null;
+      });
+
+      // Pointer Cancel
+      window.addEventListener('pointercancel', () => {
+        isPointerDown = false;
+        pointerDownPos = null;
+        dom.style.cursor = 'default';
       });
     }
 
@@ -2470,13 +2561,18 @@ const STICKY_GRAPH_CONFIG = {
       const rawVel = (camPosDelta * 0.015) + (camRotAngle * 18.0);
       this.motionVelocity = (this.motionVelocity || 0) * 0.78 + rawVel * 0.22;
 
-      const isCameraMoving = camPosDelta > 0.001 || camRotAngle > 0.0001 || this.motionVelocity > 0.001 || this.isDragging || controlsChanged || !!this.options.autoRotate;
+      const isCameraMoving = camPosDelta > 0.001 || camRotAngle > 0.0001 || this.motionVelocity > 0.001 || controlsChanged || !!this.options.autoRotate;
 
-      // 2. Xử lý Billboarding, Hover Lift & Tilt, và Lò xo đàn hồi (Physics Repulsion)
+      // 2. Xử lý Billboarding, Hover Lift & Tilt, và Stagger Entrance Animation
+      const now = performance.now();
       const wobbleSpeed = this.options.wobbleSpeed;
       const wobbleAmp = this.options.wobbleAmp;
       const hoverScaleSetting = this.options.hoverScale !== undefined ? this.options.hoverScale : 1.08;
       const hoverBrightSetting = this.options.hoverBrightness !== undefined ? this.options.hoverBrightness : 0.18;
+      const easingType = this.options.introEasing || 'backOut';
+      const easingFn = easingType === 'elasticOut' ? this._easeElasticOut.bind(this) : (easingType === 'cubicOut' ? this._easeCubicOut.bind(this) : this._easeBackOut.bind(this));
+
+      let allIntroDone = true;
 
       this.meshMap.forEach(mesh => {
         if (!mesh.visible) return;
@@ -2485,38 +2581,63 @@ const STICKY_GRAPH_CONFIG = {
         // Mặt trước của sticky note luôn hướng về phía camera (Billboarding)
         mesh.quaternion.copy(this.camera.quaternion);
 
-        // Vị trí: bập bềnh lơ lửng + lò xo đàn hồi (hồi phục vị trí sau va chạm vật lý / thả kéo)
-        if (!this.isDragging || mesh !== this.draggedMesh) {
-          if (wobbleAmp > 0) {
-            const t = time * wobbleSpeed * u.wobbleSpeedFactor + u.wobblePhase;
-            mesh.position.y = u.basePos.y + Math.sin(t) * wobbleAmp;
-          } else {
-            mesh.position.lerp(u.basePos, 0.1);
-          }
+        // Vị trí: bập bềnh lơ lửng + lò xo đàn hồi về basePos
+        if (wobbleAmp > 0) {
+          const t = time * wobbleSpeed * u.wobbleSpeedFactor + u.wobblePhase;
+          mesh.position.y = u.basePos.y + Math.sin(t) * wobbleAmp;
+        } else {
+          mesh.position.lerp(u.basePos, 0.1);
         }
 
-        // 🌟 Hiệu ứng Hover: Phóng to nhẹ và sáng lên một chút
+        // 🌟 Hiệu ứng Hover & Entrance Animation
         const isHovered = (this.hoveredMesh === mesh);
         const baseScale = u.targetScale !== undefined ? u.targetScale : 1.0;
         const targetScale = isHovered ? (baseScale * hoverScaleSetting) : baseScale;
+        const baseOpacity = u.targetOpacity !== undefined ? u.targetOpacity : 1.0;
+        const targetOpacity = isHovered ? Math.max(baseOpacity, 0.88) : baseOpacity;
 
-        // Mượt mà lerp kích thước (to lên nhẹ ~1.08x)
-        mesh.scale.x += (targetScale - mesh.scale.x) * 0.18;
-        mesh.scale.y += (targetScale - mesh.scale.y) * 0.18;
-        mesh.scale.z += (targetScale - mesh.scale.z) * 0.18;
+        // Kiểm tra tiến trình Entrance Animation (nếu đang kích hoạt)
+        if (this.isIntroAnimating && u.intro && !u.intro.done) {
+          if (now < u.intro.startTime) {
+            mesh.scale.set(0.0001, 0.0001, 0.0001);
+            if (u.frontMaterial) u.frontMaterial.opacity = 0;
+            allIntroDone = false;
+          } else {
+            const elapsed = now - u.intro.startTime;
+            const progress = Math.min(1.0, elapsed / u.intro.duration);
+            u.intro.progress = progress;
+            const easedScale = Math.max(0.0001, easingFn(progress) * targetScale);
+            mesh.scale.set(easedScale, easedScale, easedScale);
+
+            const opProgress = Math.min(1.0, progress * 1.5);
+            if (u.frontMaterial) {
+              u.frontMaterial.opacity = opProgress * targetOpacity;
+            }
+
+            if (progress >= 1.0) {
+              u.intro.done = true;
+              mesh.scale.set(targetScale, targetScale, targetScale);
+              if (u.frontMaterial) u.frontMaterial.opacity = targetOpacity;
+            } else {
+              allIntroDone = false;
+            }
+          }
+        } else {
+          // Trạng thái bình thường: mượt mà lerp kích thước (to lên nhẹ ~1.08x) và opacity
+          mesh.scale.x += (targetScale - mesh.scale.x) * 0.18;
+          mesh.scale.y += (targetScale - mesh.scale.y) * 0.18;
+          mesh.scale.z += (targetScale - mesh.scale.z) * 0.18;
+
+          if (u.frontMaterial) {
+            u.frontMaterial.opacity += (targetOpacity - u.frontMaterial.opacity) * 0.18;
+          }
+        }
 
         // Mượt mà lerp độ sáng (emissive)
         const targetEmissive = isHovered ? hoverBrightSetting : 0.0;
         u.currentEmissive = (u.currentEmissive || 0) + (targetEmissive - (u.currentEmissive || 0)) * 0.18;
         if (u.frontMaterial && u.frontMaterial.emissive) {
           u.frontMaterial.emissive.setRGB(u.currentEmissive, u.currentEmissive, u.currentEmissive);
-        }
-
-        // Mượt mà lerp độ mờ opacity (khi đang chọn 1 note khác mà hover vào note mờ thì note đó sáng rõ lên)
-        const baseOpacity = u.targetOpacity !== undefined ? u.targetOpacity : 1.0;
-        const targetOpacity = isHovered ? Math.max(baseOpacity, 0.88) : baseOpacity;
-        if (u.frontMaterial) {
-          u.frontMaterial.opacity += (targetOpacity - u.frontMaterial.opacity) * 0.18;
         }
 
         // Ưu tiên hiển thị note đang hover đè lên trên các note khác
@@ -2532,8 +2653,49 @@ const STICKY_GRAPH_CONFIG = {
         }
       });
 
-      // 3. Cập nhật đường nối theo chuyển động của nodes khi cần thiết
-      if (isCameraMoving || this.isDragging || wobbleAmp > 0) {
+      // 3. Cập nhật dây nối liên kết và tiến trình xuất hiện theo cặp node
+      if (this.isIntroAnimating && this.options.introShowConnections !== false) {
+        this.linkMeshes.forEach(line => {
+          const intro = line.userData.intro;
+          if (!intro || intro.done) return;
+
+          const srcIntro = line.userData.sourceMesh.userData.intro;
+          const tgtIntro = line.userData.targetMesh.userData.intro;
+
+          // Cả source và target đều đã bắt đầu nở ra (tiến trình >= 35%)
+          const srcReady = (!srcIntro || srcIntro.progress >= 0.35);
+          const tgtReady = (!tgtIntro || tgtIntro.progress >= 0.35);
+
+          if (srcReady && tgtReady) {
+            if (intro.fadeStartTime === null) {
+              intro.fadeStartTime = now;
+            }
+            const lineElapsed = now - intro.fadeStartTime;
+            const lineProg = Math.min(1.0, lineElapsed / intro.duration);
+            intro.progress = lineProg;
+            const lineEased = this._easeCubicOut(lineProg);
+            const baseOp = line.userData.baseOpacity !== undefined ? line.userData.baseOpacity : 0.6;
+            line.material.opacity = lineEased * baseOp;
+
+            if (lineProg >= 1.0) {
+              intro.done = true;
+              line.material.opacity = baseOp;
+            } else {
+              allIntroDone = false;
+            }
+          } else {
+            line.material.opacity = 0;
+            allIntroDone = false;
+          }
+        });
+      }
+
+      if (this.isIntroAnimating && allIntroDone) {
+        this.isIntroAnimating = false;
+      }
+
+      // Cập nhật đường nối theo chuyển động của camera/nodes
+      if (isCameraMoving || wobbleAmp > 0) {
         this.linkMeshes.forEach(line => {
           this._updateLinkGeometry(line);
         });
@@ -2680,12 +2842,20 @@ const STICKY_GRAPH_CONFIG = {
       if (newConfig.autoRotateSpeed !== undefined) {
         this.controls.autoRotateSpeed = this.options.autoRotateSpeed;
       }
-      if (newConfig.spreadRadius !== undefined || newConfig.layoutType !== undefined) {
+      if (newConfig.spreadRadius !== undefined ||
+        newConfig.layoutType !== undefined ||
+        newConfig.adaptiveAspectShape !== undefined ||
+        newConfig.aspectRatioPower !== undefined ||
+        newConfig.aspectScaleX !== undefined ||
+        newConfig.aspectScaleY !== undefined ||
+        newConfig.aspectScaleZ !== undefined) {
         this._calculateLayoutPositions();
         this.meshMap.forEach(mesh => {
           const n = mesh.userData.node;
-          mesh.position.set(n.x, n.y, n.z);
           mesh.userData.basePos.set(n.x, n.y, n.z);
+          if (!this.isIntroAnimating) {
+            mesh.position.set(n.x, n.y, n.z);
+          }
         });
         this.linkMeshes.forEach(line => this._updateLinkGeometry(line));
       }

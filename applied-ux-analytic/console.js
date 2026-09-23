@@ -63,7 +63,7 @@
                 submit_form: false,
             },
             sectionTime: {
-                intro: 0, goal: 0, register: 0, syllabus: 0, general: 0, footer: 0, demo: 0,
+                intro: 0, goal: 0, demo: 0, register: 0, syllabus: 0, general: 0, case_study: 0, footer: 0,
             },
             eventLog: [],
         };
@@ -83,7 +83,7 @@
 
     // ── State migration ──────────────────────────────────────────
     if (!state.sectionTime) {
-        state.sectionTime = { intro: 0, goal: 0, register: 0, syllabus: 0, general: 0, footer: 0, demo: 0 };
+        state.sectionTime = { intro: 0, goal: 0, demo: 0, register: 0, syllabus: 0, general: 0, case_study: 0, footer: 0 };
         saveState();
     }
     if (!state.sectionProgress) {
@@ -156,7 +156,7 @@
         const container = document.getElementById('appliedUxAnalytic_console_eventStream');
         if (!container) return;
 
-        const MAX_VISIBLE = 12;
+        const MAX_VISIBLE = 8;
         const visible = state.eventLog.slice(-MAX_VISIBLE);
 
         container.innerHTML =
@@ -397,8 +397,8 @@
     // 12. HEATMAP RENDERER
     // ─────────────────────────────────────────────────────────────
 
-    const HEATMAP_LABELS = ['Intro', 'Goal', 'Register', 'Syllabus', 'General', 'Link', 'Demo'];
-    const HEATMAP_KEYS = ['intro', 'goal', 'register', 'syllabus', 'general', 'footer', 'demo'];
+    const HEATMAP_LABELS = ['Intro', 'Goal', 'Demo', 'Register', 'Syllabus', 'General', 'Case', 'Footer'];
+    const HEATMAP_KEYS = ['intro', 'goal', 'demo', 'register', 'syllabus', 'general', 'case_study', 'footer'];
 
     function niceStep(maxVal, maxTicks = 6) {
         if (maxVal <= 0) return 1;
@@ -429,7 +429,7 @@
             yAxis.innerHTML = tickLabels.join('');
         }
 
-        const CHART_PX = 120;
+        const CHART_PX = 75;
         barsContainer.innerHTML = HEATMAP_KEYS.map((key, i) => {
             const sec = state.sectionTime[key] || 0;
             const barPx = topTick > 0 ? Math.max(0, Math.round((sec / topTick) * CHART_PX)) : 0;
@@ -544,17 +544,15 @@
         if (attentionEl) attentionEl.textContent = isIdle ? 'IDLE' : 'ACTIVE';
 
         const cells = document.querySelectorAll('.ux-state-cell');
-        if (cells.length >= 8) {
-            cells[0].querySelector('span:last-child').textContent = getDeviceType();
-            cells[1].querySelector('span:last-child').textContent = getOS();
-            const progressLabel = cells[2].querySelector('span:first-child');
+        if (cells.length >= 6) {
+            cells[0].querySelector('span:last-child').textContent = getOS();
+            const progressLabel = cells[1].querySelector('span:first-child');
             if (progressLabel) progressLabel.textContent = 'form_progress:';
-            cells[2].querySelector('span:last-child').textContent = `${state.formProgress || 0}%`;
-            cells[3].querySelector('span:last-child').textContent = '—';
-            cells[4].querySelector('span:last-child').textContent = getBrowser();
-            cells[5].querySelector('span:last-child').textContent = getBrowserVersion();
-            cells[6].querySelector('span:last-child').textContent = window.screen.height;
-            cells[7].querySelector('span:last-child').textContent = window.screen.width;
+            cells[1].querySelector('span:last-child').textContent = `${state.formProgress || 0}%`;
+            cells[2].querySelector('span:last-child').textContent = getBrowser();
+            cells[3].querySelector('span:last-child').textContent = getBrowserVersion();
+            cells[4].querySelector('span:last-child').textContent = window.screen.height;
+            cells[5].querySelector('span:last-child').textContent = window.screen.width;
         }
 
         renderHeatmap();

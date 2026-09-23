@@ -297,10 +297,376 @@
             </div>
         </div>
 
+        <div class="applied-ux-analytic bootcamp-section-full row g-0" id="appliedUxAnalytic_console_section">
+            <div class="col-12 bootcamp-section-header">
+                <h2 class="mono-caption primary-text">III. DEMO</h2>
+                <p class="mono-caption primary-text">Demo user behavior bạn có thể track. Dữ liệu này:<br>
+                </p>
+                <p class="mono-caption secondary-text">
+                    Là hành vi của bạn trên page applied-ux-analytic, không bao gồm dữ liệu định danh của bạn.
+                    Không bao gồm dữ liệu của người khác.<br>
+                    Không thu thập dữ liệu bạn thao tác trên các website khác.<br>
+                    Chỉ hiển thị trên máy của bạn nhằm mục đích minh họa, không lưu trữ.<br>
+                </p>
+            </div>
+
+            <div class="col-12 bootcamp-section-content p-0">
+                <div class="ux-console">
+                    <!-- Console header bar -->
+                    <div class="ux-console-topbar">
+                        <span class="mono-caption secondary-text">UX ANALYTICS LIVE CONSOLE</span>
+                        <span class="ux-console-blink mono-caption primary-text">■</span>
+                    </div>
+
+                    <div class="ux-console-body row g-0">
+
+                        <!-- ===== LEFT PANEL ===== -->
+                        <div class="col-12 col-lg-6 ux-panel ux-panel-left">
+
+                            <!-- Overall -->
+                            <div class="ux-block">
+                                <div class="ux-block-title mono-caption primary-text">[ OVERALL ]<span
+                                        class="ux-dash"></span>
+                                </div>
+                                <div class="ux-kv-grid">
+                                    <span class="mono-caption secondary-text">total_page_view</span>
+                                    <span class="mono-caption secondary-text">:</span>
+                                    <span class="mono-caption primary-text"
+                                        id="appliedUxAnalytic_console_totalPv">-</span>
+
+                                    <span class="mono-caption secondary-text">first_page_view</span>
+                                    <span class="mono-caption secondary-text">:</span>
+                                    <span class="mono-caption primary-text"
+                                        id="appliedUxAnalytic_console_firstPv">-</span>
+
+                                    <span class="mono-caption secondary-text ux-kv-spacer"></span>
+                                    <span></span><span></span>
+
+                                    <span class="mono-caption secondary-text">total_session_duration</span>
+                                    <span class="mono-caption secondary-text">:</span>
+                                    <span class="mono-caption primary-text"
+                                        id="appliedUxAnalytic_console_totalDur">-</span>
+
+                                    <span class="mono-caption secondary-text">currrent_session_duration</span>
+                                    <span class="mono-caption secondary-text">:</span>
+                                    <span class="mono-caption primary-text"
+                                        id="appliedUxAnalytic_console_curDur">-</span>
+
+                                    <span class="mono-caption secondary-text ux-kv-spacer"></span>
+                                    <span></span><span></span>
+
+                                    <span class="mono-caption secondary-text">register_click</span>
+                                    <span class="mono-caption secondary-text">:</span>
+                                    <span class="mono-caption primary-text" id="appliedUxAnalytic_console_regClick">0
+                                        lần</span>
+
+                                    <span class="mono-caption secondary-text">is_registered</span>
+                                    <span class="mono-caption secondary-text">:</span>
+                                    <span class="mono-caption primary-text"
+                                        id="appliedUxAnalytic_console_isReg">false</span>
+
+                                    <span class="mono-caption secondary-text ux-kv-spacer"></span>
+                                    <span></span><span></span>
+
+                                    <span class="mono-caption secondary-text">registered_date</span>
+                                    <span class="mono-caption secondary-text">:</span>
+                                    <span class="mono-caption primary-text" id="appliedUxAnalytic_console_regDate">Thứ
+                                        7, 20/1/2026</span>
+                                </div>
+                            </div>
+
+                            <!-- User State Left -->
+                            <div class="ux-block">
+                                <div class="ux-block-title mono-caption primary-text">[ THIS SESSION ]<span
+                                        class="ux-dash"></span></div>
+                                <div class="ux-kv-grid">
+                                    <span class="mono-caption secondary-text">time_on_page</span>
+                                    <span class="mono-caption secondary-text">:</span>
+                                    <span class="mono-caption primary-text"
+                                        id="appliedUxAnalytic_console_timeOnPage">00:01:42</span>
+
+                                    <span class="mono-caption secondary-text">scroll_progress</span>
+                                    <span class="mono-caption secondary-text">:</span>
+                                    <span class="mono-caption primary-text ux-progress-wrap">
+                                        <span class="ux-progress-bar">
+                                            <span class="ux-progress-fill mono-caption"
+                                                id="appliedUxAnalytic_console_scrollFill" style="width:68%"></span>
+                                        </span>
+                                        <span id="appliedUxAnalytic_console_scrollPct" class="mono-caption">68%</span>
+                                    </span>
+
+                                    <span class="mono-caption secondary-text">sections_viewed</span>
+                                    <span class="mono-caption secondary-text">:</span>
+                                    <span class="mono-caption primary-text" id="appliedUxAnalytic_console_sections">4 /
+                                        8</span>
+
+                                    <span class="mono-caption secondary-text ux-kv-spacer"></span>
+                                    <span></span><span></span>
+
+                                    <span class="mono-caption secondary-text">attention_state</span>
+                                    <span class="mono-caption secondary-text">:</span>
+                                    <span class="mono-caption primary-text ux-state-active"
+                                        id="appliedUxAnalytic_console_attention">ACTIVE</span>
+
+                                    <span class="mono-caption secondary-text">last_action</span>
+                                    <span class="mono-caption secondary-text">:</span>
+                                    <span class="mono-caption primary-text"
+                                        id="appliedUxAnalytic_console_lastAction">-</span>
+                                </div>
+                            </div>
+
+                            <!-- Scroll Heatmap -->
+                            <div class="ux-block">
+                                <div class="ux-block-title mono-caption primary-text">SCROLL HEATMAP ALL SESSIONS<span
+                                        class="ux-dash"></span></div>
+                                <div class="ux-heatmap">
+                                    <div class="ux-heatmap-chart">
+                                        <div class="ux-heatmap-yaxis">
+                                            <span class="mono-caption secondary-text">80</span>
+                                            <span class="mono-caption secondary-text">70</span>
+                                            <span class="mono-caption secondary-text">60</span>
+                                            <span class="mono-caption secondary-text">50</span>
+                                            <span class="mono-caption secondary-text">40</span>
+                                            <span class="mono-caption secondary-text">30</span>
+                                            <span class="mono-caption secondary-text">20</span>
+                                            <span class="mono-caption secondary-text">10</span>
+                                            <span class="mono-caption secondary-text">0</span>
+                                        </div>
+                                        <div class="ux-heatmap-bars">
+                                            <div class="ux-heatmap-col">
+                                                <div class="ux-bar-wrap">
+                                                    <div class="ux-bar" style="height:30%"></div>
+                                                    <div class="ux-bar" style="height:20%"></div>
+                                                    <div class="ux-bar" style="height:10%"></div>
+                                                </div>
+                                                <span class="mono-caption secondary-text">Intro</span>
+                                            </div>
+                                            <div class="ux-heatmap-col">
+                                                <div class="ux-bar-wrap">
+                                                    <div class="ux-bar" style="height:25%"></div>
+                                                    <div class="ux-bar" style="height:15%"></div>
+                                                    <div class="ux-bar" style="height:10%"></div>
+                                                </div>
+                                                <span class="mono-caption secondary-text">Goal</span>
+                                            </div>
+                                            <div class="ux-heatmap-col">
+                                                <div class="ux-bar-wrap">
+                                                    <div class="ux-bar" style="height:50%"></div>
+                                                    <div class="ux-bar" style="height:38%"></div>
+                                                    <div class="ux-bar" style="height:22%"></div>
+                                                </div>
+                                                <span class="mono-caption secondary-text">Demo</span>
+                                            </div>
+                                            <div class="ux-heatmap-col">
+                                                <div class="ux-bar-wrap">
+                                                    <div class="ux-bar" style="height:20%"></div>
+                                                    <div class="ux-bar" style="height:15%"></div>
+                                                    <div class="ux-bar" style="height:10%"></div>
+                                                </div>
+                                                <span class="mono-caption secondary-text">Register</span>
+                                            </div>
+                                            <div class="ux-heatmap-col">
+                                                <div class="ux-bar-wrap">
+                                                    <div class="ux-bar" style="height:45%"></div>
+                                                    <div class="ux-bar" style="height:35%"></div>
+                                                    <div class="ux-bar" style="height:10%"></div>
+                                                </div>
+                                                <span class="mono-caption secondary-text">Syllabus</span>
+                                            </div>
+                                            <div class="ux-heatmap-col">
+                                                <div class="ux-bar-wrap">
+                                                    <div class="ux-bar" style="height:28%"></div>
+                                                    <div class="ux-bar" style="height:18%"></div>
+                                                    <div class="ux-bar" style="height:10%"></div>
+                                                </div>
+                                                <span class="mono-caption secondary-text">General</span>
+                                            </div>
+                                            <div class="ux-heatmap-col">
+                                                <div class="ux-bar-wrap">
+                                                    <div class="ux-bar" style="height:32%"></div>
+                                                    <div class="ux-bar" style="height:20%"></div>
+                                                    <div class="ux-bar" style="height:12%"></div>
+                                                </div>
+                                                <span class="mono-caption secondary-text">Case</span>
+                                            </div>
+                                            <div class="ux-heatmap-col">
+                                                <div class="ux-bar-wrap">
+                                                    <div class="ux-bar" style="height:15%"></div>
+                                                    <div class="ux-bar" style="height:10%"></div>
+                                                </div>
+                                                <span class="mono-caption secondary-text">Footer</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- User State Left (grid) -->
+                            <div class="ux-block">
+                                <div class="ux-block-title mono-caption primary-text">[ USER STATE ]<span
+                                        class="ux-dash"></span></div>
+                                <div class="ux-state-grid">
+                                    <div class="ux-state-cell">
+                                        <span class="mono-caption secondary-text">OS</span>
+                                        <span class="mono-caption primary-text">macOS</span>
+                                    </div>
+                                    <div class="ux-state-cell">
+                                        <span class="mono-caption secondary-text">form_progress:</span>
+                                        <span class="mono-caption primary-text">0%</span>
+                                    </div>
+                                    <div class="ux-state-cell">
+                                        <span class="mono-caption secondary-text">browser</span>
+                                        <span class="mono-caption primary-text">Chrome</span>
+                                    </div>
+                                    <div class="ux-state-cell">
+                                        <span class="mono-caption secondary-text">browser_version</span>
+                                        <span class="mono-caption primary-text">147</span>
+                                    </div>
+                                    <div class="ux-state-cell">
+                                        <span class="mono-caption secondary-text">screen_height</span>
+                                        <span class="mono-caption primary-text">1152</span>
+                                    </div>
+                                    <div class="ux-state-cell">
+                                        <span class="mono-caption secondary-text">screen_width</span>
+                                        <span class="mono-caption primary-text">1152</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- ===== RIGHT PANEL ===== -->
+                        <div class="col-12 col-lg-6 ux-panel ux-panel-right">
+
+                            <!-- Event Stream -->
+                            <div class="ux-block">
+                                <div class="ux-block-title mono-caption primary-text">[ EVENT STREAM THIS SESSION ]<span
+                                        class="ux-dash"></span></div>
+                                <div class="ux-event-stream" id="appliedUxAnalytic_console_eventStream">
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-event-time">12:01:02</span>
+                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
+                                        <span class="mono-caption primary-text">scroll_depth: 25%</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-event-time">12:01:05</span>
+                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
+                                        <span class="mono-caption primary-text">view_section: hero</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-event-time">12:01:08</span>
+                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
+                                        <span class="mono-caption primary-text">click: [CTA_PRIMARY]</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-event-time">12:01:12</span>
+                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
+                                        <span class="mono-caption primary-text">view_section: intro</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-event-time">12:01:18</span>
+                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
+                                        <span class="mono-caption primary-text">view_section: demo</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-event-time"></span>
+                                        <span class="mono-caption secondary-text ux-event-sep"></span>
+                                        <span class="mono-caption secondary-text ux-cursor-blink">▋</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Funnel Progression -->
+                            <div class="ux-block">
+                                <div class="ux-block-title mono-caption primary-text">[ FUNNEL PROGRESSION ]<span
+                                        class="ux-dash"></span></div>
+                                <div class="ux-funnel">
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption primary-text ux-funnel-check done">[√]</span>
+                                        <span class="mono-caption primary-text">landing_view</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption primary-text ux-funnel-check done">[√]</span>
+                                        <span class="mono-caption primary-text">scroll_50%</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption primary-text ux-funnel-check done">[√]</span>
+                                        <span class="mono-caption primary-text">view_pricing</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption primary-text ux-funnel-check done">[√]</span>
+                                        <span class="mono-caption primary-text">click_cta</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
+                                        <span class="mono-caption secondary-text">start_form</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
+                                        <span class="mono-caption secondary-text">form_general_section_completion:
+                                            0/6</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
+                                        <span class="mono-caption secondary-text">form_environment_section_completion:
+                                            0/5</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
+                                        <span
+                                            class="mono-caption secondary-text">form_characteristics_section_completion:
+                                            0/24</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
+                                        <span class="mono-caption secondary-text">form_problem_section_completion:
+                                            0/20</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
+                                        <span class="mono-caption secondary-text">form_expectations_section_completion:
+                                            0/23</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
+                                        <span class="mono-caption secondary-text">form_registration_section_completion:
+                                            0/1</span>
+                                    </div>
+                                    <div class="ux-event-row">
+                                        <span class="mono-caption secondary-text ux-pipe">|</span>
+                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
+                                        <span class="mono-caption secondary-text">submit_form</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="applied-ux-analytic bootcamp-section-full row g-0 opening-bootcamp"
             id="appliedUxAnalytic_register_section">
             <div class="col-12 bootcamp-section-header">
-                <h2 class="mono-caption primary-text">III. DANH SÁCH BOOTCAMP</h2>
+                <h2 class="mono-caption primary-text">IV. DANH SÁCH BOOTCAMP ĐANG MỞ</h2>
             </div>
 
             <div class="row bootcamp-section-content" id="appliedUxAnalytic_register_bootcampListContainer">
@@ -309,7 +675,7 @@
 
         <div class="applied-ux-analytic bootcamp-section-full row g-0 syllabus" id="appliedUxAnalytic_syllabus_section">
             <div class="col-12 bootcamp-section-header">
-                <h2 class="mono-caption primary-text">IV. GIÁO TRÌNH &amp; LỘ TRÌNH ĐÀO TẠO</h2>
+                <h2 class="mono-caption primary-text">V. GIÁO TRÌNH &amp; LỘ TRÌNH ĐÀO TẠO</h2>
                 <p class="mono-caption secondary-text">Giáo trình: 1 tuần 2 buổi, 16 buổi x 3 giờ.</p>
             </div>
 
@@ -505,89 +871,6 @@
 
 
 
-        <div class="applied-ux-analytic bootcamp-section-full row g-0 lecturer"
-            id="appliedUxAnalytic_case_study_section">
-            <div class="col-12 bootcamp-section-header">
-                <h2 class="mono-caption primary-text">V. CASE STUDY</h2>
-                <p class="mono-caption secondary-text">
-                    Case study được thực hiện theo nhóm trên sản phẩm thực tế và bảo vệ trước Hội đồng giám khảo.
-                </p>
-            </div>
-
-            <div class="row justify-content-md-start justify-content-center">
-
-                <a class="col-12 col-md-6 col-lg-4 col-xl-3 case-study-container" data-case-study="Vipo" target="_blank"
-                    href="https://www.figma.com/deck/FZTLusCNwNVFriibvlqszi/N%C3%A2ng-c%E1%BA%A5p-Search-Vipo--Featured-?node-id=1-29&p=f&viewport=48%2C364%2C0.39&t=g1ojUuRdzw7vtpgj-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1">
-                    <img class="case-study-thumbnail applied-ux-analytic-case-study-thumbnail"
-                        src="../asset/image/case-study/searchvipo.webp">
-                </a>
-
-                <a class="col-12 col-md-6 col-lg-4 col-xl-3 case-study-container" data-case-study="Pika" target="_blank"
-                    href="https://www.figma.com/proto/5kGeVbYKYvJlT8FoddApsY/Pika-Robot---Ranking--Featured-?node-id=268-984&p=f&viewport=258%2C358%2C0.04&t=JUopP0mihDjBAb9f-1&scaling=contain&content-scaling=fixed&page-id=1%3A3">
-                    <img class="case-study-thumbnail applied-ux-analytic-case-study-thumbnail"
-                        src="../asset/image/case-study/pikaranking.webp">
-                </a>
-
-                <a class="col-12 col-md-6 col-lg-4 col-xl-3 case-study-container" data-case-study="tabandtask"
-                    target="_blank"
-                    href="https://www.figma.com/deck/F8vhfPLXUM3F93sJnuwNCH/C%E1%BA%A3i-ti%E1%BA%BFn-Onboarding-Tab-Task--Featured-?node-id=1-1213&p=f&viewport=222%2C389%2C0.39&t=OdxxxQ310Osnt1UP-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1">
-                    <img class="case-study-thumbnail applied-ux-analytic-case-study-thumbnail"
-                        src="../asset/image/case-study/tabtaskonboarding.webp">
-                </a>
-
-                <a class="col-12 col-md-6 col-lg-4 col-xl-3 case-study-container" data-case-study="todaiiGerman"
-                    target="_blank"
-                    href="https://www.figma.com/proto/XOk1zCseSW1qupN7LgT77C/Todaii-German---VISA----Featured-?node-id=2090-11939&p=f&viewport=214%2C884%2C0.24&t=bAU9suwL0a8XvSd6-1&scaling=contain&content-scaling=fixed&page-id=0%3A1">
-                    <img class="case-study-thumbnail applied-ux-analytic-case-study-thumbnail"
-                        src="../asset/image/case-study/todaiiinterview.webp">
-                </a>
-
-            </div>
-            <!-- <div class="col-12 bootcamp-section-content">
-                <div class="mb-5 p-4" style="border: 0.5px solid var(--applied-analytic-secondary);">
-                    <div class="mono-caption primary-text mb-4">KHUNG ĐÁNH GIÁ &amp; TRỌNG SỐ</div>
-                    <div class="row g-0 mono-caption secondary-text">
-                        <div class="col-12 col-md-6 col-lg-4 p-3"
-                            style="border: 0.5px solid var(--applied-analytic-secondary); margin-top: -0.5px; margin-left: -0.5px;">
-                            <span class="mono-caption primary-text">Business Context:</span> 5%
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4 p-3"
-                            style="border: 0.5px solid var(--applied-analytic-secondary); margin-top: -0.5px; margin-left: -0.5px;">
-                            <span class="mono-caption primary-text">Product &amp; Feature Context:</span> 5%
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4 p-3"
-                            style="border: 0.5px solid var(--applied-analytic-secondary); margin-top: -0.5px; margin-left: -0.5px;">
-                            <span class="mono-caption primary-text">Event Tracking &amp; Validation:</span> 20%
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4 p-3"
-                            style="border: 0.5px solid var(--applied-analytic-secondary); margin-top: -0.5px; margin-left: -0.5px;">
-                            <span class="mono-caption primary-text">Phân tích thực trạng:</span> 25%
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4 p-3"
-                            style="border: 0.5px solid var(--applied-analytic-secondary); margin-top: -0.5px; margin-left: -0.5px;">
-                            <span class="mono-caption primary-text">Nghiên cứu giải thích:</span> 15%
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4 p-3"
-                            style="border: 0.5px solid var(--applied-analytic-secondary); margin-top: -0.5px; margin-left: -0.5px;">
-                            <span class="mono-caption primary-text">Conclusion &amp; Insights:</span> 10%
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4 p-3"
-                            style="border: 0.5px solid var(--applied-analytic-secondary); margin-top: -0.5px; margin-left: -0.5px;">
-                            <span class="mono-caption primary-text">Recommendations:</span> 10%
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4 p-3"
-                            style="border: 0.5px solid var(--applied-analytic-secondary); margin-top: -0.5px; margin-left: -0.5px;">
-                            <span class="mono-caption primary-text">Presentation &amp; Storytelling:</span> 5%
-                        </div>
-                        <div class="col-12 col-md-6 col-lg-4 p-3"
-                            style="border: 0.5px solid var(--applied-analytic-secondary); margin-top: -0.5px; margin-left: -0.5px;">
-                            <span class="mono-caption primary-text">Data Visualization:</span> 5%
-                        </div>
-                    </div>
-                </div>
-            </div> -->
-        </div>
-
         <div class="applied-ux-analytic bootcamp-section-full row g-0 lecturer" id="appliedUxAnalytic_general_section">
             <div class="col-12 bootcamp-section-header">
                 <h2 class="mono-caption primary-text">VI. THÔNG TIN CHUNG</h2>
@@ -695,6 +978,46 @@
             </div>
         </div>
 
+        <div class="applied-ux-analytic bootcamp-section-full row g-0 lecturer"
+            id="appliedUxAnalytic_case_study_section">
+            <div class="col-12 bootcamp-section-header">
+                <h2 class="mono-caption primary-text">VII. CASE STUDY</h2>
+                <p class="mono-caption secondary-text">
+                    Case study được thực hiện theo nhóm trên sản phẩm thực tế và bảo vệ trước Hội đồng giám khảo.
+                </p>
+            </div>
+
+            <div class="row justify-content-md-start justify-content-center">
+
+                <a class="col-12 col-md-6 col-lg-4 col-xl-3 case-study-container" data-case-study="Vipo" target="_blank"
+                    href="https://www.figma.com/deck/FZTLusCNwNVFriibvlqszi/N%C3%A2ng-c%E1%BA%A5p-Search-Vipo--Featured-?node-id=1-29&p=f&viewport=48%2C364%2C0.39&t=g1ojUuRdzw7vtpgj-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1">
+                    <img class="case-study-thumbnail applied-ux-analytic-case-study-thumbnail"
+                        src="../asset/image/case-study/searchvipo.webp">
+                </a>
+
+                <a class="col-12 col-md-6 col-lg-4 col-xl-3 case-study-container" data-case-study="Pika" target="_blank"
+                    href="https://www.figma.com/proto/5kGeVbYKYvJlT8FoddApsY/Pika-Robot---Ranking--Featured-?node-id=268-984&p=f&viewport=258%2C358%2C0.04&t=JUopP0mihDjBAb9f-1&scaling=contain&content-scaling=fixed&page-id=1%3A3">
+                    <img class="case-study-thumbnail applied-ux-analytic-case-study-thumbnail"
+                        src="../asset/image/case-study/pikaranking.webp">
+                </a>
+
+                <a class="col-12 col-md-6 col-lg-4 col-xl-3 case-study-container" data-case-study="tabandtask"
+                    target="_blank"
+                    href="https://www.figma.com/deck/F8vhfPLXUM3F93sJnuwNCH/C%E1%BA%A3i-ti%E1%BA%BFn-Onboarding-Tab-Task--Featured-?node-id=1-1213&p=f&viewport=222%2C389%2C0.39&t=OdxxxQ310Osnt1UP-1&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1">
+                    <img class="case-study-thumbnail applied-ux-analytic-case-study-thumbnail"
+                        src="../asset/image/case-study/tabtaskonboarding.webp">
+                </a>
+
+                <a class="col-12 col-md-6 col-lg-4 col-xl-3 case-study-container" data-case-study="todaiiGerman"
+                    target="_blank"
+                    href="https://www.figma.com/proto/XOk1zCseSW1qupN7LgT77C/Todaii-German---VISA----Featured-?node-id=2090-11939&p=f&viewport=214%2C884%2C0.24&t=bAU9suwL0a8XvSd6-1&scaling=contain&content-scaling=fixed&page-id=0%3A1">
+                    <img class="case-study-thumbnail applied-ux-analytic-case-study-thumbnail"
+                        src="../asset/image/case-study/todaiiinterview.webp">
+                </a>
+
+            </div>
+        </div>
+
         <div class="row footer justify-content-center align-items-center" id="appliedUxAnalytic_footer_section">
             <div class="col-12 col-lg-6 mt-5 d-flex justify-content-center align-items-center">
                 <img class="bootcamp-name-image" src="../asset/icon/applied-ux-analytic-image.svg" alt=""
@@ -735,411 +1058,6 @@
                     <a href="https://uxcamp.vn/certificate/find-your-certificate" target="_blank"
                         class="mono-caption primary-text">For Alumni: Find your certificate ›</a>
                     <a href="https://blog.uxcamp.vn/" target="_blank" class="mono-caption primary-text">Blogs ›</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="applied-ux-analytic bootcamp-section-full row g-0" id="appliedUxAnalytic_console_section">
-            <div class="col-12 bootcamp-section-header">
-                <h2 class="mono-caption primary-text">VII. CONSOLE</h2>
-                <p class="mono-caption primary-text">Demo user behavior bạn có thể track. Dữ liệu
-                    này:<br>
-                </p>
-                <p class="mono-caption secondary-text">
-                    Là hành vi của bạn trên page applied-ux-analytic, không bao gồm dữ liệu định danh của bạn.
-                    Không bao gồm dữ liệu của người khác.<br>
-                    Không thu thập dữ liệu bạn thao tác trên các website khác.<br>
-                    Chỉ hiển thị trên máy của bạn nhằm mục đích minh họa, không lưu trữ.<br>
-                </p>
-            </div>
-
-            <div class="col-12 bootcamp-section-content p-0">
-                <div class="ux-console">
-                    <!-- Console header bar -->
-                    <div class="ux-console-topbar">
-                        <span class="mono-caption secondary-text">UX ANALYTICS LIVE CONSOLE</span>
-                        <span class="ux-console-blink mono-caption primary-text">■</span>
-                    </div>
-
-                    <div class="ux-console-body row g-0">
-
-                        <!-- ===== LEFT PANEL ===== -->
-                        <div class="col-12 col-lg-6 ux-panel ux-panel-left">
-
-                            <!-- Overall -->
-                            <div class="ux-block">
-                                <div class="ux-block-title mono-caption primary-text">[ OVERALL ]<span
-                                        class="ux-dash"></span>
-                                </div>
-                                <div class="ux-kv-grid">
-                                    <span class="mono-caption secondary-text">total_page_view</span>
-                                    <span class="mono-caption secondary-text">:</span>
-                                    <span class="mono-caption primary-text"
-                                        id="appliedUxAnalytic_console_totalPv">-</span>
-
-                                    <span class="mono-caption secondary-text">first_page_view</span>
-                                    <span class="mono-caption secondary-text">:</span>
-                                    <span class="mono-caption primary-text"
-                                        id="appliedUxAnalytic_console_firstPv">-</span>
-
-                                    <span class="mono-caption secondary-text ux-kv-spacer"></span>
-                                    <span></span><span></span>
-
-                                    <span class="mono-caption secondary-text">total_session_duration</span>
-                                    <span class="mono-caption secondary-text">:</span>
-                                    <span class="mono-caption primary-text"
-                                        id="appliedUxAnalytic_console_totalDur">-</span>
-
-                                    <span class="mono-caption secondary-text">currrent_session_duration</span>
-                                    <span class="mono-caption secondary-text">:</span>
-                                    <span class="mono-caption primary-text"
-                                        id="appliedUxAnalytic_console_curDur">-</span>
-
-                                    <span class="mono-caption secondary-text ux-kv-spacer"></span>
-                                    <span></span><span></span>
-
-                                    <span class="mono-caption secondary-text">register_click</span>
-                                    <span class="mono-caption secondary-text">:</span>
-                                    <span class="mono-caption primary-text" id="appliedUxAnalytic_console_regClick">0
-                                        lần</span>
-
-                                    <span class="mono-caption secondary-text">is_registered</span>
-                                    <span class="mono-caption secondary-text">:</span>
-                                    <span class="mono-caption primary-text"
-                                        id="appliedUxAnalytic_console_isReg">false</span>
-
-                                    <span class="mono-caption secondary-text ux-kv-spacer"></span>
-                                    <span></span><span></span>
-
-                                    <span class="mono-caption secondary-text">registered_date</span>
-                                    <span class="mono-caption secondary-text">:</span>
-                                    <span class="mono-caption primary-text" id="appliedUxAnalytic_console_regDate">Thứ
-                                        7, 20/1/2026</span>
-                                </div>
-                            </div>
-
-                            <!-- User State Left -->
-                            <div class="ux-block">
-                                <div class="ux-block-title mono-caption primary-text">[ THIS SESSION ]<span
-                                        class="ux-dash"></span></div>
-                                <div class="ux-kv-grid">
-                                    <span class="mono-caption secondary-text">time_on_page</span>
-                                    <span class="mono-caption secondary-text">:</span>
-                                    <span class="mono-caption primary-text"
-                                        id="appliedUxAnalytic_console_timeOnPage">00:01:42</span>
-
-                                    <span class="mono-caption secondary-text">scroll_progress</span>
-                                    <span class="mono-caption secondary-text">:</span>
-                                    <span class="mono-caption primary-text ux-progress-wrap">
-                                        <span class="ux-progress-bar">
-                                            <span class="ux-progress-fill mono-caption"
-                                                id="appliedUxAnalytic_console_scrollFill" style="width:68%"></span>
-                                        </span>
-                                        <span id="appliedUxAnalytic_console_scrollPct" class="mono-caption">68%</span>
-                                    </span>
-
-                                    <span class="mono-caption secondary-text">sections_viewed</span>
-                                    <span class="mono-caption secondary-text">:</span>
-                                    <span class="mono-caption primary-text" id="appliedUxAnalytic_console_sections">4 /
-                                        7</span>
-
-                                    <span class="mono-caption secondary-text ux-kv-spacer"></span>
-                                    <span></span><span></span>
-
-                                    <span class="mono-caption secondary-text">attention_state</span>
-                                    <span class="mono-caption secondary-text">:</span>
-                                    <span class="mono-caption primary-text ux-state-active"
-                                        id="appliedUxAnalytic_console_attention">ACTIVE</span>
-
-                                    <span class="mono-caption secondary-text">last_action</span>
-                                    <span class="mono-caption secondary-text">:</span>
-                                    <span class="mono-caption primary-text"
-                                        id="appliedUxAnalytic_console_lastAction">-</span>
-                                </div>
-                            </div>
-
-                            <!-- Scroll Heatmap -->
-                            <div class="ux-block">
-                                <div class="ux-block-title mono-caption primary-text">SCROLL HEATMAP ALL SESSIONS<span
-                                        class="ux-dash"></span></div>
-                                <div class="ux-heatmap">
-                                    <div class="ux-heatmap-chart">
-                                        <div class="ux-heatmap-yaxis">
-                                            <span class="mono-caption secondary-text">80</span>
-                                            <span class="mono-caption secondary-text">70</span>
-                                            <span class="mono-caption secondary-text">60</span>
-                                            <span class="mono-caption secondary-text">50</span>
-                                            <span class="mono-caption secondary-text">40</span>
-                                            <span class="mono-caption secondary-text">30</span>
-                                            <span class="mono-caption secondary-text">20</span>
-                                            <span class="mono-caption secondary-text">10</span>
-                                            <span class="mono-caption secondary-text">0</span>
-                                        </div>
-                                        <div class="ux-heatmap-bars">
-                                            <div class="ux-heatmap-col">
-                                                <div class="ux-bar-wrap">
-                                                    <div class="ux-bar" style="height:30%"></div>
-                                                    <div class="ux-bar" style="height:20%"></div>
-                                                    <div class="ux-bar" style="height:10%"></div>
-                                                </div>
-                                                <span class="mono-caption secondary-text">Intro</span>
-                                            </div>
-                                            <div class="ux-heatmap-col">
-                                                <div class="ux-bar-wrap">
-                                                    <div class="ux-bar" style="height:25%"></div>
-                                                    <div class="ux-bar" style="height:15%"></div>
-                                                    <div class="ux-bar" style="height:10%"></div>
-                                                </div>
-                                                <span class="mono-caption secondary-text">Goal</span>
-                                            </div>
-                                            <div class="ux-heatmap-col">
-                                                <div class="ux-bar-wrap">
-                                                    <div class="ux-bar" style="height:20%"></div>
-                                                    <div class="ux-bar" style="height:15%"></div>
-                                                    <div class="ux-bar" style="height:10%"></div>
-                                                </div>
-                                                <span class="mono-caption secondary-text">Register</span>
-                                            </div>
-                                            <div class="ux-heatmap-col">
-                                                <div class="ux-bar-wrap">
-                                                    <div class="ux-bar" style="height:45%"></div>
-                                                    <div class="ux-bar" style="height:35%"></div>
-                                                    <div class="ux-bar" style="height:10%"></div>
-                                                </div>
-                                                <span class="mono-caption secondary-text">Syllabus</span>
-                                            </div>
-                                            <div class="ux-heatmap-col">
-                                                <div class="ux-bar-wrap">
-                                                    <div class="ux-bar" style="height:28%"></div>
-                                                    <div class="ux-bar" style="height:18%"></div>
-                                                    <div class="ux-bar" style="height:10%"></div>
-                                                </div>
-                                                <span class="mono-caption secondary-text">General</span>
-                                            </div>
-                                            <div class="ux-heatmap-col">
-                                                <div class="ux-bar-wrap">
-                                                    <div class="ux-bar" style="height:15%"></div>
-                                                    <div class="ux-bar" style="height:10%"></div>
-                                                </div>
-                                                <span class="mono-caption secondary-text">Link</span>
-                                            </div>
-                                            <div class="ux-heatmap-col">
-                                                <div class="ux-bar-wrap">
-                                                    <div class="ux-bar" style="height:50%"></div>
-                                                    <div class="ux-bar" style="height:38%"></div>
-                                                    <div class="ux-bar" style="height:22%"></div>
-                                                    <div class="ux-bar" style="height:10%"></div>
-                                                </div>
-                                                <span class="mono-caption secondary-text">Demo</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- User State Left (grid) -->
-                            <div class="ux-block">
-                                <div class="ux-block-title mono-caption primary-text">[ USER STATE ]<span
-                                        class="ux-dash"></span></div>
-                                <div class="ux-state-grid">
-
-                                    <div class="ux-state-cell">
-                                        <span class="mono-caption secondary-text">Device</span>
-                                        <span class="mono-caption primary-text">Computer</span>
-                                    </div>
-                                    <div class="ux-state-cell">
-                                        <span class="mono-caption secondary-text">OS</span>
-                                        <span class="mono-caption primary-text">Windows</span>
-                                    </div>
-                                    <div class="ux-state-cell">
-                                        <span class="mono-caption secondary-text">is_dark_mode</span>
-                                        <span class="mono-caption primary-text">true</span>
-                                    </div>
-                                    <div class="ux-state-cell">
-                                        <span class="mono-caption secondary-text">region</span>
-                                        <span class="mono-caption primary-text">Hanoi</span>
-                                    </div>
-                                    <div class="ux-state-cell">
-                                        <span class="mono-caption secondary-text">browser</span>
-                                        <span class="mono-caption primary-text">Chrome</span>
-                                    </div>
-                                    <div class="ux-state-cell">
-                                        <span class="mono-caption secondary-text">browser_version</span>
-                                        <span class="mono-caption primary-text">147</span>
-                                    </div>
-                                    <div class="ux-state-cell">
-                                        <span class="mono-caption secondary-text">screen_height</span>
-                                        <span class="mono-caption primary-text">1152</span>
-                                    </div>
-                                    <div class="ux-state-cell">
-                                        <span class="mono-caption secondary-text">screen_width</span>
-                                        <span class="mono-caption primary-text">1152</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <!-- ===== RIGHT PANEL ===== -->
-                        <div class="col-12 col-lg-6 ux-panel ux-panel-right">
-
-                            <!-- Event Stream -->
-                            <div class="ux-block">
-                                <div class="ux-block-title mono-caption primary-text">[ EVENT STREAM THIS SESSION ]<span
-                                        class="ux-dash"></span></div>
-                                <div class="ux-event-stream" id="appliedUxAnalytic_console_eventStream">
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-event-time">12:01:02</span>
-                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
-                                        <span class="mono-caption primary-text">scroll_depth: 25%</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-event-time">12:01:05</span>
-                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
-                                        <span class="mono-caption primary-text">view_section: hero</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-event-time">12:01:08</span>
-                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
-                                        <span class="mono-caption primary-text">click: [CTA_PRIMARY]</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-event-time">12:01:12</span>
-                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
-                                        <span class="mono-caption primary-text">view_section: pricing</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-event-time">12:01:18</span>
-                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
-                                        <span class="mono-caption primary-text">hover: pricing_card_2 (3.2s)</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-event-time">12:01:25</span>
-                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
-                                        <span class="mono-caption primary-text">scroll_depth: 60%</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-event-time">12:01:31</span>
-                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
-                                        <span class="mono-caption primary-text">idle: 5s</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-event-time">12:01:36</span>
-                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
-                                        <span class="mono-caption primary-text">click: [FAQ_ITEM_3]</span>
-                                    </div>
-                                    <div class="ux-event-row ux-event-alert">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-event-time">12:01:40</span>
-                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
-                                        <span class="mono-caption primary-text">rage_click detected (x5)</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-event-time">12:01:02</span>
-                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
-                                        <span class="mono-caption primary-text">scroll_depth: 25%</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-event-time">12:01:05</span>
-                                        <span class="mono-caption secondary-text ux-event-sep">›</span>
-                                        <span class="mono-caption primary-text">view_section: hero</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-event-time"></span>
-                                        <span class="mono-caption secondary-text ux-event-sep"></span>
-                                        <span class="mono-caption secondary-text ux-cursor-blink">▋</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Funnel Progression -->
-                            <div class="ux-block">
-                                <div class="ux-block-title mono-caption primary-text">[ FUNNEL PROGRESSION ]<span
-                                        class="ux-dash"></span></div>
-                                <div class="ux-funnel">
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption primary-text ux-funnel-check done">[√]</span>
-                                        <span class="mono-caption primary-text">landing_view</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption primary-text ux-funnel-check done">[√]</span>
-                                        <span class="mono-caption primary-text">scroll_50%</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption primary-text ux-funnel-check done">[√]</span>
-                                        <span class="mono-caption primary-text">view_pricing</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption primary-text ux-funnel-check done">[√]</span>
-                                        <span class="mono-caption primary-text">click_cta</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
-                                        <span class="mono-caption secondary-text">start_form</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
-                                        <span class="mono-caption secondary-text">form_general_section_completion:
-                                            0/6</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
-                                        <span class="mono-caption secondary-text">form_environment_section_completion:
-                                            0/5</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
-                                        <span
-                                            class="mono-caption secondary-text">form_characteristics_section_completion:
-                                            0/24</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
-                                        <span class="mono-caption secondary-text">form_problem_section_completion:
-                                            0/20</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
-                                        <span class="mono-caption secondary-text">form_expectations_section_completion:
-                                            0/23</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
-                                        <span class="mono-caption secondary-text">form_registration_section_completion:
-                                            0/1</span>
-                                    </div>
-                                    <div class="ux-event-row">
-                                        <span class="mono-caption secondary-text ux-pipe">|</span>
-                                        <span class="mono-caption secondary-text ux-funnel-check">[ ]</span>
-                                        <span class="mono-caption secondary-text">submit_form</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>

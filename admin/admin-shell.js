@@ -170,22 +170,18 @@
 						<a href="${rootPath}admin/LMS/user/index.html" class="admin-nav-item ${activeTab === 'tab-users' ? 'active' : ''}" data-tab="tab-users">
 							<span class="nav-icon">👥</span>
 							<span class="nav-text">Tài khoản Users</span>
-							<span class="tab-count-badge" id="badge-count-users">—</span>
 						</a>
 						<a href="${rootPath}admin/LMS/course/index.html" class="admin-nav-item ${activeTab === 'tab-courses' ? 'active' : ''}" data-tab="tab-courses">
 							<span class="nav-icon">🎓</span>
 							<span class="nav-text">Khóa học (Courses)</span>
-							<span class="tab-count-badge" id="badge-count-courses">—</span>
 						</a>
 						<a href="${rootPath}admin/LMS/cohort/index.html" class="admin-nav-item ${activeTab === 'tab-cohorts' ? 'active' : ''}" data-tab="tab-cohorts">
 							<span class="nav-icon">🏛️</span>
 							<span class="nav-text">Lớp học (Cohorts)</span>
-							<span class="tab-count-badge" id="badge-count-cohorts">—</span>
 						</a>
 						<a href="${rootPath}admin/LMS/certificate/index.html" class="admin-nav-item ${activeTab === 'tab-certificates' ? 'active' : ''}" data-tab="tab-certificates">
 							<span class="nav-icon">🎖️</span>
 							<span class="nav-text">Chứng chỉ (Certificates)</span>
-							<span class="tab-count-badge" id="badge-count-certificates">—</span>
 						</a>
 					</nav>
 				</div>
@@ -197,22 +193,18 @@
 						<a href="${rootPath}admin/CMS/casestudy/index.html" class="admin-nav-item ${activeTab === 'tab-case-studies' ? 'active' : ''}" data-tab="tab-case-studies">
 							<span class="nav-icon">💼</span>
 							<span class="nav-text">Case Studies</span>
-							<span class="tab-count-badge" id="badge-count-case-studies">—</span>
 						</a>
 						<a href="${rootPath}admin/CMS/participant/index.html" class="admin-nav-item ${activeTab === 'tab-participants' ? 'active' : ''}" data-tab="tab-participants">
 							<span class="nav-icon">🌐</span>
 							<span class="nav-text">Người tham dự 3D</span>
-							<span class="tab-count-badge" id="badge-count-participants">—</span>
 						</a>
 						<a href="${rootPath}admin/CMS/knowledge/index.html" class="admin-nav-item ${activeTab === 'tab-knowledge' ? 'active' : ''}" data-tab="tab-knowledge">
 							<span class="nav-icon">🧠</span>
 							<span class="nav-text">Đồ thị Kiến thức</span>
-							<span class="tab-count-badge" id="badge-count-knowledge">—</span>
 						</a>
 						<a href="${rootPath}admin/CMS/book/index.html" class="admin-nav-item ${activeTab === 'tab-books' ? 'active' : ''}" data-tab="tab-books">
 							<span class="nav-icon">📚</span>
 							<span class="nav-text">Tủ Sách UX</span>
-							<span class="tab-count-badge" id="badge-count-books">—</span>
 						</a>
 					</nav>
 				</div>
@@ -235,7 +227,6 @@
 		`;
 
 		initSidebarInteractions();
-		loadBadges();
 	}
 
 	function initSidebarInteractions() {
@@ -283,42 +274,30 @@
 		}
 	}
 
-	// Tải số lượng badge từ Firestore
-	async function loadBadges() {
-		if (!db) return;
+	// =========================================================================
+	// 5. AUTH GATE LOGIC & SESSION CACHE
+	// =========================================================================
+	function getCachedAdminSession() {
 		try {
-			// Chỉ tải nhẹ danh sách đếm hoặc kích thước
-			const usersSnap = await db.collection('authorizedUsers').get();
-			const bUsers = document.getElementById('badge-count-users');
-			if (bUsers) bUsers.textContent = usersSnap.size;
-
-			const coursesSnap = await db.collection('courses').get();
-			const bCourses = document.getElementById('badge-count-courses');
-			if (bCourses) bCourses.textContent = coursesSnap.size;
-
-			const cohortsSnap = await db.collection('cohorts').get();
-			const bCohorts = document.getElementById('badge-count-cohorts');
-			if (bCohorts) bCohorts.textContent = cohortsSnap.size;
-
-			const certsSnap = await db.collection('certificates').get();
-			const bCerts = document.getElementById('badge-count-certificates');
-			if (bCerts) bCerts.textContent = certsSnap.size;
-
-			const caseSnap = await db.collection('caseStudies').get();
-			const bCase = document.getElementById('badge-count-case-studies');
-			if (bCase) bCase.textContent = caseSnap.size;
-
-			const knSnap = await db.collection('knowledgeNodes').get();
-			const bKn = document.getElementById('badge-count-knowledge');
-			if (bKn) bKn.textContent = knSnap.size;
-		} catch (err) {
-			console.warn('[AdminShell] Could not load all badges:', err);
+			const cached = sessionStorage.getItem('uxcamp_auth');
+			if (cached) {
+				const parsed = JSON.parse(cached);
+				// Thời hạn session cache hợp lệ (2 giờ)
+				const MAX_SESSION_AGE = 2 * 60 * 60 * 1000;
+				if (parsed && parsed.authorized && parsed.role === 'admin' && parsed.email) {
+					if (parsed.cachedAt && (Date.now() - parsed.cachedAt > MAX_SESSION_AGE)) {
+						sessionStorage.removeItem('uxcamp_auth');
+						return null;
+					}
+					return parsed;
+				}
+			}
+		} catch (e) {
+			console.warn('[AdminShell] Lỗi đọc session cache:', e);
 		}
+		return null;
 	}
 
-	// =========================================================================
-	// 5. AUTH GATE LOGIC
-	// =========================================================================
 	async function findAuthorizedUser(email, firebaseUser) {
 		const cleanEmail = (email || '').trim().toLowerCase();
 		if (!cleanEmail) return { exists: false };
@@ -396,16 +375,64 @@
 			return;
 		}
 
+		let cachedSession = getCachedAdminSession();
+		let hasDispatchedAdminReady = false;
+
+		function unlockUI(user, profile) {
+			window.currentAdminUser = user;
+			window.currentAdminProfile = profile;
+
+			if (authGate) authGate.style.display = 'none';
+			if (sidebar) sidebar.style.display = 'flex';
+			if (contentWrapper) contentWrapper.style.display = 'flex';
+
+			// Cập nhật thông tin avatar & tên
+			const avatarEl = document.getElementById('admin-avatar');
+			const nameEl = document.getElementById('admin-name');
+			if (avatarEl) {
+				const photo = profile.photoURL || (user && user.photoURL) || '';
+				avatarEl.src = photo;
+				avatarEl.style.display = photo ? 'block' : 'none';
+			}
+			if (nameEl) {
+				nameEl.textContent = profile.displayName || (user && user.displayName) || profile.email || (user && user.email) || 'Admin';
+			}
+		}
+
+		// FAST-PATH: Mở khóa UI tức thì nếu có session admin hợp lệ trong sessionStorage (0ms latency, không chớp nháy)
+		if (cachedSession) {
+			unlockUI(auth.currentUser || cachedSession, cachedSession);
+		}
+
 		auth.onAuthStateChanged(async (user) => {
 			if (!user) {
+				sessionStorage.removeItem('uxcamp_auth');
 				window.location.href = rootPath + 'authentication.html';
 				return;
 			}
 
+			// Nếu đã có cached session và khớp đúng email của user đăng nhập
+			if (cachedSession && cachedSession.email.toLowerCase() === user.email.trim().toLowerCase()) {
+				// Cập nhật Firebase User thật sự
+				window.currentAdminUser = user;
+				unlockUI(user, cachedSession);
+
+				if (!hasDispatchedAdminReady) {
+					hasDispatchedAdminReady = true;
+					window.dispatchEvent(new CustomEvent('adminReady', { detail: { user, userProfile: cachedSession, db, auth } }));
+				}
+				return;
+			}
+
+			// Chưa có cache hoặc chuyển sang tài khoản khác -> Gọi Firestore kiểm tra quyền
 			try {
 				const userProfile = await findAuthorizedUser(user.email, user);
 				if (!userProfile.exists || userProfile.role !== 'admin') {
+					sessionStorage.removeItem('uxcamp_auth');
 					if (authGate) {
+						authGate.style.display = 'flex';
+						if (sidebar) sidebar.style.display = 'none';
+						if (contentWrapper) contentWrapper.style.display = 'none';
 						authGate.innerHTML = `
 							<div class="empty-state">
 								<span class="h4" style="color: var(--main-colors-foreground-f300);">⛔ Không có quyền truy cập</span>
@@ -414,7 +441,7 @@
 								</p>
 								<div class="d-flex gap-2 mt-3">
 									<a class="btn-outline-custom" href="${rootPath}index.html" style="text-decoration: none;">← Về trang chủ</a>
-									<button class="btn-signout" onclick="adminAuth.signOut().then(() => window.location.href='${rootPath}authentication.html')">Đăng nhập tài khoản khác</button>
+									<button class="btn-signout" onclick="adminAuth.signOut().then(() => { sessionStorage.removeItem('uxcamp_auth'); window.location.href='${rootPath}authentication.html'; })">Đăng nhập tài khoản khác</button>
 								</div>
 							</div>
 						`;
@@ -422,12 +449,23 @@
 					return;
 				}
 
-				// User là Admin hợp lệ
-				window.currentAdminUser = user;
-				window.currentAdminProfile = userProfile;
+				// Lưu vào sessionStorage để tất cả các lần điều hướng tiếp theo tải tức thì
+				const sessionData = {
+					uid: user.uid,
+					id: userProfile.id || userProfile.docId || user.uid,
+					email: user.email.toLowerCase(),
+					primaryEmail: userProfile.primaryEmail || user.email.toLowerCase(),
+					displayName: userProfile.displayName || user.displayName || user.email.split('@')[0],
+					photoURL: userProfile.photoUrl || user.photoURL || '',
+					role: 'admin',
+					status: userProfile.status || 'active',
+					authorized: true,
+					cachedAt: Date.now()
+				};
+				sessionStorage.setItem('uxcamp_auth', JSON.stringify(sessionData));
+				cachedSession = sessionData;
 
-				// Đảm bảo document của user.email và user.uid trong authorizedUsers có role: 'admin'
-				// để Firestore Security Rules (hasUserDoc() && getUserDoc().role == 'admin') cấp quyền ghi server-side!
+				// Đảm bảo document của user.email và user.uid trong authorizedUsers có role: 'admin' (chỉ chạy 1 lần khi xác thực lần đầu)
 				if (user.email) {
 					const curEmail = user.email.trim().toLowerCase();
 					db.collection('authorizedUsers').doc(curEmail).set({
@@ -448,26 +486,18 @@
 					}, { merge: true }).catch(err => console.warn('Could not sync admin uid doc:', err));
 				}
 
-				if (authGate) authGate.style.display = 'none';
-				if (sidebar) sidebar.style.display = 'flex';
-				if (contentWrapper) contentWrapper.style.display = 'flex';
-
-				// Cập nhật thông tin avatar & tên
-				const avatarEl = document.getElementById('admin-avatar');
-				const nameEl = document.getElementById('admin-name');
-				if (avatarEl) {
-					avatarEl.src = user.photoURL || '';
-					avatarEl.style.display = user.photoURL ? 'block' : 'none';
-				}
-				if (nameEl) {
-					nameEl.textContent = userProfile.displayName || user.displayName || user.email;
-				}
+				unlockUI(user, sessionData);
 
 				// Phát sự kiện adminReady để trang nghiệp vụ nạp dữ liệu
-				window.dispatchEvent(new CustomEvent('adminReady', { detail: { user, userProfile, db, auth } }));
+				if (!hasDispatchedAdminReady) {
+					hasDispatchedAdminReady = true;
+					window.dispatchEvent(new CustomEvent('adminReady', { detail: { user, userProfile: sessionData, db, auth } }));
+				}
 
 			} catch (err) {
+				sessionStorage.removeItem('uxcamp_auth');
 				if (authGate) {
+					authGate.style.display = 'flex';
 					authGate.innerHTML = `
 						<div class="empty-state">
 							<span class="h5" style="color: var(--alternative-foreground-red);">Lỗi kiểm tra quyền</span>

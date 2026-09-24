@@ -53,7 +53,7 @@ const STICKY_GRAPH_CONFIG = {
   // Mặc định luôn tự động xoay ngẫu nhiên 360° xung quanh tâm; góc máy chiếu ngang trực diện tầm mắt vào khối sticky note.
   cameraDistanceDesktop: 3200,          // Khoảng cách camera trên Desktop / Laptop (pixel)
   cameraDistanceMobile: 5000,           // Khoảng cách camera trên Mobile / Điện thoại (pixel)
-  cameraPitch: 0.0,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
+  cameraPitch: -0.2,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
 
   rotateSpeed: 2.0,                     // Tốc độ xoay camera khi kéo drag chuột (0.1 -> 3.0)
   dampingFactor: 0.05,                  // Hệ số hãm quán tính khi xoay camera (0.01 -> 0.3, nhỏ hơn = mượt hơn)
@@ -125,7 +125,7 @@ const STICKY_GRAPH_CONFIG = {
   aspectScaleX: 1.0,                    // Hệ số tùy chỉnh dãn trục X
   aspectScaleY: 1.0,                    // Hệ số tùy chỉnh dãn trục Y
   aspectScaleZ: 1.0,                    // Hệ số tùy chỉnh dãn trục Z
-  spreadRadius: 1100,                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
+  spreadRadius: 1200,                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
   autoRotate: true,                     // Bật/Tắt tự động xoay nhẹ camera xung quanh trung tâm
   autoRotateSpeed: 0.1,                 // Tốc độ tự động xoay camera (0.1 -> 2.0)
   onNodeClick: null,                    // Callback hàm JS khi click vào 1 note: null hoặc (node) => { ... }

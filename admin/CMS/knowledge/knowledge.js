@@ -465,7 +465,30 @@ function updateSelectionUI() {
 // =========================================================================
 // TABLE RENDERING (INLINE EDITABLE)
 // =========================================================================
+function updateNodeLevel(index, newLevel) {
+	newLevel = Math.max(1, Math.min(7, parseInt(newLevel, 10) || 1));
+	if (!nodesData[index]) return;
+	if (nodesData[index].level === newLevel) {
+		renderTable();
+		return;
+	}
+	nodesData[index].level = newLevel;
+	markDirty(1);
+	rebuildNodesMap();
+	renderPalette();
+	renderTable();
+}
+
 function renderTable() {
+	const tableScrollWrap = document.getElementById('tableScrollWrap');
+	const prevScrollTop = tableScrollWrap ? tableScrollWrap.scrollTop : 0;
+	const prevScrollLeft = tableScrollWrap ? tableScrollWrap.scrollLeft : 0;
+
+	// Lưu trạng thái focus nếu đang tương tác với stepper
+	const activeEl = document.activeElement;
+	const focusedStepperAction = activeEl?.dataset?.action || (activeEl?.classList?.contains('stepper-input') ? 'input' : null);
+	const focusedIndex = activeEl?.dataset?.index;
+
 	const tbody = document.getElementById('tableBody');
 	const searchQ = (document.getElementById('tableSearch')?.value || '').trim().toLowerCase();
 	const filterLvl = document.getElementById('filterLevel')?.value || 'ALL';
@@ -497,9 +520,11 @@ function renderTable() {
 						<textarea class="cell-input fw-semibold" data-field="label" rows="2" placeholder="Tiêu đề node...">${adminEscapeHtml(node.label)}</textarea>
 					</td>
 					<td style="text-align: center;">
-						<select class="cell-select" data-field="level">
-							${[1, 2, 3, 4, 5, 6, 7].map(lv => `<option value="${lv}" ${node.level === lv ? 'selected' : ''}>Lv ${lv}</option>`).join('')}
-						</select>
+						<div class="level-stepper" data-index="${index}">
+							<button type="button" class="btn-stepper btn-stepper-dec" data-action="dec" data-index="${index}" ${node.level <= 1 ? 'disabled' : ''} title="Giảm Level">−</button>
+							<input type="number" class="stepper-input font-sans-caption fw-semibold" data-index="${index}" min="1" max="7" value="${node.level}" title="Nhập level (1 - 7)">
+							<button type="button" class="btn-stepper btn-stepper-inc" data-action="inc" data-index="${index}" ${node.level >= 7 ? 'disabled' : ''} title="Tăng Level">+</button>
+						</div>
 					</td>
 					<td>
 						<textarea class="cell-input" data-field="desc" rows="6" placeholder="Mô tả tóm tắt...">${adminEscapeHtml(node.desc)}</textarea>
@@ -528,6 +553,25 @@ function renderTable() {
 	document.getElementById('statLinks').textContent = totalLinks;
 
 	attachTableEvents();
+
+	if (tableScrollWrap) {
+		tableScrollWrap.scrollTop = prevScrollTop;
+		tableScrollWrap.scrollLeft = prevScrollLeft;
+	}
+
+	if (focusedIndex !== undefined && focusedStepperAction) {
+		if (focusedStepperAction === 'inc') {
+			tbody.querySelector(`.btn-stepper-inc[data-index="${focusedIndex}"]`)?.focus();
+		} else if (focusedStepperAction === 'dec') {
+			tbody.querySelector(`.btn-stepper-dec[data-index="${focusedIndex}"]`)?.focus();
+		} else if (focusedStepperAction === 'input') {
+			const inp = tbody.querySelector(`.stepper-input[data-index="${focusedIndex}"]`);
+			if (inp) {
+				inp.focus();
+				inp.select();
+			}
+		}
+	}
 }
 
 function renderConnectionChips(connections, nodeIndex) {
@@ -648,7 +692,50 @@ function attachTableEvents() {
 		};
 	});
 
-	// 2. Chỉnh sửa nội dung in-place (label, level, desc, color)
+	// Stepper Level (Cộng / Trừ & Nhập trực tiếp)
+	document.querySelectorAll('.btn-stepper-dec').forEach(btn => {
+		btn.onclick = (e) => {
+			e.stopPropagation();
+			const index = parseInt(btn.dataset.index, 10);
+			if (isNaN(index) || !nodesData[index]) return;
+			const curLevel = parseInt(nodesData[index].level, 10) || 1;
+			if (curLevel > 1) {
+				updateNodeLevel(index, curLevel - 1);
+			}
+		};
+	});
+
+	document.querySelectorAll('.btn-stepper-inc').forEach(btn => {
+		btn.onclick = (e) => {
+			e.stopPropagation();
+			const index = parseInt(btn.dataset.index, 10);
+			if (isNaN(index) || !nodesData[index]) return;
+			const curLevel = parseInt(nodesData[index].level, 10) || 1;
+			if (curLevel < 7) {
+				updateNodeLevel(index, curLevel + 1);
+			}
+		};
+	});
+
+	document.querySelectorAll('.stepper-input').forEach(input => {
+		input.onchange = (e) => {
+			const index = parseInt(input.dataset.index, 10);
+			if (isNaN(index) || !nodesData[index]) return;
+			let val = parseInt(input.value, 10);
+			if (isNaN(val)) val = nodesData[index].level || 1;
+			val = Math.max(1, Math.min(7, val));
+			input.value = val;
+			updateNodeLevel(index, val);
+		};
+		input.onkeydown = (e) => {
+			if (e.key === 'Enter') {
+				input.blur();
+			}
+		};
+		input.addEventListener('wheel', (e) => e.preventDefault(), { passive: false });
+	});
+
+	// 2. Chỉnh sửa nội dung in-place (label, desc, color)
 	document.querySelectorAll('.cell-input, .cell-select, .cell-color-picker, .cell-color-text').forEach(input => {
 		input.oninput = (e) => {
 			const tr = e.target.closest('tr');
@@ -657,9 +744,7 @@ function attachTableEvents() {
 			const field = e.target.dataset.field;
 			let val = e.target.value;
 
-			if (field === 'level') {
-				nodesData[index][field] = parseInt(val, 10);
-			} else if (field === 'color') {
+			if (field === 'color') {
 				nodesData[index]['color'] = val.toUpperCase();
 				const textInput = tr.querySelector('.cell-color-text');
 				if (textInput) textInput.value = val.toUpperCase();
@@ -667,7 +752,7 @@ function attachTableEvents() {
 				nodesData[index]['color'] = val.toUpperCase();
 				const picker = tr.querySelector('.cell-color-picker');
 				if (picker && /^#[0-9a-fA-F]{6}$/.test(val)) picker.value = val.toLowerCase();
-			} else {
+			} else if (field) {
 				nodesData[index][field] = val;
 			}
 

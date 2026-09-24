@@ -20,7 +20,7 @@ const STICKY_GRAPH_CONFIG = {
   localCacheTTL: 86400000,                     // Thời gian hết hạn cache (ms): 24h = 86400000 ms (Đặt 0 để không hết hạn tự động)
 
   // 🛡️ LỌC KIỂM DUYỆT (Validation Filter)
-  onlyValidated: true,                          // Chỉ hiển thị các node đã được kiểm duyệt (validated === true)
+  onlyValidated: false,                          // Chỉ hiển thị các node đã được kiểm duyệt (validated === true)
 
   // ----------------------------------------------------------------------------
   // 2. CHẾ ĐỘ HIỂN THỊ (Theme & Appearance)
@@ -31,9 +31,9 @@ const STICKY_GRAPH_CONFIG = {
   // 3. THIẾT KẾ STICKY NOTE (Note Dynamics & Typography)
   // ----------------------------------------------------------------------------
   borderRadius: 8,                      // Độ bo góc sticky note (pixel, 0 = vuông vức, 8-12 = bo mượt)
-  paperCurl: 15,                         // Độ cong vênh mép giấy (0 = phẳng, 5-15px = cong tự nhiên)
+  paperCurl: 15,                        // Độ cong vênh mép giấy (0 = phẳng, 5-15px = cong tự nhiên)
   flutterAmp: 40.0,                     // Độ rung lắc mép giấy khi camera xoay/di chuyển (0 -> 100)
-  hierarchyDepth: false,                 // Phân tầng độ sâu trục Z: L1 nổi lên trước (+Z), các tầng sau lùi dần (-Z)
+  hierarchyDepth: false,                // Phân tầng độ sâu trục Z: L1 nổi lên trước (+Z), các tầng sau lùi dần (-Z)
   noteScale: 1.3,                       // Hệ số phóng to / thu nhỏ kích thước tất cả note (VD: 0.7 = 70%)
   fontSize: 8,                          // Kích thước font tiêu đề (title) trong sticky note (null = tự động theo level)
   descFontSize: 6.2,                    // Kích thước font mô tả (description) trong sticky note (null = tự động)
@@ -43,15 +43,15 @@ const STICKY_GRAPH_CONFIG = {
   // ----------------------------------------------------------------------------
   // 4. KHÔNG GIAN, MÀU NỀN & CAMERA (Environment & Camera)
   // ----------------------------------------------------------------------------
-  canvasBgDark: '#000000',              // Màu nền canvas ở chế độ Dark mode (Hex/RGB, ví dụ: '#000000' hoặc '#0a0c10')
-  canvasBgLight: '#F9F6F1',             // Màu nền canvas ở chế độ Light mode (Hex/RGB, ví dụ: '#F9F6F1' hoặc '#f8fafc')
+  canvasBgDark: '#000000',            // Màu nền canvas ở chế độ Dark mode (Hex/RGB, ví dụ: '#000000' hoặc '#0a0c10')
+  canvasBgLight: '#F9F6F1',           // Màu nền canvas ở chế độ Light mode (Hex/RGB, ví dụ: '#F9F6F1' hoặc '#f8fafc')
   fogType: 'exp2',                      // Loại sương mù chiều sâu: 'exp2' (hàm mũ tự nhiên) | 'linear' (tuyến tính)
-  depthFade: 0.5,                         // Mức độ làm mờ sương mù chiều sâu theo trục Z (0% -> 100%)
+  depthFade: 0.5,                       // Mức độ làm mờ sương mù chiều sâu theo trục Z (0% -> 100%)
   minDistance: 500,                     // Khoảng cách zoom gần nhất của camera (pixel)
   maxDistance: 6000,                    // Khoảng cách zoom xa nhất của camera (pixel)
   // 📸 CẤU HÌNH KHOẢNG CÁCH CAMERA (ZOOM DISTANCE) & GÓC NGHIÊNG CHO DESKTOP & MOBILE
   // Mặc định luôn tự động xoay ngẫu nhiên 360° xung quanh tâm; góc máy chiếu ngang trực diện tầm mắt vào khối sticky note.
-  cameraDistanceDesktop: 3700,          // Khoảng cách camera trên Desktop / Laptop (pixel)
+  cameraDistanceDesktop: 3200,          // Khoảng cách camera trên Desktop / Laptop (pixel)
   cameraDistanceMobile: 5000,           // Khoảng cách camera trên Mobile / Điện thoại (pixel)
   cameraPitch: 0.0,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
 
@@ -84,7 +84,7 @@ const STICKY_GRAPH_CONFIG = {
   // ----------------------------------------------------------------------------
   lineMorphology: 'bezier',             // Kiểu đường nối: 'bezier' (cong mềm) | 'straight' (thẳng) | 'orthogonal' (gấp khúc 90°)
   lineWidth: 1,                       // Độ dày đường liên kết mặc định (pixel, ví dụ: 1.0, 1.5, 2.0...)
-  lineColorDark: '#b6b6b6',             // Màu đường liên kết mặc định ở Dark mode (Hex)
+  lineColorDark: '#b4935e',             // Màu đường liên kết mặc định ở Dark mode (Hex)
   lineColorLight: '#a29f97',            // Màu đường liên kết mặc định ở Light mode (Hex)
   lineOpacityDark: 0.6,                 // Độ mờ / trong suốt của đường nối mặc định ở Dark mode (0.0 -> 1.0)
   lineOpacityLight: 0.4,                // Độ mờ / trong suốt của đường nối mặc định ở Light mode (0.0 -> 1.0)
@@ -104,7 +104,7 @@ const STICKY_GRAPH_CONFIG = {
 
   // 7.3. Connection KHÔNG ĐƯỢC highlight (các đường nối còn lại không liên quan):
   lineDimmedWidth: 1,                   // Độ dày của connection không được highlight (pixel)
-  lineDimmedOpacity: 0.0,              // Độ trong suốt / opacity của connection không được highlight (0.0 -> 1.0; nếu = 0 sẽ ẩn luôn)
+  lineDimmedOpacity: 0.1,              // Độ trong suốt / opacity của connection không được highlight (0.0 -> 1.0; nếu = 0 sẽ ẩn luôn)
 
   // ----------------------------------------------------------------------------
   // 8. ĐỘNG LỰC HỌC & TƯƠNG TÁC (Physics Dynamics)
@@ -121,11 +121,11 @@ const STICKY_GRAPH_CONFIG = {
   layoutTypeDesktop: 'galaxy',          // Bố cục mặc định cho màn hình Desktop (rộng >= 768px)
   layoutTypeMobile: 'galaxy',           // Bố cục mặc định cho màn hình Mobile (rộng < 768px)
   adaptiveAspectShape: true,            // Tự động phân bổ hình dạng khối theo tỷ lệ canvas (dài ngang trên desktop, cao dọc trên mobile)
-  aspectRatioPower: 0.3,                // Độ co dãn thích ứng theo tỷ lệ khung hình (0.3 -> 1.0)
+  aspectRatioPower: 0.5,                // Độ co dãn thích ứng theo tỷ lệ khung hình (0.3 -> 1.0)
   aspectScaleX: 1.0,                    // Hệ số tùy chỉnh dãn trục X
   aspectScaleY: 1.0,                    // Hệ số tùy chỉnh dãn trục Y
   aspectScaleZ: 1.0,                    // Hệ số tùy chỉnh dãn trục Z
-  spreadRadius: 1300,                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
+  spreadRadius: 1100,                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
   autoRotate: true,                     // Bật/Tắt tự động xoay nhẹ camera xung quanh trung tâm
   autoRotateSpeed: 0.1,                 // Tốc độ tự động xoay camera (0.1 -> 2.0)
   onNodeClick: null,                    // Callback hàm JS khi click vào 1 note: null hoặc (node) => { ... }

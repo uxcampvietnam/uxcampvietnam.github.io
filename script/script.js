@@ -86,13 +86,25 @@ function getAssetPrefix() {
 }
 
 function renderCourseBootcampItem(item, registerUrl, assetPrefix) {
-    is_applied_ux_analytic = item.bootcamp == "Applied UX Analytic";
+    const isAppliedUxAnalytic = item.bootcamp === "Applied UX Analytic";
+    const href = item.bootcamp_id ? `${registerUrl}?bootcamp_id=${encodeURIComponent(item.bootcamp_id)}` : registerUrl;
+    const isOpen = item.is_open == 1;
 
-    return `<span class="bootcamp-item-homepage paragraph"}> 
-    <b>${item.start_date.length !== 0 ? item.start_date : " "}</b><br>
-    ${item.offline == 1 ? "Offline, " + item.location : "Online"},
-    ${item.pricing}
-    </span>`;
+    const contentHtml = `
+    <div class="bootcamp-item-info">
+        <b class="bootcamp-start-date">${item.start_date && item.start_date.length !== 0 ? item.start_date : " "}</b>
+        ${item.bootcamp_name ? `<span class="bootcamp-cohort-name d-none">${item.bootcamp_name}</span>` : ''}
+        <br>
+        <span class="bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>,
+        <span class="bootcamp-pricing">${item.pricing}</span>
+    </div>
+    ${isOpen ? `<span class="bootcamp-item-action">Đăng ký ›</span>` : ''}`;
+
+    if (isOpen) {
+        return `<a href="${href}" class="bootcamp-item-homepage paragraph" title="Đăng ký ${item.bootcamp_name || 'khóa học'}">${contentHtml}</a>`;
+    }
+
+    return `<span class="bootcamp-item-homepage paragraph">${contentHtml}</span>`;
 }
 
 function updateCourseStatus(statusEl, items) {
@@ -555,7 +567,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll('#courses .course-card .cta-large').forEach(cta => {
         cta.addEventListener('click', function (e) {
             const card = this.closest('.course-card');
-            const courseName = card ? card.querySelector('h3').textContent.trim() : '';
+            const courseName = card ? (card.querySelector('h3')?.textContent.trim() || card.querySelector('.course-card-title-svg')?.getAttribute('alt') || '') : '';
             mixpanel.track('course_card_cta_click', {
                 course_name: courseName,
                 cta_text: this.textContent.trim().replace(/\s+/g, ' '),

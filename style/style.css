@@ -807,8 +807,45 @@ svg *[fill="FF0000"] {
 }
 
 .bootcamp-item-homepage {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	padding: 12px 0px;
 	border-top: 0.5px solid var(--transparent-foreground-main-color-50);
+	text-decoration: none;
+	color: var(--main-colors-foreground-f-500-main);
+	transition: color 0.15s ease, opacity 0.15s ease;
+}
+
+.uxcamp-homepage .course-card a.bootcamp-item-homepage {
+	color: var(--main-colors-foreground-f-500-main);
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.uxcamp-homepage .course-card a.bootcamp-item-homepage:hover {
+	color: var(--main-colors-foreground-f100);
+}
+
+.uxcamp-homepage .course-card a.bootcamp-item-homepage:hover .bootcamp-item-action {
+	color: var(--alternative-foreground-gold);
+	transform: translateX(4px);
+}
+
+.bootcamp-item-homepage .bootcamp-item-info {
+	flex: 1;
+}
+
+.bootcamp-item-action {
+	font-size: 13px;
+	font-weight: 500;
+	color: var(--alternative-foreground-gold);
+	display: inline-flex;
+	align-items: center;
+	gap: 2px;
+	white-space: nowrap;
+	margin-left: 12px;
+	transition: transform 0.2s ease, color 0.2s ease;
 }
 
 .bootcamp-item.is_closed {
@@ -855,6 +892,10 @@ svg *[fill="FF0000"] {
 	flex-direction: column;
 	flex-wrap: nowrap;
 	justify-content: flex-end;
+}
+
+.uxcamp-homepage .course-card .cta-container .cta-large {
+	text-decoration: none;
 }
 
 .flyingContainer {
@@ -1113,9 +1154,6 @@ article:has(.course-card) {
 	position: relative;
 	width: 100%;
 	overflow: hidden;
-	/* border-radius: 16px; */
-	cursor: pointer;
-	/* background-color: var(--body-background, #000000); */
 	border-bottom: 0.5px solid var(--console-stroke);
 	display: flex;
 	justify-content: center;

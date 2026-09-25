@@ -20,7 +20,7 @@ const STICKY_GRAPH_CONFIG = {
   localCacheTTL: 86400000,                     // Thời gian hết hạn cache (ms): 24h = 86400000 ms (Đặt 0 để không hết hạn tự động)
 
   // 🛡️ LỌC KIỂM DUYỆT (Validation Filter)
-  onlyValidated: false,                          // Chỉ hiển thị các node đã được kiểm duyệt (validated === true)
+  onlyValidated: true,                          // Chỉ hiển thị các node đã được kiểm duyệt (validated === true)
 
   // ----------------------------------------------------------------------------
   // 2. CHẾ ĐỘ HIỂN THỊ (Theme & Appearance)
@@ -34,7 +34,7 @@ const STICKY_GRAPH_CONFIG = {
   paperCurl: 15,                        // Độ cong vênh mép giấy (0 = phẳng, 5-15px = cong tự nhiên)
   flutterAmp: 40.0,                     // Độ rung lắc mép giấy khi camera xoay/di chuyển (0 -> 100)
   hierarchyDepth: false,                // Phân tầng độ sâu trục Z: L1 nổi lên trước (+Z), các tầng sau lùi dần (-Z)
-  noteScale: 1.3,                       // Hệ số phóng to / thu nhỏ kích thước tất cả note (VD: 0.7 = 70%)
+  noteScale: 1.0,                       // Hệ số phóng to / thu nhỏ kích thước tất cả note (VD: 0.7 = 70%)
   fontSize: 8,                          // Kích thước font tiêu đề (title) trong sticky note (null = tự động theo level)
   descFontSize: 6.2,                    // Kích thước font mô tả (description) trong sticky note (null = tự động)
   hoverScale: 1.08,                     // Phóng to nhẹ sticky note khi hover chuột (1.0 = giữ nguyên, 1.08 = to lên 8%)
@@ -51,9 +51,9 @@ const STICKY_GRAPH_CONFIG = {
   maxDistance: 6000,                    // Khoảng cách zoom xa nhất của camera (pixel)
   // 📸 CẤU HÌNH KHOẢNG CÁCH CAMERA (ZOOM DISTANCE) & GÓC NGHIÊNG CHO DESKTOP & MOBILE
   // Mặc định luôn tự động xoay ngẫu nhiên 360° xung quanh tâm; góc máy chiếu ngang trực diện tầm mắt vào khối sticky note.
-  cameraDistanceDesktop: 3200,          // Khoảng cách camera trên Desktop / Laptop (pixel)
+  cameraDistanceDesktop: 3000,          // Khoảng cách camera trên Desktop / Laptop (pixel)
   cameraDistanceMobile: 5000,           // Khoảng cách camera trên Mobile / Điện thoại (pixel)
-  cameraPitch: -0.2,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
+  cameraPitch: -0.4,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
 
   rotateSpeed: 2.0,                     // Tốc độ xoay camera khi kéo drag chuột (0.1 -> 3.0)
   dampingFactor: 0.05,                  // Hệ số hãm quán tính khi xoay camera (0.01 -> 0.3, nhỏ hơn = mượt hơn)
@@ -121,11 +121,11 @@ const STICKY_GRAPH_CONFIG = {
   layoutTypeDesktop: 'galaxy',          // Bố cục mặc định cho màn hình Desktop (rộng >= 768px)
   layoutTypeMobile: 'galaxy',           // Bố cục mặc định cho màn hình Mobile (rộng < 768px)
   adaptiveAspectShape: true,            // Tự động phân bổ hình dạng khối theo tỷ lệ canvas (dài ngang trên desktop, cao dọc trên mobile)
-  aspectRatioPower: 0.5,                // Độ co dãn thích ứng theo tỷ lệ khung hình (0.3 -> 1.0)
+  aspectRatioPower: 0.2,                // Độ co dãn theo size màn hình (0.0 tròn -> 1.0 méo)
   aspectScaleX: 1.0,                    // Hệ số tùy chỉnh dãn trục X
   aspectScaleY: 1.0,                    // Hệ số tùy chỉnh dãn trục Y
   aspectScaleZ: 1.0,                    // Hệ số tùy chỉnh dãn trục Z
-  spreadRadius: 1200,                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
+  spreadRadius: 1100,                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
   autoRotate: true,                     // Bật/Tắt tự động xoay nhẹ camera xung quanh trung tâm
   autoRotateSpeed: 0.1,                 // Tốc độ tự động xoay camera (0.1 -> 2.0)
   onNodeClick: null,                    // Callback hàm JS khi click vào 1 note: null hoặc (node) => { ... }
@@ -147,9 +147,9 @@ const STICKY_GRAPH_CONFIG = {
   // 11. HIỆU ỨNG XUẤT HIỆN BAN ĐẦU (Intro & Entrance Animation)
   // ----------------------------------------------------------------------------
   enableIntroAnim: true,               // Bật/tắt animation xuất hiện từng note khi nạp dữ liệu
-  introDuration: 150,                  // Thời gian phóng to của mỗi sticky note (ms)
-  introStagger: 5,                    // Khoảng thời gian giãn cách giữa các note xuất hiện nối tiếp nhau (ms)
-  introOrder: 'centerOut',                // Thứ tự xuất hiện: 'random' (ngẫu nhiên) | 'centerOut' (từ tâm lõi lan ra ngoài) | 'level' (theo cấp độ 1 -> 7) | 'sequential'
+  introDuration: 120,                  // Thời gian phóng to của mỗi sticky note (ms)
+  introStagger: 10,                    // Khoảng thời gian giãn cách giữa các note xuất hiện nối tiếp nhau (ms)
+  introOrder: 'random',                // Thứ tự xuất hiện: 'random' (ngẫu nhiên) | 'centerOut' (từ tâm lõi lan ra ngoài) | 'level' (theo cấp độ 1 -> 7) | 'sequential'
   introEasing: 'backOut',              // Hiệu ứng nảy: 'backOut' (phóng to nảy nhẹ đàn hồi) | 'cubicOut' (mượt mà tự nhiên) | 'elasticOut' (nảy mạnh đàn hồi)
   introShowConnections: true,          // Bật/tắt tự động xuất hiện connection theo từng cặp note đã hiện
   introLineFadeDuration: 100           // Thời gian mờ dần hiện rõ của đường dây nối (ms)

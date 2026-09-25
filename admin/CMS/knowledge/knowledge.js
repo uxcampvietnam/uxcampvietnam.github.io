@@ -517,7 +517,7 @@ function renderTable() {
 						<input type="checkbox" class="val-checkbox" ${node.validated ? 'checked' : ''} data-index="${index}" title="Duyệt / Hủy duyệt">
 					</td>
 					<td>
-						<textarea class="cell-input fw-semibold" data-field="label" rows="2" placeholder="Tiêu đề node...">${adminEscapeHtml(node.label)}</textarea>
+						<textarea class="cell-input fw-semibold" data-field="label" rows="4" placeholder="Tiêu đề node...">${adminEscapeHtml(node.label)}</textarea>
 					</td>
 					<td style="text-align: center;">
 						<div class="level-stepper" data-index="${index}">

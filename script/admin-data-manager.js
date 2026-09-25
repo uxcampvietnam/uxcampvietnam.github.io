@@ -591,25 +591,66 @@
 				showToast('⚠️ Vui lòng nạp hoặc tạo Khóa học trước khi tạo Lớp học!');
 				return;
 			}
-			if (!confirm('Khởi tạo lớp học mẫu liên kết với Khóa học?')) return;
-			const dtCourse = allCourses.find(c => c.code === 'DT') || allCourses[0];
+			if (!confirm('Khởi tạo / Cập nhật 2 đợt mở đăng ký mẫu (Design Thinking: Early Bird 2027 & Applied UX Analytic: THÁNG 9) vào Firestore?')) return;
+			const dtCourse = allCourses.find(c => c.code === 'DT' || c.code === 'DDPPSAM') || allCourses[0];
+			const auaCourse = allCourses.find(c => c.code === 'AUXA' || c.code === 'UXA') || allCourses[1] || allCourses[0];
 			try {
-				const id = generateUUID();
-				await db.collection('cohorts').doc(id).set({
-					id,
-					code: 'DT-C08',
-					name: 'Design Thinking Cohort 08 (Weekend)',
+				const batch = db.batch();
+
+				const dtId = 'cohort_dt_early_bird_2027';
+				batch.set(db.collection('cohorts').doc(dtId), {
+					id: dtId,
+					code: 'DT-2027',
+					name: 'Early Bird 2027',
+					title: 'Early Bird 2027',
+					bootcamp_name: 'Early Bird 2027',
+					bootcamp_id: 13,
 					courseId: dtCourse.id,
-					startDate: '2026-04-18',
-					endDate: '2026-06-20',
-					status: 'enrolling',
-					studentEmails: ['student@uxcamp.vn'],
-					instructorEmails: ['mentor@uxcamp.vn'],
-					notes: 'Học trực tuyến qua Google Meet và Figma Jam.',
+					courseCode: dtCourse.code || 'DT',
+					courseTitle: dtCourse.title || 'Design Thinking',
+					startDate: 'Tháng 2, 2027',
+					start_date: 'Tháng 2, 2027',
+					format: 'offline',
+					offline: 1,
+					location: 'HN',
+					tuition: 'Early bird',
+					pricing: 'Early bird',
+					status: 'open',
+					is_open: 1,
+					isPublic: true,
+					listing: 1,
 					createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 					updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-				});
-				showToast('✅ Đã nạp Lớp học mẫu thành công!');
+				}, { merge: true });
+
+				const auaId = 'cohort_auxa_thang_9';
+				batch.set(db.collection('cohorts').doc(auaId), {
+					id: auaId,
+					code: 'AUXA-T09',
+					name: 'THÁNG 9',
+					title: 'THÁNG 9',
+					bootcamp_name: 'THÁNG 9',
+					bootcamp_id: 'analytic_3',
+					courseId: auaCourse.id,
+					courseCode: auaCourse.code || 'AUXA',
+					courseTitle: auaCourse.title || 'Applied UX Analytic',
+					startDate: '30/9/2026',
+					start_date: '30/9/2026',
+					format: 'online',
+					offline: 0,
+					location: '',
+					tuition: '9.999.999',
+					pricing: '9.999.999',
+					status: 'open',
+					is_open: 1,
+					isPublic: true,
+					listing: 1,
+					createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+					updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+				}, { merge: true });
+
+				await batch.commit();
+				showToast('✅ Đã nạp 2 Đợt tuyển sinh đang mở thành công!');
 				await loadCohorts();
 			} catch (err) {
 				showToast(`❌ Lỗi: ${err.message}`);

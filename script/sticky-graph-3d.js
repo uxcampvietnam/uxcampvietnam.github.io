@@ -46,7 +46,7 @@ const STICKY_GRAPH_CONFIG = {
   canvasBgDark: '#000000',            // Màu nền canvas ở chế độ Dark mode (Hex/RGB, ví dụ: '#000000' hoặc '#0a0c10')
   canvasBgLight: '#F9F6F1',           // Màu nền canvas ở chế độ Light mode (Hex/RGB, ví dụ: '#F9F6F1' hoặc '#f8fafc')
   fogType: 'exp2',                      // Loại sương mù chiều sâu: 'exp2' (hàm mũ tự nhiên) | 'linear' (tuyến tính)
-  depthFade: 0.5,                       // Mức độ làm mờ sương mù chiều sâu theo trục Z (0% -> 100%)
+  depthFade: 0.2,                       // Mức độ làm mờ sương mù chiều sâu theo trục Z (0% -> 100%)
   minDistance: 500,                     // Khoảng cách zoom gần nhất của camera (pixel)
   maxDistance: 6000,                    // Khoảng cách zoom xa nhất của camera (pixel)
   // 📸 CẤU HÌNH KHOẢNG CÁCH CAMERA (ZOOM DISTANCE) & GÓC NGHIÊNG CHO DESKTOP & MOBILE
@@ -84,9 +84,9 @@ const STICKY_GRAPH_CONFIG = {
   // ----------------------------------------------------------------------------
   lineMorphology: 'bezier',             // Kiểu đường nối: 'bezier' (cong mềm) | 'straight' (thẳng) | 'orthogonal' (gấp khúc 90°)
   lineWidth: 1,                       // Độ dày đường liên kết mặc định (pixel, ví dụ: 1.0, 1.5, 2.0...)
-  lineColorDark: '#b4935e',             // Màu đường liên kết mặc định ở Dark mode (Hex)
-  lineColorLight: '#a29f97',            // Màu đường liên kết mặc định ở Light mode (Hex)
-  lineOpacityDark: 0.6,                 // Độ mờ / trong suốt của đường nối mặc định ở Dark mode (0.0 -> 1.0)
+  lineColorDark: '#242b92',             // Màu đường liên kết mặc định ở Dark mode (Hex)
+  lineColorLight: '#b4935e',            // Màu đường liên kết mặc định ở Light mode (Hex)
+  lineOpacityDark: 1.0,                 // Độ mờ / trong suốt của đường nối mặc định ở Dark mode (0.0 -> 1.0)
   lineOpacityLight: 0.4,                // Độ mờ / trong suốt của đường nối mặc định ở Light mode (0.0 -> 1.0)
 
   // ----------------------------------------------------------------------------
@@ -1390,9 +1390,9 @@ const STICKY_GRAPH_CONFIG = {
       ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, width, height);
 
-      // 2. Phần keo dán phía trên: lớp border xám mờ (opacity 0.20)
-      const tapeHeight = Math.round(height * 0.22);
-      ctx.fillStyle = 'rgba(201, 196, 202, 0.20)';
+      // 2. Phần keo dán phía trên: lớp border xám mờ (opacity 0.10)
+      const tapeHeight = Math.round(height * 0.15);
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.10)';
       ctx.fillRect(0, 0, width, tapeHeight);
 
       // Tự động chọn màu chữ theo độ sáng nền để tương phản tối đa

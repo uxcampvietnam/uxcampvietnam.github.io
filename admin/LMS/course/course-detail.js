@@ -108,28 +108,39 @@ async function loadAssociatedCohorts() {
 						<thead>
 							<tr>
 								<th>Mã Lớp</th>
-								<th>Tên Lớp / Khóa</th>
-								<th>Lịch học</th>
-								<th>Giảng viên</th>
+								<th>Tên Lớp / Đợt</th>
+								<th>Khai giảng</th>
+								<th>Hình thức</th>
+								<th>Học phí</th>
+								<th style="text-align: center;">Sĩ số</th>
 								<th style="text-align: center;">Trạng thái</th>
 								<th style="text-align: right;">Thao tác</th>
 							</tr>
 						</thead>
 						<tbody>
-							${matchedCohorts.map(c => `
+							${matchedCohorts.map(c => {
+								const formatText = (c.format === 'offline' || c.offline == 1)
+									? `<span class="role-cell instructor">Offline, ${adminEscapeHtml(c.location || 'HN')}</span>`
+									: `<span class="role-cell member">Online</span>`;
+								const startDateText = c.startDate || c.start_date || c.schedule || '—';
+								const tuitionText = c.tuition || c.pricing || '—';
+								return `
 								<tr>
 									<td><span class="badge" style="background: var(--body-background-elevate-2); color: var(--alternative-foreground-gold); font-family: monospace;">${adminEscapeHtml(c.code || c.id)}</span></td>
-									<td class="font-sans-caption fw-semibold">${adminEscapeHtml(c.title || c.name || 'Lớp học')}</td>
-									<td class="font-sans-caption">${adminEscapeHtml(c.schedule || '—')}</td>
-									<td class="font-sans-caption">${adminEscapeHtml(c.instructor || c.trainer || '—')}</td>
-									<td style="text-align: center;"><span class="admin-tag admin-tag-success">${adminEscapeHtml(c.status || 'open')}</span></td>
+									<td class="font-sans-caption fw-semibold">${adminEscapeHtml(c.title || c.name || c.bootcamp_name || 'Lớp học')}</td>
+									<td class="font-sans-caption" style="font-weight: 500;">${adminEscapeHtml(startDateText)}</td>
+									<td>${formatText}</td>
+									<td class="font-sans-caption">${adminEscapeHtml(tuitionText)}</td>
+									<td style="text-align: center;"><span class="font-sans-caption">${c.maxCapacity || c.capacity || 20}</span></td>
+									<td style="text-align: center;"><span class="admin-tag ${c.status === 'open' ? 'admin-tag-success' : 'admin-tag-info'}">${adminEscapeHtml(c.status || 'open')}</span></td>
 									<td style="text-align: right;">
 										<a href="../cohort/edit.html?id=${encodeURIComponent(c.id)}" class="btn-icon-action" title="Sửa lớp">
 											<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
 										</a>
 									</td>
 								</tr>
-							`).join('')}
+								`;
+							}).join('')}
 						</tbody>
 					</table>
 				`;

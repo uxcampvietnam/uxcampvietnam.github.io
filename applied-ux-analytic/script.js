@@ -494,70 +494,123 @@ window.onload = () => {
   });
 }
 
-// dữ liệu bootcamp từ google sheet
-fetch("https://script.google.com/macros/s/AKfycbwW79mfaIZX5DHGSV9jX2o95GDWxCK_GqVlWqTxwmV9ZxVO4RnJnDsCLxF_9HpVM-WZ/exec")
-  .then(res => res.json())
-  .then(data => {
+function parseFirestoreVal(val) {
+  if (!val) return null;
+  if (val.stringValue !== undefined) return val.stringValue;
+  if (val.integerValue !== undefined) return parseInt(val.integerValue, 10);
+  if (val.doubleValue !== undefined) return parseFloat(val.doubleValue);
+  if (val.booleanValue !== undefined) return val.booleanValue;
+  if (val.arrayValue !== undefined) return (val.arrayValue.values || []).map(parseFirestoreVal);
+  return null;
+}
 
-    // listing trên phần giới thiệu bootcamp.
-    const bootcamps = data.applied_ux_analytic.filter(item => item.listing == 1);
-    const container = document.getElementById('appliedUxAnalytic_register_bootcampListContainer');
-    const containerSignUp = document.getElementById('signUp_ux_analytic_bootcamp_list');
+function parseFirestoreCohort(doc) {
+  const id = doc.name.split('/').pop();
+  const d = { id };
+  for (const [k, v] of Object.entries(doc.fields || {})) {
+    d[k] = parseFirestoreVal(v);
+  }
+  return d;
+}
 
-    if (!container && !containerSignUp) return;
+function renderAuaBootcamps(bootcamps) {
+  const container = document.getElementById('appliedUxAnalytic_register_bootcampListContainer');
+  const containerSignUp = document.getElementById('signUp_ux_analytic_bootcamp_list');
+  if (!container && !containerSignUp) return;
 
-    // Lấy giá trị của 'bootcamp_id'
-    const queryString = window.location.search;
-    const params = new URLSearchParams(queryString);
-    const selectedBootcamp = params.get('bootcamp_id');
+  const queryString = window.location.search;
+  const params = new URLSearchParams(queryString);
+  const selectedBootcamp = params.get('bootcamp_id');
 
+  // 1. Listing trên phần giới thiệu bootcamp: hiện tất cả khóa có listing và isPublic
+  if (container) {
+    container.innerHTML = '';
+    const displayList = bootcamps.filter(item => item.listing == 1);
+    displayList.forEach(item => {
+      const col = document.createElement('div');
+      item.is_open == 1 ? col.classList.add("open-bootcamp") : col.classList.add("closed-bootcamp");
+      col.classList.add('col-12', 'col-md-6', 'col-lg-4');
+      const formatLocation = item.offline == 1 ? `Offline, ${item.location || 'HN'}` : 'Online';
+      const startDateText = item.start_date && item.start_date !== '-' ? `, ${item.start_date}` : '';
+      const pricingText = item.pricing ? `, ${item.pricing}` : '';
+      const line2 = `${formatLocation}${startDateText}${pricingText}`;
+      const courseTitle = item.bootcamp_name || item.title || item.courseTitle || 'Applied UX Analytic';
 
+      col.innerHTML = `
+              <span class="mono-caption reverse-color" style="font-weight: 600;">${courseTitle}</span><br>
+              <span class="mono-caption reverse-color">${line2}</span><br>
+              ${item.is_open == 1 ? `<a href="bootcamp-register.html?bootcamp_id=${encodeURIComponent(item.bootcamp_id)}" class="mono-caption register-link button-reverse">Đăng ký ›</a>` : `<span class="mono-caption reverse-color" style="opacity: 0.5;">Form closed</span>`}
+          `;
+      container.appendChild(col);
+    });
+  }
 
-    if (container) {
-      container.innerHTML = '';
+  // 2. Listing trên phần đăng ký
+  if (containerSignUp) {
+    containerSignUp.innerHTML = '';
+    bootcamps.forEach(item => {
+      if (item.is_open == 1) {
+        const col = document.createElement('span');
+        col.classList.add('sign-up-ux-analytic-bootcamp-item', 'col-12', 'col-md-6');
+        const formatLocation = item.offline == 1 ? `Offline, ${item.location || 'HN'}` : 'Online';
+        const startDateText = item.start_date && item.start_date !== '-' ? `, ${item.start_date}` : '';
+        const pricingText = item.pricing ? `, ${item.pricing}` : '';
+        const line2 = `${formatLocation}${startDateText}${pricingText}`;
+        const courseTitle = item.bootcamp_name || item.title || item.courseTitle || 'Applied UX Analytic';
 
-      bootcamps.forEach(item => {
-        const col = document.createElement('div');
-        item.is_open == 1 ? col.classList.add("open-bootcamp") : col.classList.add("closed-bootcamp");
-        col.classList.add('col-12', 'col-md-6', 'col-lg-4');
         col.innerHTML = `
-                <span class="mono-caption reverse-color">${item.bootcamp_name}</span><br>
-                <span class="mono-caption reverse-color">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
-                <span class="mono-caption reverse-color">${item.pricing}</span>
-                <span class="mono-caption reverse-color">${item.is_open == 1 ? "Đang mở đăng ký" : "Form closed"}</span>
-                ${item.is_open == 1 ? `<a href="bootcamp-register.html?bootcamp_id=${item.bootcamp_id}" class="mono-caption register-link button-reverse">Đăng ký ›</a>` : ''}
-            `;
+              <label for="bootcamp_${item.bootcamp_id}">
+                  <input required type="radio" name="bootcamp_name" value="${courseTitle}" id="bootcamp_${item.bootcamp_id}" ${String(item.bootcamp_id) === String(selectedBootcamp) ? "checked" : ""} />
+                  <div class="bootcamp-item-content">
+                    <span class="mono-caption reverse-color">[<span class="is_selected">•</span>] ${courseTitle}</span>
+                    <span class="mono-caption reverse-color">${line2}</span>
+                  </div>
+              </label>
+          `;
+        containerSignUp.appendChild(col);
+      }
+    });
+  }
+}
 
-        container.appendChild(col);
-      });
-    };
+async function loadAuaBootcampData() {
+  try {
+    const res = await fetch('https://firestore.googleapis.com/v1/projects/uxcampvn/databases/(default)/documents/cohorts?pageSize=100');
+    if (res.ok) {
+      const json = await res.json();
+      const rawCohorts = (json.documents || []).map(parseFirestoreCohort);
+      const isAua = (c) => {
+        if (c.courseCode === 'AUXA' || c.courseCode === 'UXA') return true;
+        if (c.code && (c.code.startsWith('AUXA') || c.code.startsWith('UXA') || c.code.startsWith('analytic'))) return true;
+        if (c.courseId === '2106d881-8e2f-4675-9b6d-eb25beae8489') return true;
+        if (c.courseTitle && c.courseTitle.includes('Analytic')) return true;
+        return false;
+      };
 
-    // listing trên phần đăng ký.
-    if (containerSignUp) {
-      containerSignUp.innerHTML = '';
+      const auaCohorts = rawCohorts.filter(isAua).map(c => ({
+        bootcamp_id: c.bootcamp_id || c.code || c.id,
+        bootcamp_name: c.bootcamp_name || c.title || c.name || c.code,
+        courseTitle: c.courseTitle || 'Applied UX Analytic',
+        title: c.title || c.name || c.bootcamp_name || '',
+        start_date: c.startDate || c.start_date || c.schedule || '',
+        offline: (c.format === 'offline' || c.offline == 1) ? 1 : 0,
+        location: c.location || (c.format === 'offline' ? 'HN' : ''),
+        pricing: c.tuition || c.pricing || 'Liên hệ',
+        is_open: (c.status === 'open' || c.status === 'enrolling' || c.is_open == 1) ? 1 : 0,
+        listing: (c.isPublic !== false && c.listing !== 0) ? 1 : 0
+      }));
 
-      bootcamps.forEach(item => {
-        if (item.is_open == 1) {
-          const col = document.createElement('span');
-          col.classList.add('sign-up-ux-analytic-bootcamp-item', 'col-12', 'col-md-6');
-          col.innerHTML = `
-                <label for="bootcamp_${item.bootcamp_id}">
-                    <input required type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${item.bootcamp_id == selectedBootcamp ? "checked" : ""} />
-                    <div class="bootcamp-item-content">
-                      <span class="mono-caption reverse-color">[<span class="is_selected">•</span>]
-                          ${item.bootcamp_name}
-                      </span>
-                      <span class="mono-caption reverse-color">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
-                      <span class="mono-caption reverse-color">${item.pricing}</span>
-                    </div>
-                </label>
-            `;
-          containerSignUp.appendChild(col);
-        }
-      });
-    };
+      renderAuaBootcamps(auaCohorts);
+      return;
+    }
+    renderAuaBootcamps([]);
+  } catch (err) {
+    console.error('[applied-ux-analytic/script.js] Lỗi đọc dữ liệu từ Firestore:', err);
+    renderAuaBootcamps([]);
+  }
+}
 
-  });
+loadAuaBootcampData();
 
 gsap.to(".navigation-bar", {
   backgroundColor: 'var(--applied-analytic-background)',

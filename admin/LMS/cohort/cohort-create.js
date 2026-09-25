@@ -66,12 +66,14 @@ window.ADMIN_CONFIG = {
 			const code = document.getElementById('cohort-code').value.trim().toUpperCase();
 			const title = document.getElementById('cohort-title').value.trim();
 			const status = document.getElementById('cohort-status').value;
-			const trainer = document.getElementById('cohort-trainer').value.trim();
+			const startDate = (document.getElementById('cohort-start-date')?.value || '').trim();
+			const format = document.getElementById('cohort-format')?.value || 'online';
+			const location = (document.getElementById('cohort-location')?.value || '').trim();
 			const capacity = parseInt(document.getElementById('cohort-capacity').value, 10) || 20;
 			const tuition = document.getElementById('cohort-tuition').value.trim();
 			const schedule = document.getElementById('cohort-schedule').value.trim();
+			const isPublic = document.getElementById('cohort-is-public')?.value !== 'false';
 			const formUrl = document.getElementById('cohort-form-url').value.trim();
-			const notes = document.getElementById('cohort-notes').value.trim();
 
 			const selectedCourse = coursesMap.get(courseId);
 			const btnSave = document.getElementById('btn-save-cohort');
@@ -81,6 +83,8 @@ window.ADMIN_CONFIG = {
 
 			try {
 				const id = generateUUID();
+				const isOpen = status === 'open';
+				const isOffline = format === 'offline';
 				const payload = {
 					id,
 					courseId,
@@ -89,16 +93,23 @@ window.ADMIN_CONFIG = {
 					code,
 					title,
 					name: title,
+					bootcamp_name: title,
+					bootcamp_id: code,
 					status,
-					instructor: trainer,
-					trainer: trainer,
+					is_open: isOpen ? 1 : 0,
+					startDate,
+					start_date: startDate,
+					format,
+					offline: isOffline ? 1 : 0,
+					location: isOffline ? (location || 'HN') : '',
+					isPublic,
+					listing: isPublic ? 1 : 0,
 					maxCapacity: capacity,
 					capacity,
-					currentStudents: 0,
 					tuition,
+					pricing: tuition,
 					schedule,
 					formUrl,
-					notes,
 					createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 					updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
 					createdBy: currentUser?.email || 'admin'

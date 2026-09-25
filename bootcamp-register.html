@@ -347,6 +347,32 @@
             width: 100%;
         }
 
+        #signUp_bootcamp_list .sign-up-bootcamp-item,
+        #signUp_bootcamp_list span:has(input[type="radio"]),
+        #signUp_bootcamp_list div:has(input[type="radio"]) {
+            border: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            outline: none !important;
+            padding: 0 !important;
+            margin-bottom: 0 !important;
+        }
+
+        #signUp_bootcamp_list .sign-up-bootcamp-item label {
+            width: 100%;
+            margin: 0;
+        }
+
+        #signUp_bootcamp_list input[type="radio"],
+        .sign-up-bootcamp-item input[type="radio"] {
+            position: absolute !important;
+            opacity: 0 !important;
+            width: 0 !important;
+            height: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+
         .bootcamp-radio-card {
             position: relative;
             cursor: pointer;

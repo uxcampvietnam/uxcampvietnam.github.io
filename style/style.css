@@ -1025,7 +1025,13 @@ form .tags {
 }
 
 
-.sign-up-bootcamp-item {
+.sign-up-bootcamp-item,
+span.sign-up-bootcamp-item,
+div.sign-up-bootcamp-item,
+span.sign-up-bootcamp-item:has(input[type="radio"]),
+div.sign-up-bootcamp-item:has(input[type="radio"]),
+span.sign-up-bootcamp-item:has(input[type="radio"]:checked),
+div.sign-up-bootcamp-item:has(input[type="radio"]:checked) {
 	pointer-events: all !important;
 	cursor: pointer !important;
 	align-self: stretch;
@@ -1037,6 +1043,17 @@ form .tags {
 	margin-bottom: var(--bs-gutter-x, 24px);
 	background: transparent !important;
 	box-shadow: none !important;
+	outline: none !important;
+}
+
+.sign-up-bootcamp-item input[type="radio"],
+.sign-up-bootcamp-item input[type="checkbox"] {
+	position: absolute !important;
+	opacity: 0 !important;
+	width: 0 !important;
+	height: 0 !important;
+	visibility: hidden !important;
+	pointer-events: none !important;
 }
 
 .sign-up-bootcamp-item:has(input[type="radio"]:not(:checked)),
@@ -1207,9 +1224,10 @@ article:has(.course-card) {
 
 .uxcamp-homepage .course-card .course-feature-item {
 	display: flex;
-	align-items: flex-start;
+	align-items: center;
 	gap: 8px;
 	padding-left: 4px;
+	padding-top: 0px;
 }
 
 
@@ -1217,7 +1235,6 @@ article:has(.course-card) {
 	width: 10px;
 	height: 9px;
 	flex-shrink: 0;
-	margin-top: 5px;
 	color: var(--main-colors-foreground-f-500-main, #c9c4ca);
 }
 

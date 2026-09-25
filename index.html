@@ -33,6 +33,10 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
 		integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 
+	<!-- Firebase SDK -->
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 	<script src="script/libs/svg-inject.min.js"></script>
@@ -91,7 +95,7 @@
 										<!-- <h3 class="h5 medium">Design Thinking</h3> -->
 										<p class="paragraph">Khóa học được thiết kế để người tham dự được đặt mình
 											vào một môi trường phát triển sản phẩm với đầy đủ quy trình từ nghiên cứu,
-											xác định mục tiêu, triển khai MVP và đo lường lại các chỉ số sản phẩm.
+											xác định mục tiêu, triển khai MVP và monitor bộ chỉ số sản phẩm.
 										</p>
 										<div class="course-tags">
 											<span class="course-tag">3+ YoE</span>
@@ -109,7 +113,7 @@
 														d="M0 7.27492C0.329759 6.59819 0.989277 5.75227 2.14343 6.09063C3.13271 6.429 3.79223 7.44411 4.28687 8.79758C8.24398 4.22961 11.5416 1.01511 15.4987 0C15.9933 0 16.1582 0 15.8284 0.338369C11.5416 3.38369 7.41958 7.95166 4.12199 13.8731C3.95711 14.0423 3.79223 14.0423 3.62735 13.8731C2.96783 12.1813 2.47319 10.4894 1.6488 8.79758C1.31904 7.95166 0.824398 7.27492 0 7.27492Z"
 														fill="currentColor" />
 												</svg>
-												<span>Đào sâu quy trình: Nghiên cứu, Chiến lược, Bàn giao và Đo
+												<span>Nghiên cứu, Chiến lược, Triển khai, Bàn giao và Đo
 													lường</span>
 											</li>
 											<li class="course-feature-item">
@@ -120,7 +124,7 @@
 														d="M0 7.27492C0.329759 6.59819 0.989277 5.75227 2.14343 6.09063C3.13271 6.429 3.79223 7.44411 4.28687 8.79758C8.24398 4.22961 11.5416 1.01511 15.4987 0C15.9933 0 16.1582 0 15.8284 0.338369C11.5416 3.38369 7.41958 7.95166 4.12199 13.8731C3.95711 14.0423 3.79223 14.0423 3.62735 13.8731C2.96783 12.1813 2.47319 10.4894 1.6488 8.79758C1.31904 7.95166 0.824398 7.27492 0 7.27492Z"
 														fill="currentColor" />
 												</svg>
-												<span>Xây dựng chiến lược, Roadmap &amp; PRD sản phẩm</span>
+												<span>Xây dựng Roadmap &amp; PRD sản phẩm</span>
 											</li>
 											<li class="course-feature-item">
 												<svg class="course-feature-icon" width="10" height="9"
@@ -150,7 +154,8 @@
 														d="M0 7.27492C0.329759 6.59819 0.989277 5.75227 2.14343 6.09063C3.13271 6.429 3.79223 7.44411 4.28687 8.79758C8.24398 4.22961 11.5416 1.01511 15.4987 0C15.9933 0 16.1582 0 15.8284 0.338369C11.5416 3.38369 7.41958 7.95166 4.12199 13.8731C3.95711 14.0423 3.79223 14.0423 3.62735 13.8731C2.96783 12.1813 2.47319 10.4894 1.6488 8.79758C1.31904 7.95166 0.824398 7.27492 0 7.27492Z"
 														fill="currentColor" />
 												</svg>
-												<span>20 tuần đào tạo &amp; thực hành hàng tuần</span>
+												<span>Ứng dụng AI tổng hợp nghiên cứu. Vibe design, Vibe code cho
+													MVP</span>
 											</li>
 										</ul>
 
@@ -210,7 +215,7 @@
 														d="M0 7.27492C0.329759 6.59819 0.989277 5.75227 2.14343 6.09063C3.13271 6.429 3.79223 7.44411 4.28687 8.79758C8.24398 4.22961 11.5416 1.01511 15.4987 0C15.9933 0 16.1582 0 15.8284 0.338369C11.5416 3.38369 7.41958 7.95166 4.12199 13.8731C3.95711 14.0423 3.79223 14.0423 3.62735 13.8731C2.96783 12.1813 2.47319 10.4894 1.6488 8.79758C1.31904 7.95166 0.824398 7.27492 0 7.27492Z"
 														fill="currentColor" />
 												</svg>
-												<span>Quy trình quản trị dữ liệu &amp; thiết kế event tracking</span>
+												<span>Đo lường hành vi, quản trị dữ liệu</span>
 											</li>
 											<li class="course-feature-item">
 												<svg class="course-feature-icon" width="10" height="9"
@@ -220,7 +225,7 @@
 														d="M0 7.27492C0.329759 6.59819 0.989277 5.75227 2.14343 6.09063C3.13271 6.429 3.79223 7.44411 4.28687 8.79758C8.24398 4.22961 11.5416 1.01511 15.4987 0C15.9933 0 16.1582 0 15.8284 0.338369C11.5416 3.38369 7.41958 7.95166 4.12199 13.8731C3.95711 14.0423 3.79223 14.0423 3.62735 13.8731C2.96783 12.1813 2.47319 10.4894 1.6488 8.79758C1.31904 7.95166 0.824398 7.27492 0 7.27492Z"
 														fill="currentColor" />
 												</svg>
-												<span>Xây dựng product monitoring dashboard</span>
+												<span>Xây dựng product dashboard</span>
 											</li>
 											<li class="course-feature-item">
 												<svg class="course-feature-icon" width="10" height="9"
@@ -240,7 +245,7 @@
 														d="M0 7.27492C0.329759 6.59819 0.989277 5.75227 2.14343 6.09063C3.13271 6.429 3.79223 7.44411 4.28687 8.79758C8.24398 4.22961 11.5416 1.01511 15.4987 0C15.9933 0 16.1582 0 15.8284 0.338369C11.5416 3.38369 7.41958 7.95166 4.12199 13.8731C3.95711 14.0423 3.79223 14.0423 3.62735 13.8731C2.96783 12.1813 2.47319 10.4894 1.6488 8.79758C1.31904 7.95166 0.824398 7.27492 0 7.27492Z"
 														fill="currentColor" />
 												</svg>
-												<span>Kiểm chứng giả thuyết &amp; đề xuất giải pháp</span>
+												<span>Kiểm chứng giả thuyết, đề xuất giải pháp</span>
 											</li>
 										</ul>
 

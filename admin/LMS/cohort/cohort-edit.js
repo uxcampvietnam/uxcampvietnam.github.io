@@ -54,15 +54,16 @@ window.ADMIN_CONFIG = {
 
 				if (data.courseId) document.getElementById('cohort-course').value = data.courseId;
 				document.getElementById('cohort-code').value = data.code || '';
-				document.getElementById('cohort-title').value = data.title || data.name || '';
-				document.getElementById('cohort-status').value = data.status || 'open';
-				document.getElementById('cohort-trainer').value = data.instructor || data.trainer || '';
+				document.getElementById('cohort-title').value = data.title || data.name || data.bootcamp_name || '';
+				document.getElementById('cohort-status').value = data.status || (data.is_open == 1 ? 'open' : 'completed');
+				document.getElementById('cohort-start-date').value = data.startDate || data.start_date || '';
+				document.getElementById('cohort-format').value = data.format || (data.offline == 1 ? 'offline' : 'online');
+				document.getElementById('cohort-location').value = data.location || '';
 				document.getElementById('cohort-capacity').value = data.maxCapacity || data.capacity || 20;
-				document.getElementById('cohort-current-students').value = data.currentStudents || 0;
-				document.getElementById('cohort-tuition').value = data.tuition || '';
+				document.getElementById('cohort-tuition').value = data.tuition || data.pricing || '';
 				document.getElementById('cohort-schedule').value = data.schedule || '';
+				document.getElementById('cohort-is-public').value = data.isPublic !== false && data.listing !== 0 ? 'true' : 'false';
 				document.getElementById('cohort-form-url').value = data.formUrl || '';
-				document.getElementById('cohort-notes').value = data.notes || '';
 
 			} catch (err) {
 				showAdminToast(`❌ Lỗi tải dữ liệu: ${err.message}`, 'error');
@@ -75,13 +76,14 @@ window.ADMIN_CONFIG = {
 			const code = document.getElementById('cohort-code').value.trim().toUpperCase();
 			const title = document.getElementById('cohort-title').value.trim();
 			const status = document.getElementById('cohort-status').value;
-			const trainer = document.getElementById('cohort-trainer').value.trim();
+			const startDate = (document.getElementById('cohort-start-date')?.value || '').trim();
+			const format = document.getElementById('cohort-format')?.value || 'online';
+			const location = (document.getElementById('cohort-location')?.value || '').trim();
 			const capacity = parseInt(document.getElementById('cohort-capacity').value, 10) || 20;
-			const currentStudents = parseInt(document.getElementById('cohort-current-students').value, 10) || 0;
 			const tuition = document.getElementById('cohort-tuition').value.trim();
 			const schedule = document.getElementById('cohort-schedule').value.trim();
+			const isPublic = document.getElementById('cohort-is-public')?.value !== 'false';
 			const formUrl = document.getElementById('cohort-form-url').value.trim();
-			const notes = document.getElementById('cohort-notes').value.trim();
 
 			const selectedCourse = coursesMap.get(courseId);
 			const btnSave = document.getElementById('btn-save-cohort');
@@ -90,6 +92,8 @@ window.ADMIN_CONFIG = {
 			btnSave.textContent = 'Đang lưu...';
 
 			try {
+				const isOpen = status === 'open';
+				const isOffline = format === 'offline';
 				const payload = {
 					courseId,
 					courseCode: selectedCourse?.code || '',
@@ -97,16 +101,23 @@ window.ADMIN_CONFIG = {
 					code,
 					title,
 					name: title,
+					bootcamp_name: title,
+					bootcamp_id: code,
 					status,
-					instructor: trainer,
-					trainer: trainer,
+					is_open: isOpen ? 1 : 0,
+					startDate,
+					start_date: startDate,
+					format,
+					offline: isOffline ? 1 : 0,
+					location: isOffline ? (location || 'HN') : '',
+					isPublic,
+					listing: isPublic ? 1 : 0,
 					maxCapacity: capacity,
 					capacity,
-					currentStudents,
 					tuition,
+					pricing: tuition,
 					schedule,
 					formUrl,
-					notes,
 					updatedAt: firebase.firestore.FieldValue.serverTimestamp()
 				};
 

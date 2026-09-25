@@ -78,8 +78,20 @@ document.addEventListener("DOMContentLoaded", function () {
 // =============================================
 // MIXPANEL EVENT TRACKING - HOMEPAGE
 // =============================================
+// FIREBASE FIRESTORE DATA LOADER FOR BOOTCAMPS & COURSES
+// =============================================
 
-var bootcamp_list, syllabus_01;
+const FIREBASE_CONFIG = {
+    apiKey: "AIzaSyC6KmQxFzAwI9RnIMtdUsMktQ0CCkM7z-E",
+    authDomain: "uxcampvn.firebaseapp.com",
+    projectId: "uxcampvn",
+    storageBucket: "uxcampvn.firebasestorage.app",
+    messagingSenderId: "491407083539",
+    appId: "1:491407083539:web:8c1635c421989082a397e6",
+    measurementId: "G-NLJWC0L47K"
+};
+
+var bootcamp_list = [], syllabus_01;
 
 function getAssetPrefix() {
     return document.querySelector('.uxcamp-homepage') ? 'asset/' : '../asset/';
@@ -87,201 +99,310 @@ function getAssetPrefix() {
 
 function renderCourseBootcampItem(item, registerUrl, assetPrefix) {
     const isAppliedUxAnalytic = item.bootcamp === "Applied UX Analytic";
-    const href = item.bootcamp_id ? `${registerUrl}?bootcamp_id=${encodeURIComponent(item.bootcamp_id)}` : registerUrl;
+    const href = item.formUrl ? item.formUrl : (item.bootcamp_id ? `${registerUrl}?bootcamp_id=${encodeURIComponent(item.bootcamp_id)}` : registerUrl);
     const isOpen = item.is_open == 1;
+
+    // Dòng 1: Tên khóa / đợt học (courseTitle / bootcamp_name / title)
+    const courseTitle = item.bootcamp_name || item.title || item.courseTitle || item.name || '';
+
+    // Dòng 2: format, location (nếu là offline), start_date, pricing
+    const formatLocation = item.offline == 1 
+        ? `Offline${item.location ? `, ${item.location}` : ''}` 
+        : 'Online';
+    const startDateText = item.start_date && item.start_date !== '-' ? item.start_date : '';
+    const pricingText = item.pricing || '';
 
     const contentHtml = `
     <div class="bootcamp-item-info">
-        <b class="bootcamp-start-date">${item.start_date && item.start_date.length !== 0 ? item.start_date : " "}</b>
-        ${item.bootcamp_name ? `<span class="bootcamp-cohort-name d-none">${item.bootcamp_name}</span>` : ''}
+        <b class="bootcamp-cohort-name">${courseTitle}</b>
         <br>
-        <span class="bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>,
-        <span class="bootcamp-pricing">${item.pricing}</span>
+        <span class="bootcamp-online-offline">${formatLocation}</span>${startDateText ? `, <span class="bootcamp-start-date">${startDateText}</span>` : ''}${pricingText ? `, <span class="bootcamp-pricing">${pricingText}</span>` : ''}
     </div>
-    ${isOpen ? `<span class="bootcamp-item-action">Đăng ký ›</span>` : ''}`;
+    ${isOpen ? `<span class="bootcamp-item-action">Đăng ký ›</span>` : `<span class="bootcamp-item-action" style="opacity: 0.5;">Đã đóng</span>`}`;
 
     if (isOpen) {
-        return `<a href="${href}" class="bootcamp-item-homepage paragraph" title="Đăng ký ${item.bootcamp_name || 'khóa học'}">${contentHtml}</a>`;
+        return `<a href="${href}" class="bootcamp-item-homepage paragraph" title="Đăng ký ${courseTitle || 'khóa học'}">${contentHtml}</a>`;
     }
 
-    return `<span class="bootcamp-item-homepage paragraph">${contentHtml}</span>`;
+    return `<div class="bootcamp-item-homepage paragraph is_closed" style="opacity: 0.7;">${contentHtml}</div>`;
 }
 
 function updateCourseStatus(statusEl, items) {
     if (!statusEl) return;
     const hasOpen = items.some(item => item.is_open == 1);
     statusEl.textContent = hasOpen ? 'Đang mở đăng ký' : 'Upcoming';
+    statusEl.classList.remove('course-status-open', 'course-status-upcoming');
     statusEl.classList.add(hasOpen ? 'course-status-open' : 'course-status-upcoming');
 }
 
+function parseFirestoreValue(val) {
+    if (!val) return null;
+    if (val.stringValue !== undefined) return val.stringValue;
+    if (val.integerValue !== undefined) return parseInt(val.integerValue, 10);
+    if (val.doubleValue !== undefined) return parseFloat(val.doubleValue);
+    if (val.booleanValue !== undefined) return val.booleanValue;
+    if (val.timestampValue !== undefined) return val.timestampValue;
+    if (val.arrayValue !== undefined) return (val.arrayValue.values || []).map(parseFirestoreValue);
+    if (val.mapValue !== undefined) {
+        const obj = {};
+        for (const [k, v] of Object.entries(val.mapValue.fields || {})) {
+            obj[k] = parseFirestoreValue(v);
+        }
+        return obj;
+    }
+    return null;
+}
 
-// dữ liệu bootcamp từ google sheet
-fetch("https://script.google.com/macros/s/AKfycbwW79mfaIZX5DHGSV9jX2o95GDWxCK_GqVlWqTxwmV9ZxVO4RnJnDsCLxF_9HpVM-WZ/exec")
-    .then(res => res.json())
-    .then(data => {
+function parseFirestoreDoc(doc) {
+    const id = doc.name.split('/').pop();
+    const data = { id };
+    for (const [k, v] of Object.entries(doc.fields || {})) {
+        data[k] = parseFirestoreValue(v);
+    }
+    return data;
+}
 
-        // lấy dữ liệu bootcamp_list
-        {
-            bootcamp_list = data.bootcamp_list.filter(item => item.listing == 1 && item.is_open == 1);
-            const assetPrefix = getAssetPrefix();
-
-            // Course cards on homepage
-            document.querySelectorAll('.course-bootcamp-list[data-course="flagship"]').forEach(el => {
-                const items = bootcamp_list;
-                updateCourseStatus(document.getElementById('flagship-course-status'), items);
-                if (!items.length) {
-                    el.innerHTML = '<p class="paragraph italic">Sắp tới chưa có lịch đâu mommm.</p>';
-                    return;
-                }
-                el.innerHTML = `
-                <div class="course-cohort-list">${items.map(item =>
-                    renderCourseBootcampItem(item, 'bootcamp-register.html', assetPrefix)
-                ).join('')}</div>`;
-            });
-
-            let hasOpenAua = false;
-            if (data.applied_ux_analytic) {
-                const analyticBootcamps = data.applied_ux_analytic.filter(item => item.listing == 1 && item.is_open == 1);
-                document.querySelectorAll('.course-bootcamp-list[data-course="applied-ux-analytic"]').forEach(el => {
-                    updateCourseStatus(document.getElementById('analytic-course-status'), analyticBootcamps);
-                    if (!analyticBootcamps.length) {
-                        el.innerHTML = '<p class="paragraph italic">Chưa có cohort nào được công bố.</p>';
-                        return;
-                    }
-                    el.innerHTML = `
-                    <div class="course-cohort-list">${analyticBootcamps.map(item =>
-                        renderCourseBootcampItem(item, 'applied-ux-analytic/bootcamp-register.html', assetPrefix)
-                    ).join('')}</div>`;
-                });
-
-                if (analyticBootcamps && analyticBootcamps.length > 0) {
-                    hasOpenAua = true;
-                    const aua = analyticBootcamps[0];
-                    document.querySelectorAll('.compare-aua-start-date').forEach(el => {
-                        el.textContent = aua.start_date !== '-' ? aua.start_date : aua.bootcamp_name;
-                    });
-                    document.querySelectorAll('.compare-aua-pricing').forEach(el => {
-                        el.textContent = aua.pricing;
-                    });
-                    document.querySelectorAll('.compare-aua-format').forEach(el => {
-                        el.textContent = aua.offline == 1 ? "Offline, " + aua.location : "Online";
-                    });
-                }
+async function fetchFirestoreData() {
+    // 1. Thử qua Firebase SDK trước (nếu có sẵn)
+    if (window.firebase) {
+        try {
+            if (!window.firebase.apps.length) {
+                window.firebase.initializeApp(FIREBASE_CONFIG);
             }
+            const db = window.firebase.firestore();
+            const [coursesSnap, cohortsSnap] = await Promise.all([
+                db.collection('courses').get(),
+                db.collection('cohorts').get()
+            ]);
+            const courses = [];
+            coursesSnap.forEach(d => courses.push({ id: d.id, ...d.data() }));
+            const cohorts = [];
+            cohortsSnap.forEach(d => cohorts.push({ id: d.id, ...d.data() }));
+            return { courses, cohorts };
+        } catch (sdkErr) {
+            console.warn('[script.js] Firebase SDK error, falling back to REST:', sdkErr);
+        }
+    }
 
-            if (!hasOpenAua) {
-                document.querySelectorAll('.compare-aua-start-date').forEach(el => {
-                    el.textContent = "-";
-                });
-                document.querySelectorAll('.compare-aua-pricing').forEach(el => {
-                    el.textContent = "-";
-                });
-                document.querySelectorAll('.compare-aua-format').forEach(el => {
-                    el.textContent = "-";
-                });
-            }
+    // 2. Fallback qua Firestore REST API (không cần login cho các collection courses & cohorts public)
+    try {
+        const [cRes, hRes] = await Promise.all([
+            fetch('https://firestore.googleapis.com/v1/projects/uxcampvn/databases/(default)/documents/courses?pageSize=100'),
+            fetch('https://firestore.googleapis.com/v1/projects/uxcampvn/databases/(default)/documents/cohorts?pageSize=100')
+        ]);
+        const cJson = await cRes.json();
+        const hJson = await hRes.json();
+        const courses = (cJson.documents || []).map(parseFirestoreDoc);
+        const cohorts = (hJson.documents || []).map(parseFirestoreDoc);
+        return { courses, cohorts };
+    } catch (restErr) {
+        console.warn('[script.js] Firestore REST API error:', restErr);
+        return null;
+    }
+}
 
-            if (bootcamp_list && bootcamp_list.length > 0) {
-                const flagship = bootcamp_list[0];
-                document.querySelectorAll('.compare-flagship-start-date').forEach(el => {
-                    el.textContent = flagship.start_date !== '-' ? flagship.start_date : flagship.bootcamp_name;
-                });
-                document.querySelectorAll('.compare-flagship-pricing').forEach(el => {
-                    el.textContent = flagship.pricing;
-                });
-                document.querySelectorAll('.compare-flagship-format').forEach(el => {
-                    el.textContent = flagship.offline == 1 ? "Offline, " + flagship.location : "Online";
-                });
-            } else {
-                document.querySelectorAll('.compare-flagship-start-date').forEach(el => {
-                    el.textContent = "-";
-                });
-                document.querySelectorAll('.compare-flagship-pricing').forEach(el => {
-                    el.textContent = "-";
-                });
-                document.querySelectorAll('.compare-flagship-format').forEach(el => {
-                    el.textContent = "-";
-                });
-            }
+function renderBootcampsUI(flagshipList, auaList) {
+    // Hiện tất cả khóa nào đang có trạng thái listing và isPublic
+    bootcamp_list = (flagshipList || []).filter(item => item.listing == 1);
+    const analyticBootcamps = (auaList || []).filter(item => item.listing == 1);
+    const assetPrefix = getAssetPrefix();
 
-            // showing bootcamp list
-            const bootcamp_list_Els = document.querySelectorAll(".bootcamp-list:not(.course-bootcamp-list)");
-            if (bootcamp_list_Els !== null) {
-                for (let i = 0; i < bootcamp_list_Els.length; i++) {
-                    let bootcamp_innerHTML = `<div> </div>
-                <div class="horizontal-scroll row flex-row flex-nowrap">`;
-                    for (let j = 0; j < bootcamp_list.length; j++) {
-                        const item = bootcamp_list[j];
+    // 1. Flagship course card on homepage
+    document.querySelectorAll('.course-bootcamp-list[data-course="flagship"]').forEach(el => {
+        const items = bootcamp_list;
+        updateCourseStatus(document.getElementById('flagship-course-status'), items);
+        if (!items.length) {
+            el.innerHTML = '<p class="paragraph italic">Sắp tới chưa có lịch đâu mommm.</p>';
+            return;
+        }
+        el.innerHTML = `
+        <div class="course-cohort-list">${items.map(item =>
+            renderCourseBootcampItem(item, 'bootcamp-register.html', assetPrefix)
+        ).join('')}</div>`;
+    });
 
-                        bootcamp_innerHTML += `
+    // 2. Applied UX Analytic course card on homepage
+    document.querySelectorAll('.course-bootcamp-list[data-course="applied-ux-analytic"]').forEach(el => {
+        updateCourseStatus(document.getElementById('analytic-course-status'), analyticBootcamps);
+        if (!analyticBootcamps.length) {
+            el.innerHTML = '<p class="paragraph italic">Chưa có cohort nào được công bố.</p>';
+            return;
+        }
+        el.innerHTML = `
+        <div class="course-cohort-list">${analyticBootcamps.map(item =>
+            renderCourseBootcampItem(item, 'applied-ux-analytic/bootcamp-register.html', assetPrefix)
+        ).join('')}</div>`;
+    });
+
+    // 3. Comparison table: Applied UX Analytic
+    if (analyticBootcamps && analyticBootcamps.length > 0) {
+        const aua = analyticBootcamps.find(c => c.is_open == 1) || analyticBootcamps[0];
+        document.querySelectorAll('.compare-aua-start-date').forEach(el => {
+            el.textContent = (aua.start_date && aua.start_date !== '-') ? aua.start_date : aua.bootcamp_name;
+        });
+        document.querySelectorAll('.compare-aua-pricing').forEach(el => {
+            el.textContent = aua.pricing || '-';
+        });
+        document.querySelectorAll('.compare-aua-format').forEach(el => {
+            el.textContent = aua.offline == 1 ? "Offline, " + (aua.location || 'HN') : "Online";
+        });
+    } else {
+        document.querySelectorAll('.compare-aua-start-date').forEach(el => { el.textContent = "-"; });
+        document.querySelectorAll('.compare-aua-pricing').forEach(el => { el.textContent = "-"; });
+        document.querySelectorAll('.compare-aua-format').forEach(el => { el.textContent = "-"; });
+    }
+
+    // 4. Comparison table: Flagship
+    if (bootcamp_list && bootcamp_list.length > 0) {
+        const flagship = bootcamp_list.find(c => c.is_open == 1) || bootcamp_list[0];
+        document.querySelectorAll('.compare-flagship-start-date').forEach(el => {
+            el.textContent = (flagship.start_date && flagship.start_date !== '-') ? flagship.start_date : flagship.bootcamp_name;
+        });
+        document.querySelectorAll('.compare-flagship-pricing').forEach(el => {
+            el.textContent = flagship.pricing || '-';
+        });
+        document.querySelectorAll('.compare-flagship-format').forEach(el => {
+            el.textContent = flagship.offline == 1 ? "Offline, " + (flagship.location || 'HN') : "Online";
+        });
+    } else {
+        document.querySelectorAll('.compare-flagship-start-date').forEach(el => { el.textContent = "-"; });
+        document.querySelectorAll('.compare-flagship-pricing').forEach(el => { el.textContent = "-"; });
+        document.querySelectorAll('.compare-flagship-format').forEach(el => { el.textContent = "-"; });
+    }
+
+    // 5. Showing bootcamp list on older pages (if any)
+    const bootcamp_list_Els = document.querySelectorAll(".bootcamp-list:not(.course-bootcamp-list)");
+    if (bootcamp_list_Els && bootcamp_list_Els.length > 0) {
+        for (let i = 0; i < bootcamp_list_Els.length; i++) {
+            let bootcamp_innerHTML = `<div> </div><div class="horizontal-scroll row flex-row flex-nowrap">`;
+            for (let j = 0; j < bootcamp_list.length; j++) {
+                const item = bootcamp_list[j];
+                const courseTitle = item.bootcamp_name || item.title || item.courseTitle || item.name || '';
+                const formatLocation = item.offline == 1 ? `Offline${item.location ? `, ${item.location}` : ''}` : 'Online';
+                const startDateText = item.start_date && item.start_date !== '-' ? `, ${item.start_date}` : '';
+                const pricingText = item.pricing ? `, ${item.pricing}` : '';
+                const line2 = `${formatLocation}${startDateText}${pricingText}${item.offline == 1 ? " (*)" : ""}`;
+                bootcamp_innerHTML += `
                 <div ${item.is_open == 1 ? "onmousemove='openBootcampMouseOver(this, event)' onmouseout='openBootcampMouseOut(this, event)'" : ""} 
                     class="bootcamp-item ${item.is_open == 1 ? "is_open" : "is_closed"}">
-                    <img class="bootcamp-thumbnail" src="${getAssetPrefix()}image/bootcamp-img/${item.thumbnail}">
                     <div class="bootcamp-item-content">
-                    <h6 class="bootcamp-cohort-name">${item.bootcamp_name}</h6>
-                    <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
-                    <span class="paragraph bootcamp-start-date">${item.start_date}</span>
-                    <span class="paragraph bootcamp-pricing">${item.pricing} ${item.offline == 1 ? "(*)" : ""}</span>                    
-                    <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Fully booked"}</span>
+                        <h6 class="bootcamp-cohort-name">${courseTitle}</h6>
+                        <span class="paragraph bootcamp-meta">${line2}</span>
                     </div>
-                    <a href="bootcamp-register.html?bootcamp_id=${item.bootcamp_id}" class="cta-large stretch paragraph">
+                    <a href="${item.formUrl || `bootcamp-register.html?bootcamp_id=${encodeURIComponent(item.bootcamp_id)}`}" class="cta-large stretch paragraph">
                     ${item.is_open == 1
-                                ? `Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>`
-                                : `<i>Form đã đóng</i>`
-                            }
+                        ? `Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>`
+                        : `<i>Form đã đóng</i>`}
                     </a>
                     <img class="opening-bootcamp-highlight" src="asset/icon/opening-bootcamp-highlight.svg">
                 </div>`;
-
-                    }
-                    bootcamp_innerHTML += `</div>
-                <div style = "padding: 12px 16px 0px 16px;
-                color: var(--main-colors-foreground-f700);"
-                class = "paragraph col-12">
-                (*) Đối với các bootcamp offline: Phí tham dự chưa bao gồm chi phí di chuyển, ăn ở cho graduation retreat. Địa điểm tổ chức graduation retreat sẽ được thống nhất với người tham dự 1 tháng trước ngày tổ chức bảo vệ cuối khóa.</div>`;
-                    bootcamp_list_Els[i].innerHTML += bootcamp_innerHTML;
-                }
             }
+            bootcamp_innerHTML += `</div>
+            <div style="padding: 12px 16px 0px 16px; color: var(--main-colors-foreground-f700);" class="paragraph col-12">
+            (*) Đối với các bootcamp offline: Phí tham dự chưa bao gồm chi phí di chuyển, ăn ở cho graduation retreat. Địa điểm tổ chức graduation retreat sẽ được thống nhất với người tham dự 1 tháng trước ngày tổ chức bảo vệ cuối khóa.</div>`;
+            bootcamp_list_Els[i].innerHTML = bootcamp_innerHTML;
+        }
+    }
 
-            const signUp_bootcamp_list_Els = document.getElementById("signUp_bootcamp_list");
-            if (signUp_bootcamp_list_Els !== null) {
+    // 6. Sign-up radio options on bootcamp-register.html
+    const signUp_bootcamp_list_Els = document.getElementById("signUp_bootcamp_list");
+    if (signUp_bootcamp_list_Els !== null) {
+        const queryString = window.location.search;
+        const params = new URLSearchParams(queryString);
+        const selectedBootcamp = params.get('bootcamp_id');
 
-                // Lấy giá trị của 'bootcamp_id'
-                const queryString = window.location.search;
-                const params = new URLSearchParams(queryString);
-                const selectedBootcamp = params.get('bootcamp_id');
-
-                console.log("user selected bootcamp: ", selectedBootcamp);
-                var signUp_bootcamp_innerHTML = ``;
-                for (let j = 0; j < bootcamp_list.length; j++) {
-                    const item = bootcamp_list[j];
-                    if (item.is_open == 1) {
-
-                        signUp_bootcamp_innerHTML += `
-                    <div class = 'col-12 col-md-12 col-lg-6'>
-                    <span class = "sign-up-bootcamp-item">
-                        <label for="bootcamp_${item.bootcamp_id}">
-                            <input required type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${item.bootcamp_id == selectedBootcamp ? "checked" : ""} />
-                            <img class="bootcamp-thumbnail" src="${getAssetPrefix()}image/bootcamp-img/${item.thumbnail}">
-                            <div class="bootcamp-item-content">
-                                <h6 class="bootcamp-cohort-name">${item.bootcamp_name}</h6>
-                                <span class="paragraph bootcamp-online-offline">${item.offline == 1 ? "Offline, " + item.location : "Online"}</span>
-                                <span class="paragraph bootcamp-is-open">${item.is_open == 1 ? "Đang mở đăng ký" : "Fully booked"}</span>
-                                <span class="paragraph bootcamp-start-date">${item.start_date}</span>
-                            </div>
-                        </label>
-                    </span>
-                    </div>`;
-                    };
-                }
-                signUp_bootcamp_innerHTML += ``
-                signUp_bootcamp_list_Els.innerHTML += signUp_bootcamp_innerHTML;
+        let signUp_bootcamp_innerHTML = ``;
+        for (let j = 0; j < bootcamp_list.length; j++) {
+            const item = bootcamp_list[j];
+            if (item.is_open == 1) {
+                const courseTitle = item.bootcamp_name || item.title || item.courseTitle || item.name || '';
+                const formatLocation = item.offline == 1 ? `Offline${item.location ? `, ${item.location}` : ''}` : 'Online';
+                const startDateText = item.start_date && item.start_date !== '-' ? `, ${item.start_date}` : '';
+                const pricingText = item.pricing ? `, ${item.pricing}` : '';
+                const line2 = `${formatLocation}${startDateText}${pricingText}`;
+                signUp_bootcamp_innerHTML += `
+            <div class='col-12 col-md-12 col-lg-6'>
+            <div class="sign-up-bootcamp-item">
+                <label for="bootcamp_${item.bootcamp_id}">
+                    <input required type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${String(item.bootcamp_id) === String(selectedBootcamp) ? "checked" : ""} />
+                    <div class="bootcamp-item-content">
+                        <h6 class="bootcamp-cohort-name">${courseTitle}</h6>
+                        <span class="paragraph bootcamp-meta">${line2}</span>
+                    </div>
+                </label>
+            </div>
+            </div>`;
             }
         }
+        signUp_bootcamp_list_Els.innerHTML = signUp_bootcamp_innerHTML;
+    }
+}
 
+async function loadBootcampData() {
+    try {
+        const fbData = await fetchFirestoreData();
+        if (fbData && fbData.cohorts) {
+            const { courses, cohorts } = fbData;
 
+            // Mapping courses
+            const dtCourse = courses.find(c => c.code === 'DT' || c.code === 'DDPPSAM' || c.slug === 'designing-digital-produc-per-stage-and-metric');
+            const auaCourse = courses.find(c => c.code === 'AUXA' || c.code === 'UXA' || c.slug === 'applied-ux-analytic');
 
-    });
+            const isDtCohort = (c) => {
+                if (c.courseId && dtCourse && c.courseId === dtCourse.id) return true;
+                if (c.courseCode === 'DT' || c.courseCode === 'DDPPSAM') return true;
+                if (c.code && (c.code.startsWith('DT') || c.code.startsWith('DDPPSAM'))) return true;
+                if (c.courseTitle && c.courseTitle.includes('Design Thinking')) return true;
+                return false;
+            };
+
+            const isAuaCohort = (c) => {
+                if (c.courseId && auaCourse && c.courseId === auaCourse.id) return true;
+                if (c.courseCode === 'AUXA' || c.courseCode === 'UXA') return true;
+                if (c.code && (c.code.startsWith('AUXA') || c.code.startsWith('UXA') || c.code.startsWith('analytic'))) return true;
+                if (c.courseTitle && c.courseTitle.includes('Analytic')) return true;
+                return false;
+            };
+
+            const mapCohortItem = (c, isAua) => ({
+                id: c.id,
+                bootcamp_id: c.bootcamp_id || c.code || c.id,
+                bootcamp: isAua ? "Applied UX Analytic" : "Designing Digital Product per Stage and Metric",
+                bootcamp_name: c.bootcamp_name || c.title || c.name || c.code,
+                courseTitle: c.courseTitle || (isAua ? "Applied UX Analytic" : (dtCourse?.title || "Design Thinking")),
+                title: c.title || c.name || c.bootcamp_name || '',
+                start_date: c.startDate || c.start_date || c.schedule || 'Sắp công bố',
+                offline: (c.format === 'offline' || c.offline == 1) ? 1 : 0,
+                location: c.location || (c.format === 'offline' || c.offline == 1 ? 'HN' : ''),
+                pricing: c.tuition || c.pricing || 'Liên hệ',
+                capacity: c.maxCapacity || c.capacity || 20,
+                is_open: (c.status === 'open' || c.status === 'enrolling' || c.is_open == 1) ? 1 : 0,
+                listing: (c.isPublic !== false && c.listing !== 0) ? 1 : 0,
+                formUrl: c.formUrl || ''
+            });
+
+            const dtCohorts = cohorts.filter(isDtCohort).map(c => mapCohortItem(c, false));
+            const auaCohorts = cohorts.filter(isAuaCohort).map(c => mapCohortItem(c, true));
+
+            renderBootcampsUI(dtCohorts, auaCohorts);
+        } else {
+            console.warn('[script.js] Không tìm thấy dữ liệu cohorts trong Firestore');
+            renderBootcampsUI([], []);
+        }
+    } catch (e) {
+        console.error('[script.js] Lỗi đọc dữ liệu từ Firestore:', e);
+        renderBootcampsUI([], []);
+    }
+}
+
+// Khởi chạy nạp dữ liệu khóa học từ Firebase
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', loadBootcampData);
+} else {
+    loadBootcampData();
+}
+
+window.reloadHomepageCourses = loadBootcampData;
 
 
 

@@ -27,10 +27,10 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	const totalImg = 100;
+	const totalImg = 134;
 	let slidingImgInnerHTML = '';
 	for (let i = 1; i <= totalImg; i++) {
-		slidingImgInnerHTML += `<img class="sliding-img" src="asset/image/graduation/${i}.webp" alt="Graduation ${i}" loading="lazy" decoding="async" draggable="false">`;
+		slidingImgInnerHTML += `<img class="sliding-img" src="asset/image/graduation/${i}.webp" alt="Graduation ${i}" decoding="async" draggable="false">`;
 	}
 	slidingImg.innerHTML = slidingImgInnerHTML;
 
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			ease: "elastic.out(1.5,0.9)",
 		}, '<')
 		.from('.sliding-img', {
-			right: 8000,
+			right: 12000,
 			stagger: {
 				each: 0.05,
 				from: "end"

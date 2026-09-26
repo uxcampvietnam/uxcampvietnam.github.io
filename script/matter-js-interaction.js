@@ -1,8 +1,4 @@
-// new --------------------------------------------------
-
 const canvas = document.getElementById('interactiveImage');
-const cardContainer = canvas ? canvas.closest('.course-card-canvas-flagship') : null;
-const isCardMode = !!cardContainer;
 
 /* ===============================
    BASIC DOM
@@ -149,6 +145,7 @@ const imageGraduationUrls = [
     'asset/image/graduation/131.webp',
     'asset/image/graduation/132.webp',
     'asset/image/graduation/133.webp',
+    'asset/image/graduation/134.webp',
 ];
 
 const imageBootcampUrls = [
@@ -295,24 +292,18 @@ function deviceHasMouse() {
     return matchMedia('(pointer:fine)').matches;
 }
 
-let scaleFactor = 0.4;
+let scaleFactor = 0.30;
 let InfiniteLoadingWidth;
 let InfiniteLoadingHeight;
 
-if (isCardMode) {
-    numberOfFallingImg = window.innerWidth < 500 ? 20 : 40;
-    scaleFactor = window.innerWidth < 500 ? 0.18 : 0.22;
-    InfiniteLoadingWidth = 0;
-    InfiniteLoadingHeight = 0;
-} else if (window.innerWidth < 500) {
+if (window.innerWidth < 500) {
     numberOfFallingImg = 40;
     scaleFactor = 0.28;
     InfiniteLoadingWidth = window.innerWidth;
     InfiniteLoadingHeight = 250;
-}
-else {
+} else {
     numberOfFallingImg = 130;
-    scaleFactor = 0.45;
+    scaleFactor = 0.30;
     InfiniteLoadingWidth = window.innerWidth * 0.8 / 2;
     InfiniteLoadingHeight = container1
         ? container1.getBoundingClientRect().height / 2 - 40
@@ -320,13 +311,6 @@ else {
 }
 
 function getCanvasSize() {
-    if (isCardMode) {
-        const rect = cardContainer.getBoundingClientRect();
-        return {
-            width: Math.max(rect.width, 280),
-            height: Math.max(rect.height, 220)
-        };
-    }
     return {
         width: window.innerWidth,
         height: window.innerHeight * 2
@@ -368,15 +352,11 @@ if (canvas) {
             isStatic: true,
             render: { strokeStyle: '#00000000', lineWidth: 0 }
         };
-        const borders = {
+        return {
             top: Bodies.rectangle(w / 2, -t / 2, w, t, borderOpts),
             left: Bodies.rectangle(-t / 2, h / 2, t, h, borderOpts),
             right: Bodies.rectangle(w + t / 2, h / 2, t, h, borderOpts)
         };
-        if (isCardMode) {
-            borders.bottom = Bodies.rectangle(w / 2, h + t / 2, w, t, borderOpts);
-        }
-        return borders;
     }
 
     let borders = createWorldBorders(width, height);
@@ -469,9 +449,7 @@ if (canvas) {
                     if (fallingImgCount < numberOfFallingImg) {
                         World.add(
                             world,
-                            // createImageBody(width / 2, height / 2, data)
-                            createImageBody(isCardMode ? width * Math.random() : width / 2, isCardMode ? height * Math.random() : height / 2, data)
-
+                            createImageBody(width / 2, height / 2, data)
                         );
                         fallingImgCount++;
                     }
@@ -533,7 +511,7 @@ if (canvas) {
 
         mouse.pixelRatio = ratio;
 
-        if (!isCardMode && container1) {
+        if (container1) {
             if (window.innerWidth < 500) {
                 InfiniteLoadingWidth = window.innerWidth * 0.6;
                 InfiniteLoadingHeight = 150;
@@ -559,13 +537,6 @@ if (canvas) {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(resizeMatter, 150);
     });
-
-    if (isCardMode && typeof ResizeObserver !== 'undefined') {
-        new ResizeObserver(() => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(resizeMatter, 150);
-        }).observe(cardContainer);
-    }
 }
 
 

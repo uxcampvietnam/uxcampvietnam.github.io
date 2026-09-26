@@ -1513,6 +1513,97 @@ svg *[stroke="#EEEEEE"] {
 }
 
 
+/* =========================================================================
+   RANGE SLIDER / SLIDER CONTROLS (UNIFIED DESIGN SYSTEM)
+   Custom styled HTML5 range slider inputs
+   ========================================================================= */
+.ds-slider,
+.slider,
+.form-range,
+input[type="range"].ds-slider,
+input[type="range"].slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 2px;
+  border-radius: var(--radius-pill, 9999px);
+  background: var(--transparent-foreground-main-color-40, rgba(55, 61, 72, 0.4));
+  outline: none;
+  cursor: pointer;
+  margin: 6px 0;
+  transition: background var(--transition-fast, 0.2s ease);
+}
+
+.ds-slider:focus-visible,
+.slider:focus-visible,
+.form-range:focus-visible,
+input[type="range"].ds-slider:focus-visible,
+input[type="range"].slider:focus-visible {
+  outline: none;
+}
+
+/* WebKit Slider Thumb */
+.ds-slider::-webkit-slider-thumb,
+.slider::-webkit-slider-thumb,
+.form-range::-webkit-slider-thumb,
+input[type="range"].ds-slider::-webkit-slider-thumb,
+input[type="range"].slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--button-background, #b4935e);
+  border: 2px solid var(--body-background-elevate-2, #ffffff);
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  box-shadow: none;
+}
+
+.ds-slider::-webkit-slider-thumb:hover,
+.slider::-webkit-slider-thumb:hover,
+.form-range::-webkit-slider-thumb:hover,
+input[type="range"].ds-slider::-webkit-slider-thumb:hover,
+input[type="range"].slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+  background: var(--button-background-hover, #c9b386);
+}
+
+/* Firefox Slider Thumb */
+.ds-slider::-moz-range-thumb,
+.slider::-moz-range-thumb,
+.form-range::-moz-range-thumb,
+input[type="range"].ds-slider::-moz-range-thumb,
+input[type="range"].slider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--button-background, #b4935e);
+  border: 2px solid var(--body-background-elevate-2, #ffffff);
+  cursor: pointer;
+  transition: transform 0.15s ease, background-color 0.15s ease;
+  box-shadow: none;
+}
+
+.ds-slider::-moz-range-thumb:hover,
+.slider::-moz-range-thumb:hover,
+.form-range::-moz-range-thumb:hover,
+input[type="range"].ds-slider::-moz-range-thumb:hover,
+input[type="range"].slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+  background: var(--button-background-hover, #c9b386);
+}
+
+/* Slider Scale Ticks & Labels */
+.slider-scale-ticks {
+  display: flex;
+  justify-content: space-between;
+  font-family: var(--font-mono, 'Chivo Mono', monospace);
+  font-size: 11px;
+  color: var(--main-colors-foreground-f700, #706e6f);
+}
+
+
 /* TOAST NOTIFICATIONS ================================================= */
 .toast-container {
   position: fixed;

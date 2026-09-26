@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebP Compressor — WebAssembly Image Optimizer | UXCamp Vietnam</title>
+  <meta name="description"
+    content="High-speed WebP image compression running 100% in-browser via WebAssembly (Google libwebp). Custom Quality and Effort, 1:1 pixel fidelity, zero server uploads.">
+  <link rel="icon" href="../../asset/icon/favicon.ico">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="WebP Compressor — WebAssembly Image Optimizer | UXCamp Vietnam">
+  <meta property="og:description"
+    content="Compress and convert images to WebP offline with WebAssembly (Google libwebp). 1:1 pixel fidelity, adjustable Quality & Effort.">
+  <meta property="og:image" content="https://i.ibb.co/7x4FWwHJ/uxcampvietnam.jpg">
+
+  <!-- Core Design System CSS -->
+  <link rel="stylesheet" type="text/css" href="../../style/definition.css">
+  <link rel="stylesheet" type="text/css" href="../../style/style.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <!-- Shared Site Scripts -->
+  <script src="../../script/libs/svg-inject.min.js"></script>
+  <script src="../../script/main-header.js" defer></script>
+  <script src="jszip.min.js"></script>
+</head>
+
+<body>
+
+  <!-- UXCamp Vietnam Shared Header -->
+  <header class="site-main-header" id="siteMainHeader" data-active="Tool" data-title="WebP Compressor"></header>
+
+  <main class="webp-tool-page">
+    <div class="webp-tool-container">
+
+      <!-- Hero Header -->
+      <header class="tool-hero">
+        <h1 class="tool-hero-title">WebP Compressor</h1>
+        <p class="tool-hero-desc">Compress images and auto-convert to WebP.</p>
+        <div class="feature-pill-list">
+          <span class="feature-pill-item">Keep file name</span>
+          <span class="feature-pill-item">No limit</span>
+          <span class="feature-pill-item">Crazy fast</span>
+          <span class="feature-pill-item">100% secure</span>
+          <span class="feature-pill-item">Batch upload &amp; download</span>
+
+        </div>
+      </header>
+
+      <!-- Dropzone Area -->
+      <section class="dropzone-wrapper" aria-label="Image dropzone">
+        <div class="dropzone-box" id="dropzone" tabindex="0" role="button"
+          aria-label="Drop images here or click to browse">
+          <input type="file" id="file-input" multiple accept="image/jpeg,image/png,image/webp,image/gif"
+            style="display:none">
+          <div class="drop-icon-sphere">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+          </div>
+          <h2 class="dropzone-title">Drag &amp; drop images here</h2>
+          <p class="dropzone-hint">or press <strong>⌘ + V (Ctrl + V)</strong> to paste from clipboard</p>
+          <div class="dropzone-actions">
+            <button type="button" class="cta-large" id="browse-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path
+                  d="M4 20h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.93a2 2 0 0 1-1.66-.9l-.82-1.2A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13c0 1.1.9 2 2 2Z">
+                </path>
+              </svg>
+              <span>Choose from device</span>
+            </button>
+          </div>
+          <div class="supported-formats-row">
+            <span class="format-pill">JPG / JPEG</span>
+            <span class="format-pill">PNG</span>
+            <span class="format-pill">WEBP</span>
+            <span class="format-pill">GIF</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Compression Parameters Panel -->
+      <section class="card-container controls-panel" id="controls-panel" aria-label="Compression settings">
+        <div class="controls-header">
+          <div class="controls-title font-serif-h4">
+            <span class="font-sans-caption">Settings</span>
+          </div>
+        </div>
+
+        <div class="controls-row">
+          <!-- Quality Slider -->
+          <div class="slider-group">
+            <div class="slider-group-header">
+              <label for="quality-slider" class="slider-group-label">
+                <span class="font-sans-small">Quality (Higher is better)</span>
+              </label>
+              <span class="slider-val-badge font-sans-small" id="quality-val">80</span>
+            </div>
+            <input type="range" class="ds-slider" id="quality-slider" min="1" max="100" value="80"
+              aria-label="Image quality">
+          </div>
+
+          <!-- Effort Slider -->
+          <div class="slider-group">
+            <div class="slider-group-header">
+              <label for="effort-slider" class="slider-group-label">
+                <span class="font-sans-small">Compress (Higher is smaller file)</span>
+              </label>
+              <span class="slider-val-badge font-sans-small" id="effort-val">4</span>
+            </div>
+            <input type="range" class="ds-slider" id="effort-slider" min="0" max="6" value="4"
+              aria-label="Compression effort">
+          </div>
+
+          <!-- Resize Cluster (Max W, Locked Ratio Indicator, Max H) -->
+          <div class="resize-cluster">
+            <!-- Max Width Field -->
+            <div class="resize-field-group">
+              <div class="slider-group-header">
+                <label for="max-width-input" class="slider-group-label">
+                  <span class="font-sans-small">Max W</span>
+                </label>
+              </div>
+              <div class="resize-input-wrap">
+                <input type="number" id="max-width-input" class="resize-input font-mono" placeholder="Auto" min="1"
+                  max="10000" aria-label="Maximum width in pixels">
+                <span class="resize-unit font-mono">px</span>
+              </div>
+            </div>
+
+            <!-- Aspect Ratio Link Indicator (Visual Only, Always Locked) -->
+            <div class="resize-link-indicator" title="Aspect ratio is always locked">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+              </svg>
+            </div>
+
+            <!-- Max Height Field -->
+            <div class="resize-field-group">
+              <div class="slider-group-header">
+                <label for="max-height-input" class="slider-group-label">
+                  <span class="font-sans-small">Max H</span>
+                </label>
+              </div>
+              <div class="resize-input-wrap">
+                <input type="number" id="max-height-input" class="resize-input font-mono" placeholder="Auto" min="1"
+                  max="10000" aria-label="Maximum height in pixels">
+                <span class="resize-unit font-mono">px</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Stats Summary Banner -->
+      <section class="card-container stats-banner-grid is-empty" id="stats-banner" aria-label="Compression statistics">
+        <div class="stat-cell">
+          <span class="stat-cell-label">Processed</span>
+          <span class="stat-cell-value" id="stat-count">0 / 0</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-cell-label">Original</span>
+          <span class="stat-cell-value" id="stat-orig">0 B</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-cell-label">After Compressed</span>
+          <span class="stat-cell-value" id="stat-comp">0 B</span>
+        </div>
+        <div class="stat-cell">
+          <span class="stat-cell-label">Saved</span>
+          <span class="stat-cell-value" id="stat-saved">0 B (0%)</span>
+        </div>
+      </section>
+
+      <!-- Batch Toolbar -->
+      <div class="batch-toolbar-panel" id="batch-toolbar">
+        <h3 class="font-sans-h6 medium" id="queue-title">Queue (0)</h3>
+        <div class="batch-toolbar-actions">
+          <button type="button" class="cta-large" id="zip-btn" disabled>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M1.33301 12.667V10C1.33301 9.63181 1.63181 9.33301 2 9.33301C2.36819 9.33301 2.66699 9.63181 2.66699 10V12.667C2.66708 12.8437 2.73736 13.0127 2.8623 13.1377C2.98725 13.2626 3.15631 13.3329 3.33301 13.333H12.667C12.8437 13.3329 13.0127 13.2626 13.1377 13.1377C13.2626 13.0127 13.3329 12.8437 13.333 12.667V10C13.333 9.63181 13.6318 9.33301 14 9.33301C14.3682 9.33301 14.667 9.63181 14.667 10V12.667C14.6669 13.1973 14.4561 13.7061 14.0811 14.0811C13.7061 14.4561 13.1973 14.6669 12.667 14.667H3.33301C2.80269 14.6669 2.29394 14.4561 1.91895 14.0811C1.54395 13.7061 1.33309 13.1973 1.33301 12.667ZM7.33301 2C7.33301 1.63181 7.63181 1.33301 8 1.33301C8.36819 1.33301 8.66699 1.63181 8.66699 2V8.38965L10.8623 6.19531C11.1227 5.93513 11.5444 5.93502 11.8047 6.19531C12.065 6.45561 12.0649 6.87733 11.8047 7.1377L8.47168 10.4717C8.21133 10.732 7.78867 10.732 7.52832 10.4717L4.19531 7.1377C3.93513 6.87733 3.93502 6.45561 4.19531 6.19531C4.45561 5.93502 4.87733 5.93513 5.1377 6.19531L7.33301 8.38965V2Z"
+                fill="black" />
+            </svg>
+
+            <span id="zip-btn-text">Download all (.zip)</span>
+          </button>
+          <button type="button" class="secondary-button-large" id="clear-btn" disabled>
+            <span>Clear list</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Jobs List Container -->
+      <div class="jobs-list-wrap" id="jobs-container" aria-live="polite"></div>
+
+    </div>
+  </main>
+
+  <!-- Interactive Before / After Comparison Modal -->
+  <div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modal-name">
+    <div class="modal-box">
+      <div class="modal-head">
+        <div class="modal-title-group">
+          <h3 id="modal-name">Image Comparison</h3>
+          <div class="modal-meta-info" id="modal-meta"></div>
+        </div>
+        <div class="modal-head-actions">
+          <div class="modal-zoom-group">
+            <button type="button" class="secondary-button-small" id="zoom-out-btn" title="Zoom out"
+              aria-label="Zoom out">−</button>
+            <span class="zoom-level-text" id="zoom-val">100%</span>
+            <button type="button" class="secondary-button-small" id="zoom-in-btn" title="Zoom in"
+              aria-label="Zoom in">+</button>
+            <button type="button" class="ghost-button-small" id="zoom-reset-btn" title="Reset zoom (1:1)"
+              aria-label="Reset zoom">1:1</button>
+          </div>
+          <button type="button" class="cta-small" id="modal-dl-btn">Download WebP</button>
+          <button type="button" class="ghost-button-small" id="modal-close-btn" aria-label="Close comparison">✕</button>
+        </div>
+      </div>
+      <div class="modal-body">
+        <div class="compare-wrap" id="compare-wrap" title="Drag slider to compare">
+          <div class="compare-layer">
+            <span class="compare-tag tag-webp">Compressed WebP</span>
+            <img id="modal-webp-img" class="compare-img" src="" alt="Compressed WebP image">
+          </div>
+          <div class="compare-layer" id="orig-layer" style="clip-path: inset(0 50% 0 0)">
+            <span class="compare-tag tag-orig">Original</span>
+            <img id="modal-orig-img" class="compare-img" src="" alt="Original image">
+          </div>
+          <div class="divider-line" id="divider-line" style="left:50%">
+            <div class="handle-circle">↔</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Application Logic -->
+  <script src="script.js"></script>
+</body>
+
+</html>

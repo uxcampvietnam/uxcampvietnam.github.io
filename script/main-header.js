@@ -10,6 +10,7 @@
     if (
       path.includes('/tool/statistic-calculator/') ||
       path.includes('/tool/checklist/') ||
+      path.includes('/tool/compress-webp/') ||
       path.includes('/applied-ux-analytic/bootcamp-register.html') ||
       path.includes('/certificate/individual/')
     ) {

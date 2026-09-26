@@ -474,6 +474,51 @@
 	min-width: 100%;
 }
 
+/* Sortable Table Columns */
+.th-sortable {
+	cursor: pointer;
+	user-select: none;
+	transition: color 0.15s, background-color 0.15s;
+	white-space: nowrap;
+}
+
+.th-sortable:hover {
+	color: var(--main-colors-foreground-f100) !important;
+	background-color: var(--transparent-foreground-main-color-05);
+}
+
+.th-sortable .sort-indicator {
+	display: inline-flex;
+	align-items: center;
+	margin-left: 6px;
+	opacity: 0.4;
+	transition: opacity 0.15s, color 0.15s, transform 0.15s;
+	vertical-align: middle;
+}
+
+.th-sortable .sort-indicator svg {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.th-sortable:hover .sort-indicator {
+	opacity: 0.85;
+	color: var(--alternative-foreground-gold);
+}
+
+.th-sortable.sorted-asc,
+.th-sortable.sorted-desc {
+	color: var(--alternative-foreground-gold) !important;
+}
+
+.th-sortable.sorted-asc .sort-indicator,
+.th-sortable.sorted-desc .sort-indicator,
+.sort-indicator.sorted-asc,
+.sort-indicator.sorted-desc {
+	opacity: 1;
+	color: var(--alternative-foreground-gold);
+}
+
 /* Toast container */
 .admin-toast-box {
 	position: fixed;

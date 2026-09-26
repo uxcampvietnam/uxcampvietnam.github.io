@@ -34,17 +34,63 @@ window.ADMIN_CONFIG = {
 			}
 		}
 
+		let currentSort = { column: null, order: 'asc' };
+
+		window.handleSort = function(col) {
+			if (currentSort.column === col) {
+				currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+			} else {
+				currentSort.column = col;
+				currentSort.order = 'asc';
+			}
+			renderBooksTable();
+		};
+
+		function getSortIndicator(col) {
+			if (currentSort.column !== col) {
+				return `<span class="sort-indicator" title="Nhấn để sắp xếp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg></span>`;
+			}
+			if (currentSort.order === 'asc') {
+				return `<span class="sort-indicator sorted-asc" title="Đang sắp xếp A → Z"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg></span>`;
+			}
+			return `<span class="sort-indicator sorted-desc" title="Đang sắp xếp Z → A"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></span>`;
+		}
+
+		function getSortClass(col) {
+			if (currentSort.column !== col) return 'th-sortable';
+			return `th-sortable sorted-${currentSort.order}`;
+		}
+
 		function renderBooksTable() {
 			const container = document.getElementById('books-list-container');
 			const query = (document.getElementById('search-books')?.value || '').trim().toLowerCase();
 
-			let list = allBooks;
+			let list = [...allBooks];
 			if (query) {
 				list = list.filter(b =>
 					(b.title && b.title.toLowerCase().includes(query)) ||
 					(b.author && b.author.toLowerCase().includes(query)) ||
 					(b.category && b.category.toLowerCase().includes(query))
 				);
+			}
+
+			if (currentSort.column) {
+				list.sort((a, b) => {
+					let valA = '';
+					let valB = '';
+					if (currentSort.column === 'title') {
+						valA = a.title || '';
+						valB = b.title || '';
+					} else if (currentSort.column === 'author') {
+						valA = a.author || '';
+						valB = b.author || '';
+					} else if (currentSort.column === 'category') {
+						valA = a.category || a.shelf || '';
+						valB = b.category || b.shelf || '';
+					}
+					const cmp = valA.localeCompare(valB, 'vi', { sensitivity: 'base', numeric: true });
+					return currentSort.order === 'asc' ? cmp : -cmp;
+				});
 			}
 
 			if (list.length === 0) {
@@ -62,9 +108,9 @@ window.ADMIN_CONFIG = {
 					<thead>
 						<tr>
 							<th style="width: 50px;">Bìa</th>
-							<th>Tựa Sách</th>
-							<th>Tác Giả</th>
-							<th>Kệ Sách / Thể Loại</th>
+							<th class="${getSortClass('title')}" onclick="handleSort('title')" title="Sắp xếp theo Tựa Sách">Tựa Sách ${getSortIndicator('title')}</th>
+							<th class="${getSortClass('author')}" onclick="handleSort('author')" title="Sắp xếp theo Tác Giả">Tác Giả ${getSortIndicator('author')}</th>
+							<th class="${getSortClass('category')}" onclick="handleSort('category')" title="Sắp xếp theo Thể Loại">Kệ Sách / Thể Loại ${getSortIndicator('category')}</th>
 							<th style="width: 100px; text-align: right;">Thao tác</th>
 						</tr>
 					</thead>

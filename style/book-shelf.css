@@ -183,6 +183,7 @@
   visibility: hidden;
   transform-style: preserve-3d;
   perspective: 1400px;
+  perspective-origin: left center;
 }
 
 .book-slot:not(.is-open) .book-expanded-content {
@@ -200,6 +201,8 @@
   flex-shrink: 0;
   transform-origin: left center;
   transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   border-radius: 0px 24px 24px 0px;
   background-color: var(--main-colors-background-b100);
   overflow: hidden;

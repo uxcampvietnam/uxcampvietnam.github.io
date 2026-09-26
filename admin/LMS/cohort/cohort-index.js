@@ -4,6 +4,7 @@ window.ADMIN_CONFIG = {
 };
 
 let allCohorts = [];
+let allCourses = [];
 let currentDb = null;
 
 window.addEventListener('adminReady', async (e) => {
@@ -15,10 +16,18 @@ window.addEventListener('adminReady', async (e) => {
 async function loadCohorts() {
 	const container = document.getElementById('cohorts-list-container');
 	try {
-		const snapshot = await currentDb.collection('cohorts').get();
+		const [snapshot, coursesSnap] = await Promise.all([
+			currentDb.collection('cohorts').get(),
+			currentDb.collection('courses').get().catch(() => ({ docs: [] }))
+		]);
 		allCohorts = [];
 		snapshot.forEach(doc => {
 			allCohorts.push({ id: doc.id, ...doc.data() });
+		});
+
+		allCourses = [];
+		coursesSnap.forEach(doc => {
+			allCourses.push({ id: doc.id, ...doc.data() });
 		});
 
 		// Update stats
@@ -27,6 +36,7 @@ async function loadCohorts() {
 		document.getElementById('stat-cohorts-running').textContent = allCohorts.filter(c => c.status === 'in-progress').length;
 		document.getElementById('stat-cohorts-completed').textContent = allCohorts.filter(c => c.status === 'completed').length;
 
+		populateCohortCourseFilter();
 		renderCohortsTable();
 	} catch (err) {
 		if (container) {
@@ -35,12 +45,69 @@ async function loadCohorts() {
 	}
 }
 
+function populateCohortCourseFilter() {
+	const select = document.getElementById('filter-cohort-course');
+	if (!select) return;
+
+	const prevVal = select.value;
+	select.innerHTML = '<option value="all">Tất cả Khóa học</option>';
+
+	// Danh sách khóa học - hiển thị theo Title, không hiển thị mã
+	allCourses.forEach(c => {
+		const title = c.title || c.name || c.id;
+		const opt = document.createElement('option');
+		opt.value = c.id;
+		opt.textContent = title;
+		select.appendChild(opt);
+	});
+
+	if (prevVal && [...select.options].some(o => o.value === prevVal)) {
+		select.value = prevVal;
+	}
+}
+
+let currentSortCol = null;
+let currentSortDir = 'asc';
+
+function getSortIndicator(colKey) {
+	if (currentSortCol !== colKey) {
+		return `<span class="sort-indicator" title="Nhấn để sắp xếp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg></span>`;
+	}
+	if (currentSortDir === 'asc') {
+		return `<span class="sort-indicator sorted-asc" title="Đang sắp xếp A → Z"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg></span>`;
+	}
+	return `<span class="sort-indicator sorted-desc" title="Đang sắp xếp Z → A"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></span>`;
+}
+
+window.handleSortCohort = function (col) {
+	if (currentSortCol === col) {
+		currentSortDir = currentSortDir === 'asc' ? 'desc' : 'asc';
+	} else {
+		currentSortCol = col;
+		currentSortDir = 'asc';
+	}
+	renderCohortsTable();
+};
+
 function renderCohortsTable() {
 	const container = document.getElementById('cohorts-list-container');
 	const query = (document.getElementById('search-cohort')?.value || '').trim().toLowerCase();
 	const statusFilter = document.getElementById('filter-cohort-status')?.value || 'all';
+	const courseFilter = document.getElementById('filter-cohort-course')?.value || 'all';
 
-	let list = allCohorts;
+	let list = [...allCohorts];
+
+	// Lọc theo Khóa học
+	if (courseFilter !== 'all') {
+		const matchedCo = allCourses.find(co => co.id === courseFilter);
+		const courseTitle = matchedCo ? (matchedCo.title || '').toLowerCase() : '';
+		list = list.filter(c => {
+			if (c.courseId === courseFilter) return true;
+			if (courseTitle && c.courseTitle && c.courseTitle.toLowerCase() === courseTitle) return true;
+			return false;
+		});
+	}
+
 	if (statusFilter !== 'all') list = list.filter(c => (c.status || 'open') === statusFilter);
 	if (query) {
 		list = list.filter(c =>
@@ -49,6 +116,36 @@ function renderCohortsTable() {
 			(c.courseTitle && c.courseTitle.toLowerCase().includes(query)) ||
 			(c.instructor && c.instructor.toLowerCase().includes(query))
 		);
+	}
+
+	if (currentSortCol) {
+		list.sort((a, b) => {
+			if (currentSortCol === 'capacity' || currentSortCol === 'tuition') {
+				const valA = a[currentSortCol] || a.pricing || 0;
+				const valB = b[currentSortCol] || b.pricing || 0;
+				const numA = Number(String(valA).replace(/[^\d]/g, '')) || 0;
+				const numB = Number(String(valB).replace(/[^\d]/g, '')) || 0;
+				return currentSortDir === 'asc' ? numA - numB : numB - numA;
+			}
+			if (currentSortCol === 'startDate') {
+				const strA = (a.startDate || a.start_date || a.schedule || '').toString();
+				const strB = (b.startDate || b.start_date || b.schedule || '').toString();
+				const res = strA.localeCompare(strB, 'vi', { numeric: true });
+				return currentSortDir === 'asc' ? res : -res;
+			}
+			if (currentSortCol === 'title') {
+				const strA = (a.title || a.name || a.bootcamp_name || '').toString();
+				const strB = (b.title || b.name || b.bootcamp_name || '').toString();
+				const res = strA.localeCompare(strB, 'vi', { sensitivity: 'base', numeric: true });
+				return currentSortDir === 'asc' ? res : -res;
+			}
+			const valA = a[currentSortCol];
+			const valB = b[currentSortCol];
+			const strA = (valA ?? '').toString().trim();
+			const strB = (valB ?? '').toString().trim();
+			const res = strA.localeCompare(strB, 'vi', { sensitivity: 'base', numeric: true });
+			return currentSortDir === 'asc' ? res : -res;
+		});
 	}
 
 	if (list.length === 0) {
@@ -71,13 +168,13 @@ function renderCohortsTable() {
 				<table class="user-table">
 					<thead>
 						<tr>
-							<th style="width: 100px;">Mã Lớp</th>
-							<th>Tên Lớp / Khóa học</th>
-							<th>Khai giảng</th>
-							<th>Hình thức</th>
-							<th>Học phí</th>
-							<th style="width: 100px; text-align: center;">Sĩ số tối đa</th>
-							<th style="width: 120px; text-align: center;">Trạng thái</th>
+							<th class="th-sortable ${currentSortCol === 'code' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCohort('code')" style="width: 110px;">Mã Lớp ${getSortIndicator('code')}</th>
+							<th class="th-sortable ${currentSortCol === 'title' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCohort('title')">Tên Lớp / Khóa học ${getSortIndicator('title')}</th>
+							<th class="th-sortable ${currentSortCol === 'startDate' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCohort('startDate')" style="width: 130px;">Khai giảng ${getSortIndicator('startDate')}</th>
+							<th class="th-sortable ${currentSortCol === 'format' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCohort('format')" style="width: 120px;">Hình thức ${getSortIndicator('format')}</th>
+							<th class="th-sortable ${currentSortCol === 'tuition' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCohort('tuition')" style="width: 120px;">Học phí ${getSortIndicator('tuition')}</th>
+							<th class="th-sortable ${currentSortCol === 'capacity' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCohort('capacity')" style="width: 110px; text-align: center;">Sĩ số tối đa ${getSortIndicator('capacity')}</th>
+							<th class="th-sortable ${currentSortCol === 'status' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCohort('status')" style="width: 130px; text-align: center;">Trạng thái ${getSortIndicator('status')}</th>
 							<th style="width: 110px; text-align: right;">Thao tác</th>
 						</tr>
 					</thead>
@@ -231,6 +328,7 @@ async function seedOpenCohorts() {
 function initEvents() {
 	document.getElementById('search-cohort')?.addEventListener('input', renderCohortsTable);
 	document.getElementById('filter-cohort-status')?.addEventListener('change', renderCohortsTable);
+	document.getElementById('filter-cohort-course')?.addEventListener('change', renderCohortsTable);
 	document.getElementById('btn-seed-open-cohorts')?.addEventListener('click', seedOpenCohorts);
 
 	document.getElementById('btn-export-cohorts')?.addEventListener('click', () => {

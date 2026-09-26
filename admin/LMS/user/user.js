@@ -10,6 +10,8 @@ window.ADMIN_CONFIG = {
 		}
 
 		let allUsers = [];
+		let allCourses = [];
+		let allCohorts = [];
 		let batchUsers = [];
 		let currentDb = null;
 		let currentUser = null;
@@ -24,10 +26,40 @@ window.ADMIN_CONFIG = {
 		async function loadUsers() {
 			const container = document.getElementById('user-list-container');
 			try {
-				const snapshot = await currentDb.collection('authorizedUsers').get();
+				const [usersSnap, coursesSnap, cohortsSnap, certsSnap] = await Promise.all([
+					currentDb.collection('authorizedUsers').get(),
+					currentDb.collection('courses').get().catch(() => ({ docs: [] })),
+					currentDb.collection('cohorts').get().catch(() => ({ docs: [] })),
+					currentDb.collection('certificates').get().catch(() => ({ docs: [] }))
+				]);
+
+				allCourses = [];
+				coursesSnap.forEach(doc => {
+					allCourses.push({ id: doc.id, ...doc.data() });
+				});
+
+				allCohorts = [];
+				cohortsSnap.forEach(doc => {
+					allCohorts.push({ id: doc.id, ...doc.data() });
+				});
+
+				// Index certificates by email -> { courseIds: Set, cohortIds: Set }
+				const certsByEmail = new Map();
+				certsSnap.forEach(doc => {
+					const c = doc.data() || {};
+					const mail = (c.recipientEmail || c.individual_email || c.studentEmail || c.email || '').trim().toLowerCase();
+					if (!mail) return;
+					if (!certsByEmail.has(mail)) {
+						certsByEmail.set(mail, { courseIds: new Set(), cohortIds: new Set() });
+					}
+					const entry = certsByEmail.get(mail);
+					if (c.courseId) entry.courseIds.add(c.courseId);
+					if (c.cohortId) entry.cohortIds.add(c.cohortId);
+				});
+
 				allUsers = [];
 				const docs = [];
-				snapshot.forEach(doc => {
+				usersSnap.forEach(doc => {
 					docs.push({ docId: doc.id, data: doc.data() });
 				});
 
@@ -58,6 +90,36 @@ window.ADMIN_CONFIG = {
 					const primaryEmail = (data.primaryEmail || (Array.isArray(data.emails) ? data.emails[0] : null) || data.email || docId).toLowerCase();
 					const emails = Array.isArray(data.emails) && data.emails.length > 0 ? data.emails : [primaryEmail];
 
+					// Tập hợp courseIds và cohortIds liên kết với user
+					const userCourseIds = new Set();
+					const userCohortIds = new Set();
+
+					if (data.courseId) userCourseIds.add(data.courseId);
+					if (Array.isArray(data.courseIds)) data.courseIds.forEach(id => userCourseIds.add(id));
+					if (data.cohortId) userCohortIds.add(data.cohortId);
+					if (Array.isArray(data.cohortIds)) data.cohortIds.forEach(id => userCohortIds.add(id));
+
+					// Quét từ cohorts studentEmails / memberEmails
+					const allUserMails = new Set([primaryEmail, ...emails.map(e => (e || '').toLowerCase())]);
+					allCohorts.forEach(ch => {
+						const rawList = ch.studentEmails || ch.memberEmails || ch.students || [];
+						const chEmails = Array.isArray(rawList) ? rawList.map(e => (typeof e === 'string' ? e : e?.email || '').toLowerCase()) : [];
+						const hasUser = chEmails.some(ce => ce && allUserMails.has(ce));
+						if (hasUser) {
+							userCohortIds.add(ch.id);
+							if (ch.courseId) userCourseIds.add(ch.courseId);
+						}
+					});
+
+					// Quét từ certificates
+					allUserMails.forEach(mail => {
+						if (certsByEmail.has(mail)) {
+							const cEntry = certsByEmail.get(mail);
+							cEntry.courseIds.forEach(id => userCourseIds.add(id));
+							cEntry.cohortIds.forEach(id => userCohortIds.add(id));
+						}
+					});
+
 					allUsers.push({
 						id: data.id || generateUUID(),
 						docId: docId,
@@ -69,6 +131,8 @@ window.ADMIN_CONFIG = {
 						phone: data.phone || '',
 						photoUrl: data.photoUrl || '',
 						firebaseUid: data.firebaseUid || '',
+						_courseIds: userCourseIds,
+						_cohortIds: userCohortIds,
 						...data
 					});
 				}
@@ -80,6 +144,7 @@ window.ADMIN_CONFIG = {
 				document.getElementById('stat-alumni').textContent = allUsers.filter(u => u.role === 'alumni').length;
 				document.getElementById('stat-instructor').textContent = allUsers.filter(u => u.role === 'instructor').length;
 
+				populateUserFilters();
 				renderUsersTable();
 			} catch (err) {
 				if (container) {
@@ -88,13 +153,103 @@ window.ADMIN_CONFIG = {
 			}
 		}
 
+		function populateUserFilters() {
+			const filterCourse = document.getElementById('filter-user-course');
+			const filterCohort = document.getElementById('filter-user-cohort');
+			if (!filterCourse || !filterCohort) return;
+
+			const selectedCourse = filterCourse.value || 'all';
+			const selectedCohort = filterCohort.value || 'all';
+
+			// Nạp danh sách Khóa học (Hiển thị bằng Title, không hiển thị bằng mã)
+			const prevCourseVal = filterCourse.value;
+			filterCourse.innerHTML = '<option value="all">Tất cả Khóa học</option>';
+			allCourses.forEach(c => {
+				const title = c.title || c.name || c.id;
+				const opt = document.createElement('option');
+				opt.value = c.id;
+				opt.textContent = title;
+				filterCourse.appendChild(opt);
+			});
+			if (prevCourseVal && [...filterCourse.options].some(o => o.value === prevCourseVal)) {
+				filterCourse.value = prevCourseVal;
+			}
+
+			// Nạp danh sách Lớp học phụ thuộc vào Course được chọn (Hiển thị bằng Title, không hiển thị mã)
+			updateUserCohortDropdown();
+		}
+
+		function updateUserCohortDropdown() {
+			const filterCourse = document.getElementById('filter-user-course');
+			const filterCohort = document.getElementById('filter-user-cohort');
+			if (!filterCohort) return;
+
+			const courseVal = filterCourse ? filterCourse.value : 'all';
+			const prevCohortVal = filterCohort.value;
+
+			filterCohort.innerHTML = '<option value="all">Tất cả Lớp học</option>';
+
+			let cohortsToShow = allCohorts;
+			if (courseVal !== 'all') {
+				cohortsToShow = allCohorts.filter(ch => ch.courseId === courseVal);
+			}
+
+			cohortsToShow.forEach(ch => {
+				const title = ch.title || ch.name || ch.bootcamp_name || ch.cohortName || ch.id;
+				const opt = document.createElement('option');
+				opt.value = ch.id;
+				opt.textContent = title;
+				filterCohort.appendChild(opt);
+			});
+
+			if (prevCohortVal && [...filterCohort.options].some(o => o.value === prevCohortVal)) {
+				filterCohort.value = prevCohortVal;
+			} else {
+				filterCohort.value = 'all';
+			}
+		}
+
+		let currentSortCol = 'role';
+		let currentSortDir = 'asc';
+
+		function getSortIndicator(colKey) {
+			if (currentSortCol !== colKey) {
+				return `<span class="sort-indicator" title="Nhấn để sắp xếp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg></span>`;
+			}
+			if (currentSortDir === 'asc') {
+				return `<span class="sort-indicator sorted-asc" title="Đang sắp xếp A → Z"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg></span>`;
+			}
+			return `<span class="sort-indicator sorted-desc" title="Đang sắp xếp Z → A"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></span>`;
+		}
+
+		window.handleSortUser = function (col) {
+			if (currentSortCol === col) {
+				currentSortDir = currentSortDir === 'asc' ? 'desc' : 'asc';
+			} else {
+				currentSortCol = col;
+				currentSortDir = 'asc';
+			}
+			renderUsersTable();
+		};
+
 		function renderUsersTable() {
 			const container = document.getElementById('user-list-container');
 			const query = (document.getElementById('searchInput')?.value || '').trim().toLowerCase();
 			const roleFilter = document.getElementById('filter-user-role')?.value || 'all';
 			const statusFilter = document.getElementById('filter-user-status')?.value || 'all';
+			const courseFilter = document.getElementById('filter-user-course')?.value || 'all';
+			const cohortFilter = document.getElementById('filter-user-cohort')?.value || 'all';
 
-			let filtered = allUsers;
+			let filtered = [...allUsers];
+
+			// Lọc theo Khóa học & Lớp học
+			if (courseFilter !== 'all') {
+				filtered = filtered.filter(u => u._courseIds && u._courseIds.has(courseFilter));
+			}
+			if (cohortFilter !== 'all') {
+				filtered = filtered.filter(u => u._cohortIds && u._cohortIds.has(cohortFilter));
+			}
+
 			if (query) {
 				filtered = filtered.filter(u =>
 					(u.primaryEmail && u.primaryEmail.toLowerCase().includes(query)) ||
@@ -111,8 +266,31 @@ window.ADMIN_CONFIG = {
 				return;
 			}
 
-			const roleOrder = { admin: 0, instructor: 1, member: 2, alumni: 3 };
-			filtered.sort((a, b) => (roleOrder[a.role] ?? 99) - (roleOrder[b.role] ?? 99));
+			if (currentSortCol) {
+				filtered.sort((a, b) => {
+					if (currentSortCol === 'role') {
+						const roleOrder = { admin: 0, instructor: 1, member: 2, alumni: 3 };
+						const rA = roleOrder[a.role] ?? 99;
+						const rB = roleOrder[b.role] ?? 99;
+						return currentSortDir === 'asc' ? rA - rB : rB - rA;
+					}
+					if (currentSortCol === 'email') {
+						const strA = (a.primaryEmail || a.emails?.[0] || a.id || '').toLowerCase();
+						const strB = (b.primaryEmail || b.emails?.[0] || b.id || '').toLowerCase();
+						const res = strA.localeCompare(strB, 'vi', { numeric: true });
+						return currentSortDir === 'asc' ? res : -res;
+					}
+					if (currentSortCol === 'uid') {
+						const uA = a.firebaseUid ? 1 : 0;
+						const uB = b.firebaseUid ? 1 : 0;
+						return currentSortDir === 'asc' ? uB - uA : uA - uB;
+					}
+					const valA = a[currentSortCol] || '';
+					const valB = b[currentSortCol] || '';
+					const res = String(valA).localeCompare(String(valB), 'vi', { sensitivity: 'base', numeric: true });
+					return currentSortDir === 'asc' ? res : -res;
+				});
+			}
 
 			const statusLabels = {
 				active: '<span class="admin-tag admin-tag-success">Active</span>',
@@ -125,12 +303,12 @@ window.ADMIN_CONFIG = {
 					<thead>
 						<tr>
 							<th style="width: 40px;">#</th>
-							<th>Email chính & Phụ</th>
-							<th>Role</th>
-							<th>Tên hiển thị</th>
-							<th>SĐT</th>
-							<th style="text-align: center;">Trạng thái</th>
-							<th style="text-align: center;">Auth UID</th>
+							<th class="th-sortable ${currentSortCol === 'email' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortUser('email')">Email chính & Phụ ${getSortIndicator('email')}</th>
+							<th class="th-sortable ${currentSortCol === 'role' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortUser('role')">Role ${getSortIndicator('role')}</th>
+							<th class="th-sortable ${currentSortCol === 'displayName' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortUser('displayName')">Tên hiển thị ${getSortIndicator('displayName')}</th>
+							<th class="th-sortable ${currentSortCol === 'phone' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortUser('phone')">SĐT ${getSortIndicator('phone')}</th>
+							<th class="th-sortable ${currentSortCol === 'status' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortUser('status')" style="text-align: center;">Trạng thái ${getSortIndicator('status')}</th>
+							<th class="th-sortable ${currentSortCol === 'uid' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortUser('uid')" style="text-align: center;">Auth UID ${getSortIndicator('uid')}</th>
 							<th style="width: 100px; text-align: right;">Thao tác</th>
 						</tr>
 					</thead>
@@ -223,6 +401,11 @@ window.ADMIN_CONFIG = {
 			document.getElementById('searchInput')?.addEventListener('input', renderUsersTable);
 			document.getElementById('filter-user-role')?.addEventListener('change', renderUsersTable);
 			document.getElementById('filter-user-status')?.addEventListener('change', renderUsersTable);
+			document.getElementById('filter-user-course')?.addEventListener('change', () => {
+				updateUserCohortDropdown();
+				renderUsersTable();
+			});
+			document.getElementById('filter-user-cohort')?.addEventListener('change', renderUsersTable);
 			document.getElementById('btn-refresh')?.addEventListener('click', loadUsers);
 
 			// Export Users to JSON

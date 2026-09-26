@@ -889,7 +889,6 @@ const STICKY_GRAPH_CONFIG = {
           data: parsed.data
         };
       } catch (e) {
-        console.warn('[StickyGraph3D] Không thể đọc cache từ LocalStorage:', e);
         return null;
       }
     }
@@ -910,9 +909,7 @@ const STICKY_GRAPH_CONFIG = {
           }
         };
         window.localStorage.setItem(this.options.localCacheKey, JSON.stringify(payload));
-        console.log(`[StickyGraph3D] 💾 Đã lưu ${data.nodes.length} node vào LocalStorage (Key: '${this.options.localCacheKey}') để tái sử dụng.`);
       } catch (e) {
-        console.warn('[StickyGraph3D] Không thể ghi cache vào LocalStorage:', e);
       }
     }
 
@@ -975,7 +972,6 @@ const STICKY_GRAPH_CONFIG = {
           }
         }
       } catch (sdkErr) {
-        console.warn('[StickyGraph3D] Firebase SDK không khả dụng, chuyển sang REST API:', sdkErr);
       }
 
       // 2. Dự phòng: Thử qua REST API
@@ -990,7 +986,6 @@ const STICKY_GRAPH_CONFIG = {
           return restResult;
         }
       } catch (restErr) {
-        console.warn('[StickyGraph3D] Firestore REST API lỗi:', restErr);
       }
 
       return null;
@@ -1001,14 +996,12 @@ const STICKY_GRAPH_CONFIG = {
       // 1. Kiểm tra cache Local (LocalStorage) trước nếu enableLocalCache = true
       const cached = this._getLocalCache();
       if (cached && !cached.isExpired) {
-        console.log(`[StickyGraph3D] ⚡ Nạp thành công ${cached.data.nodes.length} node từ LocalStorage cache (tiết kiệm gọi Firebase liên tục).`);
         this._processData(cached.data);
         this.buildGraph();
         return;
       }
 
       if (cached && cached.isExpired) {
-        console.log('[StickyGraph3D] ⏳ Cache LocalStorage đã hết hạn (TTL). Đang làm mới dữ liệu từ Firebase...');
       }
 
       // 2. Tải dữ liệu mới từ Firebase Firestore
@@ -1022,17 +1015,13 @@ const STICKY_GRAPH_CONFIG = {
         }
         throw new Error('Dữ liệu từ Firestore rỗng.');
       } catch (fbErr) {
-        console.warn('[StickyGraph3D] Không thể tải dữ liệu mới từ Firebase:', fbErr);
-
         // Nếu có cache local cũ (dù đã hết hạn), ưu tiên tái sử dụng để không làm gián đoạn hiển thị
         if (cached && cached.data && Array.isArray(cached.data.nodes) && cached.data.nodes.length > 0) {
-          console.warn('[StickyGraph3D] ⚠️ Tái sử dụng cache LocalStorage trước đó để hiển thị đồ thị.');
           this._processData(cached.data);
           this.buildGraph();
           return;
         }
 
-        console.error('[StickyGraph3D] ❌ Không thể nạp dữ liệu từ Firebase và không có cache local dự phòng.');
       }
     }
 
@@ -2882,10 +2871,8 @@ const STICKY_GRAPH_CONFIG = {
     try {
       if (typeof window !== 'undefined' && window.localStorage) {
         window.localStorage.removeItem(cacheKey);
-        console.log(`[StickyGraph3D] 🗑️ Đã xóa cache local '${cacheKey}'.`);
       }
     } catch (e) {
-      console.warn('[StickyGraph3D] Không thể xóa cache LocalStorage:', e);
     }
   };
 

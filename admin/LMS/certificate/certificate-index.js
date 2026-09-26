@@ -66,10 +66,19 @@ function getCertImageUrl(c) {
 		if (url.startsWith('/')) {
 			return `../../../${url.replace(/^\/+/, '')}`;
 		}
+		if (url.startsWith('asset/')) {
+			return `../../../${url}`;
+		}
+		// If bare filename like "xonxao_lyhaianh" or "xonxao_lyhaianh.webp"
+		if (!url.includes('/')) {
+			const clean = url.replace(/\.(webp|png|jpe?g)$/i, '');
+			return `../../../asset/image/certificate/${clean}.webp`;
+		}
 		return `../../../${url}`;
 	}
 	if (imgName) {
-		return `../../../asset/image/certificate/${imgName}.webp`;
+		const clean = imgName.replace(/\.(webp|png|jpe?g)$/i, '');
+		return `../../../asset/image/certificate/${clean}.webp`;
 	}
 	return '';
 }
@@ -176,41 +185,7 @@ async function loadCertificates() {
 }
 
 function populateDropdowns() {
-	// 1. Filter Cohort select
-	const filterCohort = document.getElementById('filter-cohort');
-	if (filterCohort) {
-		const currentVal = filterCohort.value;
-		filterCohort.innerHTML = '<option value="all">Tất cả Lớp học</option>';
-
-		// Danh sách cohort từ allCohorts
-		const cohortList = [];
-		allCohorts.forEach(ch => {
-			const name = ch.name || ch.title || ch.cohortName || ch.code || ch.id;
-			cohortList.push({ id: ch.id, label: `${ch.code ? `[${ch.code}] ` : ''}${name}` });
-		});
-
-		// Thêm các cohortId duy nhất từ allCerts nếu chưa có
-		allCerts.forEach(c => {
-			if (c.cohortId && !cohortList.some(item => item.id === c.cohortId)) {
-				cohortList.push({ id: c.cohortId, label: c.cohortName || c.cohortTitle || c.cohortId });
-			} else if (!c.cohortId) {
-				const name = c.cohortName || c.cohortTitle || '';
-				if (name && !cohortList.some(item => item.id === name || item.label.includes(name))) {
-					cohortList.push({ id: name, label: name });
-				}
-			}
-		});
-
-		cohortList.forEach(item => {
-			const opt = document.createElement('option');
-			opt.value = item.id;
-			opt.textContent = item.label;
-			filterCohort.appendChild(opt);
-		});
-		if (currentVal) filterCohort.value = currentVal;
-	}
-
-	// 2. Filter Course select (Chỉ nạp danh sách khóa học chuẩn từ allCourses, không bị trùng lặp)
+	// 1. Filter Course select (Hiển thị bằng Title, không hiển thị bằng mã)
 	const filterCourse = document.getElementById('filter-course');
 	if (filterCourse) {
 		const currentVal = filterCourse.value;
@@ -219,7 +194,7 @@ function populateDropdowns() {
 		const courseList = [];
 		allCourses.forEach(co => {
 			const title = co.title || co.name || co.id;
-			courseList.push({ id: co.id, label: `${co.code ? `[${co.code}] ` : ''}${title}` });
+			courseList.push({ id: co.id, label: title });
 		});
 
 		// Chỉ thêm từ allCerts nếu có khóa học ngoại lệ chưa từng có trong allCourses
@@ -240,8 +215,13 @@ function populateDropdowns() {
 			opt.textContent = item.label;
 			filterCourse.appendChild(opt);
 		});
-		if (currentVal) filterCourse.value = currentVal;
+		if (currentVal && [...filterCourse.options].some(o => o.value === currentVal)) {
+			filterCourse.value = currentVal;
+		}
 	}
+
+	// 2. Filter Cohort select (Hiển thị bằng Title, không hiển thị bằng mã, hỗ trợ cascade theo khóa học)
+	updateCertCohortDropdown();
 
 	// 3. Edit modal selects
 	const editCourse = document.getElementById('edit-cert-course');
@@ -275,6 +255,65 @@ function populateDropdowns() {
 	}
 }
 
+function updateCertCohortDropdown() {
+	const filterCourse = document.getElementById('filter-course');
+	const filterCohort = document.getElementById('filter-cohort');
+	if (!filterCohort) return;
+
+	const courseVal = filterCourse ? filterCourse.value : 'all';
+	const currentCohortVal = filterCohort.value;
+	filterCohort.innerHTML = '<option value="all">Tất cả Lớp học</option>';
+
+	// Tìm course object nếu có
+	const matchedCourse = courseVal !== 'all' ? allCourses.find(co => co.id === courseVal) : null;
+	const selectedCourseTitle = matchedCourse ? (matchedCourse.title || '').toLowerCase() : (courseVal !== 'all' ? courseVal.toLowerCase() : '');
+
+	const cohortList = [];
+	allCohorts.forEach(ch => {
+		if (courseVal !== 'all') {
+			const chCourseId = ch.courseId || '';
+			const chCourseTitle = (ch.courseTitle || '').toLowerCase();
+			if (chCourseId !== courseVal && (!selectedCourseTitle || chCourseTitle !== selectedCourseTitle)) {
+				return;
+			}
+		}
+		const name = ch.title || ch.name || ch.bootcamp_name || ch.cohortName || ch.id;
+		cohortList.push({ id: ch.id, label: name });
+	});
+
+	// Thêm các cohort duy nhất từ allCerts nếu chưa có
+	allCerts.forEach(c => {
+		if (courseVal !== 'all') {
+			const cCourseId = c.courseId || '';
+			const cCourseTitle = (c.courseTitle || c.courseName || '').toLowerCase();
+			if (cCourseId !== courseVal && (!selectedCourseTitle || cCourseTitle !== selectedCourseTitle)) {
+				return;
+			}
+		}
+		if (c.cohortId && !cohortList.some(item => item.id === c.cohortId)) {
+			cohortList.push({ id: c.cohortId, label: c.cohortName || c.cohortTitle || c.cohortId });
+		} else if (!c.cohortId) {
+			const name = c.cohortName || c.cohortTitle || '';
+			if (name && !cohortList.some(item => item.id === name || item.label.includes(name))) {
+				cohortList.push({ id: name, label: name });
+			}
+		}
+	});
+
+	cohortList.forEach(item => {
+		const opt = document.createElement('option');
+		opt.value = item.id;
+		opt.textContent = item.label;
+		filterCohort.appendChild(opt);
+	});
+
+	if (currentCohortVal && [...filterCohort.options].some(o => o.value === currentCohortVal)) {
+		filterCohort.value = currentCohortVal;
+	} else {
+		filterCohort.value = 'all';
+	}
+}
+
 function getFilteredCertificates() {
 	const query = (document.getElementById('search-certs')?.value || '').trim().toLowerCase();
 	const cohortFilter = document.getElementById('filter-cohort')?.value || 'all';
@@ -295,17 +334,25 @@ function getFilteredCertificates() {
 			if (!matches) return false;
 		}
 
-		// 2. Filter theo Lớp học (cohort)
-		if (cohortFilter !== 'all') {
-			const matched = c.cohortId === cohortFilter || c.cohortName === cohortFilter ||
-				c.cohortTitle === cohortFilter || (c.cohortCode && c.cohortCode === cohortFilter);
+		// 2. Filter theo Khóa học (course)
+		if (courseFilter !== 'all') {
+			const matchedCo = allCourses.find(co => co.id === courseFilter);
+			const coTitle = (matchedCo ? matchedCo.title || matchedCo.name : courseFilter).toLowerCase();
+			const matched = c.courseId === courseFilter ||
+				(c.courseTitle && c.courseTitle.toLowerCase() === coTitle) ||
+				(c.courseName && c.courseName.toLowerCase() === coTitle) ||
+				(c.bootcamp_name && c.bootcamp_name.toLowerCase() === coTitle);
 			if (!matched) return false;
 		}
 
-		// 3. Filter theo Khóa học (course)
-		if (courseFilter !== 'all') {
-			const matched = c.courseId === courseFilter || c.courseTitle === courseFilter ||
-				c.courseName === courseFilter || c.bootcamp_name === courseFilter;
+		// 3. Filter theo Lớp học (cohort)
+		if (cohortFilter !== 'all') {
+			const matchedCh = allCohorts.find(ch => ch.id === cohortFilter);
+			const chTitle = (matchedCh ? matchedCh.title || matchedCh.name || matchedCh.bootcamp_name || matchedCh.cohortName : cohortFilter).toLowerCase();
+			const matched = c.cohortId === cohortFilter ||
+				(c.cohortName && c.cohortName.toLowerCase() === chTitle) ||
+				(c.cohortTitle && c.cohortTitle.toLowerCase() === chTitle) ||
+				(c.cohortCode && c.cohortCode === cohortFilter);
 			if (!matched) return false;
 		}
 
@@ -320,9 +367,57 @@ function getFilteredCertificates() {
 	});
 }
 
+let currentSortCol = null;
+let currentSortDir = 'asc';
+
+function getSortIndicator(colKey) {
+	if (currentSortCol !== colKey) {
+		return `<span class="sort-indicator" title="Nhấn để sắp xếp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg></span>`;
+	}
+	if (currentSortDir === 'asc') {
+		return `<span class="sort-indicator sorted-asc" title="Đang sắp xếp A → Z"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg></span>`;
+	}
+	return `<span class="sort-indicator sorted-desc" title="Đang sắp xếp Z → A"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></span>`;
+}
+
+window.handleSortCert = function (col) {
+	if (currentSortCol === col) {
+		currentSortDir = currentSortDir === 'asc' ? 'desc' : 'asc';
+	} else {
+		currentSortCol = col;
+		currentSortDir = 'asc';
+	}
+	renderCertsTable();
+};
+
 function renderCertsTable() {
 	const container = document.getElementById('certs-list-container');
-	const list = getFilteredCertificates();
+	let list = getFilteredCertificates();
+
+	if (currentSortCol) {
+		list.sort((a, b) => {
+			let strA = '';
+			let strB = '';
+			if (currentSortCol === 'student') {
+				strA = getStudentName(a);
+				strB = getStudentName(b);
+			} else if (currentSortCol === 'course') {
+				strA = `${getCourseTitle(a)} ${getCohortName(a)}`;
+				strB = `${getCourseTitle(b)} ${getCohortName(b)}`;
+			} else if (currentSortCol === 'uuid') {
+				strA = getCertUuid(a);
+				strB = getCertUuid(b);
+			} else if (currentSortCol === 'date') {
+				strA = getCertDate(a);
+				strB = getCertDate(b);
+			} else if (currentSortCol === 'status') {
+				strA = getCertStatus(a);
+				strB = getCertStatus(b);
+			}
+			const res = strA.localeCompare(strB, 'vi', { sensitivity: 'base', numeric: true });
+			return currentSortDir === 'asc' ? res : -res;
+		});
+	}
 
 	updateBatchBar();
 
@@ -350,11 +445,11 @@ function renderCertsTable() {
 					</th>
 					<th style="width: 40px;">#</th>
 					<th style="width: 68px; text-align: center;">Ảnh</th>
-					<th>Học Viên Nhận</th>
-					<th>Khóa Học & Lớp</th>
-					<th style="width: 140px; text-align: center;">Mã UUID Xác Thực</th>
-					<th style="width: 120px; text-align: center;">Ngày Cấp</th>
-					<th style="width: 100px; text-align: center;">Trạng thái</th>
+					<th class="th-sortable ${currentSortCol === 'student' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCert('student')">Học Viên Nhận ${getSortIndicator('student')}</th>
+					<th class="th-sortable ${currentSortCol === 'course' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCert('course')">Khóa Học & Lớp ${getSortIndicator('course')}</th>
+					<th class="th-sortable ${currentSortCol === 'uuid' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCert('uuid')" style="width: 150px; text-align: center;">Mã UUID Xác Thực ${getSortIndicator('uuid')}</th>
+					<th class="th-sortable ${currentSortCol === 'date' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCert('date')" style="width: 120px; text-align: center;">Ngày Cấp ${getSortIndicator('date')}</th>
+					<th class="th-sortable ${currentSortCol === 'status' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCert('status')" style="width: 110px; text-align: center;">Trạng thái ${getSortIndicator('status')}</th>
 					<th style="width: 140px; text-align: right;">Thao tác</th>
 				</tr>
 			</thead>
@@ -922,7 +1017,10 @@ function initBatchActions() {
 function initEvents() {
 	document.getElementById('search-certs')?.addEventListener('input', renderCertsTable);
 	document.getElementById('filter-cohort')?.addEventListener('change', renderCertsTable);
-	document.getElementById('filter-course')?.addEventListener('change', renderCertsTable);
+	document.getElementById('filter-course')?.addEventListener('change', () => {
+		updateCertCohortDropdown();
+		renderCertsTable();
+	});
 	document.getElementById('filter-status')?.addEventListener('change', renderCertsTable);
 
 	// Close modals

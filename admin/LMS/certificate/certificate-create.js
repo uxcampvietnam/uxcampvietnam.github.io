@@ -31,6 +31,97 @@ function notify(msg, type = 'success') {
 	}
 }
 
+// Chuyển tiếng Việt có dấu thành chuỗi không dấu, viết liền thường không ký tự đặc biệt
+function sanitizeSlug(str) {
+	if (!str && str !== 0) return '';
+	return String(str)
+		.normalize('NFD')
+		.replace(/[\u0300-\u036f]/g, '')
+		.replace(/[đĐ]/g, 'd')
+		.toLowerCase()
+		.replace(/[^a-z0-9]/g, '');
+}
+
+// Lấy slug nhận diện lớp học (ưu tiên cohortId chuẩn, nếu id dạng coh_ thì fallback sang code/name)
+function getCohortSlug(cohortId) {
+	if (!cohortId) return '';
+	const cohortData = cohortsMap.get(cohortId);
+	let raw = cohortId;
+	if ((!raw || raw.startsWith('coh_') || raw.includes('-')) && cohortData) {
+		raw = cohortData.code || cohortData.name || cohortData.title || raw;
+	}
+	let clean = sanitizeSlug(raw);
+	// Cắt bỏ các tiền tố thông dụng nếu có
+	clean = clean.replace(/^(cohort|lop|khoa)/, '');
+	return clean || sanitizeSlug(raw) || 'cohort';
+}
+
+// Tạo tên file gợi ý theo format cohortid_tên học viên viết liền không dấu (VD: xonxao_lyhaianh)
+function buildCertificateFileName(cohortId, studentName) {
+	const cSlug = getCohortSlug(cohortId);
+	const sSlug = sanitizeSlug(studentName);
+	if (cSlug && sSlug) return `${cSlug}_${sSlug}`;
+	if (sSlug) return sSlug;
+	if (cSlug) return cSlug;
+	return '';
+}
+
+// Chuẩn hóa tên file và đường dẫn ảnh lưu trữ vào Firestore
+function resolveCertificateImageForSave(inputVal) {
+	const raw = (inputVal || '').trim();
+	if (!raw) {
+		return { imageUrl: '', imgName: '' };
+	}
+	if (/^https?:\/\//i.test(raw) || raw.startsWith('data:')) {
+		const match = raw.match(/\/([^/?#]+)(?:\.[a-z0-9]+)?(?:[?#]|$)/i);
+		const imgName = match ? match[1] : '';
+		return { imageUrl: raw, imgName };
+	}
+	if (raw.startsWith('asset/')) {
+		const cleanName = raw.replace(/^asset\/image\/certificate\//, '').replace(/\.[a-z0-9]+$/i, '');
+		return { imageUrl: raw, imgName: cleanName };
+	}
+	const cleanFileName = raw.replace(/\.(webp|png|jpe?g)$/i, '');
+	return {
+		imageUrl: `asset/image/certificate/${cleanFileName}.webp`,
+		imgName: cleanFileName
+	};
+}
+
+// Chuẩn hóa đường dẫn preview từ trang admin/LMS/certificate/
+function resolvePreviewUrl(inputVal) {
+	const raw = (inputVal || '').trim();
+	if (!raw) return '';
+	if (/^https?:\/\//i.test(raw) || raw.startsWith('data:') || raw.startsWith('../')) {
+		return raw;
+	}
+	if (raw.startsWith('asset/')) {
+		return `../../../${raw}`;
+	}
+	const cleanFileName = raw.replace(/\.(webp|png|jpe?g)$/i, '');
+	return `../../../asset/image/certificate/${cleanFileName}.webp`;
+}
+
+// Tiện ích copy tên file vào Clipboard
+async function copyToClipboard(text, successMsg = 'Đã copy!') {
+	if (!text) return;
+	try {
+		if (navigator.clipboard && navigator.clipboard.writeText) {
+			await navigator.clipboard.writeText(text);
+		} else {
+			const tempInput = document.createElement('input');
+			tempInput.value = text;
+			document.body.appendChild(tempInput);
+			tempInput.select();
+			document.execCommand('copy');
+			document.body.removeChild(tempInput);
+		}
+		notify(successMsg, 'success');
+	} catch (err) {
+		notify(`⚠️ Không thể copy: ${err.message}`, 'error');
+	}
+}
+
 let currentDb = null;
 let currentUser = null;
 let coursesMap = new Map();
@@ -40,6 +131,7 @@ let usersMap = new Map();
 // Batch state
 let batchStudents = [];
 let activeMode = 'batch'; // 'batch' | 'single'
+let isSingleCustomImage = false;
 
 window.addEventListener('adminReady', async (e) => {
 	currentDb = e.detail.db;
@@ -110,6 +202,11 @@ function handleUrlParams() {
 		if (cohortSelect) {
 			cohortSelect.value = requestedCohortId;
 			handleBatchCohortChange(requestedCohortId);
+		}
+		const singleCohortSelect = document.getElementById('cert-cohort');
+		if (singleCohortSelect) {
+			singleCohortSelect.value = requestedCohortId;
+			singleCohortSelect.dispatchEvent(new Event('change'));
 		}
 	}
 }
@@ -226,6 +323,27 @@ function initBatchEventListeners() {
 		});
 	}
 
+	// Copy all filenames at once for batch export / file preparation
+	const btnCopyAll = document.getElementById('btn-copy-all-filenames');
+	if (btnCopyAll) {
+		btnCopyAll.addEventListener('click', () => {
+			if (batchStudents.length === 0) {
+				notify('⚠️ Danh sách học viên đang trống!', 'error');
+				return;
+			}
+			const cohortId = document.getElementById('batch-cohort-select')?.value || '';
+			const fileNames = batchStudents.map(s => {
+				return (s.imageUrl || buildCertificateFileName(cohortId, s.name)).trim();
+			}).filter(Boolean);
+
+			if (fileNames.length === 0) {
+				notify('⚠️ Chưa có tên file ảnh nào trong danh sách!', 'error');
+				return;
+			}
+			copyToClipboard(fileNames.join('\n'), `📋 Đã copy toàn bộ ${fileNames.length} tên file ảnh!`);
+		});
+	}
+
 	// Add Student Row
 	const btnAddStudent = document.getElementById('btn-add-student-row');
 	if (btnAddStudent) {
@@ -274,7 +392,7 @@ function initBatchEventListeners() {
 		batchForm.addEventListener('submit', handleBatchFormSubmit);
 	}
 
-	// Table Delegated Events (Name, Email, Image, Project, Delete, Regen UUID)
+	// Table Delegated Events (Name, Email, Image, Project, Delete, Regen UUID, Copy file name)
 	const tbody = document.getElementById('batch-students-tbody');
 	if (tbody) {
 		tbody.addEventListener('input', (e) => {
@@ -284,10 +402,22 @@ function initBatchEventListeners() {
 
 			if (target.classList.contains('batch-input-name')) {
 				batchStudents[idx].name = target.value;
+				if (!batchStudents[idx].isCustomImage) {
+					const cohortId = document.getElementById('batch-cohort-select')?.value || '';
+					const suggested = buildCertificateFileName(cohortId, target.value);
+					batchStudents[idx].imageUrl = suggested;
+					const row = target.closest('tr');
+					const imgInput = row?.querySelector('.batch-input-image');
+					if (imgInput) {
+						imgInput.value = suggested;
+						updateRowImagePreview(imgInput, suggested);
+					}
+				}
 			} else if (target.classList.contains('batch-input-email')) {
 				batchStudents[idx].email = target.value;
 			} else if (target.classList.contains('batch-input-image')) {
 				batchStudents[idx].imageUrl = target.value;
+				batchStudents[idx].isCustomImage = Boolean(target.value.trim());
 				updateRowImagePreview(target, target.value);
 			} else if (target.classList.contains('batch-input-project')) {
 				batchStudents[idx].project = target.value;
@@ -308,6 +438,15 @@ function initBatchEventListeners() {
 				batchStudents[idx].uuid = newUuid;
 				renderBatchTable();
 				notify('🔄 Đã cấp lại mã UUID mới cho học viên!', 'info');
+			} else if (target.classList.contains('btn-copy-row-imgname')) {
+				const s = batchStudents[idx];
+				const cohortId = document.getElementById('batch-cohort-select')?.value || '';
+				const nameToCopy = (s.imageUrl || buildCertificateFileName(cohortId, s.name)).trim();
+				if (nameToCopy) {
+					copyToClipboard(nameToCopy, `📋 Đã copy tên file: ${nameToCopy}`);
+				} else {
+					notify('⚠️ Chưa có tên file ảnh để copy!', 'error');
+				}
 			}
 		});
 	}
@@ -315,23 +454,26 @@ function initBatchEventListeners() {
 
 function updateRowImagePreview(inputEl, url) {
 	const container = inputEl.parentElement;
-	let previewImg = container.querySelector('.cert-thumb-preview');
-	const cleanUrl = (url || '').trim();
+	let previewWrap = container.querySelector('.row-img-preview-wrap');
+	const cleanUrl = resolvePreviewUrl(url);
+
+	if (!previewWrap) {
+		previewWrap = document.createElement('div');
+		previewWrap.className = 'row-img-preview-wrap';
+		previewWrap.style.flexShrink = '0';
+		container.appendChild(previewWrap);
+	}
 
 	if (cleanUrl) {
-		if (!previewImg) {
-			previewImg = document.createElement('img');
-			previewImg.className = 'cert-thumb-preview';
-			previewImg.style.width = '32px';
-			previewImg.style.height = '24px';
-			previewImg.style.marginLeft = '6px';
-			previewImg.onerror = () => { previewImg.style.display = 'none'; };
-			container.appendChild(previewImg);
-		}
-		previewImg.src = cleanUrl;
-		previewImg.style.display = 'inline-block';
-	} else if (previewImg) {
-		previewImg.style.display = 'none';
+		previewWrap.innerHTML = `
+			<a href="${esc(cleanUrl)}" target="_blank" title="Xem trước ảnh">
+				<img src="${esc(cleanUrl)}" class="cert-thumb-preview" onerror="this.parentElement.style.display='none'">
+			</a>
+		`;
+		previewWrap.style.display = 'inline-block';
+	} else {
+		previewWrap.innerHTML = '';
+		previewWrap.style.display = 'none';
 	}
 }
 
@@ -356,7 +498,7 @@ function handleBatchCohortChange(cohortId) {
 		globalDateInput.value = defaultDate;
 	}
 
-	// 3. Load students from cohort.studentEmails
+	// 3. Load students from cohort.studentEmails and auto-suggest image filenames
 	batchStudents = [];
 	const studentEmails = Array.isArray(selectedCohort.studentEmails) ? selectedCohort.studentEmails : [];
 
@@ -377,11 +519,14 @@ function handleBatchCohortChange(cohortId) {
 			studentName = prefix.charAt(0).toUpperCase() + prefix.slice(1);
 		}
 
+		const suggestedFileName = buildCertificateFileName(cohortId, studentName);
+
 		batchStudents.push({
 			uuid: generateUUID(),
 			name: studentName,
 			email: cleanEmail,
-			imageUrl: '',
+			imageUrl: suggestedFileName,
+			isCustomImage: false,
 			project: ''
 		});
 	});
@@ -399,11 +544,13 @@ function syncGlobalDateToAll(newDate) {
 }
 
 function addNewStudentRow() {
+	const cohortId = document.getElementById('batch-cohort-select')?.value || '';
 	const newStudent = {
 		uuid: generateUUID(),
 		name: '',
 		email: '',
 		imageUrl: '',
+		isCustomImage: false,
 		project: ''
 	};
 	batchStudents.push(newStudent);
@@ -420,6 +567,7 @@ function renderBatchTable() {
 	const tbody = document.getElementById('batch-students-tbody');
 	const badge = document.getElementById('batch-student-count-badge');
 	const summaryEl = document.getElementById('batch-summary-text');
+	const cohortId = document.getElementById('batch-cohort-select')?.value || '';
 
 	if (!tbody) return;
 
@@ -445,6 +593,16 @@ function renderBatchTable() {
 	}
 
 	tbody.innerHTML = batchStudents.map((s, idx) => {
+		const suggestedPlaceholder = buildCertificateFileName(cohortId, s.name) || 'VD: xonxao_lyhaianh';
+		const previewUrl = resolvePreviewUrl(s.imageUrl);
+		const previewHtml = previewUrl ? `
+			<div class="row-img-preview-wrap" style="flex-shrink: 0;">
+				<a href="${esc(previewUrl)}" target="_blank" title="Xem trước ảnh">
+					<img src="${esc(previewUrl)}" class="cert-thumb-preview" onerror="this.parentElement.style.display='none'">
+				</a>
+			</div>
+		` : `<div class="row-img-preview-wrap" style="flex-shrink: 0; display: none;"></div>`;
+
 		return `
 			<tr>
 				<td style="text-align: center; color: var(--main-colors-foreground-f700); font-weight: 500;">
@@ -464,8 +622,9 @@ function renderBatchTable() {
 				</td>
 				<td>
 					<div class="d-flex align-items-center gap-1">
-						<input type="text" class="batch-table-input batch-input-image" data-idx="${idx}" value="${esc(s.imageUrl || '')}" placeholder="Dán link ảnh https://... hoặc asset/...">
-						${s.imageUrl ? `<a href="${esc(s.imageUrl)}" target="_blank" title="Xem ảnh"><img src="${esc(s.imageUrl)}" class="cert-thumb-preview" onerror="this.style.display='none'"></a>` : ''}
+						<input type="text" class="batch-table-input batch-input-image" data-idx="${idx}" value="${esc(s.imageUrl || '')}" placeholder="${esc(suggestedPlaceholder)}">
+						<button type="button" class="btn-icon-action btn-copy-row-imgname" data-idx="${idx}" title="Copy tên file để tạo file ảnh trong thư mục certificate" style="width: 26px; height: 26px; font-size: 12px; flex-shrink: 0;">📋</button>
+						${previewHtml}
 					</div>
 				</td>
 				<td>
@@ -490,6 +649,7 @@ function applyQuickPaste() {
 		return;
 	}
 
+	const cohortId = document.getElementById('batch-cohort-select')?.value || '';
 	const lines = text.split('\n');
 	let addedCount = 0;
 
@@ -517,8 +677,8 @@ function applyQuickPaste() {
 
 		if (!email) return;
 
-		// Detect imageUrl if starts with http or asset
-		const imgIdx = parts.findIndex(p => /^https?:\/\//i.test(p) || p.startsWith('asset/'));
+		// Detect imageUrl if starts with http or asset or looks like filename
+		const imgIdx = parts.findIndex(p => /^https?:\/\//i.test(p) || p.startsWith('asset/') || /\.(webp|png|jpe?g)$/i.test(p));
 		if (imgIdx !== -1) {
 			imageUrl = parts[imgIdx];
 			parts.splice(imgIdx, 1);
@@ -533,11 +693,19 @@ function applyQuickPaste() {
 			name = matchedUser?.displayName || email.split('@')[0];
 		}
 
+		let isCustomImage = false;
+		if (imageUrl) {
+			isCustomImage = true;
+		} else {
+			imageUrl = buildCertificateFileName(cohortId, name);
+		}
+
 		batchStudents.push({
 			uuid: generateUUID(),
 			name,
 			email,
 			imageUrl,
+			isCustomImage,
 			project
 		});
 		addedCount++;
@@ -614,6 +782,8 @@ async function handleBatchFormSubmit(e) {
 				const cleanName = s.name.trim();
 				newEmailsForCohort.push(cleanEmail);
 
+				const imgRes = resolveCertificateImageForSave(s.imageUrl || buildCertificateFileName(cohortId, cleanName));
+
 				const docRef = currentDb.collection('certificates').doc(uuid);
 				const payload = {
 					id: uuid,
@@ -635,7 +805,8 @@ async function handleBatchFormSubmit(e) {
 					issueDate: globalDate,
 					graduationDate: globalDate,
 					finalProject: (s.project || '').trim(),
-					certificateImageUrl: (s.imageUrl || '').trim(),
+					certificateImageUrl: imgRes.imageUrl,
+					certificateImgName: imgRes.imgName,
 					status: 'active',
 					createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 					updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
@@ -691,20 +862,61 @@ function initSingleEventListeners() {
 		btnRegen.onclick = regenSingleUUID;
 	}
 
-	// Image URL preview for single mode
+	const nameInput = document.getElementById('cert-student-name');
+	const cohortSelect = document.getElementById('cert-cohort');
 	const imgUrlInput = document.getElementById('cert-image-url');
-	const previewBox = document.getElementById('single-cert-img-preview-box');
-	const previewImg = document.getElementById('single-cert-img-preview');
+	const btnCopySingle = document.getElementById('btn-copy-single-filename');
 
-	if (imgUrlInput && previewBox && previewImg) {
+	function updateSingleSuggestedImg() {
+		if (isSingleCustomImage) return;
+		const sName = nameInput ? nameInput.value.trim() : '';
+		const cId = cohortSelect ? cohortSelect.value : '';
+		const suggested = buildCertificateFileName(cId, sName);
+		if (imgUrlInput) {
+			imgUrlInput.value = suggested;
+			updateSingleImagePreview(suggested);
+		}
+	}
+
+	function updateSingleImagePreview(url) {
+		const previewBox = document.getElementById('single-cert-img-preview-box');
+		const previewImg = document.getElementById('single-cert-img-preview');
+		const previewLink = document.getElementById('single-cert-img-link');
+		const resolved = resolvePreviewUrl(url);
+
+		if (resolved && previewBox && previewImg) {
+			previewImg.src = resolved;
+			if (previewLink) previewLink.href = resolved;
+			previewBox.style.display = 'block';
+			previewImg.onerror = () => { previewBox.style.display = 'none'; };
+		} else if (previewBox) {
+			previewBox.style.display = 'none';
+		}
+	}
+
+	if (nameInput) {
+		nameInput.addEventListener('input', updateSingleSuggestedImg);
+	}
+	if (cohortSelect) {
+		cohortSelect.addEventListener('change', updateSingleSuggestedImg);
+	}
+
+	if (imgUrlInput) {
 		imgUrlInput.addEventListener('input', () => {
-			const val = imgUrlInput.value.trim();
+			isSingleCustomImage = Boolean(imgUrlInput.value.trim());
+			updateSingleImagePreview(imgUrlInput.value.trim());
+		});
+	}
+
+	if (btnCopySingle) {
+		btnCopySingle.addEventListener('click', () => {
+			const sName = nameInput ? nameInput.value.trim() : '';
+			const cId = cohortSelect ? cohortSelect.value : '';
+			const val = (imgUrlInput?.value || buildCertificateFileName(cId, sName)).trim();
 			if (val) {
-				previewImg.src = val;
-				previewBox.style.display = 'block';
-				previewImg.onerror = () => { previewBox.style.display = 'none'; };
+				copyToClipboard(val, `📋 Đã copy tên file: ${val}`);
 			} else {
-				previewBox.style.display = 'none';
+				notify('⚠️ Chưa có tên file ảnh để copy!', 'error');
 			}
 		});
 	}
@@ -723,7 +935,7 @@ async function handleSingleFormSubmit(e) {
 	const cohortId = document.getElementById('cert-cohort').value;
 	const date = document.getElementById('cert-date').value;
 	const uuid = document.getElementById('cert-uuid').value.trim();
-	const imageUrl = (document.getElementById('cert-image-url')?.value || '').trim();
+	const rawImageUrl = (document.getElementById('cert-image-url')?.value || '').trim();
 	const project = document.getElementById('cert-project').value.trim();
 
 	const selectedCourse = coursesMap.get(courseId);
@@ -736,6 +948,9 @@ async function handleSingleFormSubmit(e) {
 	try {
 		const cohortName = selectedCohort ? (selectedCohort.name || selectedCohort.title || selectedCohort.cohortName || '') : '';
 		const courseTitle = selectedCourse ? (selectedCourse.title || selectedCourse.name || '') : '';
+
+		const effectiveImgInput = rawImageUrl || buildCertificateFileName(cohortId, studentName);
+		const imgRes = resolveCertificateImageForSave(effectiveImgInput);
 
 		const payload = {
 			id: uuid,
@@ -757,7 +972,8 @@ async function handleSingleFormSubmit(e) {
 			issueDate: date,
 			graduationDate: date,
 			finalProject: project,
-			certificateImageUrl: imageUrl,
+			certificateImageUrl: imgRes.imageUrl,
+			certificateImgName: imgRes.imgName,
 			status: 'active',
 			createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 			updatedAt: firebase.firestore.FieldValue.serverTimestamp(),

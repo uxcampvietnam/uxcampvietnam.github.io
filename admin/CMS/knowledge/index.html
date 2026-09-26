@@ -192,12 +192,12 @@
 								<thead>
 									<tr>
 										<th class="col-th-num">#</th>
-										<th class="col-th-val">Duyệt</th>
-										<th class="col-th-label">Node</th>
-										<th class="col-th-level">Level</th>
-										<th class="col-th-desc">Mô tả</th>
-										<th class="col-th-links">Liên kết (Giữ Alt để clone)</th>
-										<th class="col-th-color">Màu</th>
+										<th class="col-th-val th-sortable" onclick="handleKnowledgeSort('val')" title="Sắp xếp theo Trạng thái duyệt">Duyệt <span class="sort-indicator" id="sort-ind-val"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg></span></th>
+										<th class="col-th-label th-sortable" onclick="handleKnowledgeSort('label')" title="Sắp xếp theo Tiêu đề node">Node <span class="sort-indicator" id="sort-ind-label"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg></span></th>
+										<th class="col-th-level th-sortable" onclick="handleKnowledgeSort('level')" title="Sắp xếp theo Level">Level <span class="sort-indicator" id="sort-ind-level"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg></span></th>
+										<th class="col-th-desc th-sortable" onclick="handleKnowledgeSort('desc')" title="Sắp xếp theo Mô tả">Mô tả <span class="sort-indicator" id="sort-ind-desc"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg></span></th>
+										<th class="col-th-links th-sortable" onclick="handleKnowledgeSort('links')" title="Sắp xếp theo Số liên kết">Liên kết <span class="sort-indicator" id="sort-ind-links"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg></span></th>
+										<th class="col-th-color th-sortable" onclick="handleKnowledgeSort('color')" title="Sắp xếp theo Màu">Màu <span class="sort-indicator" id="sort-ind-color"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg></span></th>
 										<th class="col-th-action">Xóa</th>
 									</tr>
 								</thead>

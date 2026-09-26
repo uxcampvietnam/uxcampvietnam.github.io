@@ -1,0 +1,77 @@
+/* =========================================================================
+   BOOTCAMP (ĐÃ TRIỂN KHAI) - INTERACTIVE DRAGGABLE GALLERY
+   ========================================================================= */
+.graduation-section {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 40px;
+	width: 100%;
+	overflow: hidden;
+	margin-top: 40px;
+	margin-bottom: 80px;
+	--bs-gutter-x: 0;
+}
+
+.section-header-centered {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 8px;
+	width: 100%;
+}
+
+#sliding-img-container {
+	width: 100%;
+	max-width: 100vw;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: flex-start;
+	align-content: center;
+	flex-wrap: nowrap;
+	gap: 0px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	cursor: grab;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	-webkit-overflow-scrolling: touch;
+	touch-action: pan-x pan-y pinch-zoom;
+	overscroll-behavior-x: contain;
+}
+
+#sliding-img-container::-webkit-scrollbar {
+	display: none;
+}
+
+#sliding-img-container:active,
+#sliding-img-container.is-dragging {
+	cursor: grabbing;
+}
+
+.sliding-img {
+	height: 240px;
+	width: auto;
+	margin-right: 20px;
+	position: relative;
+	flex-shrink: 0;
+	user-select: none;
+	-webkit-user-select: none;
+	-webkit-user-drag: none;
+	pointer-events: none;
+}
+
+@media (max-width: 768px) {
+	.graduation-section {
+		margin-top: 24px;
+		margin-bottom: 48px;
+		gap: 24px;
+	}
+
+	.sliding-img {
+		height: 120px !important;
+		margin-right: 12px;
+	}
+}

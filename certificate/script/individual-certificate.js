@@ -206,9 +206,13 @@
       } else if (certImgUrl && certImgUrl.startsWith('asset/')) {
         certificateImage.src = "../" + certImgUrl;
       } else if (imgFileName) {
-        certificateImage.src = "../asset/image/certificate/" + imgFileName + ".webp";
+        certificateImage.src = "../asset/image/certificate/" + imgFileName.replace(/\.(webp|png|jpe?g)$/i, '') + ".webp";
       } else if (certImgUrl) {
-        certificateImage.src = certImgUrl;
+        if (!certImgUrl.includes('/')) {
+          certificateImage.src = "../asset/image/certificate/" + certImgUrl.replace(/\.(webp|png|jpe?g)$/i, '') + ".webp";
+        } else {
+          certificateImage.src = certImgUrl;
+        }
       }
       certificateImage.alt = `Certificate for ${certificate.individual_name || "learner"}`;
     }

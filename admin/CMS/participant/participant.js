@@ -34,17 +34,63 @@ window.ADMIN_CONFIG = {
 			}
 		}
 
+		let currentSort = { column: null, order: 'asc' };
+
+		window.handleSort = function(col) {
+			if (currentSort.column === col) {
+				currentSort.order = currentSort.order === 'asc' ? 'desc' : 'asc';
+			} else {
+				currentSort.column = col;
+				currentSort.order = 'asc';
+			}
+			renderPartsTable();
+		};
+
+		function getSortIndicator(col) {
+			if (currentSort.column !== col) {
+				return `<span class="sort-indicator" title="Nhấn để sắp xếp"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg></span>`;
+			}
+			if (currentSort.order === 'asc') {
+				return `<span class="sort-indicator sorted-asc" title="Đang sắp xếp A → Z"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg></span>`;
+			}
+			return `<span class="sort-indicator sorted-desc" title="Đang sắp xếp Z → A"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg></span>`;
+		}
+
+		function getSortClass(col) {
+			if (currentSort.column !== col) return 'th-sortable';
+			return `th-sortable sorted-${currentSort.order}`;
+		}
+
 		function renderPartsTable() {
 			const container = document.getElementById('parts-list-container');
 			const query = (document.getElementById('search-parts')?.value || '').trim().toLowerCase();
 
-			let list = allParts;
+			let list = [...allParts];
 			if (query) {
 				list = list.filter(p =>
 					(p.name && p.name.toLowerCase().includes(query)) ||
 					(p.role && p.role.toLowerCase().includes(query)) ||
 					(p.company && p.company.toLowerCase().includes(query))
 				);
+			}
+
+			if (currentSort.column) {
+				list.sort((a, b) => {
+					let valA = '';
+					let valB = '';
+					if (currentSort.column === 'name') {
+						valA = a.name || '';
+						valB = b.name || '';
+					} else if (currentSort.column === 'role') {
+						valA = a.role || a.title || '';
+						valB = b.role || b.title || '';
+					} else if (currentSort.column === 'company') {
+						valA = a.company || '';
+						valB = b.company || '';
+					}
+					const cmp = valA.localeCompare(valB, 'vi', { sensitivity: 'base', numeric: true });
+					return currentSort.order === 'asc' ? cmp : -cmp;
+				});
 			}
 
 			if (list.length === 0) {
@@ -62,9 +108,9 @@ window.ADMIN_CONFIG = {
 					<thead>
 						<tr>
 							<th style="width: 50px;">Ảnh</th>
-							<th>Họ và Tên</th>
-							<th>Chức danh / Role</th>
-							<th>Công ty</th>
+							<th class="${getSortClass('name')}" onclick="handleSort('name')" title="Sắp xếp theo Họ và Tên">Họ và Tên ${getSortIndicator('name')}</th>
+							<th class="${getSortClass('role')}" onclick="handleSort('role')" title="Sắp xếp theo Chức danh">Chức danh / Role ${getSortIndicator('role')}</th>
+							<th class="${getSortClass('company')}" onclick="handleSort('company')" title="Sắp xếp theo Công ty">Công ty ${getSortIndicator('company')}</th>
 							<th style="width: 100px; text-align: right;">Thao tác</th>
 						</tr>
 					</thead>

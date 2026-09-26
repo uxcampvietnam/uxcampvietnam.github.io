@@ -270,6 +270,7 @@
 								<span class="badge rounded-pill" id="batch-student-count-badge" style="background: rgba(255, 199, 0, 0.15); color: var(--alternative-foreground-gold); border: 0.5px solid rgba(255, 199, 0, 0.3); font-size: 12px;">0 học viên</span>
 							</div>
 							<div class="d-flex align-items-center gap-2 flex-wrap">
+								<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-copy-all-filenames" title="Copy danh sách tất cả tên file ảnh để đặt tên file trong thư mục certificate">📋 Copy tất cả tên file ảnh</button>
 								<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-toggle-quick-paste">📋 Nhập nhanh (Paste Sheet/CSV)</button>
 								<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-reload-cohort-students" title="Tải lại từ danh sách lớp">↺ Nạp lại từ Lớp</button>
 								<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btn-add-student-row">+ Thêm Học Viên</button>
@@ -284,9 +285,9 @@
 							</div>
 							<div class="font-sans-caption mb-2" style="color: var(--main-colors-foreground-f600); font-size: 11.5px;">
 								Định dạng mỗi dòng (phân tách bằng phím Tab hoặc dấu phẩy):<br>
-								<code>Email [Tab] Họ Tên [Tab] Link ảnh chứng chỉ (tùy chọn) [Tab] Đồ án tốt nghiệp (tùy chọn)</code>
+								<code>Email [Tab] Họ Tên [Tab] Tên file hoặc link ảnh (tùy chọn) [Tab] Đồ án tốt nghiệp (tùy chọn)</code>
 							</div>
-							<textarea id="quick-paste-textarea" class="form-control-custom" rows="4" placeholder="VD:&#10;nam@gmail.com&#9;Trần Hoàng Nam&#9;https://cdn.uxcamp.vn/certs/nam.webp&#9;Redesign App Banking&#10;linh@gmail.com&#9;Nguyễn Thùy Linh&#9;https://cdn.uxcamp.vn/certs/linh.webp&#9;E-commerce UX Research" style="font-family: monospace; font-size: 12px;"></textarea>
+							<textarea id="quick-paste-textarea" class="form-control-custom" rows="4" placeholder="VD:&#10;nam@gmail.com	Trần Hoàng Nam	xonxao_tranhoangnam	Redesign App Banking&#10;linh@gmail.com	Nguyễn Thùy Linh	xonxao_nguyenthuylinh	E-commerce UX Research" style="font-family: monospace; font-size: 12px;"></textarea>
 							<div class="d-flex justify-content-end gap-2 mt-2">
 								<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btn-apply-quick-paste">✓ Nạp Vào Bảng Danh Sách</button>
 							</div>
@@ -301,7 +302,7 @@
 										<th style="min-width: 160px;">Mã UUID (Tự Sinh)</th>
 										<th style="min-width: 170px;">Họ và Tên Học Viên <span class="required">*</span></th>
 										<th style="min-width: 190px;">Email Nhận Chứng Chỉ <span class="required">*</span></th>
-										<th style="min-width: 260px;">Link Ảnh Certificate (Paste riêng)</th>
+										<th style="min-width: 280px;">Tên File Ảnh Certificate</th>
 										<th style="min-width: 240px;">Đồ Án Tốt Nghiệp (Paste riêng)</th>
 										<th style="width: 70px; text-align: center;">Xóa</th>
 									</tr>
@@ -381,17 +382,23 @@
 							</div>
 						</div>
 
-						<!-- NEW FIELD: CERTIFICATE IMAGE URL -->
+						<!-- FIELD: CERTIFICATE IMAGE FILENAME / URL -->
 						<div class="form-group">
 							<label for="cert-image-url">
-								Link Ảnh Chứng Chỉ (Certificate Image URL)
-								<span class="font-sans-caption fw-normal" style="color: var(--main-colors-foreground-f700);">(WebP / PNG / CDN hoặc asset/...)</span>
+								Tên File Ảnh Chứng Chỉ
+								<span class="font-sans-caption fw-normal" style="color: var(--main-colors-foreground-f600);">(Auto lấy trong thư mục <code>asset/image/certificate/</code>)</span>
 							</label>
 							<div class="d-flex gap-2 align-items-center">
-								<input type="text" id="cert-image-url" class="form-control-custom" placeholder="https://cdn.uxcamp.vn/certificates/cert-uuid.webp hoặc asset/image/certificate/...">
+								<input type="text" id="cert-image-url" class="form-control-custom" placeholder="VD: xonxao_lyhaianh">
+								<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-copy-single-filename" title="Copy tên file để tạo file ảnh trong thư mục certificate" style="white-space: nowrap;">📋 Copy tên file</button>
 								<div id="single-cert-img-preview-box" style="display: none; flex-shrink: 0;">
-									<img id="single-cert-img-preview" src="" alt="Preview" class="cert-thumb-preview" style="width: 48px; height: 34px;">
+									<a id="single-cert-img-link" href="#" target="_blank" title="Xem trước ảnh">
+										<img id="single-cert-img-preview" src="" alt="Preview" class="cert-thumb-preview" style="width: 48px; height: 34px;">
+									</a>
 								</div>
+							</div>
+							<div class="font-sans-caption mt-1" id="cert-image-hint" style="color: var(--main-colors-foreground-f600); font-size: 11.5px;">
+								* Tự động gợi ý theo format <code>cohortid_tên học viên</code> (viết liền không dấu). Bạn copy tên này để tạo file đúng tên trong thư mục <code>asset/image/certificate/</code>.
 							</div>
 						</div>
 

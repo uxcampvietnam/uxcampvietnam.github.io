@@ -64,7 +64,7 @@
     infoPanelWidth: 360,   // 📐 Chiều rộng của bảng thông tin book-info-panel (px) - có thể tùy chỉnh
     gap: 32,               // 📏 Khoảng cách giữa bìa sách và bảng thông tin (px)
     perspective: 4000,     // 👁️ Độ sâu phối cảnh không gian 3D (px)
-    coverAngle: 92,        // 📐 Góc xoay trục Y ban đầu của bìa sách trước khi lật ra (độ)
+    coverAngle: 90,        // 📐 Góc xoay trục Y ban đầu của bìa sách trước khi lật ra (độ) - 90 độ vuông góc hoàn toàn
     staggerDelay: 0,       // ⏳ Độ trễ xuất hiện phân tầng của các dòng thông tin (giây)
     scale: 1,             // 🔍 Độ phóng to của bìa sách khi mở ra (%)
     liftUp: 32,            // 🛫 Độ nâng cao lên của bìa sách khi mở (px)
@@ -461,6 +461,7 @@
       const expanded = document.createElement('div');
       expanded.className = 'book-expanded-content';
       expanded.style.left = `${bookWidth}px`;
+      expanded.style.perspectiveOrigin = 'left center';
 
       // Hàm cập nhật kích thước chiều ngang tự động theo tỷ lệ naturalWidth / naturalHeight của ảnh gáy
       const updateSpineDimensions = (naturalW, naturalH) => {
@@ -609,7 +610,8 @@
         }
 
         tl.to(prevInfo, { opacity: 0, x: 10, duration: prevCloseDur * 0.35 }, 0)
-          .to(prevCover, { rotateY: cfg.coverAngle, scale: 1, y: 0, opacity: 0, duration: prevCloseDur }, 0)
+          .to(prevCover, { rotateY: cfg.coverAngle, scale: 1, y: 0, duration: prevCloseDur }, 0)
+          .to(prevCover, { opacity: 0, duration: prevCloseDur * 0.35, ease: "power2.in" }, prevCloseDur * 0.65)
           .to(prevSpine, { opacity: 1, rotateY: 0, scale: 1, y: 0, duration: prevCloseDur }, 0)
           .to(previousOpenBook, {
             width: defaultWidth,
@@ -699,6 +701,7 @@
 
       slot.style.perspective = `${cfg.perspective}px`;
       expanded.style.perspective = `${cfg.perspective}px`;
+      expanded.style.perspectiveOrigin = "left center";
 
       // -----------------------------------------------------------------------
       // 👉 BƯỚC 2: Chuẩn bị trạng thái ban đầu của bìa sách & gáy sách (Chiều cao chuẩn 100%, không scale)
@@ -706,7 +709,7 @@
       global.gsap.set(expanded, { visibility: "visible", opacity: 1 });
       global.gsap.set(spine, { transformOrigin: "right center", scale: 1, y: 0 });
       global.gsap.set(cover, {
-        rotateY: cfg.coverAngle,      // Góc nghiêng ban đầu (89 độ)
+        rotateY: cfg.coverAngle,      // Góc nghiêng ban đầu (90 độ vuông góc, chiều rộng thị giác = 0)
         opacity: 1,                   // Opacity = 1 từ đầu
         scale: 1,
         y: 0,
@@ -836,7 +839,7 @@
         y: 0,
       }, 0);
 
-      // 2. Bìa sách xoay khép lại từ 0 về cfg.coverAngle, reset scale & y đồng thời
+      // 2. Bìa sách xoay khép lại từ 0 về cfg.coverAngle (90 độ), reset scale & y đồng thời
       tl.set(cover, { opacity: 1 }, 0);
       tl.to(cover, {
         rotateY: cfg.coverAngle,
@@ -845,6 +848,12 @@
         duration: cfg.closeDuration * 0.85,
         ease: cfg.easing,
       }, 0);
+      // Khi bìa sách xoay sát 90 độ (chiều rộng thị giác tiến về 0), mượt mà triệt tiêu opacity để loại bỏ hoàn toàn viền dư
+      tl.to(cover, {
+        opacity: 0,
+        duration: cfg.closeDuration * 0.25,
+        ease: "power2.in",
+      }, cfg.closeDuration * 0.6);
       tl.set(cover, { opacity: 0 }, cfg.closeDuration * 0.85);
 
       // 3. Thu hẹp kích thước slot

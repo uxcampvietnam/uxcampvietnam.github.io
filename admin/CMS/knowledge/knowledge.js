@@ -479,7 +479,76 @@ function updateNodeLevel(index, newLevel) {
 	renderTable();
 }
 
+let currentTableSort = { column: null, order: 'asc' };
+
+window.handleKnowledgeSort = function (col) {
+	if (currentTableSort.column === col) {
+		currentTableSort.order = currentTableSort.order === 'asc' ? 'desc' : 'asc';
+	} else {
+		currentTableSort.column = col;
+		currentTableSort.order = 'asc';
+	}
+	applySortToNodesData();
+	renderTable();
+	updateKnowledgeSortUI();
+};
+
+function applySortToNodesData() {
+	if (!currentTableSort.column) return;
+	const { column, order } = currentTableSort;
+	nodesData.sort((a, b) => {
+		let valA, valB;
+		if (column === 'val') {
+			valA = a.validated ? 1 : 0;
+			valB = b.validated ? 1 : 0;
+			return order === 'asc' ? valA - valB : valB - valA;
+		} else if (column === 'label') {
+			valA = a.label || '';
+			valB = b.label || '';
+		} else if (column === 'level') {
+			valA = parseInt(a.level, 10) || 0;
+			valB = parseInt(b.level, 10) || 0;
+			return order === 'asc' ? valA - valB : valB - valA;
+		} else if (column === 'desc') {
+			valA = a.desc || '';
+			valB = b.desc || '';
+		} else if (column === 'links') {
+			valA = (a.connections || []).length;
+			valB = (b.connections || []).length;
+			return order === 'asc' ? valA - valB : valB - valA;
+		} else if (column === 'color') {
+			valA = a.color || '';
+			valB = b.color || '';
+		} else {
+			return 0;
+		}
+		const cmp = String(valA).localeCompare(String(valB), 'vi', { sensitivity: 'base', numeric: true });
+		return order === 'asc' ? cmp : -cmp;
+	});
+}
+
+function updateKnowledgeSortUI() {
+	const cols = ['val', 'label', 'level', 'desc', 'links', 'color'];
+	cols.forEach(col => {
+		const ind = document.getElementById(`sort-ind-${col}`);
+		const th = ind ? ind.closest('th') : null;
+		if (!ind || !th) return;
+		if (currentTableSort.column === col) {
+			ind.innerHTML = currentTableSort.order === 'asc'
+				? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m18 15-6-6-6 6"/></svg>'
+				: '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="m6 9 6 6 6-6"/></svg>';
+			ind.className = `sort-indicator sorted-${currentTableSort.order}`;
+			th.className = `col-th-${col} th-sortable sorted-${currentTableSort.order}`;
+		} else {
+			ind.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>';
+			ind.className = 'sort-indicator';
+			th.className = `col-th-${col} th-sortable`;
+		}
+	});
+}
+
 function renderTable() {
+	updateKnowledgeSortUI();
 	const tableScrollWrap = document.getElementById('tableScrollWrap');
 	const prevScrollTop = tableScrollWrap ? tableScrollWrap.scrollTop : 0;
 	const prevScrollLeft = tableScrollWrap ? tableScrollWrap.scrollLeft : 0;

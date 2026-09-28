@@ -634,11 +634,6 @@ body[data-theme="light"] .ux-console .ux-progress-bar {
     }
 }
 
-body * {
-    /* border: solid 1px red; */
-}
-
-/* Section override for compact demo */
 #appliedUxAnalytic_console_section {
     min-height: auto;
     padding-bottom: 40px;
@@ -1223,11 +1218,6 @@ input:-webkit-autofill {
 tr:has(.matrix-option.selected) {
     background-color: var(--applied-analytic-main);
     color: var(--applied-analytic-background);
-}
-
-tr:has(.matrix-option.selected)>td:first-child {
-    /* color: var(--applied-analytic-secondary); */
-    /* opacity: 0.6; */
 }
 
 tr:has(.matrix-option:hover) {

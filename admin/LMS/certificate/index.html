@@ -181,9 +181,6 @@
 		<button type="button" class="btn-batch-action" id="btn-batch-status-revoked" title="Thu hồi các chứng chỉ đã chọn">
 			⛔ Thu hồi
 		</button>
-		<button type="button" class="btn-batch-action" id="btn-batch-change-date" title="Cập nhật ngày cấp hàng loạt">
-			📅 Đổi ngày cấp
-		</button>
 		<button type="button" class="btn-batch-action" id="btn-batch-change-cohort" title="Gán lớp học hàng loạt">
 			🏫 Đổi lớp học
 		</button>
@@ -230,7 +227,7 @@
 				</div>
 				<div class="form-grid-2">
 					<div>
-						<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Ngày cấp / Tốt nghiệp:</span>
+						<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Ngày kết thúc bootcamp:</span>
 						<div class="font-sans-caption" id="modal-detail-date" style="color: var(--main-colors-foreground-f300);">—</div>
 					</div>
 					<div>
@@ -294,18 +291,12 @@
 						</div>
 					</div>
 
-					<div class="form-grid-2">
-						<div class="form-group">
-							<label for="edit-cert-date">Ngày Cấp Chứng Chỉ</label>
-							<input type="text" id="edit-cert-date" class="form-control-custom" placeholder="YYYY-MM-DD hoặc DD/MM/YYYY">
-						</div>
-						<div class="form-group">
-							<label for="edit-cert-status">Trạng Thái Chứng Chỉ</label>
-							<select id="edit-cert-status" class="form-control-custom">
-								<option value="active">Active (Đang hiệu lực)</option>
-								<option value="revoked">Revoked (Thu hồi / Tạm ngưng)</option>
-							</select>
-						</div>
+					<div class="form-group">
+						<label for="edit-cert-status">Trạng Thái Chứng Chỉ</label>
+						<select id="edit-cert-status" class="form-control-custom">
+							<option value="active">Active (Đang hiệu lực)</option>
+							<option value="revoked">Revoked (Thu hồi / Tạm ngưng)</option>
+						</select>
 					</div>
 
 					<div class="form-group">

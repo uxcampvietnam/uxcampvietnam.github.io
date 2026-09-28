@@ -137,14 +137,6 @@ window.addEventListener('adminReady', async (e) => {
 	currentDb = e.detail.db;
 	currentUser = e.detail.user;
 
-	// Init default dates & uuid
-	const todayStr = new Date().toISOString().slice(0, 10);
-	const certDateEl = document.getElementById('cert-date');
-	if (certDateEl) certDateEl.value = todayStr;
-
-	const batchGlobalDateEl = document.getElementById('batch-global-date');
-	if (batchGlobalDateEl) batchGlobalDateEl.value = todayStr;
-
 	regenSingleUUID();
 	initModeSwitcher();
 	initBatchEventListeners();
@@ -298,28 +290,6 @@ function initBatchEventListeners() {
 	if (cohortSelect) {
 		cohortSelect.addEventListener('change', (e) => {
 			handleBatchCohortChange(e.target.value);
-		});
-	}
-
-	// Auto Sync Date when Global Date changes
-	const globalDateInput = document.getElementById('batch-global-date');
-	if (globalDateInput) {
-		globalDateInput.addEventListener('input', (e) => {
-			syncGlobalDateToAll(e.target.value);
-		});
-		globalDateInput.addEventListener('change', (e) => {
-			syncGlobalDateToAll(e.target.value);
-		});
-	}
-
-	const btnSyncDateNow = document.getElementById('btn-sync-date-now');
-	if (btnSyncDateNow) {
-		btnSyncDateNow.addEventListener('click', () => {
-			const curDate = document.getElementById('batch-global-date').value;
-			if (curDate) {
-				syncGlobalDateToAll(curDate);
-				notify(`⚡ Đã đồng bộ ngày "${curDate}" vào tất cả chứng chỉ!`, 'info');
-			}
 		});
 	}
 
@@ -491,11 +461,20 @@ function handleBatchCohortChange(cohortId) {
 		if (courseSelect) courseSelect.value = selectedCohort.courseId;
 	}
 
-	// 2. Auto-fill issue date with cohort's endDate or today
-	const globalDateInput = document.getElementById('batch-global-date');
-	const defaultDate = selectedCohort.endDate || new Date().toISOString().slice(0, 10);
-	if (globalDateInput) {
-		globalDateInput.value = defaultDate;
+	// 2. Update issue date display from cohort's endDate
+	const endDateDisplay = document.getElementById('batch-cohort-end-date-display');
+	const endDateHint = document.getElementById('batch-cohort-end-date-hint');
+	const cohortEndDate = (selectedCohort.endDate || selectedCohort.end_date || '').trim();
+	if (endDateDisplay) {
+		if (cohortEndDate) {
+			endDateDisplay.textContent = cohortEndDate;
+			endDateDisplay.style.color = 'var(--main-colors-foreground-f100)';
+			if (endDateHint) endDateHint.innerHTML = `* Ngày cấp sẽ tự động lưu là: <strong>${esc(cohortEndDate)}</strong>`;
+		} else {
+			endDateDisplay.textContent = '— (Chưa có ngày kết thúc)';
+			endDateDisplay.style.color = 'var(--highlight-red)';
+			if (endDateHint) endDateHint.innerHTML = `<span style="color: var(--highlight-red);">⚠️ Lớp này chưa thiết lập Ngày kết thúc trong Quản lý Lớp học.</span>`;
+		}
 	}
 
 	// 3. Load students from cohort.studentEmails and auto-suggest image filenames
@@ -587,9 +566,10 @@ function renderBatchTable() {
 		return;
 	}
 
-	const globalDate = document.getElementById('batch-global-date')?.value || 'hôm nay';
 	if (summaryEl) {
-		summaryEl.innerHTML = `Tổng cộng <strong>${batchStudents.length}</strong> chứng chỉ sẽ được cấp vào ngày <strong>${esc(globalDate)}</strong>.`;
+		const selectedCohort = cohortsMap.get(cohortId);
+		const cohortEndDate = selectedCohort?.endDate || selectedCohort?.end_date || '';
+		summaryEl.innerHTML = `Tổng cộng <strong>${batchStudents.length}</strong> chứng chỉ sẽ được cấp${cohortEndDate ? ` (Ngày cấp: <strong>${esc(cohortEndDate)}</strong>)` : ''}.`;
 	}
 
 	tbody.innerHTML = batchStudents.map((s, idx) => {
@@ -722,7 +702,6 @@ async function handleBatchFormSubmit(e) {
 
 	const cohortId = document.getElementById('batch-cohort-select').value;
 	const courseId = document.getElementById('batch-course-select').value;
-	const globalDate = document.getElementById('batch-global-date').value;
 	const btnSubmit = document.getElementById('btn-save-batch-certs');
 
 	const selectedCohort = cohortsMap.get(cohortId);
@@ -733,8 +712,9 @@ async function handleBatchFormSubmit(e) {
 		return;
 	}
 
-	if (!globalDate) {
-		notify('⚠️ Vui lòng chọn Ngày Cấp Chứng Chỉ!', 'error');
+	const cohortEndDate = (selectedCohort?.endDate || selectedCohort?.end_date || '').trim();
+	if (!cohortEndDate) {
+		notify('⚠️ Lớp học này chưa có Ngày Kết Thúc Bootcamp! Vui lòng cập nhật Ngày Kết Thúc trong Quản Lý Lớp Học trước khi cấp chứng chỉ.', 'error');
 		return;
 	}
 
@@ -760,7 +740,7 @@ async function handleBatchFormSubmit(e) {
 		`• Lớp học: ${cohortName}\n` +
 		`• Khóa học: ${courseTitle}\n` +
 		`• Số lượng chứng chỉ: ${batchStudents.length} học viên\n` +
-		`• Ngày cấp (áp dụng chung): ${globalDate}\n\n` +
+		`• Ngày kết thúc (cấp bằng): ${cohortEndDate}\n\n` +
 		`Hệ thống sẽ tự động phát hành mã UUID v4 riêng biệt và lưu trữ lên hệ thống bảo toàn liên kết tra cứu. Tiến hành phát hành?`
 	);
 	if (!confirmed) return;
@@ -802,8 +782,9 @@ async function handleBatchFormSubmit(e) {
 					cohortCode: selectedCohort?.code || '',
 					cohortName: cohortName,
 					cohortTitle: selectedCohort?.title || cohortName,
-					issueDate: globalDate,
-					graduationDate: globalDate,
+					issueDate: cohortEndDate,
+					graduationDate: cohortEndDate,
+					bootcamp_cohort_end_date: cohortEndDate,
 					finalProject: (s.project || '').trim(),
 					certificateImageUrl: imgRes.imageUrl,
 					certificateImgName: imgRes.imgName,
@@ -898,7 +879,24 @@ function initSingleEventListeners() {
 		nameInput.addEventListener('input', updateSingleSuggestedImg);
 	}
 	if (cohortSelect) {
-		cohortSelect.addEventListener('change', updateSingleSuggestedImg);
+		cohortSelect.addEventListener('change', () => {
+			updateSingleSuggestedImg();
+			const c = cohortsMap.get(cohortSelect.value);
+			const disp = document.getElementById('single-cohort-end-date-display');
+			const hint = document.getElementById('single-cohort-end-date-hint');
+			const end = (c?.endDate || c?.end_date || '').trim();
+			if (disp) {
+				if (end) {
+					disp.textContent = end;
+					disp.style.color = 'var(--main-colors-foreground-f100)';
+					if (hint) hint.innerHTML = `* Ngày cấp sẽ tự động lưu là: <strong>${esc(end)}</strong>`;
+				} else {
+					disp.textContent = '— (Chưa có ngày kết thúc)';
+					disp.style.color = 'var(--highlight-red)';
+					if (hint) hint.innerHTML = `<span style="color: var(--highlight-red);">⚠️ Lớp này chưa có Ngày kết thúc. Vui lòng cập nhật trong Quản lý Lớp học.</span>`;
+				}
+			}
+		});
 	}
 
 	if (imgUrlInput) {
@@ -933,7 +931,6 @@ async function handleSingleFormSubmit(e) {
 	const studentEmail = document.getElementById('cert-student-email').value.trim().toLowerCase();
 	const courseId = document.getElementById('cert-course').value;
 	const cohortId = document.getElementById('cert-cohort').value;
-	const date = document.getElementById('cert-date').value;
 	const uuid = document.getElementById('cert-uuid').value.trim();
 	const rawImageUrl = (document.getElementById('cert-image-url')?.value || '').trim();
 	const project = document.getElementById('cert-project').value.trim();
@@ -941,6 +938,12 @@ async function handleSingleFormSubmit(e) {
 	const selectedCourse = coursesMap.get(courseId);
 	const selectedCohort = cohortsMap.get(cohortId);
 	const btnSave = document.getElementById('btn-save-single-cert');
+
+	const cohortEndDate = (selectedCohort?.endDate || selectedCohort?.end_date || '').trim();
+	if (!cohortEndDate) {
+		notify('⚠️ Lớp học này chưa có Ngày Kết Thúc Bootcamp! Vui lòng cập nhật Ngày Kết Thúc trong Quản Lý Lớp Học trước khi cấp chứng chỉ.', 'error');
+		return;
+	}
 
 	btnSave.disabled = true;
 	btnSave.textContent = 'Đang phát hành...';
@@ -969,8 +972,9 @@ async function handleSingleFormSubmit(e) {
 			cohortCode: selectedCohort?.code || '',
 			cohortName: cohortName,
 			cohortTitle: selectedCohort?.title || cohortName,
-			issueDate: date,
-			graduationDate: date,
+			issueDate: cohortEndDate,
+			graduationDate: cohortEndDate,
+			bootcamp_cohort_end_date: cohortEndDate,
 			finalProject: project,
 			certificateImageUrl: imgRes.imageUrl,
 			certificateImgName: imgRes.imgName,

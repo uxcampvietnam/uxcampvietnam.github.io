@@ -513,19 +513,27 @@ function parseFirestoreCohort(doc) {
   return d;
 }
 
+function compareBootcampId(a, b) {
+  const idA = String(a.code || a.bootcamp_id || a.id || '');
+  const idB = String(b.code || b.bootcamp_id || b.id || '');
+  return idA.localeCompare(idB, undefined, { numeric: true, sensitivity: 'base' });
+}
+
 function renderAuaBootcamps(bootcamps) {
   const container = document.getElementById('appliedUxAnalytic_register_bootcampListContainer');
   const containerSignUp = document.getElementById('signUp_ux_analytic_bootcamp_list');
   if (!container && !containerSignUp) return;
 
+  const sortedBootcamps = [...bootcamps].sort(compareBootcampId);
+
   const queryString = window.location.search;
   const params = new URLSearchParams(queryString);
-  const selectedBootcamp = params.get('bootcamp_id');
+  const selectedBootcamp = params.get('code') || params.get('bootcamp_id');
 
   // 1. Listing trên phần giới thiệu bootcamp: hiện tất cả khóa có listing và isPublic
   if (container) {
     container.innerHTML = '';
-    const displayList = bootcamps.filter(item => item.listing == 1);
+    const displayList = sortedBootcamps.filter(item => item.listing == 1);
     displayList.forEach(item => {
       const col = document.createElement('div');
       item.is_open == 1 ? col.classList.add("open-bootcamp") : col.classList.add("closed-bootcamp");
@@ -535,11 +543,12 @@ function renderAuaBootcamps(bootcamps) {
       const pricingText = item.pricing ? `, ${item.pricing}` : '';
       const line2 = `${formatLocation}${startDateText}${pricingText}`;
       const courseTitle = item.bootcamp_name || item.title || item.courseTitle || 'Applied UX Analytic';
+      const cohortCode = item.code || item.bootcamp_id || item.id;
 
       col.innerHTML = `
               <span class="mono-caption reverse-color" style="font-weight: 600;">${courseTitle}</span><br>
               <span class="mono-caption reverse-color">${line2}</span><br>
-              ${item.is_open == 1 ? `<a href="bootcamp-register.html?bootcamp_id=${encodeURIComponent(item.bootcamp_id)}" class="mono-caption register-link button-reverse">Đăng ký ›</a>` : `<span class="mono-caption reverse-color" style="opacity: 0.5;">Form closed</span>`}
+              ${item.is_open == 1 ? `<a href="bootcamp-register.html?code=${encodeURIComponent(cohortCode)}" class="mono-caption register-link button-reverse">Đăng ký ›</a>` : `<span class="mono-caption reverse-color" style="opacity: 0.5;">Form closed</span>`}
           `;
       container.appendChild(col);
     });
@@ -548,7 +557,7 @@ function renderAuaBootcamps(bootcamps) {
   // 2. Listing trên phần đăng ký
   if (containerSignUp) {
     containerSignUp.innerHTML = '';
-    bootcamps.forEach(item => {
+    sortedBootcamps.forEach(item => {
       if (item.is_open == 1) {
         const col = document.createElement('span');
         col.classList.add('sign-up-ux-analytic-bootcamp-item', 'col-12', 'col-md-6');
@@ -557,10 +566,11 @@ function renderAuaBootcamps(bootcamps) {
         const pricingText = item.pricing ? `, ${item.pricing}` : '';
         const line2 = `${formatLocation}${startDateText}${pricingText}`;
         const courseTitle = item.bootcamp_name || item.title || item.courseTitle || 'Applied UX Analytic';
+        const cohortCode = item.code || item.bootcamp_id || item.id;
 
         col.innerHTML = `
-              <label for="bootcamp_${item.bootcamp_id}">
-                  <input required type="radio" name="bootcamp_name" value="${courseTitle}" id="bootcamp_${item.bootcamp_id}" ${String(item.bootcamp_id) === String(selectedBootcamp) ? "checked" : ""} />
+              <label for="bootcamp_${cohortCode}">
+                  <input required type="radio" name="bootcamp_name" value="${courseTitle}" id="bootcamp_${cohortCode}" ${String(cohortCode) === String(selectedBootcamp) ? "checked" : ""} />
                   <div class="bootcamp-item-content">
                     <span class="mono-caption reverse-color">[<span class="is_selected">•</span>] ${courseTitle}</span>
                     <span class="mono-caption reverse-color">${line2}</span>
@@ -588,7 +598,9 @@ async function loadAuaBootcampData() {
       };
 
       const auaCohorts = rawCohorts.filter(isAua).map(c => ({
-        bootcamp_id: c.bootcamp_id || c.code || c.id,
+        id: c.id,
+        code: c.code || c.bootcamp_id || c.id,
+        bootcamp_id: c.code || c.bootcamp_id || c.id,
         bootcamp_name: c.bootcamp_name || c.title || c.name || c.code,
         courseTitle: c.courseTitle || 'Applied UX Analytic',
         title: c.title || c.name || c.bootcamp_name || '',
@@ -598,7 +610,7 @@ async function loadAuaBootcampData() {
         pricing: c.tuition || c.pricing || 'Liên hệ',
         is_open: (c.status === 'open' || c.status === 'enrolling' || c.is_open == 1) ? 1 : 0,
         listing: (c.isPublic !== false && c.listing !== 0) ? 1 : 0
-      }));
+      })).sort(compareBootcampId);
 
       renderAuaBootcamps(auaCohorts);
       return;

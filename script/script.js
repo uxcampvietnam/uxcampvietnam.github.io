@@ -99,7 +99,8 @@ function getAssetPrefix() {
 
 function renderCourseBootcampItem(item, registerUrl, assetPrefix) {
     const isAppliedUxAnalytic = item.bootcamp === "Applied UX Analytic";
-    const href = item.formUrl ? item.formUrl : (item.bootcamp_id ? `${registerUrl}?bootcamp_id=${encodeURIComponent(item.bootcamp_id)}` : registerUrl);
+    const cohortCode = item.code || item.bootcamp_id || item.id;
+    const href = item.formUrl ? item.formUrl : (cohortCode ? `${registerUrl}?code=${encodeURIComponent(cohortCode)}` : registerUrl);
     const isOpen = item.is_open == 1;
 
     // Dòng 1: Tên khóa / đợt học (courseTitle / bootcamp_name / title)
@@ -201,10 +202,16 @@ async function fetchFirestoreData() {
     }
 }
 
+function compareBootcampId(a, b) {
+    const idA = String(a.code || a.bootcamp_id || a.id || '');
+    const idB = String(b.code || b.bootcamp_id || b.id || '');
+    return idA.localeCompare(idB, undefined, { numeric: true, sensitivity: 'base' });
+}
+
 function renderBootcampsUI(flagshipList, auaList) {
-    // Hiện tất cả khóa nào đang có trạng thái listing và isPublic
-    bootcamp_list = (flagshipList || []).filter(item => item.listing == 1);
-    const analyticBootcamps = (auaList || []).filter(item => item.listing == 1);
+    // Hiện tất cả khóa nào đang có trạng thái listing và isPublic, sắp xếp theo code
+    bootcamp_list = (flagshipList || []).filter(item => item.listing == 1).sort(compareBootcampId);
+    const analyticBootcamps = (auaList || []).filter(item => item.listing == 1).sort(compareBootcampId);
     const assetPrefix = getAssetPrefix();
 
     // 1. Flagship course card on homepage
@@ -277,6 +284,7 @@ function renderBootcampsUI(flagshipList, auaList) {
             let bootcamp_innerHTML = `<div> </div><div class="horizontal-scroll row flex-row flex-nowrap">`;
             for (let j = 0; j < bootcamp_list.length; j++) {
                 const item = bootcamp_list[j];
+                const cohortCode = item.code || item.bootcamp_id || item.id;
                 const courseTitle = item.bootcamp_name || item.title || item.courseTitle || item.name || '';
                 const formatLocation = item.offline == 1 ? `Offline${item.location ? `, ${item.location}` : ''}` : 'Online';
                 const startDateText = item.start_date && item.start_date !== '-' ? `, ${item.start_date}` : '';
@@ -289,7 +297,7 @@ function renderBootcampsUI(flagshipList, auaList) {
                         <h6 class="bootcamp-cohort-name">${courseTitle}</h6>
                         <span class="paragraph bootcamp-meta">${line2}</span>
                     </div>
-                    <a href="${item.formUrl || `bootcamp-register.html?bootcamp_id=${encodeURIComponent(item.bootcamp_id)}`}" class="cta-large stretch paragraph">
+                    <a href="${item.formUrl || `bootcamp-register.html?code=${encodeURIComponent(cohortCode)}`}" class="cta-large stretch paragraph">
                     ${item.is_open == 1
                         ? `Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>`
                         : `<i>Form đã đóng</i>`}
@@ -309,12 +317,13 @@ function renderBootcampsUI(flagshipList, auaList) {
     if (signUp_bootcamp_list_Els !== null) {
         const queryString = window.location.search;
         const params = new URLSearchParams(queryString);
-        const selectedBootcamp = params.get('bootcamp_id');
+        const selectedBootcamp = params.get('code') || params.get('bootcamp_id');
 
         let signUp_bootcamp_innerHTML = ``;
         for (let j = 0; j < bootcamp_list.length; j++) {
             const item = bootcamp_list[j];
             if (item.is_open == 1) {
+                const cohortCode = item.code || item.bootcamp_id || item.id;
                 const courseTitle = item.bootcamp_name || item.title || item.courseTitle || item.name || '';
                 const formatLocation = item.offline == 1 ? `Offline${item.location ? `, ${item.location}` : ''}` : 'Online';
                 const startDateText = item.start_date && item.start_date !== '-' ? `, ${item.start_date}` : '';
@@ -323,8 +332,8 @@ function renderBootcampsUI(flagshipList, auaList) {
                 signUp_bootcamp_innerHTML += `
             <div class='col-12 col-md-12 col-lg-6'>
             <div class="sign-up-bootcamp-item">
-                <label for="bootcamp_${item.bootcamp_id}">
-                    <input required type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${item.bootcamp_id}" ${String(item.bootcamp_id) === String(selectedBootcamp) ? "checked" : ""} />
+                <label for="bootcamp_${cohortCode}">
+                    <input required type="radio" name="bootcamp_name" value="${item.bootcamp_name}" id="bootcamp_${cohortCode}" ${String(cohortCode) === String(selectedBootcamp) ? "checked" : ""} />
                     <div class="bootcamp-item-content">
                         <h6 class="bootcamp-cohort-name">${courseTitle}</h6>
                         <span class="paragraph bootcamp-meta">${line2}</span>
@@ -366,7 +375,8 @@ async function loadBootcampData() {
 
             const mapCohortItem = (c, isAua) => ({
                 id: c.id,
-                bootcamp_id: c.bootcamp_id || c.code || c.id,
+                code: c.code || c.bootcamp_id || c.id,
+                bootcamp_id: c.code || c.bootcamp_id || c.id,
                 bootcamp: isAua ? "Applied UX Analytic" : "Designing Digital Product per Stage and Metric",
                 bootcamp_name: c.bootcamp_name || c.title || c.name || c.code,
                 courseTitle: c.courseTitle || (isAua ? "Applied UX Analytic" : (dtCourse?.title || "Design Thinking")),
@@ -381,8 +391,8 @@ async function loadBootcampData() {
                 formUrl: c.formUrl || ''
             });
 
-            const dtCohorts = cohorts.filter(isDtCohort).map(c => mapCohortItem(c, false));
-            const auaCohorts = cohorts.filter(isAuaCohort).map(c => mapCohortItem(c, true));
+            const dtCohorts = cohorts.filter(isDtCohort).map(c => mapCohortItem(c, false)).sort(compareBootcampId);
+            const auaCohorts = cohorts.filter(isAuaCohort).map(c => mapCohortItem(c, true)).sort(compareBootcampId);
 
             renderBootcampsUI(dtCohorts, auaCohorts);
         } else {

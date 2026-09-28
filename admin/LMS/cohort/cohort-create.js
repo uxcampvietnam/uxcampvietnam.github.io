@@ -67,6 +67,7 @@ window.ADMIN_CONFIG = {
 			const title = document.getElementById('cohort-title').value.trim();
 			const status = document.getElementById('cohort-status').value;
 			const startDate = (document.getElementById('cohort-start-date')?.value || '').trim();
+			const endDate = (document.getElementById('cohort-end-date')?.value || '').trim();
 			const format = document.getElementById('cohort-format')?.value || 'online';
 			const location = (document.getElementById('cohort-location')?.value || '').trim();
 			const capacity = parseInt(document.getElementById('cohort-capacity').value, 10) || 20;
@@ -94,11 +95,12 @@ window.ADMIN_CONFIG = {
 					title,
 					name: title,
 					bootcamp_name: title,
-					bootcamp_id: code,
 					status,
 					is_open: isOpen ? 1 : 0,
 					startDate,
 					start_date: startDate,
+					endDate: endDate || '',
+					end_date: endDate || '',
 					format,
 					offline: isOffline ? 1 : 0,
 					location: isOffline ? (location || 'HN') : '',

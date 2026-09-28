@@ -48,11 +48,21 @@ async function loadCertificates() {
     const db = getFirestoreDb();
     if (db) {
       try {
-        const snap = await db.collection('certificates').get();
+        const [snap, cohortsSnap] = await Promise.all([
+          db.collection('certificates').get(),
+          db.collection('cohorts').get().catch(() => ({ empty: true, docs: [] }))
+        ]);
+        const cohortsMap = new Map();
+        if (cohortsSnap && !cohortsSnap.empty && cohortsSnap.docs) {
+          cohortsSnap.docs.forEach(doc => cohortsMap.set(doc.id, doc.data() || {}));
+        }
+
         if (!snap.empty) {
           const list = [];
           snap.forEach(doc => {
             const d = doc.data() || {};
+            const ch = cohortsMap.get(d.cohortId) || {};
+            const cohortEndDate = ch.endDate || ch.end_date || d.bootcamp_cohort_end_date || d.issueDate || d.graduationDate || '';
             // Ánh xạ sang cấu trúc tương thích với individual-certificate.js
             list.push({
               certificate_id: doc.id,
@@ -63,7 +73,7 @@ async function loadCertificates() {
               individual_name: d.recipientName || d.studentName || d.name || '',
               certificate_img_name: d.certificateImgName || (d.certificateImageUrl ? d.certificateImageUrl.replace(/.*\/([^/]+)\.webp$/, '$1') : ''),
               certificate_image_url: d.certificateImageUrl || '',
-              bootcamp_cohort_end_date: d.issueDate || d.graduationDate || '',
+              bootcamp_cohort_end_date: cohortEndDate,
               individual_social_link: d.recipientSocialLink || d.socialLink || '',
               bootcamp_name: d.courseTitle || d.bootcamp_name || '',
               bootcamp_cohort_name: d.cohortName || d.cohortTitle || d.cohortCode || '',

@@ -228,7 +228,7 @@
 							<span class="font-sans-small" style="color: var(--main-colors-foreground-f700);">Hệ thống tự động sinh UUID riêng cho từng học viên, đồng bộ ngày cấp và cho phép dán link ảnh + đồ án độc lập.</span>
 						</div>
 						<div class="d-flex align-items-center gap-2">
-							<span class="date-sync-pill">⚡ Ngày cấp tự động áp dụng toàn bộ</span>
+							<span class="date-sync-pill">⚡ Ngày cấp tự động đồng bộ từ Lớp học</span>
 						</div>
 					</div>
 
@@ -250,15 +250,12 @@
 							</div>
 
 							<div class="form-group">
-								<label for="batch-global-date">
-									Ngày Cấp Chứng Chỉ (Tất Cả) <span class="required">*</span>
-								</label>
-								<div class="d-flex gap-2 align-items-center">
-									<input type="date" id="batch-global-date" class="form-control-custom" required title="Thay đổi ngày ở đây sẽ tự động cập nhật vào tất cả chứng chỉ">
-									<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-sync-date-now" title="Đồng bộ ngày này vào toàn bộ danh sách">Sync</button>
+								<label>Ngày Kết Thúc Bootcamp (Ngày Cấp)</label>
+								<div class="form-control-custom d-flex align-items-center" id="batch-cohort-end-date-display" style="background: var(--body-background-elevate-1); opacity: 0.9; color: var(--alternative-foreground-gold); font-weight: 500;">
+									— (Chọn lớp học để lấy ngày kết thúc)
 								</div>
-								<div class="font-sans-caption mt-1" style="color: var(--alternative-foreground-gold); font-size: 11px;">
-									* Tự động áp dụng cho tất cả học viên trong bảng
+								<div class="font-sans-caption mt-1" id="batch-cohort-end-date-hint" style="color: var(--main-colors-foreground-f700); font-size: 11px;">
+									* Tự động lấy từ Ngày kết thúc của Lớp học (Cohort)
 								</div>
 							</div>
 						</div>
@@ -370,8 +367,13 @@
 
 						<div class="form-grid-2">
 							<div class="form-group">
-								<label for="cert-date">Ngày Cấp Chứng Chỉ <span class="required">*</span></label>
-								<input type="date" id="cert-date" class="form-control-custom" required>
+								<label>Ngày Kết Thúc Bootcamp (Ngày Cấp)</label>
+								<div class="form-control-custom d-flex align-items-center" id="single-cohort-end-date-display" style="background: var(--body-background-elevate-1); opacity: 0.9; color: var(--alternative-foreground-gold); font-weight: 500;">
+									— (Chọn lớp học để lấy ngày kết thúc)
+								</div>
+								<div class="font-sans-caption mt-1" id="single-cohort-end-date-hint" style="color: var(--main-colors-foreground-f700); font-size: 11px;">
+									* Tự động lấy từ Ngày kết thúc của Lớp học (Cohort)
+								</div>
 							</div>
 							<div class="form-group">
 								<label for="cert-uuid">Mã UUID Định Danh Duy Nhất (Tự Sinh)</label>

@@ -34,7 +34,7 @@ const STICKY_GRAPH_CONFIG = {
   paperCurl: 15,                        // Độ cong vênh mép giấy (0 = phẳng, 5-15px = cong tự nhiên)
   flutterAmp: 40.0,                     // Độ rung lắc mép giấy khi camera xoay/di chuyển (0 -> 100)
   hierarchyDepth: false,                // Phân tầng độ sâu trục Z: L1 nổi lên trước (+Z), các tầng sau lùi dần (-Z)
-  noteScale: 1.0,                       // Hệ số phóng to / thu nhỏ kích thước tất cả note (VD: 0.7 = 70%)
+  noteScale: 0.9,                       // Hệ số phóng to / thu nhỏ kích thước tất cả note (VD: 0.7 = 70%)
   fontSize: 8,                          // Kích thước font tiêu đề (title) trong sticky note (null = tự động theo level)
   descFontSize: 6.2,                    // Kích thước font mô tả (description) trong sticky note (null = tự động)
   hoverScale: 1.08,                     // Phóng to nhẹ sticky note khi hover chuột (1.0 = giữ nguyên, 1.08 = to lên 8%)
@@ -85,7 +85,7 @@ const STICKY_GRAPH_CONFIG = {
   lineMorphology: 'bezier',             // Kiểu đường nối: 'bezier' (cong mềm) | 'straight' (thẳng) | 'orthogonal' (gấp khúc 90°)
   lineWidth: 1,                       // Độ dày đường liên kết mặc định (pixel, ví dụ: 1.0, 1.5, 2.0...)
   lineColorDark: '#ffffff',             // Màu đường liên kết mặc định ở Dark mode (Hex)
-  lineColorLight: '#b4935e',            // Màu đường liên kết mặc định ở Light mode (Hex)
+  lineColorLight: '#000000',            // Màu đường liên kết mặc định ở Light mode (Hex)
   lineOpacityDark: 0.4,                 // Độ mờ / trong suốt của đường nối mặc định ở Dark mode (0.0 -> 1.0)
   lineOpacityLight: 0.4,                // Độ mờ / trong suốt của đường nối mặc định ở Light mode (0.0 -> 1.0)
 

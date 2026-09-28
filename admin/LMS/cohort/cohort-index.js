@@ -197,8 +197,10 @@ function renderCohortsTable() {
 								<td>
 									<div class="font-sans-caption fw-semibold" style="color: var(--main-colors-foreground-f100);">${adminEscapeHtml(c.title || c.name || c.bootcamp_name || 'Lớp học')}</div>
 									${c.courseTitle ? `<div class="font-sans-small" style="color: var(--main-colors-foreground-f700);">${adminEscapeHtml(c.courseTitle)}</div>` : ''}
+								<td class="font-sans-caption" style="font-weight: 500;">
+									<div>${adminEscapeHtml(startDateText)}</div>
+									${c.endDate ? `<div class="font-sans-small" style="color: var(--main-colors-foreground-f700); font-size: 11px;">Kết thúc: ${adminEscapeHtml(c.endDate)}</div>` : ''}
 								</td>
-								<td class="font-sans-caption" style="font-weight: 500;">${adminEscapeHtml(startDateText)}</td>
 								<td>${formatText}</td>
 								<td class="font-sans-caption">${adminEscapeHtml(tuitionText)}</td>
 								<td style="text-align: center;"><span class="font-sans-caption">${c.maxCapacity || c.capacity || 20}</span></td>
@@ -238,98 +240,10 @@ window.deleteCohort = async function (id, name) {
 	}
 };
 
-async function seedOpenCohorts() {
-	if (!confirm('Khởi tạo / Cập nhật 2 đợt mở đăng ký mẫu (Design Thinking: Early Bird 2027 & Applied UX Analytic: THÁNG 9) lên Firestore?')) return;
-	try {
-		// Find courses
-		const coursesSnap = await currentDb.collection('courses').get();
-		let dtCourseId = 'dc44e305-9111-490e-b3ab-363dff00f91f';
-		let dtCourseTitle = 'Design Thinking';
-		let auaCourseId = '2106d881-8e2f-4675-9b6d-eb25beae8489';
-		let auaCourseTitle = 'Applied UX Analytic';
-
-		coursesSnap.forEach(doc => {
-			const d = doc.data();
-			if (d.code === 'DT' || d.code === 'DDPPSAM' || d.slug?.includes('design')) {
-				dtCourseId = doc.id;
-				dtCourseTitle = d.title || 'Design Thinking';
-			}
-			if (d.code === 'AUXA' || d.code === 'UXA' || d.slug?.includes('analytic')) {
-				auaCourseId = doc.id;
-				auaCourseTitle = d.title || 'Applied UX Analytic';
-			}
-		});
-
-		const batch = currentDb.batch();
-
-		// 1. Flagship Design Thinking Cohort
-		const dtRef = currentDb.collection('cohorts').doc('cohort_dt_early_bird_2027');
-		batch.set(dtRef, {
-			id: 'cohort_dt_early_bird_2027',
-			courseId: dtCourseId,
-			courseCode: 'DT',
-			courseTitle: dtCourseTitle,
-			code: 'DT-2027',
-			title: 'Early Bird 2027',
-			name: 'Early Bird 2027',
-			bootcamp_name: 'Early Bird 2027',
-			bootcamp_id: 13,
-			status: 'open',
-			is_open: 1,
-			startDate: 'Tháng 2, 2027',
-			start_date: 'Tháng 2, 2027',
-			format: 'offline',
-			offline: 1,
-			location: 'HN',
-			tuition: 'Early bird',
-			pricing: 'Early bird',
-			maxCapacity: 20,
-			isPublic: true,
-			listing: 1,
-			schedule: 'Thứ 7 & CN (Offline tại Hà Nội)',
-			updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-		}, { merge: true });
-
-		// 2. Applied UX Analytic Cohort
-		const auaRef = currentDb.collection('cohorts').doc('cohort_auxa_thang_9');
-		batch.set(auaRef, {
-			id: 'cohort_auxa_thang_9',
-			courseId: auaCourseId,
-			courseCode: 'AUXA',
-			courseTitle: auaCourseTitle,
-			code: 'AUXA-T09',
-			title: 'THÁNG 9',
-			name: 'THÁNG 9',
-			bootcamp_name: 'THÁNG 9',
-			bootcamp_id: 'analytic_3',
-			status: 'open',
-			is_open: 1,
-			startDate: '30/9/2026',
-			start_date: '30/9/2026',
-			format: 'online',
-			offline: 0,
-			location: '',
-			tuition: '9.999.999',
-			pricing: '9.999.999',
-			isPublic: true,
-			listing: 1,
-			schedule: 'Online qua Google Meet',
-			updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-		}, { merge: true });
-
-		await batch.commit();
-		showAdminToast('✅ Đã nạp thành công 2 đợt tuyển sinh đang mở lên Firestore!', 'success');
-		await loadCohorts();
-	} catch (err) {
-		showAdminToast(`❌ Lỗi nạp dữ liệu: ${err.message}`, 'error');
-	}
-}
-
 function initEvents() {
 	document.getElementById('search-cohort')?.addEventListener('input', renderCohortsTable);
 	document.getElementById('filter-cohort-status')?.addEventListener('change', renderCohortsTable);
 	document.getElementById('filter-cohort-course')?.addEventListener('change', renderCohortsTable);
-	document.getElementById('btn-seed-open-cohorts')?.addEventListener('click', seedOpenCohorts);
 
 	document.getElementById('btn-export-cohorts')?.addEventListener('click', () => {
 		const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allCohorts, null, 2));

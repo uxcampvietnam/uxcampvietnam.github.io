@@ -407,9 +407,6 @@ function renderCertsTable() {
 			} else if (currentSortCol === 'uuid') {
 				strA = getCertUuid(a);
 				strB = getCertUuid(b);
-			} else if (currentSortCol === 'date') {
-				strA = getCertDate(a);
-				strB = getCertDate(b);
 			} else if (currentSortCol === 'status') {
 				strA = getCertStatus(a);
 				strB = getCertStatus(b);
@@ -448,7 +445,6 @@ function renderCertsTable() {
 					<th class="th-sortable ${currentSortCol === 'student' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCert('student')">Học Viên Nhận ${getSortIndicator('student')}</th>
 					<th class="th-sortable ${currentSortCol === 'course' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCert('course')">Khóa Học & Lớp ${getSortIndicator('course')}</th>
 					<th class="th-sortable ${currentSortCol === 'uuid' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCert('uuid')" style="width: 150px; text-align: center;">Mã UUID Xác Thực ${getSortIndicator('uuid')}</th>
-					<th class="th-sortable ${currentSortCol === 'date' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCert('date')" style="width: 120px; text-align: center;">Ngày Cấp ${getSortIndicator('date')}</th>
 					<th class="th-sortable ${currentSortCol === 'status' ? 'sorted-' + currentSortDir : ''}" onclick="handleSortCert('status')" style="width: 110px; text-align: center;">Trạng thái ${getSortIndicator('status')}</th>
 					<th style="width: 140px; text-align: right;">Thao tác</th>
 				</tr>
@@ -504,7 +500,6 @@ function renderCertsTable() {
 								</button>
 							</div>
 						</td>
-						<td style="text-align: center;"><span class="font-sans-caption">${adminEscapeHtml(issueDate)}</span></td>
 						<td style="text-align: center;">
 							${isRevoked
 								? '<span class="admin-tag admin-tag-danger">Thu hồi</span>'
@@ -614,7 +609,9 @@ window.viewCertDetail = function (id) {
 		: '<span class="admin-tag admin-tag-success">Đang hiệu lực (Active)</span>';
 	document.getElementById('modal-detail-course').textContent = course;
 	document.getElementById('modal-detail-cohort').textContent = cohort;
-	document.getElementById('modal-detail-date').textContent = date;
+	const matchedCh = allCohorts.find(ch => ch.id === c.cohortId);
+	const certDate = matchedCh?.endDate || c.bootcamp_cohort_end_date || c.issueDate || '—';
+	document.getElementById('modal-detail-date').textContent = certDate;
 	document.getElementById('modal-detail-code').textContent = c.certificateCode || '—';
 	document.getElementById('modal-detail-project').textContent = c.finalProject || '—';
 	document.getElementById('modal-detail-uuid').value = certUuid;
@@ -676,7 +673,6 @@ window.openEditModal = function (id) {
 	}
 	document.getElementById('edit-cert-cohort').value = selCohortId;
 
-	document.getElementById('edit-cert-date').value = c.issueDate || c.graduationDate || '';
 	document.getElementById('edit-cert-status').value = getCertStatus(c);
 	document.getElementById('edit-cert-project').value = c.finalProject || '';
 	document.getElementById('edit-cert-img-url').value = c.certificateImageUrl || '';
@@ -694,7 +690,6 @@ document.getElementById('form-modal-cert-edit')?.addEventListener('submit', asyn
 	const studentEmail = document.getElementById('edit-student-email').value.trim().toLowerCase();
 	const courseId = document.getElementById('edit-cert-course').value;
 	const cohortId = document.getElementById('edit-cert-cohort').value;
-	const issueDate = document.getElementById('edit-cert-date').value.trim();
 	const status = document.getElementById('edit-cert-status').value;
 	const finalProject = document.getElementById('edit-cert-project').value.trim();
 	const certificateImageUrl = document.getElementById('edit-cert-img-url').value.trim();
@@ -718,6 +713,9 @@ document.getElementById('form-modal-cert-edit')?.addEventListener('submit', asyn
 			}, { merge: true }).catch(() => {});
 		}
 
+		// Ngày cấp chứng chỉ đồng bộ tự động từ endDate của Cohort
+		const cohortEndDate = matchedCohort?.endDate || '';
+
 		const updates = {
 			recipientName: studentName,
 			studentName: studentName,
@@ -732,8 +730,8 @@ document.getElementById('form-modal-cert-edit')?.addEventListener('submit', asyn
 			cohortName: matchedCohort ? (matchedCohort.name || matchedCohort.title || matchedCohort.cohortName || '') : '',
 			cohortTitle: matchedCohort?.title || matchedCohort?.name || '',
 			cohortCode: matchedCohort?.code || '',
-			issueDate: issueDate,
-			graduationDate: issueDate,
+			issueDate: cohortEndDate,
+			graduationDate: cohortEndDate,
 			status: status,
 			finalProject: finalProject,
 			certificateImageUrl: certificateImageUrl,
@@ -880,61 +878,6 @@ function initBatchActions() {
 		}
 	});
 
-	// Batch Change Date Modal
-	document.getElementById('btn-batch-change-date')?.addEventListener('click', () => {
-		if (selectedCertIds.size === 0) return;
-		const modal = document.getElementById('modal-cert-batch');
-		const title = document.getElementById('modal-batch-title');
-		const body = document.getElementById('modal-batch-body');
-		const btnConfirm = document.getElementById('btn-confirm-batch-action');
-
-		title.textContent = `📅 Đổi Ngày Cấp Cho ${selectedCertIds.size} Chứng Chỉ`;
-		body.innerHTML = `
-			<div class="form-group">
-				<label>Chọn ngày cấp mới <span class="required">*</span></label>
-				<input type="date" id="batch-input-date" class="form-control-custom" value="${new Date().toISOString().slice(0, 10)}" required>
-				<span class="form-hint">Ngày này sẽ được cập nhật đồng loạt cho toàn bộ ${selectedCertIds.size} chứng chỉ đã chọn.</span>
-			</div>
-		`;
-
-		btnConfirm.onclick = async () => {
-			const newDate = document.getElementById('batch-input-date').value;
-			if (!newDate) return;
-			btnConfirm.disabled = true;
-			btnConfirm.textContent = 'Đang cập nhật...';
-
-			try {
-				const batch = currentDb.batch();
-				selectedCertIds.forEach(id => {
-					const ref = currentDb.collection('certificates').doc(id);
-					batch.update(ref, {
-						issueDate: newDate,
-						graduationDate: newDate,
-						updatedAt: firebase.firestore.FieldValue.serverTimestamp()
-					});
-				});
-				await batch.commit();
-
-				allCerts.forEach(c => {
-					if (selectedCertIds.has(c.id)) {
-						c.issueDate = newDate;
-						c.graduationDate = newDate;
-					}
-				});
-				showAdminToast(`✅ Đã cập nhật ngày cấp cho ${selectedCertIds.size} chứng chỉ!`, 'success');
-				modal.classList.remove('open');
-				selectedCertIds.clear();
-				renderCertsTable();
-			} catch (err) {
-				showAdminToast(`❌ Lỗi: ${err.message}`, 'error');
-			} finally {
-				btnConfirm.disabled = false;
-				btnConfirm.textContent = 'Xác Nhận';
-			}
-		};
-
-		modal.classList.add('open');
-	});
 
 	// Batch Change Cohort Modal
 	document.getElementById('btn-batch-change-cohort')?.addEventListener('click', () => {

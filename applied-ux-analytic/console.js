@@ -400,10 +400,10 @@
     const HEATMAP_LABELS = ['Intro', 'Goal', 'Demo', 'Register', 'Syllabus', 'General', 'Case', 'Footer'];
     const HEATMAP_KEYS = ['intro', 'goal', 'demo', 'register', 'syllabus', 'general', 'case_study', 'footer'];
 
-    function niceStep(maxVal, maxTicks = 6) {
+    function niceStep(maxVal, maxTicks = 3) {
         if (maxVal <= 0) return 1;
         const raw = maxVal / maxTicks;
-        const steps = [1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 1800];
+        const steps = [1, 2, 5, 10, 15, 30, 60, 120, 300, 600, 1200, 1800, 3600];
         for (const s of steps) { if (s >= raw) return s; }
         return Math.ceil(raw / 600) * 600;
     }
@@ -415,21 +415,26 @@
 
         const values = HEATMAP_KEYS.map(k => state.sectionTime[k] || 0);
         const maxVal = Math.max(...values, 1);
-        const step = niceStep(maxVal);
-        const topTick = Math.ceil(maxVal / step) * step;
-        const tickCount = Math.round(topTick / step);
+        let step = niceStep(maxVal, 3);
+        let topTick = Math.ceil(maxVal / step) * step;
+        let tickCount = Math.round(topTick / step);
+        while (tickCount > 3) {
+            step *= 2;
+            topTick = Math.ceil(maxVal / step) * step;
+            tickCount = Math.round(topTick / step);
+        }
 
         if (yAxis) {
             const tickLabels = [];
             for (let t = tickCount; t >= 0; t--) {
                 const sec = t * step;
-                const label = sec >= 60 ? `${Math.round(sec / 60)}m` : `${sec}s`;
+                const label = sec === 0 ? '0s' : (sec >= 60 ? `${Math.round(sec / 60)}m` : `${sec}s`);
                 tickLabels.push(`<span class="mono-caption secondary-text">${label}</span>`);
             }
             yAxis.innerHTML = tickLabels.join('');
         }
 
-        const CHART_PX = 75;
+        const CHART_PX = 120;
         barsContainer.innerHTML = HEATMAP_KEYS.map((key, i) => {
             const sec = state.sectionTime[key] || 0;
             const barPx = topTick > 0 ? Math.max(0, Math.round((sec / topTick) * CHART_PX)) : 0;

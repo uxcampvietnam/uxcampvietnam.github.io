@@ -184,8 +184,6 @@
    * @param {object} certificate
    */
   async function renderCertificate(certificate) {
-    showMainContent();
-
     // Nạp dữ liệu khóa học & lớp học trực tiếp từ Firebase Firestore (không sử dụng fallback tĩnh từ bootcamp-content.js)
     let content = null;
     if (typeof fetchBootcampContentFromFirebase === 'function') {
@@ -195,6 +193,17 @@
         console.warn('Error fetching live bootcamp content from Firebase:', err);
       }
     }
+
+    // Yêu cầu: nếu bootcamp đã kết thúc, có certificate nhưng ko có ngày kết thúc thì ko hiển thị lên trang certificate
+    const effectiveEndDate = (certificate.bootcamp_cohort_end_date || content?.cohort?.endDate || content?.cohort?.end_date || '').trim();
+    if (!effectiveEndDate) {
+      showEmptyState(
+        "Chứng chỉ chưa có ngày kết thúc khóa học chính thức nên tạm thời chưa được công bố."
+      );
+      return;
+    }
+
+    showMainContent();
 
     const imgFileName = certificate.certificate_img_name;
     const certImgUrl = certificate.certificate_image_url || '';
@@ -317,6 +326,16 @@
             const certDoc = await db.collection('certificates').doc(certificateId).get();
             if (certDoc.exists) {
               const d = certDoc.data() || {};
+              let cohortEndDate = (d.bootcamp_cohort_end_date || d.issueDate || d.graduationDate || '').trim();
+              if (d.cohortId) {
+                try {
+                  const chDoc = await db.collection('cohorts').doc(d.cohortId).get();
+                  if (chDoc.exists) {
+                    const chData = chDoc.data() || {};
+                    cohortEndDate = (chData.endDate || chData.end_date || cohortEndDate).trim();
+                  }
+                } catch (_) {}
+              }
               certificate = {
                 certificate_id: certDoc.id,
                 certificate_code: d.certificateCode || '',
@@ -326,7 +345,7 @@
                 individual_name: d.recipientName || d.studentName || d.name || '',
                 certificate_img_name: d.certificateImgName || (d.certificateImageUrl ? d.certificateImageUrl.replace(/.*\/([^/]+)\.webp$/, '$1') : ''),
                 certificate_image_url: d.certificateImageUrl || '',
-                bootcamp_cohort_end_date: d.issueDate || d.graduationDate || '',
+                bootcamp_cohort_end_date: cohortEndDate,
                 individual_social_link: d.recipientSocialLink || d.socialLink || '',
                 bootcamp_name: d.courseTitle || d.bootcamp_name || '',
                 bootcamp_cohort_name: d.cohortName || d.cohortTitle || d.cohortCode || '',

@@ -477,11 +477,96 @@ svg path[fill="rgb(255, 0, 0)"] {
 =================================================== */
 
 .ux-console {
+    /* Inverted Theme - Light Mode: Nền đen, chữ trắng / xám */
+    --applied-analytic-main: #ffffff;
+    --applied-analytic-secondary: #8e8e8e;
+    --applied-analytic-primary: #ffffff;
+    --console-stroke: #262626;
+    background-color: #000000;
+    color: var(--applied-analytic-main);
     border: 0.5px solid var(--console-stroke);
     width: 100%;
     overflow: hidden;
-    /* background: var(--applied-analytic-background); */
     z-index: 500;
+}
+
+.ux-console .ux-dash {
+    background-color: var(--console-stroke);
+    opacity: 1;
+}
+
+.ux-console .ux-progress-bar {
+    border: 0.5px solid var(--console-stroke);
+    background-color: rgba(255, 255, 255, 0.06);
+}
+
+.ux-console .ux-progress-fill {
+    background: var(--applied-analytic-main);
+}
+
+.ux-console .ux-event-stream {
+    scrollbar-width: thin;
+    scrollbar-color: var(--console-stroke) transparent;
+}
+
+.ux-console .ux-event-stream::-webkit-scrollbar {
+    width: 4px;
+}
+
+.ux-console .ux-event-stream::-webkit-scrollbar-thumb {
+    background: var(--console-stroke);
+    border-radius: 2px;
+}
+
+/* Inverted Theme - Dark Mode: Nền trắng, chữ đen / xám */
+@media (prefers-color-scheme: dark) {
+    .ux-console {
+        --applied-analytic-main: #000000;
+        --applied-analytic-secondary: #666666;
+        --applied-analytic-primary: #000000;
+        --console-stroke: rgb(215, 215, 215);
+        background-color: #ffffff;
+        color: var(--applied-analytic-main);
+    }
+
+    .ux-console .ux-progress-bar {
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+}
+
+/* Hỗ trợ khi có thuộc tính data-theme */
+[data-theme="dark"] .ux-console,
+html[data-theme="dark"] .ux-console,
+body[data-theme="dark"] .ux-console {
+    --applied-analytic-main: #000000;
+    --applied-analytic-secondary: #666666;
+    --applied-analytic-primary: #000000;
+    --console-stroke: rgb(215, 215, 215);
+    background-color: #ffffff;
+    color: var(--applied-analytic-main);
+}
+
+[data-theme="dark"] .ux-console .ux-progress-bar,
+html[data-theme="dark"] .ux-console .ux-progress-bar,
+body[data-theme="dark"] .ux-console .ux-progress-bar {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .ux-console,
+html[data-theme="light"] .ux-console,
+body[data-theme="light"] .ux-console {
+    --applied-analytic-main: #ffffff;
+    --applied-analytic-secondary: #8e8e8e;
+    --applied-analytic-primary: #ffffff;
+    --console-stroke: #262626;
+    background-color: #000000;
+    color: var(--applied-analytic-main);
+}
+
+[data-theme="light"] .ux-console .ux-progress-bar,
+html[data-theme="light"] .ux-console .ux-progress-bar,
+body[data-theme="light"] .ux-console .ux-progress-bar {
+    background-color: rgba(255, 255, 255, 0.06);
 }
 
 .ux-console-topbar {
@@ -646,33 +731,40 @@ body * {
 
 /* Scroll Heatmap */
 .ux-heatmap {
-    padding-top: 4px;
-    overflow-x: scroll;
+    padding-top: 8px;
+    padding-bottom: 4px;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+#appliedUxAnalytic_register_bootcampListContainer {
+    gap: 0.5px;
 }
 
 .ux-heatmap-chart {
     display: flex;
     align-items: flex-start;
     /* y-axis top aligns with bar-wrap top */
-    gap: 8px;
+    gap: 12px;
 }
 
 .ux-heatmap-yaxis {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 75px;
+    height: 120px;
     /* must match .ux-bar-wrap height */
     text-align: right;
     flex-shrink: 0;
     gap: 0;
-    /* no padding - 0 label aligns exactly with bar bottom */
+    padding: 0;
 }
 
-/* .ux-heatmap-yaxis span {
-    font-size: 10px !important;
+.ux-heatmap-yaxis span {
+    font-size: 11px;
     line-height: 1;
-} */
+    color: var(--applied-analytic-secondary);
+}
 
 .ux-heatmap-bars {
     display: flex;
@@ -691,14 +783,15 @@ body * {
 }
 
 .ux-heatmap-col>span {
-    /* font-size: 9px !important; */
-    margin-top: 2px;
+    margin-top: 6px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 100%;
     text-align: center;
     display: block;
+    font-size: 11px;
+    color: var(--applied-analytic-secondary);
 }
 
 .ux-bar-wrap {
@@ -708,7 +801,7 @@ body * {
     justify-content: flex-end;
     /* bar grows from the bottom of this box */
     width: 100%;
-    height: 75px;
+    height: 120px;
     /* fixed - must match .ux-heatmap-yaxis height */
 }
 

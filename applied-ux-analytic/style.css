@@ -171,7 +171,7 @@ body *,
     z-index: 200;
     display: flex;
     position: relative;
-    gap: 56px;
+    gap: 32px;
     flex-direction: column;
     overflow-x: visible;
     padding: 32px var(--spacing-m);
@@ -323,7 +323,7 @@ body *,
 }
 
 .bootcamp-section-full:not(:last-child) {
-    min-height: 50vh;
+    /* min-height: 50vh; */
     padding-bottom: 10vh;
     border-bottom: 0.5px solid var(--console-stroke);
 }
@@ -355,7 +355,7 @@ svg path[fill="rgb(255, 0, 0)"] {
 }
 
 .bootcamp-section-content {
-    padding-top: 32px;
+    /* padding-top: 32px; */
     padding-bottom: 72px;
 }
 
@@ -414,6 +414,13 @@ svg path[fill="rgb(255, 0, 0)"] {
 .align-left .ascii-row {
     white-space: nowrap;
     text-align: left;
+}
+
+
+.section-title-name {
+    height: 32px;
+    width: auto;
+    margin-bottom: 16px;
 }
 
 .ascii-char {

@@ -473,6 +473,24 @@ window.onload = () => {
     });
   }
 
+  if (document.querySelector('.section-title-name')) {
+    document.querySelectorAll('.section-title-name').forEach(element => {
+      gsap.from(element.querySelectorAll('*'), {
+        opacity: 0.2,
+        delay: "random(0.2, 2)",
+        ease: "bounce.in",
+        duration: 0.5,
+        scrollTrigger: {
+          trigger: element,
+          start: "top 80%",
+          end: "top center",
+          toggleActions: 'play none none reset',
+        }
+      });
+    });
+
+  }
+
   let mm = gsap.matchMedia();
 
   mm.add("(max-width: 991px)", () => {

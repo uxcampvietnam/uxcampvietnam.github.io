@@ -285,18 +285,7 @@ body {
 }
 
 .tool-hero-title {
-  font-family: var(--comp-font-serif);
-  font-size: 28px;
-  line-height: 1.2;
-  font-weight: 400;
-  color: var(--comp-text-primary);
   margin: 0 0 6px;
-}
-
-.tool-hero-title em {
-  font-style: italic;
-  font-weight: 400 !important;
-  color: var(--comp-gold);
 }
 
 .tool-hero-desc {
@@ -320,12 +309,11 @@ body {
   align-items: center;
   gap: 6px;
   padding: 2px 14px;
-  color: var(--comp-surface-1);
-  border: 0.5px solid var(--comp-stroke);
+  color: var(--comp-text-primary);
+  border: 0.5px solid var(--comp-text-primary);
   border-radius: var(--comp-radius-pill);
   font-size: 11px;
   font-family: var(--comp-font-mono);
-  background: var(--comp-text-muted);
 }
 
 /* --------------------------------------------------------------------------
@@ -336,10 +324,10 @@ body {
 }
 
 .dropzone-box {
-  background-color: var(--comp-surface-1);
+  background-color: var(--alternative-background-light-gold);
   border: 1.5px dashed var(--comp-stroke);
   border-radius: var(--comp-radius-card);
-  padding: 20px 20px;
+  padding: 48px 20px;
   text-align: center;
   cursor: pointer;
   position: relative;
@@ -351,25 +339,6 @@ body {
   border-color: var(--comp-gold);
   background-color: var(--comp-surface-2);
   transform: translateY(-2px);
-}
-
-.drop-icon-sphere {
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: var(--comp-gold-subtle);
-  border: 0.5px solid var(--comp-gold-border);
-  color: var(--comp-gold);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 8px;
-  transition: transform 0.25s ease;
-}
-
-.dropzone-box:hover .drop-icon-sphere,
-.dropzone-box.is-dragging .drop-icon-sphere {
-  transform: scale(1.08);
 }
 
 .dropzone-title {
@@ -1184,10 +1153,6 @@ html[data-theme="dark"] .saved-badge.badge-increased {
 @media (max-width: 768px) {
   .webp-tool-page {
     padding: 16px 12px 36px;
-  }
-
-  .tool-hero-title {
-    font-size: 24px;
   }
 
   .dropzone-box {

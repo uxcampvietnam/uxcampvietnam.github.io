@@ -34,7 +34,7 @@
   const DEFAULT_CONFIG = {
     "devMode": {
       "showLiveTuner": false,
-      "allowExportConfig": true
+      "allowExportConfig": false
     },
     "geometry": {
       "mode": "container-relative",
@@ -76,7 +76,7 @@
     "depth": {
       "focalRange": 10,
       "enableBlur": true,
-      "maxBlur": 100,
+      "maxBlur": 0,
       "darkDepthShading": 0.1,
       "lightDepthBrightness": 0.1,
       "cullZDistance": -100

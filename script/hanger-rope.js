@@ -54,10 +54,16 @@
             "lineWidth": 2,              // Độ dày nét vẽ sợi dây (pixel)
             "pinOffsetTop": 28           // Khoảng cách cố định từ mép trên khung chứa đến 2 điểm ghim đầu dây (px)
         },
-        // Cấu hình phản hồi khi cuộn trang (Scroll Physics)
-        "scroll": {
-            "influence": 0.1,  // Mức độ ảnh hưởng của thao tác cuộn trang tới lực tác động lên dây
+        // Cấu hình phản hồi khi cuộn trang cho Laptop / Desktop (Scroll Physics - Desktop)
+        "scrollDesktop": {
+            "influence": 0.1,  // Mức độ ảnh hưởng của thao tác cuộn trang tới lực tác động lên dây trên laptop/desktop
             "maxImpulse": 6,   // Giới hạn xung lực tối đa từ cuộn trang (tránh dây đung đưa quá mạnh)
+            "damping": 0.85    // Hệ số giảm chấn xung lực cuộn theo thời gian
+        },
+        // Cấu hình phản hồi khi cuộn trang cho Mobile (Scroll Physics - Mobile)
+        "scrollMobile": {
+            "influence": 0.00, // Mức độ ảnh hưởng của thao tác cuộn trang tới lực tác động lên dây trên mobile
+            "maxImpulse": 0,   // Giới hạn xung lực tối đa từ cuộn trang trên mobile (êm ái, tránh giật lag khi lướt ngón tay)
             "damping": 0.85    // Hệ số giảm chấn xung lực cuộn theo thời gian
         },
         // Cấu hình tương tác kéo rê bằng chuột / cảm ứng (Drag / Touch Interaction)
@@ -150,6 +156,15 @@
         ]
     };
     window.HANGER_ROPE_CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+    // Tương thích ngược: getter 'scroll' tự động trỏ đến cấu hình tương ứng với kích thước màn hình
+    Object.defineProperty(window.HANGER_ROPE_CONFIG, 'scroll', {
+        get() {
+            const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+            return isMobile ? this.scrollMobile : this.scrollDesktop;
+        },
+        enumerable: false,
+        configurable: true
+    });
 
     // =========================================================================
     // 2. CLASS MÔ PHỎNG VẬT LÝ DÂY TREO (VERLET ROPE SIMULATOR)
@@ -293,6 +308,15 @@
             this.initRopePoints();
         }
 
+        getScrollConfig() {
+            const isMobile = (this.width ? this.width <= 768 : window.innerWidth <= 768);
+            const cfg = window.HANGER_ROPE_CONFIG;
+            if (isMobile) {
+                return (cfg && cfg.scrollMobile) || (cfg && cfg.scroll) || DEFAULT_CONFIG.scrollMobile;
+            }
+            return (cfg && cfg.scrollDesktop) || (cfg && cfg.scroll) || DEFAULT_CONFIG.scrollDesktop;
+        }
+
         initRopePoints() {
             const cfg = window.HANGER_ROPE_CONFIG.rope;
             const N = cfg.pointCount;
@@ -427,7 +451,7 @@
                 const delta = currentY - this.lastScrollY;
                 this.lastScrollY = currentY;
 
-                const scrollCfg = window.HANGER_ROPE_CONFIG.scroll;
+                const scrollCfg = this.getScrollConfig();
                 const swayCfg = window.HANGER_ROPE_CONFIG.itemsSway;
                 const impulse = Math.max(-scrollCfg.maxImpulse, Math.min(scrollCfg.maxImpulse, delta * scrollCfg.influence));
                 this.scrollImpulse += impulse;
@@ -591,7 +615,7 @@
         updatePhysics() {
             const ropeCfg = window.HANGER_ROPE_CONFIG.rope;
             const dragCfg = window.HANGER_ROPE_CONFIG.drag;
-            const scrollCfg = window.HANGER_ROPE_CONFIG.scroll;
+            const scrollCfg = this.getScrollConfig();
             const breezeCfg = window.HANGER_ROPE_CONFIG.breeze;
             const N = this.points.length;
             if (N < 2) return;
@@ -1025,12 +1049,21 @@
                     ]
                 },
                 {
-                    title: '📜 Cuộn trang (Scroll Physics)',
-                    section: 'scroll',
+                    title: '💻 Cuộn trang - Laptop (Scroll Desktop)',
+                    section: 'scrollDesktop',
                     fields: [
-                        { key: 'influence', label: 'Lực đẩy cuộn', min: 0.0, max: 1.5, step: 0.02, digits: 2 },
-                        { key: 'maxImpulse', label: 'Xung lực tối đa', min: 5, max: 70, step: 1, digits: 0 },
-                        { key: 'damping', label: 'Tiêu tán cuộn', min: 0.50, max: 0.98, step: 0.01, digits: 2 },
+                        { key: 'influence', label: 'Lực đẩy cuộn (Laptop)', min: 0.0, max: 1.5, step: 0.02, digits: 2 },
+                        { key: 'maxImpulse', label: 'Xung lực tối đa (Laptop)', min: 1, max: 50, step: 1, digits: 0 },
+                        { key: 'damping', label: 'Tiêu tán cuộn (Laptop)', min: 0.50, max: 0.98, step: 0.01, digits: 2 },
+                    ]
+                },
+                {
+                    title: '📱 Cuộn trang - Mobile (Scroll Mobile)',
+                    section: 'scrollMobile',
+                    fields: [
+                        { key: 'influence', label: 'Lực đẩy cuộn (Mobile)', min: 0.0, max: 1.5, step: 0.02, digits: 2 },
+                        { key: 'maxImpulse', label: 'Xung lực tối đa (Mobile)', min: 1, max: 50, step: 1, digits: 0 },
+                        { key: 'damping', label: 'Tiêu tán cuộn (Mobile)', min: 0.50, max: 0.98, step: 0.01, digits: 2 },
                     ]
                 },
                 {
@@ -1164,6 +1197,14 @@
             // Nút Reset Config
             this.panelEl.querySelector('#hanger-btn-reset-cfg').addEventListener('click', () => {
                 window.HANGER_ROPE_CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+                Object.defineProperty(window.HANGER_ROPE_CONFIG, 'scroll', {
+                    get() {
+                        const isMobile = typeof window !== 'undefined' && window.innerWidth <= 768;
+                        return isMobile ? this.scrollMobile : this.scrollDesktop;
+                    },
+                    enumerable: false,
+                    configurable: true
+                });
                 this.renderControls();
                 if (this.simulator) {
                     this.simulator.initRopePoints();

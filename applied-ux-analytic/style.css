@@ -423,6 +423,11 @@ svg path[fill="rgb(255, 0, 0)"] {
     margin-bottom: 16px;
 }
 
+
+.section-title-name * {
+    fill: var(--applied-analytic-main) !important;
+}
+
 .ascii-char {
     display: inline-block;
     position: relative;

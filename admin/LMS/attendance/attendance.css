@@ -1,0 +1,1001 @@
+/* ==========================================================================
+   UXCAMP VIETNAM — ATTENDANCE MODULE STYLES
+   Bảng điểm danh tốc độ cao với điều hướng bàn phím trực quan
+   ========================================================================== */
+
+/* 1. Control Panel & Cohort Selector */
+.attendance-control-panel {
+	background: var(--body-background-elevate-1);
+	border: 0.5px solid var(--console-stroke);
+	border-radius: 12px;
+	padding: 16px 20px;
+}
+
+.cohort-select-wrapper,
+.session-date-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+}
+
+.control-label {
+	font-size: var(--font-sans-small-size);
+	color: var(--main-colors-foreground-f700);
+	font-weight: 500;
+	margin: 0;
+}
+
+.cohort-select {
+	min-width: 280px;
+	height: 38px;
+	font-weight: 500;
+	font-size: 13px;
+	background: var(--body-background-elevate-2);
+	border-color: var(--console-stroke);
+}
+
+.date-input {
+	height: 38px;
+	min-width: 170px;
+	font-size: 13px;
+	background: var(--body-background-elevate-2);
+	border-color: var(--console-stroke);
+}
+
+/* 2. Save Status Badge */
+.save-status-badge {
+	font-size: 11px;
+	font-weight: 600;
+	padding: 4px 10px;
+	border-radius: 12px;
+	background: rgba(34, 197, 94, 0.12);
+	color: var(--highlight-green);
+	border: 0.5px solid rgba(34, 197, 94, 0.3);
+	display: inline-flex;
+	align-items: center;
+	transition: all 0.2s ease;
+}
+
+.save-status-badge.saving {
+	background: rgba(234, 179, 8, 0.12);
+	color: var(--highlight-yellow);
+	border-color: rgba(234, 179, 8, 0.3);
+}
+
+.save-status-badge.unsaved {
+	background: rgba(249, 115, 22, 0.15);
+	color: #f97316;
+	border-color: rgba(249, 115, 22, 0.35);
+}
+
+#btn-save-attendance.has-unsaved {
+	box-shadow: 0 0 12px rgba(229, 185, 94, 0.4);
+	animation: pulseSaveBtn 2s infinite ease-in-out;
+}
+
+@keyframes pulseSaveBtn {
+
+	0%,
+	100% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.02);
+	}
+}
+
+/* 3. Horizontal Sessions Tab Scroll */
+.sessions-nav-container {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	background: var(--body-background-elevate-1);
+	border: 0.5px solid var(--console-stroke);
+	border-radius: 12px;
+	padding: 8px 14px;
+}
+
+.sessions-tabs-scroll {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	overflow-x: auto;
+	scrollbar-width: thin;
+	flex: 1;
+	padding-bottom: 2px;
+}
+
+.sessions-tabs-scroll::-webkit-scrollbar {
+	height: 4px;
+}
+
+.sessions-tabs-scroll::-webkit-scrollbar-thumb {
+	background: var(--console-stroke);
+	border-radius: 4px;
+}
+
+.session-tab-btn {
+	background: var(--body-background-elevate-2);
+	border: 0.5px solid var(--console-stroke);
+	color: var(--main-colors-foreground-f700);
+	border-radius: 8px;
+	padding: 6px 14px;
+	font-size: 12px;
+	font-weight: 500;
+	white-space: nowrap;
+	cursor: pointer;
+	transition: all 0.15s ease;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+}
+
+.session-tab-btn:hover {
+	color: var(--main-colors-foreground-f100);
+	border-color: var(--transparent-foreground-main-color-30);
+}
+
+.session-tab-btn.active {
+	background: var(--alternative-background-light-gold);
+	border-color: var(--alternative-foreground-gold);
+	color: var(--alternative-foreground-gold);
+	font-weight: 600;
+	box-shadow: 0 0 10px rgba(229, 185, 94, 0.15);
+}
+
+.session-tab-date {
+	font-size: 10px;
+	opacity: 0.75;
+}
+
+.sessions-actions {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	flex-shrink: 0;
+}
+
+.btn-add-session {
+	background: var(--body-background-elevate-2);
+	border: 0.5px dashed var(--alternative-foreground-gold);
+	color: var(--alternative-foreground-gold);
+	padding: 6px 14px;
+	border-radius: 8px;
+	font-size: 12px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.15s ease;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	white-space: nowrap;
+}
+
+.btn-add-session:hover {
+	background: rgba(229, 185, 94, 0.1);
+	border-style: solid;
+}
+
+.btn-delete-session {
+	background: transparent;
+	border: 0.5px solid transparent;
+	color: var(--highlight-red);
+	padding: 6px 10px;
+	border-radius: 8px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	transition: all 0.15s ease;
+}
+
+.btn-delete-session:hover {
+	background: rgba(239, 68, 68, 0.1);
+	border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* 4. Table Search Box */
+.table-search-box {
+	position: relative;
+	min-width: 220px;
+}
+
+.table-search-box input {
+	height: 34px;
+	font-size: 12px;
+	padding-left: 12px;
+	border-radius: 8px;
+	background: var(--body-background-elevate-2);
+}
+
+/* 5. Attendance Table Styles */
+.attendance-table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	font-size: 13px;
+}
+
+.attendance-table th {
+	background: var(--body-background-elevate-1);
+	color: var(--main-colors-foreground-f700);
+	font-size: 11px;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	padding: 12px 16px;
+	border-bottom: 0.5px solid var(--console-stroke);
+	position: sticky;
+	top: 0;
+	z-index: 2;
+}
+
+.attendance-table td {
+	padding: 12px 16px;
+	border-bottom: 0.5px solid var(--console-stroke);
+	vertical-align: middle;
+	transition: background-color 0.12s ease;
+}
+
+/* Student Row Focus State (Keyboard Navigation) */
+.student-row {
+	transition: all 0.15s ease;
+	cursor: pointer;
+}
+
+.student-row:hover {
+	background: rgba(255, 255, 255, 0.02);
+}
+
+.student-row.focused-student-row {
+	background: rgba(229, 185, 94, 0.08) !important;
+	position: relative;
+}
+
+.student-row.focused-student-row td:first-child {
+	border-left: 3px solid var(--alternative-foreground-gold);
+}
+
+.student-row.focused-student-row td {
+	border-bottom-color: rgba(229, 185, 94, 0.3);
+}
+
+/* Student Info Cell */
+.student-avatar {
+	width: 32px;
+	height: 32px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 0.5px solid var(--console-stroke);
+	background: var(--body-background-elevate-2);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	font-size: 12px;
+	color: var(--main-colors-foreground-f200);
+	flex-shrink: 0;
+}
+
+.student-info-box {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.student-name {
+	font-weight: 600;
+	color: var(--main-colors-foreground-f100);
+	font-size: 13px;
+	line-height: 1.3;
+}
+
+.student-email {
+	font-size: 11px;
+	color: var(--main-colors-foreground-f700);
+	font-family: monospace;
+	line-height: 1.2;
+}
+
+/* Attendance Action Buttons */
+.attendance-actions-group {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	background: var(--body-background-elevate-2);
+	border: 0.5px solid var(--console-stroke);
+	padding: 3px;
+	border-radius: 20px;
+}
+
+.status-btn {
+	background: transparent;
+	border: none;
+	border-radius: 16px;
+	padding: 5px 14px;
+	font-size: 11px;
+	font-weight: 600;
+	color: var(--main-colors-foreground-f700);
+	cursor: pointer;
+	transition: all 0.15s ease;
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	user-select: none;
+}
+
+.status-btn:hover {
+	color: var(--main-colors-foreground-f100);
+	background: rgba(255, 255, 255, 0.05);
+}
+
+/* Active status states */
+.status-btn.btn-present.active {
+	background: var(--highlight-green) !important;
+	color: #0f172a !important;
+	box-shadow: 0 0 10px rgba(34, 197, 94, 0.4);
+}
+
+.status-btn.btn-late.active {
+	background: var(--highlight-yellow) !important;
+	color: #0f172a !important;
+	box-shadow: 0 0 10px rgba(234, 179, 8, 0.4);
+}
+
+.status-btn.btn-absent.active {
+	background: var(--highlight-red) !important;
+	color: #ffffff !important;
+	box-shadow: 0 0 10px rgba(239, 68, 68, 0.4);
+}
+
+/* Current Status Badge Indicator */
+.status-badge {
+	font-size: 11px;
+	font-weight: 600;
+	padding: 3px 10px;
+	border-radius: 12px;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.status-badge.present {
+	background: rgba(34, 197, 94, 0.15);
+	color: var(--highlight-green);
+	border: 0.5px solid rgba(34, 197, 94, 0.3);
+}
+
+.status-badge.late {
+	background: rgba(234, 179, 8, 0.15);
+	color: var(--highlight-yellow);
+	border: 0.5px solid rgba(234, 179, 8, 0.3);
+}
+
+.status-badge.absent {
+	background: rgba(239, 68, 68, 0.15);
+	color: var(--highlight-red);
+	border: 0.5px solid rgba(239, 68, 68, 0.3);
+}
+
+.status-badge.unmarked {
+	background: rgba(148, 163, 184, 0.1);
+	color: var(--main-colors-foreground-f700);
+	border: 0.5px solid rgba(148, 163, 184, 0.2);
+}
+
+/* 6. Modal Overlay Custom */
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background: rgba(0, 0, 0, 0.75);
+	backdrop-filter: blur(4px);
+	z-index: 1050;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+}
+
+.modal-dialog-custom {
+	background: var(--body-background-elevate-1);
+	border: 0.5px solid var(--console-stroke);
+	border-radius: 14px;
+	width: 100%;
+	max-width: 520px;
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+}
+
+.modal-header-custom {
+	padding: 16px 20px;
+	border-bottom: 0.5px solid var(--console-stroke);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.modal-header-custom h6 {
+	margin: 0;
+	font-weight: 600;
+	color: var(--main-colors-foreground-f100);
+}
+
+.btn-close-modal {
+	background: transparent;
+	border: none;
+	color: var(--main-colors-foreground-f700);
+	font-size: 16px;
+	cursor: pointer;
+	padding: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: color 0.15s ease;
+}
+
+.btn-close-modal:hover {
+	color: var(--main-colors-foreground-f100);
+}
+
+.modal-body-custom {
+	padding: 20px;
+}
+
+.modal-footer-custom {
+	padding: 14px 20px;
+	border-top: 0.5px solid var(--console-stroke);
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	background: var(--body-background-elevate-2);
+}
+
+.students-textarea {
+	width: 100%;
+	font-family: monospace;
+	font-size: 12px;
+	line-height: 1.5;
+	resize: vertical;
+}
+
+/* 7. Floating D-Pad Navigator (Checklist-inspired) */
+.keyboard-nav-guide {
+	position: fixed;
+	bottom: 24px;
+	right: 24px;
+	background: var(--transparent-background-elevate-blur, rgba(20, 24, 33, 0.85));
+	backdrop-filter: blur(20px);
+	-webkit-backdrop-filter: blur(20px);
+	border: 0.5px solid var(--console-stroke);
+	border-radius: 14px;
+	padding: 10px 14px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+	z-index: 90;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 6px;
+	user-select: none;
+	pointer-events: auto;
+	transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+@media (max-width: 768px) {
+	.keyboard-nav-guide {
+		display: none;
+	}
+}
+
+.dpad-header {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	margin-bottom: 2px;
+}
+
+.dpad-title {
+	font-size: 9px;
+	text-transform: uppercase;
+	letter-spacing: 0.8px;
+	color: var(--main-colors-foreground-f700);
+	font-weight: 600;
+}
+
+.dpad-row {
+	display: flex;
+	justify-content: center;
+	gap: 6px;
+	width: 100%;
+}
+
+.keyboard-key {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: var(--body-background-elevate-2, #1a202c);
+	border: 1px solid var(--console-stroke);
+	border-radius: 8px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(255, 255, 255, 0.05) inset;
+	transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.12s ease, border-color 0.12s ease;
+	position: relative;
+	cursor: pointer;
+	padding: 4px 8px;
+	min-width: 52px;
+	height: 44px;
+}
+
+.keyboard-key:hover {
+	border-color: var(--alternative-foreground-gold);
+	transform: translateY(-1px);
+}
+
+.keyboard-key:active,
+.keyboard-key.active {
+	background: var(--alternative-background-light-gold) !important;
+	border-color: var(--alternative-foreground-gold) !important;
+	transform: translateY(1px);
+	box-shadow: 0 0 12px rgba(229, 185, 94, 0.4) !important;
+}
+
+.keyboard-key.key-left.active {
+	background: rgba(239, 68, 68, 0.2) !important;
+	border-color: var(--highlight-red) !important;
+	box-shadow: 0 0 12px rgba(239, 68, 68, 0.4) !important;
+}
+
+.keyboard-key.key-right.active {
+	background: rgba(34, 197, 94, 0.2) !important;
+	border-color: var(--highlight-green) !important;
+	box-shadow: 0 0 12px rgba(34, 197, 94, 0.4) !important;
+}
+
+.keyboard-key.key-late.active {
+	background: rgba(234, 179, 8, 0.2) !important;
+	border-color: var(--highlight-yellow) !important;
+	box-shadow: 0 0 12px rgba(234, 179, 8, 0.4) !important;
+}
+
+.keyboard-key .key-cap {
+	font-size: 0.75rem;
+	font-weight: 700;
+	color: var(--main-colors-foreground-f100);
+	line-height: 1;
+}
+
+.keyboard-key .key-sub {
+	font-size: 8px;
+	color: var(--main-colors-foreground-f700);
+	margin-top: 2px;
+	font-weight: 500;
+}
+
+.keyboard-key.key-late {
+	width: 100%;
+	height: 38px;
+	flex-direction: row;
+	gap: 6px;
+}
+
+.keyboard-key.key-late .key-sub {
+	margin-top: 0;
+	font-size: 11px;
+	color: var(--alternative-foreground-gold);
+}
+
+/* ==========================================================================
+   MODE SWITCHER TABS (LUỒNG 2.1 & LUỒNG 2.2)
+   ========================================================================== */
+.attendance-mode-nav {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	border-bottom: 1px solid var(--console-stroke);
+	padding-bottom: 12px;
+}
+
+.mode-tab-btn {
+	background: var(--body-background-elevate-1);
+	border: 1px solid var(--console-stroke);
+	border-radius: 10px;
+	padding: 10px 18px;
+	color: var(--main-colors-foreground-f700);
+	font-size: 13px;
+	font-weight: 500;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mode-tab-btn:hover {
+	color: var(--main-colors-foreground-f100);
+	border-color: var(--transparent-foreground-main-color-30);
+	background: var(--body-background-elevate-2);
+}
+
+.mode-tab-btn.active {
+	background: var(--alternative-background-light-gold);
+	border-color: var(--alternative-foreground-gold);
+	color: var(--alternative-foreground-gold);
+	font-weight: 600;
+	box-shadow: 0 0 16px rgba(229, 185, 94, 0.15);
+}
+
+.mode-tab-icon {
+	font-size: 15px;
+	line-height: 1;
+}
+
+.mode-tab-badge {
+	font-size: 11px;
+	padding: 2px 7px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.08);
+	color: inherit;
+	font-weight: 500;
+}
+
+.mode-tab-btn.active .mode-tab-badge {
+	background: rgba(229, 185, 94, 0.25);
+	color: var(--alternative-foreground-gold);
+}
+
+/* ==========================================================================
+   LUỒNG 2.1: MA TRẬN ĐIỂM DANH THEO BUỔI (STICKY HORIZONTAL SCROLL)
+   ========================================================================== */
+.attendance-matrix-wrapper {
+	width: 100%;
+	overflow-x: auto;
+	overflow-y: visible;
+	-webkit-overflow-scrolling: touch;
+	scrollbar-width: thin;
+	border: 0.5px solid var(--console-stroke);
+	background: var(--body-background-elevate-1);
+	position: relative;
+	margin-bottom: 16px;
+}
+
+.attendance-matrix-wrapper::-webkit-scrollbar {
+	height: 8px;
+}
+
+.attendance-matrix-wrapper::-webkit-scrollbar-track {
+	background: var(--body-background-elevate-1);
+}
+
+.attendance-matrix-wrapper::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.15);
+	border-radius: 4px;
+}
+
+.attendance-matrix-wrapper::-webkit-scrollbar-thumb:hover {
+	background: rgba(229, 185, 94, 0.4);
+}
+
+.attendance-matrix-table {
+	width: 100%;
+	border-collapse: separate;
+	border-spacing: 0;
+	font-size: 13px;
+	min-width: 680px;
+}
+
+.attendance-matrix-table thead th {
+	background: var(--body-background-elevate-2);
+	color: var(--main-colors-foreground-f200);
+	font-weight: 600;
+	font-size: 12px;
+	padding: 12px 10px;
+	border-bottom: 1px solid var(--console-stroke);
+	white-space: nowrap;
+	user-select: none;
+}
+
+.attendance-matrix-table tbody tr {
+	transition: background 0.12s ease;
+}
+
+.attendance-matrix-table tbody tr:hover {
+	background: rgba(255, 255, 255, 0.02);
+}
+
+.attendance-matrix-table tbody td {
+	padding: 10px 8px;
+	border-bottom: 0.5px solid var(--console-stroke);
+	vertical-align: middle;
+	background: inherit;
+}
+
+/* 1. Cột STT cố định (Sticky 1) */
+.matrix-col-stt {
+	position: sticky;
+	left: 0;
+	z-index: 10;
+	width: 44px;
+	min-width: 44px;
+	max-width: 44px;
+	text-align: center;
+	background: var(--body-background-elevate-1) !important;
+	font-family: monospace;
+	color: var(--main-colors-foreground-f700);
+	border-right: 0.5px solid var(--console-stroke);
+}
+
+thead th.matrix-col-stt {
+	z-index: 25;
+	background: var(--body-background-elevate-2) !important;
+}
+
+/* 2. Cột Học Viên cố định (Sticky 2) */
+.matrix-col-student {
+	position: sticky;
+	left: 44px;
+	z-index: 10;
+	min-width: 230px;
+	max-width: 270px;
+	background: var(--body-background-elevate-1) !important;
+	border-right: 1px solid var(--console-stroke);
+}
+
+thead th.matrix-col-student {
+	z-index: 25;
+	background: var(--body-background-elevate-2) !important;
+}
+
+.matrix-student-info {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	min-width: 0;
+}
+
+.matrix-student-info .student-name {
+	font-size: 13px;
+	font-weight: 600;
+	color: var(--main-colors-foreground-f100);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 170px;
+}
+
+.matrix-student-info .student-email {
+	font-size: 11px;
+	color: var(--main-colors-foreground-f700);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 170px;
+}
+
+/* 3. Cột Ngày Học (Scrollable Session Columns) */
+.matrix-col-session {
+	min-width: 108px;
+	text-align: center;
+	border-right: 0.5px solid var(--console-stroke);
+	padding: 8px 6px;
+}
+
+.matrix-session-header {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 3px;
+}
+
+.matrix-session-header .session-title {
+	font-weight: 600;
+	color: var(--main-colors-foreground-f100);
+	font-size: 12px;
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+}
+
+.matrix-session-header .session-date {
+	font-size: 10px;
+	color: var(--main-colors-foreground-f700);
+	font-weight: 500;
+}
+
+.matrix-session-header .session-meta {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	margin-top: 2px;
+}
+
+.btn-jump-session {
+	background: rgba(229, 185, 94, 0.12);
+	border: 0.5px solid rgba(229, 185, 94, 0.3);
+	color: var(--alternative-foreground-gold);
+	border-radius: 4px;
+	padding: 2px 6px;
+	font-size: 10px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.15s ease;
+	line-height: 1.2;
+}
+
+.btn-jump-session:hover {
+	background: var(--alternative-foreground-gold);
+	color: #000;
+}
+
+.matrix-session-ratio {
+	font-size: 10px;
+	color: var(--highlight-green);
+	font-family: monospace;
+	font-weight: 600;
+}
+
+/* 4. Cell tương tác điểm danh (Interactive Cell) */
+.matrix-cell-record {
+	text-align: center;
+	cursor: pointer;
+	padding: 8px 6px !important;
+	user-select: none;
+	transition: background 0.12s ease;
+}
+
+.matrix-cell-record:hover {
+	background: rgba(229, 185, 94, 0.08) !important;
+}
+
+.matrix-badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 68px;
+	padding: 4px 8px;
+	border-radius: 6px;
+	font-size: 11px;
+	font-weight: 600;
+	line-height: 1.2;
+	transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.matrix-cell-record:active .matrix-badge {
+	transform: scale(0.94);
+}
+
+.matrix-badge.present {
+	background: rgba(34, 197, 94, 0.16);
+	color: var(--highlight-green);
+	border: 0.5px solid rgba(34, 197, 94, 0.4);
+}
+
+.matrix-badge.late {
+	background: rgba(234, 179, 8, 0.16);
+	color: var(--highlight-yellow);
+	border: 0.5px solid rgba(234, 179, 8, 0.4);
+}
+
+.matrix-badge.absent {
+	background: rgba(239, 68, 68, 0.16);
+	color: var(--highlight-red);
+	border: 0.5px solid rgba(239, 68, 68, 0.4);
+}
+
+.matrix-badge.unmarked {
+	background: transparent;
+	color: var(--main-colors-foreground-f700);
+	border: 0.5px dashed rgba(255, 255, 255, 0.12);
+}
+
+.matrix-cell-record:hover .matrix-badge.unmarked {
+	border-color: var(--alternative-foreground-gold);
+	color: var(--alternative-foreground-gold);
+}
+
+/* 5. Cột Tổng Kết Chuyên Cần (Attendance Summary) */
+.matrix-col-summary {
+	min-width: 120px;
+	text-align: center;
+	padding: 8px 12px !important;
+	background: var(--body-background-elevate-1) !important;
+	border-left: 1px solid var(--console-stroke);
+}
+
+.attendance-rate-pill {
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+}
+
+.attendance-rate-fraction {
+	font-size: 12px;
+	font-weight: 700;
+	color: var(--main-colors-foreground-f100);
+	font-family: monospace;
+}
+
+.attendance-rate-percent {
+	font-size: 10px;
+	font-weight: 600;
+	padding: 1px 6px;
+	border-radius: 999px;
+}
+
+.attendance-rate-percent.good {
+	background: rgba(34, 197, 94, 0.15);
+	color: var(--highlight-green);
+}
+
+.attendance-rate-percent.warning {
+	background: rgba(234, 179, 8, 0.15);
+	color: var(--highlight-yellow);
+}
+
+.attendance-rate-percent.danger {
+	background: rgba(239, 68, 68, 0.15);
+	color: var(--highlight-red);
+}
+
+/* 6. Matrix Legend Footer */
+.matrix-legend-footer {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: wrap;
+	padding: 12px 18px;
+	background: var(--body-background-elevate-2);
+	border-top: 0.5px solid var(--console-stroke);
+	border-radius: 0 0 8px 8px;
+	font-size: 11px;
+	color: var(--main-colors-foreground-f700);
+}
+
+.legend-title {
+	font-weight: 600;
+	color: var(--main-colors-foreground-f200);
+}
+
+.legend-item {
+	display: inline-flex;
+	align-items: center;
+}
+
+.legend-badge {
+	padding: 2px 8px;
+	border-radius: 4px;
+	font-size: 11px;
+	font-weight: 600;
+}
+
+.legend-badge.present {
+	background: rgba(34, 197, 94, 0.16);
+	color: var(--highlight-green);
+}
+
+.legend-badge.late {
+	background: rgba(234, 179, 8, 0.16);
+	color: var(--highlight-yellow);
+}
+
+.legend-badge.absent {
+	background: rgba(239, 68, 68, 0.16);
+	color: var(--highlight-red);
+}
+
+.legend-badge.unmarked {
+	border: 0.5px dashed rgba(255, 255, 255, 0.2);
+	color: var(--main-colors-foreground-f700);
+}
+
+.legend-tip {
+	margin-left: auto;
+	color: var(--alternative-foreground-gold);
+	font-style: italic;
+}

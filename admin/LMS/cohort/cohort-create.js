@@ -76,6 +76,9 @@ window.ADMIN_CONFIG = {
 			const isPublic = document.getElementById('cohort-is-public')?.value !== 'false';
 			const formUrl = document.getElementById('cohort-form-url').value.trim();
 
+			const rawEmails = (document.getElementById('cohort-student-emails')?.value || '').trim();
+			const studentEmails = Array.from(new Set(rawEmails.split('\n').map(e => e.trim().toLowerCase()).filter(e => e.length > 0 && e.includes('@'))));
+
 			const selectedCourse = coursesMap.get(courseId);
 			const btnSave = document.getElementById('btn-save-cohort');
 
@@ -112,12 +115,21 @@ window.ADMIN_CONFIG = {
 					pricing: tuition,
 					schedule,
 					formUrl,
+					studentEmails,
 					createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 					updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
 					createdBy: currentUser?.email || 'admin'
 				};
 
 				await currentDb.collection('cohorts').doc(id).set(payload);
+
+				// Tự động đồng bộ học viên vào authorizedUsers với role: 'member'
+				if (Array.isArray(studentEmails) && studentEmails.length > 0) {
+					syncCohortStudentsToUsers(currentDb, id, studentEmails, currentUser?.email || 'admin').catch(e => {
+						console.warn('[Cohort] Lỗi sync users ngầm:', e);
+					});
+				}
+
 				showAdminToast(`✅ Đã mở lớp học "${code}" thành công!`, 'success');
 				setTimeout(() => {
 					window.location.href = 'index.html';
@@ -128,3 +140,34 @@ window.ADMIN_CONFIG = {
 				btnSave.textContent = '💾 Tạo Lớp Học Mới';
 			}
 		});
+
+		async function syncCohortStudentsToUsers(db, cohortId, emails, currentEmail) {
+			if (!Array.isArray(emails) || emails.length === 0) return;
+			const tasks = emails.map(async raw => {
+				const clean = (raw || '').trim().toLowerCase();
+				if (!clean || !clean.includes('@')) return;
+				const docSnap = await db.collection('authorizedUsers').doc(clean).get().catch(() => null);
+				if (docSnap && docSnap.exists) {
+					await db.collection('authorizedUsers').doc(clean).set({
+						cohortIds: firebase.firestore.FieldValue.arrayUnion(cohortId),
+						updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+					}, { merge: true });
+				} else {
+					const displayName = clean.split('@')[0];
+					await db.collection('authorizedUsers').doc(clean).set({
+						id: 'usr_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 8),
+						primaryEmail: clean,
+						emails: [clean],
+						displayName: displayName.charAt(0).toUpperCase() + displayName.slice(1),
+						role: 'member',
+						status: 'active',
+						phone: '',
+						cohortIds: [cohortId],
+						createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+						updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+						addedBy: currentEmail || 'admin'
+					}, { merge: true });
+				}
+			});
+			await Promise.all(tasks);
+		}

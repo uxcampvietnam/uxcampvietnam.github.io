@@ -160,6 +160,15 @@
 							<span class="form-hint">Mặc định người dùng click 'Đăng ký' sẽ chuyển tới trang đăng ký tích hợp của website.</span>
 						</div>
 
+						<div class="form-group mt-3">
+							<div class="d-flex justify-content-between align-items-center mb-1">
+								<label for="cohort-student-emails" class="m-0">Danh Sách Học Viên Lớp Học</label>
+								<span id="student-count-badge" class="admin-tag admin-tag-gold">0 học viên</span>
+							</div>
+							<textarea id="cohort-student-emails" class="form-control-custom" rows="5" placeholder="nguyenvana@gmail.com&#10;tranthib@gmail.com&#10;leduc@gmail.com" style="font-family: monospace; font-size: 12px;"></textarea>
+							<span class="form-hint">Mỗi email một dòng. Hệ thống tự động đối chiếu tài khoản học viên trong cơ sở dữ liệu.</span>
+						</div>
+
 						<div class="d-flex justify-content-end gap-3 mt-4 pt-3" style="border-top: 0.5px solid var(--transparent-foreground-main-color-10);">
 							<a href="index.html" class="btn-admin btn-admin-secondary">Hủy Bỏ</a>
 							<button type="submit" class="btn-admin btn-admin-primary" id="btn-save-cohort">💾 Cập Nhật Lớp Học</button>

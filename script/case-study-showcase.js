@@ -715,7 +715,7 @@
         if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
       });
 
-      this.isSectionVisible = true;
+      this.isSectionVisible = false;
       if ('IntersectionObserver' in window) {
         this.sectionObserver = new IntersectionObserver((entries) => {
           entries.forEach(entry => {

@@ -119,6 +119,135 @@
 
 	</div>
 
+	<!-- --- MODAL QUẢN LÝ HỌC VIÊN CỦA LỚP --- -->
+	<div class="admin-modal-overlay" id="modal-cohort-students" style="display: none;">
+		<div class="admin-modal-dialog admin-modal-dialog-lg">
+			<div class="admin-modal-header">
+				<div>
+					<h6 id="modal-cohort-title">Học Viên Lớp Học</h6>
+					<span class="font-sans-small" id="modal-cohort-subtitle" style="color: var(--main-colors-foreground-f700);"></span>
+				</div>
+				<button type="button" class="admin-btn-close" id="btn-close-cohort-students" aria-label="Đóng">✕</button>
+			</div>
+
+			<div class="admin-modal-body">
+				<!-- Action Toolbar -->
+				<div class="d-flex align-items-center justify-content-between gap-2 flex-wrap mb-3 pb-2" style="border-bottom: 0.5px solid var(--console-stroke);">
+					<div class="d-flex align-items-center gap-2 flex-grow-1" style="max-width: 320px;">
+						<input type="text" id="cohort-student-search" class="form-control-custom" placeholder="Lọc theo tên, email, sđt..." style="height: 34px; font-size: 12px;">
+					</div>
+					<div class="d-flex align-items-center gap-2 flex-wrap">
+						<span id="cohort-students-save-status" class="font-sans-caption d-none align-items-center" style="color: var(--highlight-yellow); font-size: 11px;">
+							● Có thay đổi chưa lưu
+						</span>
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-add-student-row" title="Thêm 1 hàng mới trực tiếp trên bảng">
+							+ Thêm Dòng
+						</button>
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-toggle-add-panel" title="Dán nhiều email từ Excel / Google Sheet">
+							📋 Nạp Hàng Loạt
+						</button>
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-export-cohort-students-csv" title="Tải file CSV danh sách học viên">
+							📥 Xuất CSV
+						</button>
+						<a href="#" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-modal-attendance" title="Chuyển tới Điểm danh lớp này">
+							📋 Điểm Danh
+						</a>
+						<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btn-save-cohort-students" title="Lưu toàn bộ thay đổi trên bảng (Ctrl+S)">
+							💾 Lưu Thay Đổi
+						</button>
+					</div>
+				</div>
+
+				<!-- Panel Thêm Học Viên (Expandable) -->
+				<div id="panel-add-students" class="mb-3 p-3" style="display: none; background: var(--body-background-elevate-2); border: 0.5px solid var(--console-stroke); border-radius: 10px;">
+					<div class="d-flex align-items-center justify-content-between mb-2">
+						<span class="font-sans-caption fw-semibold" style="color: var(--alternative-foreground-gold);">Nạp Học Viên Nhanh Vào Bảng</span>
+						<button type="button" class="admin-btn-close" id="btn-close-add-panel" style="font-size: 12px;">✕ Đóng</button>
+					</div>
+
+					<!-- Tabs chọn phương thức thêm -->
+					<ul class="nav nav-pills mb-3 gap-2" id="add-student-tabs">
+						<li class="nav-item">
+							<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm active" id="tab-btn-add-system-user">Chọn từ Users hệ thống</button>
+						</li>
+						<li class="nav-item">
+							<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="tab-btn-add-bulk-emails">Dán dữ liệu Google Sheet / Excel</button>
+						</li>
+					</ul>
+
+					<!-- Form A: Chọn từ Users hệ thống -->
+					<div id="add-mode-system-user">
+						<div class="d-flex gap-2">
+							<select id="select-system-user" class="form-control-custom" style="flex: 1; height: 36px; font-size: 12px;">
+								<option value="">-- Tìm chọn người dùng --</option>
+							</select>
+							<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btn-submit-add-user">
+								+ Chèn Vào Bảng
+							</button>
+						</div>
+						<span class="form-hint">Chọn người dùng để tự động điền Tên, Email, SĐT vào bảng.</span>
+					</div>
+
+					<!-- Form B: Dán danh sách Email hàng loạt -->
+					<div id="add-mode-bulk-emails" style="display: none;">
+						<textarea id="textarea-bulk-emails" class="form-control-custom mb-2" rows="4" placeholder="Dán cột từ Google Sheet / Excel vào đây (mỗi học viên một dòng):&#10;nguyenvana@gmail.com&#10;tranthib@gmail.com [Tab hoặc Dấu phẩy] Trần Thị B [Tab] 0901234567" style="font-family: monospace; font-size: 12px;"></textarea>
+						<div class="d-flex justify-content-between align-items-center">
+							<span class="form-hint">Hỗ trợ nhận dạng Email, Tên, Số điện thoại (phân cách bởi Tab hoặc Phẩy).</span>
+							<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btn-submit-bulk-emails">
+								+ Nạp Vào Bảng
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<!-- Table Danh Sách Học Viên -->
+				<div class="table-responsive user-table-container" style="max-height: 520px; overflow-y: auto;">
+					<div id="modal-cohort-students-table">
+						<!-- Rendered dynamically -->
+					</div>
+				</div>
+			</div>
+
+			<div class="admin-modal-footer d-flex justify-content-between align-items-center">
+				<span class="font-sans-caption" style="color: var(--main-colors-foreground-f700); font-size: 11px;">
+					💡 Học viên mới lưu sẽ tự động được tạo tài khoản trong User List với Role: <strong>Member</strong>. Phím tắt <strong>Ctrl+S / Cmd+S</strong> để lưu nhanh.
+				</span>
+				<div class="d-flex gap-2">
+					<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-modal-close-footer">Đóng</button>
+					<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btn-save-cohort-students-footer">💾 Lưu Thay Đổi</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- --- MODAL CHUYỂN LỚP (TRANSFER COHORT) --- -->
+	<div class="admin-modal-overlay" id="modal-transfer-cohort" style="display: none; z-index: 1060;">
+		<div class="admin-modal-dialog" style="max-width: 440px;">
+			<div class="admin-modal-header">
+				<h6>Chuyển Lớp Học Viên</h6>
+				<button type="button" class="admin-btn-close" id="btn-close-transfer-modal">✕</button>
+			</div>
+			<div class="admin-modal-body">
+				<p class="font-sans-small mb-2" style="color: var(--main-colors-foreground-f700);">
+					Chuyển học viên <strong id="transfer-student-name" style="color: var(--main-colors-foreground-f100);"></strong> (<span id="transfer-student-email" style="font-family: monospace;"></span>) sang lớp khác:
+				</p>
+				<div class="form-group mb-3">
+					<label class="control-label mb-1">Chọn Lớp Đích:</label>
+					<select id="transfer-target-cohort" class="form-control-custom" style="width: 100%;">
+						<!-- Dynamic cohorts options -->
+					</select>
+				</div>
+				<span class="font-sans-small" style="color: var(--highlight-yellow);">
+					⚠️ Học viên sẽ được rút khỏi lớp hiện tại và thêm vào lớp mới đã chọn.
+				</span>
+			</div>
+			<div class="admin-modal-footer">
+				<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-cancel-transfer">Hủy Bỏ</button>
+				<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btn-confirm-transfer">Xác Nhận Chuyển Lớp</button>
+			</div>
+		</div>
+	</div>
+
 	<script src="cohort-index.js"></script>
 	<script src="../../admin-shell.js"></script>
 

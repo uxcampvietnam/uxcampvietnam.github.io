@@ -553,3 +553,121 @@
 		transform: translateY(0);
 	}
 }
+
+/* ==========================================================================
+   ADMIN SHARED MODALS & STUDENT MANAGEMENT
+   ========================================================================== */
+.admin-modal-overlay {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	width: 100vw;
+	height: 100vh;
+	background: rgba(0, 0, 0, 0.75);
+	backdrop-filter: blur(4px);
+	-webkit-backdrop-filter: blur(4px);
+	z-index: 1050;
+	align-items: center;
+	justify-content: center;
+	padding: 20px;
+}
+
+.admin-modal-overlay.open,
+.admin-modal-overlay.show {
+	display: flex !important;
+}
+
+.admin-modal-dialog {
+	background: var(--body-background-elevate-1);
+	border: 0.5px solid var(--console-stroke);
+	border-radius: 14px;
+	width: 100%;
+	max-width: 580px;
+	box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+	display: flex;
+	flex-direction: column;
+	max-height: 90vh;
+	overflow: hidden;
+	animation: modalSlideUp 0.2s ease-out;
+}
+
+.admin-modal-dialog-lg {
+	max-width: 860px !important;
+}
+
+.admin-modal-header {
+	padding: 16px 20px;
+	border-bottom: 0.5px solid var(--console-stroke);
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background: var(--body-background-elevate-1);
+}
+
+.admin-modal-header h6 {
+	margin: 0;
+	font-weight: 600;
+	color: var(--main-colors-foreground-f100);
+}
+
+.admin-modal-body {
+	padding: 20px;
+	overflow-y: auto;
+}
+
+.admin-modal-footer {
+	padding: 14px 20px;
+	border-top: 0.5px solid var(--console-stroke);
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
+	background: var(--body-background-elevate-2);
+}
+
+.admin-btn-close {
+	background: transparent;
+	border: none;
+	color: var(--main-colors-foreground-f700);
+	font-size: 16px;
+	cursor: pointer;
+	padding: 4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: color 0.15s ease;
+}
+
+.admin-btn-close:hover {
+	color: var(--main-colors-foreground-f100);
+}
+
+@keyframes modalSlideUp {
+	from {
+		opacity: 0;
+		transform: translateY(14px) scale(0.98);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+/* Student Row Avatar */
+.student-avatar-sm {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	object-fit: cover;
+	border: 0.5px solid var(--console-stroke);
+	background: var(--body-background-elevate-2);
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 600;
+	font-size: 11px;
+	color: var(--main-colors-foreground-f200);
+	flex-shrink: 0;
+}

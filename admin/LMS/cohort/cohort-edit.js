@@ -7,10 +7,12 @@ window.ADMIN_CONFIG = {
 		const cohortId = urlParams.get('id');
 
 		let currentDb = null;
+		let currentUser = null;
 		let coursesMap = new Map();
 
 		window.addEventListener('adminReady', async (e) => {
 			currentDb = e.detail.db;
+			currentUser = e.detail.user;
 			if (!cohortId) {
 				showAdminToast('⚠️ Không tìm thấy id lớp học!', 'warning');
 				setTimeout(() => window.location.href = 'index.html', 1500);
@@ -66,6 +68,19 @@ window.ADMIN_CONFIG = {
 				document.getElementById('cohort-is-public').value = data.isPublic !== false && data.listing !== 0 ? 'true' : 'false';
 				document.getElementById('cohort-form-url').value = data.formUrl || '';
 
+				// Danh sách học viên
+				const studentEmails = Array.isArray(data.studentEmails) ? data.studentEmails : [];
+				const studentTextarea = document.getElementById('cohort-student-emails');
+				const studentBadge = document.getElementById('student-count-badge');
+				if (studentTextarea) {
+					studentTextarea.value = studentEmails.join('\n');
+					if (studentBadge) studentBadge.textContent = `${studentEmails.length} học viên`;
+					studentTextarea.oninput = () => {
+						const cnt = studentTextarea.value.split('\n').filter(e => e.trim().length > 0).length;
+						if (studentBadge) studentBadge.textContent = `${cnt} học viên`;
+					};
+				}
+
 			} catch (err) {
 				showAdminToast(`❌ Lỗi tải dữ liệu: ${err.message}`, 'error');
 			}
@@ -86,6 +101,8 @@ window.ADMIN_CONFIG = {
 			const schedule = document.getElementById('cohort-schedule').value.trim();
 			const isPublic = document.getElementById('cohort-is-public')?.value !== 'false';
 			const formUrl = document.getElementById('cohort-form-url').value.trim();
+			const rawEmails = (document.getElementById('cohort-student-emails')?.value || '').trim();
+			const studentEmails = Array.from(new Set(rawEmails.split('\n').map(e => e.trim().toLowerCase()).filter(e => e.length > 0 && e.includes('@'))));
 
 			const selectedCourse = coursesMap.get(courseId);
 			const btnSave = document.getElementById('btn-save-cohort');
@@ -122,10 +139,19 @@ window.ADMIN_CONFIG = {
 					pricing: tuition,
 					schedule,
 					formUrl,
+					studentEmails,
 					updatedAt: firebase.firestore.FieldValue.serverTimestamp()
 				};
 
 				await currentDb.collection('cohorts').doc(cohortId).set(payload, { merge: true });
+
+				// Tự động đồng bộ học viên vào authorizedUsers với role: 'member'
+				if (Array.isArray(studentEmails) && studentEmails.length > 0) {
+					syncCohortStudentsToUsers(currentDb, cohortId, studentEmails, currentUser?.email || 'admin').catch(e => {
+						console.warn('[Cohort] Lỗi sync users ngầm:', e);
+					});
+				}
+
 				showAdminToast(`✅ Đã cập nhật lớp học "${code}"!`, 'success');
 				btnSave.disabled = false;
 				btnSave.textContent = '💾 Cập Nhật Lớp Học';
@@ -135,3 +161,34 @@ window.ADMIN_CONFIG = {
 				btnSave.textContent = '💾 Cập Nhật Lớp Học';
 			}
 		});
+
+		async function syncCohortStudentsToUsers(db, cohortId, emails, currentEmail) {
+			if (!Array.isArray(emails) || emails.length === 0) return;
+			const tasks = emails.map(async raw => {
+				const clean = (raw || '').trim().toLowerCase();
+				if (!clean || !clean.includes('@')) return;
+				const docSnap = await db.collection('authorizedUsers').doc(clean).get().catch(() => null);
+				if (docSnap && docSnap.exists) {
+					await db.collection('authorizedUsers').doc(clean).set({
+						cohortIds: firebase.firestore.FieldValue.arrayUnion(cohortId),
+						updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+					}, { merge: true });
+				} else {
+					const displayName = clean.split('@')[0];
+					await db.collection('authorizedUsers').doc(clean).set({
+						id: 'usr_' + Date.now().toString(36) + '_' + Math.random().toString(36).substring(2, 8),
+						primaryEmail: clean,
+						emails: [clean],
+						displayName: displayName.charAt(0).toUpperCase() + displayName.slice(1),
+						role: 'member',
+						status: 'active',
+						phone: '',
+						cohortIds: [cohortId],
+						createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+						updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
+						addedBy: currentEmail || 'admin'
+					}, { merge: true });
+				}
+			});
+			await Promise.all(tasks);
+		}

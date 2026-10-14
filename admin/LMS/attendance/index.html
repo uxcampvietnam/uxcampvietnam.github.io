@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Điểm Danh Lớp Học — UXCamp Admin</title>
+	<link rel="icon" href="../../../asset/icon/favicon.ico">
+	<meta name="robots" content="noindex, nofollow">
+
+	<!-- Bootstrap 5 -->
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="../../../style/definition.css">
+	<link rel="stylesheet" type="text/css" href="../../../style/style.css">
+	<link rel="stylesheet" type="text/css" href="../../../style/admin.css">
+	<link rel="stylesheet" type="text/css" href="../../admin-shared.css">
+	<link rel="stylesheet" type="text/css" href="attendance.css">
+
+	<!-- Firebase SDK -->
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+	<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+</head>
+
+<body>
+
+	<div class="app-container admin-app-container">
+
+		<!-- Auth gate overlay -->
+		<div class="auth-gate" id="auth-gate">
+			<div class="auth-spinner"></div>
+			<span class="font-sans-caption" style="color: var(--main-colors-foreground-f700);">Đang kiểm tra quyền truy
+				cập admin...</span>
+		</div>
+
+		<!-- SIDEBAR PANEL (Rendered dynamically by admin-shell.js) -->
+		<aside class="sidebar admin-sidebar" id="sidebar" style="display: none;"></aside>
+
+		<!-- MAIN CONTENT WORKSPACE -->
+		<div class="main-wrapper admin-main-wrapper" id="admin-content" style="display: none;">
+			<main class="main-content admin-main-content">
+
+				<!-- Top Bar -->
+				<header class="admin-top-bar">
+					<div class="top-bar-left">
+						<button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Mở menu quản lý">
+							<svg style="width:20px;height:20px;fill:currentColor" viewBox="0 0 24 24">
+								<path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z" />
+							</svg>
+						</button>
+						<div>
+							<div class="admin-breadcrumb">
+								<a href="../../index.html">Admin</a>
+								<span class="separator">/</span>
+								<a href="../cohort/index.html">LMS</a>
+								<span class="separator">/</span>
+								<span>Điểm danh</span>
+							</div>
+							<h4 class="font-sans-h4 medium m-0" style="color: var(--main-colors-foreground-f100);">Điểm
+								Danh Buổi Học (Attendance)</h4>
+						</div>
+					</div>
+					<div class="top-bar-actions d-flex align-items-center gap-2">
+						<span id="save-status-indicator" class="save-status-badge">✓ Đã lưu</span>
+						<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btn-save-attendance"
+							title="Lưu điểm danh lên hệ thống (Ctrl+S / ⌘S)">
+							💾 Lưu Điểm Danh
+						</button>
+						<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm"
+							id="btn-manage-students" title="Quản lý danh sách học viên trong lớp">
+							👥 Học Viên Lớp
+						</button>
+						<a href="../cohort/index.html" class="btn-admin btn-admin-secondary btn-admin-sm">← Về
+							Cohorts</a>
+					</div>
+				</header>
+
+				<!-- COHORT SELECTOR & ACTIONS -->
+				<div class="attendance-control-panel mb-3">
+					<div class="d-flex align-items-center justify-content-between gap-3 flex-wrap">
+						<div class="d-flex align-items-center gap-3 flex-wrap flex-grow-1">
+							<div class="cohort-select-wrapper">
+								<label for="select-cohort" class="control-label">Chọn Lớp Học (Đang Học):</label>
+								<select id="select-cohort" class="form-control-custom cohort-select">
+									<option value="">-- Đang nạp danh sách lớp đang học... --</option>
+								</select>
+							</div>
+							<div class="session-date-wrapper" id="session-date-container" style="display: none;">
+								<label for="session-date-input" class="control-label">Ngày Buổi Học:</label>
+								<input type="date" id="session-date-input" class="form-control-custom date-input">
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- 2 CHẾ ĐỘ NGHIỆP VỤ ĐIỂM DANH -->
+				<div class="attendance-mode-nav mb-4" id="attendance-mode-nav" style="display: none;">
+					<button type="button" class="mode-tab-btn active" id="btn-mode-matrix" data-mode="matrix">
+						<span class="mode-tab-icon">📊</span>
+						<span class="mode-tab-text">Bảng Điểm Danh Theo Buổi</span>
+						<span class="mode-tab-badge" id="badge-matrix-total-sessions">0 buổi</span>
+					</button>
+					<button type="button" class="mode-tab-btn" id="btn-mode-session" data-mode="session">
+						<span class="mode-tab-icon">⚡</span>
+						<span class="mode-tab-text">Điểm Danh Buổi Mới / Chi Tiết</span>
+						<span class="mode-tab-badge" id="badge-session-active-num">Buổi 1</span>
+					</button>
+				</div>
+
+				<!-- ========================================================= -->
+				<!-- LUỒNG 2.1: VIEW DANH SÁCH ĐIỂM DANH THEO BUỔI (MATRIX VIEW) -->
+				<!-- ========================================================= -->
+				<section class="admin-card attendance-card mb-4" id="matrix-view-card" style="display: none;">
+					<div class="admin-card-header flex-wrap gap-2">
+						<div class="d-flex align-items-center gap-2">
+							<div>
+								<h5 class="font-sans-h5 medium m-0" style="color: var(--main-colors-foreground-f200);">
+									📊 Bảng Điểm Danh Toàn Khóa
+								</h5>
+								<p class="font-sans-caption m-0 mt-1" style="color: var(--main-colors-foreground-f700);">
+									Cố định cột học viên • Cuộn ngang theo ngày học • Click ô để chỉnh nhanh
+								</p>
+							</div>
+						</div>
+						<div class="d-flex gap-2 align-items-center flex-wrap">
+							<div class="table-search-box">
+								<input type="text" id="matrix-search-input" class="form-control-custom"
+									placeholder="Tìm học viên trong bảng...">
+							</div>
+							<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm"
+								id="btn-matrix-export-csv" title="Xuất dữ liệu ma trận điểm danh ra file CSV">
+								📥 Xuất CSV
+							</button>
+							<button type="button" class="btn-admin btn-admin-primary btn-admin-sm"
+								id="btn-matrix-add-session" title="Tạo buổi học mới và chuyển sang điểm danh">
+								+ Điểm Danh Buổi Mới
+							</button>
+						</div>
+					</div>
+
+					<!-- Scrollable Matrix Table Wrapper -->
+					<div class="attendance-matrix-wrapper" id="attendance-matrix-wrapper">
+						<div class="empty-state p-5 text-center" style="color: var(--main-colors-foreground-f700);">
+							Vui lòng chọn một lớp học để tải bảng điểm danh.
+						</div>
+					</div>
+
+					<!-- Matrix Legend Footer -->
+					<div class="matrix-legend-footer">
+						<span class="legend-title">Chú thích:</span>
+						<span class="legend-item"><span class="legend-badge present">✓ Có mặt</span></span>
+						<span class="legend-item"><span class="legend-badge late">⏰ Đi muộn</span></span>
+						<span class="legend-item"><span class="legend-badge absent">✗ Vắng mặt</span></span>
+						<span class="legend-item"><span class="legend-badge unmarked">— Chưa điểm</span></span>
+						<span class="legend-tip">💡 Click trực tiếp vào ô để chuyển nhanh trạng thái</span>
+					</div>
+				</section>
+
+				<!-- ========================================================= -->
+				<!-- LUỒNG 2.2: ĐIỂM DANH BUỔI MỚI / THEO BUỔI (SPEED SESSION)  -->
+				<!-- ========================================================= -->
+
+				<!-- SESSIONS HORIZONTAL TABS BAR -->
+				<div class="sessions-nav-container mb-4" id="sessions-nav-container" style="display: none;">
+					<div class="sessions-tabs-scroll" id="sessions-tabs-scroll">
+						<!-- Dynamic session tabs rendered here -->
+					</div>
+					<div class="sessions-actions">
+						<button type="button" class="btn-add-session" id="btn-add-session"
+							title="Tạo buổi học tiếp theo">
+							<span>+ Thêm Buổi</span>
+						</button>
+						<button type="button" class="btn-delete-session" id="btn-delete-session"
+							title="Xóa buổi học này">
+							<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+								stroke-width="2">
+								<path
+									d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+							</svg>
+						</button>
+					</div>
+				</div>
+
+				<!-- STATS BAR -->
+				<div class="admin-stats-bar mb-4" id="attendance-stats-bar" style="display: none;">
+					<div class="stat-card">
+						<span class="stat-value" id="stat-total-students">0</span>
+						<span class="stat-label">Sĩ Số Lớp</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-present-count" style="color: var(--highlight-green);">0</span>
+						<span class="stat-label">Có Mặt</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-late-count" style="color: var(--highlight-yellow);">0</span>
+						<span class="stat-label">Muộn</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-absent-count" style="color: var(--highlight-red);">0</span>
+						<span class="stat-label">Vắng</span>
+					</div>
+					<div class="stat-card">
+						<span class="stat-value" id="stat-unmarked-count"
+							style="color: var(--main-colors-foreground-f700);">0</span>
+						<span class="stat-label">Chưa Điểm Danh</span>
+					</div>
+				</div>
+
+				<!-- ATTENDANCE TABLE CARD (LUỒNG 2.2) -->
+				<section class="admin-card attendance-card" id="attendance-table-card" style="display: none;">
+					<div class="admin-card-header flex-wrap gap-2">
+						<div class="d-flex align-items-center gap-2">
+							<h5 class="font-sans-h5 medium m-0" id="current-session-heading"
+								style="color: var(--main-colors-foreground-f200);">
+								Danh Sách Điểm Danh
+							</h5>
+						</div>
+						<div class="d-flex gap-2 align-items-center flex-wrap">
+							<div class="table-search-box">
+								<input type="text" id="student-search-input" class="form-control-custom"
+									placeholder="Tìm tên hoặc email...">
+							</div>
+							<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm"
+								id="btn-mark-all-present" title="Đánh dấu tất cả có mặt">
+								✓ Đánh Dấu Tất Cả Có Mặt
+							</button>
+							<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm"
+								id="btn-back-to-matrix" title="Trở về bảng tổng hợp theo buổi">
+								📊 Về Bảng Tổng Hợp
+							</button>
+						</div>
+					</div>
+
+					<div class="table-responsive attendance-table-wrapper" id="attendance-table-container">
+						<div class="empty-state p-5 text-center" style="color: var(--main-colors-foreground-f700);">
+							Vui lòng chọn một lớp học để bắt đầu điểm danh.
+						</div>
+					</div>
+				</section>
+
+			</main>
+		</div>
+
+	</div>
+
+	<!-- --- MODAL QUẢN LÝ HỌC VIÊN CỦA LỚP --- -->
+	<div class="modal-overlay" id="modal-manage-students" style="display: none;">
+		<div class="modal-dialog-custom">
+			<div class="modal-header-custom">
+				<h6>Danh Sách Học Viên Trong Lớp</h6>
+				<button type="button" class="btn-close-modal" id="btn-close-students-modal" aria-label="Đóng">✕</button>
+			</div>
+			<div class="modal-body-custom">
+				<p class="font-sans-small" style="color: var(--main-colors-foreground-f700); margin-bottom: 12px;">
+					Nhập danh sách email học viên tham gia lớp này (mỗi email một dòng). Hệ thống sẽ tự động đối chiếu
+					họ tên từ tài khoản người dùng:
+				</p>
+				<textarea id="cohort-students-textarea" class="form-control-custom students-textarea" rows="10"
+					placeholder="nguyenvana@gmail.com&#10;tranthib@gmail.com&#10;leduc@gmail.com"></textarea>
+				<div class="mt-2 font-sans-small" id="students-count-indicator"
+					style="color: var(--alternative-foreground-gold);">
+					0 học viên
+				</div>
+			</div>
+			<div class="modal-footer-custom">
+				<button type="button" class="btn-admin btn-admin-secondary btn-admin-sm" id="btn-cancel-students">Hủy
+					Bỏ</button>
+				<button type="button" class="btn-admin btn-admin-primary btn-admin-sm" id="btn-save-students">💾 Lưu
+					Danh Sách Học Viên</button>
+			</div>
+		</div>
+	</div>
+
+	<!-- --- FLOATING KEYBOARD SHORTCUTS NAVIGATOR (D-PAD) --- -->
+	<div class="keyboard-nav-guide" id="keyboard-nav-guide">
+		<div class="dpad-row">
+			<div class="keyboard-key key-up" id="key-up" title="Học viên trước (Mũi tên Lên)">
+				<span class="key-cap">▲</span>
+				<span class="key-sub">Lên</span>
+			</div>
+		</div>
+		<div class="dpad-row">
+			<div class="keyboard-key key-left" id="key-left" title="Chuyển trạng thái sang Trái (Mũi tên Trái)">
+				<span class="key-cap">◀</span>
+				<span class="key-sub">Trái</span>
+			</div>
+			<div class="keyboard-key key-down" id="key-down" title="Học viên sau (Mũi tên Xuống)">
+				<span class="key-cap">▼</span>
+				<span class="key-sub">Xuống</span>
+			</div>
+			<div class="keyboard-key key-right" id="key-right" title="Chuyển trạng thái sang Phải (Mũi tên Phải)">
+				<span class="key-cap">▶</span>
+				<span class="key-sub">Phải</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- Scripts -->
+	<script src="../../admin-shell.js"></script>
+	<script src="attendance.js"></script>
+
+</body>
+
+</html>

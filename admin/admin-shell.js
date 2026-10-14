@@ -122,14 +122,18 @@
 	window.adminGetUrlParam = adminGetUrlParam;
 
 	function adminInitModals() {
-		// Tự động gắn sự kiện đóng modal cho nút .btn-close-modal và backdrop
+		// Tự động gắn sự kiện đóng modal cho nút .btn-close-modal, .admin-btn-close và backdrop
 		document.querySelectorAll('.admin-modal-overlay').forEach(overlay => {
-			overlay.querySelectorAll('.btn-close-modal').forEach(btn => {
-				btn.onclick = () => overlay.classList.remove('show');
+			overlay.querySelectorAll('.btn-close-modal, .admin-btn-close').forEach(btn => {
+				btn.addEventListener('click', () => {
+					overlay.classList.remove('open', 'show');
+				});
 			});
-			overlay.onclick = (e) => {
-				if (e.target === overlay) overlay.classList.remove('show');
-			};
+			overlay.addEventListener('click', (e) => {
+				if (e.target === overlay) {
+					overlay.classList.remove('open', 'show');
+				}
+			});
 		});
 	}
 	window.adminInitModals = adminInitModals;
@@ -178,6 +182,10 @@
 						<a href="${rootPath}admin/LMS/cohort/index.html" class="admin-nav-item ${activeTab === 'tab-cohorts' ? 'active' : ''}" data-tab="tab-cohorts">
 							<span class="nav-icon">🏛️</span>
 							<span class="nav-text">Lớp học (Cohorts)</span>
+						</a>
+						<a href="${rootPath}admin/LMS/attendance/index.html" class="admin-nav-item ${activeTab === 'tab-attendance' ? 'active' : ''}" data-tab="tab-attendance">
+							<span class="nav-icon">📋</span>
+							<span class="nav-text">Điểm danh (Attendance)</span>
 						</a>
 						<a href="${rootPath}admin/LMS/certificate/index.html" class="admin-nav-item ${activeTab === 'tab-certificates' ? 'active' : ''}" data-tab="tab-certificates">
 							<span class="nav-icon">🎖️</span>

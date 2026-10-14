@@ -27,8 +27,8 @@
 
 @media (max-width: 480px) {
 	.corporate-clients-grid {
-		grid-template-columns: repeat(2, 1fr);
-		gap: 8px;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
 	}
 }
 
@@ -827,9 +827,9 @@ svg *[fill="FF0000"] {
 	color: var(--main-colors-foreground-f100);
 }
 
-.uxcamp-homepage .course-card a.bootcamp-item-homepage:hover .bootcamp-item-action {
+.uxcamp-homepage .course-card a.bootcamp-item-homepage:hover * {
 	color: var(--alternative-foreground-gold);
-	transform: translateX(4px);
+	text-decoration: underline;
 }
 
 .bootcamp-item-homepage .bootcamp-item-info {
@@ -1146,10 +1146,14 @@ article:has(.course-card) {
 	background: var(--body-background-elevate-1);
 	height: 100%;
 	height: 100%;
+	box-shadow: 0 0px 0px #00000000;
+	transition: box-shadow 0.3s;
+
 }
 
 .uxcamp-homepage .course-card:hover {
-	box-shadow: 0 10px 30px var(--fix-black---black-10);
+	box-shadow: 0 10px 80px var(--fix-black---black-20);
+	transition: box-shadow 0.3s;
 }
 
 .uxcamp-homepage .course-card p,

@@ -451,7 +451,7 @@ window.ADMIN_CONFIG = {
 						status,
 						createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 						updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-						addedBy: currentUser.email
+						addedBy: currentUser?.email || 'admin'
 					};
 
 					await currentDb.collection('authorizedUsers').doc(email).set(userData, { merge: true });
@@ -625,7 +625,7 @@ window.ADMIN_CONFIG = {
 								role: u.role || 'member',
 								status: 'active',
 								updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
-								addedBy: currentUser.email
+								addedBy: currentUser?.email || 'admin'
 							}, { merge: true });
 						});
 						await batch.commit();

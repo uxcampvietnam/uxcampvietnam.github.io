@@ -52,7 +52,7 @@ const STICKY_GRAPH_CONFIG = {
   // 📸 CẤU HÌNH KHOẢNG CÁCH CAMERA (ZOOM DISTANCE) & GÓC NGHIÊNG CHO DESKTOP & MOBILE
   // Mặc định luôn tự động xoay ngẫu nhiên 360° xung quanh tâm; góc máy chiếu ngang trực diện tầm mắt vào khối sticky note.
   cameraDistanceDesktop: 3000,          // Khoảng cách camera trên Desktop / Laptop (pixel)
-  cameraDistanceMobile: 5000,           // Khoảng cách camera trên Mobile / Điện thoại (pixel)
+  cameraDistanceMobile: 4000,           // Khoảng cách camera trên Mobile / Điện thoại (pixel)
   cameraPitch: -0.4,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
 
   rotateSpeed: 2.0,                     // Tốc độ xoay camera khi kéo drag chuột (0.1 -> 3.0)
@@ -152,7 +152,21 @@ const STICKY_GRAPH_CONFIG = {
   introOrder: 'random',                // Thứ tự xuất hiện: 'random' (ngẫu nhiên) | 'centerOut' (từ tâm lõi lan ra ngoài) | 'level' (theo cấp độ 1 -> 7) | 'sequential'
   introEasing: 'backOut',              // Hiệu ứng nảy: 'backOut' (phóng to nảy nhẹ đàn hồi) | 'cubicOut' (mượt mà tự nhiên) | 'elasticOut' (nảy mạnh đàn hồi)
   introShowConnections: true,          // Bật/tắt tự động xuất hiện connection theo từng cặp note đã hiện
-  introLineFadeDuration: 100           // Thời gian mờ dần hiện rõ của đường dây nối (ms)
+  introLineFadeDuration: 100,          // Thời gian mờ dần hiện rõ của đường dây nối (ms)
+
+  // ----------------------------------------------------------------------------
+  // 12. TỐI ƯU HÓA MOBILE & BẢO VỆ BỘ NHỚ RAM/GPU (Mobile & Memory Safeguards)
+  // ----------------------------------------------------------------------------
+  mobileMaxLevel: 0,                    // Cấp node tối đa hiển thị trên Mobile (< 768px): 1->7 (Mặc định 4: ~170 node, 5: ~350 node toàn bộ, đặt 0 để nạp tất cả)
+  mobileMaxNodes: 250,                  // Số lượng node tối đa trên Mobile (Mặc định 180, đặt 0 để không giới hạn số lượng)
+  mobilePaperCurl: false,               // Bật/tắt uốn cong mép giấy trên Mobile (false = giấy phẳng 100%, 2 tam giác/card, siêu nhẹ; true = uốn cong theo paperCurl)
+  mobileFlutter: false,                 // Bật/tắt hiệu ứng gió rung rinh mép giấy khi di chuyển/xoay trên Mobile (false = đứng yên phẳng phiu; true = rung rinh theo flutterAmp)
+  dynamicFocusHiRes: true,              // Tự động nâng cấp texture siêu nét Retina (3x) khi click/zoom vào 1 node, và tự hạ cấp giải phóng RAM khi zoom out
+  focusTextureDpr: 3.0,                 // Độ phân giải texture khi zoom sát vào 1 node (2.5 -> 3.5x chuẩn Retina)
+  mobileTextureDpr: 1.3,                // Tỷ lệ phân giải texture cho node chính Cấp 1-3 trên Mobile (1.3x sắc nét chuẩn Retina)
+  mobileLodDpr: 1.0,                    // Tỷ lệ phân giải texture LOD cho node nhánh Cấp 4+ trên Mobile (1.0x siêu nhẹ, tiết kiệm tối đa VRAM)
+  mobileDisableMipmaps: true,           // Tắt mipmaps texture trên Mobile (tiết kiệm 35% VRAM và triệt tiêu giật lag khởi tạo GPU)
+  desktopTextureDpr: 2.0                // Tỷ lệ phân giải texture trên Desktop (2.0x chuẩn sắc nét)
 };
 
 (function (global) {
@@ -195,6 +209,16 @@ const STICKY_GRAPH_CONFIG = {
         lineActiveOpacity: 1.0,
         lineDimmedWidth: 1,
         lineDimmedOpacity: 0.0,
+        mobileMaxLevel: 0,
+        mobileMaxNodes: 250,
+        mobilePaperCurl: false,
+        mobileFlutter: false,
+        dynamicFocusHiRes: true,
+        focusTextureDpr: 3.0,
+        mobileTextureDpr: 1.3,
+        mobileLodDpr: 1.0,
+        mobileDisableMipmaps: true,
+        desktopTextureDpr: 2.0,
         onNodeClick: null,
         onNodeHover: null
       }, baseConfig, options);
@@ -224,6 +248,7 @@ const STICKY_GRAPH_CONFIG = {
       this._activeTubeMeshes = [];
 
       this.selectedNode = null;
+      this.focusedMesh = null;
       this.hoveredNode = null;
       this.hoveredMesh = null;
 
@@ -346,9 +371,18 @@ const STICKY_GRAPH_CONFIG = {
       this.height = h;
       this.camera.aspect = this.width / this.height;
       this.camera.updateProjectionMatrix();
-      // updateStyle = false để giữ nguyên width: 100%, height: 100% không đè px cố định lên inline CSS của canvas
+      const isMobile = (w || window.innerWidth) < 768;
       this.renderer.setSize(this.width, this.height, false);
-      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1.75 : 2));
+
+      // Kiểm tra chuyển đổi ngưỡng màn hình Desktop <-> Mobile để cập nhật bộ node phù hợp
+      if (this.lastIsMobile !== undefined && this.lastIsMobile !== isMobile) {
+        this.lastIsMobile = isMobile;
+        this._filterActiveNodes();
+        this.buildGraph();
+        return;
+      }
+      this.lastIsMobile = isMobile;
 
       // Tự động phân bổ lại hình dạng khối theo tỷ lệ khung hình mới (Adaptive Aspect Shape)
       if (this.options.adaptiveAspectShape !== false && this.nodes && this.nodes.length > 0) {
@@ -513,7 +547,8 @@ const STICKY_GRAPH_CONFIG = {
         powerPreference: 'high-performance'
       });
       this.renderer.setSize(this.width, this.height, false);
-      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      const isMobile = (this.width || window.innerWidth) < 768;
+      this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isMobile ? 1.75 : 2));
       this.renderer.setClearColor(bgCol, 1);
       this.renderer.shadowMap.enabled = false;
 
@@ -1038,9 +1073,29 @@ const STICKY_GRAPH_CONFIG = {
         this.categories = Object.assign(this.categories, data.categories);
       }
 
-      this.nodes = data.nodes || [];
-      const rawLinks = data.links || [];
+      this.rawNodes = data.nodes || [];
+      this.rawLinks = data.links || [];
 
+      this._filterActiveNodes();
+    }
+
+    // Lọc bộ node và link hoạt động theo kích thước thiết bị (Desktop hiển thị đầy đủ, Mobile thu gọn tối ưu bộ nhớ)
+    _filterActiveNodes() {
+      const isMobile = (this.width || window.innerWidth) < 768;
+      let activeNodes = this.rawNodes || [];
+
+      if (isMobile) {
+        const maxLevel = this.options.mobileMaxLevel !== undefined ? Number(this.options.mobileMaxLevel) : 4;
+        const maxNodes = Number(this.options.mobileMaxNodes) || 0;
+        if (maxLevel > 0) {
+          activeNodes = activeNodes.filter(n => (parseInt(n.level, 10) || 3) <= maxLevel);
+        }
+        if (maxNodes > 0 && activeNodes.length > maxNodes) {
+          activeNodes = activeNodes.slice(0, maxNodes);
+        }
+      }
+
+      this.nodes = activeNodes;
       this.nodeMap.clear();
       this.nodes.forEach(n => {
         n.level = parseInt(n.level, 10) || 3;
@@ -1051,12 +1106,10 @@ const STICKY_GRAPH_CONFIG = {
 
       // Lọc trùng lặp liên kết (Undirected Deduplication):
       // Đồ thị tri thức sử dụng liên kết vô hướng giữa 2 node.
-      // Nếu Node A liên kết với Node B và Node B cũng liên kết với Node A (hoặc lặp lại),
-      // chỉ giữ duy nhất 1 connection giữa 2 node và loại bỏ kết nối tới chính mình (self-loop).
       const seenEdges = new Set();
       const uniqueLinks = [];
 
-      rawLinks.forEach(l => {
+      (this.rawLinks || []).forEach(l => {
         const sId = typeof l.source === 'object' ? l.source.id : l.source;
         const tId = typeof l.target === 'object' ? l.target.id : l.target;
         if (!sId || !tId || sId === tId) return;
@@ -1064,7 +1117,6 @@ const STICKY_GRAPH_CONFIG = {
         // Bỏ qua nếu một trong hai node không tồn tại trong tập nodeMap
         if (!this.nodeMap.has(sId) || !this.nodeMap.has(tId)) return;
 
-        // Chuẩn hóa edgeKey không phụ thuộc chiều (u < v ? u---v : v---u)
         const edgeKey = sId < tId ? `${sId}---${tId}` : `${tId}---${sId}`;
         if (!seenEdges.has(edgeKey)) {
           seenEdges.add(edgeKey);
@@ -1359,12 +1411,32 @@ const STICKY_GRAPH_CONFIG = {
       return lines;
     }
 
-    // --- TẠO CANVAS TEXTURE CHO STICKY NOTE (BO GÓC NÉT, 4X SIÊU NÉT KHI ZOOM, CHUẨN POST-IT) ---
-    _createStickyNoteTexture(node, width, height) {
+    // --- TẠO CANVAS TEXTURE CHO STICKY NOTE (LOD TEXTURE, ADAPTIVE DPI, TIẾT KIỆM BỘ NHỚ) ---
+    _createStickyNoteTexture(node, width, height, forceHiRes = false) {
+      const isMobile = (this.width || window.innerWidth) < 768;
+      const nodeLevel = parseInt(node.level, 10) || 3;
+
+      // Cơ chế Texture LOD (Level-of-Detail) & Dynamic Focus Hi-Res:
+      // - Khi được Focus / Phóng to (forceHiRes = true): Nâng cấp lên texture siêu nét Retina (3.0x) cho đúng 1 node đó
+      // - Bình thường trên Desktop: 2.0x sắc nét tuyệt đối cho mọi node
+      // - Bình thường trên Mobile:
+      //     + Node Cấp 1, 2, 3 (Core & Main): 1.3x sắc nét chuẩn Retina, vẽ đầy đủ title & description
+      //     + Node Cấp 4+ (Sub-nodes): 1.0x siêu nhẹ, vẽ title và tóm tắt ngắn, giảm 65% pixel VRAM
+      let dpr = this.options.desktopTextureDpr || 2.0;
+      if (forceHiRes) {
+        const targetDpr = this.options.focusTextureDpr || 3.0;
+        dpr = Math.min(3.5, Math.max(2.5, Math.max(targetDpr, window.devicePixelRatio || 2.0)));
+      } else if (isMobile) {
+        if (nodeLevel <= 3) {
+          dpr = this.options.mobileTextureDpr !== undefined ? this.options.mobileTextureDpr : 1.3;
+        } else {
+          dpr = this.options.mobileLodDpr !== undefined ? this.options.mobileLodDpr : 1.0;
+        }
+      }
+
       const canvas = document.createElement('canvas');
-      const dpr = 3; // Tăng lên 4x High-DPI để khi zoom sát chữ vẫn siêu nét, không bị vỡ hoặc nhòe
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+      canvas.width = Math.max(32, Math.round(width * dpr));
+      canvas.height = Math.max(24, Math.round(height * dpr));
       const ctx = canvas.getContext('2d');
       ctx.scale(dpr, dpr);
 
@@ -1372,9 +1444,7 @@ const STICKY_GRAPH_CONFIG = {
       ctx.imageSmoothingEnabled = true;
       ctx.imageSmoothingQuality = 'high';
 
-      // 1. Màu nền: màu sắc lấy từ dữ liệu node (node.color) hoặc fallback
-      // Không cắt xén (clip) trong canvas 2D để tránh pixel đen trong suốt (0,0,0,0) gây viền răng cưa đen.
-      // Việc bo tròn 4 góc được xử lý bằng SDF shader vector mượt mà ở cấp độ sub-pixel.
+      // 1. Màu nền
       const bgColor = node.color || DEFAULT_FALLBACK_COLOR;
       ctx.fillStyle = bgColor;
       ctx.fillRect(0, 0, width, height);
@@ -1389,10 +1459,10 @@ const STICKY_GRAPH_CONFIG = {
       const titleColor = isLightBg ? '#0f172a' : '#ffffff';
       const descColor = isLightBg ? '#1e293b' : '#e2e8f0';
 
-      const padX = 14;
+      const padX = (isMobile && nodeLevel > 3 && !forceHiRes) ? 10 : 14;
       const maxTextWidth = width - (padX * 2);
 
-      // 3. Label: Sử dụng font Crimson Pro (Italic trang nhã như mẫu thiết kế)
+      // 3. Label: Sử dụng font Crimson Pro
       const lvlConfig = this._getLevelBaseConfig(node.level);
       const titleFontSize = this.options.fontSize || lvlConfig.fontSize || 16;
       ctx.font = `italic 600 ${titleFontSize}px "Crimson Pro", Georgia, serif`;
@@ -1403,12 +1473,13 @@ const STICKY_GRAPH_CONFIG = {
       const titleLines = this._getWrappedLines(ctx, node.label, maxTextWidth);
 
       let currentY = titleStartY;
-      titleLines.forEach(l => {
-        ctx.fillText(l, padX, currentY);
+      const maxTitleLines = (isMobile && nodeLevel > 3 && !forceHiRes) ? 2 : titleLines.length;
+      for (let i = 0; i < Math.min(titleLines.length, maxTitleLines); i++) {
+        ctx.fillText(titleLines[i], padX, currentY);
         currentY += titleLineHeight;
-      });
+      }
 
-      // 4. Description: Sử dụng font Work Sans (rõ nét, đọc hết nội dung chữ không bị cắt)
+      // 4. Description: Sử dụng font Work Sans
       if (node.desc) {
         const descStartY = currentY + 8;
         const descFontSize = this.options.descFontSize || Math.max(Math.min(titleFontSize - 4, 11), 8);
@@ -1418,21 +1489,57 @@ const STICKY_GRAPH_CONFIG = {
         ctx.fillStyle = descColor;
 
         const descLines = this._getWrappedLines(ctx, node.desc, maxTextWidth);
+        const maxDescLines = (isMobile && nodeLevel > 3 && !forceHiRes) ? 2 : descLines.length;
         let dY = descStartY;
-        descLines.forEach(l => {
-          ctx.fillText(l, padX, dY);
+        for (let i = 0; i < Math.min(descLines.length, maxDescLines); i++) {
+          ctx.fillText(descLines[i], padX, dY);
           dY += descLineHeight;
-        });
+        }
       }
 
       const texture = new window.THREE.CanvasTexture(canvas);
-      texture.generateMipmaps = true;
-      texture.minFilter = window.THREE.LinearMipmapLinearFilter;
+
+      // 🚀 TỐI ƯU HÓA GPU VRAM:
+      // Trên Mobile tắt hoàn toàn generateMipmaps cho hàng loạt texture nền (tiết kiệm 35% VRAM, tránh freeze GPU).
+      // Nhưng riêng với node đang được chọn/phóng to (forceHiRes = true):
+      // Bật Mipmaps + LinearMipmapLinearFilter để khử răng cưa và phóng đại cực nét ở mọi cự ly!
+      const disableMipmaps = isMobile && !forceHiRes && (this.options.mobileDisableMipmaps !== false);
+      if (disableMipmaps) {
+        texture.generateMipmaps = false;
+        texture.minFilter = window.THREE.LinearFilter;
+      } else {
+        texture.generateMipmaps = true;
+        texture.minFilter = window.THREE.LinearMipmapLinearFilter;
+      }
       texture.magFilter = window.THREE.LinearFilter;
+
       if (this.renderer && this.renderer.capabilities) {
-        texture.anisotropy = Math.min(16, this.renderer.capabilities.getMaxAnisotropy() || 1);
+        const maxAniso = this.renderer.capabilities.getMaxAnisotropy() || 1;
+        texture.anisotropy = (isMobile && !forceHiRes) ? 1 : Math.min(8, maxAniso);
       }
       return texture;
+    }
+
+    // Lấy giá trị độ cong vênh mép giấy theo thiết bị (Mobile tắt hoàn toàn nếu mobilePaperCurl = false)
+    _getActivePaperCurl() {
+      const isMobile = (this.width || window.innerWidth) < 768;
+      if (isMobile) {
+        return (this.options.mobilePaperCurl === true)
+          ? (this.options.paperCurl !== undefined ? Number(this.options.paperCurl) : 15.0)
+          : 0.0;
+      }
+      return this.options.paperCurl !== undefined ? Number(this.options.paperCurl) : 3.0;
+    }
+
+    // Lấy giá trị biên độ rung lắc gió thoảng theo thiết bị (Mobile tắt hoàn toàn nếu mobileFlutter = false)
+    _getActiveFlutterAmp() {
+      const isMobile = (this.width || window.innerWidth) < 768;
+      if (isMobile) {
+        return (this.options.mobileFlutter === true)
+          ? (this.options.flutterAmp !== undefined ? Number(this.options.flutterAmp) : 40.0)
+          : 0.0;
+      }
+      return this.options.flutterAmp !== undefined ? Number(this.options.flutterAmp) : 3.5;
     }
 
     // --- TẠO 3D MESH CHO TỪNG STICKY NOTE (2D PLANE, GIẤY NHÁM MATTE, PAPER CURL & RUNG LẮC FLUTTER) ---
@@ -1442,8 +1549,13 @@ const STICKY_GRAPH_CONFIG = {
       const height = dims.height * this.options.noteScale;
       const borderRadius = this.options.borderRadius !== undefined ? this.options.borderRadius : 8;
 
-      // Luôn là mặt phẳng 2D (PlaneGeometry) với lưới 20x20 segments để uốn cong và rung lắc mép mềm mại
-      const geometry = new THREE.PlaneGeometry(width, height, 20, 20);
+      const isMobile = (this.width || window.innerWidth) < 768;
+      const hasPaperMotion = isMobile
+        ? (this.options.mobilePaperCurl === true || this.options.mobileFlutter === true)
+        : ((this.options.paperCurl || 0) > 0 || (this.options.flutterAmp || 0) > 0);
+      // Nếu tắt uốn mép & rung rinh trên mobile: dùng lưới 1x1 (chỉ 2 tam giác), siêu nhẹ và phẳng phiu 100%
+      const segs = isMobile ? (hasPaperMotion ? 6 : 1) : 18;
+      const geometry = new THREE.PlaneGeometry(width, height, segs, segs);
 
       // Gắn thông số kích thước thẻ & bán kính bo góc vào vertex attribute để SDF shader bo tròn góc mượt mà
       const posCount = geometry.attributes.position.count;
@@ -1478,8 +1590,8 @@ const STICKY_GRAPH_CONFIG = {
       // 1. Vertex Shader: Độ cong mép giấy (Paper Curl) + Rung lắc mép dưới trái & phải khi di chuyển trong không gian 3D
       // 2. Fragment Shader: Bo góc SDF khử hoàn toàn răng cưa & viền đen + Độ sâu trường ảnh (DoF Blur Bokeh 13-tap)
       frontMaterial.onBeforeCompile = (shader) => {
-        shader.uniforms.uPaperCurl = { value: this.options.paperCurl !== undefined ? this.options.paperCurl : 3.0 };
-        shader.uniforms.uFlutterAmp = { value: this.options.flutterAmp !== undefined ? this.options.flutterAmp : 3.5 };
+        shader.uniforms.uPaperCurl = { value: this._getActivePaperCurl() };
+        shader.uniforms.uFlutterAmp = { value: this._getActiveFlutterAmp() };
         shader.uniforms.uMotionVel = { value: 0.0 };
         shader.uniforms.uTime = { value: 0.0 };
         shader.uniforms.uRandCurl = { value: new THREE.Vector2(randCurlLeft, randCurlRight) };
@@ -1584,6 +1696,9 @@ const STICKY_GRAPH_CONFIG = {
         wobblePhase: Math.random() * Math.PI * 2,
         wobbleSpeedFactor: 0.8 + Math.random() * 0.4,
         frontMaterial: frontMaterial,
+        baseTexture: frontTexture,
+        dims: dims,
+        hiResTexture: null,
         accentColor: new THREE.Color(node.color || DEFAULT_FALLBACK_COLOR),
         filterMatch: true,
         targetScale: 1.0,
@@ -1599,12 +1714,18 @@ const STICKY_GRAPH_CONFIG = {
     _rebuildMeshes() {
       this.hoveredMesh = null;
       this.hoveredNode = null;
+      this.focusedMesh = null;
       if (this.canvas) this.canvas.style.cursor = 'default';
 
       this.meshMap.forEach((oldMesh, id) => {
         const node = oldMesh.userData.node;
         const pos = oldMesh.position.clone();
         const basePos = oldMesh.userData.basePos ? oldMesh.userData.basePos.clone() : pos.clone();
+
+        if (oldMesh.userData && oldMesh.userData.hiResTexture) {
+          oldMesh.userData.hiResTexture.dispose();
+          oldMesh.userData.hiResTexture = null;
+        }
 
         this.graphGroup.remove(oldMesh);
         if (oldMesh.geometry) oldMesh.geometry.dispose();
@@ -1951,6 +2072,37 @@ const STICKY_GRAPH_CONFIG = {
     // --- CHỌN NODE & HIGHLIGHT LIÊN KẾT (ACTIVE HIGHLIGHT STATE) ---
     selectNode(nodeId) {
       const node = nodeId ? this.nodeMap.get(nodeId) : null;
+
+      // 🚀 NÂNG CẤP DYNAMIC HI-RES CHO NODE ĐƯỢC PHÓNG TO:
+      // Khi chọn node -> tạo texture 3x Retina sắc nét cho đúng 1 note đó.
+      // Khi bỏ chọn hoặc đổi sang node khác -> hạ cấp về baseTexture cũ và giải phóng bộ nhớ texture Hi-Res ngay lập tức.
+      if (this.options.dynamicFocusHiRes !== false) {
+        const prevFocusedMesh = this.focusedMesh;
+        if (prevFocusedMesh && (!node || prevFocusedMesh.userData.node.id !== node.id)) {
+          if (prevFocusedMesh.userData.hiResTexture) {
+            prevFocusedMesh.userData.frontMaterial.map = prevFocusedMesh.userData.baseTexture;
+            prevFocusedMesh.userData.frontMaterial.needsUpdate = true;
+            prevFocusedMesh.userData.hiResTexture.dispose();
+            prevFocusedMesh.userData.hiResTexture = null;
+          }
+          this.focusedMesh = null;
+        }
+
+        if (node) {
+          const targetMesh = this.meshMap.get(node.id);
+          if (targetMesh && targetMesh.userData) {
+            this.focusedMesh = targetMesh;
+            if (!targetMesh.userData.hiResTexture) {
+              const dims = targetMesh.userData.dims || this._calculateNodeDimensions(node);
+              const hiResTex = this._createStickyNoteTexture(node, dims.width, dims.height, true);
+              targetMesh.userData.hiResTexture = hiResTex;
+              targetMesh.userData.frontMaterial.map = hiResTex;
+              targetMesh.userData.frontMaterial.needsUpdate = true;
+            }
+          }
+        }
+      }
+
       this.selectedNode = node;
 
       const connectedSet = new Set(node ? node.connections : []);
@@ -2526,8 +2678,8 @@ const STICKY_GRAPH_CONFIG = {
         if (shader && shader.uniforms) {
           if (shader.uniforms.uTime) shader.uniforms.uTime.value = time;
           if (shader.uniforms.uMotionVel) shader.uniforms.uMotionVel.value = this.motionVelocity;
-          if (shader.uniforms.uPaperCurl) shader.uniforms.uPaperCurl.value = this.options.paperCurl !== undefined ? this.options.paperCurl : 3.0;
-          if (shader.uniforms.uFlutterAmp) shader.uniforms.uFlutterAmp.value = this.options.flutterAmp !== undefined ? this.options.flutterAmp : 3.5;
+          if (shader.uniforms.uPaperCurl) shader.uniforms.uPaperCurl.value = this._getActivePaperCurl();
+          if (shader.uniforms.uFlutterAmp) shader.uniforms.uFlutterAmp.value = this._getActiveFlutterAmp();
         }
       });
 
@@ -2572,8 +2724,9 @@ const STICKY_GRAPH_CONFIG = {
         this.isIntroAnimating = false;
       }
 
-      // Cập nhật đường nối theo chuyển động của camera/nodes
-      if (isCameraMoving || wobbleAmp > 0) {
+      // Cập nhật đường nối: CHỈ tính lại vertices khi các node di chuyển tương đối (wobbleAmp > 0)
+      // Khi chỉ xoay camera (autoRotate/drag), Three.js tự động chiếu ma trận trên GPU, không tính lại trên CPU!
+      if (wobbleAmp > 0) {
         this.linkMeshes.forEach(line => {
           this._updateLinkGeometry(line);
         });
@@ -2588,19 +2741,21 @@ const STICKY_GRAPH_CONFIG = {
       Object.assign(this.options, newConfig);
 
       // 1. Hiệu ứng Bề mặt & Chất liệu Note
-      if (newConfig.paperCurl !== undefined) {
+      if (newConfig.paperCurl !== undefined || newConfig.mobilePaperCurl !== undefined) {
+        const activeCurl = this._getActivePaperCurl();
         this.meshMap.forEach(mesh => {
           const shader = mesh.userData.frontMaterial.userData.shader;
           if (shader && shader.uniforms && shader.uniforms.uPaperCurl) {
-            shader.uniforms.uPaperCurl.value = this.options.paperCurl;
+            shader.uniforms.uPaperCurl.value = activeCurl;
           }
         });
       }
-      if (newConfig.flutterAmp !== undefined) {
+      if (newConfig.flutterAmp !== undefined || newConfig.mobileFlutter !== undefined) {
+        const activeFlutter = this._getActiveFlutterAmp();
         this.meshMap.forEach(mesh => {
           const shader = mesh.userData.frontMaterial.userData.shader;
           if (shader && shader.uniforms && shader.uniforms.uFlutterAmp) {
-            shader.uniforms.uFlutterAmp.value = this.options.flutterAmp;
+            shader.uniforms.uFlutterAmp.value = activeFlutter;
           }
         });
       }
@@ -2627,6 +2782,11 @@ const STICKY_GRAPH_CONFIG = {
       }
       if (newConfig.hoverBrightness !== undefined) {
         this.options.hoverBrightness = newConfig.hoverBrightness;
+      }
+      if (newConfig.dynamicFocusHiRes !== undefined || newConfig.focusTextureDpr !== undefined) {
+        if (this.selectedNode && this.options.dynamicFocusHiRes !== false) {
+          this.selectNode(this.selectedNode.id);
+        }
       }
 
       // 2. Không gian, Ánh sáng & Chế độ Dark/Light
@@ -2754,12 +2914,22 @@ const STICKY_GRAPH_CONFIG = {
         const node = mesh.userData.node;
         const dims = this._calculateNodeDimensions(node);
         const newTex = this._createStickyNoteTexture(node, dims.width, dims.height);
+        if (mesh.userData.hiResTexture) {
+          mesh.userData.hiResTexture.dispose();
+          mesh.userData.hiResTexture = null;
+        }
+        if (mesh.userData.baseTexture && mesh.userData.baseTexture !== mesh.userData.frontMaterial.map) {
+          mesh.userData.baseTexture.dispose();
+        }
         if (mesh.userData.frontMaterial.map) {
           mesh.userData.frontMaterial.map.dispose();
         }
+        mesh.userData.baseTexture = newTex;
+        mesh.userData.dims = dims;
         mesh.userData.frontMaterial.map = newTex;
         mesh.userData.frontMaterial.needsUpdate = true;
       });
+      this.focusedMesh = null;
     }
 
     // Chuyển đổi chế độ: 'auto' (ăn theo hệ thống OS) | 'dark' | 'light'
@@ -2852,6 +3022,11 @@ const STICKY_GRAPH_CONFIG = {
       if (this._panInertiaRaf) {
         cancelAnimationFrame(this._panInertiaRaf);
         this._panInertiaRaf = null;
+      }
+      if (this.focusedMesh && this.focusedMesh.userData && this.focusedMesh.userData.hiResTexture) {
+        this.focusedMesh.userData.hiResTexture.dispose();
+        this.focusedMesh.userData.hiResTexture = null;
+        this.focusedMesh = null;
       }
       if (this.renderer && this.renderer.domElement && this.renderer.domElement.parentElement) {
         this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);

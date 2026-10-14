@@ -153,7 +153,21 @@
 
             this.updateThemeColors();
             this.handleResize();
-            this.setupPreloader();
+
+            // Trì hoãn việc tải 130+ avatar ảnh và tạo 130+ canvas offscreen sau khi màn hình chính đã nạp xong
+            this.preloaderStarted = false;
+            this.startPreloader = () => {
+                if (this.preloaderStarted) return;
+                this.preloaderStarted = true;
+                this.setupPreloader();
+            };
+
+            if ('requestIdleCallback' in window) {
+                window.requestIdleCallback(() => this.startPreloader(), { timeout: 2500 });
+            } else {
+                setTimeout(() => this.startPreloader(), 1800);
+            }
+
             this.bindEvents();
             this.setupIntersectionObserver();
 
@@ -973,6 +987,10 @@
                     this.isVisible = entry.isIntersecting || this.checkVisibility();
 
                     if (this.isVisible) {
+                        // Kích hoạt nạp avatar ngay nếu trước đó đang trì hoãn
+                        if (typeof this.startPreloader === 'function') {
+                            this.startPreloader();
+                        }
                         // Vừa cuộn vào viewport -> Kích hoạt vòng lặp tính toán và render mượt mà
                         if (!this.isRunning) {
                             this.startLoop();

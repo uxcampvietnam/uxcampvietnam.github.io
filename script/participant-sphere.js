@@ -49,7 +49,7 @@
             "minBrightness": 0.28
         },
         "motion": {
-            "autoSpinY": 0.006,
+            "autoSpinY": 0.003,
             "autoSpinX": 0,
             "dragSensitivity": 0.0077,
             "inertiaDamping": 0.978,

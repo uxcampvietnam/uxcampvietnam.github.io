@@ -27,7 +27,7 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 
-	const totalImg = 134;
+	const totalImg = 97;
 	let slidingImgInnerHTML = '';
 	for (let i = 1; i <= totalImg; i++) {
 		slidingImgInnerHTML += `<img class="sliding-img" src="asset/image/graduation/${i}.webp" alt="Graduation ${i}" decoding="async" draggable="false">`;

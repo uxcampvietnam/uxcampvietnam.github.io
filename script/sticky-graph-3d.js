@@ -17,7 +17,7 @@ const STICKY_GRAPH_CONFIG = {
   // Lưu dữ liệu đã tải từ Firebase vào LocalStorage trình duyệt để không phải gọi Firebase liên tục mỗi khi tải trang
   enableLocalCache: true,                       // Bật/tắt lưu cache vào LocalStorage (true = lưu local, false = luôn tải mới từ Firebase)
   localCacheKey: 'sticky_graph_nodes_cache',   // Tên khóa lưu trữ trong LocalStorage
-  localCacheTTL: 86400000,                     // Thời gian hết hạn cache (ms): 24h = 86400000 ms (Đặt 0 để không hết hạn tự động)
+  localCacheTTL: 0,                     // Thời gian hết hạn cache (ms): 24h = 86400000 ms (Đặt 0 để không hết hạn tự động) - 2592000000 = 30 ngày
 
   // 🛡️ LỌC KIỂM DUYỆT (Validation Filter)
   onlyValidated: true,                          // Chỉ hiển thị các node đã được kiểm duyệt (validated === true)

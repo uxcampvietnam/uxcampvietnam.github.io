@@ -1,3 +1,9 @@
+# Ignore macOS system files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
 .DS_Store
 asset/.DS_Store
 asset/image/.DS_Store
@@ -82,3 +88,5 @@ script/.DS_Store
 asset/image/.DS_Store
 asset/.DS_Store
 .DS_Store
+.DS_Store
+asset/.DS_Store

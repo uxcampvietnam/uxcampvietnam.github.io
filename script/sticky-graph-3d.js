@@ -7,7 +7,10 @@
  */
 const STICKY_GRAPH_CONFIG = {
   // ----------------------------------------------------------------------------
-  // 1. DỮ LIỆU & CONTAINER (Data & Mounting)
+  // 0. BẢNG CẤU HÌNH LIVE TRÊN UI (Dev / Config UI Panel)
+  // ----------------------------------------------------------------------------
+  showConfigPanel: false,                        // Bật/tắt hiển thị bảng điều khiển cấu hình thời gian thực trên giao diện
+  configPanelOpen: false,                       // Trạng thái mở sẵn (true = bung ra ngay khi tải trang, false = thu nhỏ thành nút bấm)
   // ----------------------------------------------------------------------------
   dataSource: 'firebase',                       // Nguồn dữ liệu: 'firebase' (tải trực tiếp từ Firestore)
   firebaseCollection: 'knowledgeNodes',        // Tên Collection Firestore chứa dữ liệu node kiến thức
@@ -117,7 +120,7 @@ const STICKY_GRAPH_CONFIG = {
   // ----------------------------------------------------------------------------
   // 9. BỐ CỤC KHÔNG GIAN & QUỸ ĐẠO (Layout & Orbit)
   // ----------------------------------------------------------------------------
-  layoutType: 'galaxy',                   // Bố cục phân bố: 'auto' (tự chọn theo màn hình) | 'galaxy' | 'cylinder'
+  layoutType: 'cylinder',                   // Bố cục phân bố: 'auto' (tự chọn theo màn hình) | 'galaxy' | 'cylinder'
   layoutTypeDesktop: 'galaxy',          // Bố cục mặc định cho màn hình Desktop (rộng >= 768px)
   layoutTypeMobile: 'galaxy',           // Bố cục mặc định cho màn hình Mobile (rộng < 768px)
   adaptiveAspectShape: true,            // Tự động phân bổ hình dạng khối theo tỷ lệ canvas (dài ngang trên desktop, cao dọc trên mobile)
@@ -279,6 +282,11 @@ const STICKY_GRAPH_CONFIG = {
         this._initEvents();
         if (this.options.dataSource) {
           this.loadData(this.options.dataSource);
+        }
+
+        // Khởi tạo bảng điều khiển cấu hình trực tiếp (Config Tuner Panel) nếu được bật
+        if (this.options.showConfigPanel !== false && typeof document !== 'undefined') {
+          this._configUI = new StickyGraphConfigUI(this);
         }
       });
     }
@@ -3031,7 +3039,435 @@ const STICKY_GRAPH_CONFIG = {
       if (this.renderer && this.renderer.domElement && this.renderer.domElement.parentElement) {
         this.renderer.domElement.parentElement.removeChild(this.renderer.domElement);
       }
+      if (this._configUI) {
+        this._configUI.destroy();
+        this._configUI = null;
+      }
+    }
+  }
 
+  // =========================================================================
+  // 🎛️ BẢNG ĐIỀU KHIỂN CẤU HÌNH LIVE (STICKY GRAPH CONFIG UI PANEL)
+  // =========================================================================
+  class StickyGraphConfigUI {
+    constructor(graphInstance) {
+      this.graph = graphInstance;
+      this.panelEl = null;
+      this.toggleBtn = null;
+      this.toastEl = null;
+      this.isOpen = !!this.graph.options.configPanelOpen;
+      this.init();
+    }
+
+    init() {
+      // 1. Nút mở/đóng Panel
+      this.toggleBtn = document.createElement('button');
+      this.toggleBtn.type = 'button';
+      this.toggleBtn.className = 'motion-tuner-toggle-btn';
+      this.toggleBtn.innerHTML = '⚙️ Sticky Graph Tuner';
+      this.toggleBtn.title = 'Bật/Tắt bảng điều khiển cấu hình 3D';
+      document.body.appendChild(this.toggleBtn);
+
+      // 2. Bảng Panel điều khiển
+      this.panelEl = document.createElement('div');
+      this.panelEl.className = 'motion-tuner-panel sticky-graph-tuner-panel';
+      this.panelEl.id = 'sticky-graph-config-panel';
+      this.panelEl.style.display = this.isOpen ? 'flex' : 'none';
+      this.toggleBtn.style.display = this.isOpen ? 'none' : 'flex';
+
+      this.panelEl.innerHTML = `
+        <div class="motion-tuner-header">
+          <h4 class="motion-tuner-title">⚙️ Sticky Graph 3D Tuner</h4>
+          <button type="button" class="motion-tuner-close-btn" id="sg-tuner-close" title="Đóng panel">×</button>
+        </div>
+        <div class="motion-tuner-body" id="sg-tuner-body"></div>
+        <div class="motion-tuner-actions">
+          <button type="button" class="motion-tuner-btn" id="sg-tuner-copy">📋 Copy Config</button>
+          <button type="button" class="motion-tuner-btn motion-tuner-btn-secondary" id="sg-tuner-reset">↺ Reset</button>
+        </div>
+      `;
+      document.body.appendChild(this.panelEl);
+
+      // 3. Toast thông báo
+      this.toastEl = document.createElement('div');
+      this.toastEl.className = 'motion-tuner-toast';
+      this.toastEl.textContent = '✓ Đã sao chép cấu hình vào clipboard!';
+      document.body.appendChild(this.toastEl);
+
+      this.renderControls();
+      this.bindEvents();
+    }
+
+    // Định nghĩa các trường cấu hình theo từng nhóm
+    getSchema() {
+      return [
+        {
+          title: '1. Giao diện & Không gian (Theme & Fog)',
+          fields: [
+            { key: 'mode', label: 'Chế độ (Mode)', type: 'select', options: ['auto', 'dark', 'light'] },
+            { key: 'canvasBgDark', label: 'Nền Canvas Dark', type: 'color' },
+            { key: 'canvasBgLight', label: 'Nền Canvas Light', type: 'color' },
+            { key: 'depthFade', label: 'Sương mù Z (Depth Fade)', type: 'range', min: 0.0, max: 2.0, step: 0.05, digits: 2 }
+          ]
+        },
+        {
+          title: '2. Thẻ Sticky Note (Paper Dynamics)',
+          fields: [
+            { key: 'noteScale', label: 'Tỷ lệ thẻ (Note Scale)', type: 'range', min: 0.4, max: 2.0, step: 0.05, digits: 2 },
+            { key: 'borderRadius', label: 'Bo góc (Border Radius px)', type: 'range', min: 0, max: 24, step: 1, digits: 0 },
+            { key: 'paperCurl', label: 'Độ cong mép giấy (Paper Curl)', type: 'range', min: 0, max: 30, step: 0.5, digits: 1 },
+            { key: 'flutterAmp', label: 'Rung lắc gió (Flutter Amp)', type: 'range', min: 0, max: 100, step: 1, digits: 0 },
+            { key: 'fontSize', label: 'Cỡ chữ tiêu đề (px)', type: 'range', min: 6, max: 18, step: 0.5, digits: 1 },
+            { key: 'descFontSize', label: 'Cỡ chữ mô tả (px)', type: 'range', min: 5, max: 14, step: 0.2, digits: 1 },
+            { key: 'hoverScale', label: 'Phóng to Hover', type: 'range', min: 1.0, max: 1.3, step: 0.01, digits: 2 },
+            { key: 'hoverBrightness', label: 'Độ sáng Hover', type: 'range', min: 0.0, max: 0.5, step: 0.02, digits: 2 }
+          ]
+        },
+        {
+          title: '3. Camera & Góc nhìn (Camera Preset)',
+          fields: [
+            { key: 'cameraDistanceDesktop', label: 'Khoảng cách Desktop (px)', type: 'range', min: 1000, max: 6000, step: 50, digits: 0 },
+            { key: 'cameraDistanceMobile', label: 'Khoảng cách Mobile (px)', type: 'range', min: 1500, max: 7000, step: 50, digits: 0 },
+            { key: 'cameraPitch', label: 'Góc nghiêng Pitch (rad)', type: 'range', min: -1.2, max: 1.2, step: 0.05, digits: 2 },
+            { key: 'rotateSpeed', label: 'Tốc độ kéo xoay chuột', type: 'range', min: 0.2, max: 4.0, step: 0.1, digits: 1 },
+            { key: 'dampingFactor', label: 'Hệ số hãm quán tính', type: 'range', min: 0.01, max: 0.2, step: 0.01, digits: 2 },
+            { key: 'autoRotate', label: 'Tự động xoay camera', type: 'checkbox' },
+            { key: 'autoRotateSpeed', label: 'Tốc độ tự xoay', type: 'range', min: 0.02, max: 2.0, step: 0.02, digits: 2 }
+          ]
+        },
+        {
+          title: '4. Bố cục không gian (Spatial Layout)',
+          fields: [
+            { key: 'layoutType', label: 'Kiểu bố cục (Layout Type)', type: 'select', options: ['galaxy', 'cylinder'] },
+            { key: 'spreadRadius', label: 'Bán kính lan tỏa (Spread Radius)', type: 'range', min: 400, max: 2400, step: 50, digits: 0 },
+            { key: 'adaptiveAspectShape', label: 'Co dãn thích ứng canvas', type: 'checkbox' },
+            { key: 'aspectRatioPower', label: 'Lũy thừa méo elip', type: 'range', min: 0.0, max: 1.0, step: 0.05, digits: 2 },
+            { key: 'aspectScaleX', label: 'Hệ số dãn X', type: 'range', min: 0.2, max: 2.5, step: 0.05, digits: 2 },
+            { key: 'aspectScaleY', label: 'Hệ số dãn Y', type: 'range', min: 0.2, max: 2.5, step: 0.05, digits: 2 },
+            { key: 'aspectScaleZ', label: 'Hệ số dãn Z', type: 'range', min: 0.2, max: 2.5, step: 0.05, digits: 2 }
+          ]
+        },
+        {
+          title: '5. Đường liên kết (Connection Lines)',
+          fields: [
+            { key: 'lineMorphology', label: 'Hình dạng (Morphology)', type: 'select', options: ['bezier', 'straight', 'orthogonal'] },
+            { key: 'lineWidth', label: 'Độ dày đường nối (px)', type: 'range', min: 0.5, max: 5.0, step: 0.5, digits: 1 },
+            { key: 'lineColorDark', label: 'Màu dây Dark', type: 'color' },
+            { key: 'lineColorLight', label: 'Màu dây Light', type: 'color' },
+            { key: 'lineOpacityDark', label: 'Độ mờ Dark', type: 'range', min: 0.05, max: 1.0, step: 0.05, digits: 2 },
+            { key: 'lineOpacityLight', label: 'Độ mờ Light', type: 'range', min: 0.05, max: 1.0, step: 0.05, digits: 2 }
+          ]
+        },
+        {
+          title: '6. Tương tác Focus & Highlight (Active State)',
+          fields: [
+            { key: 'noteDimmedOpacityDark', label: 'Độ mờ note phụ Dark', type: 'range', min: 0.0, max: 1.0, step: 0.05, digits: 2 },
+            { key: 'noteDimmedOpacityLight', label: 'Độ mờ note phụ Light', type: 'range', min: 0.0, max: 1.0, step: 0.05, digits: 2 },
+            { key: 'lineActiveWidth', label: 'Độ dày dây Highlight', type: 'range', min: 0.5, max: 6.0, step: 0.5, digits: 1 },
+            { key: 'lineActiveOpacity', label: 'Độ mờ dây Highlight', type: 'range', min: 0.1, max: 1.0, step: 0.05, digits: 2 },
+            { key: 'lineDimmedOpacity', label: 'Độ mờ dây không liên quan', type: 'range', min: 0.0, max: 0.5, step: 0.02, digits: 2 }
+          ]
+        },
+        {
+          title: '7. Ánh sáng 3D (3D Lighting)',
+          fields: [
+            { key: 'ambientIntensityDark', label: 'Cường độ Ambient Dark', type: 'range', min: 0.0, max: 2.5, step: 0.05, digits: 2 },
+            { key: 'ambientIntensityLight', label: 'Cường độ Ambient Light', type: 'range', min: 0.0, max: 2.5, step: 0.05, digits: 2 },
+            { key: 'dirLight1IntensityDark', label: 'Nguồn sáng 1 Dark', type: 'range', min: 0.0, max: 2.0, step: 0.05, digits: 2 },
+            { key: 'dirLight1IntensityLight', label: 'Nguồn sáng 1 Light', type: 'range', min: 0.0, max: 2.0, step: 0.05, digits: 2 },
+            { key: 'dirLight2IntensityDark', label: 'Nguồn sáng 2 Dark', type: 'range', min: 0.0, max: 2.0, step: 0.05, digits: 2 },
+            { key: 'dirLight2IntensityLight', label: 'Nguồn sáng 2 Light', type: 'range', min: 0.0, max: 2.0, step: 0.05, digits: 2 }
+          ]
+        },
+        {
+          title: '8. Tối ưu Mobile (Mobile Safeguards)',
+          fields: [
+            { key: 'mobilePaperCurl', label: 'Uốn mép giấy trên Mobile', type: 'checkbox' },
+            { key: 'mobileFlutter', label: 'Rung lắc gió trên Mobile', type: 'checkbox' },
+            { key: 'dynamicFocusHiRes', label: 'Texture Retina khi click/zoom', type: 'checkbox' },
+            { key: 'mobileMaxNodes', label: 'Giới hạn số node Mobile', type: 'range', min: 50, max: 400, step: 10, digits: 0 }
+          ]
+        }
+      ];
+    }
+
+    renderControls() {
+      const body = this.panelEl.querySelector('#sg-tuner-body');
+      if (!body) return;
+      body.innerHTML = '';
+
+      const schema = this.getSchema();
+      schema.forEach(group => {
+        const titleEl = document.createElement('div');
+        titleEl.className = 'motion-tuner-group-title';
+        titleEl.textContent = group.title;
+        body.appendChild(titleEl);
+
+        group.fields.forEach(field => {
+          const row = document.createElement('div');
+          row.className = 'motion-tuner-row';
+          const val = this.graph.options[field.key];
+
+          if (field.type === 'range') {
+            const digits = field.digits !== undefined ? field.digits : 2;
+            const valText = typeof val === 'number' ? val.toFixed(digits) : val;
+            row.innerHTML = `
+              <div class="motion-tuner-label-wrap">
+                <span>${field.label}</span>
+                <span class="motion-tuner-val" id="val-sg-${field.key}">${valText}</span>
+              </div>
+              <input type="range" class="motion-tuner-slider"
+                     data-key="${field.key}"
+                     data-digits="${digits}"
+                     min="${field.min}" max="${field.max}" step="${field.step}"
+                     value="${val}">
+            `;
+          } else if (field.type === 'checkbox') {
+            row.innerHTML = `
+              <label class="motion-tuner-checkbox-wrap">
+                <input type="checkbox" class="motion-tuner-checkbox" data-key="${field.key}" ${val ? 'checked' : ''}>
+                <span>${field.label}</span>
+              </label>
+            `;
+          } else if (field.type === 'select') {
+            const optionsHtml = field.options.map(opt => `<option value="${opt}" ${opt === val ? 'selected' : ''}>${opt}</option>`).join('');
+            row.innerHTML = `
+              <div class="motion-tuner-label-wrap">
+                <span>${field.label}</span>
+              </div>
+              <select class="motion-tuner-select" data-key="${field.key}">${optionsHtml}</select>
+            `;
+          } else if (field.type === 'color') {
+            row.innerHTML = `
+              <div class="motion-tuner-label-wrap">
+                <span>${field.label}</span>
+                <input type="color" class="motion-tuner-color-picker" data-key="${field.key}" value="${val || '#ffffff'}">
+              </div>
+            `;
+          }
+
+          body.appendChild(row);
+        });
+      });
+    }
+
+    bindEvents() {
+      // Bật/Tắt panel
+      this.toggleBtn.addEventListener('click', () => {
+        this.isOpen = true;
+        this.panelEl.style.display = 'flex';
+        this.toggleBtn.style.display = 'none';
+      });
+
+      this.panelEl.querySelector('#sg-tuner-close').addEventListener('click', () => {
+        this.isOpen = false;
+        this.panelEl.style.display = 'none';
+        this.toggleBtn.style.display = 'flex';
+      });
+
+      // Lắng nghe slider thay đổi
+      this.panelEl.addEventListener('input', (e) => {
+        const slider = e.target.closest('.motion-tuner-slider');
+        if (slider) {
+          const key = slider.dataset.key;
+          const digits = parseInt(slider.dataset.digits || '2', 10);
+          const val = parseFloat(slider.value);
+          this.applyChange(key, val);
+
+          const valEl = this.panelEl.querySelector(`#val-sg-${key}`);
+          if (valEl) valEl.textContent = val.toFixed(digits);
+          return;
+        }
+
+        const colorInput = e.target.closest('.motion-tuner-color-picker');
+        if (colorInput) {
+          const key = colorInput.dataset.key;
+          this.applyChange(key, colorInput.value);
+        }
+      });
+
+      // Lắng nghe checkbox & select thay đổi
+      this.panelEl.addEventListener('change', (e) => {
+        const chk = e.target.closest('.motion-tuner-checkbox');
+        if (chk) {
+          const key = chk.dataset.key;
+          this.applyChange(key, chk.checked);
+          return;
+        }
+
+        const sel = e.target.closest('.motion-tuner-select');
+        if (sel) {
+          const key = sel.dataset.key;
+          this.applyChange(key, sel.value);
+        }
+      });
+
+      // Nút Copy Config
+      this.panelEl.querySelector('#sg-tuner-copy').addEventListener('click', () => {
+        this.copyConfigCode();
+      });
+
+      // Nút Reset
+      this.panelEl.querySelector('#sg-tuner-reset').addEventListener('click', () => {
+        this.resetDefaults();
+      });
+    }
+
+    // Áp dụng trực tiếp thay đổi vào instance đồ thị 3D theo thời gian thực
+    applyChange(key, value) {
+      this.graph.options[key] = value;
+      if (typeof STICKY_GRAPH_CONFIG !== 'undefined') {
+        STICKY_GRAPH_CONFIG[key] = value;
+      }
+
+      // Xử lý tức thì theo từng nhóm tính năng
+      if (key === 'mode') {
+        this.graph.setMode(value);
+      } else if (key === 'canvasBgDark' || key === 'canvasBgLight') {
+        const bgCol = new window.THREE.Color(this.graph.getCanvasBgColor());
+        this.graph.scene.background = bgCol;
+        this.graph.renderer.setClearColor(bgCol, 1);
+        this.graph._updateDepthFade();
+      } else if (key === 'depthFade') {
+        this.graph._updateDepthFade();
+      } else if (key === 'autoRotate') {
+        if (this.graph.controls) this.graph.controls.autoRotate = !!value;
+      } else if (key === 'autoRotateSpeed') {
+        if (this.graph.controls) this.graph.controls.autoRotateSpeed = Number(value);
+      } else if (key === 'rotateSpeed') {
+        if (this.graph.controls) this.graph.controls.rotateSpeed = Number(value);
+      } else if (key === 'dampingFactor') {
+        if (this.graph.controls) this.graph.controls.dampingFactor = Number(value);
+      } else if (key === 'cameraDistanceDesktop' || key === 'cameraDistanceMobile' || key === 'cameraPitch') {
+        // Cập nhật vị trí camera trực diện
+        const preset = this.graph._calculateCameraPreset();
+        if (this.graph.camera) {
+          this.graph.camera.position.set(preset.x, preset.y, preset.z);
+          if (this.graph.controls) this.graph.controls.update();
+        }
+      } else if (key === 'spreadRadius' || key === 'layoutType' || key === 'adaptiveAspectShape' ||
+        key === 'aspectRatioPower' || key === 'aspectScaleX' || key === 'aspectScaleY' || key === 'aspectScaleZ') {
+        // Tính toán lại vị trí không gian cho toàn bộ node & line
+        this.graph._calculateLayoutPositions();
+        this.graph.meshMap.forEach(mesh => {
+          const n = mesh.userData.node;
+          mesh.userData.basePos.set(n.x, n.y, n.z);
+          mesh.position.set(n.x, n.y, n.z);
+        });
+        this.graph.linkMeshes.forEach(line => this.graph._updateLinkGeometry(line));
+      } else if (key === 'noteScale') {
+        // Cập nhật scale các mesh
+        this.graph.meshMap.forEach(mesh => {
+          mesh.userData.currentScale = value;
+          mesh.scale.set(value, value, value);
+        });
+      } else if (key === 'borderRadius' || key === 'fontSize' || key === 'descFontSize') {
+        // Vẽ lại texture với cỡ font & bo góc mới
+        this.graph._regenerateTextures();
+      } else if (key === 'paperCurl') {
+        const curl = this.graph._getActivePaperCurl();
+        this.graph.meshMap.forEach(mesh => {
+          if (mesh.material && mesh.material.userData && mesh.material.userData.shader) {
+            mesh.material.userData.shader.uniforms.uPaperCurl.value = curl;
+          }
+        });
+      } else if (key === 'flutterAmp') {
+        const amp = this.graph._getActiveFlutterAmp();
+        this.graph.meshMap.forEach(mesh => {
+          if (mesh.material && mesh.material.userData && mesh.material.userData.shader) {
+            mesh.material.userData.shader.uniforms.uFlutterAmp.value = amp;
+          }
+        });
+      } else if (key === 'lineColorDark' || key === 'lineColorLight' || key === 'lineOpacityDark' || key === 'lineOpacityLight') {
+        this.graph._applyMode();
+      } else if (key === 'lineWidth') {
+        // Rebuild lại line nếu cần
+        this.graph.linkMeshes.forEach(line => this.graph._updateLinkGeometry(line));
+      } else if (key.startsWith('ambient') || key.startsWith('dirLight')) {
+        const isLight = this.graph.isLightMode();
+        if (this.graph.ambientLight) {
+          this.graph.ambientLight.intensity = isLight
+            ? (this.graph.options.ambientIntensityLight || 1.1)
+            : (this.graph.options.ambientIntensityDark || 0.85);
+        }
+        if (this.graph.dirLight1) {
+          this.graph.dirLight1.intensity = isLight
+            ? (this.graph.options.dirLight1IntensityLight || 0.0)
+            : (this.graph.options.dirLight1IntensityDark || 0.3);
+        }
+        if (this.graph.dirLight2) {
+          this.graph.dirLight2.intensity = isLight
+            ? (this.graph.options.dirLight2IntensityLight || 0.0)
+            : (this.graph.options.dirLight2IntensityDark || 0.3);
+        }
+      }
+    }
+
+    // Sao chép code `const STICKY_GRAPH_CONFIG = { ... }` vào clipboard để dán ngược lại file
+    copyConfigCode() {
+      // Sao chép toàn bộ object STICKY_GRAPH_CONFIG hiện tại
+      const exportConfig = Object.assign({}, typeof STICKY_GRAPH_CONFIG !== 'undefined' ? STICKY_GRAPH_CONFIG : {}, this.graph.options);
+      delete exportConfig.container; // giữ nguyên container selector
+      exportConfig.container = '#graphContainer';
+
+      const jsonStr = JSON.stringify(exportConfig, (k, v) => {
+        if (typeof v === 'function') return undefined;
+        return v;
+      }, 2);
+
+      const codeToCopy = `const STICKY_GRAPH_CONFIG = ${jsonStr};`;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(codeToCopy).then(() => {
+          this.showToast('✓ Đã sao chép code STICKY_GRAPH_CONFIG vào clipboard!');
+        }).catch(() => {
+          this.fallbackCopy(codeToCopy);
+        });
+      } else {
+        this.fallbackCopy(codeToCopy);
+      }
+    }
+
+    fallbackCopy(text) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        this.showToast('✓ Đã sao chép code STICKY_GRAPH_CONFIG vào clipboard!');
+      } catch (err) {
+        this.showToast('✕ Lỗi sao chép clipboard');
+      }
+      document.body.removeChild(ta);
+    }
+
+    resetDefaults() {
+      // Tải lại cấu hình ban đầu
+      window.location.reload();
+    }
+
+    showToast(msg) {
+      this.toastEl.textContent = msg;
+      this.toastEl.classList.add('show');
+      clearTimeout(this._toastTimer);
+      this._toastTimer = setTimeout(() => {
+        this.toastEl.classList.remove('show');
+      }, 2500);
+    }
+
+    destroy() {
+      if (this.panelEl && this.panelEl.parentElement) {
+        this.panelEl.parentElement.removeChild(this.panelEl);
+      }
+      if (this.toggleBtn && this.toggleBtn.parentElement) {
+        this.toggleBtn.parentElement.removeChild(this.toggleBtn);
+      }
+      if (this.toastEl && this.toastEl.parentElement) {
+        this.toastEl.parentElement.removeChild(this.toastEl);
+      }
     }
   }
 

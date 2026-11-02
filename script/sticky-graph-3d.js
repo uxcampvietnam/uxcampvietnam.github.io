@@ -12,7 +12,10 @@ const STICKY_GRAPH_CONFIG = {
   showConfigPanel: false,                        // Bật/tắt hiển thị bảng điều khiển cấu hình thời gian thực trên giao diện
   configPanelOpen: false,                       // Trạng thái mở sẵn (true = bung ra ngay khi tải trang, false = thu nhỏ thành nút bấm)
   // ----------------------------------------------------------------------------
-  dataSource: 'firebase',                       // Nguồn dữ liệu: 'firebase' (tải trực tiếp từ Firestore)
+  // 1. DỮ LIỆU ĐẦU VÀO (Data Source & Storage)
+  // ----------------------------------------------------------------------------
+  dataSource: 'tsv',                       // Nguồn dữ liệu: 'firebase' (tải trực tiếp từ Firestore) | 'tsv' (tải từ file TSV)
+  tsvPath: 'data/knowledge_nodes.tsv',          // Đường dẫn file TSV nguồn kiến thức (khi dataSource: 'tsv')
   firebaseCollection: 'knowledgeNodes',        // Tên Collection Firestore chứa dữ liệu node kiến thức
   container: '#graphContainer',                 // DOM element hoặc selector CSS chứa canvas 3D
 
@@ -36,7 +39,7 @@ const STICKY_GRAPH_CONFIG = {
   borderRadius: 8,                      // Độ bo góc sticky note (pixel, 0 = vuông vức, 8-12 = bo mượt)
   paperCurl: 15,                        // Độ cong vênh mép giấy (0 = phẳng, 5-15px = cong tự nhiên)
   flutterAmp: 40.0,                     // Độ rung lắc mép giấy khi camera xoay/di chuyển (0 -> 100)
-  hierarchyDepth: false,                // Phân tầng độ sâu trục Z: L1 nổi lên trước (+Z), các tầng sau lùi dần (-Z)
+  hierarchyDepth: true,                // Phân tầng độ sâu trục Z: L1 nổi lên trước (+Z), các tầng sau lùi dần (-Z)
   noteScale: 0.9,                       // Hệ số phóng to / thu nhỏ kích thước tất cả note (VD: 0.7 = 70%)
   fontSize: 8,                          // Kích thước font tiêu đề (title) trong sticky note (null = tự động theo level)
   descFontSize: 6.2,                    // Kích thước font mô tả (description) trong sticky note (null = tự động)
@@ -54,9 +57,9 @@ const STICKY_GRAPH_CONFIG = {
   maxDistance: 6000,                    // Khoảng cách zoom xa nhất của camera (pixel)
   // 📸 CẤU HÌNH KHOẢNG CÁCH CAMERA (ZOOM DISTANCE) & GÓC NGHIÊNG CHO DESKTOP & MOBILE
   // Mặc định luôn tự động xoay ngẫu nhiên 360° xung quanh tâm; góc máy chiếu ngang trực diện tầm mắt vào khối sticky note.
-  cameraDistanceDesktop: 3700,          // Khoảng cách camera trên Desktop / Laptop (pixel)
+  cameraDistanceDesktop: 4400,          // Khoảng cách camera trên Desktop / Laptop (pixel)
   cameraDistanceMobile: 4000,           // Khoảng cách camera trên Mobile / Điện thoại (pixel)
-  cameraPitch: -0.5,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
+  cameraPitch: -0.38,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
 
   rotateSpeed: 2.0,                     // Tốc độ xoay camera khi kéo drag chuột (0.1 -> 3.0)
   dampingFactor: 0.05,                  // Hệ số hãm quán tính khi xoay camera (0.01 -> 0.3, nhỏ hơn = mượt hơn)
@@ -123,6 +126,8 @@ const STICKY_GRAPH_CONFIG = {
   layoutType: 'cylinder',                   // Bố cục phân bố: 'auto' (tự chọn theo màn hình) | 'galaxy' | 'cylinder'
   layoutTypeDesktop: 'galaxy',          // Bố cục mặc định cho màn hình Desktop (rộng >= 768px)
   layoutTypeMobile: 'galaxy',           // Bố cục mặc định cho màn hình Mobile (rộng < 768px)
+  centerYDesktop: -252,                    // Độ lệch tâm đồ thị theo trục Y trên Desktop (pixel / đơn vị 3D: >0 nâng lên trên, <0 hạ xuống dưới)
+  centerYMobile: 0,                     // Độ lệch tâm đồ thị theo trục Y trên Mobile (pixel / đơn vị 3D: >0 nâng lên trên, <0 hạ xuống dưới)
   adaptiveAspectShape: true,            // Tự động phân bổ hình dạng khối theo tỷ lệ canvas (dài ngang trên desktop, cao dọc trên mobile)
   aspectRatioPower: 0.2,                // Độ co dãn theo size màn hình (0.0 tròn -> 1.0 méo)
   aspectScaleX: 1.0,                    // Hệ số tùy chỉnh dãn trục X
@@ -197,6 +202,7 @@ const STICKY_GRAPH_CONFIG = {
       const baseConfig = typeof STICKY_GRAPH_CONFIG !== 'undefined' ? STICKY_GRAPH_CONFIG : {};
       this.options = Object.assign({
         dataSource: 'firebase',
+        tsvPath: 'data/knowledge_nodes.tsv',
         firebaseCollection: 'knowledgeNodes',
         enableLocalCache: true,
         localCacheKey: 'sticky_graph_nodes_cache',
@@ -222,6 +228,8 @@ const STICKY_GRAPH_CONFIG = {
         mobileLodDpr: 1.0,
         mobileDisableMipmaps: true,
         desktopTextureDpr: 2.0,
+        centerYDesktop: 0,
+        centerYMobile: 0,
         onNodeClick: null,
         onNodeHover: null
       }, baseConfig, options);
@@ -232,6 +240,8 @@ const STICKY_GRAPH_CONFIG = {
       if (options.saveLocalhost !== undefined) this.options.enableLocalCache = !!options.saveLocalhost;
       if (options.useLocalCache !== undefined) this.options.enableLocalCache = !!options.useLocalCache;
       if (options.saveToLocalStorage !== undefined) this.options.enableLocalCache = !!options.saveToLocalStorage;
+      if (options.tsvUrl !== undefined && options.tsvPath === undefined) this.options.tsvPath = options.tsvUrl;
+      if (options.tsvFilePath !== undefined && options.tsvPath === undefined) this.options.tsvPath = options.tsvFilePath;
 
       this.container = typeof this.options.container === 'string'
         ? document.querySelector(this.options.container)
@@ -405,9 +415,27 @@ const STICKY_GRAPH_CONFIG = {
         this.linkMeshes.forEach(line => this._updateLinkGeometry(line));
       }
 
+      // Cập nhật vị trí độ cao tâm đồ thị Y theo kích thước màn hình hiện tại
+      this._updateGraphCenterY();
+
       if (this.controls) {
         this.controls.update();
       }
+    }
+
+    // Lấy độ lệch tâm đồ thị theo chiều cao trục Y (Desktop / Mobile)
+    _getActiveCenterY() {
+      const isMobile = (this.width || window.innerWidth) < 768;
+      const val = isMobile
+        ? (this.options.centerYMobile !== undefined ? this.options.centerYMobile : this.options.centerY)
+        : (this.options.centerYDesktop !== undefined ? this.options.centerYDesktop : this.options.centerY);
+      return Number(val) || 0;
+    }
+
+    // Cập nhật độ cao Y của nhóm đồ thị 3D (graphGroup)
+    _updateGraphCenterY() {
+      if (!this.graphGroup) return;
+      this.graphGroup.position.y = this._getActiveCenterY();
     }
 
     // Lấy khoảng cách camera (zoom distance) theo thiết bị (Desktop / Mobile)
@@ -790,6 +818,7 @@ const STICKY_GRAPH_CONFIG = {
       // Nhóm chứa nodes & links
       this.graphGroup = new THREE.Group();
       this.scene.add(this.graphGroup);
+      this._updateGraphCenterY();
 
       // Lưu trạng thái camera ban đầu để đo vận tốc chuyển động 3D
       this.prevCamPos = new THREE.Vector3().copy(this.camera.position);
@@ -920,9 +949,10 @@ const STICKY_GRAPH_CONFIG = {
         if (!parsed || !parsed.data || !Array.isArray(parsed.data.nodes) || parsed.data.nodes.length === 0) {
           return null;
         }
-        // Kiểm tra tương thích phiên bản cache và bộ lọc kiểm duyệt
-        if (parsed.version !== '2.0' || parsed.onlyValidated !== !!this.options.onlyValidated) {
-          return null; // Bỏ qua cache cũ không cùng chế độ lọc duyệt để tải mới đúng dữ liệu
+        // Kiểm tra tương thích phiên bản cache, nguồn dữ liệu và bộ lọc kiểm duyệt
+        const currentSource = this.options.dataSource || 'firebase';
+        if (parsed.version !== '2.0' || parsed.onlyValidated !== !!this.options.onlyValidated || (parsed.source && parsed.source !== currentSource)) {
+          return null; // Bỏ qua cache cũ không cùng chế độ lọc duyệt hoặc khác nguồn
         }
         const ttl = Number(this.options.localCacheTTL) || 0;
         const isExpired = ttl > 0 && (Date.now() - (parsed.timestamp || 0) > ttl);
@@ -944,6 +974,7 @@ const STICKY_GRAPH_CONFIG = {
         const payload = {
           timestamp: Date.now(),
           version: '2.0',
+          source: this.options.dataSource || 'firebase',
           onlyValidated: !!this.options.onlyValidated,
           count: data.nodes.length,
           data: {
@@ -1034,8 +1065,90 @@ const STICKY_GRAPH_CONFIG = {
       return null;
     }
 
-    // --- NẠP DỮ LIỆU TỪ FIREBASE (KÈM LOCAL CACHE) ---
+    // --- NẠP DỮ LIỆU TỪ FILE TSV (TAB-SEPARATED VALUES) ---
+    async _loadFromTSV(tsvPath) {
+      const path = tsvPath || this.options.tsvPath || this.options.tsvUrl || 'data/knowledge_nodes.tsv';
+      const cleanPath = `${path}${path.includes('?') ? '&' : '?'}t=${Date.now()}`;
+      const res = await fetch(cleanPath);
+      if (!res.ok) throw new Error(`Không thể nạp file TSV: ${path} (Mã phản hồi: ${res.status})`);
+      const text = await res.text();
+      return this._parseTSVData(text);
+    }
+
+    // Phân tích cú pháp văn bản TSV thành cấu trúc { nodes, links }
+    _parseTSVData(text) {
+      if (!text || typeof text !== 'string') return null;
+      const lines = text.trim().split(/\r?\n/).filter(l => l.trim().length > 0);
+      if (lines.length <= 1) return null;
+
+      // Đọc dòng tiêu đề (Header row)
+      const headers = lines[0].split('\t').map(h => h.trim().toLowerCase());
+      const colIdx = {
+        id: headers.indexOf('id'),
+        label: headers.indexOf('label'),
+        level: headers.indexOf('level'),
+        desc: headers.indexOf('desc'),
+        connections: headers.indexOf('connections'),
+        color: headers.indexOf('color'),
+        validated: headers.indexOf('validated'),
+        category: headers.indexOf('category')
+      };
+
+      // Tự động gán vị trí cột dự phòng theo chuẩn nếu tiêu đề không có tên
+      if (colIdx.id === -1) colIdx.id = 0;
+      if (colIdx.label === -1) colIdx.label = 1;
+      if (colIdx.level === -1) colIdx.level = 2;
+      if (colIdx.desc === -1) colIdx.desc = 3;
+      if (colIdx.connections === -1) colIdx.connections = 4;
+      if (colIdx.color === -1) colIdx.color = 5;
+      if (colIdx.validated === -1) colIdx.validated = 6;
+
+      const nodes = [];
+      const links = [];
+
+      for (let i = 1; i < lines.length; i++) {
+        const parts = lines[i].split('\t');
+        if (parts.length < 2) continue;
+
+        const id = parts[colIdx.id] ? parts[colIdx.id].trim() : '';
+        if (!id) continue;
+
+        const isValidated = colIdx.validated !== -1 && parts[colIdx.validated] !== undefined
+          ? parts[colIdx.validated].trim().toLowerCase() === 'true'
+          : true;
+
+        if (this.options.onlyValidated && !isValidated) {
+          continue;
+        }
+
+        const label = parts[colIdx.label] ? parts[colIdx.label].trim() : id;
+        const level = parseInt(parts[colIdx.level], 10) || 3;
+        const desc = colIdx.desc !== -1 && parts[colIdx.desc] ? parts[colIdx.desc].trim() : '';
+        const category = colIdx.category !== -1 && parts[colIdx.category] ? parts[colIdx.category].trim().toUpperCase() : 'KEYWORD';
+        const color = colIdx.color !== -1 && parts[colIdx.color] ? parts[colIdx.color].trim() : '#ffb703';
+        const rawConn = colIdx.connections !== -1 && parts[colIdx.connections] ? parts[colIdx.connections].trim() : '';
+
+        nodes.push({ id, label, level, category, desc, url: '', color, validated: isValidated });
+
+        if (rawConn) {
+          const connList = rawConn.split(/[;,]/).map(s => s.trim()).filter(Boolean);
+          connList.forEach(targetId => {
+            if (targetId && targetId !== id) {
+              links.push({ source: id, target: targetId });
+            }
+          });
+        }
+      }
+
+      return nodes.length > 0 ? { nodes, links } : null;
+    }
+
+    // --- NẠP DỮ LIỆU TỪ NGUỒN CẤU HÌNH (FIREBASE HOẶC FILE TSV) KÈM LOCAL CACHE ---
     async loadData(dataSource) {
+      const source = (typeof dataSource === 'string' && dataSource.length > 0)
+        ? dataSource
+        : (this.options.dataSource || 'firebase');
+
       // 1. Kiểm tra cache Local (LocalStorage) trước nếu enableLocalCache = true
       const cached = this._getLocalCache();
       if (cached && !cached.isExpired) {
@@ -1044,28 +1157,83 @@ const STICKY_GRAPH_CONFIG = {
         return;
       }
 
-      if (cached && cached.isExpired) {
-      }
+      const isTsv = source === 'tsv' || (typeof source === 'string' && source.endsWith('.tsv'));
 
-      // 2. Tải dữ liệu mới từ Firebase Firestore
-      try {
-        const fbData = await this._loadFromFirebase();
-        if (fbData && fbData.nodes && fbData.nodes.length > 0) {
-          this._saveLocalCache(fbData);
-          this._processData(fbData);
-          this.buildGraph();
-          return;
+      // 2. Tải theo nguồn đã chọn
+      if (isTsv) {
+        try {
+          const tsvFilePath = (typeof source === 'string' && source.endsWith('.tsv'))
+            ? source
+            : (this.options.tsvPath || this.options.tsvUrl || 'data/knowledge_nodes.tsv');
+          const tsvData = await this._loadFromTSV(tsvFilePath);
+          if (tsvData && tsvData.nodes && tsvData.nodes.length > 0) {
+            this._saveLocalCache(tsvData);
+            this._processData(tsvData);
+            this.buildGraph();
+            return;
+          }
+          throw new Error(`Dữ liệu từ file TSV "${tsvFilePath}" rỗng.`);
+        } catch (tsvErr) {
+          console.warn('[StickyGraph3D] Lỗi nạp từ TSV:', tsvErr);
+          // Dự phòng 1: Tái sử dụng cache local cũ nếu có
+          if (cached && cached.data && Array.isArray(cached.data.nodes) && cached.data.nodes.length > 0) {
+            this._processData(cached.data);
+            this.buildGraph();
+            return;
+          }
+          // Dự phòng 2: Thử nạp từ Firebase Firestore
+          try {
+            const fbData = await this._loadFromFirebase();
+            if (fbData && fbData.nodes && fbData.nodes.length > 0) {
+              this._saveLocalCache(fbData);
+              this._processData(fbData);
+              this.buildGraph();
+              return;
+            }
+          } catch (fbFallbackErr) {
+          }
         }
-        throw new Error('Dữ liệu từ Firestore rỗng.');
-      } catch (fbErr) {
-        // Nếu có cache local cũ (dù đã hết hạn), ưu tiên tái sử dụng để không làm gián đoạn hiển thị
-        if (cached && cached.data && Array.isArray(cached.data.nodes) && cached.data.nodes.length > 0) {
-          this._processData(cached.data);
-          this.buildGraph();
-          return;
+      } else {
+        // Tải từ Firebase Firestore
+        try {
+          const fbData = await this._loadFromFirebase();
+          if (fbData && fbData.nodes && fbData.nodes.length > 0) {
+            this._saveLocalCache(fbData);
+            this._processData(fbData);
+            this.buildGraph();
+            return;
+          }
+          throw new Error('Dữ liệu từ Firestore rỗng.');
+        } catch (fbErr) {
+          console.warn('[StickyGraph3D] Lỗi nạp từ Firebase:', fbErr);
+          // Dự phòng 1: Nếu có cache local cũ (dù đã hết hạn), ưu tiên tái sử dụng
+          if (cached && cached.data && Array.isArray(cached.data.nodes) && cached.data.nodes.length > 0) {
+            this._processData(cached.data);
+            this.buildGraph();
+            return;
+          }
+          // Dự phòng 2: Tự động fallback sang file TSV nội bộ (data/knowledge_nodes.tsv)
+          try {
+            const tsvFilePath = this.options.tsvPath || this.options.tsvUrl || 'data/knowledge_nodes.tsv';
+            const tsvData = await this._loadFromTSV(tsvFilePath);
+            if (tsvData && tsvData.nodes && tsvData.nodes.length > 0) {
+              this._saveLocalCache(tsvData);
+              this._processData(tsvData);
+              this.buildGraph();
+              return;
+            }
+          } catch (tsvFallbackErr) {
+          }
         }
-
       }
+    }
+
+    // Tải lại dữ liệu từ file TSV (tùy chọn xóa cache local để buộc làm mới hoàn toàn)
+    async reloadFromTSV(forceRefresh = true) {
+      if (forceRefresh) {
+        StickyGraph3D.clearLocalCache(this.options.localCacheKey);
+      }
+      await this.loadData('tsv');
     }
 
     // Tải lại dữ liệu từ Firebase (tùy chọn xóa cache local để buộc làm mới hoàn toàn)
@@ -1074,6 +1242,14 @@ const STICKY_GRAPH_CONFIG = {
         StickyGraph3D.clearLocalCache(this.options.localCacheKey);
       }
       await this.loadData('firebase');
+    }
+
+    // Tải lại dữ liệu theo nguồn bất kỳ
+    async reloadData(source, forceRefresh = true) {
+      if (forceRefresh) {
+        StickyGraph3D.clearLocalCache(this.options.localCacheKey);
+      }
+      await this.loadData(source || this.options.dataSource);
     }
 
     _processData(data) {
@@ -1166,6 +1342,9 @@ const STICKY_GRAPH_CONFIG = {
       this.hoveredMesh = null;
       this.hoveredNode = null;
       if (this.canvas) this.canvas.style.cursor = 'default';
+
+      // Đồng bộ độ cao tâm đồ thị Y theo thiết bị hiện tại
+      this._updateGraphCenterY();
 
       // 1. Phân bố vị trí ban đầu theo thuật toán không gian chống tụ đống
       this._calculateLayoutPositions();
@@ -2047,7 +2226,8 @@ const STICKY_GRAPH_CONFIG = {
       const mesh = this.meshMap.get(nodeId);
       if (!mesh) return;
 
-      const targetPos = mesh.position.clone();
+      const targetPos = new window.THREE.Vector3();
+      mesh.getWorldPosition(targetPos);
       const offset = new window.THREE.Vector3(0, 80, 320);
       const camPos = targetPos.clone().add(offset);
 
@@ -2914,6 +3094,12 @@ const STICKY_GRAPH_CONFIG = {
         });
         this.linkMeshes.forEach(line => this._updateLinkGeometry(line));
       }
+      if (newConfig.centerYDesktop !== undefined || newConfig.centerYMobile !== undefined || newConfig.centerY !== undefined) {
+        this._updateGraphCenterY();
+      }
+      if (newConfig.dataSource !== undefined || newConfig.tsvPath !== undefined || newConfig.tsvUrl !== undefined) {
+        this.reloadData(this.options.dataSource, true);
+      }
     }
 
     // Tạo lại toàn bộ textures của các sticky notes khi đổi màu / font
@@ -3104,10 +3290,11 @@ const STICKY_GRAPH_CONFIG = {
         {
           title: '1. Giao diện & Không gian (Theme & Fog)',
           fields: [
+            { key: 'dataSource', label: 'Nguồn dữ liệu (Data Source)', type: 'select', options: ['firebase', 'tsv'] },
             { key: 'mode', label: 'Chế độ (Mode)', type: 'select', options: ['auto', 'dark', 'light'] },
             { key: 'canvasBgDark', label: 'Nền Canvas Dark', type: 'color' },
             { key: 'canvasBgLight', label: 'Nền Canvas Light', type: 'color' },
-            { key: 'depthFade', label: 'Sương mù Z (Depth Fade)', type: 'range', min: 0.0, max: 2.0, step: 0.05, digits: 2 }
+            { key: 'depthFade', label: 'Sương mù Z (Depth Fade)', type: 'range', min: 0.0, max: 2.0, step: 0.01, digits: 2 }
           ]
         },
         {
@@ -3128,7 +3315,7 @@ const STICKY_GRAPH_CONFIG = {
           fields: [
             { key: 'cameraDistanceDesktop', label: 'Khoảng cách Desktop (px)', type: 'range', min: 1000, max: 6000, step: 50, digits: 0 },
             { key: 'cameraDistanceMobile', label: 'Khoảng cách Mobile (px)', type: 'range', min: 1500, max: 7000, step: 50, digits: 0 },
-            { key: 'cameraPitch', label: 'Góc nghiêng Pitch (rad)', type: 'range', min: -1.2, max: 1.2, step: 0.05, digits: 2 },
+            { key: 'cameraPitch', label: 'Góc nghiêng Pitch (rad)', type: 'range', min: -1.2, max: 1.2, step: 0.005, digits: 3 },
             { key: 'rotateSpeed', label: 'Tốc độ kéo xoay chuột', type: 'range', min: 0.2, max: 4.0, step: 0.1, digits: 1 },
             { key: 'dampingFactor', label: 'Hệ số hãm quán tính', type: 'range', min: 0.01, max: 0.2, step: 0.01, digits: 2 },
             { key: 'autoRotate', label: 'Tự động xoay camera', type: 'checkbox' },
@@ -3139,6 +3326,8 @@ const STICKY_GRAPH_CONFIG = {
           title: '4. Bố cục không gian (Spatial Layout)',
           fields: [
             { key: 'layoutType', label: 'Kiểu bố cục (Layout Type)', type: 'select', options: ['galaxy', 'cylinder'] },
+            { key: 'centerYDesktop', label: 'Tâm Y Desktop (px)', type: 'range', min: -1000, max: 1000, step: 1, digits: 0 },
+            { key: 'centerYMobile', label: 'Tâm Y Mobile (px)', type: 'range', min: -1000, max: 1000, step: 1, digits: 0 },
             { key: 'spreadRadius', label: 'Bán kính lan tỏa (Spread Radius)', type: 'range', min: 400, max: 2400, step: 50, digits: 0 },
             { key: 'adaptiveAspectShape', label: 'Co dãn thích ứng canvas', type: 'checkbox' },
             { key: 'aspectRatioPower', label: 'Lũy thừa méo elip', type: 'range', min: 0.0, max: 1.0, step: 0.05, digits: 2 },
@@ -3321,7 +3510,9 @@ const STICKY_GRAPH_CONFIG = {
       }
 
       // Xử lý tức thì theo từng nhóm tính năng
-      if (key === 'mode') {
+      if (key === 'dataSource') {
+        this.graph.reloadData(value, true);
+      } else if (key === 'mode') {
         this.graph.setMode(value);
       } else if (key === 'canvasBgDark' || key === 'canvasBgLight') {
         const bgCol = new window.THREE.Color(this.graph.getCanvasBgColor());
@@ -3345,6 +3536,9 @@ const STICKY_GRAPH_CONFIG = {
           this.graph.camera.position.set(preset.x, preset.y, preset.z);
           if (this.graph.controls) this.graph.controls.update();
         }
+      } else if (key === 'centerYDesktop' || key === 'centerYMobile' || key === 'centerY') {
+        this.graph.options[key] = Number(value);
+        this.graph._updateGraphCenterY();
       } else if (key === 'spreadRadius' || key === 'layoutType' || key === 'adaptiveAspectShape' ||
         key === 'aspectRatioPower' || key === 'aspectScaleX' || key === 'aspectScaleY' || key === 'aspectScaleZ') {
         // Tính toán lại vị trí không gian cho toàn bộ node & line

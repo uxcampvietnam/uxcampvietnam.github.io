@@ -107,8 +107,8 @@ function renderCourseBootcampItem(item, registerUrl, assetPrefix) {
     const courseTitle = item.bootcamp_name || item.title || item.courseTitle || item.name || '';
 
     // Dòng 2: format, location (nếu là offline), start_date, pricing
-    const formatLocation = item.offline == 1 
-        ? `Offline${item.location ? `, ${item.location}` : ''}` 
+    const formatLocation = item.offline == 1
+        ? `Offline${item.location ? `, ${item.location}` : ''}`
         : 'Online';
     const startDateText = item.start_date && item.start_date !== '-' ? item.start_date : '';
     const pricingText = item.pricing || '';
@@ -297,11 +297,13 @@ function renderBootcampsUI(flagshipList, auaList) {
                         <h6 class="bootcamp-cohort-name">${courseTitle}</h6>
                         <span class="paragraph bootcamp-meta">${line2}</span>
                     </div>
-                    <a href="${item.formUrl || `bootcamp-register.html?code=${encodeURIComponent(cohortCode)}`}" class="cta-large stretch paragraph">
                     ${item.is_open == 1
-                        ? `Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>`
-                        : `<i>Form đã đóng</i>`}
-                    </a>
+                        ? `<a href="${item.formUrl || `bootcamp-register.html?code=${encodeURIComponent(cohortCode)}`}" class="cta-large stretch paragraph">
+                            Đặt chỗ ngay <img src='asset/icon/arrow-right.svg' onload='SVGInject(this)'>
+                        </a>`
+                        : `<button type="button" class="cta-large stretch paragraph disabled" disabled aria-disabled="true">
+                            Form đã đóng
+                        </button>`}
                     <img class="opening-bootcamp-highlight" src="asset/icon/opening-bootcamp-highlight.svg">
                 </div>`;
             }

@@ -854,6 +854,12 @@ svg *[fill="FF0000"] {
 	backdrop-filter: blur(40px);
 }
 
+.bootcamp-item.is_closed .cta-large {
+	opacity: 0.7;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
 .bootcamp-item .bootcamp-thumbnail {
 	border-radius: 16px;
 	width: 100%;

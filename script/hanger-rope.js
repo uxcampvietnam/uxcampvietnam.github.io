@@ -41,7 +41,7 @@
         },
         // Cấu hình vật lý & giao diện sợi dây (Rope Physics & Styling)
         "rope": {
-            "pointCount": 16,            // Số lượng nút/điểm mô phỏng trên dây (càng cao dây càng mềm mượt nhưng tốn CPU)
+            "pointCount": 50,            // Số lượng nút/điểm mô phỏng trên dây (càng cao dây càng mềm mượt nhưng tốn CPU)
             "stiffness": 0.85,           // Độ cứng/co giãn của dây (0.0 - 1.0)
             "constraintIterations": 8,   // Số lần lặp giải độ dài liên kết giữa các điểm (giữ độ ổn định chiều dài dây)
             "gravity": 1.5,              // Trọng lực kéo dây xuống

@@ -63,7 +63,7 @@
       "offsetY": 0
     },
     "transform": {
-      "rotateYMultiplier": -0.65,
+      "rotateYMultiplier": -0.9,
       "rotateXMultiplier": 0.28,
       "rotateZMultiplier": 0.1,
       "baseScale": 0.85,
@@ -76,7 +76,7 @@
     "depth": {
       "focalRange": 10,
       "enableBlur": true,
-      "maxBlur": 0,
+      "maxBlur": 55,
       "darkDepthShading": 0.1,
       "lightDepthBrightness": 0.1,
       "cullZDistance": -100

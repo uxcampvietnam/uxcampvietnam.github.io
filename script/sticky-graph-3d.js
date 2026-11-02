@@ -54,9 +54,9 @@ const STICKY_GRAPH_CONFIG = {
   maxDistance: 6000,                    // Khoảng cách zoom xa nhất của camera (pixel)
   // 📸 CẤU HÌNH KHOẢNG CÁCH CAMERA (ZOOM DISTANCE) & GÓC NGHIÊNG CHO DESKTOP & MOBILE
   // Mặc định luôn tự động xoay ngẫu nhiên 360° xung quanh tâm; góc máy chiếu ngang trực diện tầm mắt vào khối sticky note.
-  cameraDistanceDesktop: 3000,          // Khoảng cách camera trên Desktop / Laptop (pixel)
+  cameraDistanceDesktop: 3700,          // Khoảng cách camera trên Desktop / Laptop (pixel)
   cameraDistanceMobile: 4000,           // Khoảng cách camera trên Mobile / Điện thoại (pixel)
-  cameraPitch: -0.4,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
+  cameraPitch: -0.5,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
 
   rotateSpeed: 2.0,                     // Tốc độ xoay camera khi kéo drag chuột (0.1 -> 3.0)
   dampingFactor: 0.05,                  // Hệ số hãm quán tính khi xoay camera (0.01 -> 0.3, nhỏ hơn = mượt hơn)
@@ -88,7 +88,7 @@ const STICKY_GRAPH_CONFIG = {
   lineMorphology: 'bezier',             // Kiểu đường nối: 'bezier' (cong mềm) | 'straight' (thẳng) | 'orthogonal' (gấp khúc 90°)
   lineWidth: 1,                       // Độ dày đường liên kết mặc định (pixel, ví dụ: 1.0, 1.5, 2.0...)
   lineColorDark: '#ffffff',             // Màu đường liên kết mặc định ở Dark mode (Hex)
-  lineColorLight: '#000000',            // Màu đường liên kết mặc định ở Light mode (Hex)
+  lineColorLight: '#8e8e8e',            // Màu đường liên kết mặc định ở Light mode (Hex)
   lineOpacityDark: 0.4,                 // Độ mờ / trong suốt của đường nối mặc định ở Dark mode (0.0 -> 1.0)
   lineOpacityLight: 0.4,                // Độ mờ / trong suốt của đường nối mặc định ở Light mode (0.0 -> 1.0)
 
@@ -128,7 +128,7 @@ const STICKY_GRAPH_CONFIG = {
   aspectScaleX: 1.0,                    // Hệ số tùy chỉnh dãn trục X
   aspectScaleY: 1.0,                    // Hệ số tùy chỉnh dãn trục Y
   aspectScaleZ: 1.0,                    // Hệ số tùy chỉnh dãn trục Z
-  spreadRadius: 1100,                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
+  spreadRadius: 1300,                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
   autoRotate: true,                     // Bật/Tắt tự động xoay nhẹ camera xung quanh trung tâm
   autoRotateSpeed: 0.1,                 // Tốc độ tự động xoay camera (0.1 -> 2.0)
   onNodeClick: null,                    // Callback hàm JS khi click vào 1 note: null hoặc (node) => { ... }
@@ -152,7 +152,7 @@ const STICKY_GRAPH_CONFIG = {
   enableIntroAnim: true,               // Bật/tắt animation xuất hiện từng note khi nạp dữ liệu
   introDuration: 120,                  // Thời gian phóng to của mỗi sticky note (ms)
   introStagger: 10,                    // Khoảng thời gian giãn cách giữa các note xuất hiện nối tiếp nhau (ms)
-  introOrder: 'random',                // Thứ tự xuất hiện: 'random' (ngẫu nhiên) | 'centerOut' (từ tâm lõi lan ra ngoài) | 'level' (theo cấp độ 1 -> 7) | 'sequential'
+  introOrder: 'centerOut',                // Thứ tự xuất hiện: 'random' (ngẫu nhiên) | 'centerOut' (từ tâm lõi lan ra ngoài) | 'level' (theo cấp độ 1 -> 7) | 'sequential'
   introEasing: 'backOut',              // Hiệu ứng nảy: 'backOut' (phóng to nảy nhẹ đàn hồi) | 'cubicOut' (mượt mà tự nhiên) | 'elasticOut' (nảy mạnh đàn hồi)
   introShowConnections: true,          // Bật/tắt tự động xuất hiện connection theo từng cặp note đã hiện
   introLineFadeDuration: 100,          // Thời gian mờ dần hiện rõ của đường dây nối (ms)

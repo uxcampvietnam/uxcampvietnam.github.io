@@ -97,18 +97,7 @@ const imageGraduationUrls = [
     'asset/image/graduation/83.webp',
     'asset/image/graduation/84.webp',
     'asset/image/graduation/85.webp',
-    'asset/image/graduation/86.webp',
-    'asset/image/graduation/87.webp',
-    'asset/image/graduation/88.webp',
-    'asset/image/graduation/89.webp',
-    'asset/image/graduation/90.webp',
-    'asset/image/graduation/91.webp',
-    'asset/image/graduation/92.webp',
-    'asset/image/graduation/93.webp',
-    'asset/image/graduation/94.webp',
-    'asset/image/graduation/95.webp',
-    'asset/image/graduation/96.webp',
-    'asset/image/graduation/97.webp',
+    'asset/image/graduation/86.webp'
 ];
 
 const imageBootcampUrls = [

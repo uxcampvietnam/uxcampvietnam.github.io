@@ -2741,7 +2741,6 @@ input:checked+.slider:before {
   align-items: center;
 }
 
-
 .process-step-card .illus {
   width: 100px;
   height: 100px;
@@ -2764,9 +2763,20 @@ input:checked+.slider:before {
   .eco-card,
   .delivery-mode-card,
   .advantage-card {
-    padding: 20px 16px;
+    padding: 16px 16px;
   }
+
+  .process-step-card {
+    gap: 16px;
+  }
+
+  .process-step-card .illus {
+    width: 64px;
+    height: 64px;
+  }
+
 }
+
 
 
 /* =========================================================================

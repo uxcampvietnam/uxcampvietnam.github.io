@@ -52,7 +52,7 @@ const STICKY_GRAPH_CONFIG = {
   canvasBgDark: '#000000',            // Màu nền canvas ở chế độ Dark mode (Hex/RGB, ví dụ: '#000000' hoặc '#0a0c10')
   canvasBgLight: '#F9F6F1',           // Màu nền canvas ở chế độ Light mode (Hex/RGB, ví dụ: '#F9F6F1' hoặc '#f8fafc')
   fogType: 'exp2',                      // Loại sương mù chiều sâu: 'exp2' (hàm mũ tự nhiên) | 'linear' (tuyến tính)
-  depthFade: 0.001,                       // Mức độ làm mờ sương mù chiều sâu theo trục Z (0% -> 100%)
+  depthFade: 2.0,                       // Mức độ làm mờ sương mù chiều sâu theo trục Z (0% -> 100%)
   minDistance: 500,                     // Khoảng cách zoom gần nhất của camera (pixel)
   maxDistance: 6000,                    // Khoảng cách zoom xa nhất của camera (pixel)
   // 📸 CẤU HÌNH KHOẢNG CÁCH CAMERA (ZOOM DISTANCE) & GÓC NGHIÊNG CHO DESKTOP & MOBILE
@@ -136,6 +136,7 @@ const STICKY_GRAPH_CONFIG = {
   aspectScaleY: 1.05,                    // Hệ số tùy chỉnh dãn trục Y
   aspectScaleZ: 1,                    // Hệ số tùy chỉnh dãn trục Z
   spreadRadius: 750,                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
+  levelYStagger: 12,                    // Độ nhấp nhô so le cao độ giữa các note cùng level (pixel: 0 = thẳng tắp trên cùng mặt phẳng, 10-15 = nhấp nhô nhẹ tự nhiên, 30-55 = so le mạnh)
   autoRotate: true,                     // Bật/Tắt tự động xoay nhẹ camera xung quanh trung tâm
   autoRotateSpeed: 0.1,                 // Tốc độ tự động xoay camera (0.1 -> 2.0)
   onNodeClick: null,                    // Callback hàm JS khi click vào 1 note: null hoặc (node) => { ... }
@@ -1491,10 +1492,11 @@ const STICKY_GRAPH_CONFIG = {
 
         if (index === 0) {
           // Level 1: Vành lõi trong
+          const staggerAmp = typeof this.options.levelYStagger === 'number' ? this.options.levelYStagger : 12;
           list.forEach((n, i) => {
             const angle = (i / Math.max(list.length, 1)) * Math.PI * 2;
             n.x = Math.cos(angle) * r;
-            n.y = Math.sin(i * 1.5) * 60;
+            n.y = staggerAmp > 0 ? Math.sin(i * 1.5) * staggerAmp : 0;
             n.z = Math.sin(angle) * r;
           });
         } else if (index === 1) {
@@ -1549,9 +1551,13 @@ const STICKY_GRAPH_CONFIG = {
         const baseY = maxY - t * (maxY - minY);
         const r = baseRadius * (0.35 + index * 0.38);
 
+        const staggerAmp = typeof this.options.levelYStagger === 'number' ? this.options.levelYStagger : 12;
+
         list.forEach((n, i) => {
           const angle = (i / Math.max(list.length, 1)) * Math.PI * 2;
-          const yStagger = (i % 2 === 0 ? 1 : -1) * 35 + Math.sin(i * 3.5) * 20;
+          const yStagger = staggerAmp > 0
+            ? ((i % 2 === 0 ? 1 : -1) * (staggerAmp * 0.65) + Math.sin(i * 3.5) * (staggerAmp * 0.35))
+            : 0;
           n.x = Math.cos(angle) * r;
           n.y = baseY + yStagger;
           n.z = Math.sin(angle) * r;
@@ -3168,6 +3174,7 @@ const STICKY_GRAPH_CONFIG = {
       }
       if (newConfig.spreadRadius !== undefined ||
         newConfig.layoutType !== undefined ||
+        newConfig.levelYStagger !== undefined ||
         newConfig.adaptiveAspectShape !== undefined ||
         newConfig.aspectRatioPower !== undefined ||
         newConfig.aspectScaleX !== undefined ||
@@ -3424,6 +3431,7 @@ const STICKY_GRAPH_CONFIG = {
             { key: 'centerYDesktop', label: 'Tâm Y Desktop (px)', type: 'range', min: -1000, max: 1000, step: 1, digits: 0 },
             { key: 'centerYMobile', label: 'Tâm Y Mobile (px)', type: 'range', min: -1000, max: 1000, step: 1, digits: 0 },
             { key: 'spreadRadius', label: 'Bán kính lan tỏa (Spread Radius)', type: 'range', min: 400, max: 2400, step: 50, digits: 0 },
+            { key: 'levelYStagger', label: 'Nhấp nhô cùng level (px)', type: 'range', min: 0, max: 60, step: 1, digits: 0 },
             { key: 'adaptiveAspectShape', label: 'Co dãn thích ứng canvas', type: 'checkbox' },
             { key: 'aspectRatioPower', label: 'Lũy thừa méo elip', type: 'range', min: 0.0, max: 1.0, step: 0.05, digits: 2 },
             { key: 'aspectScaleX', label: 'Hệ số dãn X', type: 'range', min: 0.2, max: 2.5, step: 0.05, digits: 2 },
@@ -3635,7 +3643,7 @@ const STICKY_GRAPH_CONFIG = {
         this.graph.options[key] = Number(value);
         this.graph._updateGraphCenterY();
       } else if (key === 'spreadRadius' || key === 'coneHeight' || key === 'coneHeightDesktop' || key === 'coneHeightMobile' ||
-        key === 'layoutType' || key === 'adaptiveAspectShape' ||
+        key === 'layoutType' || key === 'adaptiveAspectShape' || key === 'levelYStagger' ||
         key === 'aspectRatioPower' || key === 'aspectScaleX' || key === 'aspectScaleY' || key === 'aspectScaleZ') {
         // Tính toán lại vị trí không gian cho toàn bộ node & line
         this.graph._calculateLayoutPositions();
@@ -3844,6 +3852,7 @@ const STICKY_GRAPH_CONFIG = {
   aspectScaleY: ${num(opt.aspectScaleY, 1.0)},                    // Hệ số tùy chỉnh dãn trục Y
   aspectScaleZ: ${num(opt.aspectScaleZ, 1.0)},                    // Hệ số tùy chỉnh dãn trục Z
   spreadRadius: ${num(opt.spreadRadius, 1100)},                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
+  levelYStagger: ${num(opt.levelYStagger, 12)},                    // Độ nhấp nhô so le cao độ giữa các note cùng level (pixel: 0 = thẳng tắp trên cùng mặt phẳng, 10-15 = nhấp nhô nhẹ tự nhiên, 30-55 = so le mạnh)
   autoRotate: ${bool(opt.autoRotate, true)},                     // Bật/Tắt tự động xoay nhẹ camera xung quanh trung tâm
   autoRotateSpeed: ${num(opt.autoRotateSpeed, 0.1)},                 // Tốc độ tự động xoay camera (0.1 -> 2.0)
   onNodeClick: null,                    // Callback hàm JS khi click vào 1 note: null hoặc (node) => { ... }

@@ -459,54 +459,30 @@
         /* Submit Button */
         .submit-btn-wrapper {
             margin-top: 36px;
-        }
-
-        .btn-register-submit,
-        .btn-register-submit * {
-            color: #ffffff !important;
-            fill: #ffffff !important;
-        }
-
-        .btn-register-submit {
+            display: flex;
             width: 100%;
+        }
+
+        .submit-btn-wrapper .cta,
+        .submit-btn-wrapper .cta-large {
             height: 52px;
-            border-radius: 500px;
-            background: #141414;
-            border: none;
-            font-family: var(--font-sans-family, 'Work Sans', sans-serif);
             font-size: 1rem;
             font-weight: 600;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
-        }
-
-        .btn-register-submit:hover:not(:disabled) {
-            transform: translateY(-2px);
-            background: #000000;
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
-        }
-
-        .btn-register-submit:disabled {
-            opacity: 0.65;
-            cursor: not-allowed;
-            transform: none;
         }
 
         .submit-spinner {
             width: 18px;
             height: 18px;
-            border: 2px solid #ffffff;
+            border: 2px solid currentColor;
             border-top-color: transparent;
             border-radius: 50%;
             animation: spin 0.75s linear infinite;
             display: none;
+            margin-right: 8px;
         }
 
+        .cta.is-loading .submit-spinner,
+        .cta-large.is-loading .submit-spinner,
         .btn-register-submit.is-loading .submit-spinner {
             display: inline-block;
         }
@@ -861,7 +837,7 @@
 
             <!-- Submit CTA -->
             <div class="submit-btn-wrapper">
-                <button id="submit-btt" type="submit" class="btn-register-submit">
+                <button id="submit-btt" type="submit" class="cta cta-large stretch paragraph btn-register-submit">
                     <span class="submit-spinner"></span>
                     <span class="submit-btn-text">Gửi form đăng ký tham gia</span>
                 </button>

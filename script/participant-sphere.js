@@ -31,34 +31,39 @@
 
 
     const DEFAULT_CONFIG = {
+        // Cấu hình chế độ phát triển (Developer Mode)
         "devMode": {
-            "showLiveTuner": false,
-            "showConfigToggle": false
+            "showLiveTuner": false,            // Bật/tắt giao diện tùy chỉnh thông số trực tiếp (GUI Live Tuner)
+            "showConfigToggle": false          // Bật/tắt nút mở bảng điều khiển cấu hình
         },
+        // Thông số hình học khối cầu 3D (Sphere Geometry)
         "sphere": {
-            "radiusDesktop": 775,
-            "radiusMobile": 185,
-            "focalLength": 5150,
-            "maxItems": 200,
-            "canvasPadding": 40
+            "radiusDesktop": 775,              // Bán kính khối cầu trên Desktop (px)
+            "radiusMobile": 185,               // Bán kính khối cầu trên Mobile (px)
+            "focalLength": 5150,               // Tiêu cự phối cảnh chiều sâu 3D (Focal Length)
+            "maxItems": 200,                   // Số lượng ảnh học viên tối đa hiển thị
+            "canvasPadding": 40                // Vùng đệm an toàn bao quanh canvas (px)
         },
+        // Kích thước và hiển thị ảnh đại diện (Item Styling)
         "item": {
-            "sizeDesktop": 66,
-            "sizeMobile": 24,
-            "minScale": 0.27,
-            "minBrightness": 0.28
+            "sizeDesktop": 66,                 // Kích thước avatar trên màn hình Desktop (px)
+            "sizeMobile": 24,                  // Kích thước avatar trên màn hình Mobile (px)
+            "minScale": 0.27,                  // Tỉ lệ thu nhỏ tối thiểu khi avatar quay ra mặt sau (0.01 - 1.0)
+            "minBrightness": 0.28              // Độ sáng tối thiểu khi avatar quay ra mặt sau (0.0 = tối đen, 1.0 = sáng rõ)
         },
+        // Vật lý chuyển động và xoay quán tính (Motion Physics)
         "motion": {
-            "autoSpinY": 0.003,
-            "autoSpinX": 0,
-            "dragSensitivity": 0.0077,
-            "inertiaDamping": 0.978,
-            "idleRestoreSpeed": 0.399
+            "autoSpinY": 0.003,                // Tốc độ tự động quay theo trục ngang Y (>0 quay phải, <0 quay trái)
+            "autoSpinX": 0,                    // Tốc độ tự động quay theo trục dọc X (>0 quay xuống, <0 quay lên)
+            "dragSensitivity": 0.0077,         // Độ nhạy khi tương tác kéo rê chuột / vuốt ngón tay
+            "inertiaDamping": 0.978,           // Hệ số giảm chấn quán tính sau khi thả tay (càng gần 1 trượt càng lâu)
+            "idleRestoreSpeed": 0.399          // Tốc độ mượt mà phục hồi về vòng xoay tự động khi không tương tác
         },
+        // Hoạt ảnh thu nhỏ khi cuộn thoát (Exit Animation)
         "exitAnimation": {
-            "triggerRatio": 0.1,
-            "shrinkDuration": 2,
-            "randomStaggerWindow": 2
+            "triggerRatio": 0.1,               // Tỉ lệ vị trí cuộn kích hoạt hoạt ảnh thoát (0.1 - 1.0)
+            "shrinkDuration": 2,               // Thời lượng co nhỏ của từng avatar (giây)
+            "randomStaggerWindow": 2           // Độ lệch ngẫu nhiên về thời điểm bắt đầu co nhỏ giữa các avatar (giây)
         }
     };
 

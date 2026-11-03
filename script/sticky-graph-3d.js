@@ -38,11 +38,11 @@ const STICKY_GRAPH_CONFIG = {
   // ----------------------------------------------------------------------------
   borderRadius: 8,                      // Độ bo góc sticky note (pixel, 0 = vuông vức, 8-12 = bo mượt)
   paperCurl: 15,                        // Độ cong vênh mép giấy (0 = phẳng, 5-15px = cong tự nhiên)
-  flutterAmp: 40.0,                     // Độ rung lắc mép giấy khi camera xoay/di chuyển (0 -> 100)
+  flutterAmp: 40,                     // Độ rung lắc mép giấy khi camera xoay/di chuyển (0 -> 100)
   hierarchyDepth: true,                // Phân tầng độ sâu trục Z: L1 nổi lên trước (+Z), các tầng sau lùi dần (-Z)
-  noteScale: 0.9,                       // Hệ số phóng to / thu nhỏ kích thước tất cả note (VD: 0.7 = 70%)
+  noteScale: 1,                       // Hệ số phóng to / thu nhỏ kích thước tất cả note (VD: 0.7 = 70%)
   fontSize: 8,                          // Kích thước font tiêu đề (title) trong sticky note (null = tự động theo level)
-  descFontSize: 6.2,                    // Kích thước font mô tả (description) trong sticky note (null = tự động)
+  descFontSize: 5.6,                    // Kích thước font mô tả (description) trong sticky note (null = tự động)
   hoverScale: 1.08,                     // Phóng to nhẹ sticky note khi hover chuột (1.0 = giữ nguyên, 1.08 = to lên 8%)
   hoverBrightness: 0.18,                // Độ sáng tăng thêm khi hover sticky note (0.0 -> 1.0)
 
@@ -52,16 +52,16 @@ const STICKY_GRAPH_CONFIG = {
   canvasBgDark: '#000000',            // Màu nền canvas ở chế độ Dark mode (Hex/RGB, ví dụ: '#000000' hoặc '#0a0c10')
   canvasBgLight: '#F9F6F1',           // Màu nền canvas ở chế độ Light mode (Hex/RGB, ví dụ: '#F9F6F1' hoặc '#f8fafc')
   fogType: 'exp2',                      // Loại sương mù chiều sâu: 'exp2' (hàm mũ tự nhiên) | 'linear' (tuyến tính)
-  depthFade: 0.2,                       // Mức độ làm mờ sương mù chiều sâu theo trục Z (0% -> 100%)
+  depthFade: 0.001,                       // Mức độ làm mờ sương mù chiều sâu theo trục Z (0% -> 100%)
   minDistance: 500,                     // Khoảng cách zoom gần nhất của camera (pixel)
   maxDistance: 6000,                    // Khoảng cách zoom xa nhất của camera (pixel)
   // 📸 CẤU HÌNH KHOẢNG CÁCH CAMERA (ZOOM DISTANCE) & GÓC NGHIÊNG CHO DESKTOP & MOBILE
   // Mặc định luôn tự động xoay ngẫu nhiên 360° xung quanh tâm; góc máy chiếu ngang trực diện tầm mắt vào khối sticky note.
-  cameraDistanceDesktop: 4400,          // Khoảng cách camera trên Desktop / Laptop (pixel)
-  cameraDistanceMobile: 4000,           // Khoảng cách camera trên Mobile / Điện thoại (pixel)
-  cameraPitch: -0.38,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
+  cameraDistanceDesktop: 3300,          // Khoảng cách camera trên Desktop / Laptop (pixel)
+  cameraDistanceMobile: 2500,           // Khoảng cách camera trên Mobile / Điện thoại (pixel)
+  cameraPitch: -0.54,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
 
-  rotateSpeed: 2.0,                     // Tốc độ xoay camera khi kéo drag chuột (0.1 -> 3.0)
+  rotateSpeed: 2,                     // Tốc độ xoay camera khi kéo drag chuột (0.1 -> 3.0)
   dampingFactor: 0.05,                  // Hệ số hãm quán tính khi xoay camera (0.01 -> 0.3, nhỏ hơn = mượt hơn)
 
   // ----------------------------------------------------------------------------
@@ -75,15 +75,15 @@ const STICKY_GRAPH_CONFIG = {
   dirLight1ColorDark: '#ffffff',       // Màu nguồn sáng chính 1 (Directional Light 1) Dark mode
   dirLight1ColorLight: '#fbbf24',      // Màu nguồn sáng chính 1 Light mode
   dirLight1IntensityDark: 0.3,        // Cường độ nguồn sáng chính 1 Dark mode (0.0 -> 2.0)
-  dirLight1IntensityLight: 0.0,        // Cường độ nguồn sáng chính 1 Light mode (0.0 -> 2.0)
+  dirLight1IntensityLight: 0,        // Cường độ nguồn sáng chính 1 Light mode (0.0 -> 2.0)
 
   dirLight2ColorDark: '#ffffff',       // Màu nguồn sáng phụ 2 (Directional Light 2) Dark mode
   dirLight2ColorLight: '#38bdf8',      // Màu nguồn sáng phụ 2 Light mode
   dirLight2IntensityDark: 0.3,        // Cường độ nguồn sáng phụ 2 Dark mode (0.0 -> 2.0)
-  dirLight2IntensityLight: 0.0,        // Cường độ nguồn sáng phụ 2 Light mode (0.0 -> 2.0)
+  dirLight2IntensityLight: 0,        // Cường độ nguồn sáng phụ 2 Light mode (0.0 -> 2.0)
 
   cameraLightIntensityDark: 0.3,       // Cường độ nguồn sáng rọi đi theo Camera ở Dark mode
-  cameraLightIntensityLight: 0.0,      // Cường độ nguồn sáng rọi đi theo Camera ở Light mode
+  cameraLightIntensityLight: 0,      // Cường độ nguồn sáng rọi đi theo Camera ở Light mode
 
   // ----------------------------------------------------------------------------
   // 6. ĐƯỜNG LIÊN KẾT MẶC ĐỊNH (Default Connection Lines)
@@ -92,7 +92,7 @@ const STICKY_GRAPH_CONFIG = {
   lineWidth: 1,                       // Độ dày đường liên kết mặc định (pixel, ví dụ: 1.0, 1.5, 2.0...)
   lineColorDark: '#ffffff',             // Màu đường liên kết mặc định ở Dark mode (Hex)
   lineColorLight: '#8e8e8e',            // Màu đường liên kết mặc định ở Light mode (Hex)
-  lineOpacityDark: 0.4,                 // Độ mờ / trong suốt của đường nối mặc định ở Dark mode (0.0 -> 1.0)
+  lineOpacityDark: 0.5,                 // Độ mờ / trong suốt của đường nối mặc định ở Dark mode (0.0 -> 1.0)
   lineOpacityLight: 0.4,                // Độ mờ / trong suốt của đường nối mặc định ở Light mode (0.0 -> 1.0)
 
   // ----------------------------------------------------------------------------
@@ -106,7 +106,7 @@ const STICKY_GRAPH_CONFIG = {
   lineActiveColorDark: '#ffffff',       // Màu đường liên kết được highlight ở Dark mode (Hex)
   lineActiveColorLight: '#3b3b3b',      // Màu đường liên kết được highlight ở Light mode (Hex)
   lineActiveWidth: 1.5,                   // Độ dày của connection được highlight (pixel)
-  lineActiveOpacity: 1.0,              // Độ trong suốt / opacity của connection được highlight (0.0 -> 1.0; nếu = 0 sẽ ẩn luôn)
+  lineActiveOpacity: 1,              // Độ trong suốt / opacity của connection được highlight (0.0 -> 1.0; nếu = 0 sẽ ẩn luôn)
 
   // 7.3. Connection KHÔNG ĐƯỢC highlight (các đường nối còn lại không liên quan):
   lineDimmedWidth: 1,                   // Độ dày của connection không được highlight (pixel)
@@ -116,24 +116,26 @@ const STICKY_GRAPH_CONFIG = {
   // 8. ĐỘNG LỰC HỌC & TƯƠNG TÁC (Physics Dynamics)
   // ----------------------------------------------------------------------------
   physicsRepulsion: false,              // Lực đẩy lò xo né chỗ giữa các note khi kéo thả (true/false)
-  repulsionStrength: 0.0,               // Cường độ lực đẩy lò xo (0.1 -> 2.0)
+  repulsionStrength: 0,               // Cường độ lực đẩy lò xo (0.1 -> 2.0)
   wobbleSpeed: 1.4,                     // Tốc độ nhấp nhô lơ lửng ngẫu nhiên của các note (0.1 -> 3.0)
-  wobbleAmp: 0.0,                       // Biên độ nhấp nhô lơ lửng của các note (0 = đứng yên, >0 = nhấp nhô)
+  wobbleAmp: 0,                       // Biên độ nhấp nhô lơ lửng của các note (0 = đứng yên, >0 = nhấp nhô)
 
   // ----------------------------------------------------------------------------
   // 9. BỐ CỤC KHÔNG GIAN & QUỸ ĐẠO (Layout & Orbit)
   // ----------------------------------------------------------------------------
-  layoutType: 'cylinder',                   // Bố cục phân bố: 'auto' (tự chọn theo màn hình) | 'galaxy' | 'cylinder'
-  layoutTypeDesktop: 'galaxy',          // Bố cục mặc định cho màn hình Desktop (rộng >= 768px)
+  layoutType: 'auto',                   // Bố cục phân bố: 'auto' (tự chọn theo màn hình) | 'galaxy' | 'cylinder'
+  layoutTypeDesktop: 'cylinder',          // Bố cục mặc định cho màn hình Desktop (rộng >= 768px)
   layoutTypeMobile: 'galaxy',           // Bố cục mặc định cho màn hình Mobile (rộng < 768px)
-  centerYDesktop: -252,                    // Độ lệch tâm đồ thị theo trục Y trên Desktop (pixel / đơn vị 3D: >0 nâng lên trên, <0 hạ xuống dưới)
-  centerYMobile: 0,                     // Độ lệch tâm đồ thị theo trục Y trên Mobile (pixel / đơn vị 3D: >0 nâng lên trên, <0 hạ xuống dưới)
+  centerYDesktop: 105,                    // Độ lệch tâm đồ thị theo trục Y trên Desktop (pixel / đơn vị 3D: >0 nâng lên trên, <0 hạ xuống dưới)
+  centerYMobile: 316,                     // Độ lệch tâm đồ thị theo trục Y trên Mobile (pixel / đơn vị 3D: >0 nâng lên trên, <0 hạ xuống dưới)
+  coneHeightDesktop: 1620,               // Chiều cao hình nón trên Desktop (pixel: khoảng cách Y từ đỉnh đến chân: càng tăng càng nhọn, càng giảm càng bẹt)
+  coneHeightMobile: 940,                // Chiều cao hình nón trên Mobile (pixel: khoảng cách Y từ đỉnh đến chân)
   adaptiveAspectShape: true,            // Tự động phân bổ hình dạng khối theo tỷ lệ canvas (dài ngang trên desktop, cao dọc trên mobile)
   aspectRatioPower: 0.2,                // Độ co dãn theo size màn hình (0.0 tròn -> 1.0 méo)
-  aspectScaleX: 1.0,                    // Hệ số tùy chỉnh dãn trục X
-  aspectScaleY: 1.0,                    // Hệ số tùy chỉnh dãn trục Y
-  aspectScaleZ: 1.0,                    // Hệ số tùy chỉnh dãn trục Z
-  spreadRadius: 1300,                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
+  aspectScaleX: 1.05,                    // Hệ số tùy chỉnh dãn trục X
+  aspectScaleY: 1.05,                    // Hệ số tùy chỉnh dãn trục Y
+  aspectScaleZ: 1,                    // Hệ số tùy chỉnh dãn trục Z
+  spreadRadius: 750,                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
   autoRotate: true,                     // Bật/Tắt tự động xoay nhẹ camera xung quanh trung tâm
   autoRotateSpeed: 0.1,                 // Tốc độ tự động xoay camera (0.1 -> 2.0)
   onNodeClick: null,                    // Callback hàm JS khi click vào 1 note: null hoặc (node) => { ... }
@@ -142,13 +144,13 @@ const STICKY_GRAPH_CONFIG = {
   // 10. KÍCH THƯỚC CƠ SỞ THEO CẤP BẬC (Level Dimensions & Base Font Sizes)
   // ----------------------------------------------------------------------------
   levelBaseConfig: {
-    1: { width: 150, height: 130 },    // Cấp 1 (Node Trung tâm)
-    2: { width: 145, height: 115 },    // Cấp 2 (Chủ đề chính)
+    1: { width: 160, height: 130 },    // Cấp 1 (Node Trung tâm)
+    2: { width: 155, height: 115 },    // Cấp 2 (Chủ đề chính)
     3: { width: 145, height: 100 },    // Cấp 3 (Nhánh con)
-    4: { width: 145, height: 90 },     // Cấp 4
-    5: { width: 145, height: 82 },     // Cấp 5
-    6: { width: 145, height: 74 },     // Cấp 6 (Câu hỏi thực hành)
-    7: { width: 145, height: 74 }      // Cấp 7
+    4: { width: 125, height: 80 },     // Cấp 4
+    5: { width: 120, height: 70 },     // Cấp 5
+    6: { width: 110, height: 64 },     // Cấp 6 (Câu hỏi thực hành)
+    7: { width: 110, height: 70 }      // Cấp 7
   },
 
   // ----------------------------------------------------------------------------
@@ -170,12 +172,13 @@ const STICKY_GRAPH_CONFIG = {
   mobilePaperCurl: false,               // Bật/tắt uốn cong mép giấy trên Mobile (false = giấy phẳng 100%, 2 tam giác/card, siêu nhẹ; true = uốn cong theo paperCurl)
   mobileFlutter: false,                 // Bật/tắt hiệu ứng gió rung rinh mép giấy khi di chuyển/xoay trên Mobile (false = đứng yên phẳng phiu; true = rung rinh theo flutterAmp)
   dynamicFocusHiRes: true,              // Tự động nâng cấp texture siêu nét Retina (3x) khi click/zoom vào 1 node, và tự hạ cấp giải phóng RAM khi zoom out
-  focusTextureDpr: 3.0,                 // Độ phân giải texture khi zoom sát vào 1 node (2.5 -> 3.5x chuẩn Retina)
+  focusTextureDpr: 3,                 // Độ phân giải texture khi zoom sát vào 1 node (2.5 -> 3.5x chuẩn Retina)
   mobileTextureDpr: 1.3,                // Tỷ lệ phân giải texture cho node chính Cấp 1-3 trên Mobile (1.3x sắc nét chuẩn Retina)
-  mobileLodDpr: 1.0,                    // Tỷ lệ phân giải texture LOD cho node nhánh Cấp 4+ trên Mobile (1.0x siêu nhẹ, tiết kiệm tối đa VRAM)
+  mobileLodDpr: 1,                    // Tỷ lệ phân giải texture LOD cho node nhánh Cấp 4+ trên Mobile (1.0x siêu nhẹ, tiết kiệm tối đa VRAM)
   mobileDisableMipmaps: true,           // Tắt mipmaps texture trên Mobile (tiết kiệm 35% VRAM và triệt tiêu giật lag khởi tạo GPU)
-  desktopTextureDpr: 2.0                // Tỷ lệ phân giải texture trên Desktop (2.0x chuẩn sắc nét)
+  desktopTextureDpr: 2                // Tỷ lệ phân giải texture trên Desktop (2.0x chuẩn sắc nét)
 };
+
 
 (function (global) {
   'use strict';
@@ -230,16 +233,26 @@ const STICKY_GRAPH_CONFIG = {
         desktopTextureDpr: 2.0,
         centerYDesktop: 0,
         centerYMobile: 0,
+        coneHeightDesktop: 960,
+        coneHeightMobile: 960,
         onNodeClick: null,
         onNodeHover: null
       }, baseConfig, options);
 
       if (options.onlyValidated !== undefined) this.options.onlyValidated = !!options.onlyValidated;
 
-      // Hỗ trợ alias tên cấu hình: saveLocalhost, useLocalCache, saveToLocalStorage
+      // Hỗ trợ alias tên cấu hình: saveLocalhost, useLocalCache, saveToLocalStorage, cylinderHeight, coneHeight
       if (options.saveLocalhost !== undefined) this.options.enableLocalCache = !!options.saveLocalhost;
       if (options.useLocalCache !== undefined) this.options.enableLocalCache = !!options.useLocalCache;
       if (options.saveToLocalStorage !== undefined) this.options.enableLocalCache = !!options.saveToLocalStorage;
+      if (options.coneHeight !== undefined) {
+        if (options.coneHeightDesktop === undefined) this.options.coneHeightDesktop = Number(options.coneHeight);
+        if (options.coneHeightMobile === undefined) this.options.coneHeightMobile = Number(options.coneHeight);
+      }
+      if (options.cylinderHeight !== undefined) {
+        if (options.coneHeightDesktop === undefined) this.options.coneHeightDesktop = Number(options.cylinderHeight);
+        if (options.coneHeightMobile === undefined) this.options.coneHeightMobile = Number(options.cylinderHeight);
+      }
       if (options.tsvUrl !== undefined && options.tsvPath === undefined) this.options.tsvPath = options.tsvUrl;
       if (options.tsvFilePath !== undefined && options.tsvPath === undefined) this.options.tsvPath = options.tsvFilePath;
 
@@ -432,7 +445,20 @@ const STICKY_GRAPH_CONFIG = {
       return Number(val) || 0;
     }
 
-    // Cập nhật độ cao Y của nhóm đồ thị 3D (graphGroup)
+    // Lấy chiều cao hình nón theo thiết bị (Desktop / Mobile)
+    _getActiveConeHeight() {
+      const isMobile = (this.width || window.innerWidth) < 768;
+      const val = isMobile
+        ? (this.options.coneHeightMobile !== undefined
+          ? this.options.coneHeightMobile
+          : (this.options.coneHeight !== undefined ? this.options.coneHeight : (this.options.cylinderHeight || 960)))
+        : (this.options.coneHeightDesktop !== undefined
+          ? this.options.coneHeightDesktop
+          : (this.options.coneHeight !== undefined ? this.options.coneHeight : (this.options.cylinderHeight || 960)));
+      return Math.max(50, Number(val) || 960);
+    }
+
+    // Cập nhật độ cao Y của nhóm đồ thị 3D (graphGroup) - Dịch chuyển cả khối đồ thị lên trên (>0) hoặc xuống dưới (<0)
     _updateGraphCenterY() {
       if (!this.graphGroup) return;
       this.graphGroup.position.y = this._getActiveCenterY();
@@ -1428,7 +1454,8 @@ const STICKY_GRAPH_CONFIG = {
       }
 
       // Phân tầng độ sâu theo cấp bậc (Depth by Hierarchy): Lõi nổi về phía trước (+Z), các tầng sau lùi dần (-Z)
-      if (this.options.hierarchyDepth) {
+      // Lưu ý: Chỉ áp dụng cho bố cục 'galaxy' / planar. Với bố cục 'cylinder', các tầng bắt buộc phải đồng trục X=0, Z=0 để khối quay quanh tâm tròn trịa, không bị lệch/đảo trục Z.
+      if (this.options.hierarchyDepth && activeLayout !== 'cylinder') {
         const levels = Array.from(new Set(this.nodes.map(n => n.level || 1))).sort((a, b) => a - b);
         const minL = levels[0] || 1;
         const maxL = levels[levels.length - 1] || 4;
@@ -1494,7 +1521,9 @@ const STICKY_GRAPH_CONFIG = {
 
 
 
-    // Phân bố trụ tròn phân tầng (Cylindrical Discs) theo danh sách Level thực tế
+    // Phân bố hình nón phân tầng (Conical Layout):
+    // Level thấp nằm gần tâm (bán kính nhỏ), level cao hơn mở rộng dần ra ngoài (bán kính lớn);
+    // Level càng cao thì tọa độ Y càng thấp, tạo thành một shape tổng thể hình nón xoay chuẩn tâm.
     _layoutCylinder(baseRadius) {
       const levels = Array.from(new Set(this.nodes.map(n => n.level || 1))).sort((a, b) => a - b);
       if (levels.length === 0) return;
@@ -1508,8 +1537,9 @@ const STICKY_GRAPH_CONFIG = {
       });
 
       const numLevels = levels.length;
-      const maxY = 480;
-      const minY = -480;
+      const totalH = this._getActiveConeHeight();
+      const maxY = totalH / 2;
+      const minY = -totalH / 2;
 
       levels.forEach((lvl, index) => {
         const list = byLevel[lvl];
@@ -2226,16 +2256,69 @@ const STICKY_GRAPH_CONFIG = {
       const mesh = this.meshMap.get(nodeId);
       if (!mesh) return;
 
-      const targetPos = new window.THREE.Vector3();
+      const THREE = window.THREE;
+      const targetPos = new THREE.Vector3();
       mesh.getWorldPosition(targetPos);
-      const offset = new window.THREE.Vector3(0, 80, 320);
-      const camPos = targetPos.clone().add(offset);
+
+      // Tâm khối graph trong không gian thế giới (world space)
+      const graphCenter = new THREE.Vector3();
+      this.graphGroup.getWorldPosition(graphCenter);
+
+      // Vector từ tâm graph đến node
+      const radialVec = targetPos.clone().sub(graphCenter);
+      const horizontalDist = Math.hypot(radialVec.x, radialVec.z);
+
+      // Hướng chiếu ngang (XZ): Luôn đặt camera ở phía ngoài nhìn xuyên qua node về tâm graph (0, Y, 0)
+      // Nhờ đó toàn bộ phần còn lại của graph sẽ nằm làm hậu cảnh phía sau note được focus
+      let uXZ;
+      if (horizontalDist > 15) {
+        uXZ = new THREE.Vector3(radialVec.x / horizontalDist, 0, radialVec.z / horizontalDist);
+      } else {
+        // Nếu node nằm quá sát trục trung tâm (Cấp 1): Dùng góc nhìn camera hiện tại nhìn thẳng vào
+        const currentCamDir = this.camera.position.clone().sub(targetPos);
+        currentCamDir.y = 0;
+        if (currentCamDir.length() > 0.001) {
+          uXZ = currentCamDir.normalize();
+        } else {
+          uXZ = new THREE.Vector3(0, 0, 1);
+        }
+      }
+
+      // Khoảng cách zoom vào node (gần vừa đủ để đọc rõ mà vẫn thấy rộng hậu cảnh xung quanh)
+      const isMobile = (this.width || window.innerWidth) < 768;
+      const viewDist = isMobile ? 380 : 340;
+
+      // Độ cao Y & góc nghiêng (pitch) hướng về tâm khối graph:
+      // - Node nằm cao hơn tâm (L1, L2): camera cao hơn một chút nhìn dốc nhẹ xuống tâm
+      // - Node nằm thấp hơn tâm (L5, L6, L7): camera hạ xuống tầm mắt nhìn hướng lên trung tâm khối
+      const deltaY = targetPos.y - graphCenter.y;
+      const distXZ = Math.max(horizontalDist, 300);
+      const naturalAngle = Math.atan2(deltaY, distXZ);
+      // Giới hạn góc pitch trong khoảng [-0.15, 0.38] radian để tránh chúc quá gắt hoặc ngửa quá đà
+      const pitch = Math.min(0.38, Math.max(-0.15, naturalAngle * 0.55 + 0.12));
+
+      const camOffset = new THREE.Vector3(
+        uXZ.x * viewDist * Math.cos(pitch),
+        viewDist * Math.sin(pitch),
+        uXZ.z * viewDist * Math.cos(pitch)
+      );
+      const camPos = targetPos.clone().add(camOffset);
+
+      // Tạm dừng autoRotate khi đang soi chi tiết 1 note để giữ góc nhìn và hậu cảnh ổn định
+      if (this.controls) {
+        this.controls.autoRotate = false;
+      }
 
       this._animateCameraTo(camPos, targetPos);
       this.selectNode(nodeId);
     }
 
     _animateCameraTo(targetCamPos, targetLookAt, duration = 800) {
+      if (this._cameraAnimRaf) {
+        cancelAnimationFrame(this._cameraAnimRaf);
+        this._cameraAnimRaf = null;
+      }
+
       const startCamPos = this.camera.position.clone();
       const startLookAt = this.controls.target.clone();
       const startTime = performance.now();
@@ -2251,10 +2334,12 @@ const STICKY_GRAPH_CONFIG = {
         this.controls.update();
 
         if (progress < 1.0) {
-          requestAnimationFrame(updateAnim);
+          this._cameraAnimRaf = requestAnimationFrame(updateAnim);
+        } else {
+          this._cameraAnimRaf = null;
         }
       };
-      requestAnimationFrame(updateAnim);
+      this._cameraAnimRaf = requestAnimationFrame(updateAnim);
     }
 
     // --- CHỌN NODE & HIGHLIGHT LIÊN KẾT (ACTIVE HIGHLIGHT STATE) ---
@@ -2442,6 +2527,10 @@ const STICKY_GRAPH_CONFIG = {
     }
 
     resetCamera() {
+      // Khôi phục autoRotate theo cấu hình khi thoát khỏi trạng thái focus note
+      if (this.controls) {
+        this.controls.autoRotate = !!this.options.autoRotate;
+      }
       const targetCamPos = this.initialRandomCamPos || this._getBaseCameraPreset();
       this._animateCameraTo(
         new window.THREE.Vector3(targetCamPos.x, targetCamPos.y, targetCamPos.z),
@@ -3083,7 +3172,11 @@ const STICKY_GRAPH_CONFIG = {
         newConfig.aspectRatioPower !== undefined ||
         newConfig.aspectScaleX !== undefined ||
         newConfig.aspectScaleY !== undefined ||
-        newConfig.aspectScaleZ !== undefined) {
+        newConfig.aspectScaleZ !== undefined ||
+        newConfig.coneHeightDesktop !== undefined ||
+        newConfig.coneHeightMobile !== undefined ||
+        newConfig.coneHeight !== undefined ||
+        newConfig.cylinderHeight !== undefined) {
         this._calculateLayoutPositions();
         this.meshMap.forEach(mesh => {
           const n = mesh.userData.node;
@@ -3326,6 +3419,8 @@ const STICKY_GRAPH_CONFIG = {
           title: '4. Bố cục không gian (Spatial Layout)',
           fields: [
             { key: 'layoutType', label: 'Kiểu bố cục (Layout Type)', type: 'select', options: ['galaxy', 'cylinder'] },
+            { key: 'coneHeightDesktop', label: 'Chiều cao nón Desktop (px)', type: 'range', min: 200, max: 2500, step: 20, digits: 0 },
+            { key: 'coneHeightMobile', label: 'Chiều cao nón Mobile (px)', type: 'range', min: 200, max: 2500, step: 20, digits: 0 },
             { key: 'centerYDesktop', label: 'Tâm Y Desktop (px)', type: 'range', min: -1000, max: 1000, step: 1, digits: 0 },
             { key: 'centerYMobile', label: 'Tâm Y Mobile (px)', type: 'range', min: -1000, max: 1000, step: 1, digits: 0 },
             { key: 'spreadRadius', label: 'Bán kính lan tỏa (Spread Radius)', type: 'range', min: 400, max: 2400, step: 50, digits: 0 },
@@ -3539,7 +3634,8 @@ const STICKY_GRAPH_CONFIG = {
       } else if (key === 'centerYDesktop' || key === 'centerYMobile' || key === 'centerY') {
         this.graph.options[key] = Number(value);
         this.graph._updateGraphCenterY();
-      } else if (key === 'spreadRadius' || key === 'layoutType' || key === 'adaptiveAspectShape' ||
+      } else if (key === 'spreadRadius' || key === 'coneHeight' || key === 'coneHeightDesktop' || key === 'coneHeightMobile' ||
+        key === 'layoutType' || key === 'adaptiveAspectShape' ||
         key === 'aspectRatioPower' || key === 'aspectScaleX' || key === 'aspectScaleY' || key === 'aspectScaleZ') {
         // Tính toán lại vị trí không gian cho toàn bộ node & line
         this.graph._calculateLayoutPositions();
@@ -3599,17 +3695,197 @@ const STICKY_GRAPH_CONFIG = {
 
     // Sao chép code `const STICKY_GRAPH_CONFIG = { ... }` vào clipboard để dán ngược lại file
     copyConfigCode() {
-      // Sao chép toàn bộ object STICKY_GRAPH_CONFIG hiện tại
-      const exportConfig = Object.assign({}, typeof STICKY_GRAPH_CONFIG !== 'undefined' ? STICKY_GRAPH_CONFIG : {}, this.graph.options);
-      delete exportConfig.container; // giữ nguyên container selector
-      exportConfig.container = '#graphContainer';
+      // Lấy toàn bộ config hiện tại kèm các giá trị đang tinh chỉnh trên UI
+      const opt = Object.assign({}, typeof STICKY_GRAPH_CONFIG !== 'undefined' ? STICKY_GRAPH_CONFIG : {}, this.graph.options);
+      opt.container = '#graphContainer';
 
-      const jsonStr = JSON.stringify(exportConfig, (k, v) => {
-        if (typeof v === 'function') return undefined;
-        return v;
-      }, 2);
+      const num = (v, fallback = 0, maxDecimals = 4) => {
+        const val = typeof v === 'number' && !isNaN(v) ? v : fallback;
+        return Number(Number(val).toFixed(maxDecimals));
+      };
+      const bool = (v, fallback = false) => (v !== undefined ? Boolean(v) : fallback);
+      const strVal = (v, fallback = '') => {
+        const val = v !== undefined && v !== null ? String(v) : fallback;
+        return `'${val.replace(/'/g, "\\'")}'`;
+      };
+      const lvl = (level, prop, fallback) => {
+        const cfg = (opt.levelBaseConfig && opt.levelBaseConfig[level]) || {};
+        return typeof cfg[prop] === 'number' ? cfg[prop] : fallback;
+      };
 
-      const codeToCopy = `const STICKY_GRAPH_CONFIG = ${jsonStr};`;
+      const codeToCopy = `const STICKY_GRAPH_CONFIG = {
+  // ----------------------------------------------------------------------------
+  // 0. BẢNG CẤU HÌNH LIVE TRÊN UI (Dev / Config UI Panel)
+  // ----------------------------------------------------------------------------
+  showConfigPanel: ${bool(opt.showConfigPanel, true)},                        // Bật/tắt hiển thị bảng điều khiển cấu hình thời gian thực trên giao diện
+  configPanelOpen: ${bool(opt.configPanelOpen, false)},                       // Trạng thái mở sẵn (true = bung ra ngay khi tải trang, false = thu nhỏ thành nút bấm)
+  // ----------------------------------------------------------------------------
+  // 1. DỮ LIỆU ĐẦU VÀO (Data Source & Storage)
+  // ----------------------------------------------------------------------------
+  dataSource: ${strVal(opt.dataSource, 'tsv')},                       // Nguồn dữ liệu: 'firebase' (tải trực tiếp từ Firestore) | 'tsv' (tải từ file TSV)
+  tsvPath: ${strVal(opt.tsvPath, 'data/knowledge_nodes.tsv')},          // Đường dẫn file TSV nguồn kiến thức (khi dataSource: 'tsv')
+  firebaseCollection: ${strVal(opt.firebaseCollection, 'knowledgeNodes')},        // Tên Collection Firestore chứa dữ liệu node kiến thức
+  container: ${strVal(opt.container, '#graphContainer')},                 // DOM element hoặc selector CSS chứa canvas 3D
+
+  // 💾 CẤU HÌNH BỘ NHỚ ĐỆM LOCAL (Local Cache / LocalStorage)
+  // Lưu dữ liệu đã tải từ Firebase vào LocalStorage trình duyệt để không phải gọi Firebase liên tục mỗi khi tải trang
+  enableLocalCache: ${bool(opt.enableLocalCache, false)},                       // Bật/tắt lưu cache vào LocalStorage (true = lưu local, false = luôn tải mới từ Firebase)
+  localCacheKey: ${strVal(opt.localCacheKey, 'sticky_graph_nodes_cache')},   // Tên khóa lưu trữ trong LocalStorage
+  localCacheTTL: ${num(opt.localCacheTTL, 0)},                     // Thời gian hết hạn cache (ms): 24h = 86400000 ms (Đặt 0 để không hết hạn tự động) - 2592000000 = 30 ngày
+
+  // 🛡️ LỌC KIỂM DUYỆT (Validation Filter)
+  onlyValidated: ${bool(opt.onlyValidated, true)},                          // Chỉ hiển thị các node đã được kiểm duyệt (validated === true)
+
+  // ----------------------------------------------------------------------------
+  // 2. CHẾ ĐỘ HIỂN THỊ (Theme & Appearance)
+  // ----------------------------------------------------------------------------
+  mode: ${strVal(opt.mode, 'auto')},                         // Chế độ giao diện: 'auto' (ăn theo hệ thống OS) | 'dark' | 'light'
+
+  // ----------------------------------------------------------------------------
+  // 3. THIẾT KẾ STICKY NOTE (Note Dynamics & Typography)
+  // ----------------------------------------------------------------------------
+  borderRadius: ${num(opt.borderRadius, 8)},                      // Độ bo góc sticky note (pixel, 0 = vuông vức, 8-12 = bo mượt)
+  paperCurl: ${num(opt.paperCurl, 15)},                        // Độ cong vênh mép giấy (0 = phẳng, 5-15px = cong tự nhiên)
+  flutterAmp: ${num(opt.flutterAmp, 40.0)},                     // Độ rung lắc mép giấy khi camera xoay/di chuyển (0 -> 100)
+  hierarchyDepth: ${bool(opt.hierarchyDepth, true)},                // Phân tầng độ sâu trục Z: L1 nổi lên trước (+Z), các tầng sau lùi dần (-Z)
+  noteScale: ${num(opt.noteScale, 0.9)},                       // Hệ số phóng to / thu nhỏ kích thước tất cả note (VD: 0.7 = 70%)
+  fontSize: ${opt.fontSize === null || opt.fontSize === undefined ? 'null' : num(opt.fontSize)},                          // Kích thước font tiêu đề (title) trong sticky note (null = tự động theo level)
+  descFontSize: ${opt.descFontSize === null || opt.descFontSize === undefined ? 'null' : num(opt.descFontSize)},                    // Kích thước font mô tả (description) trong sticky note (null = tự động)
+  hoverScale: ${num(opt.hoverScale, 1.08)},                     // Phóng to nhẹ sticky note khi hover chuột (1.0 = giữ nguyên, 1.08 = to lên 8%)
+  hoverBrightness: ${num(opt.hoverBrightness, 0.18)},                // Độ sáng tăng thêm khi hover sticky note (0.0 -> 1.0)
+
+  // ----------------------------------------------------------------------------
+  // 4. KHÔNG GIAN, MÀU NỀN & CAMERA (Environment & Camera)
+  // ----------------------------------------------------------------------------
+  canvasBgDark: ${strVal(opt.canvasBgDark, '#000000')},            // Màu nền canvas ở chế độ Dark mode (Hex/RGB, ví dụ: '#000000' hoặc '#0a0c10')
+  canvasBgLight: ${strVal(opt.canvasBgLight, '#F9F6F1')},           // Màu nền canvas ở chế độ Light mode (Hex/RGB, ví dụ: '#F9F6F1' hoặc '#f8fafc')
+  fogType: ${strVal(opt.fogType, 'exp2')},                      // Loại sương mù chiều sâu: 'exp2' (hàm mũ tự nhiên) | 'linear' (tuyến tính)
+  depthFade: ${num(opt.depthFade, 0.001)},                       // Mức độ làm mờ sương mù chiều sâu theo trục Z (0% -> 100%)
+  minDistance: ${num(opt.minDistance, 500)},                     // Khoảng cách zoom gần nhất của camera (pixel)
+  maxDistance: ${num(opt.maxDistance, 6000)},                    // Khoảng cách zoom xa nhất của camera (pixel)
+  // 📸 CẤU HÌNH KHOẢNG CÁCH CAMERA (ZOOM DISTANCE) & GÓC NGHIÊNG CHO DESKTOP & MOBILE
+  // Mặc định luôn tự động xoay ngẫu nhiên 360° xung quanh tâm; góc máy chiếu ngang trực diện tầm mắt vào khối sticky note.
+  cameraDistanceDesktop: ${num(opt.cameraDistanceDesktop, 3950)},          // Khoảng cách camera trên Desktop / Laptop (pixel)
+  cameraDistanceMobile: ${num(opt.cameraDistanceMobile, 4000)},           // Khoảng cách camera trên Mobile / Điện thoại (pixel)
+  cameraPitch: ${num(opt.cameraPitch, -0.395)},                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
+
+  rotateSpeed: ${num(opt.rotateSpeed, 2.0)},                     // Tốc độ xoay camera khi kéo drag chuột (0.1 -> 3.0)
+  dampingFactor: ${num(opt.dampingFactor, 0.05)},                  // Hệ số hãm quán tính khi xoay camera (0.01 -> 0.3, nhỏ hơn = mượt hơn)
+
+  // ----------------------------------------------------------------------------
+  // 5. THIẾT LẬP NGUỒN SÁNG 3D (3D Lighting Settings)
+  // ----------------------------------------------------------------------------
+  ambientLightColorDark: ${strVal(opt.ambientLightColorDark, '#ffffff')},    // Màu ánh sáng môi trường tỏa đều (Dark mode)
+  ambientLightColorLight: ${strVal(opt.ambientLightColorLight, '#ffffff')},   // Màu ánh sáng môi trường tỏa đều (Light mode)
+  ambientIntensityDark: ${num(opt.ambientIntensityDark, 0.85)},          // Cường độ ánh sáng môi trường Dark mode (0.0 -> 2.0)
+  ambientIntensityLight: ${num(opt.ambientIntensityLight, 1.1)},          // Cường độ ánh sáng môi trường Light mode (0.0 -> 2.0)
+
+  dirLight1ColorDark: ${strVal(opt.dirLight1ColorDark, '#ffffff')},       // Màu nguồn sáng chính 1 (Directional Light 1) Dark mode
+  dirLight1ColorLight: ${strVal(opt.dirLight1ColorLight, '#fbbf24')},      // Màu nguồn sáng chính 1 Light mode
+  dirLight1IntensityDark: ${num(opt.dirLight1IntensityDark, 0.3)},        // Cường độ nguồn sáng chính 1 Dark mode (0.0 -> 2.0)
+  dirLight1IntensityLight: ${num(opt.dirLight1IntensityLight, 0.0)},        // Cường độ nguồn sáng chính 1 Light mode (0.0 -> 2.0)
+
+  dirLight2ColorDark: ${strVal(opt.dirLight2ColorDark, '#ffffff')},       // Màu nguồn sáng phụ 2 (Directional Light 2) Dark mode
+  dirLight2ColorLight: ${strVal(opt.dirLight2ColorLight, '#38bdf8')},      // Màu nguồn sáng phụ 2 Light mode
+  dirLight2IntensityDark: ${num(opt.dirLight2IntensityDark, 0.3)},        // Cường độ nguồn sáng phụ 2 Dark mode (0.0 -> 2.0)
+  dirLight2IntensityLight: ${num(opt.dirLight2IntensityLight, 0.0)},        // Cường độ nguồn sáng phụ 2 Light mode (0.0 -> 2.0)
+
+  cameraLightIntensityDark: ${num(opt.cameraLightIntensityDark, 0.3)},       // Cường độ nguồn sáng rọi đi theo Camera ở Dark mode
+  cameraLightIntensityLight: ${num(opt.cameraLightIntensityLight, 0.0)},      // Cường độ nguồn sáng rọi đi theo Camera ở Light mode
+
+  // ----------------------------------------------------------------------------
+  // 6. ĐƯỜNG LIÊN KẾT MẶC ĐỊNH (Default Connection Lines)
+  // ----------------------------------------------------------------------------
+  lineMorphology: ${strVal(opt.lineMorphology, 'bezier')},             // Kiểu đường nối: 'bezier' (cong mềm) | 'straight' (thẳng) | 'orthogonal' (gấp khúc 90°)
+  lineWidth: ${num(opt.lineWidth, 1)},                       // Độ dày đường liên kết mặc định (pixel, ví dụ: 1.0, 1.5, 2.0...)
+  lineColorDark: ${strVal(opt.lineColorDark, '#ffffff')},             // Màu đường liên kết mặc định ở Dark mode (Hex)
+  lineColorLight: ${strVal(opt.lineColorLight, '#8e8e8e')},            // Màu đường liên kết mặc định ở Light mode (Hex)
+  lineOpacityDark: ${num(opt.lineOpacityDark, 0.4)},                 // Độ mờ / trong suốt của đường nối mặc định ở Dark mode (0.0 -> 1.0)
+  lineOpacityLight: ${num(opt.lineOpacityLight, 0.4)},                // Độ mờ / trong suốt của đường nối mặc định ở Light mode (0.0 -> 1.0)
+
+  // ----------------------------------------------------------------------------
+  // 7. TRẠNG THÁI HIGHLIGHT KHI CLICK VÀO 1 STICKY NOTE (Active Highlight State)
+  // ----------------------------------------------------------------------------
+  // 7.1. Sticky Notes khi có 1 note được click chọn:
+  noteDimmedOpacityDark: ${num(opt.noteDimmedOpacityDark, 0.15)},           // Độ mờ (opacity) của các note KHÔNG được highlight ở Dark mode (0.0 -> 1.0; nếu 0 sẽ ẩn luôn note)
+  noteDimmedOpacityLight: ${num(opt.noteDimmedOpacityLight, 0.4)},          // Độ mờ (opacity) của các note KHÔNG được highlight ở Light mode (0.0 -> 1.0; nếu 0 sẽ ẩn luôn note)
+
+  // 7.2. Connection ĐƯỢC highlight (đường nối trực tiếp với note đang chọn):
+  lineActiveColorDark: ${strVal(opt.lineActiveColorDark, '#ffffff')},       // Màu đường liên kết được highlight ở Dark mode (Hex)
+  lineActiveColorLight: ${strVal(opt.lineActiveColorLight, '#3b3b3b')},      // Màu đường liên kết được highlight ở Light mode (Hex)
+  lineActiveWidth: ${num(opt.lineActiveWidth, 1.5)},                   // Độ dày của connection được highlight (pixel)
+  lineActiveOpacity: ${num(opt.lineActiveOpacity, 1.0)},              // Độ trong suốt / opacity của connection được highlight (0.0 -> 1.0; nếu = 0 sẽ ẩn luôn)
+
+  // 7.3. Connection KHÔNG ĐƯỢC highlight (các đường nối còn lại không liên quan):
+  lineDimmedWidth: ${num(opt.lineDimmedWidth, 1)},                   // Độ dày của connection không được highlight (pixel)
+  lineDimmedOpacity: ${num(opt.lineDimmedOpacity, 0.1)},              // Độ trong suốt / opacity của connection không được highlight (0.0 -> 1.0; nếu = 0 sẽ ẩn luôn)
+
+  // ----------------------------------------------------------------------------
+  // 8. ĐỘNG LỰC HỌC & TƯƠNG TÁC (Physics Dynamics)
+  // ----------------------------------------------------------------------------
+  physicsRepulsion: ${bool(opt.physicsRepulsion, false)},              // Lực đẩy lò xo né chỗ giữa các note khi kéo thả (true/false)
+  repulsionStrength: ${num(opt.repulsionStrength, 0.0)},               // Cường độ lực đẩy lò xo (0.1 -> 2.0)
+  wobbleSpeed: ${num(opt.wobbleSpeed, 1.4)},                     // Tốc độ nhấp nhô lơ lửng ngẫu nhiên của các note (0.1 -> 3.0)
+  wobbleAmp: ${num(opt.wobbleAmp, 0.0)},                       // Biên độ nhấp nhô lơ lửng của các note (0 = đứng yên, >0 = nhấp nhô)
+
+  // ----------------------------------------------------------------------------
+  // 9. BỐ CỤC KHÔNG GIAN & QUỸ ĐẠO (Layout & Orbit)
+  // ----------------------------------------------------------------------------
+  layoutType: ${strVal(opt.layoutType, 'cylinder')},                   // Bố cục phân bố: 'auto' (tự chọn theo màn hình) | 'galaxy' | 'cylinder'
+  layoutTypeDesktop: ${strVal(opt.layoutTypeDesktop, 'galaxy')},          // Bố cục mặc định cho màn hình Desktop (rộng >= 768px)
+  layoutTypeMobile: ${strVal(opt.layoutTypeMobile, 'galaxy')},           // Bố cục mặc định cho màn hình Mobile (rộng < 768px)
+  centerYDesktop: ${num(opt.centerYDesktop, -252)},                    // Độ lệch tâm đồ thị theo trục Y trên Desktop (pixel / đơn vị 3D: >0 nâng lên trên, <0 hạ xuống dưới)
+  centerYMobile: ${num(opt.centerYMobile, 0)},                     // Độ lệch tâm đồ thị theo trục Y trên Mobile (pixel / đơn vị 3D: >0 nâng lên trên, <0 hạ xuống dưới)
+  coneHeightDesktop: ${num(opt.coneHeightDesktop, 1540)},               // Chiều cao hình nón trên Desktop (pixel: khoảng cách Y từ đỉnh đến chân: càng tăng càng nhọn, càng giảm càng bẹt)
+  coneHeightMobile: ${num(opt.coneHeightMobile, 960)},                // Chiều cao hình nón trên Mobile (pixel: khoảng cách Y từ đỉnh đến chân)
+  adaptiveAspectShape: ${bool(opt.adaptiveAspectShape, true)},            // Tự động phân bổ hình dạng khối theo tỷ lệ canvas (dài ngang trên desktop, cao dọc trên mobile)
+  aspectRatioPower: ${num(opt.aspectRatioPower, 0.2)},                // Độ co dãn theo size màn hình (0.0 tròn -> 1.0 méo)
+  aspectScaleX: ${num(opt.aspectScaleX, 1.0)},                    // Hệ số tùy chỉnh dãn trục X
+  aspectScaleY: ${num(opt.aspectScaleY, 1.0)},                    // Hệ số tùy chỉnh dãn trục Y
+  aspectScaleZ: ${num(opt.aspectScaleZ, 1.0)},                    // Hệ số tùy chỉnh dãn trục Z
+  spreadRadius: ${num(opt.spreadRadius, 1100)},                   // Bán kính khoảng cách tỏa ra của các note trong không gian 3D
+  autoRotate: ${bool(opt.autoRotate, true)},                     // Bật/Tắt tự động xoay nhẹ camera xung quanh trung tâm
+  autoRotateSpeed: ${num(opt.autoRotateSpeed, 0.1)},                 // Tốc độ tự động xoay camera (0.1 -> 2.0)
+  onNodeClick: null,                    // Callback hàm JS khi click vào 1 note: null hoặc (node) => { ... }
+
+  // ----------------------------------------------------------------------------
+  // 10. KÍCH THƯỚC CƠ SỞ THEO CẤP BẬC (Level Dimensions & Base Font Sizes)
+  // ----------------------------------------------------------------------------
+  levelBaseConfig: {
+    1: { width: ${lvl(1, 'width', 150)}, height: ${lvl(1, 'height', 130)} },    // Cấp 1 (Node Trung tâm)
+    2: { width: ${lvl(2, 'width', 145)}, height: ${lvl(2, 'height', 115)} },    // Cấp 2 (Chủ đề chính)
+    3: { width: ${lvl(3, 'width', 145)}, height: ${lvl(3, 'height', 100)} },    // Cấp 3 (Nhánh con)
+    4: { width: ${lvl(4, 'width', 145)}, height: ${lvl(4, 'height', 90)} },     // Cấp 4
+    5: { width: ${lvl(5, 'width', 145)}, height: ${lvl(5, 'height', 82)} },     // Cấp 5
+    6: { width: ${lvl(6, 'width', 145)}, height: ${lvl(6, 'height', 74)} },     // Cấp 6 (Câu hỏi thực hành)
+    7: { width: ${lvl(7, 'width', 145)}, height: ${lvl(7, 'height', 74)} }      // Cấp 7
+  },
+
+  // ----------------------------------------------------------------------------
+  // 11. HIỆU ỨNG XUẤT HIỆN BAN ĐẦU (Intro & Entrance Animation)
+  // ----------------------------------------------------------------------------
+  enableIntroAnim: ${bool(opt.enableIntroAnim, true)},               // Bật/tắt animation xuất hiện từng note khi nạp dữ liệu
+  introDuration: ${num(opt.introDuration, 120)},                  // Thời gian phóng to của mỗi sticky note (ms)
+  introStagger: ${num(opt.introStagger, 10)},                    // Khoảng thời gian giãn cách giữa các note xuất hiện nối tiếp nhau (ms)
+  introOrder: ${strVal(opt.introOrder, 'centerOut')},                // Thứ tự xuất hiện: 'random' (ngẫu nhiên) | 'centerOut' (từ tâm lõi lan ra ngoài) | 'level' (theo cấp độ 1 -> 7) | 'sequential'
+  introEasing: ${strVal(opt.introEasing, 'backOut')},              // Hiệu ứng nảy: 'backOut' (phóng to nảy nhẹ đàn hồi) | 'cubicOut' (mượt mà tự nhiên) | 'elasticOut' (nảy mạnh đàn hồi)
+  introShowConnections: ${bool(opt.introShowConnections, true)},          // Bật/tắt tự động xuất hiện connection theo từng cặp note đã hiện
+  introLineFadeDuration: ${num(opt.introLineFadeDuration, 100)},          // Thời gian mờ dần hiện rõ của đường dây nối (ms)
+
+  // ----------------------------------------------------------------------------
+  // 12. TỐI ƯU HÓA MOBILE & BẢO VỆ BỘ NHỚ RAM/GPU (Mobile & Memory Safeguards)
+  // ----------------------------------------------------------------------------
+  mobileMaxLevel: ${num(opt.mobileMaxLevel, 0)},                    // Cấp node tối đa hiển thị trên Mobile (< 768px): 1->7 (Mặc định 4: ~170 node, 5: ~350 node toàn bộ, đặt 0 để nạp tất cả)
+  mobileMaxNodes: ${num(opt.mobileMaxNodes, 250)},                  // Số lượng node tối đa trên Mobile (Mặc định 180, đặt 0 để không giới hạn số lượng)
+  mobilePaperCurl: ${bool(opt.mobilePaperCurl, false)},               // Bật/tắt uốn cong mép giấy trên Mobile (false = giấy phẳng 100%, 2 tam giác/card, siêu nhẹ; true = uốn cong theo paperCurl)
+  mobileFlutter: ${bool(opt.mobileFlutter, false)},                 // Bật/tắt hiệu ứng gió rung rinh mép giấy khi di chuyển/xoay trên Mobile (false = đứng yên phẳng phiu; true = rung rinh theo flutterAmp)
+  dynamicFocusHiRes: ${bool(opt.dynamicFocusHiRes, true)},              // Tự động nâng cấp texture siêu nét Retina (3x) khi click/zoom vào 1 node, và tự hạ cấp giải phóng RAM khi zoom out
+  focusTextureDpr: ${num(opt.focusTextureDpr, 3.0)},                 // Độ phân giải texture khi zoom sát vào 1 node (2.5 -> 3.5x chuẩn Retina)
+  mobileTextureDpr: ${num(opt.mobileTextureDpr, 1.3)},                // Tỷ lệ phân giải texture cho node chính Cấp 1-3 trên Mobile (1.3x sắc nét chuẩn Retina)
+  mobileLodDpr: ${num(opt.mobileLodDpr, 1.0)},                    // Tỷ lệ phân giải texture LOD cho node nhánh Cấp 4+ trên Mobile (1.0x siêu nhẹ, tiết kiệm tối đa VRAM)
+  mobileDisableMipmaps: ${bool(opt.mobileDisableMipmaps, true)},           // Tắt mipmaps texture trên Mobile (tiết kiệm 35% VRAM và triệt tiêu giật lag khởi tạo GPU)
+  desktopTextureDpr: ${num(opt.desktopTextureDpr, 2.0)}                // Tỷ lệ phân giải texture trên Desktop (2.0x chuẩn sắc nét)
+};`;
 
       if (navigator.clipboard && navigator.clipboard.writeText) {
         navigator.clipboard.writeText(codeToCopy).then(() => {

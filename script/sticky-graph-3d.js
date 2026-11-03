@@ -90,9 +90,9 @@ const STICKY_GRAPH_CONFIG = {
   // ----------------------------------------------------------------------------
   lineMorphology: 'bezier',             // Kiểu đường nối: 'bezier' (cong mềm) | 'straight' (thẳng) | 'orthogonal' (gấp khúc 90°)
   lineWidth: 1,                       // Độ dày đường liên kết mặc định (pixel, ví dụ: 1.0, 1.5, 2.0...)
-  lineColorDark: '#474747',             // Màu đường liên kết mặc định ở Dark mode (Hex)
+  lineColorDark: '#999999',             // Màu đường liên kết mặc định ở Dark mode (Hex)
   lineColorLight: '#ceccc2',            // Màu đường liên kết mặc định ở Light mode (Hex)
-  lineOpacityDark: 0.7,                 // Độ mờ / trong suốt của đường nối mặc định ở Dark mode (0.0 -> 1.0)
+  lineOpacityDark: 0.6,                 // Độ mờ / trong suốt của đường nối mặc định ở Dark mode (0.0 -> 1.0)
   lineOpacityLight: 0.8,                // Độ mờ / trong suốt của đường nối mặc định ở Light mode (0.0 -> 1.0)
 
   // ----------------------------------------------------------------------------

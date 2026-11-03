@@ -22,67 +22,98 @@
   // 1. CẤU HÌNH MẶC ĐỊNH MỚI (NEW 3D CURVED COVER CONFIG)
   // ===========================================================================
   const DEFAULT_CONFIG = {
-    "showLiveTuner": false,
-    "cardWidthDesktop": 480,
-    "cardHeightDesktop": 300,
-    "cardWidthMobile": 240,
-    "cardHeightMobile": 160,
-    "bendMode": "topFixed",
-    "bendIntensity": 0.95,
-    "recoverySpeed": 0.005,
-    "damping": 0.97,
-    "curvePower": 5,
-    "bendZFactor": 0.65,
-    "bendXYLag": 0.25,
-    "topFixedSpread": 2,
-    "curtainWave": 0.35,
-    "velMultiplier": 1.85,
-    "wireframe": false,
-    "maxDeform": 1.2,
-    "overlayOpacityDark": 0.78,
-    "overlayColorDark": "#000000",
-    "overlayOpacityLight": 0.64,
-    "overlayColorLight": "#f9f6f1",
-    "sphereStayDurationDesktop": 3.9,
-    "avatarShrinkDurationDesktop": 3.8,
-    "avatarFlightDurationDesktop": 3.1,
-    "card0EntryDurationDesktop": 4.7,
-    "unpinCaseOffsetDesktop": 0,
-    "pixelsPerCardDesktop": 100,
-    "frictionDesktop": 0.04,
-    "cardSpacingDesktop": 600,
-    "flyAngleDegDesktop": 31,
-    "shadowXDesktop": -5,
-    "shadowYDesktop": -120,
-    "shadowDepthDesktop": 30,
-    "shadowOpacityDesktop": 0.08,
-    "sphereStayDurationMobile": 3.4,
-    "avatarShrinkDurationMobile": 2,
-    "avatarFlightDurationMobile": 1.3,
-    "card0EntryDurationMobile": 1.8,
-    "unpinCaseOffsetMobile": 0,
-    "pixelsPerCardMobile": 70,
-    "frictionMobile": 0.25,
-    "cardSpacingMobile": 260,
-    "flyAngleDegMobile": 75,
-    "shadowXMobile": 30,
-    "shadowYMobile": -70,
-    "shadowDepthMobile": 150,
-    "shadowOpacityMobile": 0.08,
-    "rotateXDesktop": 0,
-    "rotateYDesktop": 19,
-    "rotateZDesktop": 5,
-    "rotXMultDesktop": 14,
-    "rotYMultDesktop": 10,
-    "rotZMultDesktop": -8,
-    "cameraFovDesktop": 52,
-    "rotateXMobile": 16,
-    "rotateYMobile": -1,
-    "rotateZMobile": 0,
-    "rotXMultMobile": 12,
-    "rotYMultMobile": 39,
-    "rotZMultMobile": -4,
-    "cameraFovMobile": 40
+    // =========================================================================
+    // 0. BẢNG CẤU HÌNH LIVE TRÊN UI (Developer / GUI Live Tuner)
+    // =========================================================================
+    "showLiveTuner": false,               // Bật/tắt hiển thị bảng tinh chỉnh trực tiếp
+
+    // =========================================================================
+    // 1. KÍCH THƯỚC THẺ CASE STUDY (Card Dimensions - Desktop & Mobile)
+    // =========================================================================
+    "cardWidthDesktop": 480,            // Chiều rộng thẻ Case Study trên Desktop (px)
+    "cardHeightDesktop": 300,           // Chiều cao thẻ Case Study trên Desktop (px)
+    "cardWidthMobile": 240,             // Chiều rộng thẻ Case Study trên Mobile (px)
+    "cardHeightMobile": 160,            // Chiều cao thẻ Case Study trên Mobile (px)
+
+    // =========================================================================
+    // 2. VẬT LÝ UỐN CONG 3D QUÁN TÍNH (Curved Cover Physics & Shaders)
+    // =========================================================================
+    "bendMode": "topFixed",               // Chế độ uốn cong: "topFixed" (nẹp cạnh trên) | "allCorners" (cong 4 góc)
+    "bendIntensity": 0.95,              // Cường độ uốn cong tổng thể (0.0 - 6.0)
+    "recoverySpeed": 0.005,             // Tốc độ hồi phục về trạng thái phẳng ban đầu
+    "damping": 0.97,                   // Hệ số cản/giảm chấn dao động cong đàn hồi (0.2 - 0.99)
+    "curvePower": 5,                // Lũy thừa độ dốc đường cong từ tâm (Curve Power)
+    "bendZFactor": 0.65,               // Hệ số võng sâu theo trục Z khi cuộn
+    "bendXYLag": 0.25,                 // Hệ số trễ dãn phẳng theo trục XY khi quán tính
+    "topFixedSpread": 2,            // Độ lan tỏa vùng cong từ cạnh đáy lên cạnh trên (Top Fixed)
+    "curtainWave": 0.35,               // Hiệu ứng nhấp nhô gợn sóng rèm cửa khi kéo căng
+    "velMultiplier": 1.85,             // Hệ số nhạy theo vận tốc cuộn trang
+    "wireframe": false,                 // Bật/tắt hiển thị lưới đa giác 3D (Wireframe debug)
+    "maxDeform": 1.2,                  // Giới hạn biến dạng tối đa uDeform
+
+    // =========================================================================
+    // 3. MÀU SẮC LỚP PHỦ THEO ĐỘ SÂU (Depth Overlay Styling)
+    // =========================================================================
+    "overlayOpacityDark": 0.78,         // Độ mờ đục lớp phủ khi ở xa (Dark Mode)
+    "overlayColorDark": "#000000",          // Mã màu lớp phủ xa (Dark Mode)
+    "overlayOpacityLight": 0.64,        // Độ mờ đục lớp phủ khi ở xa (Light Mode)
+    "overlayColorLight": "#f9f6f1",         // Mã màu lớp phủ xa (Light Mode)
+
+    // =========================================================================
+    // 4. TIẾN TRÌNH & THỜI GIAN CHUYỂN CẢNH — DESKTOP (Desktop Trajectory)
+    // =========================================================================
+    "sphereStayDurationDesktop": 3.9,  // Thời gian khối cầu đứng yên trước khi tan biến (Desktop)
+    "avatarShrinkDurationDesktop": 3.8,// Thời gian avatar khối cầu co nhỏ lại (Desktop)
+    "avatarFlightDurationDesktop": 3.1,// Thời gian avatar bay vào hội tụ tâm thẻ (Desktop)
+    "card0EntryDurationDesktop": 4.7,  // Thời gian thẻ đầu tiên bay vào khung nhìn (Desktop)
+    "unpinCaseOffsetDesktop": 0,      // Offset vị trí nhả ghim sticky khi kết thúc (Desktop)
+    "pixelsPerCardDesktop": 100,        // Quãng đường cuộn pixel cần thiết cho mỗi thẻ (Desktop)
+    "frictionDesktop": 0.04,             // Hệ số ma sát hãm cuộn quán tính (Desktop)
+    "cardSpacingDesktop": 600,          // Khoảng cách giữa các thẻ theo chiều sâu (Desktop px)
+    "flyAngleDegDesktop": 31,          // Góc bay chéo của dải thẻ (Desktop deg)
+    "shadowXDesktop": -5,              // Tọa độ lệch bóng đổ trục X (Desktop)
+    "shadowYDesktop": -120,            // Tọa độ lệch bóng đổ trục Y (Desktop)
+    "shadowDepthDesktop": 30,          // Khoảng cách bóng đổ trục Z (Desktop)
+    "shadowOpacityDesktop": 0.08,        // Độ mờ đục bóng đổ (Desktop)
+
+    // =========================================================================
+    // 5. TIẾN TRÌNH & THỜI GIAN CHUYỂN CẢNH — MOBILE (Mobile Trajectory)
+    // =========================================================================
+    "sphereStayDurationMobile": 3.4,   // Thời gian khối cầu đứng yên trước khi tan biến (Mobile)
+    "avatarShrinkDurationMobile": 2, // Thời gian avatar khối cầu co nhỏ lại (Mobile)
+    "avatarFlightDurationMobile": 1.3, // Thời gian avatar bay vào hội tụ tâm thẻ (Mobile)
+    "card0EntryDurationMobile": 1.8,   // Thời gian thẻ đầu tiên bay vào khung nhìn (Mobile)
+    "unpinCaseOffsetMobile": 0,       // Offset vị trí nhả ghim sticky khi kết thúc (Mobile)
+    "pixelsPerCardMobile": 70,         // Quãng đường cuộn pixel cần thiết cho mỗi thẻ (Mobile)
+    "frictionMobile": 0.25,              // Hệ số ma sát hãm cuộn quán tính (Mobile)
+    "cardSpacingMobile": 260,           // Khoảng cách giữa các thẻ theo chiều sâu (Mobile px)
+    "flyAngleDegMobile": 75,           // Góc bay chéo của dải thẻ (Mobile deg)
+    "shadowXMobile": 30,               // Tọa độ lệch bóng đổ trục X (Mobile)
+    "shadowYMobile": -70,              // Tọa độ lệch bóng đổ trục Y (Mobile)
+    "shadowDepthMobile": 150,          // Khoảng cách bóng đổ trục Z (Mobile)
+    "shadowOpacityMobile": 0.08,        // Độ mờ đục bóng đổ (Mobile)
+
+    // =========================================================================
+    // 6. GÓC XOAY 3D & PHỐI CẢNH CAMERA — DESKTOP (Desktop 3D Camera)
+    // =========================================================================
+    "rotateXDesktop": 0,              // Góc nghiêng ban đầu trục X (Desktop deg)
+    "rotateYDesktop": 19,             // Góc nghiêng ban đầu trục Y (Desktop deg)
+    "rotateZDesktop": 5,              // Góc nghiêng ban đầu trục Z (Desktop deg)
+    "rotXMultDesktop": 14,            // Hệ số xoay động theo tiến trình cuộn trục X (Desktop)
+    "rotYMultDesktop": 10,            // Hệ số xoay động theo tiến trình cuộn trục Y (Desktop)
+    "rotZMultDesktop": -8,           // Hệ số xoay động theo tiến trình cuộn trục Z (Desktop)
+    "cameraFovDesktop": 52,           // Trường nhìn camera FOV (Desktop deg)
+
+    // =========================================================================
+    // 7. GÓC XOAY 3D & PHỐI CẢNH CAMERA — MOBILE (Mobile 3D Camera)
+    // =========================================================================
+    "rotateXMobile": 16,               // Góc nghiêng ban đầu trục X (Mobile deg)
+    "rotateYMobile": -1,              // Góc nghiêng ban đầu trục Y (Mobile deg)
+    "rotateZMobile": 0,               // Góc nghiêng ban đầu trục Z (Mobile deg)
+    "rotXMultMobile": 12,             // Hệ số xoay động theo tiến trình cuộn trục X (Mobile)
+    "rotYMultMobile": 39,             // Hệ số xoay động theo tiến trình cuộn trục Y (Mobile)
+    "rotZMultMobile": -4,            // Hệ số xoay động theo tiến trình cuộn trục Z (Mobile)
+    "cameraFovMobile": 40             // Trường nhìn camera FOV (Mobile deg)
   };
 
   // Bend Mode: 'allCorners' (0) = Cong cả 4 góc, 'topFixed' (1) = Nẹp cứng cạnh trên, thả trôi thân/đáy/2 bên
@@ -1842,6 +1873,144 @@
       `;
     }
 
+    generateConfigCode() {
+      const cfg = window.CASE_STUDY_CONFIG || DEFAULT_CONFIG;
+      const num = (v, fallback = 0, maxDecimals = 4) => {
+        const val = typeof v === 'number' && !isNaN(v) ? v : fallback;
+        return Number(Number(val).toFixed(maxDecimals));
+      };
+      const bool = (v, fallback = false) => (v !== undefined ? Boolean(v) : fallback);
+      const strVal = (v, fallback = '') => {
+        const val = v !== undefined && v !== null ? String(v) : fallback;
+        return `"${val.replace(/"/g, '\\"')}"`;
+      };
+
+      return `  const DEFAULT_CONFIG = {
+    // =========================================================================
+    // 0. BẢNG CẤU HÌNH LIVE TRÊN UI (Developer / GUI Live Tuner)
+    // =========================================================================
+    "showLiveTuner": ${bool(cfg.showLiveTuner, false)},               // Bật/tắt hiển thị bảng tinh chỉnh trực tiếp
+
+    // =========================================================================
+    // 1. KÍCH THƯỚC THẺ CASE STUDY (Card Dimensions - Desktop & Mobile)
+    // =========================================================================
+    "cardWidthDesktop": ${num(cfg.cardWidthDesktop, 480)},            // Chiều rộng thẻ Case Study trên Desktop (px)
+    "cardHeightDesktop": ${num(cfg.cardHeightDesktop, 300)},           // Chiều cao thẻ Case Study trên Desktop (px)
+    "cardWidthMobile": ${num(cfg.cardWidthMobile, 240)},             // Chiều rộng thẻ Case Study trên Mobile (px)
+    "cardHeightMobile": ${num(cfg.cardHeightMobile, 160)},            // Chiều cao thẻ Case Study trên Mobile (px)
+
+    // =========================================================================
+    // 2. VẬT LÝ UỐN CONG 3D QUÁN TÍNH (Curved Cover Physics & Shaders)
+    // =========================================================================
+    "bendMode": ${strVal(cfg.bendMode, 'topFixed')},               // Chế độ uốn cong: "topFixed" (nẹp cạnh trên) | "allCorners" (cong 4 góc)
+    "bendIntensity": ${num(cfg.bendIntensity, 0.95)},              // Cường độ uốn cong tổng thể (0.0 - 6.0)
+    "recoverySpeed": ${num(cfg.recoverySpeed, 0.005)},             // Tốc độ hồi phục về trạng thái phẳng ban đầu
+    "damping": ${num(cfg.damping, 0.97)},                   // Hệ số cản/giảm chấn dao động cong đàn hồi (0.2 - 0.99)
+    "curvePower": ${num(cfg.curvePower, 5)},                // Lũy thừa độ dốc đường cong từ tâm (Curve Power)
+    "bendZFactor": ${num(cfg.bendZFactor, 0.65)},               // Hệ số võng sâu theo trục Z khi cuộn
+    "bendXYLag": ${num(cfg.bendXYLag, 0.25)},                 // Hệ số trễ dãn phẳng theo trục XY khi quán tính
+    "topFixedSpread": ${num(cfg.topFixedSpread, 2)},            // Độ lan tỏa vùng cong từ cạnh đáy lên cạnh trên (Top Fixed)
+    "curtainWave": ${num(cfg.curtainWave, 0.35)},               // Hiệu ứng nhấp nhô gợn sóng rèm cửa khi kéo căng
+    "velMultiplier": ${num(cfg.velMultiplier, 1.85)},             // Hệ số nhạy theo vận tốc cuộn trang
+    "wireframe": ${bool(cfg.wireframe, false)},                 // Bật/tắt hiển thị lưới đa giác 3D (Wireframe debug)
+    "maxDeform": ${num(cfg.maxDeform, 1.2)},                  // Giới hạn biến dạng tối đa uDeform
+
+    // =========================================================================
+    // 3. MÀU SẮC LỚP PHỦ THEO ĐỘ SÂU (Depth Overlay Styling)
+    // =========================================================================
+    "overlayOpacityDark": ${num(cfg.overlayOpacityDark, 0.78)},         // Độ mờ đục lớp phủ khi ở xa (Dark Mode)
+    "overlayColorDark": ${strVal(cfg.overlayColorDark, '#000000')},          // Mã màu lớp phủ xa (Dark Mode)
+    "overlayOpacityLight": ${num(cfg.overlayOpacityLight, 0.64)},        // Độ mờ đục lớp phủ khi ở xa (Light Mode)
+    "overlayColorLight": ${strVal(cfg.overlayColorLight, '#f9f6f1')},         // Mã màu lớp phủ xa (Light Mode)
+
+    // =========================================================================
+    // 4. TIẾN TRÌNH & THỜI GIAN CHUYỂN CẢNH — DESKTOP (Desktop Trajectory)
+    // =========================================================================
+    "sphereStayDurationDesktop": ${num(cfg.sphereStayDurationDesktop, 3.9)},  // Thời gian khối cầu đứng yên trước khi tan biến (Desktop)
+    "avatarShrinkDurationDesktop": ${num(cfg.avatarShrinkDurationDesktop, 3.8)},// Thời gian avatar khối cầu co nhỏ lại (Desktop)
+    "avatarFlightDurationDesktop": ${num(cfg.avatarFlightDurationDesktop, 3.1)},// Thời gian avatar bay vào hội tụ tâm thẻ (Desktop)
+    "card0EntryDurationDesktop": ${num(cfg.card0EntryDurationDesktop, 4.7)},  // Thời gian thẻ đầu tiên bay vào khung nhìn (Desktop)
+    "unpinCaseOffsetDesktop": ${num(cfg.unpinCaseOffsetDesktop, 0)},      // Offset vị trí nhả ghim sticky khi kết thúc (Desktop)
+    "pixelsPerCardDesktop": ${num(cfg.pixelsPerCardDesktop, 100)},        // Quãng đường cuộn pixel cần thiết cho mỗi thẻ (Desktop)
+    "frictionDesktop": ${num(cfg.frictionDesktop, 0.04)},             // Hệ số ma sát hãm cuộn quán tính (Desktop)
+    "cardSpacingDesktop": ${num(cfg.cardSpacingDesktop, 600)},          // Khoảng cách giữa các thẻ theo chiều sâu (Desktop px)
+    "flyAngleDegDesktop": ${num(cfg.flyAngleDegDesktop, 31)},          // Góc bay chéo của dải thẻ (Desktop deg)
+    "shadowXDesktop": ${num(cfg.shadowXDesktop, -5)},              // Tọa độ lệch bóng đổ trục X (Desktop)
+    "shadowYDesktop": ${num(cfg.shadowYDesktop, -120)},            // Tọa độ lệch bóng đổ trục Y (Desktop)
+    "shadowDepthDesktop": ${num(cfg.shadowDepthDesktop, 30)},          // Khoảng cách bóng đổ trục Z (Desktop)
+    "shadowOpacityDesktop": ${num(cfg.shadowOpacityDesktop, 0.08)},        // Độ mờ đục bóng đổ (Desktop)
+
+    // =========================================================================
+    // 5. TIẾN TRÌNH & THỜI GIAN CHUYỂN CẢNH — MOBILE (Mobile Trajectory)
+    // =========================================================================
+    "sphereStayDurationMobile": ${num(cfg.sphereStayDurationMobile, 3.4)},   // Thời gian khối cầu đứng yên trước khi tan biến (Mobile)
+    "avatarShrinkDurationMobile": ${num(cfg.avatarShrinkDurationMobile, 2)}, // Thời gian avatar khối cầu co nhỏ lại (Mobile)
+    "avatarFlightDurationMobile": ${num(cfg.avatarFlightDurationMobile, 1.3)}, // Thời gian avatar bay vào hội tụ tâm thẻ (Mobile)
+    "card0EntryDurationMobile": ${num(cfg.card0EntryDurationMobile, 1.8)},   // Thời gian thẻ đầu tiên bay vào khung nhìn (Mobile)
+    "unpinCaseOffsetMobile": ${num(cfg.unpinCaseOffsetMobile, 0)},       // Offset vị trí nhả ghim sticky khi kết thúc (Mobile)
+    "pixelsPerCardMobile": ${num(cfg.pixelsPerCardMobile, 70)},         // Quãng đường cuộn pixel cần thiết cho mỗi thẻ (Mobile)
+    "frictionMobile": ${num(cfg.frictionMobile, 0.25)},              // Hệ số ma sát hãm cuộn quán tính (Mobile)
+    "cardSpacingMobile": ${num(cfg.cardSpacingMobile, 260)},           // Khoảng cách giữa các thẻ theo chiều sâu (Mobile px)
+    "flyAngleDegMobile": ${num(cfg.flyAngleDegMobile, 75)},           // Góc bay chéo của dải thẻ (Mobile deg)
+    "shadowXMobile": ${num(cfg.shadowXMobile, 30)},               // Tọa độ lệch bóng đổ trục X (Mobile)
+    "shadowYMobile": ${num(cfg.shadowYMobile, -70)},              // Tọa độ lệch bóng đổ trục Y (Mobile)
+    "shadowDepthMobile": 150,          // Khoảng cách bóng đổ trục Z (Mobile)
+    "shadowOpacityMobile": ${num(cfg.shadowOpacityMobile, 0.08)},        // Độ mờ đục bóng đổ (Mobile)
+
+    // =========================================================================
+    // 6. GÓC XOAY 3D & PHỐI CẢNH CAMERA — DESKTOP (Desktop 3D Camera)
+    // =========================================================================
+    "rotateXDesktop": ${num(cfg.rotateXDesktop, 0)},              // Góc nghiêng ban đầu trục X (Desktop deg)
+    "rotateYDesktop": ${num(cfg.rotateYDesktop, 19)},             // Góc nghiêng ban đầu trục Y (Desktop deg)
+    "rotateZDesktop": ${num(cfg.rotateZDesktop, 5)},              // Góc nghiêng ban đầu trục Z (Desktop deg)
+    "rotXMultDesktop": ${num(cfg.rotXMultDesktop, 14)},            // Hệ số xoay động theo tiến trình cuộn trục X (Desktop)
+    "rotYMultDesktop": ${num(cfg.rotYMultDesktop, 10)},            // Hệ số xoay động theo tiến trình cuộn trục Y (Desktop)
+    "rotZMultDesktop": ${num(cfg.rotZMultDesktop, -8)},           // Hệ số xoay động theo tiến trình cuộn trục Z (Desktop)
+    "cameraFovDesktop": ${num(cfg.cameraFovDesktop, 52)},           // Trường nhìn camera FOV (Desktop deg)
+
+    // =========================================================================
+    // 7. GÓC XOAY 3D & PHỐI CẢNH CAMERA — MOBILE (Mobile 3D Camera)
+    // =========================================================================
+    "rotateXMobile": ${num(cfg.rotateXMobile, 16)},               // Góc nghiêng ban đầu trục X (Mobile deg)
+    "rotateYMobile": ${num(cfg.rotateYMobile, -1)},              // Góc nghiêng ban đầu trục Y (Mobile deg)
+    "rotateZMobile": ${num(cfg.rotateZMobile, 0)},               // Góc nghiêng ban đầu trục Z (Mobile deg)
+    "rotXMultMobile": ${num(cfg.rotXMultMobile, 12)},             // Hệ số xoay động theo tiến trình cuộn trục X (Mobile)
+    "rotYMultMobile": ${num(cfg.rotYMultMobile, 39)},             // Hệ số xoay động theo tiến trình cuộn trục Y (Mobile)
+    "rotZMultMobile": ${num(cfg.rotZMultMobile, -4)},            // Hệ số xoay động theo tiến trình cuộn trục Z (Mobile)
+    "cameraFovMobile": ${num(cfg.cameraFovMobile, 40)}             // Trường nhìn camera FOV (Mobile deg)
+  };`;
+    }
+
+    fallbackCopy(text, btnCopy) {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+        this.flashCopyButton(btnCopy);
+        this.showcase.showToast('✓ Đã sao chép code DEFAULT_CONFIG vào clipboard!');
+      } catch (err) {
+        prompt('Sao chép cấu hình code bên dưới:', text);
+      }
+      document.body.removeChild(ta);
+    }
+
+    flashCopyButton(btnCopy) {
+      if (!btnCopy) return;
+      const orig = btnCopy.textContent;
+      btnCopy.textContent = '✓ Đã chép!';
+      btnCopy.style.background = '#10b981';
+      btnCopy.style.color = '#fff';
+      setTimeout(() => {
+        btnCopy.textContent = orig;
+        btnCopy.style.background = '';
+        btnCopy.style.color = '';
+      }, 1500);
+    }
+
     bindEvents() {
       // Toggle button
       if (this.toggleBtn) {
@@ -2015,21 +2184,17 @@
       const btnCopy = this.panelEl.querySelector('#btnCopyConfig');
       if (btnCopy) {
         btnCopy.addEventListener('click', () => {
-          const json = JSON.stringify(window.CASE_STUDY_CONFIG, null, 2);
-          navigator.clipboard.writeText(json).then(() => {
-            const orig = btnCopy.textContent;
-            btnCopy.textContent = '✓ Đã chép!';
-            btnCopy.style.background = '#10b981';
-            btnCopy.style.color = '#fff';
-            setTimeout(() => {
-              btnCopy.textContent = orig;
-              btnCopy.style.background = '';
-              btnCopy.style.color = '';
-            }, 1500);
-            this.showcase.showToast('✓ Đã sao chép Config vào Clipboard!');
-          }).catch(() => {
-            prompt('Sao chép cấu hình JSON bên dưới:', json);
-          });
+          const codeToCopy = this.generateConfigCode();
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(codeToCopy).then(() => {
+              this.flashCopyButton(btnCopy);
+              this.showcase.showToast('✓ Đã sao chép code DEFAULT_CONFIG vào clipboard!');
+            }).catch(() => {
+              this.fallbackCopy(codeToCopy, btnCopy);
+            });
+          } else {
+            this.fallbackCopy(codeToCopy, btnCopy);
+          }
         });
       }
 

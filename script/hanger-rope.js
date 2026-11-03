@@ -155,6 +155,9 @@
             }
         ]
     };
+
+
+
     window.HANGER_ROPE_CONFIG = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
     // Tương thích ngược: getter 'scroll' tự động trỏ đến cấu hình tương ứng với kích thước màn hình
     Object.defineProperty(window.HANGER_ROPE_CONFIG, 'scroll', {
@@ -1175,22 +1178,125 @@
             });
         }
 
+        generateConfigCode() {
+            const cfg = window.HANGER_ROPE_CONFIG || DEFAULT_CONFIG;
+            const num = (v, fallback = 0, maxDecimals = 4) => {
+                const val = typeof v === 'number' && !isNaN(v) ? v : fallback;
+                return Number(Number(val).toFixed(maxDecimals));
+            };
+            const bool = (v, fallback = false) => (v !== undefined ? Boolean(v) : fallback);
+            const strVal = (v, fallback = '') => {
+                const val = v !== undefined && v !== null ? String(v) : fallback;
+                return `"${val.replace(/"/g, '\\"')}"`;
+            };
+
+            const devMode = cfg.devMode || {};
+            const rope = cfg.rope || {};
+            const scrollDesktop = cfg.scrollDesktop || {};
+            const scrollMobile = cfg.scrollMobile || {};
+            const drag = cfg.drag || {};
+            const itemsSway = cfg.itemsSway || {};
+            const breeze = cfg.breeze || {};
+
+            const itemsStr = (cfg.items || DEFAULT_CONFIG.items).map((item) => {
+                return `            {
+                "id": ${strVal(item.id)},                     // ID duy nhất đại diện cho thẻ
+                "title": ${strVal(item.title)},                 // Tiêu đề hiển thị trên thẻ
+                "imageUrl": ${strVal(item.imageUrl)}, // Đường dẫn ảnh minh họa cho thẻ
+                "ropePosition": ${num(item.ropePosition, 0.1)},                // Vị trí gắn thẻ trên dây (tỷ lệ từ 0.0 ở đầu dây đến 1.0 ở cuối dây)
+                "widthDesktop": ${num(item.widthDesktop, 220)},                // Chiều rộng thẻ trên màn hình Desktop (px)
+                "widthMobile": ${num(item.widthMobile, 50)},                  // Chiều rộng thẻ trên màn hình Mobile (px)
+                "baseAngle": ${num(item.baseAngle, 0)},                     // Góc xoay nghiêng tự nhiên ban đầu của thẻ (độ)
+                "targetSelector": ${strVal(item.targetSelector)}      // Selector CSS của phần tử DOM liên kết
+            }`;
+            }).join(',\n');
+
+            return `    const DEFAULT_CONFIG = {
+        // Cấu hình chế độ phát triển (Developer Mode)
+        "devMode": {
+            "showLiveTuner": ${bool(devMode.showLiveTuner, false)} // Bật/tắt giao diện tùy chỉnh thông số trực tiếp (GUI Live Tuner)
+        },
+        // Cấu hình vật lý & giao diện sợi dây (Rope Physics & Styling)
+        "rope": {
+            "pointCount": ${num(rope.pointCount, 50)},            // Số lượng nút/điểm mô phỏng trên dây (càng cao dây càng mềm mượt nhưng tốn CPU)
+            "stiffness": ${num(rope.stiffness, 0.85)},           // Độ cứng/co giãn của dây (0.0 - 1.0)
+            "constraintIterations": ${num(rope.constraintIterations, 8)},   // Số lần lặp giải độ dài liên kết giữa các điểm (giữ độ ổn định chiều dài dây)
+            "gravity": ${num(rope.gravity, 1.5)},              // Trọng lực kéo dây xuống
+            "damping": ${num(rope.damping, 0.9)},              // Hệ số cản/ma sát của dây (giảm chấn gia tốc qua thời gian)
+            "sagRatio": ${num(rope.sagRatio, 0.05)},            // Tỷ lệ độ võng tự nhiên của dây khi ở trạng thái nghỉ
+            "restoreSpeed": ${num(rope.restoreSpeed, 0.077)},       // Tốc độ dây đàn hồi trở lại hình dạng võng ban đầu
+            "color": "${rope.color || '#b5a184'}",          // Mã màu hiển thị của sợi dây
+            "shadowColor": "${rope.shadowColor || 'rgba(40, 25, 10, 0)'}", // Màu và độ trong suốt của bóng đổ bên dưới dây
+            "highlightColor": "${rope.highlightColor || '#e8decb'}",   // Màu của đường viền phản quang/sáng trên thân dây
+            "lineWidth": ${num(rope.lineWidth, 2)},              // Độ dày nét vẽ sợi dây (pixel)
+            "pinOffsetTop": ${num(rope.pinOffsetTop, 28)}           // Khoảng cách cố định từ mép trên khung chứa đến 2 điểm ghim đầu dây (px)
+        },
+        // Cấu hình phản hồi khi cuộn trang cho Laptop / Desktop (Scroll Physics - Desktop)
+        "scrollDesktop": {
+            "influence": ${num(scrollDesktop.influence, 0.1)},  // Mức độ ảnh hưởng của thao tác cuộn trang tới lực tác động lên dây trên laptop/desktop
+            "maxImpulse": ${num(scrollDesktop.maxImpulse, 6)},   // Giới hạn xung lực tối đa từ cuộn trang (tránh dây đung đưa quá mạnh)
+            "damping": ${num(scrollDesktop.damping, 0.85)}    // Hệ số giảm chấn xung lực cuộn theo thời gian
+        },
+        // Cấu hình phản hồi khi cuộn trang cho Mobile (Scroll Physics - Mobile)
+        "scrollMobile": {
+            "influence": ${num(scrollMobile.influence, 0.00)}, // Mức độ ảnh hưởng của thao tác cuộn trang tới lực tác động lên dây trên mobile
+            "maxImpulse": ${num(scrollMobile.maxImpulse, 0)},   // Giới hạn xung lực tối đa từ cuộn trang trên mobile (êm ái, tránh giật lag khi lướt ngón tay)
+            "damping": ${num(scrollMobile.damping, 0.85)}    // Hệ số giảm chấn xung lực cuộn theo thời gian
+        },
+        // Cấu hình tương tác kéo rê bằng chuột / cảm ứng (Drag / Touch Interaction)
+        "drag": {
+            "radius": ${num(drag.radius, 400)},          // Bán kính vùng tác động tương tác xung quanh con trỏ (px)
+            "strength": ${num(drag.strength, 0.78)},       // Mức độ mạnh của lực kéo dây theo con trỏ chuột
+            "releaseImpulse": ${num(drag.releaseImpulse, 1.4)},  // Xung lực nẩy ban đầu khi thả chuột khỏi dây
+            "cardPullStrength": ${num(drag.cardPullStrength, 0.5)} // Mức độ kéo lệch dây khi người dùng nắm trực tiếp các thẻ treo
+        },
+        // Cấu hình hiệu ứng lắc/đung đưa của các thẻ treo (Card Items Sway & 3D Rotation)
+        "itemsSway": {
+            "swayAxis": "${itemsSway.swayAxis || 'depth'}",         // Trục lắc chính ("depth" cho hiệu ứng lắc chiều sâu 3D)
+            "depthSwayEnabled": ${bool(itemsSway.depthSwayEnabled, true)},    // Bật/tắt hiệu ứng đung đưa 3D theo trục Z
+            "depthFrequency": ${num(itemsSway.depthFrequency, 0.04)},      // Tần số / tốc độ dao động đung đưa 3D
+            "depthDamping": ${num(itemsSway.depthDamping, 0.96)},        // Hệ số dập tắt dao động đung đưa 3D
+            "depthMaxAngleDeg": ${num(itemsSway.depthMaxAngleDeg, 53)},      // Góc xoay nghiêng 3D tối đa của thẻ (độ - deg)
+            "depthScrollInfluence": ${num(itemsSway.depthScrollInfluence, 1)},   // Mức độ tác động của cuộn trang lên độ lắc 3D
+            "depthScrollFlutter": ${num(itemsSway.depthScrollFlutter, 0.011)}, // Độ rung lắc nhè nhẹ (flutter) tạo ra khi cuộn trang
+            "depthScrollWaveFreq": ${num(itemsSway.depthScrollWaveFreq, 0.016)},// Tần số sóng dao động lan truyền khi cuộn trang nhanh
+            "depthScrollBias": ${num(itemsSway.depthScrollBias, 0.18)},     // Độ nghiêng thiên vị cố định theo chiều cuộn trang
+            "depthBreezeInfluence": ${num(itemsSway.depthBreezeInfluence, 10)},  // Mức độ ảnh hưởng của gió (breeze) đến độ đung đưa 3D
+            "depthInertiaFactor": ${num(itemsSway.depthInertiaFactor, 0.2)},   // Quán tính xoay nghiêng 3D của thẻ khi di chuyển
+            "depthReleaseImpulse": ${num(itemsSway.depthReleaseImpulse, 0.7)},  // Xung lực xoay 3D tạo ra khi thả kéo dây
+            "perspective": ${num(itemsSway.perspective, 900)},          // Khoảng cách góc nhìn 3D (CSS perspective px)
+            "rollStrength": ${num(itemsSway.rollStrength, 0)},           // Độ cuộn/xoay nghiêng nhẹ theo chiều ngang (roll)
+            "frequency": ${num(itemsSway.frequency, 0.035)},          // Tần số lắc 2D chuẩn
+            "damping": ${num(itemsSway.damping, 0.958)},            // Hệ số dập tắt lắc 2D
+            "inertiaFactor": ${num(itemsSway.inertiaFactor, 1.6)},        // Hệ số quán tính lắc 2D
+            "tangentInfluence": ${num(itemsSway.tangentInfluence, 0.62)},    // Mức độ ảnh hưởng từ độ nghiêng tiếp tuyến của dây lên góc thẻ
+            "maxAngleDeg": ${num(itemsSway.maxAngleDeg, 46)}            // Góc lắc 2D tối đa (độ)
+        },
+        // Cấu hình hiệu ứng gió đung đưa tự nhiên (Natural Breeze Simulation)
+        "breeze": {
+            "enabled": ${bool(breeze.enabled, false)},   // Bật/tắt hiệu ứng gió tự nhiên đung đưa dây
+            "strength": ${num(breeze.strength, 0.8)},    // Cường độ / lực đẩy của gió
+            "speed": ${num(breeze.speed, 0.0018)}     // Tốc độ biến thiên/thay đổi hướng gió theo thời gian
+        },
+        // Danh sách các thẻ (items) treo trên dây
+        "items": [
+${itemsStr}
+        ]
+    };`;
+        }
+
         bindEvents() {
             // Nút Copy Config
             this.panelEl.querySelector('#hanger-btn-copy-cfg').addEventListener('click', () => {
-                const jsonStr = JSON.stringify(window.HANGER_ROPE_CONFIG, null, 4);
+                const codeToCopy = this.generateConfigCode();
                 if (navigator.clipboard && navigator.clipboard.writeText) {
-                    navigator.clipboard.writeText(jsonStr).then(() => {
-                        this.showToast('✓ Đã copy cấu hình vào clipboard!');
+                    navigator.clipboard.writeText(codeToCopy).then(() => {
+                        this.showToast('✓ Đã sao chép code DEFAULT_CONFIG vào clipboard!');
+                    }).catch(() => {
+                        this.fallbackCopy(codeToCopy);
                     });
                 } else {
-                    const ta = document.createElement('textarea');
-                    ta.value = jsonStr;
-                    document.body.appendChild(ta);
-                    ta.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(ta);
-                    this.showToast('✓ Đã copy cấu hình vào clipboard!');
+                    this.fallbackCopy(codeToCopy);
                 }
             });
 
@@ -1211,6 +1317,22 @@
                 }
                 this.showToast('↺ Đã khôi phục cấu hình mặc định!');
             });
+        }
+
+        fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                this.showToast('✓ Đã sao chép code DEFAULT_CONFIG vào clipboard!');
+            } catch (err) {
+                this.showToast('✕ Lỗi sao chép clipboard');
+            }
+            document.body.removeChild(ta);
         }
 
         showToast(msg) {

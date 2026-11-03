@@ -1742,6 +1742,74 @@
             });
         }
 
+        generateConfigCode() {
+            const cfg = window.PARTICIPANT_SPHERE_CONFIG || DEFAULT_CONFIG;
+            const num = (v, fallback = 0, maxDecimals = 4) => {
+                const val = typeof v === 'number' && !isNaN(v) ? v : fallback;
+                return Number(Number(val).toFixed(maxDecimals));
+            };
+            const bool = (v, fallback = false) => (v !== undefined ? Boolean(v) : fallback);
+
+            const devMode = cfg.devMode || {};
+            const sphere = cfg.sphere || {};
+            const item = cfg.item || {};
+            const motion = cfg.motion || {};
+            const exitAnimation = cfg.exitAnimation || {};
+
+            return `    const DEFAULT_CONFIG = {
+        // Cấu hình chế độ phát triển (Developer Mode)
+        "devMode": {
+            "showLiveTuner": ${bool(devMode.showLiveTuner, false)},            // Bật/tắt giao diện tùy chỉnh thông số trực tiếp (GUI Live Tuner)
+            "showConfigToggle": ${bool(devMode.showConfigToggle, false)}          // Bật/tắt nút mở bảng điều khiển cấu hình
+        },
+        // Thông số hình học khối cầu 3D (Sphere Geometry)
+        "sphere": {
+            "radiusDesktop": ${num(sphere.radiusDesktop, 775)},              // Bán kính khối cầu trên Desktop (px)
+            "radiusMobile": ${num(sphere.radiusMobile, 185)},               // Bán kính khối cầu trên Mobile (px)
+            "focalLength": ${num(sphere.focalLength, 5150)},               // Tiêu cự phối cảnh chiều sâu 3D (Focal Length)
+            "maxItems": ${num(sphere.maxItems, 200)},                   // Số lượng ảnh học viên tối đa hiển thị
+            "canvasPadding": ${num(sphere.canvasPadding, 40)}                // Vùng đệm an toàn bao quanh canvas (px)
+        },
+        // Kích thước và hiển thị ảnh đại diện (Item Styling)
+        "item": {
+            "sizeDesktop": ${num(item.sizeDesktop, 66)},                 // Kích thước avatar trên màn hình Desktop (px)
+            "sizeMobile": ${num(item.sizeMobile, 24)},                  // Kích thước avatar trên màn hình Mobile (px)
+            "minScale": ${num(item.minScale, 0.27)},                  // Tỉ lệ thu nhỏ tối thiểu khi avatar quay ra mặt sau (0.01 - 1.0)
+            "minBrightness": ${num(item.minBrightness, 0.28)}              // Độ sáng tối thiểu khi avatar quay ra mặt sau (0.0 = tối đen, 1.0 = sáng rõ)
+        },
+        // Vật lý chuyển động và xoay quán tính (Motion Physics)
+        "motion": {
+            "autoSpinY": ${num(motion.autoSpinY, 0.003)},                // Tốc độ tự động quay theo trục ngang Y (>0 quay phải, <0 quay trái)
+            "autoSpinX": ${num(motion.autoSpinX, 0)},                    // Tốc độ tự động quay theo trục dọc X (>0 quay xuống, <0 quay lên)
+            "dragSensitivity": ${num(motion.dragSensitivity, 0.0077)},         // Độ nhạy khi tương tác kéo rê chuột / vuốt ngón tay
+            "inertiaDamping": ${num(motion.inertiaDamping, 0.978)},           // Hệ số giảm chấn quán tính sau khi thả tay (càng gần 1 trượt càng lâu)
+            "idleRestoreSpeed": ${num(motion.idleRestoreSpeed, 0.399)}          // Tốc độ mượt mà phục hồi về vòng xoay tự động khi không tương tác
+        },
+        // Hoạt ảnh thu nhỏ khi cuộn thoát (Exit Animation)
+        "exitAnimation": {
+            "triggerRatio": ${num(exitAnimation.triggerRatio, 0.1)},               // Tỉ lệ vị trí cuộn kích hoạt hoạt ảnh thoát (0.1 - 1.0)
+            "shrinkDuration": ${num(exitAnimation.shrinkDuration, 2)},               // Thời lượng co nhỏ của từng avatar (giây)
+            "randomStaggerWindow": ${num(exitAnimation.randomStaggerWindow, 2)}           // Độ lệch ngẫu nhiên về thời điểm bắt đầu co nhỏ giữa các avatar (giây)
+        }
+    };`;
+        }
+
+        fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.select();
+            try {
+                document.execCommand('copy');
+                this.showToast('✓ Đã sao chép code DEFAULT_CONFIG vào clipboard!');
+            } catch (err) {
+                this.showToast('✕ Lỗi sao chép clipboard');
+            }
+            document.body.removeChild(ta);
+        }
+
         bindEvents() {
             // Lắng nghe slider thay đổi thời gian thực
             this.panelEl.addEventListener('input', (e) => {
@@ -1801,12 +1869,16 @@
 
             // Copy Config
             this.panelEl.querySelector('#p-cfg-copy').addEventListener('click', () => {
-                const json = JSON.stringify(window.PARTICIPANT_SPHERE_CONFIG, null, 4);
-                navigator.clipboard.writeText(json).then(() => {
-                    this.showToast('✓ Đã sao chép cấu hình vào clipboard!');
-                }).catch(() => {
-                    this.showToast('✕ Lỗi sao chép clipboard');
-                });
+                const codeToCopy = this.generateConfigCode();
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(codeToCopy).then(() => {
+                        this.showToast('✓ Đã sao chép code DEFAULT_CONFIG vào clipboard!');
+                    }).catch(() => {
+                        this.fallbackCopy(codeToCopy);
+                    });
+                } else {
+                    this.fallbackCopy(codeToCopy);
+                }
             });
 
             // Reset Config

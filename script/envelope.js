@@ -32,70 +32,85 @@
   // =========================================================================
 
   const DEFAULT_CONFIG = {
+    // =========================================================================
+    // 0. BẢNG CẤU HÌNH LIVE TRÊN UI (Developer / GUI Live Tuner)
+    // =========================================================================
     "devMode": {
-      "showLiveTuner": false,
-      "allowExportConfig": false
+      "showLiveTuner": false,               // Bật/tắt giao diện tùy chỉnh thông số trực tiếp (GUI Live Tuner)
+      "allowExportConfig": false          // Bật/tắt nút xuất cấu hình ra ngoài
     },
+    // =========================================================================
+    // 1. THÔNG SỐ HÌNH HỌC QUỸ ĐẠO XOẮN ỐC 3D (3D Spiral Geometry)
+    // =========================================================================
     "geometry": {
-      "mode": "container-relative",
-      "itemSpacingRatio": 1.1,
-      "mobileItemSpacingRatio": 1.45,
-      "radiusXRatio": 1.2,
-      "radiusZRatio": 1.2,
-      "verticalPitchRatio": 0.2,
-      "curveWaveYRatio": 0.05,
-      "perspectiveRatio": 1.35,
-      "cardWidthRatio": 0.25,
-      "mobileCardWidthRatio": 0.55,
-      "minRadiusX": 60,
-      "maxRadiusX": 1600,
-      "minRadiusZ": 30,
-      "maxRadiusZ": 1200,
-      "minVerticalPitch": 30,
-      "maxVerticalPitch": 800,
-      "minCardWidth": 100,
-      "maxCardWidth": 1200,
-      "minCardWidthMobile": 180,
-      "maxCardWidthMobile": 450,
-      "spiralTightness": -0.69,
-      "cameraTiltX": 0,
-      "cameraAngleY": -5,
-      "offsetY": 0
+      "mode": "container-relative",           // Chế độ tính toán hình học: 'container-relative' | 'fixed-pixel'
+      "itemSpacingRatio": 1.1,             // Tỉ lệ khoảng cách bước góc giữa 2 bao thư liên tiếp
+      "mobileItemSpacingRatio": 1.45,       // Tỉ lệ khoảng cách bước góc trên Mobile
+      "radiusXRatio": 1.2,                 // Tỉ lệ bán kính xoắn ốc theo trục ngang X
+      "radiusZRatio": 1.2,                 // Tỉ lệ bán kính xoắn ốc theo chiều sâu Z
+      "verticalPitchRatio": 0.2,           // Tỉ lệ bước nhảy cao độ xoắn ốc theo trục Y
+      "curveWaveYRatio": 0.05,             // Biên độ lượn sóng nhấp nhô theo trục Y
+      "perspectiveRatio": 1.35,            // Tỉ lệ phối cảnh không gian 3D perspective
+      "cardWidthRatio": 0.25,              // Tỉ lệ chiều rộng phong bì so với viewport trên Desktop
+      "mobileCardWidthRatio": 0.55,        // Tỉ lệ chiều rộng phong bì trên Mobile
+      "minRadiusX": 60,                    // Bán kính tối thiểu trục X (px)
+      "maxRadiusX": 1600,                  // Bán kính tối đa trục X (px)
+      "minRadiusZ": 30,                    // Bán kính tối thiểu trục Z (px)
+      "maxRadiusZ": 1200,                  // Bán kính tối đa trục Z (px)
+      "minVerticalPitch": 30,              // Cao độ xoắn ốc tối thiểu (px)
+      "maxVerticalPitch": 800,              // Cao độ xoắn ốc tối đa (px)
+      "minCardWidth": 100,                  // Chiều rộng bao thư tối thiểu trên Desktop (px)
+      "maxCardWidth": 1200,                 // Chiều rộng bao thư tối đa trên Desktop (px)
+      "minCardWidthMobile": 180,           // Chiều rộng bao thư tối thiểu trên Mobile (px)
+      "maxCardWidthMobile": 450,           // Chiều rộng bao thư tối đa trên Mobile (px)
+      "spiralTightness": -0.69,              // Độ thắt xoắn ốc Logarithmic Spiral
+      "cameraTiltX": 0,                  // Góc chúc máy ảnh theo trục X (độ)
+      "cameraAngleY": -5,                // Góc xoay camera theo trục Y (độ)
+      "offsetY": 0                         // Dịch chuyển tâm quỹ đạo theo trục Y (px)
     },
+    // =========================================================================
+    // 2. BIẾN ĐỔI GÓC XOAY & TỈ LỆ THU PHÓNG (Transform & Scaling)
+    // =========================================================================
     "transform": {
-      "rotateYMultiplier": -0.9,
-      "rotateXMultiplier": 0.28,
-      "rotateZMultiplier": 0.1,
-      "baseScale": 0.85,
-      "mobileBaseScale": 0.8,
-      "activeScale": 0.9,
-      "mobileActiveScale": 1.14,
-      "minScale": 0.02,
-      "mobileMinScale": 0.02
+      "rotateYMultiplier": -0.9,          // Hệ số xoay quanh trục Y theo góc tiếp tuyến
+      "rotateXMultiplier": 0.28,          // Hệ số xoay nghiêng quanh trục X
+      "rotateZMultiplier": 0.1,           // Hệ số lật nghiêng quanh trục Z
+      "baseScale": 0.85,                   // Tỉ lệ phóng to/thu nhỏ cơ sở trên Desktop
+      "mobileBaseScale": 0.8,             // Tỉ lệ phóng to/thu nhỏ cơ sở trên Mobile
+      "activeScale": 0.9,                 // Tỉ lệ phóng to khi bao thư đến điểm tiêu cự (Desktop)
+      "mobileActiveScale": 1.14,           // Tỉ lệ phóng to khi bao thư đến điểm tiêu cự (Mobile)
+      "minScale": 0.02,                    // Tỉ lệ thu nhỏ tối thiểu ở xa (Desktop)
+      "mobileMinScale": 0.02               // Tỉ lệ thu nhỏ tối thiểu ở xa (Mobile)
     },
+    // =========================================================================
+    // 3. ĐỘ SÂU TIÊU CỰ & LÀM MỜ QUANG HỌC (Depth of Field & Blur)
+    // =========================================================================
     "depth": {
-      "focalRange": 10,
-      "enableBlur": true,
-      "maxBlur": 55,
-      "darkDepthShading": 0.1,
-      "lightDepthBrightness": 0.1,
-      "cullZDistance": -100
+      "focalRange": 10,                     // Phạm vi vùng rõ nét tiêu cự (Depth of Field)
+      "enableBlur": true,                     // Bật/tắt hiệu ứng làm mờ quang học DOF
+      "maxBlur": 55,                        // Độ nhòe tối đa khi ở xa tâm nét (px)
+      "darkDepthShading": 0.1,               // Mức độ đổ bóng tối theo độ sâu Z (Dark Mode)
+      "lightDepthBrightness": 0.1,           // Mức độ tăng sáng theo độ sâu Z (Light Mode)
+      "cullZDistance": -100                  // Khoảng cách culling Z loại bỏ vật thể phía sau
     },
+    // =========================================================================
+    // 4. CUỘN TRANG & VẬT LÝ QUÁN TÍNH (Scroll Physics & Interaction)
+    // =========================================================================
     "physics": {
-      "scrollDistancePerItem": 100,
-      "initialScrollOffset": -4,
-      "finalScrollOffset": 12,
-      "scrollTriggerStart": "top 69%",
-      "earlyUnpinItems": 13,
-      "damping": 0.055,
-      "wheelSensitivity": 0.0001,
-      "dragSensitivity": 0.0012,
-      "snapToCenter": true,
-      "snapDelay": 400,
-      "autoFloat": false,
-      "autoFloatSpeed": 0.0002
+      "scrollDistancePerItem": 100,        // Khoảng cách cuộn trang (px) cho mỗi bao thư
+      "initialScrollOffset": -4,          // Vị trí bù cuộn ban đầu khi bắt đầu vào section
+      "finalScrollOffset": 12,            // Vị trí bù cuộn khi kết thúc section
+      "scrollTriggerStart": "top 69%",       // Điểm neo ScrollTrigger bắt đầu hiệu ứng
+      "earlyUnpinItems": 13,               // Số lượng item trước khi nhả ghim sticky
+      "damping": 0.055,                       // Hệ số cản quán tính vật lý (nhỏ hơn = trượt mượt hơn)
+      "wheelSensitivity": 0.0001,              // Độ nhạy con lăn chuột
+      "dragSensitivity": 0.0012,               // Độ nhạy khi kéo rê chuột / vuốt cảm ứng
+      "snapToCenter": true,                  // Tự động hít bao thư gần nhất về tâm tiêu cự
+      "snapDelay": 400,                     // Độ trễ trước khi kích hoạt hít tâm (ms)
+      "autoFloat": false,                    // Bật/tắt tự động trôi lơ lửng khi nhàn rỗi
+      "autoFloatSpeed": 0.0002               // Tốc độ trôi lơ lửng tự động
     }
-  };;
+  };
 
   // Cấu hình Timeline hoạt ảnh Mở Thư 3D Modal
   const MODAL_MOTION_CONFIG = {
@@ -1802,15 +1817,134 @@
       });
     }
 
+    function generateConfigCode() {
+      const cfg = ENVELOPE_SCROLL_CONFIG || DEFAULT_CONFIG;
+      const num = (v, fallback = 0, maxDecimals = 4) => {
+        const val = typeof v === 'number' && !isNaN(v) ? v : fallback;
+        return Number(Number(val).toFixed(maxDecimals));
+      };
+      const bool = (v, fallback = false) => (v !== undefined ? Boolean(v) : fallback);
+      const strVal = (v, fallback = '') => {
+        const val = v !== undefined && v !== null ? String(v) : fallback;
+        return `"${val.replace(/"/g, '\\"')}"`;
+      };
+
+      const devMode = cfg.devMode || {};
+      const geometry = cfg.geometry || {};
+      const transform = cfg.transform || {};
+      const depth = cfg.depth || {};
+      const physics = cfg.physics || {};
+
+      return `  const DEFAULT_CONFIG = {
+    // =========================================================================
+    // 0. BẢNG CẤU HÌNH LIVE TRÊN UI (Developer / GUI Live Tuner)
+    // =========================================================================
+    "devMode": {
+      "showLiveTuner": ${bool(devMode.showLiveTuner, false)},               // Bật/tắt giao diện tùy chỉnh thông số trực tiếp (GUI Live Tuner)
+      "allowExportConfig": ${bool(devMode.allowExportConfig, false)}          // Bật/tắt nút xuất cấu hình ra ngoài
+    },
+    // =========================================================================
+    // 1. THÔNG SỐ HÌNH HỌC QUỸ ĐẠO XOẮN ỐC 3D (3D Spiral Geometry)
+    // =========================================================================
+    "geometry": {
+      "mode": ${strVal(geometry.mode, 'container-relative')},           // Chế độ tính toán hình học: 'container-relative' | 'fixed-pixel'
+      "itemSpacingRatio": ${num(geometry.itemSpacingRatio, 1.1)},             // Tỉ lệ khoảng cách bước góc giữa 2 bao thư liên tiếp
+      "mobileItemSpacingRatio": ${num(geometry.mobileItemSpacingRatio, 1.45)},       // Tỉ lệ khoảng cách bước góc trên Mobile
+      "radiusXRatio": ${num(geometry.radiusXRatio, 1.2)},                 // Tỉ lệ bán kính xoắn ốc theo trục ngang X
+      "radiusZRatio": ${num(geometry.radiusZRatio, 1.2)},                 // Tỉ lệ bán kính xoắn ốc theo chiều sâu Z
+      "verticalPitchRatio": ${num(geometry.verticalPitchRatio, 0.2)},           // Tỉ lệ bước nhảy cao độ xoắn ốc theo trục Y
+      "curveWaveYRatio": ${num(geometry.curveWaveYRatio, 0.05)},             // Biên độ lượn sóng nhấp nhô theo trục Y
+      "perspectiveRatio": ${num(geometry.perspectiveRatio, 1.35)},            // Tỉ lệ phối cảnh không gian 3D perspective
+      "cardWidthRatio": ${num(geometry.cardWidthRatio, 0.25)},              // Tỉ lệ chiều rộng phong bì so với viewport trên Desktop
+      "mobileCardWidthRatio": ${num(geometry.mobileCardWidthRatio, 0.55)},        // Tỉ lệ chiều rộng phong bì trên Mobile
+      "minRadiusX": ${num(geometry.minRadiusX, 60)},                    // Bán kính tối thiểu trục X (px)
+      "maxRadiusX": ${num(geometry.maxRadiusX, 1600)},                  // Bán kính tối đa trục X (px)
+      "minRadiusZ": ${num(geometry.minRadiusZ, 30)},                    // Bán kính tối thiểu trục Z (px)
+      "maxRadiusZ": ${num(geometry.maxRadiusZ, 1200)},                  // Bán kính tối đa trục Z (px)
+      "minVerticalPitch": ${num(geometry.minVerticalPitch, 30)},              // Cao độ xoắn ốc tối thiểu (px)
+      "maxVerticalPitch": ${num(geometry.maxVerticalPitch, 800)},              // Cao độ xoắn ốc tối đa (px)
+      "minCardWidth": ${num(geometry.minCardWidth, 100)},                  // Chiều rộng bao thư tối thiểu trên Desktop (px)
+      "maxCardWidth": ${num(geometry.maxCardWidth, 1200)},                 // Chiều rộng bao thư tối đa trên Desktop (px)
+      "minCardWidthMobile": ${num(geometry.minCardWidthMobile, 180)},           // Chiều rộng bao thư tối thiểu trên Mobile (px)
+      "maxCardWidthMobile": ${num(geometry.maxCardWidthMobile, 450)},           // Chiều rộng bao thư tối đa trên Mobile (px)
+      "spiralTightness": ${num(geometry.spiralTightness, -0.69)},              // Độ thắt xoắn ốc Logarithmic Spiral
+      "cameraTiltX": ${num(geometry.cameraTiltX, 0)},                  // Góc chúc máy ảnh theo trục X (độ)
+      "cameraAngleY": ${num(geometry.cameraAngleY, -5)},                // Góc xoay camera theo trục Y (độ)
+      "offsetY": ${num(geometry.offsetY, 0)}                         // Dịch chuyển tâm quỹ đạo theo trục Y (px)
+    },
+    // =========================================================================
+    // 2. BIẾN ĐỔI GÓC XOAY & TỈ LỆ THU PHÓNG (Transform & Scaling)
+    // =========================================================================
+    "transform": {
+      "rotateYMultiplier": ${num(transform.rotateYMultiplier, -0.9)},          // Hệ số xoay quanh trục Y theo góc tiếp tuyến
+      "rotateXMultiplier": ${num(transform.rotateXMultiplier, 0.28)},          // Hệ số xoay nghiêng quanh trục X
+      "rotateZMultiplier": ${num(transform.rotateZMultiplier, 0.1)},           // Hệ số lật nghiêng quanh trục Z
+      "baseScale": ${num(transform.baseScale, 0.85)},                   // Tỉ lệ phóng to/thu nhỏ cơ sở trên Desktop
+      "mobileBaseScale": ${num(transform.mobileBaseScale, 0.8)},             // Tỉ lệ phóng to/thu nhỏ cơ sở trên Mobile
+      "activeScale": ${num(transform.activeScale, 0.9)},                 // Tỉ lệ phóng to khi bao thư đến điểm tiêu cự (Desktop)
+      "mobileActiveScale": ${num(transform.mobileActiveScale, 1.14)},           // Tỉ lệ phóng to khi bao thư đến điểm tiêu cự (Mobile)
+      "minScale": ${num(transform.minScale, 0.02)},                    // Tỉ lệ thu nhỏ tối thiểu ở xa (Desktop)
+      "mobileMinScale": ${num(transform.mobileMinScale, 0.02)}               // Tỉ lệ thu nhỏ tối thiểu ở xa (Mobile)
+    },
+    // =========================================================================
+    // 3. ĐỘ SÂU TIÊU CỰ & LÀM MỜ QUANG HỌC (Depth of Field & Blur)
+    // =========================================================================
+    "depth": {
+      "focalRange": ${num(depth.focalRange, 10)},                     // Phạm vi vùng rõ nét tiêu cự (Depth of Field)
+      "enableBlur": ${bool(depth.enableBlur, true)},                     // Bật/tắt hiệu ứng làm mờ quang học DOF
+      "maxBlur": ${num(depth.maxBlur, 55)},                        // Độ nhòe tối đa khi ở xa tâm nét (px)
+      "darkDepthShading": ${num(depth.darkDepthShading, 0.1)},               // Mức độ đổ bóng tối theo độ sâu Z (Dark Mode)
+      "lightDepthBrightness": ${num(depth.lightDepthBrightness, 0.1)},           // Mức độ tăng sáng theo độ sâu Z (Light Mode)
+      "cullZDistance": ${num(depth.cullZDistance, -100)}                  // Khoảng cách culling Z loại bỏ vật thể phía sau
+    },
+    // =========================================================================
+    // 4. CUỘN TRANG & VẬT LÝ QUÁN TÍNH (Scroll Physics & Interaction)
+    // =========================================================================
+    "physics": {
+      "scrollDistancePerItem": ${num(physics.scrollDistancePerItem, 100)},        // Khoảng cách cuộn trang (px) cho mỗi bao thư
+      "initialScrollOffset": ${num(physics.initialScrollOffset, -4)},          // Vị trí bù cuộn ban đầu khi bắt đầu vào section
+      "finalScrollOffset": ${num(physics.finalScrollOffset, 12)},            // Vị trí bù cuộn khi kết thúc section
+      "scrollTriggerStart": ${strVal(physics.scrollTriggerStart, 'top 69%')},       // Điểm neo ScrollTrigger bắt đầu hiệu ứng
+      "earlyUnpinItems": ${num(physics.earlyUnpinItems, 13)},               // Số lượng item trước khi nhả ghim sticky
+      "damping": ${num(physics.damping, 0.055)},                       // Hệ số cản quán tính vật lý (nhỏ hơn = trượt mượt hơn)
+      "wheelSensitivity": ${num(physics.wheelSensitivity, 0.0001)},              // Độ nhạy con lăn chuột
+      "dragSensitivity": ${num(physics.dragSensitivity, 0.0012)},               // Độ nhạy khi kéo rê chuột / vuốt cảm ứng
+      "snapToCenter": ${bool(physics.snapToCenter, true)},                  // Tự động hít bao thư gần nhất về tâm tiêu cự
+      "snapDelay": ${num(physics.snapDelay, 400)},                     // Độ trễ trước khi kích hoạt hít tâm (ms)
+      "autoFloat": ${bool(physics.autoFloat, false)},                    // Bật/tắt tự động trôi lơ lửng khi nhàn rỗi
+      "autoFloatSpeed": ${num(physics.autoFloatSpeed, 0.0002)}               // Tốc độ trôi lơ lửng tự động
+    }
+  };`;
+    }
+
+    function fallbackCopy(text) {
+      const ta = document.createElement("textarea");
+      ta.value = text;
+      ta.style.position = "fixed";
+      ta.style.opacity = "0";
+      document.body.appendChild(ta);
+      ta.select();
+      try {
+        document.execCommand("copy");
+        showToast("✓ Đã sao chép code DEFAULT_CONFIG vào clipboard!");
+      } catch (err) {
+        showToast("✕ Lỗi sao chép clipboard");
+      }
+      document.body.removeChild(ta);
+    }
+
     const btnExport = panel.querySelector("#btnExportConfig");
     btnExport.addEventListener("click", () => {
-      const jsonStr = "const ENVELOPE_SCROLL_CONFIG = " + JSON.stringify(ENVELOPE_SCROLL_CONFIG, null, 2) + ";";
-      navigator.clipboard.writeText(jsonStr).then(() => {
-        showToast("✓ Đã sao chép cấu hình JSON vào Clipboard!");
-      }).catch(() => {
-        showToast("✓ Đã in cấu hình ra Console!");
-        // console.log("ENVELOPE_SCROLL_CONFIG:", ENVELOPE_SCROLL_CONFIG);
-      });
+      const codeToCopy = generateConfigCode();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(codeToCopy).then(() => {
+          showToast("✓ Đã sao chép code DEFAULT_CONFIG vào clipboard!");
+        }).catch(() => {
+          fallbackCopy(codeToCopy);
+        });
+      } else {
+        fallbackCopy(codeToCopy);
+      }
     });
 
     const btnReset = panel.querySelector("#btnResetTuner");

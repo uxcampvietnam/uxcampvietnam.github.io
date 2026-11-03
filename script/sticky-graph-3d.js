@@ -52,14 +52,14 @@ const STICKY_GRAPH_CONFIG = {
   canvasBgDark: '#000000',            // Màu nền canvas ở chế độ Dark mode (Hex/RGB, ví dụ: '#000000' hoặc '#0a0c10')
   canvasBgLight: '#F9F6F1',           // Màu nền canvas ở chế độ Light mode (Hex/RGB, ví dụ: '#F9F6F1' hoặc '#f8fafc')
   fogType: 'exp2',                      // Loại sương mù chiều sâu: 'exp2' (hàm mũ tự nhiên) | 'linear' (tuyến tính)
-  depthFade: 0.0,                       // Mức độ làm mờ sương mù chiều sâu theo trục Z (0% -> 100%)
+  depthFade: 0.001,                       // Mức độ làm mờ sương mù chiều sâu theo trục Z (0% -> 100%)
   minDistance: 500,                     // Khoảng cách zoom gần nhất của camera (pixel)
   maxDistance: 6000,                    // Khoảng cách zoom xa nhất của camera (pixel)
   // 📸 CẤU HÌNH KHOẢNG CÁCH CAMERA (ZOOM DISTANCE) & GÓC NGHIÊNG CHO DESKTOP & MOBILE
   // Mặc định luôn tự động xoay ngẫu nhiên 360° xung quanh tâm; góc máy chiếu ngang trực diện tầm mắt vào khối sticky note.
   cameraDistanceDesktop: 3300,          // Khoảng cách camera trên Desktop / Laptop (pixel)
   cameraDistanceMobile: 2500,           // Khoảng cách camera trên Mobile / Điện thoại (pixel)
-  cameraPitch: -0.54,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
+  cameraPitch: -0.465,                     // Góc nghiêng camera (radian: 0.0 = chiếu ngang trực diện tầm mắt, >0 = chúc nhẹ từ trên xuống)
 
   rotateSpeed: 2,                     // Tốc độ xoay camera khi kéo drag chuột (0.1 -> 3.0)
   dampingFactor: 0.05,                  // Hệ số hãm quán tính khi xoay camera (0.01 -> 0.3, nhỏ hơn = mượt hơn)
@@ -69,20 +69,20 @@ const STICKY_GRAPH_CONFIG = {
   // ----------------------------------------------------------------------------
   ambientLightColorDark: '#ffffff',    // Màu ánh sáng môi trường tỏa đều (Dark mode)
   ambientLightColorLight: '#ffffff',   // Màu ánh sáng môi trường tỏa đều (Light mode)
-  ambientIntensityDark: 0.85,          // Cường độ ánh sáng môi trường Dark mode (0.0 -> 2.0)
+  ambientIntensityDark: 0.95,          // Cường độ ánh sáng môi trường Dark mode (0.0 -> 2.0)
   ambientIntensityLight: 1.05,          // Cường độ ánh sáng môi trường Light mode (0.0 -> 2.0)
 
   dirLight1ColorDark: '#ffffff',       // Màu nguồn sáng chính 1 (Directional Light 1) Dark mode
   dirLight1ColorLight: '#fbbf24',      // Màu nguồn sáng chính 1 Light mode
-  dirLight1IntensityDark: 0.3,        // Cường độ nguồn sáng chính 1 Dark mode (0.0 -> 2.0)
+  dirLight1IntensityDark: 0,        // Cường độ nguồn sáng chính 1 Dark mode (0.0 -> 2.0)
   dirLight1IntensityLight: 0,        // Cường độ nguồn sáng chính 1 Light mode (0.0 -> 2.0)
 
   dirLight2ColorDark: '#ffffff',       // Màu nguồn sáng phụ 2 (Directional Light 2) Dark mode
   dirLight2ColorLight: '#38bdf8',      // Màu nguồn sáng phụ 2 Light mode
-  dirLight2IntensityDark: 0.3,        // Cường độ nguồn sáng phụ 2 Dark mode (0.0 -> 2.0)
+  dirLight2IntensityDark: 0,        // Cường độ nguồn sáng phụ 2 Dark mode (0.0 -> 2.0)
   dirLight2IntensityLight: 0,        // Cường độ nguồn sáng phụ 2 Light mode (0.0 -> 2.0)
 
-  cameraLightIntensityDark: 0.3,       // Cường độ nguồn sáng rọi đi theo Camera ở Dark mode
+  cameraLightIntensityDark: 0,       // Cường độ nguồn sáng rọi đi theo Camera ở Dark mode
   cameraLightIntensityLight: 0,      // Cường độ nguồn sáng rọi đi theo Camera ở Light mode
 
   // ----------------------------------------------------------------------------
@@ -90,9 +90,9 @@ const STICKY_GRAPH_CONFIG = {
   // ----------------------------------------------------------------------------
   lineMorphology: 'bezier',             // Kiểu đường nối: 'bezier' (cong mềm) | 'straight' (thẳng) | 'orthogonal' (gấp khúc 90°)
   lineWidth: 1,                       // Độ dày đường liên kết mặc định (pixel, ví dụ: 1.0, 1.5, 2.0...)
-  lineColorDark: '#ffffff',             // Màu đường liên kết mặc định ở Dark mode (Hex)
+  lineColorDark: '#474747',             // Màu đường liên kết mặc định ở Dark mode (Hex)
   lineColorLight: '#ceccc2',            // Màu đường liên kết mặc định ở Light mode (Hex)
-  lineOpacityDark: 0.5,                 // Độ mờ / trong suốt của đường nối mặc định ở Dark mode (0.0 -> 1.0)
+  lineOpacityDark: 0.7,                 // Độ mờ / trong suốt của đường nối mặc định ở Dark mode (0.0 -> 1.0)
   lineOpacityLight: 0.8,                // Độ mờ / trong suốt của đường nối mặc định ở Light mode (0.0 -> 1.0)
 
   // ----------------------------------------------------------------------------
@@ -126,7 +126,7 @@ const STICKY_GRAPH_CONFIG = {
   layoutType: 'auto',                   // Bố cục phân bố: 'auto' (tự chọn theo màn hình) | 'galaxy' | 'cylinder'
   layoutTypeDesktop: 'cylinder',          // Bố cục mặc định cho màn hình Desktop (rộng >= 768px)
   layoutTypeMobile: 'galaxy',           // Bố cục mặc định cho màn hình Mobile (rộng < 768px)
-  centerYDesktop: 105,                    // Độ lệch tâm đồ thị theo trục Y trên Desktop (pixel / đơn vị 3D: >0 nâng lên trên, <0 hạ xuống dưới)
+  centerYDesktop: 464,                    // Độ lệch tâm đồ thị theo trục Y trên Desktop (pixel / đơn vị 3D: >0 nâng lên trên, <0 hạ xuống dưới)
   centerYMobile: 316,                     // Độ lệch tâm đồ thị theo trục Y trên Mobile (pixel / đơn vị 3D: >0 nâng lên trên, <0 hạ xuống dưới)
   coneHeightDesktop: 1620,               // Chiều cao hình nón trên Desktop (pixel: khoảng cách Y từ đỉnh đến chân: càng tăng càng nhọn, càng giảm càng bẹt)
   coneHeightMobile: 940,                // Chiều cao hình nón trên Mobile (pixel: khoảng cách Y từ đỉnh đến chân)

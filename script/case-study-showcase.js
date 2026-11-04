@@ -38,11 +38,11 @@
     // =========================================================================
     // 2. VẬT LÝ UỐN CONG 3D QUÁN TÍNH (Curved Cover Physics & Shaders)
     // =========================================================================
-    "bendMode": "topFixed",               // Chế độ uốn cong: "topFixed" (nẹp cạnh trên) | "allCorners" (cong 4 góc)
-    "bendIntensity": 0.95,              // Cường độ uốn cong tổng thể (0.0 - 6.0)
+    "bendMode": "allCorners",               // Chế độ uốn cong: "topFixed" (nẹp cạnh trên) | "allCorners" (cong 4 góc)
+    "bendIntensity": 1.65,              // Cường độ uốn cong tổng thể (0.0 - 6.0)
     "recoverySpeed": 0.005,             // Tốc độ hồi phục về trạng thái phẳng ban đầu
     "damping": 0.97,                   // Hệ số cản/giảm chấn dao động cong đàn hồi (0.2 - 0.99)
-    "curvePower": 5,                // Lũy thừa độ dốc đường cong từ tâm (Curve Power)
+    "curvePower": 2.2,                // Lũy thừa độ dốc đường cong từ tâm (Curve Power)
     "bendZFactor": 0.65,               // Hệ số võng sâu theo trục Z khi cuộn
     "bendXYLag": 0.25,                 // Hệ số trễ dãn phẳng theo trục XY khi quán tính
     "topFixedSpread": 2,            // Độ lan tỏa vùng cong từ cạnh đáy lên cạnh trên (Top Fixed)
@@ -1661,56 +1661,59 @@
       // Nút mở / thu gọn bảng điều khiển
       this.toggleBtn = document.createElement('button');
       this.toggleBtn.id = 'case-study-tuner-toggle';
-      this.toggleBtn.className = 'tuner-toggle-btn';
+      this.toggleBtn.className = 'motion-tuner-toggle-btn';
+      this.toggleBtn.setAttribute('data-dock', 'bottom-right');
       this.toggleBtn.innerHTML = `<span>⚙ 3D Tuner</span>`;
       document.body.appendChild(this.toggleBtn);
 
       // Panel Tuner
       this.panelEl = document.createElement('div');
-      this.panelEl.className = 'curved-cover-tuner-panel';
+      this.panelEl.className = 'motion-tuner-panel';
+      this.panelEl.setAttribute('data-dock', 'bottom-right');
       this.panelEl.id = 'case-study-live-tuner';
       this.panelEl.innerHTML = `
-        <div class="panel-header">
-          <div class="panel-title">
+        <div class="motion-tuner-header">
+          <div class="motion-tuner-title">
             <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
             <span>Live Config Tuner</span>
           </div>
-          <button class="panel-close-btn" id="btnCloseTuner" title="Đóng bảng điều khiển">✕</button>
+          <button class="motion-tuner-close-btn" id="btnCloseTuner" title="Đóng bảng điều khiển">✕</button>
         </div>
-        <div class="panel-header-actions">
-          <button class="btn btn-copy-config" id="btnCopyConfig">📋 Sao chép Config</button>
-          <button class="btn" id="btnAutoFlight">🚀 Tự động bay</button>
-          <button class="btn" id="btnReset">Đặt lại</button>
+        <div class="motion-tuner-actions-header">
+          <button class="motion-tuner-btn" id="btnCopyConfig">📋 Sao chép Config</button>
+          <button class="motion-tuner-btn motion-tuner-btn-secondary" id="btnAutoFlight">🚀 Tự động bay</button>
+          <button class="motion-tuner-btn motion-tuner-btn-secondary" id="btnReset">Đặt lại</button>
         </div>
+        <div class="motion-tuner-body">
 
         <!-- Tiến độ cuộn -->
-        <div class="scrubber-bar">
-          <div class="control-label-row">
+        <div class="motion-tuner-scrubber">
+          <div class="motion-tuner-label-wrap">
             <span>Tiến độ cuộn (Timeline Progress)</span>
-            <span class="val-input-box">
-              <input type="number" class="val-input" id="numProgress" step="0.01" min="0" max="${Math.max(1, this.showcase.totalCards - 1)}" value="0.00">
+            <span class="motion-tuner-val-box">
+              <input type="number" class="motion-tuner-number-input" id="numProgress" step="0.01" min="0" max="${Math.max(1, this.showcase.totalCards - 1)}" value="0.00">
             </span>
           </div>
           <input type="range" id="rangeProgress" min="0" max="${Math.max(1, this.showcase.totalCards - 1)}" step="0.01" value="0">
         </div>
 
         <!-- 3 Tabs Điều Khiển -->
-        <div class="tab-bar">
-          <button class="tab-btn active" data-tab="tab-physics">1. Vật lý Cong</button>
-          <button class="tab-btn" data-tab="tab-trajectory">2. Quỹ đạo Cuộn</button>
-          <button class="tab-btn" data-tab="tab-angles">3. Phối cảnh &amp; Kích thước</button>
+        <div class="motion-tuner-tabs">
+          <button class="motion-tuner-tab-btn active" data-tab="tab-physics">1. Vật lý Cong</button>
+          <button class="motion-tuner-tab-btn" data-tab="tab-trajectory">2. Quỹ đạo Cuộn</button>
+          <button class="motion-tuner-tab-btn" data-tab="tab-angles">3. Phối cảnh &amp; Kích thước</button>
         </div>
 
         <!-- TAB 1: VẬT LÝ CONG -->
-        <div class="tab-content active" id="tab-physics">
-          <div class="section-title">Kiểu uốn cong (Bend Mode)</div>
-          <div class="bend-mode-switch">
-            <button class="bend-mode-btn ${cfg.bendMode === 'allCorners' ? 'active' : ''}" data-bend-mode="allCorners">
+        <div class="motion-tuner-tab-content active" id="tab-physics">
+          <div class="motion-tuner-group-title">Kiểu uốn cong (Bend Mode)</div>
+          <div class="motion-tuner-btn-grid">
+            <button class="motion-tuner-btn motion-tuner-btn-secondary ${cfg.bendMode === 'allCorners' ? 'active' : ''}" data-bend-mode="allCorners">
               <span class="bend-mode-icon">◇</span>
               <span class="bend-mode-label">Cong 4 góc</span>
               <span class="bend-mode-desc">All Corners</span>
             </button>
-            <button class="bend-mode-btn ${cfg.bendMode === 'topFixed' ? 'active' : ''}" data-bend-mode="topFixed">
+            <button class="motion-tuner-btn motion-tuner-btn-secondary ${cfg.bendMode === 'topFixed' ? 'active' : ''}" data-bend-mode="topFixed">
               <span class="bend-mode-icon">📄</span>
               <span class="bend-mode-label">Nẹp cạnh trên</span>
               <span class="bend-mode-desc">Top Fixed</span>
@@ -1718,12 +1721,12 @@
           </div>
 
           <div class="topfixed-params-group" style="${cfg.bendMode === 'topFixed' ? '' : 'display:none'}">
-            <div class="section-title">Tham số Nẹp cạnh trên (Top Fixed)</div>
+            <div class="motion-tuner-group-title">Tham số Nẹp cạnh trên (Top Fixed)</div>
             ${this.createControl('topFixedSpread', 'Độ lan rộng vùng cong (Spread)', 0.05, 2.0, 0.05, cfg.topFixedSpread !== undefined ? cfg.topFixedSpread : 0.6)}
             ${this.createControl('curtainWave', 'Nhấp nhô kiểu rèm (Curtain Wave)', 0.0, 0.5, 0.01, cfg.curtainWave !== undefined ? cfg.curtainWave : 0.0)}
           </div>
 
-          <div class="section-title">Tham số Uốn cong &amp; Đàn hồi</div>
+          <div class="motion-tuner-group-title">Tham số Uốn cong &amp; Đàn hồi</div>
           ${this.createControl('bendIntensity', 'Mức độ cong (Bend Intensity)', 0.0, 6.0, 0.05, cfg.bendIntensity)}
           ${this.createControl('recoverySpeed', 'Tốc độ phục hồi phẳng (Recovery Speed)', 0.005, 0.50, 0.005, cfg.recoverySpeed)}
           ${this.createControl('damping', 'Độ giảm chấn đàn hồi (Damping)', 0.20, 0.99, 0.01, cfg.damping)}
@@ -1732,47 +1735,47 @@
           ${this.createControl('bendXYLag', 'Độ kéo dãn quán tính XY (XY Lag)', 0.0, 3.0, 0.05, cfg.bendXYLag)}
           ${this.createControl('velMultiplier', 'Độ nhạy vận tốc (Velocity Mult)', 0.1, 4.0, 0.05, cfg.velMultiplier)}
 
-          <label class="toggle-row">
+          <label class="motion-tuner-checkbox-wrap motion-tuner-row-inline">
             <span>Hiển thị Lưới đa giác 3D (Wireframe)</span>
-            <div class="switch">
+            <div class="motion-tuner-switch">
               <input type="checkbox" id="toggleWireframe" ${cfg.wireframe ? 'checked' : ''}>
-              <span class="slider-switch"></span>
+              <span class="motion-tuner-switch-slider"></span>
             </div>
           </label>
 
-          <div class="section-title">🌓 Lớp Phủ Màu Theo Độ Sâu (Depth Overlay)</div>
+          <div class="motion-tuner-group-title">🌓 Lớp Phủ Màu Theo Độ Sâu (Depth Overlay)</div>
           ${this.createControl('overlayOpacityDark', 'Độ phủ Dark Mode (Opacity)', 0.0, 1.0, 0.02, cfg.overlayOpacityDark !== undefined ? cfg.overlayOpacityDark : 0.85)}
-          <div class="control-group">
-            <div class="control-label-row">
+          <div class="motion-tuner-row">
+            <div class="motion-tuner-label-wrap">
               <span>Màu phủ Dark Mode (Color)</span>
-              <span class="val-input-box" style="display: inline-flex; align-items: center; gap: 6px;">
-                <input type="color" class="val-color-input" id="color-overlayColorDark" value="${cfg.overlayColorDark || '#0d121a'}">
-                <input type="text" class="val-input font-mono" id="num-overlayColorDark" value="${cfg.overlayColorDark || '#0d121a'}" style="width: 70px; text-align: center;">
+              <span class="motion-tuner-val-box" style="display: inline-flex; align-items: center; gap: 6px;">
+                <input type="color" class="motion-tuner-color-picker" id="color-overlayColorDark" value="${cfg.overlayColorDark || '#0d121a'}">
+                <input type="text" class="motion-tuner-number-input font-mono" id="num-overlayColorDark" value="${cfg.overlayColorDark || '#0d121a'}" style="width: 70px; text-align: center;">
               </span>
             </div>
           </div>
           ${this.createControl('overlayOpacityLight', 'Độ phủ Light Mode (Opacity)', 0.0, 1.0, 0.02, cfg.overlayOpacityLight !== undefined ? cfg.overlayOpacityLight : 0.85)}
-          <div class="control-group">
-            <div class="control-label-row">
+          <div class="motion-tuner-row">
+            <div class="motion-tuner-label-wrap">
               <span>Màu phủ Light Mode (Color)</span>
-              <span class="val-input-box" style="display: inline-flex; align-items: center; gap: 6px;">
-                <input type="color" class="val-color-input" id="color-overlayColorLight" value="${cfg.overlayColorLight || '#f9f6f1'}">
-                <input type="text" class="val-input font-mono" id="num-overlayColorLight" value="${cfg.overlayColorLight || '#f9f6f1'}" style="width: 70px; text-align: center;">
+              <span class="motion-tuner-val-box" style="display: inline-flex; align-items: center; gap: 6px;">
+                <input type="color" class="motion-tuner-color-picker" id="color-overlayColorLight" value="${cfg.overlayColorLight || '#f9f6f1'}">
+                <input type="text" class="motion-tuner-number-input font-mono" id="num-overlayColorLight" value="${cfg.overlayColorLight || '#f9f6f1'}" style="width: 70px; text-align: center;">
               </span>
             </div>
           </div>
 
-          <div class="section-title" style="margin-top: 10px;">👁 Xem Thử Theme (Tuner Preview)</div>
-          <div class="theme-preview-switch">
-            <button class="theme-preview-btn ${this.showcase.previewTheme === 'auto' ? 'active' : ''}" data-theme-preview="auto">
+          <div class="motion-tuner-group-title" style="margin-top: 10px;">👁 Xem Thử Theme (Tuner Preview)</div>
+          <div class="motion-tuner-btn-grid">
+            <button class="motion-tuner-btn motion-tuner-btn-secondary ${this.showcase.previewTheme === 'auto' ? 'active' : ''}" data-theme-preview="auto">
               <span class="theme-preview-icon">⚙</span>
               <span class="theme-preview-label">Tự động</span>
             </button>
-            <button class="theme-preview-btn ${this.showcase.previewTheme === 'dark' ? 'active' : ''}" data-theme-preview="dark">
+            <button class="motion-tuner-btn motion-tuner-btn-secondary ${this.showcase.previewTheme === 'dark' ? 'active' : ''}" data-theme-preview="dark">
               <span class="theme-preview-icon">🌙</span>
               <span class="theme-preview-label">Dark</span>
             </button>
-            <button class="theme-preview-btn ${this.showcase.previewTheme === 'light' ? 'active' : ''}" data-theme-preview="light">
+            <button class="motion-tuner-btn motion-tuner-btn-secondary ${this.showcase.previewTheme === 'light' ? 'active' : ''}" data-theme-preview="light">
               <span class="theme-preview-icon">☀️</span>
               <span class="theme-preview-label">Light</span>
             </button>
@@ -1780,20 +1783,20 @@
         </div>
 
         <!-- TAB 2: QUỸ ĐẠO CUỘN -->
-        <div class="tab-content" id="tab-trajectory">
-          <div class="section-title">⏱ Thời Gian Chuyển Cảnh — Desktop</div>
+        <div class="motion-tuner-tab-content" id="tab-trajectory">
+          <div class="motion-tuner-group-title">⏱ Thời Gian Chuyển Cảnh — Desktop</div>
           ${this.createControl('sphereStayDurationDesktop', 'Sphere Stay Step (Desktop)', 0.1, 5.0, 0.1, cfg.sphereStayDurationDesktop !== undefined ? cfg.sphereStayDurationDesktop : 3.4)}
           ${this.createControl('avatarShrinkDurationDesktop', 'Sphere Shrink Step (Desktop)', 0.2, 5.0, 0.1, cfg.avatarShrinkDurationDesktop !== undefined ? cfg.avatarShrinkDurationDesktop : 2)}
           ${this.createControl('avatarFlightDurationDesktop', 'Avatar Flight Step (Desktop)', 0.2, 5.0, 0.1, cfg.avatarFlightDurationDesktop !== undefined ? cfg.avatarFlightDurationDesktop : 1.3)}
           ${this.createControl('card0EntryDurationDesktop', 'Card Entry Step (Desktop)', 0.2, 5.0, 0.1, cfg.card0EntryDurationDesktop !== undefined ? cfg.card0EntryDurationDesktop : 1.8)}
 
-          <div class="section-title">⏱ Thời Gian Chuyển Cảnh — Mobile</div>
+          <div class="motion-tuner-group-title">⏱ Thời Gian Chuyển Cảnh — Mobile</div>
           ${this.createControl('sphereStayDurationMobile', 'Sphere Stay Step (Mobile)', 0.1, 5.0, 0.1, cfg.sphereStayDurationMobile !== undefined ? cfg.sphereStayDurationMobile : 3.4)}
           ${this.createControl('avatarShrinkDurationMobile', 'Sphere Shrink Step (Mobile)', 0.2, 5.0, 0.1, cfg.avatarShrinkDurationMobile !== undefined ? cfg.avatarShrinkDurationMobile : 2)}
           ${this.createControl('avatarFlightDurationMobile', 'Avatar Flight Step (Mobile)', 0.2, 5.0, 0.1, cfg.avatarFlightDurationMobile !== undefined ? cfg.avatarFlightDurationMobile : 1.3)}
           ${this.createControl('card0EntryDurationMobile', 'Card Entry Step (Mobile)', 0.2, 5.0, 0.1, cfg.card0EntryDurationMobile !== undefined ? cfg.card0EntryDurationMobile : 1.8)}
 
-          <div class="section-title">🖥 Tốc độ Cuộn &amp; Khoảng cách — Desktop</div>
+          <div class="motion-tuner-group-title">🖥 Tốc độ Cuộn &amp; Khoảng cách — Desktop</div>
           ${this.createControl('unpinCaseOffsetDesktop', 'Offset nhả Sticky (Desktop)', 0, 5, 0.1, cfg.unpinCaseOffsetDesktop !== undefined ? cfg.unpinCaseOffsetDesktop : 0)}
           ${this.createControl('pixelsPerCardDesktop', 'Pixels/Card (Desktop)', 40, 600, 10, cfg.pixelsPerCardDesktop, true)}
           ${this.createControl('frictionDesktop', 'Ma sát cuộn (Desktop)', 0.01, 0.25, 0.005, cfg.frictionDesktop)}
@@ -1804,7 +1807,7 @@
           ${this.createControl('shadowDepthDesktop', 'Shadow Depth Z (Desktop)', 30, 300, 5, cfg.shadowDepthDesktop, true)}
           ${this.createControl('shadowOpacityDesktop', 'Shadow Opacity (Desktop)', 0.0, 0.8, 0.02, cfg.shadowOpacityDesktop)}
 
-          <div class="section-title">📱 Tốc độ Cuộn &amp; Khoảng cách — Mobile</div>
+          <div class="motion-tuner-group-title">📱 Tốc độ Cuộn &amp; Khoảng cách — Mobile</div>
           ${this.createControl('unpinCaseOffsetMobile', 'Offset nhả Sticky (Mobile)', 0, 5, 0.1, cfg.unpinCaseOffsetMobile !== undefined ? cfg.unpinCaseOffsetMobile : 0)}
           ${this.createControl('pixelsPerCardMobile', 'Pixels/Card (Mobile)', 40, 600, 10, cfg.pixelsPerCardMobile, true)}
           ${this.createControl('frictionMobile', 'Ma sát cuộn (Mobile)', 0.01, 0.25, 0.005, cfg.frictionMobile)}
@@ -1817,14 +1820,14 @@
         </div>
 
         <!-- TAB 3: PHỐI CẢNH 3D & KÍCH THƯỚC ẢNH -->
-        <div class="tab-content" id="tab-angles">
-          <div class="section-title">Kích thước Ảnh Case Study (Desktop &amp; Mobile)</div>
+        <div class="motion-tuner-tab-content" id="tab-angles">
+          <div class="motion-tuner-group-title">Kích thước Ảnh Case Study (Desktop &amp; Mobile)</div>
           ${this.createControl('cardWidthDesktop', 'Chiều rộng Desktop (Width px)', 300, 1200, 10, cfg.cardWidthDesktop, true)}
           ${this.createControl('cardHeightDesktop', 'Chiều cao Desktop (Height px)', 200, 900, 10, cfg.cardHeightDesktop, true)}
           ${this.createControl('cardWidthMobile', 'Chiều rộng Mobile (Width px)', 180, 500, 10, cfg.cardWidthMobile, true)}
           ${this.createControl('cardHeightMobile', 'Chiều cao Mobile (Height px)', 120, 400, 10, cfg.cardHeightMobile, true)}
 
-          <div class="section-title">🖥 Góc Xoay 3D &amp; Phối Cảnh — Desktop</div>
+          <div class="motion-tuner-group-title">🖥 Góc Xoay 3D &amp; Phối Cảnh — Desktop</div>
           ${this.createControl('rotateXDesktop', 'Rotate X (Desktop deg)', -45, 45, 1, cfg.rotateXDesktop, true)}
           ${this.createControl('rotateYDesktop', 'Rotate Y (Desktop deg)', -45, 45, 1, cfg.rotateYDesktop, true)}
           ${this.createControl('rotateZDesktop', 'Rotate Z (Desktop deg)', -45, 45, 1, cfg.rotateZDesktop, true)}
@@ -1833,7 +1836,7 @@
           ${this.createControl('rotZMultDesktop', 'RotZ Multiplier (Desktop)', -100, 100, 0, cfg.rotZMultDesktop, true)}
           ${this.createControl('cameraFovDesktop', 'Camera FOV (Desktop)', 25, 75, 1, cfg.cameraFovDesktop, true)}
 
-          <div class="section-title">📱 Góc Xoay 3D &amp; Phối Cảnh — Mobile</div>
+          <div class="motion-tuner-group-title">📱 Góc Xoay 3D &amp; Phối Cảnh — Mobile</div>
           ${this.createControl('rotateXMobile', 'Rotate X (Mobile deg)', -45, 45, 1, cfg.rotateXMobile, true)}
           ${this.createControl('rotateYMobile', 'Rotate Y (Mobile deg)', -45, 45, 1, cfg.rotateYMobile, true)}
           ${this.createControl('rotateZMobile', 'Rotate Z (Mobile deg)', -45, 45, 1, cfg.rotateZMobile, true)}
@@ -1844,12 +1847,13 @@
         </div>
 
         <!-- TELEMETRY THỜI GIAN THỰC -->
-        <div class="section-title">Telemetry Thời Gian Thực</div>
-        <div class="telemetry">
+        <div class="motion-tuner-group-title">Telemetry Thời Gian Thực</div>
+        <div class="motion-tuner-telemetry">
           <div>Vận tốc cuộn: <span class="highlight" id="telScrollSpeed">+0.00 cards/s</span></div>
           <div>Độ biến dạng uDeform: <span class="highlight" id="telDeform">(0.00, 0.00, 0.00)</span></div>
           <div>Trạng thái bề mặt: <span class="highlight" id="telState">Phẳng hoàn toàn (Flat)</span></div>
           <div>FPS: <span class="highlight" id="telFps">60 fps</span></div>
+        </div>
         </div>
       `;
 
@@ -1861,11 +1865,11 @@
     createControl(key, label, min, max, step, val, isInt = false) {
       const displayVal = isInt ? Math.round(val) : val.toFixed(2);
       return `
-        <div class="control-group">
-          <div class="control-label-row">
+        <div class="motion-tuner-row">
+          <div class="motion-tuner-label-wrap">
             <span>${label}</span>
-            <span class="val-input-box">
-              <input type="number" class="val-input" id="num-${key}" min="${min}" max="${max}" step="${step}" value="${displayVal}">
+            <span class="motion-tuner-val-box">
+              <input type="number" class="motion-tuner-number-input" id="num-${key}" min="${min}" max="${max}" step="${step}" value="${displayVal}">
             </span>
           </div>
           <input type="range" id="param-${key}" data-key="${key}" min="${min}" max="${max}" step="${step}" value="${val}">
@@ -2036,8 +2040,8 @@
       }
 
       // Tab switching
-      const tabBtns = this.panelEl.querySelectorAll('.tab-btn');
-      const tabContents = this.panelEl.querySelectorAll('.tab-content');
+      const tabBtns = this.panelEl.querySelectorAll('.motion-tuner-tab-btn');
+      const tabContents = this.panelEl.querySelectorAll('.motion-tuner-tab-content');
       tabBtns.forEach(btn => {
         btn.addEventListener('click', () => {
           tabBtns.forEach(b => b.classList.remove('active'));

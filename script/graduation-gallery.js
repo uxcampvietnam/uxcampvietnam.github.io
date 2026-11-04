@@ -262,7 +262,8 @@
 
 		init() {
 			this.panelEl = document.createElement('div');
-			this.panelEl.className = 'motion-tuner-panel graduation-tuner-panel';
+			this.panelEl.className = 'motion-tuner-panel';
+			this.panelEl.setAttribute('data-dock', 'bottom-left');
 			this.panelEl.id = 'graduation-gallery-tuner';
 			this.panelEl.innerHTML = `
 				<div class="motion-tuner-header">

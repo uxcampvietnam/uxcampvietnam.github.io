@@ -9,7 +9,7 @@ const STICKY_GRAPH_CONFIG = {
   // ----------------------------------------------------------------------------
   // 0. BẢNG CẤU HÌNH LIVE TRÊN UI (Dev / Config UI Panel)
   // ----------------------------------------------------------------------------
-  showConfigPanel: false,                        // Bật/tắt hiển thị bảng điều khiển cấu hình thời gian thực trên giao diện
+  showConfigPanel: true,                        // Bật/tắt hiển thị bảng điều khiển cấu hình thời gian thực trên giao diện
   configPanelOpen: false,                       // Trạng thái mở sẵn (true = bung ra ngay khi tải trang, false = thu nhỏ thành nút bấm)
   // ----------------------------------------------------------------------------
   // 1. DỮ LIỆU ĐẦU VÀO (Data Source & Storage)
@@ -3350,13 +3350,15 @@ const STICKY_GRAPH_CONFIG = {
       this.toggleBtn = document.createElement('button');
       this.toggleBtn.type = 'button';
       this.toggleBtn.className = 'motion-tuner-toggle-btn';
+      this.toggleBtn.setAttribute('data-dock', 'top-left');
       this.toggleBtn.innerHTML = '⚙️ Sticky Graph Tuner';
       this.toggleBtn.title = 'Bật/Tắt bảng điều khiển cấu hình 3D';
       document.body.appendChild(this.toggleBtn);
 
       // 2. Bảng Panel điều khiển
       this.panelEl = document.createElement('div');
-      this.panelEl.className = 'motion-tuner-panel sticky-graph-tuner-panel';
+      this.panelEl.className = 'motion-tuner-panel';
+      this.panelEl.setAttribute('data-dock', 'top-left');
       this.panelEl.id = 'sticky-graph-config-panel';
       this.panelEl.style.display = this.isOpen ? 'flex' : 'none';
       this.toggleBtn.style.display = this.isOpen ? 'none' : 'flex';

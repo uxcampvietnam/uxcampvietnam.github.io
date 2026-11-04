@@ -1628,7 +1628,8 @@
         init() {
             // Bảng điều khiển Panel (Hiện trực tiếp khi devMode.showConfigToggle = true)
             this.panelEl = document.createElement('div');
-            this.panelEl.className = 'motion-tuner-panel sphere-tuner-panel';
+            this.panelEl.className = 'motion-tuner-panel';
+            this.panelEl.setAttribute('data-dock', 'bottom-left');
             this.panelEl.id = 'participant-config-panel';
             this.panelEl.innerHTML = `
                 <div class="motion-tuner-header">

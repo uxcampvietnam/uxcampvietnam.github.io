@@ -1009,7 +1009,8 @@
         init() {
             // Bảng điều khiển Panel hiển thị trực tiếp khi bật cấu hình
             this.panelEl = document.createElement('div');
-            this.panelEl.className = 'motion-tuner-panel rope-tuner-panel';
+            this.panelEl.className = 'motion-tuner-panel';
+            this.panelEl.setAttribute('data-dock', 'bottom-left');
             this.panelEl.innerHTML = `
                 <div class="motion-tuner-header">
                     <h4 class="motion-tuner-title">⚙️ Rope Physics Tuner</h4>

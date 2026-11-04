@@ -1519,7 +1519,8 @@
 
     const panel = document.createElement("div");
     panel.id = "envelopeLiveTuner";
-    panel.className = "motion-tuner-panel envelope-tuner-panel";
+    panel.className = "motion-tuner-panel";
+    panel.setAttribute("data-dock", "bottom-right");
 
     panel.innerHTML = `
       <div class="motion-tuner-body">

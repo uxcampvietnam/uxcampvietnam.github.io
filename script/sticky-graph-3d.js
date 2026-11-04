@@ -9,7 +9,7 @@ const STICKY_GRAPH_CONFIG = {
   // ----------------------------------------------------------------------------
   // 0. BẢNG CẤU HÌNH LIVE TRÊN UI (Dev / Config UI Panel)
   // ----------------------------------------------------------------------------
-  showConfigPanel: true,                        // Bật/tắt hiển thị bảng điều khiển cấu hình thời gian thực trên giao diện
+  showConfigPanel: false,                        // Bật/tắt hiển thị bảng điều khiển cấu hình thời gian thực trên giao diện
   configPanelOpen: false,                       // Trạng thái mở sẵn (true = bung ra ngay khi tải trang, false = thu nhỏ thành nút bấm)
   // ----------------------------------------------------------------------------
   // 1. DỮ LIỆU ĐẦU VÀO (Data Source & Storage)

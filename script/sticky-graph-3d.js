@@ -68,22 +68,22 @@ const STICKY_GRAPH_CONFIG = {
   // 5. THIẾT LẬP NGUỒN SÁNG 3D (3D Lighting Settings)
   // ----------------------------------------------------------------------------
   ambientLightColorDark: '#ffffff',    // Màu ánh sáng môi trường tỏa đều (Dark mode)
-  ambientLightColorLight: '#ffffff',   // Màu ánh sáng môi trường tỏa đều (Light mode)
+  ambientLightColorLight: '#f1f1ec',   // Màu ánh sáng môi trường tỏa đều (Light mode)
   ambientIntensityDark: 0.95,          // Cường độ ánh sáng môi trường Dark mode (0.0 -> 2.0)
-  ambientIntensityLight: 1.0,          // Cường độ ánh sáng môi trường Light mode (0.0 -> 2.0)
+  ambientIntensityLight: 1.05,          // Cường độ ánh sáng môi trường Light mode (0.0 -> 2.0)
 
   dirLight1ColorDark: '#ffffff',       // Màu nguồn sáng chính 1 (Directional Light 1) Dark mode
   dirLight1ColorLight: '#fbbf24',      // Màu nguồn sáng chính 1 Light mode
   dirLight1IntensityDark: 0,        // Cường độ nguồn sáng chính 1 Dark mode (0.0 -> 2.0)
-  dirLight1IntensityLight: 0,        // Cường độ nguồn sáng chính 1 Light mode (0.0 -> 2.0)
+  dirLight1IntensityLight: 0.0,        // Cường độ nguồn sáng chính 1 Light mode (0.0 -> 2.0)
 
   dirLight2ColorDark: '#ffffff',       // Màu nguồn sáng phụ 2 (Directional Light 2) Dark mode
   dirLight2ColorLight: '#38bdf8',      // Màu nguồn sáng phụ 2 Light mode
   dirLight2IntensityDark: 0,        // Cường độ nguồn sáng phụ 2 Dark mode (0.0 -> 2.0)
-  dirLight2IntensityLight: 0,        // Cường độ nguồn sáng phụ 2 Light mode (0.0 -> 2.0)
+  dirLight2IntensityLight: 0.0,        // Cường độ nguồn sáng phụ 2 Light mode (0.0 -> 2.0)
 
   cameraLightIntensityDark: 0,       // Cường độ nguồn sáng rọi đi theo Camera ở Dark mode
-  cameraLightIntensityLight: 0,      // Cường độ nguồn sáng rọi đi theo Camera ở Light mode
+  cameraLightIntensityLight: 0.1,      // Cường độ nguồn sáng rọi đi theo Camera ở Light mode
 
   // ----------------------------------------------------------------------------
   // 6. ĐƯỜNG LIÊN KẾT MẶC ĐỊNH (Default Connection Lines)

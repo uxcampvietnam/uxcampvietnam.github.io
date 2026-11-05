@@ -156,10 +156,10 @@ const STICKY_GRAPH_CONFIG = {
   // 11. HIỆU ỨNG XUẤT HIỆN BAN ĐẦU (Intro & Entrance Animation)
   // ----------------------------------------------------------------------------
   enableIntroAnim: true,               // Bật/tắt animation xuất hiện từng note khi nạp dữ liệu
-  introDuration: 120,                  // Thời gian phóng to của mỗi sticky note (ms)
-  introStagger: 10,                    // Khoảng thời gian giãn cách giữa các note xuất hiện nối tiếp nhau (ms)
+  introDuration: 750,                  // Thời gian phóng to của mỗi sticky note (ms)
+  introStagger: 4.5,                    // Khoảng thời gian giãn cách giữa các note xuất hiện nối tiếp nhau (ms)
   introOrder: 'centerOut',                // Thứ tự xuất hiện: 'random' (ngẫu nhiên) | 'centerOut' (từ tâm lõi lan ra ngoài) | 'level' (theo cấp độ 1 -> 7) | 'sequential'
-  introEasing: 'backOut',              // Hiệu ứng nảy: 'backOut' (phóng to nảy nhẹ đàn hồi) | 'cubicOut' (mượt mà tự nhiên) | 'elasticOut' (nảy mạnh đàn hồi)
+  introEasing: 'cubicOut',              // Hiệu ứng nảy: 'backOut' (phóng to nảy nhẹ đàn hồi) | 'cubicOut' (mượt mà tự nhiên) | 'elasticOut' (nảy mạnh đàn hồi)
   introShowConnections: true,          // Bật/tắt tự động xuất hiện connection theo từng cặp note đã hiện
   introLineFadeDuration: 100,          // Thời gian mờ dần hiện rõ của đường dây nối (ms)
 
@@ -167,7 +167,7 @@ const STICKY_GRAPH_CONFIG = {
   // 12. TỐI ƯU HÓA MOBILE & BẢO VỆ BỘ NHỚ RAM/GPU (Mobile & Memory Safeguards)
   // ----------------------------------------------------------------------------
   mobileMaxLevel: 0,                    // Cấp node tối đa hiển thị trên Mobile (< 768px): 1->7 (Mặc định 4: ~170 node, 5: ~350 node toàn bộ, đặt 0 để nạp tất cả)
-  mobileMaxNodes: 250,                  // Số lượng node tối đa trên Mobile (Mặc định 180, đặt 0 để không giới hạn số lượng)
+  mobileMaxNodes: 300,                  // Số lượng node tối đa trên Mobile (Mặc định 180, đặt 0 để không giới hạn số lượng)
   mobilePaperCurl: false,               // Bật/tắt uốn cong mép giấy trên Mobile (false = giấy phẳng 100%, 2 tam giác/card, siêu nhẹ; true = uốn cong theo paperCurl)
   mobileFlutter: false,                 // Bật/tắt hiệu ứng gió rung rinh mép giấy khi di chuyển/xoay trên Mobile (false = đứng yên phẳng phiu; true = rung rinh theo flutterAmp)
   dynamicFocusHiRes: true,              // Tự động nâng cấp texture siêu nét Retina (3x) khi click/zoom vào 1 node, và tự hạ cấp giải phóng RAM khi zoom out

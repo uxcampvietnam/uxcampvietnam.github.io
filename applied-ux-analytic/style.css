@@ -158,6 +158,11 @@ body *,
 }
 
 @media (prefers-color-scheme: dark) {
+
+    .asciiIllus {
+        filter: drop-shadow(0 0 9px #FFF) drop-shadow(0 0 1px #FFF);
+    }
+
     .portraitLight {
         display: none;
     }
@@ -421,6 +426,7 @@ svg path[fill="rgb(255, 0, 0)"] {
     height: 32px;
     width: auto;
     margin-bottom: 16px;
+    overflow: visible;
 }
 
 
@@ -544,6 +550,12 @@ svg path[fill="rgb(255, 0, 0)"] {
     .ux-console .ux-progress-bar {
         background-color: rgba(0, 0, 0, 0.05);
     }
+
+
+    .section-title-name {
+        filter: drop-shadow(0 0 9px #FFF) drop-shadow(0 0 1px #FFF);
+    }
+
 }
 
 /* Hỗ trợ khi có thuộc tính data-theme */
@@ -644,6 +656,12 @@ body[data-theme="light"] .ux-console .ux-progress-bar {
     .ascii-row {
         height: 9px;
     }
+
+    .section-title-name {
+        height: 16px;
+        max-width: 90% !important;
+    }
+
 }
 
 #appliedUxAnalytic_console_section {

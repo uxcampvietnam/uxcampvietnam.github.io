@@ -55,7 +55,7 @@
         "motion": {
             "autoSpinY": 0.003,                // Tốc độ tự động quay theo trục ngang Y (>0 quay phải, <0 quay trái)
             "autoSpinX": 0,                    // Tốc độ tự động quay theo trục dọc X (>0 quay xuống, <0 quay lên)
-            "dragSensitivity": 0.0077,         // Độ nhạy khi tương tác kéo rê chuột / vuốt ngón tay
+            "dragSensitivity": 0.0017,         // Độ nhạy khi tương tác kéo rê chuột / vuốt ngón tay
             "inertiaDamping": 0.978,           // Hệ số giảm chấn quán tính sau khi thả tay (càng gần 1 trượt càng lâu)
             "idleRestoreSpeed": 0.399          // Tốc độ mượt mà phục hồi về vòng xoay tự động khi không tương tác
         },
@@ -1626,6 +1626,16 @@
         }
 
         init() {
+            // Nút mở/thu gọn Panel Tuner (Floating Pill)
+            this.toggleBtn = document.createElement('button');
+            this.toggleBtn.type = 'button';
+            this.toggleBtn.className = 'motion-tuner-toggle-btn';
+            this.toggleBtn.setAttribute('data-dock', 'bottom-left');
+            this.toggleBtn.innerHTML = `<span>⚙️ Sphere Tuner</span>`;
+            this.toggleBtn.title = 'Mở bảng điều khiển Sphere 3D Motion Tuner';
+            this.toggleBtn.style.display = 'none';
+            document.body.appendChild(this.toggleBtn);
+
             // Bảng điều khiển Panel (Hiện trực tiếp khi devMode.showConfigToggle = true)
             this.panelEl = document.createElement('div');
             this.panelEl.className = 'motion-tuner-panel';
@@ -1634,6 +1644,7 @@
             this.panelEl.innerHTML = `
                 <div class="motion-tuner-header">
                     <h4 class="motion-tuner-title">⚙ Sphere 3D Motion Tuner</h4>
+                    <button type="button" class="motion-tuner-close-btn" id="participant-btn-close-tuner" title="Thu nhỏ bảng điều khiển">✕</button>
                 </div>
                 <div class="motion-tuner-body" id="participant-config-body"></div>
                 <div class="motion-tuner-actions">
@@ -1812,6 +1823,23 @@
         }
 
         bindEvents() {
+            // Nút thu nhỏ panel (Collapse)
+            const closeBtn = this.panelEl.querySelector('#participant-btn-close-tuner');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    this.panelEl.style.display = 'none';
+                    if (this.toggleBtn) this.toggleBtn.style.display = 'flex';
+                });
+            }
+
+            // Nút mở lại panel (Expand)
+            if (this.toggleBtn) {
+                this.toggleBtn.addEventListener('click', () => {
+                    this.panelEl.style.display = 'flex';
+                    this.toggleBtn.style.display = 'none';
+                });
+            }
+
             // Lắng nghe slider thay đổi thời gian thực
             this.panelEl.addEventListener('input', (e) => {
                 const slider = e.target.closest('.motion-tuner-slider');

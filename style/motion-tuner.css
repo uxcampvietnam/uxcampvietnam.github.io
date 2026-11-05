@@ -200,10 +200,33 @@ body[data-theme="dark"],
 /* --------------------------------------------------------------------------
    2. HỆ THỐNG DOCKING 4 GÓC (data-dock)
    -------------------------------------------------------------------------- */
-.motion-tuner-panel[data-dock="bottom-left"]  { left: 20px; bottom: 20px; right: auto; top: auto; }
-.motion-tuner-panel[data-dock="bottom-right"] { right: 20px; bottom: 20px; left: auto; top: auto; }
-.motion-tuner-panel[data-dock="top-right"]    { right: 20px; top: 70px; left: auto; bottom: auto; }
-.motion-tuner-panel[data-dock="top-left"]     { left: 20px; top: 70px; right: auto; bottom: auto; }
+.motion-tuner-panel[data-dock="bottom-left"] {
+  left: 20px;
+  bottom: 20px;
+  right: auto;
+  top: auto;
+}
+
+.motion-tuner-panel[data-dock="bottom-right"] {
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  top: auto;
+}
+
+.motion-tuner-panel[data-dock="top-right"] {
+  right: 20px;
+  top: 70px;
+  left: auto;
+  bottom: auto;
+}
+
+.motion-tuner-panel[data-dock="top-left"] {
+  left: 20px;
+  top: 70px;
+  right: auto;
+  bottom: auto;
+}
 
 /* Mặc định khi không chỉ định data-dock */
 .motion-tuner-panel:not([data-dock]) {
@@ -245,10 +268,33 @@ body[data-theme="dark"],
   box-shadow: var(--mt-shadow-panel);
 }
 
-.motion-tuner-toggle-btn[data-dock="bottom-left"]  { left: 20px; bottom: 20px; right: auto; top: auto; }
-.motion-tuner-toggle-btn[data-dock="bottom-right"] { right: 20px; bottom: 20px; left: auto; top: auto; }
-.motion-tuner-toggle-btn[data-dock="top-right"]    { right: 20px; top: 70px; left: auto; bottom: auto; }
-.motion-tuner-toggle-btn[data-dock="top-left"]     { left: 20px; top: 70px; right: auto; bottom: auto; }
+.motion-tuner-toggle-btn[data-dock="bottom-left"] {
+  left: 20px;
+  bottom: 20px;
+  right: auto;
+  top: auto;
+}
+
+.motion-tuner-toggle-btn[data-dock="bottom-right"] {
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  top: auto;
+}
+
+.motion-tuner-toggle-btn[data-dock="top-right"] {
+  right: 20px;
+  top: 70px;
+  left: auto;
+  bottom: auto;
+}
+
+.motion-tuner-toggle-btn[data-dock="top-left"] {
+  left: 20px;
+  top: 70px;
+  right: auto;
+  bottom: auto;
+}
 
 .motion-tuner-toggle-btn:not([data-dock]) {
   left: 20px;
@@ -320,8 +366,11 @@ body[data-theme="dark"],
    5. BODY CUỘN NỘI DUNG (Scrollable Body)
    -------------------------------------------------------------------------- */
 .motion-tuner-body {
-  flex: 1;
-  overflow-y: auto;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto !important;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   padding: 10px 14px 14px;
   display: flex;
   flex-direction: column;
@@ -402,7 +451,7 @@ body[data-theme="dark"],
   line-height: 1.35;
 }
 
-.motion-tuner-label-wrap > span:first-child {
+.motion-tuner-label-wrap>span:first-child {
   color: var(--mt-text-label) !important;
   flex: 1;
 }
@@ -561,11 +610,11 @@ body[data-theme="dark"],
   border-radius: 50%;
 }
 
-.motion-tuner-switch input:checked + .motion-tuner-switch-slider {
+.motion-tuner-switch input:checked+.motion-tuner-switch-slider {
   background-color: var(--mt-accent-primary);
 }
 
-.motion-tuner-switch input:checked + .motion-tuner-switch-slider::before {
+.motion-tuner-switch input:checked+.motion-tuner-switch-slider::before {
   transform: translateX(16px);
 }
 

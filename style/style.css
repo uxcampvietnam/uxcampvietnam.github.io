@@ -1447,28 +1447,28 @@ body {
 /* Backgrounds from definition.css */
 .card-1,
 .hanger-tag[data-id="step-1"] {
-	background: #e8ebee;
+	background: #DFF3F0;
 }
 
 .card-2,
 .hanger-tag[data-id="step-2"] {
-	background: #fffce4;
+	background: #F8F6DF;
 }
 
 
 .card-3,
 .hanger-tag[data-id="step-3"] {
-	background: #f1ddcb;
+	background: #F2DAF2;
 }
 
 .card-4,
 .hanger-tag[data-id="step-4"] {
-	background: #f8c8b3;
+	background: #F8C4AB;
 }
 
 .card-5,
 .hanger-tag[data-id="step-5"] {
-	background: #dceefe;
+	background: #E2F4F0;
 }
 
 

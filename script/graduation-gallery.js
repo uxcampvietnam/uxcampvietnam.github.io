@@ -261,6 +261,16 @@
 		}
 
 		init() {
+			// Nút mở/thu gọn Panel Tuner (Floating Pill)
+			this.toggleBtn = document.createElement('button');
+			this.toggleBtn.type = 'button';
+			this.toggleBtn.className = 'motion-tuner-toggle-btn';
+			this.toggleBtn.setAttribute('data-dock', 'bottom-left');
+			this.toggleBtn.innerHTML = `<span>⚙️ Gallery Tuner</span>`;
+			this.toggleBtn.title = 'Mở bảng điều khiển Graduation Gallery Tuner';
+			this.toggleBtn.style.display = 'none';
+			document.body.appendChild(this.toggleBtn);
+
 			this.panelEl = document.createElement('div');
 			this.panelEl.className = 'motion-tuner-panel';
 			this.panelEl.setAttribute('data-dock', 'bottom-left');
@@ -268,6 +278,7 @@
 			this.panelEl.innerHTML = `
 				<div class="motion-tuner-header">
 					<h4 class="motion-tuner-title">⚙ Graduation Gallery Tuner</h4>
+					<button type="button" class="motion-tuner-close-btn" id="gg-btn-close-tuner" title="Thu nhỏ bảng điều khiển">✕</button>
 				</div>
 				<div class="motion-tuner-body" id="graduation-tuner-body"></div>
 				<div class="motion-tuner-actions">
@@ -422,6 +433,23 @@
 		}
 
 		bindEvents() {
+			// Nút thu nhỏ panel (Collapse)
+			const closeBtn = this.panelEl.querySelector('#gg-btn-close-tuner');
+			if (closeBtn) {
+				closeBtn.addEventListener('click', () => {
+					this.panelEl.style.display = 'none';
+					if (this.toggleBtn) this.toggleBtn.style.display = 'flex';
+				});
+			}
+
+			// Nút mở lại panel (Expand)
+			if (this.toggleBtn) {
+				this.toggleBtn.addEventListener('click', () => {
+					this.panelEl.style.display = 'flex';
+					this.toggleBtn.style.display = 'none';
+				});
+			}
+
 			this.panelEl.addEventListener('input', (e) => {
 				const slider = e.target.closest('.motion-tuner-slider');
 				if (!slider) return;

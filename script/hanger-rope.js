@@ -20,8 +20,6 @@
 (function () {
     'use strict';
 
-
-
     // =========================================================================
     // 0. BẬT / TẮT BẢNG ĐIỀU KHIỂN CẤU HÌNH TRÊN UI (CONFIG PANEL TOGGLE)
     // Đặt true để hiển thị nút "⚙️ Chỉnh vật lý dây", đặt false để ẩn hoàn toàn.
@@ -1007,6 +1005,16 @@
         }
 
         init() {
+            // Nút mở/thu gọn Panel Tuner (Floating Pill)
+            this.toggleBtn = document.createElement('button');
+            this.toggleBtn.type = 'button';
+            this.toggleBtn.className = 'motion-tuner-toggle-btn';
+            this.toggleBtn.setAttribute('data-dock', 'bottom-left');
+            this.toggleBtn.innerHTML = `<span>⚙️ Rope Tuner</span>`;
+            this.toggleBtn.title = 'Mở bảng điều khiển Rope Physics Tuner';
+            this.toggleBtn.style.display = 'none';
+            document.body.appendChild(this.toggleBtn);
+
             // Bảng điều khiển Panel hiển thị trực tiếp khi bật cấu hình
             this.panelEl = document.createElement('div');
             this.panelEl.className = 'motion-tuner-panel';
@@ -1014,6 +1022,7 @@
             this.panelEl.innerHTML = `
                 <div class="motion-tuner-header">
                     <h4 class="motion-tuner-title">⚙️ Rope Physics Tuner</h4>
+                    <button type="button" class="motion-tuner-close-btn" id="hanger-btn-close-tuner" title="Thu nhỏ bảng điều khiển">✕</button>
                 </div>
                 <div class="motion-tuner-body" id="hanger-config-body"></div>
                 <div class="motion-tuner-actions">
@@ -1287,6 +1296,23 @@ ${itemsStr}
         }
 
         bindEvents() {
+            // Nút thu nhỏ panel (Collapse)
+            const closeBtn = this.panelEl.querySelector('#hanger-btn-close-tuner');
+            if (closeBtn) {
+                closeBtn.addEventListener('click', () => {
+                    this.panelEl.style.display = 'none';
+                    if (this.toggleBtn) this.toggleBtn.style.display = 'flex';
+                });
+            }
+
+            // Nút mở lại panel (Expand)
+            if (this.toggleBtn) {
+                this.toggleBtn.addEventListener('click', () => {
+                    this.panelEl.style.display = 'flex';
+                    this.toggleBtn.style.display = 'none';
+                });
+            }
+
             // Nút Copy Config
             this.panelEl.querySelector('#hanger-btn-copy-cfg').addEventListener('click', () => {
                 const codeToCopy = this.generateConfigCode();

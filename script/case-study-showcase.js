@@ -21,6 +21,7 @@
   // ===========================================================================
   // 1. CẤU HÌNH MẶC ĐỊNH MỚI (NEW 3D CURVED COVER CONFIG)
   // ===========================================================================
+
   const DEFAULT_CONFIG = {
     // =========================================================================
     // 0. BẢNG CẤU HÌNH LIVE TRÊN UI (Developer / GUI Live Tuner)
@@ -30,7 +31,7 @@
     // =========================================================================
     // 1. KÍCH THƯỚC THẺ CASE STUDY (Card Dimensions - Desktop & Mobile)
     // =========================================================================
-    "cardWidthDesktop": 480,            // Chiều rộng thẻ Case Study trên Desktop (px)
+    "cardWidthDesktop": 440,            // Chiều rộng thẻ Case Study trên Desktop (px)
     "cardHeightDesktop": 300,           // Chiều cao thẻ Case Study trên Desktop (px)
     "cardWidthMobile": 240,             // Chiều rộng thẻ Case Study trên Mobile (px)
     "cardHeightMobile": 160,            // Chiều cao thẻ Case Study trên Mobile (px)
@@ -38,16 +39,16 @@
     // =========================================================================
     // 2. VẬT LÝ UỐN CONG 3D QUÁN TÍNH (Curved Cover Physics & Shaders)
     // =========================================================================
-    "bendMode": "allCorners",               // Chế độ uốn cong: "topFixed" (nẹp cạnh trên) | "allCorners" (cong 4 góc)
+    "bendMode": "topFixed",               // Chế độ uốn cong: "topFixed" (nẹp cạnh trên) | "allCorners" (cong 4 góc)
     "bendIntensity": 1.65,              // Cường độ uốn cong tổng thể (0.0 - 6.0)
     "recoverySpeed": 0.005,             // Tốc độ hồi phục về trạng thái phẳng ban đầu
     "damping": 0.97,                   // Hệ số cản/giảm chấn dao động cong đàn hồi (0.2 - 0.99)
-    "curvePower": 2.2,                // Lũy thừa độ dốc đường cong từ tâm (Curve Power)
-    "bendZFactor": 0.65,               // Hệ số võng sâu theo trục Z khi cuộn
-    "bendXYLag": 0.25,                 // Hệ số trễ dãn phẳng theo trục XY khi quán tính
+    "curvePower": 2.7,                // Lũy thừa độ dốc đường cong từ tâm (Curve Power)
+    "bendZFactor": 0.95,               // Hệ số võng sâu theo trục Z khi cuộn
+    "bendXYLag": 0.1,                 // Hệ số trễ dãn phẳng theo trục XY khi quán tính
     "topFixedSpread": 2,            // Độ lan tỏa vùng cong từ cạnh đáy lên cạnh trên (Top Fixed)
     "curtainWave": 0.35,               // Hiệu ứng nhấp nhô gợn sóng rèm cửa khi kéo căng
-    "velMultiplier": 1.85,             // Hệ số nhạy theo vận tốc cuộn trang
+    "velMultiplier": 1.7,             // Hệ số nhạy theo vận tốc cuộn trang
     "wireframe": false,                 // Bật/tắt hiển thị lưới đa giác 3D (Wireframe debug)
     "maxDeform": 1.2,                  // Giới hạn biến dạng tối đa uDeform
 
@@ -56,7 +57,7 @@
     // =========================================================================
     "overlayOpacityDark": 0.78,         // Độ mờ đục lớp phủ khi ở xa (Dark Mode)
     "overlayColorDark": "#000000",          // Mã màu lớp phủ xa (Dark Mode)
-    "overlayOpacityLight": 0.64,        // Độ mờ đục lớp phủ khi ở xa (Light Mode)
+    "overlayOpacityLight": 1,        // Độ mờ đục lớp phủ khi ở xa (Light Mode)
     "overlayColorLight": "#f9f6f1",         // Mã màu lớp phủ xa (Light Mode)
 
     // =========================================================================
@@ -84,8 +85,8 @@
     "avatarFlightDurationMobile": 1.3, // Thời gian avatar bay vào hội tụ tâm thẻ (Mobile)
     "card0EntryDurationMobile": 1.8,   // Thời gian thẻ đầu tiên bay vào khung nhìn (Mobile)
     "unpinCaseOffsetMobile": 0,       // Offset vị trí nhả ghim sticky khi kết thúc (Mobile)
-    "pixelsPerCardMobile": 70,         // Quãng đường cuộn pixel cần thiết cho mỗi thẻ (Mobile)
-    "frictionMobile": 0.25,              // Hệ số ma sát hãm cuộn quán tính (Mobile)
+    "pixelsPerCardMobile": 150,         // Quãng đường cuộn pixel cần thiết cho mỗi thẻ (Mobile)
+    "frictionMobile": 0.07,              // Hệ số ma sát hãm cuộn quán tính (Mobile)
     "cardSpacingMobile": 260,           // Khoảng cách giữa các thẻ theo chiều sâu (Mobile px)
     "flyAngleDegMobile": 75,           // Góc bay chéo của dải thẻ (Mobile deg)
     "shadowXMobile": 30,               // Tọa độ lệch bóng đổ trục X (Mobile)
@@ -96,19 +97,19 @@
     // =========================================================================
     // 6. GÓC XOAY 3D & PHỐI CẢNH CAMERA — DESKTOP (Desktop 3D Camera)
     // =========================================================================
-    "rotateXDesktop": 0,              // Góc nghiêng ban đầu trục X (Desktop deg)
-    "rotateYDesktop": 19,             // Góc nghiêng ban đầu trục Y (Desktop deg)
-    "rotateZDesktop": 5,              // Góc nghiêng ban đầu trục Z (Desktop deg)
-    "rotXMultDesktop": 14,            // Hệ số xoay động theo tiến trình cuộn trục X (Desktop)
-    "rotYMultDesktop": 10,            // Hệ số xoay động theo tiến trình cuộn trục Y (Desktop)
-    "rotZMultDesktop": -8,           // Hệ số xoay động theo tiến trình cuộn trục Z (Desktop)
-    "cameraFovDesktop": 52,           // Trường nhìn camera FOV (Desktop deg)
+    "rotateXDesktop": -2,              // Góc nghiêng ban đầu trục X (Desktop deg)
+    "rotateYDesktop": -7,             // Góc nghiêng ban đầu trục Y (Desktop deg)
+    "rotateZDesktop": 1,              // Góc nghiêng ban đầu trục Z (Desktop deg)
+    "rotXMultDesktop": 11,            // Hệ số xoay động theo tiến trình cuộn trục X (Desktop)
+    "rotYMultDesktop": -54,            // Hệ số xoay động theo tiến trình cuộn trục Y (Desktop)
+    "rotZMultDesktop": -1,           // Hệ số xoay động theo tiến trình cuộn trục Z (Desktop)
+    "cameraFovDesktop": 47,           // Trường nhìn camera FOV (Desktop deg)
 
     // =========================================================================
     // 7. GÓC XOAY 3D & PHỐI CẢNH CAMERA — MOBILE (Mobile 3D Camera)
     // =========================================================================
     "rotateXMobile": 16,               // Góc nghiêng ban đầu trục X (Mobile deg)
-    "rotateYMobile": -1,              // Góc nghiêng ban đầu trục Y (Mobile deg)
+    "rotateYMobile": 1,              // Góc nghiêng ban đầu trục Y (Mobile deg)
     "rotateZMobile": 0,               // Góc nghiêng ban đầu trục Z (Mobile deg)
     "rotXMultMobile": 12,             // Hệ số xoay động theo tiến trình cuộn trục X (Mobile)
     "rotYMultMobile": 39,             // Hệ số xoay động theo tiến trình cuộn trục Y (Mobile)

@@ -1517,12 +1517,33 @@
     if (!isEnabled) return;
     if (document.getElementById("envelopeLiveTuner")) return;
 
+    // 1. Nút bấm Floating Pill để mở / thu gọn Tuner Panel
+    let toggleBtn = document.getElementById("envelopeTunerToggle");
+    if (!toggleBtn) {
+      toggleBtn = document.createElement("button");
+      toggleBtn.type = "button";
+      toggleBtn.id = "envelopeTunerToggle";
+      toggleBtn.className = "motion-tuner-toggle-btn";
+      toggleBtn.setAttribute("data-dock", "bottom-right");
+      toggleBtn.innerHTML = `<span>✉ Envelope Tuner</span>`;
+      toggleBtn.title = "Mở bảng điều khiển tinh chỉnh thông số 3D Envelope";
+      toggleBtn.style.display = "none";
+      document.body.appendChild(toggleBtn);
+    }
+
     const panel = document.createElement("div");
     panel.id = "envelopeLiveTuner";
     panel.className = "motion-tuner-panel";
     panel.setAttribute("data-dock", "bottom-right");
 
     panel.innerHTML = `
+      <div class="motion-tuner-header">
+        <h4 class="motion-tuner-title">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          <span>Envelope 3D Tuner</span>
+        </h4>
+        <button type="button" class="motion-tuner-close-btn" id="btnCloseEnvelopeTuner" title="Thu nhỏ bảng điều khiển">✕</button>
+      </div>
       <div class="motion-tuner-body">
         <div class="motion-tuner-group-title">1. Không gian Container (Container Geometry)</div>
 
@@ -1948,10 +1969,27 @@
       }
     });
 
+    // Xử lý đóng / mở (Collapse / Expand) bảng điều khiển
+    const btnClose = panel.querySelector("#btnCloseEnvelopeTuner");
+    if (btnClose) {
+      btnClose.addEventListener("click", () => {
+        panel.style.display = "none";
+        if (toggleBtn) toggleBtn.style.display = "flex";
+      });
+    }
+
+    if (toggleBtn) {
+      toggleBtn.addEventListener("click", () => {
+        panel.style.display = "flex";
+        toggleBtn.style.display = "none";
+      });
+    }
+
     const btnReset = panel.querySelector("#btnResetTuner");
     btnReset.addEventListener("click", () => {
       Object.assign(ENVELOPE_SCROLL_CONFIG, JSON.parse(JSON.stringify(DEFAULT_CONFIG)));
       panel.remove();
+      if (toggleBtn) toggleBtn.remove();
       toast.remove();
       createLiveTunerUI();
       updateCachedGeometry();

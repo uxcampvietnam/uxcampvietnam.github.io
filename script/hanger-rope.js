@@ -39,13 +39,13 @@
         },
         // Cấu hình vật lý & giao diện sợi dây (Rope Physics & Styling)
         "rope": {
-            "pointCount": 50,            // Số lượng nút/điểm mô phỏng trên dây (càng cao dây càng mềm mượt nhưng tốn CPU)
-            "stiffness": 0.85,           // Độ cứng/co giãn của dây (0.0 - 1.0)
+            "pointCount": 16,            // Số lượng nút/điểm mô phỏng trên dây (càng cao dây càng mềm mượt nhưng tốn CPU)
+            "stiffness": 0.72,           // Độ cứng/co giãn của dây (0.0 - 1.0)
             "constraintIterations": 8,   // Số lần lặp giải độ dài liên kết giữa các điểm (giữ độ ổn định chiều dài dây)
             "gravity": 1.5,              // Trọng lực kéo dây xuống
             "damping": 0.9,              // Hệ số cản/ma sát của dây (giảm chấn gia tốc qua thời gian)
-            "sagRatio": 0.05,            // Tỷ lệ độ võng tự nhiên của dây khi ở trạng thái nghỉ
-            "restoreSpeed": 0.077,       // Tốc độ dây đàn hồi trở lại hình dạng võng ban đầu
+            "sagRatio": 0.04,            // Tỷ lệ độ võng tự nhiên của dây khi ở trạng thái nghỉ
+            "restoreSpeed": 0.107,       // Tốc độ dây đàn hồi trở lại hình dạng võng ban đầu
             "color": "#b5a184",          // Mã màu hiển thị của sợi dây
             "shadowColor": "rgba(40, 25, 10, 0)", // Màu và độ trong suốt của bóng đổ bên dưới dây
             "highlightColor": "#e8decb",   // Màu của đường viền phản quang/sáng trên thân dây
@@ -60,7 +60,7 @@
         },
         // Cấu hình phản hồi khi cuộn trang cho Mobile (Scroll Physics - Mobile)
         "scrollMobile": {
-            "influence": 0.00, // Mức độ ảnh hưởng của thao tác cuộn trang tới lực tác động lên dây trên mobile
+            "influence": 0, // Mức độ ảnh hưởng của thao tác cuộn trang tới lực tác động lên dây trên mobile
             "maxImpulse": 0,   // Giới hạn xung lực tối đa từ cuộn trang trên mobile (êm ái, tránh giật lag khi lướt ngón tay)
             "damping": 0.85    // Hệ số giảm chấn xung lực cuộn theo thời gian
         },
@@ -112,44 +112,44 @@
                 "targetSelector": ".wrapper-1"      // Selector CSS của phần tử DOM liên kết
             },
             {
-                "id": "step-2",
-                "title": "Orientation",
-                "imageUrl": "asset/icon/rope-img-02.webp",
-                "ropePosition": 0.3,
-                "widthDesktop": 220,
-                "widthMobile": 50,
-                "baseAngle": 3,
-                "targetSelector": ".wrapper-2"
+                "id": "step-2",                     // ID duy nhất đại diện cho thẻ
+                "title": "Orientation",                 // Tiêu đề hiển thị trên thẻ
+                "imageUrl": "asset/icon/rope-img-02.webp", // Đường dẫn ảnh minh họa cho thẻ
+                "ropePosition": 0.3,                // Vị trí gắn thẻ trên dây (tỷ lệ từ 0.0 ở đầu dây đến 1.0 ở cuối dây)
+                "widthDesktop": 220,                // Chiều rộng thẻ trên màn hình Desktop (px)
+                "widthMobile": 50,                  // Chiều rộng thẻ trên màn hình Mobile (px)
+                "baseAngle": 3,                     // Góc xoay nghiêng tự nhiên ban đầu của thẻ (độ)
+                "targetSelector": ".wrapper-2"      // Selector CSS của phần tử DOM liên kết
             },
             {
-                "id": "step-3",
-                "title": "Học hành",
-                "imageUrl": "asset/icon/rope-img-03.webp",
-                "ropePosition": 0.5,
-                "widthDesktop": 340,
-                "widthMobile": 70,
-                "baseAngle": -4.86,
-                "targetSelector": ".wrapper-3"
+                "id": "step-3",                     // ID duy nhất đại diện cho thẻ
+                "title": "Học hành",                 // Tiêu đề hiển thị trên thẻ
+                "imageUrl": "asset/icon/rope-img-03.webp", // Đường dẫn ảnh minh họa cho thẻ
+                "ropePosition": 0.5,                // Vị trí gắn thẻ trên dây (tỷ lệ từ 0.0 ở đầu dây đến 1.0 ở cuối dây)
+                "widthDesktop": 340,                // Chiều rộng thẻ trên màn hình Desktop (px)
+                "widthMobile": 70,                  // Chiều rộng thẻ trên màn hình Mobile (px)
+                "baseAngle": -4.86,                     // Góc xoay nghiêng tự nhiên ban đầu của thẻ (độ)
+                "targetSelector": ".wrapper-3"      // Selector CSS của phần tử DOM liên kết
             },
             {
-                "id": "step-4",
-                "title": "Bảo vệ",
-                "imageUrl": "asset/icon/rope-img-04.webp",
-                "ropePosition": 0.71,
-                "widthDesktop": 320,
-                "widthMobile": 70,
-                "baseAngle": 0.12,
-                "targetSelector": ".wrapper-4"
+                "id": "step-4",                     // ID duy nhất đại diện cho thẻ
+                "title": "Bảo vệ",                 // Tiêu đề hiển thị trên thẻ
+                "imageUrl": "asset/icon/rope-img-04.webp", // Đường dẫn ảnh minh họa cho thẻ
+                "ropePosition": 0.71,                // Vị trí gắn thẻ trên dây (tỷ lệ từ 0.0 ở đầu dây đến 1.0 ở cuối dây)
+                "widthDesktop": 320,                // Chiều rộng thẻ trên màn hình Desktop (px)
+                "widthMobile": 70,                  // Chiều rộng thẻ trên màn hình Mobile (px)
+                "baseAngle": 0.12,                     // Góc xoay nghiêng tự nhiên ban đầu của thẻ (độ)
+                "targetSelector": ".wrapper-4"      // Selector CSS của phần tử DOM liên kết
             },
             {
-                "id": "step-5",
-                "title": "Về bờ",
-                "imageUrl": "asset/icon/rope-img-05.webp",
-                "ropePosition": 0.9,
-                "widthDesktop": 355,
-                "widthMobile": 70,
-                "baseAngle": -5,
-                "targetSelector": ".wrapper-5"
+                "id": "step-5",                     // ID duy nhất đại diện cho thẻ
+                "title": "Về bờ",                 // Tiêu đề hiển thị trên thẻ
+                "imageUrl": "asset/icon/rope-img-05.webp", // Đường dẫn ảnh minh họa cho thẻ
+                "ropePosition": 0.9,                // Vị trí gắn thẻ trên dây (tỷ lệ từ 0.0 ở đầu dây đến 1.0 ở cuối dây)
+                "widthDesktop": 355,                // Chiều rộng thẻ trên màn hình Desktop (px)
+                "widthMobile": 70,                  // Chiều rộng thẻ trên màn hình Mobile (px)
+                "baseAngle": -5,                     // Góc xoay nghiêng tự nhiên ban đầu của thẻ (độ)
+                "targetSelector": ".wrapper-5"      // Selector CSS của phần tử DOM liên kết
             }
         ]
     };

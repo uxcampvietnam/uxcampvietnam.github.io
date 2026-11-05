@@ -55,7 +55,7 @@
         "motion": {
             "autoSpinY": 0.003,                // Tốc độ tự động quay theo trục ngang Y (>0 quay phải, <0 quay trái)
             "autoSpinX": 0,                    // Tốc độ tự động quay theo trục dọc X (>0 quay xuống, <0 quay lên)
-            "dragSensitivity": 0.0017,         // Độ nhạy khi tương tác kéo rê chuột / vuốt ngón tay
+            "dragSensitivity": 0.0027,         // Độ nhạy khi tương tác kéo rê chuột / vuốt ngón tay
             "inertiaDamping": 0.978,           // Hệ số giảm chấn quán tính sau khi thả tay (càng gần 1 trượt càng lâu)
             "idleRestoreSpeed": 0.399          // Tốc độ mượt mà phục hồi về vòng xoay tự động khi không tương tác
         },
@@ -66,7 +66,6 @@
             "randomStaggerWindow": 2           // Độ lệch ngẫu nhiên về thời điểm bắt đầu co nhỏ giữa các avatar (giây)
         }
     };
-
     // Toàn bộ cấu hình luôn được khởi tạo trực tiếp từ mã nguồn DEFAULT_CONFIG (không nạp từ localStorage)
     try {
         localStorage.removeItem('UXCAMP_PARTICIPANT_SPHERE_CONFIG');

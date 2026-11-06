@@ -3539,7 +3539,7 @@ input:checked+.slider:before {
   justify-content: space-between;
   padding: 0 16px;
   box-sizing: border-box;
-  background: var(--transparent-background-bg-color-20);
+  background: var(--transparent-background-bg-color-10);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 }

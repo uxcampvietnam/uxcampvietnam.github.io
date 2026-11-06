@@ -554,9 +554,9 @@ const STICKY_GRAPH_CONFIG = {
       // Mặc định container trong HTML là thẻ div, tự động tạo canvas và gắn vào thẻ div đó
       this.wrapper = this.container;
 
-      const overlay = document.createElement('div');
-      overlay.classList = "sticky-graph-overlay";
-      this.wrapper.appendChild(overlay);
+      // const overlay = document.createElement('div');
+      // overlay.classList = "sticky-graph-overlay";
+      // this.wrapper.appendChild(overlay);
 
       this.canvas = document.createElement('canvas');
       this.wrapper.appendChild(this.canvas);

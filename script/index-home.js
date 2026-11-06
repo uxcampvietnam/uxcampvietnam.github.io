@@ -26,16 +26,16 @@ window.addEventListener('load', () => {
     }
 
 
-    gsap.to('#graphContainer', {
-        opacity: 0.3,
-        ease: "none",
-        scrollTrigger: {
-            trigger: "#graphContainer",
-            start: "bottom bottom",
-            end: "bottom center",
-            scrub: true,
-        }
-    });
+    // gsap.to('#graphContainer', {
+    //     opacity: 0.3,
+    //     ease: "none",
+    //     scrollTrigger: {
+    //         trigger: "#graphContainer",
+    //         start: "bottom bottom",
+    //         end: "bottom center",
+    //         scrub: true,
+    //     }
+    // });
 
 
 });

@@ -160,7 +160,7 @@ body *,
 @media (prefers-color-scheme: dark) {
 
     .asciiIllus {
-        filter: drop-shadow(0 0 9px #FFF) drop-shadow(0 0 1px #FFF);
+        filter: drop-shadow(0 0 9px #FFFFFF40) drop-shadow(0 0 1px #FFF)
     }
 
     .portraitLight {
@@ -553,7 +553,7 @@ svg path[fill="rgb(255, 0, 0)"] {
 
 
     .section-title-name {
-        filter: drop-shadow(0 0 9px #FFF) drop-shadow(0 0 1px #FFF);
+        filter: drop-shadow(0 0 5px #FFFFFF80) drop-shadow(0 0 1px #FFF);
     }
 
 }
